@@ -103,22 +103,22 @@
   <section id="portfolio" class="section section-sm bg-light">
         <br/>
     <h2 style="text-align: center">Portfolio of Text to Speech Solutions</h2>
-        <p style="text-align: center"><span style="display: block;text-align: center; color: orangered"><i>Our portfolio of text-to-speech tools includes</i></span></p>
+    <p style="text-align: center"><span style="display: block;text-align: center;"><i>In addition to our <a href="/player/">main TTSReader player</a>, our portfolio of text-to-speech tools includes</i></span></p>
         <br/>
     <div class="container">
       <div class="row justify-content-center text-center">
         <div class="col-sm card" style="display: flex;flex-direction: column">
-          <h3 class="h4">New Player</h3>
-          <p>Our latest - most powerful - cross platform text to speech reader. Constantly developing.</p>
+          <h3 class="h4">Legacy Player</h3>
+          <p>Our good old player, served millions over the years. Some prefer it over the <a href="/player/">new player</a>.</p>
           <div style="flex: 1;min-height: 10px;"></div>
-          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">Start listening{{ i18n "start-dictating" }}</a>
+          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_legacy_body', {'value': 'home_page_body'});">Legacy player{{ i18n "start-dictating" }}</a>
           <br/>
         </div>&nbsp;&nbsp;
         <div class="col-sm card" style="display: flex;flex-direction: column">
-          <h3 class="h4">Legacy Player</h3>
-          <p>Our good old player, served millions over the years. Some prefer it over the new player.</p>
+          <h3 class="h4">Web Player</h3>
+          <p>Simply paste any URL (link to a page) and it will import & read it out loud.</p>
           <div style="flex: 1;min-height: 10px;"></div>
-          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.api }}" role="button" onclick="gtag('event', 'ttsreader_click_legacy_body', {'value': 'home_page_body'});">Legacy player{{ i18n "start-dictating" }}</a>
+          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.webPlayer }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">Start listening{{ i18n "start-dictating" }}</a>
           <br/>
         </div>&nbsp;&nbsp;
         <div class="col-sm card" style="display: flex;flex-direction: column">
@@ -222,7 +222,7 @@
               <h4 class="my-0 fw-normal">Premium</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$1.9<small class="text-muted fw-light">/mo</small></h1>
+              <h1 class="card-title pricing-card-title">$2<small class="text-muted fw-light">/mo</small></h1>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Premium online dictation notepad</li>
                 <li>Premium voice typing Chrome extension</li>

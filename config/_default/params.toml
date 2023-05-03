@@ -115,6 +115,7 @@ lastMod = false
 
 [links]
   player = "/player/"
+  webPlayer = "https://ttsreader.com/webplayer/?url=https://en.wikipedia.org/wiki/The_Beatles"
   legacy = "/legacy/"
   shop = "/shop/"
   upgrade = "/upgrade/"
@@ -131,5 +132,7 @@ lastMod = false
   github = "https://github.com/ttsreader/ttsreader-web"
   issues = "https://github.com/ttsreader/ttsreader-web/issues"
   discussions = "https://github.com/ttsreader/ttsreader-web/discussions"
-  feedback = ""
+  feedbackNew = "https://docs.google.com/spreadsheets/d/1EKtwBhr7CiVQmOj72TYBdv5RWcUp6jOQUgDsa3o5l2g/edit?resourcekey#gid=1572823213"
+  feedbackLegacy = ""
+  feedbackWebPlayer = "https://docs.google.com/spreadsheets/d/1F9Hz7zNfaFmCQdFDddMbWNlQfSSDqT66Ccbpvaw6ayc/edit?resourcekey&pli=1#gid=1025815298"
   premiumSupportForm = "https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform?usp=sf_link"
