@@ -1,0 +1,353 @@
+{{ define "main" }}
+<div class="hero" style="min-height: 95vh;padding: 2em;display: flex;flex-direction: column">
+  <h1 class="mt-0" style="text-align: center">{{ .Title }}</h1>
+  <div class="row" style="flex: 1">
+    <div class="col-lg" style="display: flex;flex-direction: column">
+      <div style="flex: 1"></div>
+      <h2 class="lead" style="font-size: 1.3em;">{{ .Params.lead | safeHTML }}</h2>
+      <br/>
+      <p class="caption-top" style="text-align: center"><i>~ Proudly serving millions of users since 2015 ~</i></p>
+      <br/>
+      <div class="row">
+        <div class="col-sm" style="padding: 5px;">
+          <a style="display: block;" class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_getstarted1_body', {'value': 'home_page_body'});">Get Started{{ i18n "start-dictating" }}</a>
+        </div>
+        <div class="col-sm" style="padding: 5px;">
+          <a style="display: block;" class="btn btn-outline-primary btn-lg px-4 mb-2" href="#introduction" role="button" onclick="gtag('event', 'ttsreader_click_learn_body', {'value': 'home_page_body'});">Learn More{{ i18n "start-dictating" }}</a>
+        </div>
+      </div>
+      <br/>
+      <p>The link above directs to our new player. Looking for the good old player? <a href="/legacy/">Click here for the legacy version.</a></p>
+      <br/>
+      <div style="flex: 6"></div>
+    </div>
+    <div class="col-lg" style="text-align: center;display: flex;flex-direction: column;align-items: center;">
+      <div style="flex: 3"></div>
+      <img style="width: 40vw;max-width: 450px;" src="/images/dalle-clean.webp" />
+      <div style="flex: 1"></div>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+{{ define "sidebar-prefooter" }}
+  {{ if eq $.Site.Language.LanguageName "English" }}
+  <section id="introduction" class="section section-sm bg-light">
+    <br/>
+    <div class="container">
+      <div style="max-width: 800px;margin: auto; font-size: larger; text-align: justify">
+        <h2 class="h2">Introduction</h2>
+        <br/>
+        <p>TTSReader is a lightweight & powerful text-to-speech tool that converts written text into natural-sounding speech. Listen in real-time right in your browser, or save as an audio file. Our player is user-friendly, works cross platform and remembers your text and position between sessions. Whether you're looking to listen to articles instead of reading them, need assistance with reading or looking to generate audio files from text, TTSReader is made for you. Supports any written content, whether it is raw text, a webpage, text files, PDFs, and even ebooks. Works offline, so you can use it at home, in the office, on the go, driving or taking a walk. With support for multiple languages, you can even use it for language learning.</p>
+        <p>Overall, listening to textual content using TTSReader enables multitasking, reading on the go, improved comprehension and more.</p>
+        <p>Works out of the box. No need to download or install. No sign in required. Enjoy listening!</p>
+        <br/>
+        <p style="text-align: center"><a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_getstarted2_body', {'value': 'home_page_body'});">Get Started for Free{{ i18n "start-dictating" }}</a></p>
+        <br/><br/>
+      </div>
+    </div>
+  </section>
+
+  <section id="use_cases" class="section section-sm">
+  <br/><br/>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <h2>Main Use Cases</h2>
+      <div class="col-lg-5">
+        <h3 class="h4">Listen to great content</h3>
+        <p style="text-align: justify;">Most of the world's content is in textual form. Being able to listen to it - is huge! In that sense, TTSReader has a huge advantage over podcasts. You choose your content - out of an infinite variety - that includes humanity's entire knowledge and art richness. Listen to lectures, to PDF files. Paste or upload any text from anywhere, edit it if needed, and listen to it anywhere and anytime.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Proofreading</h3>
+        <p style="text-align: justify;">One of the best ways to catch errors in your writing is to listen to it being read aloud. By using TTSReader for proofreading, you can catch errors that you might have missed while reading silently, allowing you to improve the quality and accuracy of your written content. Errors can be in sentence structure, punctuation, and grammar, but also in your essay's structure, order and content.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Listen to web pages</h3>
+        <p style="text-align: justify;">TTSReader can be used to read out loud webpages in two different ways. 1. Using the <a href="/player/">regular player</a> - paste the URL and click play. The website's content will be imported into the player. (2) Using our <a href="" target="_blank">Chrome extension to listen to pages without leaving the page</a>.<br/>Listening to web pages with TTSReader can provide a more accessible, convenient, and efficient way of consuming online content.</p>
+      </div>
+    </div>
+    <br/>
+    <div class="row justify-content-center text-center">
+      <br/>
+      <div class="col-lg-5">
+        <h3 class="h4">Turn ebooks into audiobooks</h3>
+        <p style="text-align: justify;">Upload any ebook file of epub format - and TTSReader will read it out loud for you, effectively turning it into an audiobook alternative. You can find thousands of epub books for free, available for download on <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg's</a> site, which is an open library for free ebooks.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Read along for speed & comprehension</h3>
+        <p style="text-align: justify;">TTSReader enables read along by highlighting the sentence being read and automatically scrolling to keep it in view. This way you can follow with your own eyes - in parallel to listening to it. This can boost reading speed and improve comprehension.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Generate audio files from text</h3>
+        <p style="text-align: justify;">TTSReader enables exporting the synthesized speech with a single click. This is available currently only on Windows and requires <a href="/upgrade/">TTSReader’s premium</a>. Adhering to the <a href="https://ttsreader.com/blog/2017/05/10/commercial/">commercial terms</a> some of the voices may be used commercially for publishing, such as narrating videos.</p>
+      </div>
+    </div>
+    <br/>
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-5">
+        <h3 class="h4">Accessibility, dyslexia, etc.</h3>
+        <p style="text-align: justify;">For individuals with visual impairments or reading difficulties, listening to textual content, lectures, articles & web pages can be an essential tool for accessing & comprehending information.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Language learning</h3>
+        <p style="text-align: justify;">TTSReader can read out text in multiple languages, providing learners with listening as well as speaking practice. By listening to the text being read aloud, learners can improve their comprehension skills and pronunciation.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Kids - stories & learning</h3>
+        <p style="text-align: justify;">Kids love stories! And if you can read them stories - it's definitely the best! But, if you can't, let TTSReader read them stories for you. Set the right voice and speed, that is appropriate for their comprehension level. For kids who are at the age of learning to read - this can also be an effective tool to strengthen that skill, as it highlights every sentence being read.</p>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <section id="portfolio" class="section section-sm bg-light">
+        <br/>
+    <h2 style="text-align: center">Portfolio of Text to Speech Solutions</h2>
+        <p style="text-align: center"><span style="display: block;text-align: center; color: orangered"><i>Our portfolio of text-to-speech tools includes</i></span></p>
+        <br/>
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-sm card" style="display: flex;flex-direction: column">
+          <h3 class="h4">New Player</h3>
+          <p>Our latest - most powerful - cross platform text to speech reader. Constantly developing.</p>
+          <div style="flex: 1;min-height: 10px;"></div>
+          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">Start listening{{ i18n "start-dictating" }}</a>
+          <br/>
+        </div>&nbsp;&nbsp;
+        <div class="col-sm card" style="display: flex;flex-direction: column">
+          <h3 class="h4">Legacy Player</h3>
+          <p>Our good old player, served millions over the years. Some prefer it over the new player.</p>
+          <div style="flex: 1;min-height: 10px;"></div>
+          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.api }}" role="button" onclick="gtag('event', 'ttsreader_click_legacy_body', {'value': 'home_page_body'});">Legacy player{{ i18n "start-dictating" }}</a>
+          <br/>
+        </div>&nbsp;&nbsp;
+        <div class="col-sm card" style="display: flex;flex-direction: column">
+          <h3 class="h4">Chrome Extension</h3>
+          <p>Reads out loud webpages, directly from within the page.</p>
+          <div style="flex: 1;min-height: 10px;"></div>
+          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.chromeExtension }}" role="button" onclick="gtag('event', 'ttsreader_click_extension_body', {'value': 'home_page_body'});">Get it on Chrome Store{{ i18n "start-dictating" }}</a>
+          <br/>
+        </div>
+      </div>
+      <div class="row justify-content-center text-center">
+        <div class="col-sm card" style="display: flex;flex-direction: column">
+          <h3 class="h4">Android app</h3>
+          <p>TTSReader for Android. Includes exporting audio to mp3 files.</p>
+          <div style="flex: 1;min-height: 10px;"></div>
+          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.androidApp }}" role="button" onclick="gtag('event', 'ttsreader_click_androidApp_body', {'value': 'home_page_body'});">Get it on Google Play{{ i18n "start-dictating" }}</a>
+          <br/>
+        </div>&nbsp;&nbsp;
+        <div class="col-sm card" style="display: flex;flex-direction: column">
+          <h3 class="h4">iOS app</h3>
+          <p>TTSReader (Simple Text Reader) for iOS, works great on iPhones, iPads & Macs.</p>
+          <div style="flex: 1;min-height: 10px;"></div>
+          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.iosApp }}" role="button" onclick="gtag('event', 'ttsreader_click_iosApp_body', {'value': 'home_page_body'});">Get it on the App Store{{ i18n "start-dictating" }}</a>
+          <br/>
+        </div>&nbsp;&nbsp;
+        <div class="col-sm card" style="display: flex;flex-direction: column">
+          <h3 class="h4">TTSReader Premium</h3>
+          <p>Support our development team & enjoy ad-free better experience. Commercial users, publishers are required a premium license.</p>
+          <div style="flex: 1;min-height: 10px;"></div>
+          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.upgrade }}" role="button" onclick="gtag('event', 'ttsreader_click_upgrade_body', {'value': 'home_page_body'});">Learn more on Premium{{ i18n "start-dictating" }}</a>
+          <br/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sister-apps" class="section section-sm bg-light" >
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <p class="h3">Our Sister Apps</p>
+        <br/>
+        <p class="lead">Complementary to TTSReader</p>
+        <br/><br/>
+        <div class="row justify-content-center text-center">
+
+          <div class="col-md-7 col-lg-6 card" style="display: flex;flex-direction: column">
+            <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
+              <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MicIcon"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
+            </div>
+            <p class="h3">Speechnotes</p>
+            <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechnotes }}" role="button" onclick="gtag('event', 'ttsreader_click_speechnotes_body', {'value': 'home_page_body'});">Start transcribing{{ i18n "start-transcribing" }}</a>
+            <p class="h5">Dictation & Transcription</p>
+            <p class="meta">Type with your voice for free, or automatically transcribe audio & video recordings</p>
+          </div>
+
+          <div class="col-md-1"></div>
+
+          <div class="col-md-7 col-lg-6 card" style="display: flex;flex-direction: column">
+            <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
+              <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="VolumeUpOutlinedIcon"><path d="M3 9v6h4l5 5V4L7 9H3zm7-.17v6.34L7.83 13H5v-2h2.83L10 8.83zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"></path></svg>
+            </div>
+            <p class="h3">SpeechNinja</p>
+            <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.ttsreader }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">Start Talking{{ i18n "start-dictating" }}</a>
+            <p class="h5">Type to speak</p>
+            <p class="meta">SpeechNinja says what you type in real time, for people with speech difficulties.</p>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section section-sm">
+  <br/><br/>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <h2>Pricing</h2>
+      <br/>
+    </div>
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div style="flex: 1"></div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm border-primary">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">Free</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Online dictation notepad</li>
+                <li>Voice typing Chrome extension</li>
+              </ul>
+              <a href="{{ .Site.Params.links.dictation }}" type="button" class="w-100 btn btn-lg btn-outline-primary">Get started for free</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm border-primary">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">Premium</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">$1.9<small class="text-muted fw-light">/mo</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Premium online dictation notepad</li>
+                <li>Premium voice typing Chrome extension</li>
+                <li>Support from the development team</li>
+                <li>No ads</li>
+              </ul>
+              <a href="{{ .Site.Params.links.premium }}" type="button" class="w-100 btn btn-lg btn-primary">Purchase now</a>
+            </div>
+          </div>
+        </div>
+        <div style="flex: 1"></div>
+      </div>
+
+      <h2 class="display-6 text-center mb-4">Compare plans</h2>
+
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+          <tr>
+            <th style="width: 34%;"></th>
+            <th style="width: 22%;">Dictation Free</th>
+            <th style="width: 22%;">Dictation Premium</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row" class="text-start">Unlimited dictation</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Online notepad</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Voice typing extension</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Editing</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Ads free</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          </tbody>
+
+          <tbody>
+          <tr>
+            <th scope="row" class="text-start">Extra security</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Support from the development team</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+  <br/><br/>
+  </section>
+
+  <section id="privacy" class="section section-sm bg-light">
+  <br/><br/>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <h3 class="text-center">Privacy Policy</h3>
+      <div style="max-width: 700px;padding: 20px;text-align: justify">
+        <h4>General</h4>
+        <p>We at Speechnotes, Speechlogger, TextHear, Speechkeys value your privacy, and that's why we do not store anything you say or type or in fact any other data about you - unless it is solely needed for the purpose of your operation. We don't share it with 3rd parties, other than Google / Microsoft for the speech-to-text engine.
+        </p>
+        <br/>
+        <h4>Privacy - how are the recordings and results handled?</h4>
+        <h5>- Transcription service</h5>
+        <p>Our transcription service is probably the most private and secure transcription service available.</p>
+        <ul>
+          <li>HIPAA compliant.</li>
+          <li>No human in the loop. No passing your recording between PCs, emails, employees, etc.</li>
+          <li>Secure encrypted communications (https) with and between our servers.</li>
+          <li>Recordings are automatically deleted from our servers as soon as the transcription is done.</li>
+          <li>Our contract with Google / Microsoft (our speech engines providers) prohibits them from keeping any audio or results.</li>
+          <li>Transcription results are securely kept on our secure database. Only you have access to them - only if you sign in (or provide your secret credentials through the API)</li>
+          <li>You may choose to delete the transcription results - once you do - no copy remains on our servers.</li>
+        </ul>
+        <h5>- Dictation notepad & extension</h5>
+        <p>For dictation, the recording & recognition - is delegated to and done by the browser (Chrome / Edge) or operating system (Android). So, we never even have access to the recorded audio, and Edge's / Chrome's / Android's (depending the one you use) privacy policy apply here.
+        </p>
+        <p>The results of the dictation are saved locally on your machine - via the browser's / app's local storage. It never gets to our servers. So, as long as your device is private - your notes are private.</p>
+        <br/>
+        <h4>Payments method privacy</h4>
+        <p>The whole payments process is delegated to PayPal / Stripe / Google Pay / Play Store / App Store and secured by these providers. We never receive any of your credit card information.</p>
+        <br/>
+        <h4>More generic notes regarding our site, cookies, analytics, ads, etc.</h4>
+        <ul>
+          <li>We may use Google Analytics on our site - which is a generic tool to track usage statistics.</li>
+          <li>We use cookies - which means we save data on your browser to send to our servers when needed. This is used for instance to sign you in, and then keep you signed in.</li>
+          <li>For the dictation tool - we use your browser's local storage to store your notes, so you can access them later.</li>
+          <li>Non premium dictation tool serves ads by Google. Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="nofollow">Ads Settings</a>. Alternatively, users can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://youradchoices.com/" target="_blank" rel="nofollow">https://youradchoices.com/</a></li>
+          <li>In case you would like to upload files to Google Drive directly from Speechnotes - we'll ask for your permission to do so. We will use that permission for that purpose only - syncing your speech-notes to your Google Drive, per your request.</li>
+        </ul>
+        <br/>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+  <br/><br/><br/><br/>
+  {{ end }}
+{{ end }}
+
+{{ define "sidebar-footer" }}
+<section class="section section-sm container-fluid">
+  <div class="row justify-content-center text-center">
+    <div class="col-lg-9">
+      {{- .Content -}}
+    </div>
+  </div>
+</section>
+{{ end }}

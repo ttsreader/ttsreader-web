@@ -1,0 +1,105 @@
+/** Import Bootstrap functions */
+@import "bootstrap/scss/functions";
+
+/** Import theme variables */
+@import "common/variables";
+
+/** Import Bootstrap */
+@import "bootstrap/scss/bootstrap";
+
+/** Import highlight.js */
+// @import "highlight.js/scss/github-dark-dimmed";
+
+/** Import KaTeX */
+@import "katex/dist/katex";
+
+/** Import theme styles */
+@import "common/fonts";
+@import "common/global";
+@import "common/dark";
+@import "components/alerts";
+@import "components/buttons";
+@import "components/code";
+@import "components/details";
+@import "components/syntax";
+@import "components/comments";
+@import "components/forms";
+@import "components/images";
+@import "components/mermaid";
+@import "components/search";
+@import "components/tables";
+@import "layouts/footer";
+@import "layouts/header";
+@import "layouts/pages";
+@import "layouts/posts";
+@import "layouts/sidebar";
+
+header {
+  box-shadow: 1px 1px 10px gainsboro;
+  opacity: 1;
+}
+
+.dropdown > .dropdown-menu {
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.dropdown > .dropdown-menu li a {
+  padding: 8px 20px;
+  border-bottom: 1px solid #ddd;
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+.dropdown > .dropdown-menu li a:hover {
+  opacity: 1;
+  border-bottom: 2px solid orangered;
+}
+
+@media not all and (hover: none) {
+  .dropdown:hover > .dropdown-menu {
+    display: block;
+  }
+}
+
+.MuiSvgIcon-fontSizeMedium {
+  width: 100px;
+  height: 100px;
+}
+
+svg {
+  fill: #222;
+}
+
+[data-dark-mode] svg {
+  fill: #aaa;
+}
+
+.card > h3 {
+  color: $primary;
+}
+
+#use_cases .accordion-item {
+  border-radius: 10px;
+  border: 1px solid #3fb1f8;
+}
+
+#use_cases .accordion-item:hover {
+  border-color: $orange;
+}
+
+#use_cases .accordion-header {
+  color: #3fb1f8;
+  cursor: pointer;
+}
+
+#use_cases .accordion-header::after {
+  content: ">";
+  color: #3fb1f8;
+  font-weight: normal;
+  display: inline-block;
+  position: relative;
+  bottom: 3px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+}

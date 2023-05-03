@@ -1,0 +1,135 @@
+# Meta Data for SEO
+
+## Homepage
+name = "TTSReader"
+title = "Text To Speech Reader. Online, Free & Unlimited | TTSReader"
+titleSeparator = "-"
+description = "Reads out loud texts, webpages, pdfs & ebooks with natural sounding voices. No sign in required. Set your text and click play."
+
+
+## Documentation
+# docsVersion = "0.3"
+
+## Open Graph
+images = ["tile_1024x512.jpeg"]
+ogLocale = "en"
+domainTLD = "ttsreader.com"
+titleHome = "Free Text To Speech (TTS) Online with Natural Sounding Voices"
+
+## Twitter Cards
+twitterSite = "@speechlogger"
+twitterCreator = "@speechlogger"
+
+## JSON-LD
+# schemaType = "Person"
+schemaType = "Organization"
+schemaName = "Speechnotes"
+schemaAuthor = "Ronen Rabinovici"
+schemaAuthorTwitter = "https://twitter.com/speechlogger"
+schemaAuthorLinkedIn = "https://www.linkedin.com/in/ronen-r/"
+schemaAuthorGitHub = "https://github.com/RonenR"
+schemaLocale = "en-US"
+schemaLogo = "android-chrome-512x512.png"
+schemaLogoWidth = 512
+schemaLogoHeight = 512
+schemaImage = "tile_1024x512.jpeg"
+schemaImageWidth = 1024
+schemaImageHeight = 512
+schemaTwitter = "https://twitter.com/speechlogger"
+schemaLinkedIn = ""
+schemaGitHub = "https://github.com/speechnotes/speechnotes-website/"
+schemaSection = "blog"
+
+## Sitelinks Search Box
+siteLinksSearchBox = true
+
+## Chrome Browser
+themeColor = "#880015"
+
+# Images
+quality = 85
+bgColor = "#fff"
+landscapePhotoWidths = [900, 800, 700, 600, 500]
+portraitPhotoWidths = [800, 700, 600, 500]
+lqipWidth = "20x"
+smallLimit = "300"
+
+# Images
+imageResponsive = true
+imageConvertTo = "webp"
+imageImageSizes = ["480","720","1080","1280","1600","2048"]
+singleSize = false
+imageAddClass = "img-fluid lazyload blur-up"
+
+### Image template
+defaultImage = "tile_1024x512.jpeg" # put in `./assets/images/`
+fillImage = "1024x512 Center" # normalize image size
+
+# Footer
+footer = "Powered by <a class=\"text-muted\" href=\"https://ttsreader.com/\">TTSReader</a>"
+
+# Feed
+copyRight = "Copyright (c) 2015-2023 Ronen Rabinovici @ WellSource"
+
+# Alert
+alert = true
+alertDismissible = true
+alertText = "Welcome to our new site! Need the previous version? <a class=\"alert-link stretched-link\" href=\"/legacy/\" target=\"_self\">Click here for the legacy version</a>"
+
+# Edit Page
+# repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster
+repoHost = "GitHub"
+#repoHost = "Gitea"
+docsRepo = "https://github.com/speechnotes/speechnotes-website"
+docsRepoBranch = "main"
+docsRepoSubPath = ""
+editPage = false
+lastMod = false
+
+[sections]
+  sectionNav = ["docs", "guides"]
+
+[options]
+  lazySizes = true
+  clipBoard = true
+  instantPage = true
+  flexSearch = true
+  searchSectionsShow = []
+  searchSectionsIndex = "ALL" # used in assets/js/index.js, "All" or an array that includes the Types to include in search. Defaults to the docs folder in content.
+  darkMode = true
+  bootStrapJs = true
+  breadCrumb = true
+  highLight = true
+  kaTex = false
+  multilingualMode = false
+  docsVersioning = false
+  fullWidth = false
+  navbarSticky = true
+  toTopButton = true
+  scrollSpy = false # experimental; needs Bootstrap >= 5.2.0-beta1
+
+[menu]
+  [menu.section]
+    auto = true
+    collapsibleSidebar = true
+
+[links]
+  player = "/player/"
+  legacy = "/legacy/"
+  shop = "/shop/"
+  upgrade = "/upgrade/"
+  export = ""
+  commercial = ""
+  copyright = ""
+  converters = "https://speechnotes.co/converters/"
+  speechlogger = "https://speechlogger.com/"
+  speechninja = "https://speechninja.com/"
+  speechnotes = "https://speechnotes.co/"
+  iosApp = "https://apps.apple.com/il/app/simple-text-reader-ttsreader/id1493463248"
+  androidApp = "https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader"
+  chromeExtension = "https://chrome.google.com/webstore/detail/pakknklefcjdhejnffafpeelofiekebg"
+  github = "https://github.com/ttsreader/ttsreader-web"
+  issues = "https://github.com/ttsreader/ttsreader-web/issues"
+  discussions = "https://github.com/ttsreader/ttsreader-web/discussions"
+  feedback = ""
+  premiumSupportForm = "https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform?usp=sf_link"
