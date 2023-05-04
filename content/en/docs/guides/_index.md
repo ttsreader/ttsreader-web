@@ -1,9 +1,9 @@
 ---
-title : "Speechotes Manuals"
-description: "Speechotes guides, manuals, documentations"
+title : "User Manuals"
+description: "TTSReader guides, manuals, documentation"
 lead: ""
-date: 2023-02-06T08:48:45+00:00
-lastmod: 2023-02-06T08:48:45+00:00
+date: 2023-04-06T08:48:45+00:00
+lastmod: 2023-04-06T08:48:45+00:00
 draft: false
 images: []
 weight: 100

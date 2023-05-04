@@ -109,7 +109,7 @@
       <div class="row justify-content-center text-center">
         <div class="col-sm card" style="display: flex;flex-direction: column">
           <h3 class="h4">Legacy Player</h3>
-          <p>Our good old player, served millions over the years. Some prefer it over the <a href="/player/">new player</a>.</p>
+          <p>Our <a href="/legacy/">good old player</a>, served millions of users over the years. In case you miss it - it's still here.</p>
           <div style="flex: 1;min-height: 10px;"></div>
           <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_legacy_body', {'value': 'home_page_body'});">Legacy player{{ i18n "start-dictating" }}</a>
           <br/>
@@ -164,7 +164,7 @@
         <br/><br/>
         <div class="row justify-content-center text-center">
 
-          <div class="col-md-7 col-lg-6 card" style="display: flex;flex-direction: column">
+          <div class="col-md-6 card" style="display: flex;flex-direction: column">
             <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
               <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MicIcon"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
             </div>
@@ -173,17 +173,25 @@
             <p class="h5">Dictation & Transcription</p>
             <p class="meta">Type with your voice for free, or automatically transcribe audio & video recordings</p>
           </div>
-
-          <div class="col-md-1"></div>
-
-          <div class="col-md-7 col-lg-6 card" style="display: flex;flex-direction: column">
+          &nbsp;&nbsp;
+          <div class="col-md-6 card" style="display: flex;flex-direction: column">
             <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
               <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="VolumeUpOutlinedIcon"><path d="M3 9v6h4l5 5V4L7 9H3zm7-.17v6.34L7.83 13H5v-2h2.83L10 8.83zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"></path></svg>
             </div>
             <p class="h3">SpeechNinja</p>
-            <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.ttsreader }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">Start Talking{{ i18n "start-dictating" }}</a>
+            <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechninja }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">Start talking{{ i18n "start-dictating" }}</a>
             <p class="h5">Type to speak</p>
             <p class="meta">SpeechNinja says what you type in real time, for people with speech difficulties.</p>
+          </div>
+          &nbsp;&nbsp;
+          <div class="col-md-6 card" style="display: flex;flex-direction: column">
+            <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
+              <img src="/images/buttonsLogo.webp" width="100px">
+            </div>
+            <p class="h3">Buttons - Kids Dictionary</p>
+            <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.buttons }}" role="button" onclick="gtag('event', 'ttsreader_click_buttons_body', {'value': 'home_page_body'});">Learn more{{ i18n "start-dictating" }}</a>
+            <p class="h5">Turns your device into multiple push-buttons interactive games</p>
+            <p class="meta">Animals, numbers, colors, counting, letters, objects and more. Different levels. Multilingual. No ads. Made by parents, for our own kids.</p>
           </div>
 
 
@@ -196,7 +204,7 @@
   <br/><br/>
   <div class="container">
     <div class="row justify-content-center text-center">
-      <h2>Pricing</h2>
+      <h2>Pricing & Plans</h2>
       <br/>
     </div>
       <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
@@ -209,8 +217,8 @@
             <div class="card-body">
               <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
               <ul class="list-unstyled mt-3 mb-4">
-                <li>Online dictation notepad</li>
-                <li>Voice typing Chrome extension</li>
+                <li>Online text to speech player</li>
+                <li>Chrome extension for reading webpages</li>
               </ul>
               <a href="{{ .Site.Params.links.dictation }}" type="button" class="w-100 btn btn-lg btn-outline-primary">Get started for free</a>
             </div>
@@ -224,12 +232,12 @@
             <div class="card-body">
               <h1 class="card-title pricing-card-title">$2<small class="text-muted fw-light">/mo</small></h1>
               <ul class="list-unstyled mt-3 mb-4">
-                <li>Premium online dictation notepad</li>
-                <li>Premium voice typing Chrome extension</li>
-                <li>Support from the development team</li>
+                <li>Premium TTSReader.com</li>
+                <li>Premium Chrome extension</li>
+                <li>Better support from the development team</li>
                 <li>No ads</li>
               </ul>
-              <a href="{{ .Site.Params.links.premium }}" type="button" class="w-100 btn btn-lg btn-primary">Purchase now</a>
+              <a href="{{ .Site.Params.links.upgrade }}" type="button" class="w-100 btn btn-lg btn-primary">Purchase now</a>
             </div>
           </div>
         </div>
@@ -243,23 +251,33 @@
           <thead>
           <tr>
             <th style="width: 34%;"></th>
-            <th style="width: 22%;">Dictation Free</th>
-            <th style="width: 22%;">Dictation Premium</th>
+            <th style="width: 22%;">Free</th>
+            <th style="width: 22%;">Premium</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <th scope="row" class="text-start">Unlimited dictation</th>
+            <th scope="row" class="text-start">Unlimited text reading</th>
             <td>✅</td>
             <td>✅</td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Online notepad</th>
+            <th scope="row" class="text-start">Online text to speech</th>
             <td>✅</td>
             <td>✅</td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Voice typing extension</th>
+            <th scope="row" class="text-start">Upload files, PDFs, ebooks</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Web player</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Webpage reading Chrome extension</th>
             <td>✅</td>
             <td>✅</td>
           </tr>
@@ -273,16 +291,31 @@
             <td></td>
             <td>✅</td>
           </tr>
+          <tr>
+            <th scope="row" class="text-start">Unlock features</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
           </tbody>
 
           <tbody>
           <tr>
-            <th scope="row" class="text-start">Extra security</th>
+            <th scope="row" class="text-start">Recording audio - for generating audio files from text</th>
             <td></td>
             <td>✅</td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Support from the development team</th>
+            <th scope="row" class="text-start">Commercial license</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Publishing license (under the following <a href="{{ .Site.Params.links.commercial }}">terms</a>)</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Better support from the development team</th>
             <td></td>
             <td>✅</td>
           </tr>
@@ -293,49 +326,13 @@
   <br/><br/>
   </section>
 
-  <section id="privacy" class="section section-sm bg-light">
-  <br/><br/>
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <h3 class="text-center">Privacy Policy</h3>
-      <div style="max-width: 700px;padding: 20px;text-align: justify">
-        <h4>General</h4>
-        <p>We at Speechnotes, Speechlogger, TextHear, Speechkeys value your privacy, and that's why we do not store anything you say or type or in fact any other data about you - unless it is solely needed for the purpose of your operation. We don't share it with 3rd parties, other than Google / Microsoft for the speech-to-text engine.
-        </p>
-        <br/>
-        <h4>Privacy - how are the recordings and results handled?</h4>
-        <h5>- Transcription service</h5>
-        <p>Our transcription service is probably the most private and secure transcription service available.</p>
-        <ul>
-          <li>HIPAA compliant.</li>
-          <li>No human in the loop. No passing your recording between PCs, emails, employees, etc.</li>
-          <li>Secure encrypted communications (https) with and between our servers.</li>
-          <li>Recordings are automatically deleted from our servers as soon as the transcription is done.</li>
-          <li>Our contract with Google / Microsoft (our speech engines providers) prohibits them from keeping any audio or results.</li>
-          <li>Transcription results are securely kept on our secure database. Only you have access to them - only if you sign in (or provide your secret credentials through the API)</li>
-          <li>You may choose to delete the transcription results - once you do - no copy remains on our servers.</li>
-        </ul>
-        <h5>- Dictation notepad & extension</h5>
-        <p>For dictation, the recording & recognition - is delegated to and done by the browser (Chrome / Edge) or operating system (Android). So, we never even have access to the recorded audio, and Edge's / Chrome's / Android's (depending the one you use) privacy policy apply here.
-        </p>
-        <p>The results of the dictation are saved locally on your machine - via the browser's / app's local storage. It never gets to our servers. So, as long as your device is private - your notes are private.</p>
-        <br/>
-        <h4>Payments method privacy</h4>
-        <p>The whole payments process is delegated to PayPal / Stripe / Google Pay / Play Store / App Store and secured by these providers. We never receive any of your credit card information.</p>
-        <br/>
-        <h4>More generic notes regarding our site, cookies, analytics, ads, etc.</h4>
-        <ul>
-          <li>We may use Google Analytics on our site - which is a generic tool to track usage statistics.</li>
-          <li>We use cookies - which means we save data on your browser to send to our servers when needed. This is used for instance to sign you in, and then keep you signed in.</li>
-          <li>For the dictation tool - we use your browser's local storage to store your notes, so you can access them later.</li>
-          <li>Non premium dictation tool serves ads by Google. Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="nofollow">Ads Settings</a>. Alternatively, users can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://youradchoices.com/" target="_blank" rel="nofollow">https://youradchoices.com/</a></li>
-          <li>In case you would like to upload files to Google Drive directly from Speechnotes - we'll ask for your permission to do so. We will use that permission for that purpose only - syncing your speech-notes to your Google Drive, per your request.</li>
-        </ul>
-        <br/>
-
-      </div>
+  <section id="contact" class="section section-sm bg-light">
+  <br/>
+    <div class="container">
+      <h2 style="text-align: center">Ways to Get In Touch, Feedback & Community</h2>
+      <p style="text-align: center"><span style="display: block;text-align: center;"><i>Visit our <a href="/contact/">contact page</a>, for various ways to get in touch with us, send us feedback and interact with our community of users & developers.</i></span></p>
     </div>
-  </div>
+    <br/>
 </section>
 
   <br/><br/><br/><br/>

@@ -1,6 +1,6 @@
 ---
 title: "Miscellaneous Q&A"
-description: "Frequent questions and answers about Speechnotes' speech recognition services & apps."
+description: "Frequent questions and answers about TTSReader's text-to-speech services & apps."
 lead: ""
 date: 2023-02-06T08:49:15+00:00
 lastmod: 2023-04-26T08:49:15+00:00

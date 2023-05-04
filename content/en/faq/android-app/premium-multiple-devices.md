@@ -7,14 +7,14 @@ draft: false
 images: []
 menu:
   faq:
-    parent: "dictation-android"
+    parent: "android-app"
 weight: 501
 toc: false
 ---
 
 ## Question
 
-I have recently purchased the premium version of Speechnotes on Android. I want to use your app on my Android tablet. Can I use same account or do I have to buy a separate Premium package?
+I have recently purchased the premium version of TTSReader on Android. I want to use your app on my Android tablet. Can I use same account or do I have to buy a separate Premium package?
 
 ## Answer
 

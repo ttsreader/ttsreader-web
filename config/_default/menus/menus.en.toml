@@ -1,87 +1,24 @@
 [[main]]
-  name = "Dictation"
-  url = "/dictate/"
+  name = "Get Started"
+  url = "/player/"
   weight = 10
 
 [[main]]
-  name = "Transcription"
-  url = "/files/"
-  weight = 10
+  name = "Legacy"
+  url = "/legacy/"
+  weight = 11
 
 [[main]]
-  name = "Docs & Help"
-  weight = 20
-  url = "/docs/"
-  identifier = "docs"
+  name = "Upgrade"
+  url = "/upgrade/"
+  weight = 12
 
 [[main]]
-  name = "More"
-  weight = 40
-  identifier = "tools"
+  name = "Portfolio"
+  url = "/#portfolio"
+  weight = 13
 
-  [[main]]
-    name = "Voice Typing Chrome extension"
-    weight = 41
-    identifier = "tools-extension"
-    url = "https://chrome.google.com/webstore/detail/speechnotes-speech-to-tex/nncconplehmbkbhkgkodmnkfaflopkji"
-    parent = "tools"
-  [[main]]
-    name = "TTSReader - reads out loud texts, files & websites"
-    weight = 42
-    identifier = "tools-ttsreader"
-    url = "https://ttsreader.com/"
-    parent = "tools"
-  [[main]]
-    name = "Speechlogger - live captioning"
-    weight = 43
-    identifier = "tools-speechlogger"
-    url = "https://speechlogger.com/"
-    parent = "tools"
-  [[main]]
-    name = "File converters"
-    weight = 44
-    identifier = "tools-converters"
-    url = "/converters/"
-    parent = "tools"
-  [[main]]
-    name = "Transcription API"
-    weight = 45
-    identifier = "tools-api"
-    url = "/files/guides/api/"
-    parent = "tools"
-  [[main]]
-    name = "Zapier automation"
-    weight = 45
-    identifier = "tools-zapier"
-    url = "https://zapier.com/apps/speechnotes/integrations"
-    parent = "tools"
-  [[main]]
-    name = "Affiliates program"
-    weight = 46
-    identifier = "tools-affiliates"
-    url = "/files/affiliates/"
-    parent = "tools"
-  [[main]]
-    name = "Speechnotes Android App"
-    weight = 47
-    identifier = "tools-android"
-    url = "https://play.google.com/store/apps/details?id=co.speechnotes.speechnotes"
-    parent = "tools"
-  [[main]]
-    name = "TextHear - iOS App"
-    weight = 48
-    identifier = "tools-texthear"
-    url = "https://apps.apple.com/us/app/texthear/id1246677907"
-    parent = "tools"
-  [[main]]
-    name = "Pricing"
-    weight = 49
-    identifier = "pricing"
-    url = "/#pricing"
-    parent = "tools"
-  [[main]]
-    name = "FAQ"
-    weight = 50
-    identifier = "faq"
-    url = "/faq/"
-    parent = "tools"
+[[main]]
+  name = "Contact"
+  url = "/contact/"
+  weight = 14
