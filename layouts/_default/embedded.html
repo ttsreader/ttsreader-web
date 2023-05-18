@@ -15,8 +15,9 @@
 <body style="display: flex;flex-direction: column;height: 100%;width: 100%;">
 {{ partial "header/header.html" . }}
 <div style="flex: 1">
-  <iframe src="/embeds/{{ .Params.embedded }}/?lng={{ .Site.Params.languageTag | default "en" }}" style="height: 100%;width: 100%;"></iframe>
+  <iframe id="embeddedIframe" src="/embeds/{{ .Params.embedded }}/?lng={{ .Site.Params.languageTag | default "en" }}" style="height: 100%;width: 100%;"></iframe>
 </div>
 {{ partial "footer/script-footer.html" . }}
+{{ partial "footer/firebase-code.html" . }}
 </body>
 </html>

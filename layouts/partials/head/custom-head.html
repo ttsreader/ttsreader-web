@@ -1,17 +1,5 @@
 <!-- Custom head -->
 
-<link rel="alternate" hreflang="x-default" href="https://speechnotes.co/" />
-<link rel="alternate" hreflang="en" href="https://speechnotes.co/" />
-<link rel="alternate" hreflang="de" href="https://speechnotes.co/de/" />
-<link rel="alternate" hreflang="es" href="https://speechnotes.co/es/" />
-<link rel="alternate" hreflang="fr" href="https://speechnotes.co/fr/" />
-<link rel="alternate" hreflang="it" href="https://speechnotes.co/it/" />
-<link rel="alternate" hreflang="ja" href="https://speechnotes.co/ja/" />
-<link rel="alternate" hreflang="pt" href="https://speechnotes.co/pt/" />
-<link rel="alternate" hreflang="ar" href="https://speechnotes.co/ar/" />
-<link rel="alternate" hreflang="ru" href="https://speechnotes.co/ru/" />
-<link rel="alternate" hreflang="zh" href="https://speechnotes.co/zh/" />
-
 <script>
   function getOs() {
     let userAgentLowerCaseString = (navigator?.userAgent + navigator?.platform + navigator?.userAgentData).toLowerCase();
@@ -42,13 +30,14 @@
     let os = getOs();
     console.log('page fully loaded, os = ' + os);
     if (os==="android" || os==="ios") {
-      document.querySelectorAll("[href='/dictate/'], [href='https://speechnotes.co/dictate/'], [href='http://localhost:1313/dictate/']").forEach(el => {
+      /*document.querySelectorAll("[href='/dictate/'], [href='https://ttsreader.com/dictate/'], [href='http://localhost:1313/dictate/']").forEach(el => {
         if (el instanceof Element) {
           el.setAttribute("href", el.getAttribute("href").replace("/dictate/","/mobile/"));
         }
-      });
+      });*/
     } else {
       console.log('desktop');
     }
   });
 </script>
+

@@ -9,16 +9,60 @@
   weight = 11
 
 [[main]]
-  name = "Upgrade"
-  url = "/upgrade/"
+  name = "Commercial"
+  url = "/docs/guides/commercial/"
   weight = 12
 
 [[main]]
-  name = "Portfolio"
-  url = "/#portfolio"
-  weight = 13
+  name = "More"
+  weight = 40
+  identifier = "tools"
 
-[[main]]
-  name = "Contact"
-  url = "/contact/"
-  weight = 14
+  [[main]]
+    name = "User Manual"
+    weight = 41
+    identifier = "guide"
+    url = "/docs/guides/quick-start-new-player/"
+    parent = "tools"
+  [[main]]
+    name = "Portfolio"
+    weight = 42
+    identifier = "portfolio"
+    url = "/#portfolio"
+    parent = "tools"
+  [[main]]
+    name = "Mobile Apps"
+    weight = 43
+    identifier = "mobile"
+    url = "/mobile/"
+    parent = "tools"
+  [[main]]
+    name = "Speechnotes - dictation & transcription"
+    weight = 44
+    identifier = "tools-speechnotes"
+    url = "https://speechnotes.co/"
+    parent = "tools"
+  [[main]]
+    name = "File converters"
+    weight = 45
+    identifier = "tools-converters"
+    url = "/converters/"
+    parent = "tools"
+  [[main]]
+    name = "Pricing"
+    weight = 49
+    identifier = "pricing"
+    url = "/#pricing"
+    parent = "tools"
+  [[main]]
+    name = "Docs"
+    weight = 50
+    identifier = "docs"
+    url = "/docs/"
+    parent = "tools"
+  [[main]]
+    name = "Contact"
+    weight = 51
+    identifier = "contact"
+    url = "/contact/"
+    parent = "tools"

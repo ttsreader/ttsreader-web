@@ -1,0 +1,10 @@
+[debug] [2023-05-10T14:32:30.990Z] ----------------------------------------------------------------------
+[debug] [2023-05-10T14:32:30.992Z] Command:       /opt/homebrew/Cellar/node/19.1.0/bin/node /opt/homebrew/bin/firebase init
+[debug] [2023-05-10T14:32:30.992Z] CLI Version:   11.18.0
+[debug] [2023-05-10T14:32:30.992Z] Platform:      darwin
+[debug] [2023-05-10T14:32:30.992Z] Node Version:  v19.1.0
+[debug] [2023-05-10T14:32:30.992Z] Time:          Wed May 10 2023 17:32:30 GMT+0300 (Israel Daylight Time)
+[debug] [2023-05-10T14:32:30.992Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-05-10T14:32:30.993Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-05-10T14:32:31.003Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]

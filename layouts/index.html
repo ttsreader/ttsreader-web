@@ -17,8 +17,14 @@
         </div>
       </div>
       <br/>
-      <p>The link above directs to our new player. Looking for the good old player? <a href="/legacy/">Click here for the legacy version.</a></p>
+      <p>Looking for the good old player? <a href="/legacy/">Click here for the legacy version.</a></p>
       <br/>
+      <p>Need the <a href="/webplayer/">web player</a>? You can start it from here. Paste the URL, or leave empty for a random interesting article.</p>
+      <div style="display: flex">
+          <input id="url_input_box" style="padding: 5px;display: inline-block;flex: 1;" type="text" placeholder="https://en.wikipedia.org/wiki/The_Beatles" /><button onclick="playUrl()">PLAY ▷</button>
+      </div>
+      <br/><br/>
+
       <div style="flex: 6"></div>
     </div>
     <div class="col-lg" style="text-align: center;display: flex;flex-direction: column;align-items: center;">
@@ -36,11 +42,9 @@
     <br/>
     <div class="container">
       <div style="max-width: 800px;margin: auto; font-size: larger; text-align: justify">
-        <h2 class="h2">Introduction</h2>
+        <h2 class="h2">About</h2>
         <br/>
-        <p>TTSReader is a lightweight & powerful text-to-speech tool that converts written text into natural-sounding speech. Listen in real-time right in your browser, or save as an audio file. Our player is user-friendly, works cross platform and remembers your text and position between sessions. Whether you're looking to listen to articles instead of reading them, need assistance with reading or looking to generate audio files from text, TTSReader is made for you. Supports any written content, whether it is raw text, a webpage, text files, PDFs, and even ebooks. Works offline, so you can use it at home, in the office, on the go, driving or taking a walk. With support for multiple languages, you can even use it for language learning.</p>
-        <p>Overall, listening to textual content using TTSReader enables multitasking, reading on the go, improved comprehension and more.</p>
-        <p>Works out of the box. No need to download or install. No sign in required. Enjoy listening!</p>
+        <p>TTSReader reads out loud texts, webpages, pdfs & ebooks with natural sounding voices. Works out of the box. No need to download or install. No sign in required. Simply click 'play' and enjoy listening right in your browser. TTSReader remembers your text and position between sessions, so you can continue listening right where you left. Recording the generated speech is supported as well. Works offline, so you can use it at home, in the office, on the go, driving or taking a walk. Listening to textual content using TTSReader enables multitasking, reading on the go, improved comprehension and more. With support for multiple languages, it can be used for unlimited <a href="/#use_cases">use cases</a>.</p>
         <br/>
         <p style="text-align: center"><a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_getstarted2_body', {'value': 'home_page_body'});">Get Started for Free{{ i18n "start-dictating" }}</a></p>
         <br/><br/>
@@ -48,63 +52,11 @@
     </div>
   </section>
 
-  <section id="use_cases" class="section section-sm">
-  <br/><br/>
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <h2>Main Use Cases</h2>
-      <div class="col-lg-5">
-        <h3 class="h4">Listen to great content</h3>
-        <p style="text-align: justify;">Most of the world's content is in textual form. Being able to listen to it - is huge! In that sense, TTSReader has a huge advantage over podcasts. You choose your content - out of an infinite variety - that includes humanity's entire knowledge and art richness. Listen to lectures, to PDF files. Paste or upload any text from anywhere, edit it if needed, and listen to it anywhere and anytime.</p>
-      </div>
-      <div class="col-lg-5">
-        <h3 class="h4">Proofreading</h3>
-        <p style="text-align: justify;">One of the best ways to catch errors in your writing is to listen to it being read aloud. By using TTSReader for proofreading, you can catch errors that you might have missed while reading silently, allowing you to improve the quality and accuracy of your written content. Errors can be in sentence structure, punctuation, and grammar, but also in your essay's structure, order and content.</p>
-      </div>
-      <div class="col-lg-5">
-        <h3 class="h4">Listen to web pages</h3>
-        <p style="text-align: justify;">TTSReader can be used to read out loud webpages in two different ways. 1. Using the <a href="/player/">regular player</a> - paste the URL and click play. The website's content will be imported into the player. (2) Using our <a href="" target="_blank">Chrome extension to listen to pages without leaving the page</a>.<br/>Listening to web pages with TTSReader can provide a more accessible, convenient, and efficient way of consuming online content.</p>
-      </div>
-    </div>
+  <section id="portfolio" class="section section-sm">
     <br/>
-    <div class="row justify-content-center text-center">
-      <br/>
-      <div class="col-lg-5">
-        <h3 class="h4">Turn ebooks into audiobooks</h3>
-        <p style="text-align: justify;">Upload any ebook file of epub format - and TTSReader will read it out loud for you, effectively turning it into an audiobook alternative. You can find thousands of epub books for free, available for download on <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg's</a> site, which is an open library for free ebooks.</p>
-      </div>
-      <div class="col-lg-5">
-        <h3 class="h4">Read along for speed & comprehension</h3>
-        <p style="text-align: justify;">TTSReader enables read along by highlighting the sentence being read and automatically scrolling to keep it in view. This way you can follow with your own eyes - in parallel to listening to it. This can boost reading speed and improve comprehension.</p>
-      </div>
-      <div class="col-lg-5">
-        <h3 class="h4">Generate audio files from text</h3>
-        <p style="text-align: justify;">TTSReader enables exporting the synthesized speech with a single click. This is available currently only on Windows and requires <a href="/upgrade/">TTSReader’s premium</a>. Adhering to the <a href="https://ttsreader.com/blog/2017/05/10/commercial/">commercial terms</a> some of the voices may be used commercially for publishing, such as narrating videos.</p>
-      </div>
-    </div>
+    <h2 style="text-align: center">A Set of Text to Speech Solutions</h2>
+    <p style="text-align: center"><span style="display: block;text-align: center;"><i>In addition to our <a href="/player/">New Player</a>, our portfolio of text-to-speech tools includes</i></span></p>
     <br/>
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-5">
-        <h3 class="h4">Accessibility, dyslexia, etc.</h3>
-        <p style="text-align: justify;">For individuals with visual impairments or reading difficulties, listening to textual content, lectures, articles & web pages can be an essential tool for accessing & comprehending information.</p>
-      </div>
-      <div class="col-lg-5">
-        <h3 class="h4">Language learning</h3>
-        <p style="text-align: justify;">TTSReader can read out text in multiple languages, providing learners with listening as well as speaking practice. By listening to the text being read aloud, learners can improve their comprehension skills and pronunciation.</p>
-      </div>
-      <div class="col-lg-5">
-        <h3 class="h4">Kids - stories & learning</h3>
-        <p style="text-align: justify;">Kids love stories! And if you can read them stories - it's definitely the best! But, if you can't, let TTSReader read them stories for you. Set the right voice and speed, that is appropriate for their comprehension level. For kids who are at the age of learning to read - this can also be an effective tool to strengthen that skill, as it highlights every sentence being read.</p>
-      </div>
-    </div>
-  </div>
-  </section>
-
-  <section id="portfolio" class="section section-sm bg-light">
-        <br/>
-    <h2 style="text-align: center">Portfolio of Text to Speech Solutions</h2>
-    <p style="text-align: center"><span style="display: block;text-align: center;"><i>In addition to our <a href="/player/">main TTSReader player</a>, our portfolio of text-to-speech tools includes</i></span></p>
-        <br/>
     <div class="container">
       <div class="row justify-content-center text-center">
         <div class="col-sm card" style="display: flex;flex-direction: column">
@@ -200,7 +152,59 @@
     </div>
   </section>
 
-  <section id="pricing" class="section section-sm">
+  <section id="use_cases" class="section section-sm">
+  <br/><br/>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <h2>Main Use Cases</h2>
+      <div class="col-lg-5">
+        <h3 class="h4">Listen to great content</h3>
+        <p style="text-align: justify;">Most of the world's content is in textual form. Being able to listen to it - is huge! In that sense, TTSReader has a huge advantage over podcasts. You choose your content - out of an infinite variety - that includes humanity's entire knowledge and art richness. Listen to lectures, to PDF files. Paste or upload any text from anywhere, edit it if needed, and listen to it anywhere and anytime.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Proofreading</h3>
+        <p style="text-align: justify;">One of the best ways to catch errors in your writing is to listen to it being read aloud. By using TTSReader for proofreading, you can catch errors that you might have missed while reading silently, allowing you to improve the quality and accuracy of your written content. Errors can be in sentence structure, punctuation, and grammar, but also in your essay's structure, order and content.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Listen to web pages</h3>
+        <p style="text-align: justify;">TTSReader can be used to read out loud webpages in two different ways. 1. Using the <a href="/player/">regular player</a> - paste the URL and click play. The website's content will be imported into the player. (2) Using our <a href="" target="_blank">Chrome extension to listen to pages without leaving the page</a>.<br/>Listening to web pages with TTSReader can provide a more accessible, convenient, and efficient way of consuming online content.</p>
+      </div>
+    </div>
+    <br/>
+    <div class="row justify-content-center text-center">
+      <br/>
+      <div class="col-lg-5">
+        <h3 class="h4">Turn ebooks into audiobooks</h3>
+        <p style="text-align: justify;">Upload any ebook file of epub format - and TTSReader will read it out loud for you, effectively turning it into an audiobook alternative. You can find thousands of epub books for free, available for download on <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg's</a> site, which is an open library for free ebooks.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Read along for speed & comprehension</h3>
+        <p style="text-align: justify;">TTSReader enables read along by highlighting the sentence being read and automatically scrolling to keep it in view. This way you can follow with your own eyes - in parallel to listening to it. This can boost reading speed and improve comprehension.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Generate audio files from text</h3>
+        <p style="text-align: justify;">TTSReader enables exporting the synthesized speech with a single click. This is available currently only on Windows and requires <a href="/upgrade/">TTSReader’s premium</a>. Adhering to the <a href="https://ttsreader.com/blog/2017/05/10/commercial/">commercial terms</a> some of the voices may be used commercially for publishing, such as narrating videos.</p>
+      </div>
+    </div>
+    <br/>
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-5">
+        <h3 class="h4">Accessibility, dyslexia, etc.</h3>
+        <p style="text-align: justify;">For individuals with visual impairments or reading difficulties, listening to textual content, lectures, articles & web pages can be an essential tool for accessing & comprehending information.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Language learning</h3>
+        <p style="text-align: justify;">TTSReader can read out text in multiple languages, providing learners with listening as well as speaking practice. By listening to the text being read aloud, learners can improve their comprehension skills and pronunciation.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Kids - stories & learning</h3>
+        <p style="text-align: justify;">Kids love stories! And if you can read them stories - it's definitely the best! But, if you can't, let TTSReader read them stories for you. Set the right voice and speed, that is appropriate for their comprehension level. For kids who are at the age of learning to read - this can also be an effective tool to strengthen that skill, as it highlights every sentence being read.</p>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <section id="pricing" class="section section-sm bg-light">
   <br/><br/>
   <div class="container">
     <div class="row justify-content-center text-center">
@@ -326,7 +330,7 @@
   <br/><br/>
   </section>
 
-  <section id="contact" class="section section-sm bg-light">
+  <section id="contact" class="section section-sm">
   <br/>
     <div class="container">
       <h2 style="text-align: center">Ways to Get In Touch, Feedback & Community</h2>

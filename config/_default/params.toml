@@ -2,7 +2,7 @@
 
 ## Homepage
 name = "TTSReader"
-title = "Text To Speech Reader. Online, Free & Unlimited | TTSReader"
+title = "Free Text To Speech. Listen to Texts, PDFs, Webpages & Ebooks"
 titleSeparator = "-"
 description = "Reads out loud texts, webpages, pdfs & ebooks with natural sounding voices. No sign in required. Set your text and click play."
 
@@ -72,7 +72,7 @@ footer = "Powered by <a class=\"text-muted\" href=\"https://ttsreader.com/\">TTS
 copyRight = "Copyright (c) 2015-2023 Ronen Rabinovici @ WellSource"
 
 # Alert
-alert = true
+alert = false
 alertDismissible = true
 alertText = "Welcome to our new site! Need the previous version? <a class=\"alert-link stretched-link\" href=\"/legacy/\" target=\"_self\">Click here for the legacy version</a>"
 

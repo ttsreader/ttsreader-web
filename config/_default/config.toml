@@ -1,4 +1,4 @@
-baseurl = "https://tsreader.com/"
+baseurl = "https://ttsreader.com/"
 canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true

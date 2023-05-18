@@ -1,0 +1,193 @@
+<script>
+  /*
+  This script is for sign-in and for premium status.
+   */
+
+  // This is important! It will hold the embedded iframe window!
+  let iframeWindow = document.getElementById("embeddedIframe").contentWindow;
+
+  let clockStartedOn = Date.now();
+  function stopper() {
+    return Math.round((Date.now()-clockStartedOn)/1000) + ": ";
+  }
+
+  function fetchJsFile(url, callback) {
+    let newEl = document.createElement('script');
+    newEl.src=url;
+    newEl.onload = function(){
+      if (callback) {
+        callback();
+      }
+    };
+    document.getElementsByTagName("head")[0].appendChild(newEl);
+  }
+
+  if (iframeWindow.document.title.toLowerCase().includes('ttsreader') && iframeWindow.document.readyState === "complete") {
+    console.log(stopper() + 'iframe fully loaded - loading parent script right away');
+    runPostLoadScript();
+  } else {
+    console.log(stopper() + 'Parent script awaiting to load all iframe DOM');
+    iframeWindow.addEventListener('load', (event) => {
+      runPostLoadScript();
+    });
+  }
+
+  // Will be called by the updated state method.
+  function loadAds() {
+    // TODO...
+  }
+
+  function setPremium() {
+    // TODO...
+  }
+
+  function runPostLoadScript() {
+
+    if (!iframeWindow.updateStateWithParentData) {
+      console.log('iframe not ready yet, trying again in 500ms');
+      setTimeout(runPostLoadScript, 500);
+      return;
+    }
+
+    console.log(stopper() + 'Parent Loading script post DOM');
+
+    let srcs = [
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js",
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js",
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js",
+    ]
+
+    let loadedScripts = 0;
+    function onScriptLoaded() {
+      console.log('loading script ' + srcs[loadedScripts] + '...');
+      loadedScripts++;
+      if (loadedScripts==srcs.length) {
+        runDependentScript();
+      } else {
+        fetchJsFile(srcs[loadedScripts], onScriptLoaded);
+      }
+    }
+
+    fetchJsFile(srcs[0], onScriptLoaded);
+
+    function runDependentScript() {
+      let firebaseConfig = {
+        apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
+        authDomain: "ttsreader.firebaseapp.com",
+        databaseURL: "https://ttsreader.firebaseio.com",
+        projectId: "ttsreader",
+        messagingSenderId: "656667743185"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        //window.globalMethods.closeModalById("modalSigninVertical");
+        console.log(stopper() + 'user signed ' + (user ? "IN" : "OUT"));
+
+        if (user) {
+          // User is signed in.
+          iframeWindow.updateStateWithParentData({
+            wasAuthReceived: true,
+            uid: user.uid,
+            email: user.email
+          });
+          listenToDatabaseData(user.uid);
+        } else {
+          iframeWindow.updateStateWithParentData({
+            wasAuthReceived: false,
+            uid:  "",
+            email: ""
+          });
+        }
+      });
+    }
+  }
+
+  function listenToDatabaseData(uid) {
+    firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log(stopper() + 'got user data from db: ', data);
+      if (!data) {
+        iframeWindow.updateStateWithParentData({
+          wasUserDataReceived: true,
+          isPremiumByLegacy: false,
+        })
+        return;
+      }
+
+      if (data.isPremium) {
+        iframeWindow.updateStateWithParentData({
+          wasUserDataReceived: true,
+          isPremiumByLegacy: true,
+          isPremium: true,
+          //epochLicenseExpirationDateInSecs: doc.data() ? (doc.data().hasOwnProperty("epochLicenseExpirationDateInSecs") ? doc.data().epochLicenseExpirationDateInSecs : 0) : 0
+        });
+      } else {
+        iframeWindow.updateStateWithParentData({
+          wasUserDataReceived: true,
+          isPremiumByLegacy: false,
+          isPremium: false,
+          //epochLicenseExpirationDateInSecs: doc.data() ? (doc.data().hasOwnProperty("epochLicenseExpirationDateInSecs") ? doc.data().epochLicenseExpirationDateInSecs : 0) : 0
+        });
+      }
+    });
+
+    firebase.database().ref('/purchases/' + uid).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log(stopper() + 'got purchases data from db: ', data);
+      if (data) {
+        iframeWindow.updateStateWithParentData({
+          werePurchasesReceived: true,
+          purchases: data,
+        });
+      } else {
+        iframeWindow.updateStateWithParentData({
+          werePurchasesReceived: true,
+          purchases: [],
+        });
+      }
+    });
+  }
+
+  function toggleSignIn() {
+    var user = firebase.auth().currentUser;
+    //console.log("user " , user);
+
+    if (user) {
+      // User is signed in.
+      signOut();
+    } else {
+      // No user is signed in.
+      signIn();
+    }
+  }
+
+  function signOut() {
+    firebase.auth().signOut();
+  }
+
+  function signIn() {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      let token = result.credential.accessToken;
+      // The signed-in user info.
+      let user = result.user;
+      let isNewUser = result.additionalUserInfo.isNewUser;
+      if (isNewUser) {
+        // Api.sendWelcomeEmail();
+      }
+    }).catch(function(error) {
+      // Handle Errors here.
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      // The email of the user's account used.
+      let email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      let credential = error.credential;
+      // ...
+    });
+  }
+</script>
