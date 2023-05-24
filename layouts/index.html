@@ -1,39 +1,42 @@
 {{ define "main" }}
-<div class="hero" style="min-height: 95vh;padding: 2em;display: flex;flex-direction: column">
-  <h1 class="mt-0" style="text-align: center">{{ .Title }}</h1>
-  <div class="row" style="flex: 1">
-    <div class="col-lg" style="display: flex;flex-direction: column">
-      <div style="flex: 1"></div>
+
+<section class="section container-fluid mt-n3 pb-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-12 text-center">
+      <h1 class="mt-0">{{ .Title }}</h1>
+    </div>
+    <div class="col-lg-9 col-xl-8 text-center">
       <h2 class="lead" style="font-size: 1.3em;">{{ .Params.lead | safeHTML }}</h2>
       <br/>
-      <p class="caption-top" style="text-align: center"><i>~ Proudly serving millions of users since 2015 ~</i></p>
-      <br/>
-      <div class="row">
-        <div class="col-sm" style="padding: 5px;">
-          <a style="display: block;" class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_getstarted1_body', {'value': 'home_page_body'});">Get Started{{ i18n "start-dictating" }}</a>
-        </div>
-        <div class="col-sm" style="padding: 5px;">
-          <a style="display: block;" class="btn btn-outline-primary btn-lg px-4 mb-2" href="#introduction" role="button" onclick="gtag('event', 'ttsreader_click_learn_body', {'value': 'home_page_body'});">Learn More{{ i18n "start-dictating" }}</a>
-        </div>
-      </div>
-      <br/>
-      <p>Looking for the good old player? <a href="/legacy/">Click here for the legacy version.</a></p>
-      <br/>
-      <p>Need the <a href="/webplayer/">web player</a>? You can start it from here. Paste the URL, or leave empty for a random interesting article.</p>
-      <div style="display: flex">
-          <input id="url_input_box" style="padding: 5px;display: inline-block;flex: 1;" type="text" placeholder="https://en.wikipedia.org/wiki/The_Beatles" /><button onclick="playUrl()">PLAY ▷</button>
-      </div>
-      <br/><br/>
-
-      <div style="flex: 6"></div>
+      <p class="caption-top"><i>~ Proudly serving millions of users since 2015 ~</i></p>
     </div>
-    <div class="col-lg" style="text-align: center;display: flex;flex-direction: column;align-items: center;">
-      <div style="flex: 3"></div>
-      <img style="width: 40vw;max-width: 450px;" src="/images/dalle-clean.webp" />
-      <div style="flex: 1"></div>
+    <div class="row justify-content-center text-center" style="margin-top: 20px;">
+      <p class="quote">Select your preferred player to start ></p>
+      <div class="col-md-7 col-lg-6 card">
+        <a href="{{ .Site.Params.links.player }}"><div class="Player-preview-img-new" style=""></div></a>
+        <h2 class="h4">New Player</h2>
+        <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">Launch new player{{ i18n "start-dictating" }}</a>
+        <p class="meta">Newly developed. Modern and adds new capabilities.</p>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-7 col-lg-6 card">
+        <a href="{{ .Site.Params.links.legacy }}"><div class="Player-preview-img-legacy" style=""></div></a>
+        <h2 class="h4">Classic Player</h2>
+        <a style="color: white;" class="btn btn-secondary btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});">Launch classic player{{ i18n "start-transcribing" }}</a>
+        <p class="meta">Battle tested for years, serving millions of users.</a></p>
+      </div>
     </div>
   </div>
+</section>
+
+<div style="max-width: 95%; margin: 30px auto;width: 800px;text-align: center;">
+  <p>Need to read a webpage? Simply paste the URL of the page here and click play. Leave empty to read about the Beatles 🎸</p>
+  <div style="display: flex; max-width: 800px;" >
+    <input id="url_input_box" style="padding: 5px;display: inline-block;flex: 1;border-radius: 20px 0 0 20px;padding-left: 10px;" type="text" placeholder="https://en.wikipedia.org/wiki/The_Beatles" /><button style="border-radius: 0 20px 20px 0;" onclick="playUrl()">PLAY ▷</button>
+  </div>
 </div>
+
+<br/><br/>
 {{ end }}
 
 {{ define "sidebar-prefooter" }}
@@ -219,7 +222,7 @@
               <h4 class="my-0 fw-normal">Free</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+              <p class="card-title pricing-card-title h2">$0<small class="text-muted fw-light">/mo</small></p>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Online text to speech player</li>
                 <li>Chrome extension for reading webpages</li>
@@ -234,7 +237,7 @@
               <h4 class="my-0 fw-normal">Premium</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$2<small class="text-muted fw-light">/mo</small></h1>
+              <p class="card-title pricing-card-title h2">$2<small class="text-muted fw-light">/mo</small></p>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Premium TTSReader.com</li>
                 <li>Premium Chrome extension</li>

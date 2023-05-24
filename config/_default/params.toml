@@ -1,10 +1,10 @@
 # Meta Data for SEO
 
 ## Homepage
-name = "TTSReader"
-title = "Free Text To Speech. Listen to Texts, PDFs, Webpages & Ebooks"
+name = "TTSReader Text to Speech"
+title = "TTSReader | Text To Speech. Fast, Free & Unlimited"
 titleSeparator = "-"
-description = "Reads out loud texts, webpages, pdfs & ebooks with natural sounding voices. No sign in required. Set your text and click play."
+description = "Converts text to speech, so you can listen online & offline to any text, website, PDF file & ebook. Supports mp3 generation for voiceover & commercial use."
 
 
 ## Documentation
@@ -14,7 +14,7 @@ description = "Reads out loud texts, webpages, pdfs & ebooks with natural soundi
 images = ["tile_1024x512.jpeg"]
 ogLocale = "en"
 domainTLD = "ttsreader.com"
-titleHome = "Free Text To Speech (TTS) Online with Natural Sounding Voices"
+titleHome = "TTSReader | Text To Speech. Fast, Free & Unlimited"
 
 ## Twitter Cards
 twitterSite = "@speechlogger"
@@ -23,7 +23,7 @@ twitterCreator = "@speechlogger"
 ## JSON-LD
 # schemaType = "Person"
 schemaType = "Organization"
-schemaName = "Speechnotes"
+schemaName = "TTSReader"
 schemaAuthor = "Ronen Rabinovici"
 schemaAuthorTwitter = "https://twitter.com/speechlogger"
 schemaAuthorLinkedIn = "https://www.linkedin.com/in/ronen-r/"
@@ -37,7 +37,7 @@ schemaImageWidth = 1024
 schemaImageHeight = 512
 schemaTwitter = "https://twitter.com/speechlogger"
 schemaLinkedIn = ""
-schemaGitHub = "https://github.com/speechnotes/speechnotes-website/"
+schemaGitHub = "https://github.com/ttsreader/"
 schemaSection = "blog"
 
 ## Sitelinks Search Box
@@ -66,7 +66,7 @@ defaultImage = "tile_1024x512.jpeg" # put in `./assets/images/`
 fillImage = "1024x512 Center" # normalize image size
 
 # Footer
-footer = "Powered by <a class=\"text-muted\" href=\"https://ttsreader.com/\">TTSReader</a>"
+footer = "Powered by <a class=\"text-muted\" href=\"https://ttsreader.com/\">TTSReader Text to Speech</a>"
 
 # Feed
 copyRight = "Copyright (c) 2015-2023 Ronen Rabinovici @ WellSource"
@@ -80,7 +80,7 @@ alertText = "Welcome to our new site! Need the previous version? <a class=\"aler
 # repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster
 repoHost = "GitHub"
 #repoHost = "Gitea"
-docsRepo = "https://github.com/speechnotes/speechnotes-website"
+docsRepo = "https://github.com/ttsreader/ttsreader-web"
 docsRepoBranch = "main"
 docsRepoSubPath = ""
 editPage = false

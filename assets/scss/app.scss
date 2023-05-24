@@ -103,3 +103,36 @@ svg {
   margin-left: 10px;
   margin-bottom: 15px;
 }
+
+.Player-preview-img-new {
+  aspect-ratio: 1.35;
+  border-radius: 10px;
+  background-image: url("/images/screenshots/player/new_player.webp");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.Player-preview-img-legacy {
+  aspect-ratio: 1.35;
+  border-radius: 10px;
+  background-image: url("/images/screenshots/player/retro_player.webp");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+
+}
+
+[data-dark-mode] .Player-preview-img-new {
+  aspect-ratio: 1.35;
+  border-radius: 10px;
+  background-image: url("/images/screenshots/player/new_player_dark.webp");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid burlywood;
+  border-right: 1px solid burlywood;
+  cursor: pointer;
+}
