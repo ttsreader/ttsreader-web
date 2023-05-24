@@ -10,6 +10,8 @@ menu:
     parent: "guides"
 weight: 130
 toc: true
+sitemap:
+priority: 0.8
 ---
 
 <br/>

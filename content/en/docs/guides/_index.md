@@ -7,4 +7,6 @@ lastmod: 2023-04-06T08:48:45+00:00
 draft: false
 images: []
 weight: 100
+sitemap:
+  priority: 0.8
 ---
