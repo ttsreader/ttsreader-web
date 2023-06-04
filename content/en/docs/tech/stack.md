@@ -18,7 +18,7 @@ toc: true
 - TTSReader uses primarily speech synthesis engines that are installed on your device and - or browser. We get access to them through the Web speech API.
 - This is why different devices may show different voices.
 - Chrome adds its own voices - thus generally having the largest variety.
-- Firefox on Windows, allows using custom SAPI5 voices as well - so - you can even use your own voice to synthesize speech. See [this article with video](https://ttsreader.com/blog/2023/02/05/sapi5/) for more info. This is especially useful for people with speech difficulties, who can use their own voice to synthesize speech. In that case using [SpeechNinja](https://speechninja.com) is recommended.
+- Firefox on Windows, allows using custom SAPI5 voices as well - so - you can even use your own voice to synthesize speech. See [this article with video](https://ttsreader.com/blog/2023/02/05/sapi5/) for more info. This is especially useful for people with speech difficulties, who can use their own voice to synthesize speech. In that case using [SpeechNinja](https://speechninja.co) is recommended.
 
 
 ## Hosting
