@@ -34,6 +34,10 @@
 @import "layouts/posts";
 @import "layouts/sidebar";
 
+html, body {
+  /*overflow-x: hidden;*/
+}
+
 header {
   box-shadow: 1px 1px 10px gainsboro;
   opacity: 1;
@@ -122,7 +126,15 @@ svg {
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;
+}
 
+.Preview-img {
+  aspect-ratio: 1.35;
+  border-radius: 10px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 [data-dark-mode] .Player-preview-img-new {

@@ -7,65 +7,142 @@
       <p class="caption-top"><i>~ Proudly serving millions of users since 2015 ~</i></p>
       <h2 class="lead" style="font-size: 1.3em;">{{ .Params.lead | safeHTML }}</h2>
       <a style="display: block;width: 400px;margin: 40px auto;max-width: 100%;" class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">Get Started{{ i18n "start-dictating" }}</a>
-      <p class="meta"><a href="player/">Start text-to-speech</a> with our new player for free, or keep scrolling to learn more & see additional solutions.</p>
+      <p class="meta"><a href="player/">Start text-to-speech</a> for free, or keep scrolling to learn more & see additional solutions.</p>
     </div>
   </div>
 
     <div class="row text-center" style="margin: 40px auto;">
-      <p style="font-size: 1.2em;">How good does it sound? Outstanding! Here are some examples</p>
+      <p style="font-size: 1.2em;">How good does it sound? Outstanding! Want to hear for yourself? Here are a few samples:</p>
       <div class="col justify-content-center text-center">
         <br/>
-        <p><i>Recorded on Edge browser</i></p>
+        <p><i>Synthesized with TTSReader on Edge browser</i></p>
         <div>Christopher - <audio style="vertical-align: middle" controls src="https://ttsreader.com/player/audio/Christopher.mp3" preload="metadata"/></div>
         <div>Michelle - &nbsp;&nbsp;&nbsp;&nbsp;<audio controls src="https://ttsreader.com/player/audio/Michelle.mp3" preload="metadata"/></div>
       </div>
       <div class="col justify-content-center text-center">
         <br/>
-        <p><i>Recorded on Chrome browser</i></p>
+        <p><i>Synthesized with TTSReader on Chrome browser</i></p>
         <div>Noah - <audio controls src="https://ttsreader.com/player/audio/Noah.mp3" preload="metadata"></audio></div>
         <div>Lily - &nbsp;&nbsp;<audio controls src="https://ttsreader.com/player/audio/Lily.mp3" preload="metadata"></audio></div>
         <br/>
       </div>
 
+      <p style="font-size: 1.2em;margin-top: 40px;">Ready to start? <a href="/player/">Click here for our main text-to-speech reader</a>, or take a look at our complementary text-to-speech solutions >></p>
     </div>
 
+</section>
 
-    <div class="row justify-content-center text-center" style="margin-top: 20px;">
-      <p style="font-size: 1.2em">Additional Text-To-Speech Solutions ></p>
-      <div class="col-md-7 col-lg-6 card">
-        <a href="{{ .Site.Params.links.player }}"><div class="Player-preview-img-new" style=""></div></a>
-        <h2 class="h4">New Player</h2>
-        <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">Launch new player{{ i18n "start-dictating" }}</a>
-        <p class="meta">Newly developed. Modern and adds new capabilities.</p>
+
+
+
+
+
+{{ end }}
+
+{{ define "sidebar-prefooter" }}
+  {{ if eq $.Site.Language.LanguageName "English" }}
+
+<section id="portfolio" class="section section-sm">
+  <div style="max-width: 95%;padding: 0 20px;margin: auto;">
+
+  <div class="row justify-content-center text-center" style="margin-top: -30px;">
+
+    <div class="col-md-5 col-sm-8 card">
+      <br/>
+      <a target="_blank" rel="nofollow" style="color: white;background:linear-gradient(119.6deg,#fe40fe 9.06%,#fe25a3 49.04%,#fe5435 93.41%);" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.unreal_studio }}" role="button" onclick="gtag('event', 'ttsreader_click_unreal_studio_body', {'value': 'home_page_body'});">Voice-Over Studio&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
+      <br/>
+      <a target="_blank" href="{{ .Site.Params.links.unreal_studio }}" rel="nofollow" onclick="gtag('event', 'ttsreader_click_unreal_studio_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/unreal_studio.webp');"></div></a>
+      <br/>
+      <p class="meta">By our partner UnrealSpeech, Voice-Over Studio brings you original AI voices, as well as the ability to quickly generate & download mp3 files for personal or professional purposes.</p>
+    </div>
+    &nbsp;&nbsp;
+    <div class="col-md-5 col-sm-8 card">
+      <br/>
+      <a target="_blank" style="color: white;background-color: #5d2f86" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechninja }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">SpeechNinja - Type to Speak&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
+      <br/>
+      <a target="_blank" href="{{ .Site.Params.links.speechninja }}" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/speechninja.webp');"></div></a>
+      <br/>
+      <p class="meta">SpeechNinja says what you type in real time. It enables people with speech difficulties to speak out loud using synthesized voice (AAC) and more.</p>
+    </div>
+    &nbsp;&nbsp;
+    <div class="col-md-5 col-sm-8 card">
+      <br/>
+      <a style="color: white;background-color: #39a7bb" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});">legacy player&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
+      <br/>
+      <a href="{{ .Site.Params.links.legacy }}" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});"><div class="Player-preview-img-legacy" style=""></div></a>
+      <br/>
+      <p class="meta">Battle tested for years, serving millions of users, especially good for very long texts.</p>
+    </div>
+  </div>
+
+  <div style="max-width: 95%; margin: 30px auto;width: 800px;text-align: center;">
+    <a style="color: white;background-color: black;padding-left: 30px;padding-right: 30px;" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.webplayer }}" role="button" onclick="gtag('event', 'ttsreader_click_webplayer_body', {'value': 'home_page_body'});">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Web Player&nbsp;&rarr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i18n "start-transcribing" }}</a>
+    <br/><br/>
+    <p>Need to read a webpage? Simply paste its URL here & click play. Leave empty to read about the Beatles 🎸</p>
+    <div style="display: flex; max-width: 800px;" >
+      <input id="url_input_box" style="padding: 5px;display: inline-block;flex: 1;border-radius: 20px 0 0 20px;padding-left: 10px;" type="text" placeholder="https://en.wikipedia.org/wiki/The_Beatles" /><button style="border-radius: 0 20px 20px 0;" onclick="playUrl()">PLAY ▷</button>
+    </div>
+  </div>
+
+  <br/><br/>
+  </div>
+
+
+  <div class="bg-light" style="max-width: 95%;padding: 0 20px;margin: auto;border-radius: 20px;">
+    <div class="row justify-content-center text-center" style="max-width: 100%;margin: auto;">
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">Legacy Player</h3>
+        <p>Our <a href="/legacy/">good old player</a>, served millions of users over the years. In case you miss it - it's still here.</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_legacy_body', {'value': 'home_page_body'});">Legacy player{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>&nbsp;&nbsp;
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">Web Player</h3>
+        <p>Simply paste any URL (link to a page) and it will import & read it out loud.</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.webPlayer }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">Start listening{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>&nbsp;&nbsp;
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">Chrome Extension</h3>
+        <p>Reads out loud webpages, directly from within the page.</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.chromeExtension }}" role="button" onclick="gtag('event', 'ttsreader_click_extension_body', {'value': 'home_page_body'});">Get it on Chrome Store{{ i18n "start-dictating" }}</a>
+        <br/>
       </div>
-      <div class="col-md-1"></div>
-      <div class="col-md-7 col-lg-6 card">
-        <a href="{{ .Site.Params.links.legacy }}"><div class="Player-preview-img-legacy" style=""></div></a>
-        <h2 class="h4">Classic Player</h2>
-        <a style="color: white;" class="btn btn-secondary btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});">Launch classic player{{ i18n "start-transcribing" }}</a>
-        <p class="meta">Battle tested for years, serving millions of users.</a></p>
+    </div>
+    <div class="row justify-content-center text-center" style="max-width: 100%;margin: auto;">
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">Android app</h3>
+        <p>TTSReader for Android. Includes exporting audio to mp3 files.</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.androidApp }}" role="button" onclick="gtag('event', 'ttsreader_click_androidApp_body', {'value': 'home_page_body'});">Get it on Google Play{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>&nbsp;&nbsp;
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">iOS app</h3>
+        <p>TTSReader (Simple Text Reader) for iOS, works great on iPhones, iPads & Macs.</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.iosApp }}" role="button" onclick="gtag('event', 'ttsreader_click_iosApp_body', {'value': 'home_page_body'});">Get it on the App Store{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>&nbsp;&nbsp;
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">TTSReader Premium</h3>
+        <p>Support our development team & enjoy ad-free better experience. Commercial users, publishers are required a premium license.</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.upgrade }}" role="button" onclick="gtag('event', 'ttsreader_click_upgrade_body', {'value': 'home_page_body'});">Learn more on Premium{{ i18n "start-dictating" }}</a>
+        <br/>
       </div>
     </div>
   </div>
 </section>
 
-<div style="max-width: 95%; margin: 30px auto;width: 800px;text-align: center;">
-  <p>Need to read a webpage? Simply paste its URL here & click play. Leave empty to read about the Beatles 🎸</p>
-  <div style="display: flex; max-width: 800px;" >
-    <input id="url_input_box" style="padding: 5px;display: inline-block;flex: 1;border-radius: 20px 0 0 20px;padding-left: 10px;" type="text" placeholder="https://en.wikipedia.org/wiki/The_Beatles" /><button style="border-radius: 0 20px 20px 0;" onclick="playUrl()">PLAY ▷</button>
-  </div>
-</div>
-
-<br/><br/>
-{{ end }}
-
-{{ define "sidebar-prefooter" }}
-  {{ if eq $.Site.Language.LanguageName "English" }}
-  <section id="introduction" class="section section-sm bg-light">
+  <section id="introduction" class="section section-sm">
     <br/>
     <div class="container">
       <div style="max-width: 800px;margin: auto; font-size: larger; text-align: justify">
-        <h2 class="h2">About</h2>
+        <h2 class="h2 text-center" >About</h2>
         <br/>
         <p>TTSReader reads out loud texts, webpages, pdfs & ebooks with natural sounding voices. Works out of the box. No need to download or install. No sign in required. Simply click 'play' and enjoy listening right in your browser. TTSReader remembers your text and position between sessions, so you can continue listening right where you left. Recording the generated speech is supported as well. Works offline, so you can use it at home, in the office, on the go, driving or taking a walk. Listening to textual content using TTSReader enables multitasking, reading on the go, improved comprehension and more. With support for multiple languages, it can be used for unlimited <a href="/#use_cases">use cases</a>.</p>
         <br/>
@@ -75,107 +152,7 @@
     </div>
   </section>
 
-  <section id="portfolio" class="section section-sm">
-    <br/>
-    <h2 style="text-align: center">A Set of Text to Speech Solutions</h2>
-    <p style="text-align: center"><span style="display: block;text-align: center;"><i>In addition to our <a href="/player/">New Player</a>, our portfolio of text-to-speech tools includes</i></span></p>
-    <br/>
-    <div class="container">
-      <div class="row justify-content-center text-center">
-        <div class="col-sm card" style="display: flex;flex-direction: column">
-          <h3 class="h4">Legacy Player</h3>
-          <p>Our <a href="/legacy/">good old player</a>, served millions of users over the years. In case you miss it - it's still here.</p>
-          <div style="flex: 1;min-height: 10px;"></div>
-          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_legacy_body', {'value': 'home_page_body'});">Legacy player{{ i18n "start-dictating" }}</a>
-          <br/>
-        </div>&nbsp;&nbsp;
-        <div class="col-sm card" style="display: flex;flex-direction: column">
-          <h3 class="h4">Web Player</h3>
-          <p>Simply paste any URL (link to a page) and it will import & read it out loud.</p>
-          <div style="flex: 1;min-height: 10px;"></div>
-          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.webPlayer }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">Start listening{{ i18n "start-dictating" }}</a>
-          <br/>
-        </div>&nbsp;&nbsp;
-        <div class="col-sm card" style="display: flex;flex-direction: column">
-          <h3 class="h4">Chrome Extension</h3>
-          <p>Reads out loud webpages, directly from within the page.</p>
-          <div style="flex: 1;min-height: 10px;"></div>
-          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.chromeExtension }}" role="button" onclick="gtag('event', 'ttsreader_click_extension_body', {'value': 'home_page_body'});">Get it on Chrome Store{{ i18n "start-dictating" }}</a>
-          <br/>
-        </div>
-      </div>
-      <div class="row justify-content-center text-center">
-        <div class="col-sm card" style="display: flex;flex-direction: column">
-          <h3 class="h4">Android app</h3>
-          <p>TTSReader for Android. Includes exporting audio to mp3 files.</p>
-          <div style="flex: 1;min-height: 10px;"></div>
-          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.androidApp }}" role="button" onclick="gtag('event', 'ttsreader_click_androidApp_body', {'value': 'home_page_body'});">Get it on Google Play{{ i18n "start-dictating" }}</a>
-          <br/>
-        </div>&nbsp;&nbsp;
-        <div class="col-sm card" style="display: flex;flex-direction: column">
-          <h3 class="h4">iOS app</h3>
-          <p>TTSReader (Simple Text Reader) for iOS, works great on iPhones, iPads & Macs.</p>
-          <div style="flex: 1;min-height: 10px;"></div>
-          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.iosApp }}" role="button" onclick="gtag('event', 'ttsreader_click_iosApp_body', {'value': 'home_page_body'});">Get it on the App Store{{ i18n "start-dictating" }}</a>
-          <br/>
-        </div>&nbsp;&nbsp;
-        <div class="col-sm card" style="display: flex;flex-direction: column">
-          <h3 class="h4">TTSReader Premium</h3>
-          <p>Support our development team & enjoy ad-free better experience. Commercial users, publishers are required a premium license.</p>
-          <div style="flex: 1;min-height: 10px;"></div>
-          <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.upgrade }}" role="button" onclick="gtag('event', 'ttsreader_click_upgrade_body', {'value': 'home_page_body'});">Learn more on Premium{{ i18n "start-dictating" }}</a>
-          <br/>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="sister-apps" class="section section-sm bg-light" >
-    <div class="container">
-      <div class="row justify-content-center text-center">
-        <p class="h3">Our Sister Apps</p>
-        <br/>
-        <p class="lead">Complementary to TTSReader</p>
-        <br/><br/>
-        <div class="row justify-content-center text-center">
-
-          <div class="col-md-6 card" style="display: flex;flex-direction: column">
-            <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
-              <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MicIcon"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
-            </div>
-            <p class="h3">Speechnotes</p>
-            <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechnotes }}" role="button" onclick="gtag('event', 'ttsreader_click_speechnotes_body', {'value': 'home_page_body'});">Start transcribing{{ i18n "start-transcribing" }}</a>
-            <p class="h5">Dictation & Transcription</p>
-            <p class="meta">Type with your voice for free, or automatically transcribe audio & video recordings</p>
-          </div>
-          &nbsp;&nbsp;
-          <div class="col-md-6 card" style="display: flex;flex-direction: column">
-            <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
-              <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="VolumeUpOutlinedIcon"><path d="M3 9v6h4l5 5V4L7 9H3zm7-.17v6.34L7.83 13H5v-2h2.83L10 8.83zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"></path></svg>
-            </div>
-            <p class="h3">SpeechNinja</p>
-            <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechninja }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">Start talking{{ i18n "start-dictating" }}</a>
-            <p class="h5">Type to speak</p>
-            <p class="meta">SpeechNinja says what you type in real time, for people with speech difficulties.</p>
-          </div>
-          &nbsp;&nbsp;
-          <div class="col-md-6 card" style="display: flex;flex-direction: column">
-            <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
-              <img src="/images/buttonsLogo.webp" width="100px">
-            </div>
-            <p class="h3">Buttons - Kids Dictionary</p>
-            <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.buttons }}" role="button" onclick="gtag('event', 'ttsreader_click_buttons_body', {'value': 'home_page_body'});">Learn more{{ i18n "start-dictating" }}</a>
-            <p class="h5">Turns your device into multiple push-buttons interactive games</p>
-            <p class="meta">Animals, numbers, colors, counting, letters, objects and more. Different levels. Multilingual. No ads. Made by parents, for our own kids.</p>
-          </div>
-
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="use_cases" class="section section-sm">
+<section id="use_cases" class="section section-sm">
   <br/><br/>
   <div class="container">
     <div class="row justify-content-center text-center">
@@ -225,9 +202,9 @@
       </div>
     </div>
   </div>
-  </section>
+</section>
 
-  <section id="pricing" class="section section-sm bg-light">
+  <section id="pricing" class="section section-sm">
   <br/><br/>
   <div class="container">
     <div class="row justify-content-center text-center">
@@ -352,6 +329,41 @@
   </div>
   <br/><br/>
   </section>
+
+<section id="sister-apps" class="section section-sm bg-light" >
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <p class="h3">Sister Apps Developed by Our Team</p>
+      <br/>
+      <br/><br/>
+      <div class="row justify-content-center text-center">
+
+        <div class="col-md-6 card" style="display: flex;flex-direction: column">
+          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
+            <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MicIcon"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
+          </div>
+          <p class="h3">Speechnotes</p>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechnotes }}" role="button" onclick="gtag('event', 'ttsreader_click_speechnotes_body', {'value': 'home_page_body'});">Start transcribing{{ i18n "start-transcribing" }}</a>
+          <p class="h5">Dictation & Transcription</p>
+          <p class="meta">Type with your voice for free, or automatically transcribe audio & video recordings</p>
+        </div>
+        &nbsp;&nbsp;
+        <div class="col-md-6 card" style="display: flex;flex-direction: column">
+          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
+            <img src="/images/buttonsLogo.webp" width="100px">
+          </div>
+          <p class="h3">Buttons - Kids Dictionary</p>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.buttons }}" role="button" onclick="gtag('event', 'ttsreader_click_buttons_body', {'value': 'home_page_body'});">Learn more{{ i18n "start-dictating" }}</a>
+          <p class="h5">Turns your device into multiple push-buttons interactive games</p>
+          <p class="meta">Animals, numbers, colors, counting, letters, objects and more. Different levels. Multilingual. No ads. Made by parents, for our own kids.</p>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <section id="contact" class="section section-sm">
   <br/>
