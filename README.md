@@ -12,6 +12,11 @@
   <b>Published on <a href="https://ttsreader.com">https://ttsreader.com</a></b>
 </p>
 
+# Useful commands:
+- `npm start` - start local development server
+- `npm run build` - build production version -> /public/ folder
+
+
 ## TODO:
 
 1. Understand and facilitate Google's 'structured data' for SEO. As explained here:

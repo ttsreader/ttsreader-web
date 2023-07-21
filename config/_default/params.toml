@@ -2,9 +2,9 @@
 
 ## Homepage
 name = "TTSReader 🔊"
-title = "Free Text To Speech Online. Reader & Voice-Over Synthesizer"
+title = "Free Text To Speech Reader & Voice-Over Synthesizer"
 titleSeparator = "-"
-description = "TTSReader converts text to speech. Listen to texts, files, webpages & e-books online, or generate professional mp3 voice-overs with natural sounding AI voices."
+description = "TTSReader converts text to speech. Listen to texts, files, webpages & e-books, or generate professional mp3 voice-overs with natural sounding AI voices."
 
 
 ## Documentation
