@@ -172,3 +172,28 @@ audio {
   max-width: 100%;
   min-width: 200px;
 }
+
+.carousel-item .card {
+  width: 300px;
+  min-height: 400px;
+  max-width: 90%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid orangered;
+  box-shadow: orange 0 10px 10px;
+}
+
+[data-dark-mode] .carousel-item .card {
+  border-color: orangered;
+  box-shadow: orange 0 10px 10px;
+}
+
+.home .carousel-item .card:hover {
+  transform: none;
+
+}
+
+[data-dark-mode] .carousel-dark .carousel-control-prev-icon,
+[data-dark-mode] .carousel-dark .carousel-control-next-icon {
+  filter: none;
+}

@@ -2,9 +2,9 @@
 
 ## Homepage
 name = "TTSReader 🔊"
-title = "Free Text To Speech Reader & Voice-Over Synthesizer"
+title = "AI Text To Speech Reader & Voice-Over Synthesizer"
 titleSeparator = "-"
-description = "TTSReader converts text to speech. Listen to texts, files, webpages & e-books, or generate professional mp3 voice-overs with natural sounding AI voices."
+description = "Text to speech online with AI voices. Reads out loud any text, file, website & story for listening, reading-along or generating professional mp3 voice-overs."
 
 
 ## Documentation
@@ -14,7 +14,7 @@ description = "TTSReader converts text to speech. Listen to texts, files, webpag
 images = ["tile_1024x512.jpeg"]
 ogLocale = "en"
 domainTLD = "ttsreader.com"
-titleHome = "TTSReader | Text To Speech. Fast, Free & Unlimited"
+titleHome = "AI Text To Speech Reader & Voice-Over Synthesizer"
 
 ## Twitter Cards
 twitterSite = "@speechlogger"
