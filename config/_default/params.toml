@@ -139,3 +139,7 @@ lastMod = false
   feedbackWebPlayer = "https://docs.google.com/forms/d/e/1FAIpQLSdYGXU2VKVWsJrs8rrqJ9IF9lPlw7Oe3pz01SzMCAWjhluZmg/viewform?usp=sf_link"
   feedbackExtension = "https://docs.google.com/forms/d/e/1FAIpQLSdrXYHPCdhNNEpXgoGZ3aV1_zAPrkjlrQGJURn3jWIvIsIj6g/viewform?usp=sf_link"
   premiumSupportForm = "https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform?usp=sf_link"
+  audioSampleChristopher = "https://ttsreader.com/player/audio/Christopher.mp3"
+  audioSampleNoah = "https://ttsreader.com/player/audio/Noah.mp3"
+  audioSampleMichelle = "https://ttsreader.com/player/audio/Michelle.mp3"
+  audioSampleLily = "https://ttsreader.com/player/audio/Lily.mp3"
