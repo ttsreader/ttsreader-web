@@ -9,8 +9,8 @@
   weight = 11
 
 [[main]]
-  name = "Commercial"
-  url = "/docs/guides/commercial/"
+  name = "Stories"
+  url = "/stories/"
   weight = 12
 
 [[main]]
