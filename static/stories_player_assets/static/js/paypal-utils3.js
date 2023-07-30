@@ -22,7 +22,7 @@ function resetPayPalButton(sum, uid, containerId) {
       return actions.order.capture().then(function(details) {
         //alert('Transaction completed by ' + details.payer.name.given_name);
         if (window.gtag) {
-          window.gtag('event', "purchase_tts_new" ,{value:'1'})
+          window.gtag('event', "purchase_tts_stories" ,{value:'1'})
         }
       });
     }

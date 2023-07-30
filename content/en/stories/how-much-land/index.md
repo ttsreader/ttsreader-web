@@ -5,10 +5,12 @@ author: "Leo Tolstoy"
 authorUrl: "https://ttsreader.com/webplayer/?url=https://en.wikipedia.org/wiki/Leo_Tolstoy"
 intro: "A genious short story by Leo Tolstoy, translated by Louise and Aylmer Maude"
 
-imgUrl: "https://firebasestorage.googleapis.com/v0/b/cognify-learning.appspot.com/o/7VtXwj9DYbW96uIhd8wuGeplxLv1%2Fimages%2F1620637108192_A_settlers_farm_yard.jpeg?alt=media&token=eb55248d-5036-4179-bbc0-4afe11f3f199"
+images: ["cover.webp"]
+image: "cover.webp"
+defaultImage: "cover.webp"
+
 draft: false
-weight: 1
-images: ["https://firebasestorage.googleapis.com/v0/b/cognify-learning.appspot.com/o/7VtXwj9DYbW96uIhd8wuGeplxLv1%2Fimages%2F1620637108192_A_settlers_farm_yard.jpeg?alt=media&token=eb55248d-5036-4179-bbc0-4afe11f3f199"]
+weight: 2
 categories: ["Stories"]
 tags: [""]
 contributors: ["Leo Tolstoy"]

@@ -5,10 +5,12 @@ author: "Leo Tolstoy"
 authorUrl: "https://ttsreader.com/webplayer/?url=https://en.wikipedia.org/wiki/Leo_Tolstoy"
 intro: "A meaningful short story by Leo Tolstoy, translated by Louise and Aylmer Maude"
 
-imgUrl: "https://firebasestorage.googleapis.com/v0/b/cognify-learning.appspot.com/o/7VtXwj9DYbW96uIhd8wuGeplxLv1%2Fimages%2F1620638944866_ThreeQuestionsImage.png?alt=media&token=d6f8b816-fc06-4b90-89b7-f4c1479f0e02"
+images: ["cover.webp"]
+image: "cover.webp"
+defaultImage: "cover.webp"
+
 draft: false
 weight: 3
-images: []
 categories: ["Stories"]
 tags: [""]
 contributors: ["Leo Tolstoy"]

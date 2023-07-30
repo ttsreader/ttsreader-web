@@ -1,0 +1,8 @@
+{{ with .Resources.GetMatch "cover.webp" }}
+<img
+  class="card-img-top img-fluid lazyload blur-up"
+  src="{{ .RelPermalink }}"
+  data-src="{{ .RelPermalink }}"
+  width="200px"
+  alt="{{ .Title }}">
+{{ end }}

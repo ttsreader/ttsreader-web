@@ -27,7 +27,7 @@
         <br/>
       </div>
 
-      <p style="font-size: 1.2em;margin-top: 40px;">Ready to start? <a href="/player/">Click here for our main text-to-speech reader</a>, or take a look at our complementary text-to-speech solutions including our experimental (please tell us what you think) <a href="#stories" style="text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px yellow, 0 0 20px yellow, 0 0 25px yellow, 0 0 30px yellow, 0 0 35px yellow;color: red;font-weight:bold;padding: 3px 10px;border-radius: 10px;display: inline-block;">NEW STORIES 📚</a> read-along >></p>
+      <p style="font-size: 1.2em;margin-top: 40px;">Ready to start? <a href="/player/">Click here for our main text-to-speech reader</a>, or take a look at our complementary text-to-speech solutions including our experimental (please tell us what you think) <a href="/stories/" style="text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px yellow, 0 0 20px yellow, 0 0 25px yellow, 0 0 30px yellow, 0 0 35px yellow;color: red;font-weight:bold;padding: 3px 10px;border-radius: 10px;display: inline-block;">NEW STORIES 📚</a> read-along >></p>
     </div>
 
 </section>
@@ -48,35 +48,32 @@
       <h3>Listen to Stories 📚</h3>
       <p class="lead">This is NEW & EXCITING! Experimental - content library with some of the best stories ever written. Please try, share & tell us what you think! Need something else, like generating mp3 voice overs? Aid with speaking? Keep scrolling, or jump to our <a href="#portfolio">full text-to-speech portfolio</a>.</p>
       <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" style="width: 600px;max-width: 100%;margin: 30px auto;">
-        <div class="carousel-indicators">
+        <div class="carousel-indicators" style="position: absolute;bottom: -50px;">
           <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
           <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
         </div>
         <div class="carousel-inner">
+          {{- range ( where site.RegularPages "Section" "stories" | first 1 ) }}
           <div class="carousel-item active" data-bs-interval="3000">
-            <a href="stories/how-much-land/" class="card">
-              <p class="h5">How Much Land Does a Man Need?</p>
-              <p>By Leo Tolstoy</p>
-              <img src="https://firebasestorage.googleapis.com/v0/b/cognify-learning.appspot.com/o/7VtXwj9DYbW96uIhd8wuGeplxLv1%2Fimages%2F1620637108192_A_settlers_farm_yard.jpeg?alt=media&token=eb55248d-5036-4179-bbc0-4afe11f3f199">
+            <a href="{{ .Permalink }}" class="card">
+              <p class="h5">{{ .Title }}</p>
+              <p>{{ .Params.intro }}</p>
+              <img src="{{ .Permalink }}/cover.webp">
             </a>
           </div>
-
+          {{ end }}
+          {{- range first 4 ( where site.RegularPages "Section" "stories" | after 1) }}
           <div class="carousel-item" data-bs-interval="3000">
-            <a href="stories/esarhaddon/" class="card">
-              <p class="h5">Esarhaddon, King of Assyria</p>
-              <p>By Leo Tolstoy</p>
-              <img src="https://firebasestorage.googleapis.com/v0/b/cognify-learning.appspot.com/o/7VtXwj9DYbW96uIhd8wuGeplxLv1%2Fimages%2F1620640345325_assyryan%20king.png?alt=media&token=65fafe74-040d-42e5-b263-39da8861074e">
+            <a href="{{ .Permalink }}" class="card">
+              <p class="h5">{{ .Title }}</p>
+              <p>{{ .Params.intro }}</p>
+              <img src="{{ .Permalink }}/cover.webp">
             </a>
           </div>
-
-          <div class="carousel-item" data-bs-interval="3000">
-            <a href="stories/three-questions/" class="card">
-              <p class="h5">Three Questions</p>
-              <p>By Leo Tolstoy</p>
-              <img src="https://firebasestorage.googleapis.com/v0/b/cognify-learning.appspot.com/o/7VtXwj9DYbW96uIhd8wuGeplxLv1%2Fimages%2F1620638944866_ThreeQuestionsImage.png?alt=media&token=d6f8b816-fc06-4b90-89b7-f4c1479f0e02">
-            </a>
-          </div>
+          {{ end }}
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>

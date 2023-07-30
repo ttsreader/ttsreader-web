@@ -13,17 +13,12 @@
   {{ range $paginator.Pages -}}
   <div class="col">
     <div class="card" style="max-width: 300px;">
-      <img
-        class="card-img-top img-fluid lazyload blur-up"
-        src="{{ .Params.imgUrl }}"
-        data-src="{{ .Params.imgUrl }}"
-        style="height: 200px; object-fit: cover;"
-        alt="{{ .Title }}">
+      {{ partial "content/stories-card-image.html" . }}
       <div class="card-body">
         <article>
           <h2 class="h3"><a class="stretched-link text-body" href="{{ .RelPermalink }}">{{ .Params.title }}</a></h2>
           <p>{{ .Params.excerpt | safeHTML }}</p>
-          {{ partial "main/blog-meta.html" . -}}
+          {{ partial "main/story-meta.html" . -}}
         </article>
       </div>
     </div>

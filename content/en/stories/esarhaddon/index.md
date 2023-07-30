@@ -3,11 +3,12 @@ id: "esarhaddon"
 title: "Esarhaddon, King of Assyria"
 author: "Leo Tolstoy"
 authorUrl: "https://ttsreader.com/webplayer/?url=https://en.wikipedia.org/wiki/Leo_Tolstoy"
-
-imgUrl: "https://firebasestorage.googleapis.com/v0/b/cognify-learning.appspot.com/o/7VtXwj9DYbW96uIhd8wuGeplxLv1%2Fimages%2F1620640345325_assyryan%20king.png?alt=media&token=65fafe74-040d-42e5-b263-39da8861074e"
+intro: "A short story teaching us on how our life is connected to the lives of others."
+images: ["cover.webp"]
+image: "cover.webp"
+defaultImage: "cover.webp"
 draft: false
-weight: 50
-images: []
+weight: 4
 categories: ["Stories"]
 tags: [""]
 contributors: ["Leo Tolstoy"]
