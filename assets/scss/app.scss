@@ -71,14 +71,6 @@ header {
   height: 100px;
 }
 
-svg {
-  fill: #222;
-}
-
-[data-dark-mode] svg {
-  fill: #aaa;
-}
-
 .card > h3 {
   color: $primary;
 }

@@ -31,6 +31,12 @@
     url = "/#portfolio"
     parent = "tools"
   [[main]]
+    name = "Plugin"
+    weight = 42
+    identifier = "plugin"
+    url = "/plugin/"
+    parent = "tools"
+  [[main]]
     name = "Mobile Apps"
     weight = 43
     identifier = "mobile"
