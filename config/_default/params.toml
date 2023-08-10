@@ -2,9 +2,9 @@
 
 ## Homepage
 name = "TTSReader 🔊"
-title = "TTSReader - Text To Speech Reader & AI Voice-Overs"
+title = "Free Text To Speech Reader & Synthesizer | TTSReader"
 titleSeparator = "-"
-description = "Free online Text-to-Speech. Reads out loud text, files, websites & books. Listen online, read-along or generate professional AI voice-overs."
+description = "Input any text, file, book or webpage and TTSReader Text-To-Speech will read it out loud for you. Accurate AI voices, persistence, mp3 exports & more. Try now."
 
 
 ## Documentation
@@ -117,6 +117,7 @@ lastMod = false
   player = "/player/"
   webPlayer = "https://ttsreader.com/webplayer/?url=https://en.wikipedia.org/wiki/The_Beatles"
   legacy = "/legacy/"
+  stories = "/stories/"
   shop = "/shop/"
   upgrade = "/upgrade/"
   export = ""
@@ -143,3 +144,5 @@ lastMod = false
   audioSampleNoah = "https://ttsreader.com/player/audio/Noah.mp3"
   audioSampleMichelle = "https://ttsreader.com/player/audio/Michelle.mp3"
   audioSampleLily = "https://ttsreader.com/player/audio/Lily.mp3"
+  speechify_voiceover = "http://speechify.com/voiceover?via=voiceover"
+  audioread = "https://audioread.com/?via=ttsreader"

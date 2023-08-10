@@ -1,16 +1,17 @@
 [[main]]
-  name = "Get Started"
+  name = "Player"
   url = "/player/"
   weight = 10
 
 [[main]]
-  name = "Legacy"
-  url = "/legacy/"
+  name = "Voice Over"
+  url = "http://speechify.com/voiceover?via=voiceover"
   weight = 11
+  params = { noFollow = true }
 
 [[main]]
-  name = "Stories"
-  url = "/stories/"
+  name = "Legacy"
+  url = "/legacy/"
   weight = 12
 
 [[main]]
@@ -18,6 +19,12 @@
   weight = 40
   identifier = "tools"
 
+  [[main]]
+    name = "Stories (Books)"
+    weight = 41
+    identifier = "stories"
+    url = "/stories/"
+    parent = "tools"
   [[main]]
     name = "User Manual"
     weight = 41

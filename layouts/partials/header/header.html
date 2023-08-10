@@ -71,7 +71,15 @@
               </li>
             {{ else }}
               <li class="nav-item">
+                {{ if .Params.noFollow }}
+                <a rel="nofollow" target="_blank" class="nav-link ps-0 py-1{{ if $active }} active{{ end }}" href="{{ .URL | relLangURL }}">{{ .Name }}<sup style="font-size: 9px;
+    color: orangered;
+    font-weight: bold;
+    position: relative;
+    top: -9px;"><i>&nbsp;Partner</i></sup></a>
+                {{ else }}
                 <a class="nav-link ps-0 py-1{{ if $active }} active{{ end }}" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+                {{ end }}
               </li>
             {{ end }}
           {{ end -}}
