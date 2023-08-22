@@ -1,20 +1,18 @@
 ---
-title: "Quick Start Guide"
-description: "How to work with the new TTSReader player"
-date: 2023-04-17T13:59:39+01:00
-lastmod: 2023-04-17T13:59:39+01:00
+title: "Generating Voice Overs"
+description: "How to generate audio files from synthesized speech with TTSReader"
+date: 2023-08-21T13:59:39+01:00
+lastmod: 2023-08-21T13:59:39+01:00
 draft: false
 images: []
 menu:
   docs:
     parent: "guides"
-weight: 110
+weight: 111
 toc: true
 ---
 
 <br/>
-
-// Note: this is a guide for the new player. In addition to the new player, you should know we have the [legacy player](/legacy/) and the [web-player](/webplayer/).
 
 ## Quick Start
 
@@ -22,16 +20,21 @@ toc: true
 * Paste your text
 * Select your language & preferred voice
 * Click Play
-
-That's All!
+* Make sure you like the text, voice & speed. If you don't - change them and click Play again - until it's perfect.
+* You may add pauses by inserting the following text: `{{pause:1000}}` (with 2 curly brackets on each side) in the text. The number is the pause duration in milliseconds.
+* You may use multiple languages, voices & speeds in the same file, by inserting the following text: `{{set: lang=en; name=Noah; rate=1.1}}` (with 2 curly brackets on each side) in the text. You do not need to remember that text - it is available in the voice selection dropdown. More on this subject will follow in the next sections.
 
 <br/>
 
-## The Controller
+## Mix Languages, Voices & Speeds
 
-<div style="max-width: 750px; margin: 20px auto; border-radius: 20px;overflow: hidden">
-  <img src="https://ttsreader.com/player/images/help.png" alt="TTSReader Player Controller" />
-</div>
+You may use multiple languages, voices & speeds in the same file, by inserting the following text: `{{set: lang=en; name=Noah; rate=1.1}}` (with 2 curly brackets on each side) in the text. You do not need to remember that text - it is available in the voice selection dropdown - via the 'copy' button next to each voice.
+
+Once the player reaches the setter text - it will set itself to the parameters specified by the setter - thus reading from that point on according to those params - language, voice & rate, until the next setter is reached. And so on.
+
+This way you can mix unlimited languages, voices & speeds in the same file, eventually generating a single mp3 file with all the different languages, voices & speeds.
+
+Here's a short demo on how it's done:
 
 <br/>
 

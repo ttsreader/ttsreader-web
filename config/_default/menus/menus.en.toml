@@ -5,9 +5,9 @@
 
 [[main]]
   name = "Voice Over"
-  url = "http://speechify.com/voiceover?via=voiceover"
+  url = "/docs/guides/voiceover/"
   weight = 11
-  params = { noFollow = true }
+  params = { noFollow = false }
 
 [[main]]
   name = "Legacy"
