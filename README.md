@@ -13,9 +13,12 @@
 </p>
 
 # Useful commands:
+- `npm install` - install dependencies - run once after cloning
 - `npm start` - start local development server
 - `npm run build` - build production version -> /public/ folder
 
+# How to translate:
+- [link](_readme/translate.md)
 
 ## TODO:
 
