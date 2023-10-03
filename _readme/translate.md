@@ -10,3 +10,8 @@
 
 - Copy the file `i18n/en.yaml` into `i18n/es.yaml`
 - Translate the strings in `i18n/es.yaml` - Please be careful! As many strings should be taken from the existing Spanish site.
+
+# Switching translation on / off:
+
+- Make sure multilingualMode = true in 'Params.options.multilingualMode' in the file /config/params.toml
+- In /config/config.toml - make sure 'disableLanguages' is empty or has the languages you do NOT want to show.
