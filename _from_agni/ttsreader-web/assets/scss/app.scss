@@ -1,0 +1,191 @@
+/** Import Bootstrap functions */
+@import "bootstrap/scss/functions";
+
+/** Import theme variables */
+@import "common/variables";
+
+/** Import Bootstrap */
+@import "bootstrap/scss/bootstrap";
+
+/** Import highlight.js */
+// @import "highlight.js/scss/github-dark-dimmed";
+
+/** Import KaTeX */
+@import "katex/dist/katex";
+
+/** Import theme styles */
+@import "common/fonts";
+@import "common/global";
+@import "common/dark";
+@import "components/alerts";
+@import "components/buttons";
+@import "components/code";
+@import "components/details";
+@import "components/syntax";
+@import "components/comments";
+@import "components/forms";
+@import "components/images";
+@import "components/mermaid";
+@import "components/search";
+@import "components/tables";
+@import "layouts/footer";
+@import "layouts/header";
+@import "layouts/pages";
+@import "layouts/posts";
+@import "layouts/sidebar";
+
+html, body {
+  /*overflow-x: hidden;*/
+}
+
+header {
+  box-shadow: 1px 1px 10px gainsboro;
+  opacity: 1;
+}
+
+.dropdown > .dropdown-menu {
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.dropdown > .dropdown-menu li a {
+  padding: 8px 20px;
+  border-bottom: 1px solid #ddd;
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+.dropdown > .dropdown-menu li a:hover {
+  opacity: 1;
+  border-bottom: 2px solid orangered;
+}
+
+@media not all and (hover: none) {
+  .dropdown:hover > .dropdown-menu {
+    display: block;
+  }
+}
+
+.MuiSvgIcon-fontSizeMedium {
+  width: 100px;
+  height: 100px;
+}
+
+.card > h3 {
+  color: $primary;
+}
+
+#use_cases .accordion-item {
+  border-radius: 10px;
+  border: 1px solid #3fb1f8;
+}
+
+#use_cases .accordion-item:hover {
+  border-color: $orange;
+}
+
+#use_cases .accordion-header {
+  color: #3fb1f8;
+  cursor: pointer;
+}
+
+#use_cases .accordion-header::after {
+  content: ">";
+  color: #3fb1f8;
+  font-weight: normal;
+  display: inline-block;
+  position: relative;
+  bottom: 3px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+
+.Player-preview-img-new {
+  aspect-ratio: 1.35;
+  border-radius: 10px;
+  background-image: url("/images/screenshots/player/new_player.webp");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.Player-preview-img-legacy {
+  aspect-ratio: 1.35;
+  border-radius: 10px;
+  background-image: url("/images/screenshots/player/retro_player.webp");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.Preview-img {
+  aspect-ratio: 1.35;
+  border-radius: 10px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+[data-dark-mode] .Player-preview-img-new {
+  aspect-ratio: 1.35;
+  border-radius: 10px;
+  background-image: url("/images/screenshots/player/new_player_dark.webp");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid burlywood;
+  border-right: 1px solid burlywood;
+  cursor: pointer;
+}
+
+.videowrapper {
+  float: none;
+  clear: both;
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0;
+}
+.videowrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+audio {
+  vertical-align: middle;
+  margin: 5px;
+  max-width: 100%;
+  min-width: 200px;
+}
+
+.carousel-item .card {
+  width: 300px;
+  min-height: 400px;
+  max-width: 90%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid orangered;
+  box-shadow: orange 0 10px 10px;
+}
+
+[data-dark-mode] .carousel-item .card {
+  border-color: orangered;
+  box-shadow: orange 0 10px 10px;
+}
+
+.home .carousel-item .card:hover {
+  transform: none;
+
+}
+
+[data-dark-mode] .carousel-dark .carousel-control-prev-icon,
+[data-dark-mode] .carousel-dark .carousel-control-next-icon {
+  filter: none;
+}

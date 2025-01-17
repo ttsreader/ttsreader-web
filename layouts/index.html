@@ -5,28 +5,26 @@
   <h1 class="mt-0 text-center">{{ .Title }}</h1>
   <div class="row justify-content-center">
     <div class="text-center">
-      <p class="caption-top"><i>Proudly serving millions of users since 2015</i></p>
       <h2 class="lead" style="font-size: 1.3em;">{{ .Params.lead | safeHTML }}</h2>
-
+      <p class="caption-top" style="margin-top:35px"><i>TTSReader turns any textual content into audio since 2015; Microsoft for Startups 2024<br>Trusted by millions of users worldwide, including businesses, colleges & schools, students, bloggers, authors and anyone who likes to enjoy a story or learn something new by listening.</i></p>
       <div class="row justify-content-center text-center" style="margin-top: 20px;">
-        <p class="quote">I need to ></p>
-        <div class="col-md-7 col-lg-6 card">
-          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MicIcon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></div>
-          <h2 class="h4">Listen to text & generate speech from text</h2>
-          <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'speechnotes_click_player_main', {'value': 'home_page_body'});">{{ i18n "get-started" }}</a>
-          <p class="meta">Best in class text to speech reader & synthesizer.</p>
+        <div class="col-md-7 col-lg-6 card" role="button" onclick="window.location='/player/';gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});" style="cursor: pointer;box-shadow: 0 0 10px antiquewhite;">
+          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1wmkh38" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="HeadphonesOutlinedIcon" fill="currentColor" stroke-width="0.25px"><path d="M12 3c-4.97 0-9 4.03-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7c0-4.97-4.03-9-9-9M7 15v4H5v-4zm12 4h-2v-4h2z"></path></svg></div>
+          <h2 class="h4">Listen to Textual Content</h2>
+          <a style="color: white !important; background-color: #a51b14; border-color: #a51b14" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});">Start Text Player</a>
+          <p class="meta" style="text-align: justify">Reads out loud plain text, files, PDFs, e-books and websites. Remembers text, caret position & prefs, so you can come back to listening later. Supports export to mp3 as well.</p>
         </div>
-        <!--<div class="col-md-1"></div>
-        <div class="col-md-7 col-lg-6 card">
-          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AudioFileOutlinedIcon"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6zm10-9h-4v3.88c-.36-.24-.79-.38-1.25-.38-1.24 0-2.25 1.01-2.25 2.25S9.51 19 10.75 19 13 17.99 13 16.75V13h3v-2z"></path></svg></div>
-          <h2 class="h4">Create Voice Overs (mp3, mp4)</h2>
-          <a target="_blank" rel="nofollow" class="btn btn-secondary btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechify_voiceover }}" role="button" onclick="gtag('event', 'ttsreader_click_speechify_voiceover_main', {'value': 'home_page_body'});">Start Voice Over<sup style="font-size: 11px;
-    color: orangered;
+        <div class="col-md-1"></div>
+        <div class="col-md-7 col-lg-6 card" target="_blank" rel="nofollow" href="{{ .Site.Params.links.murf }}" role="button" onclick="gtag('event', 'ttsreader_click_murf_main', {'value': 'home_page_body'});window.open('{{ .Site.Params.links.murf }}','_blank')" style="cursor: pointer; box-shadow: 0 0 10px antiquewhite;">
+          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg xmlns="http://www.w3.org/2000/svg" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg></div>
+          <h2 class="h4">Studio Grade Narrations</h2>
+          <a style="color: #ffce00 !important; background-color: #2b3140; border-color: #2b3140" class="btn btn-lg px-4 mb-2" target="_blank" rel="nofollow" href="{{ .Site.Params.links.murf }}" role="button" onclick="gtag('event', 'ttsreader_click_murf_main', {'value': 'home_page_body'});">Start Voiceover Studio<sup style="font-size: 11px;
+    color: #aaa;
     font-weight: bold;
     position: relative;
     top: -9px;"><i>&nbsp;Partner</i></sup>{{ i18n "start-transcribing" }}</a>
-          <p class="meta" style="">Generate unlimited professional voice overs in minutes. Combine voices, speed, intonations, background music & more. The generated mp3 belongs to you.</p>
-        </div>-->
+          <p class="meta" style="text-align: justify">Build professional audio experiences with Murf's new GenII AI voice generator. Mix voices, bg music, intonation & more. Enterprise quality at affordable pricing. Try for free.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -390,133 +388,6 @@
 
   </div>
 </section>
-
-
-  <section id="pricing" class="section section-sm">
-  <br/><br/>
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <h2>Pricing & Plans</h2>
-      <br/>
-    </div>
-      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <div style="flex: 1"></div>
-        <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm border-primary">
-            <div class="card-header py-3">
-              <h4 class="my-0 fw-normal">Free</h4>
-            </div>
-            <div class="card-body">
-              <p class="card-title pricing-card-title h2">$0<small class="text-muted fw-light">/mo</small></p>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>Online text to speech player</li>
-                <li>Chrome extension for reading webpages</li>
-              </ul>
-              <a href="{{ .Site.Params.links.dictation }}" type="button" class="w-100 btn btn-lg btn-outline-primary">Get started for free</a>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm border-primary">
-            <div class="card-header py-3">
-              <h4 class="my-0 fw-normal">Premium</h4>
-            </div>
-            <div class="card-body">
-              <p class="card-title pricing-card-title h2">$2<small class="text-muted fw-light">/mo</small></p>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>Premium TTSReader.com</li>
-                <li>Premium Chrome extension</li>
-                <li>Better support from the development team</li>
-                <li>No ads</li>
-              </ul>
-              <a href="{{ .Site.Params.links.upgrade }}" type="button" class="w-100 btn btn-lg btn-primary">Purchase now</a>
-            </div>
-          </div>
-        </div>
-        <div style="flex: 1"></div>
-      </div>
-
-      <h2 class="display-6 text-center mb-4">Compare plans</h2>
-
-      <div class="table-responsive">
-        <table class="table text-center">
-          <thead>
-          <tr>
-            <th style="width: 34%;"></th>
-            <th style="width: 22%;">Free</th>
-            <th style="width: 22%;">Premium</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <th scope="row" class="text-start">Unlimited text reading</th>
-            <td>✅</td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Online text to speech</th>
-            <td>✅</td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Upload files, PDFs, ebooks</th>
-            <td>✅</td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Web player</th>
-            <td>✅</td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Webpage reading Chrome extension</th>
-            <td>✅</td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Editing</th>
-            <td>✅</td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Ads free</th>
-            <td></td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Unlock features</th>
-            <td></td>
-            <td>✅</td>
-          </tr>
-          </tbody>
-
-          <tbody>
-          <tr>
-            <th scope="row" class="text-start">Recording audio - for generating audio files from text</th>
-            <td></td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Commercial license</th>
-            <td></td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Publishing license (under the following <a href="{{ .Site.Params.links.commercial }}">terms</a>)</th>
-            <td></td>
-            <td>✅</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Better support from the development team</th>
-            <td></td>
-            <td>✅</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-  </div>
-  <br/><br/>
-  </section>
 
 <section id="sister-apps" class="section section-sm bg-light" >
   <div class="container">

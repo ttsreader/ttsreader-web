@@ -1,0 +1,23 @@
+<!doctype html>
+<html style="height: 100%;" lang="{{ .Site.Params.languageTag | default "en" }}" >
+{{ partial "head/head.html" . }}
+{{ if eq .Kind "home" -}}
+{{ .Scratch.Set "class" "home" -}}
+{{ else if eq .Kind "404" -}}
+{{ .Scratch.Set "class" "error404" -}}
+{{ else if eq .Kind "page" -}}
+{{ .Scratch.Set "class" .Type -}}
+{{ .Scratch.Add "class" " single" -}}
+{{ else -}}
+{{ .Scratch.Set "class" .Type -}}
+{{ .Scratch.Add "class" " list" -}}
+{{ end -}}
+<body style="display: flex;flex-direction: column;height: 100%;width: 100%;">
+{{ partial "header/header.html" . }}
+<div style="flex: 1">
+  <iframe id="embeddedIframe" src="/embeds/{{ .Params.embedded }}/?lng={{ .Site.Params.languageTag | default "en" }}" style="height: 100%;width: 100%;"></iframe>
+</div>
+{{ partial "footer/script-footer.html" . }}
+{{ partial "footer/firebase-code.html" . }}
+</body>
+</html>

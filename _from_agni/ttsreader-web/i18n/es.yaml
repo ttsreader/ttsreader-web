@@ -1,0 +1,390 @@
+- id: get-started
+  translation: "Iniciar reproductor de texto y sintetizador"
+
+- id: on-this-page
+  translation: "En esta página"
+
+- id: search-text
+  translation: "Buscar..."
+
+- id: 404-title
+  translation: "Página no encontrada :("
+
+- id: 404-text
+  translation: "La página que buscas no existe o ha sido movida."
+
+- id: browse
+  translation: "Navegar"
+
+
+
+- id: additional-solutions
+  translation: "Soluciones adicionales de conversión de texto a voz"
+
+- id: turns-your-articles-pdf-email
+  translation: "Convierte tus artículos, PDF, correos electrónicos, etc. en podcasts, para que puedas escucharlos en tu propio reproductor de podcasts cuando sea conveniente, con todas las ventajas que viene con tu aplicación de podcasts."
+
+- id: type-to-speak
+  translation: "Escribe para hablar"
+
+- id: says-what-you-type-in-real-time
+  translation: "SpeechNinja dice lo que escribes en tiempo real. Permite a las personas con dificultades del habla hablar en voz alta utilizando voz sintetizada (AAC) y más."
+
+- id: legacy-player
+  translation: "Jugador heredado"
+
+- id: battle-tested-for-years
+  translation: "Probado en batalla durante años, sirviendo a millones de usuarios, especialmente bueno para textos muy largos."
+
+
+- id: web-player
+  translation: "Reproductor web"
+
+- id: need-to-read-a-webpage
+  translation: "¿Necesitas leer una página web? Simplemente pegue su URL aquí y haga clic en reproducir. Déjalo vacío para leer sobre los Beatles 🎸"
+
+- id: books-stories
+  translation: "Libros e historias"
+
+- id: some-of-the-best-stories
+  translation: "Escuche algunas de las mejores historias jamás escritas. Los tenemos aquí mismo. ¿Quieres subir el tuyo? Utilice el reproductor principal para cargar archivos epub."
+
+- id: simply-paste-url
+  translation: "Simplemente pegue cualquier URL (enlace a una página) y la importará y la leerá en voz alta."
+
+- id: start-stories
+  translation: "Iniciar historias"
+
+- id: start-listening
+  translation: "Empieza a escuchar"
+
+- id: chrome-extension
+  translation: "Extensión de Chrome"
+
+- id: reads-out-loud
+  translation: "Lee páginas web en voz alta, directamente desde la página."
+
+- id: get-on-store
+  translation: "Consíguelo en Chrome Store"
+
+- id: mobile-app
+  translation: "Aplicación movil"
+
+- id: ttsreader-mobile
+  translation: "TTSReader para dispositivos móviles: iOS o Android. Incluye exportación de audio a archivos mp3."
+
+- id: on-google-play
+  translation: "Consiguelo en google play"
+
+- id: new-tts-plugin
+  translation: "NUEVO 🚀 - Complemento TTS"
+
+- id: website-speak-your-content
+  translation: "Haga que su propio sitio web exprese su contenido, con una sola línea de código. Sin complicaciones."
+
+- id: get-tts-plugin
+  translation: "Obtenga el complemento TTS"
+
+- id: ttsreader-premium
+  translation: "TTSReader Premium"
+
+- id: support-our-development-team
+  translation: "Apoye a nuestro equipo de desarrollo y disfrute de una mejor experiencia sin publicidad. Los usuarios comerciales y los editores necesitan una licencia premium."
+
+- id: learn-more-premium
+  translation: "Más información sobre Premium"
+
+- id: about
+  translation: "Acerca de"
+
+- id: about-text
+  translation: "TTSReader lee en voz alta textos, páginas web, archivos PDF y libros electrónicos con voces que suenan naturales. Funciona desde el primer momento. No es necesario descargarlo ni instalarlo. No es necesario iniciar sesión. Simplemente haga clic en \"reproducir\" y disfrute escuchándolo directamente en su navegador. TTSReader recuerda su texto y su posición entre sesiones, para que pueda continuar escuchando justo donde lo dejó. También se admite la grabación del discurso generado. Funciona sin conexión, por lo que puedes usarlo en casa, en la oficina, mientras viajas, conduciendo o dando un paseo. Escuchar contenido textual usando TTSReader permite realizar múltiples tareas, leer sobre la marcha, mejorar la comprensión y más. Con soporte para múltiples idiomas, se puede utilizar de forma ilimitada."
+
+- id: use-cases
+  translation: "casos de uso"
+
+- id: get-started-free
+  translation: "Comience gratis"
+
+- id: main-use-cases
+  translation: "Casos de uso principales"
+
+- id: listen-content
+  translation: "Escuche excelente contenido"
+
+- id: world-content-textual
+  translation: "La mayor parte del contenido del mundo está en forma textual. ¡Poder escucharlo es enorme! En ese sentido, TTSReader tiene una gran ventaja sobre los podcasts. Tú eliges tu contenido, entre una variedad infinita, que incluye todo el conocimiento y la riqueza artística de la humanidad. Escuche conferencias, archivos PDF. Pegue o cargue cualquier texto desde cualquier lugar, edítelo si es necesario y escúchelo en cualquier lugar y en cualquier momento."
+
+- id: proofreading
+  translation: "Corrección de pruebas"
+
+- id: one-of-the-best-ways
+  translation: "Una de las mejores maneras de detectar errores en su escritura es escuchar cómo se lee en voz alta. Al utilizar TTSReader para la revisión, puede detectar errores que podría haber pasado por alto mientras leía en silencio, lo que le permite mejorar la calidad y precisión de su contenido escrito. Los errores pueden estar en la estructura de la oración, la puntuación y la gramática, pero también en la estructura, el orden y el contenido de su ensayo."
+
+- id: listen-web-pages
+  translation: "Escuchar paginas web"
+  
+
+- id: ttsreader-read-webpages-two-ways-a
+  translation: "TTSReader se puede utilizar para leer páginas web en voz alta de dos maneras diferentes. 1. Usando el"
+
+- id: ttsreader-read-webpages-two-ways-b
+  translation: "Jugadora regular"
+
+- id: ttsreader-read-webpages-two-ways-c
+  translation: "- pega la URL y haz clic en reproducir. El contenido del sitio web se importará al reproductor. (2) Usando nuestro"
+
+- id: ttsreader-read-webpages-two-ways-d
+  translation: "Extensión de Chrome para escuchar páginas sin salir de la página"
+
+- id: ttsreader-read-webpages-two-ways-e
+  translation: "Escuchar páginas web con TTSReader puede proporcionar una forma más accesible, conveniente y eficiente de consumir contenido en línea."
+
+
+- id: turn-ebooks-audiobooks
+  translation: "Convierte libros electrónicos en audiolibros"
+
+
+- id: upload-ebook-file-a
+  translation: "Cargue cualquier archivo de libro electrónico en formato epub y TTSReader lo leerá en voz alta, convirtiéndolo efectivamente en una alternativa de audiolibro. Puede encontrar miles de libros epub gratuitos, disponibles para descargar en el sitio "
+
+- id: upload-ebook-file-b
+  translation: "Project Gutenberg"
+
+- id: upload-ebook-file-c
+  translation: "., que es una biblioteca abierta de libros electrónicos gratuitos."
+
+
+
+- id: read-along-speed-comprehension
+  translation: ""
+
+- id: ttsreader-enables-read-along
+  translation: "TTSReader permite la lectura en paralelo resaltando la oración que se está leyendo y desplazándose automáticamente para mantenerla a la vista. De esta manera podrás seguirlo con tus propios ojos, al mismo tiempo que lo escuchas. Esto puede aumentar la velocidad de lectura y mejorar la comprensión."
+
+- id: generate-audio-files
+  translation: "Generar archivos de audio a partir de texto"
+
+- id: ttsreader-enables-exporting-a
+  translation: "TTSReader permite exportar el discurso sintetizado con un solo clic. Actualmente, esto está disponible solo en Windows y requiere"
+
+- id: ttsreader-enables-exporting-b
+  translation: "TTSReader\'s premium"
+
+- id: ttsreader-enables-exporting-c
+  translation:  ". Siguiendo los "
+
+- id: ttsreader-enables-exporting-d
+  translation: "términos comerciales"
+
+- id: ttsreader-enables-exporting-e
+  translation: ", algunas de las voces pueden usarse comercialmente para publicaciones, como narraciones. vídeos."
+
+
+- id: accessibility
+  translation: "Accesibilidad, dislexia, etc."
+
+- id: individuals-with-visual
+  translation: "Para las personas con discapacidad visual o dificultades de lectura, escuchar contenido textual, conferencias, artículos y páginas web puede ser una herramienta esencial para acceder y comprender la información."
+
+- id: language-learning
+  translation: "Aprendizaje de idiomas"
+
+- id: ttsreader-read-text-multiple-languages
+  translation: "TTSReader puede leer texto en varios idiomas, lo que proporciona a los alumnos práctica auditiva y oral. Al escuchar el texto leído en voz alta, los alumnos pueden mejorar sus habilidades de comprensión y pronunciación."
+
+- id: kids-stories-learning
+  translation: "Niños: historias y aprendizaje"
+
+- id: kids-love-stories
+  translation: "¡A los niños les encantan las historias! Y si puedes leerles historias, ¡definitivamente es lo mejor! Pero, si no puede, deje que TTSReader lea las historias por usted. Establezca la voz y la velocidad adecuadas, que sean apropiadas para su nivel de comprensión. Para los niños que están en la edad de aprender a leer, esta también puede ser una herramienta eficaz para fortalecer esa habilidad, ya que resalta cada oración que se lee."
+
+- id: main-features
+  translation: "Principales características"
+
+- id: ttsreader-free-Text-Speech
+  translation: "TTSReader es un lector de texto a voz gratuito que admite todos los navegadores modernos, incluidos Chrome, Firefox y Safari."
+
+- id: includes-multiple-languages-accents
+  translation: "Incluye múltiples idiomas y acentos. Si estás en Chrome, también tendrás acceso a las voces de Google. Súper fácil de usar: no es necesario descargar ni iniciar sesión. Aquí hay algunas características más."
+
+- id: fun-online-free
+  translation: "Diversión, en línea, gratis. Escuche excelente contenido"
+
+
+- id: drag-drop-play-a
+  translation: "Arrastra y suelta la reproducción (o copia directamente la reproducción de texto). Eso es todo. Sin descargas. Sin inicios de sesión. Sin contraseñas. Sin problemas. Simplemente divertido de usar y escuchar excelente contenido. Genial para escuchar de fondo. Genial para corregir pruebas. Genial para niños y más."
+
+- id: drag-drop-play-b
+  translation: "Obtenga más información, incluido un YouTube que creamos, aquí"
+
+
+
+- id: multilingual-natural-voices
+  translation: "Voces naturales y multilingües"
+
+- id: multilingual-natural-voices-text
+  translation: "Facilitamos voces de alta calidad con sonido natural de diferentes fuentes. Hay hombres y mujeres. Voces femeninas, en diferentes acentos y diferentes idiomas. Elija la voz que desee, inserte texto, haga clic en reproducir para generar el discurso sintetizado y disfrute escuchándolo."
+
+- id: play-where-stopped
+  translation: "Salir, volver Reproducir desde donde lo dejó"
+
+- id: play-where-stopped-text
+  translation: "TTSReader recuerda el artículo y la última posición cuando está en pausa, incluso si cierra el navegador. De esta manera, podrás volver a escuchar justo donde lo dejaste anteriormente. Funciona en Chrome y Safari en el móvil también. Ideal para escuchar artículos."
+
+- id: recorded-podcasts
+  translation: "vs. Pódcasts grabados"
+
+
+- id: recorded-podcasts-text-a
+  translation: "En muchos aspectos, el habla sintetizada tiene ventajas sobre los podcasts grabados. Éstos son algunos: En primer lugar, tienes contenido ilimitado y gratuito. Eso incluye artículos y libros de alta calidad que no están disponibles en podcasts. Segundo, es gratis. En tercer lugar, casi no utiliza datos, por lo que también está disponible sin conexión y ahorra dinero. Si le gusta escuchar mientras viaja, mientras conduce o camina, obtenga nuestra "
+
+- id: recorded-podcasts-text-b
+  translation: "Aplicación de lectura de texto para Android"
+
+
+- id: read-pdf-texts-websites
+  translation: "Leer archivos PDF, textos y archivos PDF. Sitios web"
+
+
+- id: read-pdf-texts-websites-text-a
+  translation: "TTSReader extrae el texto de archivos pdf y lo lee en voz alta. También es útil para simplemente copiar texto desde un PDF a cualquier lugar. Además, resalta el texto que se está leyendo actualmente, para que puedas seguirlo con la vista. Si desea escuchar sitios web específicamente, como blogs, noticias o wiki, debe obtener nuestra extensión"
+
+- id: read-pdf-texts-websites-text-b
+  translation: "gratuita para Cromo"
+
+
+- id: export-speech-audio-files
+  translation: "Exportar voz a archivos de audio"
+
+
+- id: export-speech-audio-files-text-a
+  translation: "TTSReader permite exportar la voz sintetizada a archivos de audio mp3. Actualmente, esto está disponible solo en Windows y requiere el permiso"
+
+- id: export-speech-audio-files-text-b
+  translation: "premium"
+
+
+- id: pricing-plans
+  translation: "Precios y planes"
+
+- id: free-plan
+  translation: "Gratis"
+
+- id: online-text-speech-player
+  translation: "Reproductor de texto a voz en línea"
+
+- id: chrome-extension-web
+  translation: "Extensión de Chrome para leer páginas web"
+
+- id: free-get-started
+  translation: "Comience gratis"
+
+- id: premium-plan
+  translation: "De primera calidad"
+
+- id: premium-feature-one
+  translation: "Premium TTSReader.com"
+
+- id: premium-feature-two
+  translation: "Extensión premium de Chrome"
+
+- id: premium-feature-three
+  translation: "Mejor soporte del equipo de desarrollo."
+
+- id: premium-feature-four
+  translation: "Sin anuncios"
+
+- id: purchase-now
+  translation: "Comprar ahora"
+
+- id: compare-plans
+  translation: "Comparar planes"
+
+- id: plan-comparison-feature1
+  translation: "Lectura de texto ilimitada"
+
+- id: plan-comparison-feature2
+  translation: "Texto a voz en línea"
+
+- id: plan-comparison-feature3
+  translation: "Cargar archivos, PDF, libros electrónicos"
+
+- id: plan-comparison-feature4
+  translation: "reproductor web"
+
+- id: plan-comparison-feature5
+  translation: "Extensión de Chrome para lectura de páginas web"
+
+- id: plan-comparison-feature6
+  translation: "Edición"
+
+- id: plan-comparison-feature7
+  translation: "Anuncios gratis"
+
+- id: plan-comparison-feature8
+  translation: "Funciones de desbloqueo"
+
+- id: plan-comparison-feature9
+  translation: "Grabación de audio: para generar archivos de audio a partir de texto"
+
+- id: plan-comparison-feature10
+  translation: "Licencia comercial"
+
+- id: plan-comparison-feature11a
+  translation: "Licencia de publicación (bajo las siguientes"
+
+- id: plan-comparison-feature11b
+  translation: "términos"
+
+- id: plan-comparison-feature12
+  translation: "Mejor soporte del equipo de desarrollo."
+
+
+- id: sister-apps
+  translation: "Aplicaciones hermanas desarrolladas por nuestro equipo"
+
+- id: start-transcribing
+  translation: "Empezar a transcribir"
+
+- id: speechnotes
+  translation: "Notas de discurso"
+
+- id: dictation-transcription
+  translation: "Dictado y transcripción"
+
+- id: automatically-transcribe
+  translation: "Escribe con tu voz gratis o transcribe automáticamente grabaciones de audio y vídeo"
+
+- id: buttons-kids-dictionary
+  translation: "Botones - Diccionario para niños"
+
+- id: learn-more
+  translation: "Aprende más"
+
+- id: turns-device-games
+  translation: "Convierte tu dispositivo en juegos interactivos con múltiples botones"
+
+- id: animals-numbers-colors
+  translation: "Animales, números, colores, contar, letras, objetos y más. Niveles diferentes. Plurilingüe. Sin anuncios. Hecho por padres, para nuestros propios hijos."
+
+- id: get-in-touch
+  translation: "Formas de ponerse en contacto, comentarios y comunidad"
+
+- id: contact-page
+  translation: "pagina de contacto"
+
+- id: ways-to-get-in-touch
+  translation: "para conocer varias formas de ponerse en contacto con nosotros, enviarnos comentarios e interactuar con nuestra comunidad de usuarios y desarrolladores."
+
+- id: proudly-serving
+  translation: "Orgullosamente sirviendo a millones de usuarios desde 2015"
+
+- id: i-need-to
+  translation: "Necesito >"
+
+- id: listen-to-text
+  translation: "Escuche texto y genere voz a partir de texto"
+
+- id: best-text-to-speech
+  translation: "El mejor lector y sintetizador de texto a voz de su clase."

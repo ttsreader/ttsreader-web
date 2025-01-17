@@ -1,0 +1,81 @@
+[[main]]
+  name = "Player"
+  url = "/player/"
+  weight = 10
+
+[[main]]
+  name = "Voice Over"
+  url = "/docs/guides/voiceover/"
+  weight = 11
+  params = { noFollow = false }
+
+[[main]]
+  name = "Legacy"
+  url = "/legacy/"
+  weight = 12
+
+[[main]]
+  name = "More"
+  weight = 40
+  identifier = "tools"
+
+  [[main]]
+    name = "Stories (Books)"
+    weight = 41
+    identifier = "stories"
+    url = "/stories/"
+    parent = "tools"
+  [[main]]
+    name = "User Manual"
+    weight = 41
+    identifier = "guide"
+    url = "/docs/guides/quick-start-new-player/"
+    parent = "tools"
+  [[main]]
+    name = "Portfolio"
+    weight = 42
+    identifier = "portfolio"
+    url = "/#portfolio"
+    parent = "tools"
+  [[main]]
+    name = "Plugin"
+    weight = 42
+    identifier = "plugin"
+    url = "/plugin/"
+    parent = "tools"
+  [[main]]
+    name = "Mobile Apps"
+    weight = 43
+    identifier = "mobile"
+    url = "/mobile/"
+    parent = "tools"
+  [[main]]
+    name = "Speechnotes - dictation & transcription"
+    weight = 44
+    identifier = "tools-speechnotes"
+    url = "https://speechnotes.co/"
+    parent = "tools"
+  [[main]]
+    name = "File converters"
+    weight = 45
+    identifier = "tools-converters"
+    url = "/converters/"
+    parent = "tools"
+  [[main]]
+    name = "Pricing"
+    weight = 49
+    identifier = "pricing"
+    url = "/#pricing"
+    parent = "tools"
+  [[main]]
+    name = "Docs"
+    weight = 50
+    identifier = "docs"
+    url = "/docs/"
+    parent = "tools"
+  [[main]]
+    name = "Contact"
+    weight = 51
+    identifier = "contact"
+    url = "/contact/"
+    parent = "tools"

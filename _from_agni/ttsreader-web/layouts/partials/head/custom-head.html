@@ -1,0 +1,43 @@
+<!-- Custom head -->
+
+<script>
+  function getOs() {
+    let userAgentLowerCaseString = (navigator?.userAgent + navigator?.platform + navigator?.userAgentData).toLowerCase();
+    if (/android/i.test(userAgentLowerCaseString)) {
+      return "android";
+    }
+
+    if (/mac/i.test(userAgentLowerCaseString) && "ontouchend" in document) {
+      return "ios";
+    }
+
+    if (/ipad|iphone|ipod|ios/i.test(userAgentLowerCaseString)) {
+      return "ios";
+    }
+
+    if (/mac/i.test(userAgentLowerCaseString)) {
+      return "mac";
+    }
+
+    if (/win/i.test(userAgentLowerCaseString)) {
+      return "win";
+    }
+
+    return "unknown"
+  }
+
+  window.addEventListener("load", (event) => {
+    let os = getOs();
+    console.log('page fully loaded, os = ' + os);
+    if (os==="android" || os==="ios") {
+      /*document.querySelectorAll("[href='/dictate/'], [href='https://ttsreader.com/dictate/'], [href='http://localhost:1313/dictate/']").forEach(el => {
+        if (el instanceof Element) {
+          el.setAttribute("href", el.getAttribute("href").replace("/dictate/","/mobile/"));
+        }
+      });*/
+    } else {
+      console.log('desktop');
+    }
+  });
+</script>
+

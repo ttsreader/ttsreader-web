@@ -1,0 +1,45 @@
+<!-- Custom head -->
+
+<link rel="alternate" hreflang="x-default" href="https://ttsreader.com/" />
+<link rel="alternate" hreflang="en" href="https://ttsreader.com/" />
+<link rel="alternate" hreflang="de" href="https://ttsreader.com/de/" />
+<link rel="alternate" hreflang="es" href="https://ttsreader.com/es/" />
+<link rel="alternate" hreflang="fr" href="https://ttsreader.com/fr/" />
+<link rel="alternate" hreflang="it" href="https://ttsreader.com/it/" />
+<link rel="alternate" hreflang="ja" href="https://ttsreader.com/ja/" />
+<link rel="alternate" hreflang="zh" href="https://ttsreader.com/zh/" />
+
+<script>
+  function playUrl() {
+    let inEl = document.querySelector('#url_input_box');
+    if (inEl) {
+      let url = inEl.value || "https://en.wikipedia.org/wiki/The_Beatles";
+      debugger;
+      url = url.trim();
+      if (url.includes(" ")) {
+        // Not a url, but rather text => move to main box and play:
+        let textBoxEl = document.getElementById("text_box");
+        if (textBoxEl) {
+          document.getElementById("application").scrollIntoView();
+          let oldText = textBoxEl.value;
+          if (oldText && oldText!="Click Play button to listen to this text. You may edit this text here, or upload a file such as text, pdf or e-book.") {
+            alert('Seems like this is not a link, but rather plain text. To play it - use the in-page text player.');
+          } else {
+            // text box is empty:
+            textBoxEl.value = url;
+            startOrPause();
+          }
+        }
+      } else {
+        if (!url.toLowerCase().startsWith("https://") && !url.toLowerCase().startsWith("http://")) {
+          url = "https://" + url;
+        }
+        window.open('webplayer/?url=' + url, '_self');
+      }
+    }
+  }
+
+  function playRandomArticle() {
+    window.open('webplayer/?url=rand', '_self');
+  }
+</script>

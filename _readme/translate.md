@@ -13,5 +13,5 @@
 
 # Switching translation on / off:
 
-- Make sure multilingualMode = true in 'Params.options.multilingualMode' in the file /config/params.toml
+- Make sure multilingualMode = true in 'Params.options.multilingualMode' in the file /config/_default/params.toml
 - In /config/config.toml - make sure 'disableLanguages' is empty or has the languages you do NOT want to show.

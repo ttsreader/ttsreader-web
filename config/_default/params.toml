@@ -2,9 +2,9 @@
 
 ## Homepage
 name = "TTSReader 🔊"
-title = "#1 Text To Speech (TTS) Reader Online. Free & Unlimited"
+title = "🔊 TTS (Text to Speech) Reader Online"
 titleSeparator = "|"
-description = "#1 Text To Speech. Type or upload any text, file, website & book for listening online, proofreading, reading-along or generating professional mp3 voice-overs."
+description = "Listen to ANY textual content with this AI Text To Speech Reader. Type or upload any text, file, website & book for listening online, proofreading, reading-along or generating professional mp3 voice-overs."
 
 
 ## Documentation
@@ -145,4 +145,5 @@ lastMod = false
   audioSampleMichelle = "https://ttsreader.com/player/audio/Michelle.mp3"
   audioSampleLily = "https://ttsreader.com/player/audio/Lily.mp3"
   speechify_voiceover = "http://speechify.com/voiceover?via=voiceover"
+  murf = "https://get.murf.ai/bz1lyjc4o3nr"
   audioread = "https://audioread.com/?via=ttsreader"

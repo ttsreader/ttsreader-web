@@ -4,14 +4,14 @@
   weight = 10
 
 [[main]]
-  name = "Voice Over"
-  url = "/docs/guides/voiceover/"
+  name = "Studio"
+  url = "https://get.murf.ai/bz1lyjc4o3nr"
   weight = 11
-  params = { noFollow = false }
+  params = { noFollow = true }
 
 [[main]]
-  name = "Legacy"
-  url = "/legacy/"
+  name = "Plugin"
+  url = "/plugin/"
   weight = 12
 
 [[main]]
@@ -38,10 +38,10 @@
     url = "/#portfolio"
     parent = "tools"
   [[main]]
-    name = "Plugin"
+    name = "Legacy Player"
     weight = 42
-    identifier = "plugin"
-    url = "/plugin/"
+    identifier = "legacy"
+    url = "/legacy/"
     parent = "tools"
   [[main]]
     name = "Mobile Apps"
@@ -65,7 +65,7 @@
     name = "Pricing"
     weight = 49
     identifier = "pricing"
-    url = "/#pricing"
+    url = "/docs/support/pricing/"
     parent = "tools"
   [[main]]
     name = "Docs"

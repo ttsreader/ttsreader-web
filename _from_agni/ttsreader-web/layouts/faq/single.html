@@ -1,0 +1,68 @@
+{{ define "main" }}
+	<div class="row flex-xl-nowrap">
+		<div class="col-lg-5 col-xl-4 docs-sidebar{{ if ne .Site.Params.options.navbarSticky true }} docs-sidebar-top{{ end }} d-none d-lg-block">
+			<nav {{ if eq .Site.Params.menu.section.collapsibleSidebar false }}id="sidebar-default" {{ end }}class="docs-links" aria-label="Main navigation">
+				{{ partial "sidebar/docs-menu.html" . }}
+			</nav>
+		</div>
+		{{ if ne .Params.toc false -}}
+		<nav class="docs-toc{{ if ne .Site.Params.options.navbarSticky true }} docs-toc-top{{ end }} d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+			{{ partial "sidebar/docs-toc.html" . }}
+		</nav>
+		{{ end -}}
+		{{ if .Params.toc -}}
+		<main class="docs-content col-lg-11 col-xl{{ if eq .Site.Params.options.fullWidth false }}-9{{ end }}">
+		{{ else -}}
+		<main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
+		{{ end -}}
+			{{ if .Site.Params.options.breadCrumb -}}
+				<!-- https://discourse.gohugo.io/t/breadcrumb-navigation-for-highly-nested-content/27359/6 -->
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						{{ partial "main/breadcrumb" . -}}
+						<li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+					</ol>
+				</nav>
+			{{ end }}
+			<h1 class="h2">{{ .Title }}</h1>
+			<h2 class="h4">{{ .Params.description | safeHTML }}</h2>
+			{{ if ne .Params.toc false -}}
+			<nav class="d-xl-none" aria-label="Quaternary navigation">
+				{{ partial "sidebar/docs-toc.html" . }}
+			</nav>
+			{{ end -}}
+
+			{{ .Content }}
+
+      <br/>
+      <hr/>
+      <h4>Need more help?</h4>
+      <ul>
+        <li>Try the search box at the top of this page.</li>
+        <li>Try the main <a href="/faq/">FAQ</a> page.</li>
+        <li>Share your issue on our <a target="_blank" href="{{ .Site.Params.links.issues }}">issues forum</a> on GitHub, as well as search for a similar issue already posted and perhaps solved.</li>
+        <li>Shoot us an email at <code>admin@speechlogger.com</code>.</li>
+        <li>Premium users may fill out the <a target="_blank" href="{{ .Site.Params.links.premiumSupportForm }}">following form for premium support</a>.</li>
+        <li>For suggestions, feature requests and other discussions, please join our <a target="_blank" href="{{ .Site.Params.links.discussions }}">discussions forum</a>.</li>
+        <li>More ways to get in touch with us on the <a href="/contact/">contact page</a>.</li>
+      </ul>
+
+			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+				{{ if .Site.Params.lastMod -}}
+					{{ partial "main/last-modified.html" . }}
+				{{ end -}}
+				{{ if .Site.Params.editPage -}}
+					{{ partial "main/edit-page.html" . }}
+				{{ end -}}
+			</div>
+			{{ partial "main/docs-navigation.html" . }}
+			<!--
+			{{ if not .Site.Params.options.collapsibleSidebar -}}
+				{{ partial "main/docs-navigation.html" . }}
+			{{ else -}}
+				<div class="my-n3"></div>
+			{{ end -}}
+			-->
+		</main>
+	</div>
+{{ end }}

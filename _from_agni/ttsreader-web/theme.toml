@@ -1,0 +1,14 @@
+name = "TTSReader"
+license = "UNLICENSED"
+licenselink = ""
+description = "Hugo theme helping you build modern documentation websites that are secure, fast, and SEO-ready — by default."
+
+homepage = "https://github.com/ttsreader/ttsreader-web"
+demosite = "https://ttsreader.com"
+
+tags = ["landing page", "documentation", "blog", "minimal", "modern", "customizable", "search", "dark mode", "bootstrap"]
+features = ["security aware", "fast by default", "seo-ready", "development tools", "bootstrap framework", "netlify-ready", "full text search", "page layouts", "dark mode"]
+
+[author]
+  name = "Ronen Rabinovici, based on Henk Verlinde's (https://henkverlinde.com) DOKs theme (https://doks.netlify.app/)"
+  homepage = "https://ttsreader.com"

@@ -1,0 +1,39 @@
+
+{{ define "main" }}
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-10 col-xl-8">
+    <article style="min-height: 100vh;">
+      <h1>{{ .Title }}</h1>
+      <br/>
+      <p style="text-align: center">TTSReader is available on mobile through our mobile apps. Here are links to get the app on the App Store (iOS) or Play Store (Android)</p>
+      <br/>
+      <div style="text-align: center; margin: 10px auto 60px">
+        <a href="{{ .Site.Params.links.androidApp }}" target="_blank" title="Download TTSReader for Android on Google's Play Store">
+          <img class="getitonplay-img" alt="Download TTSReader for Android on Google's Play Store" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" style="display: inline-block;
+    width: 40%;
+    max-width:400px;
+    min-width: 250px;">
+        </a>
+
+        <a class="getitonplay-img" href="{{ .Site.Params.links.iosApp }}" target="_blank" style="display: inline-block;
+    max-width:400px;
+    min-width: 250px;" title="Download Simple Text Reader - a TTSReader sister app for iOS.">
+          <img style="width:87%;" alt="Download Simple Text Reader on the App Store" src="/images/Download_on_the_App_Store_Badge_US-UK_135x40.svg">
+        </a>
+      </div>
+      <br/>
+      <div style="text-align: center;font-size: larger">
+        <p class="h4">On a personal computer?</p>
+        <br/>
+        <button class="btn btn-outline-primary" style="text-align: center" onclick="window.open('/player/','_self');">
+          <svg style="width: 100px;height: 100px;fill:grey" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="LaptopChromebookIcon"><path d="M22 18V3H2v15H0v2h24v-2h-2zm-8 0h-4v-1h4v1zm6-3H4V5h16v10z"></path></svg>
+          <br>
+          Get the desktop version
+        </button>
+      </div>
+    </article>
+  </div>
+</div>
+
+<br/><br/><br/>
+{{ end }}

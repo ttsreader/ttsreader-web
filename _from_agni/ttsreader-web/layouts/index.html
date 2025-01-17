@@ -1,0 +1,603 @@
+{{ define "main" }}
+
+
+<section class="section container-fluid mt-n3 pb-3">
+  <h1 class="mt-0 text-center">{{ .Title }}</h1>
+  <div class="row justify-content-center">
+    <div class="text-center">
+      <p class="caption-top"><i>{{ i18n "proudly-serving" }}</i></p>
+      <h2 class="lead" style="font-size: 1.3em;">{{ .Params.lead | safeHTML }}</h2>
+
+      <div class="row justify-content-center text-center" style="margin-top: 20px;">
+        <p class="quote">{{ i18n "i-need-to" }}</p>
+        <div class="col-md-7 col-lg-6 card">
+          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MicIcon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></div>
+          <h2 class="h4">{{ i18n "listen-to-text" }}</h2>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'speechnotes_click_player_main', {'value': 'home_page_body'});">{{ i18n "get-started" }}</a>
+          <p class="meta">{{ i18n "best-text-to-speech" }}</p>
+        </div>
+        <!--<div class="col-md-1"></div>
+        <div class="col-md-7 col-lg-6 card">
+          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AudioFileOutlinedIcon"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6zm10-9h-4v3.88c-.36-.24-.79-.38-1.25-.38-1.24 0-2.25 1.01-2.25 2.25S9.51 19 10.75 19 13 17.99 13 16.75V13h3v-2z"></path></svg></div>
+          <h2 class="h4">Create Voice Overs (mp3, mp4)</h2>
+          <a target="_blank" rel="nofollow" class="btn btn-secondary btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechify_voiceover }}" role="button" onclick="gtag('event', 'ttsreader_click_speechify_voiceover_main', {'value': 'home_page_body'});">Start Voice Over<sup style="font-size: 11px;
+    color: orangered;
+    font-weight: bold;
+    position: relative;
+    top: -9px;"><i>&nbsp;Partner</i></sup>{{ i18n "start-transcribing" }}</a>
+          <p class="meta" style="">Generate unlimited professional voice overs in minutes. Combine voices, speed, intonations, background music & more. The generated mp3 belongs to you.</p>
+        </div>-->
+      </div>
+    </div>
+  </div>
+
+    <!--<div class="row text-center" style="margin: 40px auto;">
+      <p style="font-size: 1.2em;">Natural sounding AI voices are available - here are a few samples</p>
+      <div class="col justify-content-center text-center">
+        <br/>
+        <p><i>Synthesized with TTSReader on Edge browser</i></p>
+        <div>Christopher - <audio style="vertical-align: middle" controls src="{{ .Site.Params.links.audioSampleChristopher }}" preload="metadata"/></div>
+        <div>Michelle - &nbsp;&nbsp;&nbsp;&nbsp;<audio controls src="{{ .Site.Params.links.audioSampleMichelle }}" preload="metadata"/></div>
+      </div>
+      <div class="col justify-content-center text-center">
+        <br/>
+        <p><i>Synthesized with TTSReader on Chrome browser</i></p>
+        <div>Noah - <audio controls src="{{ .Site.Params.links.audioSampleNoah }}" preload="metadata"></audio></div>
+        <div>Lily - &nbsp;&nbsp;<audio controls src="{{ .Site.Params.links.audioSampleLily }}" preload="metadata"></audio></div>
+        <br/>
+      </div>
+
+      <p style="font-size: 1.2em;margin-top: 40px;">Ready to start? <a href="/player/">Click here for our main text-to-speech reader</a>, or take a look at our complementary text-to-speech solutions including our experimental (please tell us what you think) <a href="/stories/" style="text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px yellow, 0 0 20px yellow, 0 0 25px yellow, 0 0 30px yellow, 0 0 35px yellow;color: red;font-weight:bold;padding: 3px 10px;border-radius: 10px;display: inline-block;">NEW STORIES 📚</a> read-along >></p>
+    </div>-->
+
+</section>
+
+
+
+
+
+
+{{ end }}
+
+{{ define "sidebar-prefooter" }}
+  
+
+<!--<section id="stories" class="section section-sm">
+  <div style="max-width: 95%;padding: 0 20px;margin: auto;">
+    <div class="row justify-content-center text-center">
+      <h3>Listen to Stories 📚</h3>
+      <p class="lead">This is NEW & EXCITING! Experimental - content library with some of the best stories ever written. Please try, share & tell us what you think! Need something else, like generating mp3 voice overs? Aid with speaking? Keep scrolling, or jump to our <a href="#portfolio">full text-to-speech portfolio</a>.</p>
+      <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" style="width: 600px;max-width: 100%;margin: 30px auto;">
+        <div class="carousel-indicators" style="position: absolute;bottom: -50px;">
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        </div>
+        <div class="carousel-inner">
+          {{- range ( where site.RegularPages "Section" "stories" | first 1 ) }}
+          <div class="carousel-item active" data-bs-interval="3000">
+            <a href="{{ .Permalink }}" class="card">
+              <p class="h5">{{ .Title }}</p>
+              <p>{{ .Params.intro }}</p>
+              <img src="{{ .Permalink }}/cover.webp">
+            </a>
+          </div>
+          {{ end }}
+          {{- range first 4 ( where site.RegularPages "Section" "stories" | after 1) }}
+          <div class="carousel-item" data-bs-interval="3000">
+            <a href="{{ .Permalink }}" class="card">
+              <p class="h5">{{ .Title }}</p>
+              <p>{{ .Params.intro }}</p>
+              <img src="{{ .Permalink }}/cover.webp">
+            </a>
+          </div>
+          {{ end }}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>-->
+
+
+<section id="portfolio" class="section section-sm">
+  <div style="max-width: 95%;padding: 0 20px;margin: auto;">
+
+    <h3 style="text-align: center;margin-bottom: 30px;">{{ i18n "additional-solutions" }}</h3>
+  <div class="row justify-content-center text-center" style="margin-top: -30px;">
+
+    <div class="col-md-5 col-sm-8 card">
+      <br/>
+      <a target="_blank" rel="nofollow" style="color: white;background:linear-gradient(119.6deg,#fe40fe 9.06%,#fe25a3 49.04%,#fe5435 93.41%);" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.audioread }}" role="button" onclick="gtag('event', 'ttsreader_click_audioread_body', {'value': 'home_page_body'});">Text To Podcast<sup style="font-size: 11px;
+    color: lightgoldenrodyellow;
+    font-weight: bold;
+    position: relative;
+    top: -9px;"><i>&nbsp;Partner</i></sup>&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
+      <br/>
+      <a target="_blank" href="{{ .Site.Params.links.audioread }}" rel="nofollow" onclick="gtag('event', 'ttsreader_click_audioread_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/audioread.webp');"></div></a>
+      <br/>
+      <p class="meta">{{ i18n "turns-your-articles-pdf-email" }}</p>
+    </div>
+    &nbsp;&nbsp;
+    <div class="col-md-5 col-sm-8 card">
+      <br/>
+      <a target="_blank" style="color: white;background-color: #5d2f86" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechninja }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">{{ i18n "type-to-speak" }}&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
+      <br/>
+      <a target="_blank" href="{{ .Site.Params.links.speechninja }}" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/speechninja.webp');"></div></a>
+      <br/>
+      <p class="meta">{{ i18n "says-what-you-type-in-real-time" }}</p>
+    </div>
+    &nbsp;&nbsp;
+    <div class="col-md-5 col-sm-8 card">
+      <br/>
+      <a style="color: white;background-color: #39a7bb" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});">{{ i18n "legacy-player" }}&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
+      <br/>
+      <a href="{{ .Site.Params.links.legacy }}" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});"><div class="Player-preview-img-legacy" style=""></div></a>
+      <br/>
+      <p class="meta">{{ i18n "battle-tested-for-years" }}</p>
+    </div>
+  </div>
+
+  <div style="max-width: 95%; margin: 30px auto;width: 800px;text-align: center;">
+    <a style="color: white;background-color: black;padding-left: 30px;padding-right: 30px;" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.webplayer }}" role="button" onclick="gtag('event', 'ttsreader_click_webplayer_body', {'value': 'home_page_body'});">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{  i18n "web-player" }}&nbsp;&rarr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i18n "start-transcribing" }}</a>
+    <br/><br/>
+    <p>{{ i18n "need-to-read-a-webpage" }}</p>
+    <div style="display: flex; max-width: 800px;" >
+      <input id="url_input_box" style="padding: 5px;display: inline-block;flex: 1;border-radius: 20px 0 0 20px;padding-left: 10px;" type="text" placeholder="https://en.wikipedia.org/wiki/The_Beatles" /><button style="border-radius: 0 20px 20px 0;" onclick="playUrl()">PLAY ▷</button>
+    </div>
+  </div>
+
+  <br/><br/>
+  </div>
+
+
+  <div class="bg-light" style="max-width: 95%;padding: 0 20px;margin: auto;border-radius: 20px;">
+    <div class="row justify-content-center text-center" style="max-width: 100%;margin: auto;">
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">{{ i18n "books-stories" }}</h3>
+        <p>{{ i18n "some-of-the-best-stories" }}</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.stories }}" role="button" onclick="gtag('event', 'ttsreader_click_stories_body', {'value': 'home_page_body'});">{{ i18n "start-stories" }}{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>&nbsp;&nbsp;
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">{{ i18n "web-player" }}</h3>
+        <p>{{  i18n "simply-paste-url" }}</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.webPlayer }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">{{ i18n "start-listening" }}{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>&nbsp;&nbsp;
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">{{ i18n "chrome-extension" }}</h3>
+        <p>{{ i18n "reads-out-loud" }}</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.chromeExtension }}" role="button" onclick="gtag('event', 'ttsreader_click_extension_body', {'value': 'home_page_body'});">{{ i18n "get-on-store" }}{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>
+    </div>
+    <div class="row justify-content-center text-center" style="max-width: 100%;margin: auto;">
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">{{ i18n "mobile-app" }}</h3>
+        <p>{{ i18n "ttsreader-mobile" }}</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="/mobile/" role="button" onclick="gtag('event', 'ttsreader_click_mobile_body', {'value': 'home_page_body'});">{{ i18n "on-google-play" }}{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>&nbsp;&nbsp;
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">{{ i18n "new-tts-plugin" }}</h3>
+        <p>{{ i18n "website-speak-your-content" }}</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="/plugin/" role="button" onclick="gtag('event', 'ttsreader_click_iosApp_body', {'value': 'home_page_body'});">{{ i18n "get-tts-plugin" }}{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>&nbsp;&nbsp;
+      <div class="col-sm card" style="display: flex;flex-direction: column">
+        <h3 class="h4">{{ i18n "ttsreader-premium" }}</h3>
+        <p>{{  i18n "support-our-development-team"  }}</p>
+        <div style="flex: 1;min-height: 10px;"></div>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.upgrade }}" role="button" onclick="gtag('event', 'ttsreader_click_upgrade_body', {'value': 'home_page_body'});">{{ i18n "learn-more-premium" }}{{ i18n "start-dictating" }}</a>
+        <br/>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section id="introduction" class="section section-sm">
+    <br/>
+    <div class="container">
+      <div style="max-width: 800px;margin: auto; font-size: larger; text-align: justify">
+        <h2 class="h2 text-center" >{{ i18n "about" }}</h2>
+        <br/>
+        <p>{{ i18n "about-text" }} <a href="/#use_cases">{{ i18n "use-cases" }}</a>.</p>
+        <br/>
+        <p style="text-align: center"><a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_getstarted2_body', {'value': 'home_page_body'});">{{ i18n "get-started-free" }}{{ i18n "start-dictating" }}</a></p>
+        <br/><br/>
+      </div>
+    </div>
+  </section>
+
+<section id="use_cases" class="section section-sm">
+  <br/><br/>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <h2>{{ i18n "main-use-cases" }}</h2>
+      <div class="col-lg-5">
+        <h3 class="h4">{{ i18n "listen-content" }}</h3>
+        <p style="text-align: justify;">{{ i18n "world-content-textual" }}</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">{{ i18n "proofreading" }}</h3>
+        <p style="text-align: justify;">{{ i18n "one-of-the-best-ways" }}</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">{{ i18n "listen-web-pages" }}</h3>
+        <p style="text-align: justify;">
+
+          {{ i18n "ttsreader-read-webpages-two-ways-a" }}
+          <a href="/player/">{{ i18n "ttsreader-read-webpages-two-ways-b" }}</a>
+          {{ i18n "ttsreader-read-webpages-two-ways-c" }}
+          <a href="" target="_blank">{{ i18n "ttsreader-read-webpages-two-ways-d" }}</a>.<br/>
+          {{ i18n "ttsreader-read-webpages-two-ways-e" }}
+        </p>
+      </div>
+    </div>
+    <br/>
+    <div class="row justify-content-center text-center">
+      <br/>
+      <div class="col-lg-5">
+        <h3 class="h4">{{ i18n "turn-ebooks-audiobooks" }}</h3>
+        <p style="text-align: justify;">
+          {{ i18n "upload-ebook-file-a" }}
+          <a href="https://www.gutenberg.org/" target="_blank">{{ i18n "upload-ebook-file-b" }}</a>
+          {{ i18n "upload-ebook-file-c" }}
+        </p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">{{ i18n "read-along-speed-comprehension" }}</h3>
+        <p style="text-align: justify;">{{ i18n "ttsreader-enables-read-along" }}</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">{{ i18n "generate-audio-files" }}</h3>
+        <p style="text-align: justify;">
+          {{ i18n "ttsreader-enables-exporting-a" }}
+          <a href="/upgrade/">{{ i18n "ttsreader-enables-exporting-b" }} </a>
+          {{ i18n "ttsreader-enables-exporting-c" }}
+          <a href="https://ttsreader.com/blog/2017/05/10/commercial/">{{ i18n "ttsreader-enables-exporting-d" }}</a>
+          {{ i18n "ttsreader-enables-exporting-e" }}
+        
+        </p>
+      </div>
+    </div>
+    <br/>
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-5">
+        <h3 class="h4">{{ i18n "accessibility" }}</h3>
+        <p style="text-align: justify;">{{ i18n "individuals-with-visual" }}</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">{{ i18n "language-learning" }}</h3>
+        <p style="text-align: justify;">{{ i18n "ttsreader-read-text-multiple-languages" }}</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">{{ i18n "kids-stories-learning" }}</h3>
+        <p style="text-align: justify;">{{ i18n "kids-love-stories" }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bar background-white" id="speech-to-text-features">
+  <br>
+  <div class="container text-center">
+    <div class="heading text-center">
+      <h2>{{ i18n "main-features" }}</h2>
+    </div>
+
+    <div class="box-simple" style="min-height: auto;max-width: 700px;margin: auto">
+      <h3>{{ i18n "ttsreader-free-Text-Speech" }}</h3>
+      <p>
+        {{ i18n "includes-multiple-languages-accents" }}
+      </p>
+
+      <br>
+    </div>
+
+
+
+
+      <div class="row justify-content-center text-center">
+        <br>
+
+        <div class="col-lg-5">
+          <div class="box-simple">
+            <div class="icon">
+              <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
+            </div>
+            <h3>{{ i18n "fun-online-free" }}</h3>
+            <p>
+                {{ i18n "drag-drop-play-a" }}
+                <a href="/blog/2017/05/10/ttsreader/">{{ i18n "drag-drop-play-b" }}</a>.
+            </p>
+          </div>
+        </div>
+
+
+
+        <div class="col-lg-5">
+          <div class="box-simple">
+            <div class="icon">
+              <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+            </div>
+            <h3>{{ i18n "multilingual-natural-voices" }}</h3>
+            <p>
+                {{ i18n "multilingual-natural-voices-text" }}
+            </p>
+          </div>
+        </div>
+
+
+
+        <div class="col-lg-5">
+          <div class="box-simple">
+            <div class="icon">
+              <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+            </div>
+            <h3>{{ i18n "play-where-stopped" }}</h3>
+            <p>
+                {{ i18n "play-where-stopped-text" }}
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="row justify-content-center text-center">
+        <br>
+
+        <div class="col-lg-5">
+          <div class="box-simple">
+            <div class="icon">
+              <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+            </div>
+            <h3>{{ i18n "recorded-podcasts" }}</h3>
+            <p>
+              {{ i18n "recorded-podcasts-text-a" }}
+              <strong><a href="/blog/2017/05/10/ttsreaderdroid/"> {{ i18n "recorded-podcasts-text-b" }}</a></strong>.
+            </p>
+          </div>
+        </div>
+
+
+
+        <div class="col-lg-5">
+          <div class="box-simple">
+            <div class="icon">
+              <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            </div>
+            <h3>{{ i18n "read-pdf-texts-websites" }}</h3>
+            <p>
+                {{ i18n "read-pdf-texts-websites-text-a" }}
+                <strong><a href="/blog/2017/05/10/ttsreaderx/"> {{ i18n "read-pdf-texts-websites-text-b" }}</a></strong>.
+            </p>
+          </div>
+        </div>
+
+
+
+        <div class="col-lg-5">
+          <div class="box-simple">
+            <div class="icon">
+              <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+            </div>
+            <h3>{{ i18n "export-speech-audio-files" }}</h3>
+            <p>
+                {{ i18n "export-speech-audio-files-text-a" }}
+                <strong><a href="/upgrade/" target="_blank"> {{ i18n "export-speech-audio-files-text-b" }}</a></strong>.                
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+
+  </div>
+</section>
+
+
+  <section id="pricing" class="section section-sm">
+  <br/><br/>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <h2>{{ i18n "pricing-plans" }}</h2>
+      <br/>
+    </div>
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div style="flex: 1"></div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm border-primary">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">{{ i18n "free-plan" }}</h4>
+            </div>
+            <div class="card-body">
+              <p class="card-title pricing-card-title h2">$0<small class="text-muted fw-light">/mo</small></p>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>{{ i18n "online-text-speech-player" }}</li>
+                <li>{{ i18n "chrome-extension-web" }}</li>
+              </ul>
+              <a href="{{ .Site.Params.links.dictation }}" type="button" class="w-100 btn btn-lg btn-outline-primary">{{ i18n "free-get-started" }}</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm border-primary">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">{{ i18n "premium-plan" }}</h4>
+            </div>
+            <div class="card-body">
+              <p class="card-title pricing-card-title h2">$2<small class="text-muted fw-light">/mo</small></p>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>{{ i18n "premium-feature-one" }}</li>
+                <li>{{ i18n "premium-feature-two" }}</li>
+                <li>{{ i18n "premium-feature-three" }}</li>
+                <li>{{ i18n "premium-feature-four" }}</li>
+              </ul>
+              <a href="{{ .Site.Params.links.upgrade }}" type="button" class="w-100 btn btn-lg btn-primary">{{ i18n "purchase-now" }}</a>
+            </div>
+          </div>
+        </div>
+        <div style="flex: 1"></div>
+      </div>
+
+      <h2 class="display-6 text-center mb-4">{{ i18n "compare-plans" }}</h2>
+
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+          <tr>
+            <th style="width: 34%;"></th>
+            <th style="width: 22%;">{{ i18n "free-plan" }}</th>
+            <th style="width: 22%;">{{ i18n "premium-plan" }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature1" }}</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature2" }}</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature3" }}</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature4" }}</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature5" }}</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature6" }}</th>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature7" }}</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature8" }}</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          </tbody>
+
+          <tbody>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature9" }}</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature10" }}</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start"> 
+              {{ i18n "plan-comparison-feature11a" }} 
+              <a href="{{ .Site.Params.links.commercial }}">{{ i18n "plan-comparison-feature11b" }}</a>)
+            
+            </th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">{{ i18n "plan-comparison-feature12" }}</th>
+            <td></td>
+            <td>✅</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+  <br/><br/>
+  </section>
+
+<section id="sister-apps" class="section section-sm bg-light" >
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <p class="h3">{{ i18n "sister-apps" }}</p>
+      <br/>
+      <br/><br/>
+      <div class="row justify-content-center text-center">
+
+        <div class="col-md-6 card" style="display: flex;flex-direction: column">
+          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
+            <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MicIcon"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
+          </div>
+          <p class="h3">{{ i18n "speechnotes" }}</p>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechnotes }}" role="button" onclick="gtag('event', 'ttsreader_click_speechnotes_body', {'value': 'home_page_body'});">{{ i18n "start-transcribing" }}{{ i18n "start-transcribing" }}</a>
+          <p class="h5">{{ i18n "dictation-transcription" }}</p>
+          <p class="meta">{{  i18n "automatically-transcribe" }}</p>
+        </div>
+        &nbsp;&nbsp;
+        <div class="col-md-6 card" style="display: flex;flex-direction: column">
+          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
+            <img src="/images/buttonsLogo.webp" width="100px">
+          </div>
+          <p class="h3">{{ i18n "buttons-kids-dictionary" }}</p>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.buttons }}" role="button" onclick="gtag('event', 'ttsreader_click_buttons_body', {'value': 'home_page_body'});">{{ i18n "learn-more" }}{{ i18n "start-dictating" }}</a>
+          <p class="h5">{{ i18n "turns-device-games" }}</p>
+          <p class="meta">{{ i18n "animals-numbers-colors" }}</p>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <section id="contact" class="section section-sm">
+  <br/>
+    <div class="container">
+      <h2 style="text-align: center">{{ i18n "get-in-touch" }}</h2>
+      <p style="text-align: center"><span style="display: block;text-align: center;"><i>Visit our <a href="/contact/">{{ i18n "contact-page" }}</a>, {{ i18n "ways-to-get-in-touch" }}</i></span></p>
+    </div>
+    <br/>
+</section>
+
+  <br/><br/><br/><br/>
+  
+{{ end }}
+
+{{ define "sidebar-footer" }}
+<section class="section section-sm container-fluid">
+  <div class="row justify-content-center text-center">
+    <div class="col-lg-9">
+      {{- .Content -}}
+    </div>
+  </div>
+</section>
+{{ end }}
