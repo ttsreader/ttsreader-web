@@ -1,0 +1,92 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [ {
+      "source": "/api/fetchHtml",
+      "function": {
+        "functionId": "fetchHtml",
+        "region": "us-central1"
+      }
+    } ],
+    "redirects": [
+      {
+        "source": "/speechninja",
+        "destination": "https://speechninja.co/",
+        "type": 301
+      },
+      {
+        "source": "/speechninja/",
+        "destination": "https://speechninja.co/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/05/10/commercial/",
+        "destination": "/docs/guides/commercial/",
+        "type": 301
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|ttf|woff|woff2|svg|eot)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=7200000"
+          }
+        ]
+      },
+      {
+        "source": "**/*.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=7200000"
+          }
+        ]
+      },
+      {
+        "source": "**/*.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=7200000"
+          }
+        ]
+      },
+      {
+        "source": "tests/ffmpeg.html",
+        "headers": [
+          {
+            "key": "Cross-Origin-Embedder-Policy",
+            "value": "require-corp"
+          },
+          {
+            "key": "Cross-Origin-Opener-Policy",
+            "value": "same-origin"
+          }
+        ]
+      }
+    ]
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint"
+      ]
+    }
+  ]
+}

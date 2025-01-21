@@ -14,8 +14,12 @@
 {{ end -}}
 <body style="display: flex;flex-direction: column;height: 100%;width: 100%;">
 {{ partial "header/header.html" . }}
-<div style="flex: 1">
-  <iframe id="embeddedIframe" src="/embeds/{{ .Params.embedded }}/?lng={{ .Site.Params.languageTag | default "en" }}" style="height: 100%;width: 100%;"></iframe>
+<div style="flex: 1;position: relative;">
+  <div style="text-align: center; max-width: 800px; margin: auto; padding: 20px;">
+    <h1>{{ .Title }}</h1>
+    <h2>{{ .Params.description }}</h2>
+  </div>
+  <iframe id="embeddedIframe" src="/embeds/{{ .Params.embedded }}/?lng={{ .Site.Params.languageTag | default "en" }}" style="height: 100%;width: 100%;position:absolute;left: 0;right: 0; top:0; bottom: 0;"></iframe>
 </div>
 {{ partial "footer/script-footer.html" . }}
 {{ partial "footer/firebase-code.html" . }}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="no-js consumer" lang="fr" style="scroll-behavior: smooth;"> <!-- Page Specific -->
+<head>
+
+	<title>TTSReader | Synthétiseur vocal En ligne. Précis. Gratuit.</title>
+	<meta content="Synthétiseur vocal gratuit en ligne. Précis avec des voix naturelles, multilingue. Temps réel. Il est gratuit &amp; le sera toujours." name="description"/>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-47292499-3'); // Specific for ttsreader.
+	</script>
+	<!-- End: Global site tag (gtag.js) - Google Analytics -->
+
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="https://ttsreader.com/speaker_icon.ico" rel="icon" type="image/x-icon">
+
+	<style>
+		@font-face{font-family:'Arizonia';font-style:normal;font-weight:400;src:local('Arizonia'),local('Arizonia-Regular'),url(https://fonts.gstatic.com/s/arizonia/v6/2LCopz-tiFTquWPI_IJCyBTbgVql8nDJpwnrE27mub0.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Arizonia';font-style:normal;font-weight:400;src:local('Arizonia'),local('Arizonia-Regular'),url(https://fonts.gstatic.com/s/arizonia/v6/PwrsyFTYH2Wmsvpn0dx4s_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01mxJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/RjgO7rYTmqiVp7vzi-Q5URJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/LWCjsQkB6EMdfHrEVqA1KRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+1F00-1FFF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0370-03FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0102-0103,U+1EA0-1EF1,U+20AB}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01mxJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/RjgO7rYTmqiVp7vzi-Q5URJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/LWCjsQkB6EMdfHrEVqA1KRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+1F00-1FFF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0370-03FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0102-0103,U+1EA0-1EF1,U+20AB}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Droid Sans Mono';font-style:normal;font-weight:400;src:local('Droid Sans Mono'),local('DroidSansMono'),url(https://fonts.gstatic.com/s/droidsansmono/v7/ns-m2xQYezAtqh7ai59hJYdJ2JT0J65PSe7wdxAnx_I.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}body{overflow-x:hidden;margin:0;font-family:"Century Gothic","Apple Gothic",sans-serif}select{font-family:cursive;font-weight:bold;border-radius:6px;background-color:#fac660;box-shadow:3px 3px black;margin-left:20px}select:focus{outline:0;background-color:white}#content{width:960px;max-width:90%;line-height:160%;margin:auto auto}#header{position:relative;height:175px}#phonograph_img{width:140px;height:175px;background:url('../assets/images/phonograph_small_crayon.png');background-size:100%;display:block;position:absolute;left:10px;z-index:-99}#phonograph_credit{width:140px;height:175px;display:block;position:absolute;left:10px;border-radius:20px}#logo_container{width:100%;height:150px}#logo{display:block;position:static;width:100%;max-width:500px;height:150px;margin:10px auto;margin-top:10px;background-image:url('https://speechlogger.appspot.com/images/20150607_long_header.png');background-repeat:no-repeat;background-color:transparent;background-size:contain}#access{display:block;width:100%;line-height:220%}#access ul{list-style:none;text-align:center;font-weight:bold;font-size:110%;padding:0}#access li{display:inline-block;margin:5px 16px;background-color:rgba(151,209,253,0.4);border:1px gray;border-radius:20px;padding:7px 20px;box-shadow:0 3px 3px rgba(0,0,0,0.5)}#access li:hover{cursor:pointer;background-color:rgba(151,209,253,1)}#access li>a{color:black;text-decoration:none}h1,h2,h3,h4{text-align:center;line-height:150%}h1{vertical-align:middle;text-shadow:2px 2px #fff;color:#7d0303}h2{clear:both;opacity:.8}p{color:#655a5a}#content p{text-align:justify}.center{text-align:center}.resizeableYoutube{width:50%;min-width:336px;max-width:560px;float:right;margin-left:25px;margin-top:5px}.resizeableYoutube>div{position:relative;padding-bottom:64%;height:0}.resizeableYoutube iframe{position:absolute;top:0;left:0;width:100%;height:100%}.ad_336x280{width:336px;height:280px;float:right;margin-left:25px;margin-top:5px}#content #userReviews p{width:80%;margin:30px auto;text-align:center;font-size:120%;color:gray;font-style:italic}.ad_728x15{clear:both;width:728px;height:90px;margin:20px auto}.ad_728x90{clear:both;width:728px;height:90px;margin:20px auto}.ad_120x600{width:120px;height:600px;position:absolute;right:-150px;bottom:0}#application{position:relative;clear:both;max-width:90%;padding:20px;border-radius:10px 10px 10px 10px;margin:0 auto;background:url('wood_texture.jpg')}#buttons_row{height:100px;margin:20px auto;margin-top:0;width:100%;position:relative}#speak_button_container{position:absolute;top:0;left:50%}#speak_button{margin:0;margin-left:-50px;opacity:.8;width:100px;height:100px;background-color:transparent;background-image:url('start_button.png');cursor:pointer;border-radius:50px}#speak_button:hover{opacity:1}#left_half_container{display:inline-block;margin:0;padding:0;width:50%}#left_buttons{margin-right:60px;height:100px;text-align:center;line-height:100px;overflow-y:hidden;padding-right:5px}#reset_button{vertical-align:middle;display:inline-block;opacity:.8;width:50px;height:50px;margin:0 auto;background-color:transparent;background-image:url('restart.png');cursor:pointer;border-radius:10px;box-shadow:3px 3px black;background-repeat:no-repeat;background-size:contain;border:1px black solid}#reset_button:hover{opacity:1;margin-bottom:5px}#clear_button{vertical-align:middle;display:inline-block;opacity:.8;width:50px;height:50px;margin:0 auto;background-color:transparent;background-image:url('new3.png');cursor:pointer;border-radius:10px;box-shadow:3px 3px black;background-repeat:no-repeat;background-size:contain;border:1px black solid}#clear_button:hover{opacity:1;margin-bottom:5px}#right_half_container{position:absolute;top:40px;right:0;width:50%}#right_buttons{margin-left:40px;text-align:center}#text_box,#text_box_mirror{display:block;height:300px;width:90%;margin:auto;background-color:white;padding:20px;overflow-y:scroll;font-family:"Droid Sans Mono",monospace;font-size:16px}#text_box::selection{background-color:yellow}.zero_height_container{margin:0;height:0;width:100%;overflow-y:hidden}#placeholder{color:gray;font-weight:bold}#text_box::-webkit-scrollbar{width:16px}#text_box::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);-webkit-border-radius:10px;border-radius:10px}#text_box::-webkit-scrollbar-thumb{-webkit-border-radius:10px;border-radius:10px;background:rgba(0,0,0,0.3);-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5)}#text_box::-webkit-scrollbar-thumb:hover{-webkit-border-radius:10px;border-radius:10px;background:rgba(0,0,0,0.6);-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5)}#footer{width:100%;background-color:#7d0303;padding-bottom:10px}#footer_menu{text-align:center;width:100%;border-top:solid 1px gray}#footer_menu a{display:inline-block;padding:10px 20px;margin:0 20px;border-radius:20px;font-weight:bold;color:#ffecc7}#footer_menu a:hover,a:visited,a:link,a:active{text-decoration:none}#languageLinks a{display:inline-block;padding:10px 10px;margin:0 2px;border-radius:20px;font-weight:normal;color:green}#footer_menu a:hover{background-color:#ffecc7;color:black}#footer p{margin-bottom:0}
+
+		html,body {
+			width: 100vw;
+			padding: 0;
+			margin: 0;
+			overflow-x: hidden;
+		}
+
+
+		h1 {
+			position: relative;
+			top: 70px;
+		}
+
+		#header {
+			position: relative;
+		}
+
+		#donateButtonTop {
+			width: 100px;
+			height: 30px;
+			position: absolute;
+			top: 65px;
+			right: 10px;
+			z-index: 999;
+		}
+
+		#donateButtonCenter {
+			width: 100px;
+			height: 30px;
+			margin: 10px auto;
+			z-index: 999;
+		}
+
+		#android_promo {
+			direction: ltr;
+			position: relative;
+			margin: 20px auto;
+			background-color: antiquewhite;    max-height: 100px; overflow-y: hidden; overflow-x: hidden;
+			padding: 10px;
+			border-radius: 10px;
+		}
+		#android_promo p{ max-height:80px; overflow-y:hidden }
+
+		#android_promo:hover {
+			background-color: #FBD29B;
+		}
+
+		#android_app_left_text {
+			direction: ltr;
+			font-weight: lighter;
+			margin-left: 230px;
+		}
+
+		.link_box a,a:hover,a:visited { color:inherit; text-decoration:none; }
+		.link_box {max-width: 90%;margin: 0 auto;padding: 10px;}
+
+		#store_img_container{
+			display: block;
+			position: absolute;
+			height: 100%;
+			width: 210px;
+			bottom: 50%;
+		}
+
+		#store_logo {
+			width: 210px;
+			height: 80px;
+		}
+
+		#logo-img {
+			display: block;
+			position: absolute;
+			width: 210px;
+			height: 80px;
+			bottom: -40px;
+		}
+
+		.ad_120x600{width:120px;height:600px;position:absolute;left:-150px;bottom:0}
+		.ad_160x600{width:160px;height:600px;position:absolute;right:-190px;bottom:0}
+
+		#top_pane {
+			height: 34px;
+			position: fixed;
+			top: 0;
+			right:0;
+			left:0;
+			background-color: #7d0303;
+			line-height: 34px;
+			z-index: 999;
+			padding: 0;
+			overflow-y: hidden;
+			color: white;
+		}
+
+		#top_menu {
+			margin: 0 20px;
+			font-size: 14px;
+			font-weight: normal;
+			text-align: left;
+			display: inline-block;
+			text-space: 80%;
+			font-family: Arial;
+		}
+
+		#top_menu a {
+			display: inline-block;
+			margin: 0 5px;
+			padding: 0 5px;
+			color: white;
+		}
+
+		#top_menu a:hover, a:visited, a:link, a:active {
+			text-decoration: none;
+		}
+
+		#top_menu a:hover {
+			background-color: #8d1010;
+		}
+
+		#shareButtons {
+			display: block;
+			position: absolute;
+			right: 160px;
+			top: 3px;
+		}
+
+		#donateButton {
+			display: block;
+			overflow-y: hidden;
+			position: absolute;
+			right: 20px;
+			width: 100px;
+			top: 4px;
+			text-align: center;
+		}
+
+		#phonograph_img, #phonograph_credit {
+			bottom: -20px;
+		}
+
+	</style>
+
+	<!-- fb metas -->
+	<meta property="og:title" content="Synthétiseur vocal En ligne. Précis. Gratuit." />
+	<meta property="og:site_name" content="TTSReader.com"/>
+	<meta property="og:description" content="Synthétiseur vocal gratuit en ligne. Précis avec des voix naturelles, multilingue. Temps réel. Il est gratuit &amp; le sera toujours." />
+	<meta property="og:image" content="https://ttsreader.com/images/tile_1400x560.jpg"/>
+	<meta property="og:locale:alternate" content="en_US" />  <!-- En -->
+	<meta property="og:locale:alternate" content="fr_FR" />  <!-- French -->
+	<meta property="og:locale:alternate" content="it_IT" />  <!-- Italian -->
+	<meta property="og:locale:alternate" content="es_ES" />  <!-- Spanish -->
+	<meta property="og:locale:alternate" content="de_DE" />  <!-- German -->
+	<meta property="og:locale:alternate" content="ja_JP" />  <!-- Japanese -->
+	<meta property="og:locale:alternate" content="zh_CN" />  <!-- Chinese -->
+	<!-- end of fb metas -->
+
+	<link rel="alternate" hreflang="x-default" href="https://ttsreader.com/" />
+	<link rel="alternate" hreflang="en" href="https://ttsreader.com/" />
+	<link rel="alternate" hreflang="de" href="https://ttsreader.com/de/" />
+	<link rel="alternate" hreflang="es" href="https://ttsreader.com/es/" />
+	<link rel="alternate" hreflang="fr" href="https://ttsreader.com/fr/" />
+	<link rel="alternate" hreflang="it" href="https://ttsreader.com/it/" />
+	<link rel="alternate" hreflang="ja" href="https://ttsreader.com/ja/" />
+	<link rel="alternate" hreflang="zh" href="https://ttsreader.com/zh/" />
+	<link rel="alternate" hreflang="ar" href="https://ttsreader.com/ar/" />
+	<link rel="alternate" hreflang="he" href="https://ttsreader.com/he/" />
+	<link rel="alternate" hreflang="ko" href="https://ttsreader.com/ko/" />
+	<link rel="alternate" hreflang="pt" href="https://ttsreader.com/pt/" />
+	<link rel="alternate" hreflang="ru" href="https://ttsreader.com/ru/" />
+	<link rel="alternate" hreflang="ro" href="https://ttsreader.com/ro/" />
+	<link rel="alternate" hreflang="hi" href="https://ttsreader.com/hi/" />
+	<link rel="alternate" hreflang="nl" href="https://ttsreader.com/nl/" />
+
+	<script>
+		localStorage.setItem("interfaceLang", "fr");
+	</script>
+
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+	<script>
+		window.addEventListener("load", function(){
+			window.cookieconsent.initialise({
+				"palette": {
+					"popup": {
+						"background": "#000"
+					},
+					"button": {
+						"background": "#f1d600"
+					}
+				},
+				"content": {
+					"href": "https://ttsreader.com/privacy/"
+				}
+			})});
+	</script>
+
+</head>
+
+<body>
+
+<div id="top_pane">
+	<div id="top_menu">
+		<a href="#about" target="_self">Sur</a>
+		<a href="https://speechnotes.co/fr/" target="_blank" title="Online text editor with speech recognition">Speechnotes</a>
+		<a href="https://speechlogger.com/" target="_blank" title="Speech Recognition & Instant Translation">Speechlogger</a>
+		<a href="mailto:admin@speechlogger.com" target="_blank">Contactez-nous</a>
+	</div>
+</div>
+
+<div class="hero" style="width: 100vw; height: 100vh;background-color: #7d0303; display: flex; flex-direction: column;">
+	<div style="height: 34px;"></div>
+	<iframe src="../embeds/player/fr.html" style="width: 100%; flex: 1; border: none;"></iframe>
+</div>
+
+<a id="about"></a>
+<br/>
+
+<div id="content">
+
+	<div id="header">
+		<a id="phonograph_img" href="https://commons.wikimedia.org/wiki/File:VictorVPhonograph.jpg#/media/File:VictorVPhonograph.jpg" title="Image d&#39;un phonographe Victor, par Norman Bruderhofer - Collection de John Lampert-Hopkins. Sous licence CC BY-SA 2.5 via Wikimedia Commons"></a><a id="phonograph_credit" href="https://commons.wikimedia.org/wiki/File:VictorVPhonograph.jpg#/media/File:VictorVPhonograph.jpg" title="Image d&#39;un phonographe Victor, par Norman Bruderhofer - Collection de John Lampert-Hopkins. Sous licence CC BY-SA 2.5 via Wikimedia Commons"></a><h1>Synthétiseur vocal<br>En ligne. Précis. Gratuit.</h1>
+	</div>
+
+	<h2>Il lit instantanément à voix haute n&#39;importe quel texte avec une voix nette et naturelle</h2>
+
+	<div class="center">
+		<p>Une application Web qui fonctionne très bien à la fois sur Chrome et Safari. Il n&#39;est pas nécessaire de télécharger ou d&#39;installer de logiciel. Il n&#39;y a pas non plus de procédure de connexion fastidieuse à suivre. Il suffit de coller le texte et de cliquer sur &#39;&#39;lecture&#39;&#39;.</p>
+		<p>Il fonctionne également sur Chrome pour mobile. Il est idéal pour écouter des articles lorsque vous conduisez, que vous êtes en voyage, que vous faites de l&#39;exercice, que vous travaillez et bien plus encore.</p>
+	</div><br>
+
+	<h2>Textes rédigés de podcast</h2>
+	<h3>Ecoutez des articles et des livres intéressants tout en travaillant ou conduisant</h3>
+	<!-- <div class="resizeableYoutube">
+        <div><iframe src="https://www.youtube.com/embed/Xu1nOUuucFE?rel=0" frameborder="0" allowfullscreen></iframe></div>
+    </div>-->
+	<p>TTSReader est vraiment utile pour les gens occupés qui veulent pouvoir écouter des écrits tout en vaquant à leur occupations.
+		<br>Par exemple - vous pouvez écouter des articles entiers de Wikipédia (il suffit de les copier et de les coller ici), ou certains documents que vous avez besoin d&#39;étudier pour le travail ou pour parfaire vos connaissances.
+		<br>Regardez cette vidéo sur YouTube pour voir comment il lit l&#39;œuvre du Dr. Seuss   &#39;&#39;Le chat chapeauté&#39;&#39;. Vous serez surpris.
+	</p><br><h4>Il vous permet de ne pas accumuler des tonnes de trafic et de charges de données mobiles</h4>
+	<p>Les applications de podcast classiques consomment des tonnes de données, tout comme les longs fichiers audio également volumineux. Au contraire, le TTSReader utilise des moteurs de synthèse vocale, qui sont intégrés au système de votre téléphone mobile. De cette façon, vous pouvez écouter des heures de textes de podcasts presque sans consommer de données. Cette caractéristique fait de ce logiciel l&#39;outil idéal pour les conducteurs et tout ceux qui veulent écouter des écrits intéressants sur la route.</p><br>
+	<h4>Méthode révolutionnaire pour écrire un livre vite et bien</h4>
+	<p><a style="color: blue" href="https://www.librinova.com/librairie/george-parisse/methode-revolutionnaire-pour-ecrire-un-livre-vite-et-bien-en-26-pages-chrono" target="_blank">Méthode révolutionnaire pour écrire un livre vite et bien en 26 pages chrono! DE GEORGE PARÎSSE</a></p>
+	<br/>
+	<h3> Éducatif &amp; Professionnel pour les enfants</h3>
+	<p>Les enfants aimeront écouter de belles histoires, et c&#39;est également un outil idéal pour leur développement. Rien n&#39;est comparable à la lecture de l&#39;histoire faite par papa et maman à l&#39;heure du coucher. Mais, avec le TTSReader vous pouvez maintenant les laisser écouter des histoires supplémentaires en complément de celles lues par maman &amp; papa. Essayez-le, les réactions que nous avons eues en retour prouvent que les enfants l&#39;adorent !
+	</p><br><h3>Il constitue une aide pour les personnes ayant des difficultés de lecture</h3>
+	<p>Les personnes ayant des difficultés de lecture (régulière ou temporaire), mais qui ne veulent pas entraver le développement de leur autonomie utilise le TTSReader comme assistant.
+	</p><br><h3>Narration &amp; doublage de films, présentations et davantage encore</h3>
+	<p>Il suffit de taper le texte que vous devez dire dans la langue souhaitée (vous pouvez d&#39;abord le traduire à l&#39;aide de Google Traduction) - cliquez sur le bouton de lecture - et enregistrez le message vocal.
+		<br>Vous venez de créer votre fichier audio professionnel dans toutes les langues.
+	</p><br><br><h2>Commentaires &amp; réactions des utilisateurs (4,5 étoiles !)</h2>
+	<p>Nous avons élaboré ce logiciel pour nos utilisateurs. C&#39;est la raison pour laquelle nous sommes si heureux que vous nous ayez fait part de vos commentaires. Nos utilisateurs ont attribué à TTSReader une note supérieur 4,5 étoiles sur le site de la boutique en ligne Chrome ! Cette note est supérieure à celles attribuées aux autres solutions alternatives en ligne. Voici quelques-uns des commentaires laissés par les utilisateurs sur le site de la <a href="https://chromewebstore.google.com/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg" rel="nofollow" target="_blank" title="Les commentaires sur le TTSReader sur le site de la boutique en ligne">boutique en ligne</a>:</p>
+	<div id="userReviews">
+		<p>&#39;&#39;Il fonctionne parfaitement. et il est gratuit C&#39;est le meilleur synthétiseur vocal que l&#39;on peut utiliser de façon illimitée mes enfants l&#39;adorent Merci beaucoup&#39;&#39;
+		</p>
+		<p>&#39;&#39;Il fonctionne à merveille J&#39;ai essayé plusieurs autres applications et extensions &quot;de synthèse vocal&quot; et c&#39;est le seul qui fonctionne et il fonctionne bien !! &quot;
+		</p>
+		<p>&#39;&#39;Fantastique ! Les phrases sont claires et le rythme est parfait ! &quot;
+		</p>
+	</div>
+	<p>... Et il y en a beaucoup d&#39;autres. Lisez les tous sur le site de la <a href="https://chromewebstore.google.com/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg" rel="nofollow" target="_blank" title="Les commentaires sur le TTSReader sur le site de la boutique en ligne">boutique en ligne Chrome</a></p>
+	<p>Merci beaucoup les gars ! Vos commentaires nous motive pour continuer à créer d&#39;autres excellents produits</p><br> <h2>Instructions  &amp; davantage encore</h2>
+	<h4>Instructions</h4>
+	<P>Collez dans la zone de texte de l&#39;application le texte que vous souhaitez faire lire.
+		<br>Cliquez sur &quot;lecture&quot;. Et voilà. TTSReader s&#39;occupe du reste, de sorte que vous pouvez écouter avec plaisir.
+		<br>
+		<br><b>Pause &amp; lecture - </b>tout clic sur le bouton central &quot;lecture/pause&quot; arrêtera la lecture ou la reprendra à l&#39;endroit où elle s&#39;est arrêtée.
+		<br><b>Recommencer - </b>cliquez sur le bouton &quot;rembobiner&quot; pour reprendre la lecture depuis le début.
+		<br><b>Réglage de la langue &amp; du rythme de lecture - </b>aussi bien la langue que le rythme de la voix peuvent être modifiés pour s&#39;adapter à vos besoins. Les langues prises en charge sont : l&#39;anglais britannique, l&#39;anglais américain, l&#39;espagnol, le français, l&#39;italien, l&#39;allemand, le japonais, le coréen et le chinois.
+	</p><br><h4>Compatibilité</h4>
+	<p>TTSReader est réellement multi-plateforme, si vous le faites fonctionner sur Chrome ou Safari. Il fonctionne très bien sur les ordinateurs de bureau, les Mac, les ordinateurs portables, les Chromebook et même les téléphones mobiles.
+	</p><br>
+	<h4>Confidentialité</h4>
+	<p>Sur TTSReader.com nous respectons votre vie privée. <a style="color: blue" href="https://ttsreader.com/docs/guides/privacy/" target="_blank">Privacy Policy</a></p>
+	<br>
+	<h4>Clause de non- responsabilité</h4>
+	<p>Malgré nos efforts, les résultats de la synthèse vocale pourraient ne pas être exacts. Par ailleurs, TTSReader.com est un service fourni en l&#39;état et nous ne pouvons garantir qu&#39;il continuera à fonctionner dans l&#39;avenir (partagez-le avec des amis pour faire en sorte qu&#39;il fonctionne pour longtemps :))
+	</p><br><h4>Nous apprécions vos commentaires &amp; votre soutien
+</h4>
+	<p>Si vous avez des commentaires, des idées ou des demandes, veuillez <a target="_blank" href="mailto:admin@speechlogger.com">nous contactez</a>, nous serons vraiment heureux de les entendre.
+		<br>Si vous aimez TTSReader, montrez-nous que vous nous soutenez en nous attribuant une <a rel="nofollow" href="https://chromewebstore.google.com/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg" target="_blank" title="Donnez-nous 5 étoiles s&#39;il vous plaît, nous apprécierions vraiment :)">note</a> sur le site la boutique en ligne Chrome, partagez avec des amis, ou citez-nous dans vos messages et sur vos blogs. Vos amis et followers apprécieront également. Vous pouvez également contribuer en faisant un petit don (du style &quot;offrez-moi un café&quot;).
+	</p><br><h3> Faites la connaissance de mes petites soeurs - Autres applications de synthèse vocale</h3>
+	<ul>
+		<li>
+			<a href="http://speechninja.co" target="_blank" title="Prenez du plaisir à parler avec notre synthétiseur vocal"><b>SpeechNinja AAC</b> - </a>
+			Si vous cherchez une solution de communication améliorée  &amp; alternative (un logiciel de synthèse vocale destinée à des textes courts &amp; rapides), le nouveau <a href="http://speechninja.co" target="_blank">SpeechNinja</a> est la solution que vous recherchez.
+		</li>
+		<li>
+			<a href="https://speechnotes.co/fr/" target="_blank" title="Essayez notre bloc-notes de reconnaissance vocale en ligne"><b>Speechnotes</b> - </a>
+			Bloc-notes professionnel de synthèse vocale (dictée) pour Chrome.
+		</li>
+		<li>
+			<a href="https://speechlogger.appspot.com/fr/" target="_blank" title="Sous-titrage et traduction instantanée en ligne"><b>Speechlogger</b> - </a>
+			Sous-titrage et traduction instantanée en ligne.
+		</li>
+	</ul>
+	<div id="donateButtonCenter">
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+			<input type="hidden" name="cmd" value="_s-xclick" />
+			<input type="hidden" name="hosted_button_id" value="ATE9M96JNAYY8" />
+			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+			<img alt="" border="0" src="https://www.paypal.com/en_IL/i/scr/pixel.gif" width="1" height="1" />
+		</form>
+	</div>
+
+
+</div>
+
+<div id="footer">
+	<div id="footer_menu">
+		<a id="contact_us" href="mailto:admin@speechlogger.com" target="_blank">Contactez nous</a>
+		<a href="http://speechninja.co" target="_blank" title="Prenez du plaisir à parler avec notre synthétiseur vocal">SpeechNinja AAC</a>
+		<a href="https://speechnotes.co/fr/" target="_blank" title="Essayez notre bloc-notes de reconnaissance vocale en ligne">Synthèse vocale (Dactylographie sous la dictée)</a>
+		<a href="https://speechlogger.appspot.com/fr/" target="_blank" title="Sous-titrage et traduction instantanée en ligne">Traduction de la voix</a>
+		<a href="https://chromewebstore.google.com/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg" target="_blank" title="Donnez-nous 5 étoiles s&#39;il vous plaît, nous apprécierions vraiment :)">Évaluez nous</a>
+		<br>
+		<div id="languageLinks">
+			<a href="https://ttsreader.com/">English</a>
+			<a href="https://ttsreader.com/de/">Deutsch</a>
+			<a href="https://ttsreader.com/es/">español</a>
+			<a href="https://ttsreader.com/fr/">Français</a>
+			<a href="https://ttsreader.com/it/">italiano</a>
+			<a href="https://ttsreader.com/ja/">日本語</a>
+			<a href="https://ttsreader.com/zh/">中國</a>
+			<a href="https://ttsreader.com/ar/">العربية</a>
+			<a href="https://ttsreader.com/he/">עברית</a>
+			<a href="https://ttsreader.com/ko/">한국어</a>
+			<a href="https://ttsreader.com/pt/">Português</a>
+			<a href="https://ttsreader.com/ru/">Русский</a>
+			<a href="https://ttsreader.com/ro/">Română</a>
+			<a href="https://ttsreader.com/hi/">हिन्दी</a>
+			<a href="https://ttsreader.com/nl/">Nederlands</a>
+		</div>
+	</div>
+	<p style="text-align:center;color:#FFECC7;">All rights reserved worldwide to owner. No permission to copy or use code, style, names, and any content without explicit written permission from owner (admin@speechlogger.com). You may freely demonstrate usage of TTSReader.com, reviews, etc, as long as you link back to https://ttsreader.com. Thank you.
+	</p>
+</div>
+</div>
+
+</body>
+</html>

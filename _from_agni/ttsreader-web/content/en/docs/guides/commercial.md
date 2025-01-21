@@ -16,7 +16,7 @@ priority: 0.8
 
 <br/>
 <a href="https://ttsreader.com/upgrade/" style="cursor:pointer;display:block;color:darkblue;font-weight:bold;text-transform: uppercase;background-color: lightgoldenrodyellow;border-radius: 10px;padding:20px;text-align: center">
-   Purchase a commercial & publishing license for just $2/month
+   Purchase a commercial & publishing license
 </a>
 <br/>
 
@@ -93,6 +93,6 @@ You do. See our [post about it](https://ttsreader.com/blog/2017/05/10/copyright/
 
 <br/>
 <a href="https://ttsreader.com/upgrade/" style="cursor:pointer;display:block;color:darkblue;font-weight:bold;text-transform: uppercase;background-color: lightgoldenrodyellow;border-radius: 10px;padding:20px;text-align: center">
-   Purchase a commercial & publishing license for just $2/month
+   Purchase a commercial & publishing license
 </a>
 <br/>

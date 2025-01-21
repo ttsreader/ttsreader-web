@@ -14,11 +14,7 @@ sitemap:
 priority: 0.8
 ---
 
-<br/>
-<a href="https://ttsreader.com/upgrade/" style="cursor:pointer;display:block;color:darkblue;font-weight:bold;text-transform: uppercase;background-color: lightgoldenrodyellow;border-radius: 10px;padding:20px;text-align: center">
-   Purchase a commercial & publishing license for just $2/month
-</a>
-<br/>
+
 
 
 ## When is a Commercial License Necessary?
@@ -56,32 +52,17 @@ We can only give you permission for publishing recorded voices that their name e
 
 ### Terms and End User License Agreement (EULA)
 
-1) Voice that you are allowed to publish:  You are limited to publishing only speech that uses voices that their name ends with a single or double asterisk (ie - * or **). Example for such voices available:
+1) Voice that you are allowed to publish:  You are limited to publishing generated speech that uses voices that have a checkmark sign next to them in the voice selection dropdown. Here's a screenshot showing you how this checkmark looks like:
 
-        Bahasa, Indonesia, G **
-        Deutsch, G **
-        Dutch, Netherlands, G **
-        English, UK, Female **
-        English, UK, Male **
-        English, US, G **
-        español, España, G **
-        español, Estados Unidos, G **
-        français, G **
-        Hindi, G **
-        italiano, G **
-        Korean, G **
-        Polski, G **
-        Português, Brasil, G **
-        中文 (台灣), G **
-        日本語, G **
-        普通话 (中国大陆), G **
-        普通话 (香港), G **
+  ![Voice Selection Dropdown](/images/blog/allowed_voices.jpg 'Voice Selection Dropdown')
 
 2) You cannot re-sell our service.
 
 3) Service is on AS-IS basis on ttsreader.com. We do our best to keep it alive and bug-free - and it is our interest - but - we can not guarantee.
 
+4) Once audio is generated in the license period - you can use it even after license has expired!
 
+5) No limits to the audio length or quantity you can generate.
 
 <br/>
 
@@ -91,8 +72,19 @@ You do. See our [post about it](https://ttsreader.com/blog/2017/05/10/copyright/
 
 <br/>
 
+### Would you like to upgrade to Premium?
+
+**It's only a few dollars - and straightforward, unlimited publishing rights, given the above terms (mainly the voice selection limitation to those with checkmark).**
+
+* Probably the best value for money.
+* One time payment - no subscription - for a whole 1 year long license.
+* Once audio is generated in the license period - you can use it even after license has expired!
+* No limits to the audio length or quantity you can generate.
+* Generate mp3 files - EXACTLY - as previewed!
+
+
 <br/>
 <a href="https://ttsreader.com/upgrade/" style="cursor:pointer;display:block;color:darkblue;font-weight:bold;text-transform: uppercase;background-color: lightgoldenrodyellow;border-radius: 10px;padding:20px;text-align: center">
-   Purchase a commercial & publishing license for just $2/month
+   Purchase a commercial & publishing license
 </a>
 <br/>

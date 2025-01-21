@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="it" data-dark-mode data-no-ads>
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta
+          name="description"
+          content="TTSReader's Player - Online Text to Speech for Free"
+  />
+  <link rel="apple-touch-icon" href="logo192.png" />
+  <!--
+    manifest.json provides metadata used when your web app is installed on a
+    user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+  -->
+  <link rel="manifest" href="manifest.json" />
+  <!--
+    Notice the use of  in the tags above.
+    It will be replaced with the URL of the `public` folder during the build.
+    Only files inside the `public` folder can be referenced from the HTML.
+
+    Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+    work correctly both with client-side routing and a non-root public URL.
+    Learn how to configure a non-root public URL by running `npm run build`.
+  -->
+  <title>Lettore di testo in voce di TTSReader</title><!-- TTSReader's Text to Speech Player -->
+
+  <!-- Google Analytics: -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-47292499-3');
+  </script>
+  <!-- End of Google Analytics: -->
+
+  <script>
+    // Dark mode toggle:
+    let storedTheme = localStorage.getItem('theme-player-only');
+
+    if (!storedTheme) {
+      let storedBlogTheme = localStorage.getItem('theme');
+
+      if (!storedBlogTheme) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          storedTheme = 'dark-no-bg';
+        } else {
+          storedTheme = 'light-no-bg';
+        }
+      } else {
+        if (storedBlogTheme === 'dark') {
+          storedTheme = 'dark-no-bg';
+        } else {
+          storedTheme = 'light-no-bg';
+        }
+      }
+    }
+
+    if (storedTheme === 'dark-no-bg') {
+      window.setUiToDarkModeAndBgTheme(true, false);
+    } else if (storedTheme === 'dark-bg') {
+      window.setUiToDarkModeAndBgTheme(true, true);
+    } else if (storedTheme === 'light-no-bg') {
+      window.setUiToDarkModeAndBgTheme(false, false);
+    } else if (storedTheme === 'light-bg') {
+      window.setUiToDarkModeAndBgTheme(false, true);
+    } else {
+      window.setUiToDarkModeAndBgTheme(true, false);
+    }
+
+    // Drawer open
+    let storedDrawerMode = localStorage.getItem('drawer-mode');
+
+    if ((storedDrawerMode === 'open' || !storedDrawerMode) && window.matchMedia && window.matchMedia('(min-width: 800px)').matches && window.matchMedia('(min-height: 600px)').matches ) {
+      toggleDrawerOpen();
+    }
+
+    function setUiToDarkModeAndBgTheme(isDark, isBg) {
+      if (isDark && isBg) {
+        document.documentElement.setAttribute('data-dark-mode','true');
+        document.documentElement.setAttribute('data-theme-bg','true');
+        localStorage.setItem('theme-player-only','dark-bg');
+      } else if (isDark && !isBg) {
+        document.documentElement.setAttribute('data-dark-mode','true');
+        document.documentElement.removeAttribute('data-theme-bg');
+        localStorage.setItem('theme-player-only','dark-no-bg');
+      } else if (!isDark && isBg) {
+        document.documentElement.removeAttribute('data-dark-mode');
+        document.documentElement.setAttribute('data-theme-bg','true');
+        localStorage.setItem('theme-player-only','light-bg');
+      } else {
+        document.documentElement.removeAttribute('data-dark-mode');
+        document.documentElement.removeAttribute('data-theme-bg');
+        localStorage.setItem('theme-player-only','light-no-bg');
+      }
+    }
+
+    function toggleDrawerOpen() {
+      let isOpen = document.documentElement.getAttribute('data-drawer-open')==='true';
+      if (isOpen) {
+        document.documentElement.removeAttribute('data-drawer-open');
+        localStorage.setItem('drawer-mode','closed');
+      } else {
+        document.documentElement.setAttribute('data-drawer-open','true');
+        localStorage.setItem('drawer-mode','open');
+      }
+    }
+
+    function toggleTheme() {
+      if (!window.setUiToDarkModeAndBgTheme) {
+        console.log('no window.setUiToDarkModeAndBgTheme');
+        return;
+      }
+
+      // dark -> dark+bg -> light -> light+bg -> dark
+      let isDark = document.documentElement.getAttribute('data-dark-mode')==='true';
+      let isBgImage = document.documentElement.getAttribute('data-theme-bg')==='true';
+
+      if (isDark && isBgImage) {
+        setUiToDarkModeAndBgTheme(false, false);
+      } else if (isDark && !isBgImage) {
+        setUiToDarkModeAndBgTheme(true, true);
+      } else if (!isDark && !isBgImage) {
+        setUiToDarkModeAndBgTheme(false, true);
+      } else {
+        setUiToDarkModeAndBgTheme(true, false);
+      }
+    }
+  </script>
+
+  <style>
+    .language-selector {
+      text-align: center;
+      max-width: 90%;
+      margin: auto;
+    }
+    .language-selector a {
+      text-align: center;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      text-align: left;
+      padding: 5px 10px;
+      margin: 5px;
+      text-decoration: none;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .language-selector a:hover {
+      background-color: #eee;
+    }
+    .language-selector img {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+    }
+    .input-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .styled-input {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 5px 0 0 5px;
+      outline: none;
+      flex: 1;
+      transition: border-color 0.3s;
+    }
+
+    .styled-input:focus {
+      border-color: #007BFF;
+    }
+
+    .styled-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .styled-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+<script defer src="static/js/main.eb28a320.js"></script><link href="static/css/main.fb00809f.css" rel="stylesheet"></head>
+<body>
+
+<div id="root" style="display: flex;flex-direction: column">
+  <div class="Go-premium-banner" data-ws-show-if-state="isPremium=false" style="text-align: center;text-transform: uppercase;
+    color: yellow;
+    font-weight: bold;
+    font-size: smaller;
+    background-color: black;"><a style="cursor: pointer; text-decoration: none;color: yellow;display: block; padding: 10px;" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();">
+    <!--Clicca qui per aggiornare. Soddisfazione garantita al 100%--><!-- Click here to upgrade. 100% satisfaction guaranteed -->
+    ⚡ BLACK FRIDAY SALE - 33% OFF - CLICK HERE TO REDEEM ⚡
+  </a></div>
+
+  <div class="Buttons-bar" style="display: flex">
+    <button title="Open / close main drawer" aria-label="Open / close main drawer" style="" onclick="toggleDrawerOpen();">
+      <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MenuIcon"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+    </button>
+    <!--<a class="Hide-on-narrow-screens" href="https://ttsreader.com" alt="TTSReader Home" title="TTSReader Home" style="background-image: url('favicon2.svg');background-size: contain;width: 40px;height: 40px; border-radius: 10px;"></a>-->
+    <span style="display: inline-block;flex: 1"></span>
+    <button title="Open file" aria-label="Open file" data-ws-onClick="openFile" style="display: inline-block;position: relative;overflow: hidden;"><span>📂<span class="Hide-on-narrow-screens">&nbsp;Apri<!-- Open --></span></span><input style="position: absolute;display: block;opacity: 0; right:0;left:0;top:0;bottom:0; cursor: pointer" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub" data-ws-onChange="handleFileSelect"></button>
+    &nbsp;
+    <button class="Clear-btn" data-ws-toggle="#openUrlModal" title="Read Web Page" aria-label="Read Web Page">
+      <svg style="position: relative; bottom: -2px" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-world-www"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 7a9 9 0 0 0 -7.5 -4a8.991 8.991 0 0 0 -7.484 4" /><path d="M11.5 3a16.989 16.989 0 0 0 -1.826 4" /><path d="M12.5 3a16.989 16.989 0 0 1 1.828 4" /><path d="M19.5 17a9 9 0 0 1 -7.5 4a8.991 8.991 0 0 1 -7.484 -4" /><path d="M11.5 21a16.989 16.989 0 0 1 -1.826 -4" /><path d="M12.5 21a16.989 16.989 0 0 0 1.828 -4" /><path d="M2 10l1 4l1.5 -4l1.5 4l1 -4" /><path d="M17 10l1 4l1.5 -4l1.5 4l1 -4" /><path d="M9.5 10l1 4l1.5 -4l1.5 4l1 -4" /></svg>
+    </button>
+    &nbsp;
+    <button class="Clear-btn" data-ws-onClick="clearContent" title="Erase all text from document" aria-label="Erase all text from document">🗑️</button>
+    &nbsp;
+    <button title="Select language, voice and speed" aria-label="Select language, voice and speed" style="" data-ws-toggle="#voicesModal">
+      <svg class="Top-btn-svg" style="width:1.5em;height: 1.5em;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg>
+      <span class="Hide-on-narrow-screens">
+        &nbsp;
+        <span class="Voice-label Flag-font" data-ws-label-state="voiceLabel"></span>
+        <span data-ws-label-state="selectedRate"></span>X
+        &nbsp;
+        <svg class="Top-btn-svg" style="margin-left: -10px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5z"></path></svg>
+      </span>
+    </button>
+    &nbsp;
+    <button data-ws-toggle="#addPauseModal" title="Insert pause in reading" aria-label="Insert pause in reading">
+      <svg xmlns="http://www.w3.org/2000/svg" class="Top-btn-svg" style="width: 1.3em; height: 1.3em;" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M20.942 13.018a9 9 0 1 0 -7.909 7.922"></path>
+        <path d="M12 7v5l2 2"></path>
+        <path d="M17 17v5"></path>
+        <path d="M21 17v5"></path>
+      </svg>
+    </button>
+    &nbsp;
+    <div class="Dropdown-header" style="display: inline-block; vertical-align: middle;cursor: pointer;position: relative;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 17v2h14v-2H5zm4.5-4.2h5l.9 2.2h2.1L12.75 4h-1.5L6.5 15h2.1l.9-2.2zM12 5.98 13.87 11h-3.74L12 5.98z"></path></svg>
+      <div class="Dropdown-content" style="left:0;width:120px; translate: -40px;">
+        <span data-ws-onClick="fontDecrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM23 11v2h-8v-2h8z"></path></svg></span>
+        <span data-ws-onClick="fontIncrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM20 11h3v2h-3v3h-2v-3h-3v-2h3V8h2v3z"></path></svg></span>
+      </div>
+    </div>
+    &nbsp;
+    <button onclick="toggleTheme();" id="mode" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
+      <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+    </button>
+    &nbsp;
+    <button data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">💎</button>
+    <span style="flex: 1"></span>
+
+    <button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
+      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-language"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7" /><path d="M9 3v2c0 4.418 -2.239 8 -5 8" /><path d="M5 9c0 2.144 2.952 3.908 6.7 4" /><path d="M12 20l4 -9l4 9" /><path d="M19.1 18h-6.2" /></svg>
+    </button>
+  </div>
+
+  <div style="display: flex;flex: 1;overflow: hidden;">
+    <drawer style="overflow: hidden;">
+      <div style="position: absolute;top:10px;right:10px;padding: 10px;cursor: pointer;" onclick="toggleDrawerOpen();">
+        <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CloseIcon"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+      </div>
+      <a href="/" target="_blank" style="padding: 5px 20px;text-decoration: none;color:inherit;font-weight: bold;display: block;text-align: center;position: absolute;top: 20px;left:5px">
+        <span style="color: #a51b14">TTS</span>Reader
+      </a>
+      <div style="padding: 10px;margin-top: 50px;overflow-x: hidden;overflow-y: auto;padding-bottom: 100px;">
+        <div data-ws-show-if-state="isSignedIn=false">
+          <a class="Menu-list-element" onclick="toggleSignIn();" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"></path></svg>&nbsp;&nbsp;Accedi / Registrati<!-- Sign in / Sign up --></a>
+        </div>
+        <div data-ws-show-if-state="isSignedIn=true">
+          <a data-ws-show-if-state="isSignedIn=true" class="Menu-list-element" onclick="toggleSignIn();" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="m17 7-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg>&nbsp;&nbsp;Esci<!-- Sign out --></a>
+        </div>
+        <div data-ws-show-if-state="isPremium=false">
+          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" style="cursor: pointer;text-decoration: none;display: block">💎&nbsp;&nbsp;&nbsp;Passa a Premium<!-- Go Premium -->&nbsp;&nbsp;&nbsp;💎💎💎</a>
+        </div>
+        <div data-ws-show-if-state="isPremium=true">
+          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">Stato Premium 💎<!-- Premium 💎 Status --></a>
+        </div>
+        <a class="Menu-list-element" onclick="gtag('event','mp3_guide_click_player_drawer',{value:'1'})" data-ws-toggle="#mp3GuideModal" style="text-decoration:none;">
+          Scarica file audio mp3<!-- Download mp3 audio file -->
+        </a>
+        <a class="Menu-list-element" onclick="gtag('event','audioread_click_player_drawer',{value:'1'})" href="https://audioread.com/?via=ttsreader" target="_blank" rel="nofollow" style="text-decoration:none;">
+          Trasforma in podcast<!-- Turn into podcast -->
+          <span style="font-size: 0.5em; color: orange; position: relative; top: -5px; left: 2px; display: inline-block;">
+    Partner<!-- Partner -->
+  </span>
+        </a>
+        <a class="Menu-list-element" data-ws-toggle="#helpModal" onclick="loadImages('#helpImgId');">
+          ❓ Overlay di aiuto<!-- Help overlay -->
+        </a>
+        <a class="Menu-list-element" data-ws-toggle="#moreVoices" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
+          Hai bisogno di più voci ❓<!-- Need more voices -->
+        </a>
+        <a class="Menu-list-element" href="/docs/guides/quick-start-new-player/" target="_blank" style="text-decoration: none;display: block">
+          Manuale utente<!-- User manual -->
+        </a>
+        <a class="Menu-list-element" href="/docs/guides/commercial/" target="_blank" style="text-decoration: none;display: block">
+          Pubblicazione commerciale<!-- Commercial & publishing -->
+        </a>
+        <!--<a class="Menu-list-element" href="https://speechnotes.co/files/webm_to_mp3/" target="_blank" style="text-decoration: none;display: block">Convert webm to mp3</a>-->
+        <a class="Menu-list-element" href="/mobile/" target="_blank" style="text-decoration: none;display: block">
+          Versioni mobili<!-- Mobile versions -->
+        </a>
+        <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank" style="text-decoration: none;display: block">
+          <svg class="Top-btn-svg MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MessageIcon">
+            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"></path>
+          </svg>
+          &nbsp;&nbsp;Modulo di feedback<!-- Feedback form -->
+        </a>
+        <div data-ws-show-if-state="isShareSupported=true">
+          <a class="Menu-list-element" onclick="share();"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M8.7 10.7l6.6 -3.4"></path>
+            <path d="M8.7 13.3l6.6 3.4"></path>
+          </svg>&nbsp;&nbsp;Share</a>
+        </div>
+        <div data-ws-show-if-state="isShareSupported=false">
+          <a class="Menu-list-element" data-ws-toggle="#shareModal"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M8.7 10.7l6.6 -3.4"></path>
+            <path d="M8.7 13.3l6.6 3.4"></path>
+          </svg>&nbsp;&nbsp;Share</a>
+        </div>
+
+      </div>
+
+    </drawer>
+
+    <div style="flex: 1;display: flex;flex-direction: column;overflow: hidden;">
+      <div class="App"  style="flex: 1;position: relative;display: flex;flex-direction: column">
+        <div class="Book-bar" data-ws-show-if-state="isBook=true" style="text-align: center">
+          <span data-ws-label-state="bookTitle"></span>&nbsp;-&nbsp;
+          <button data-ws-onClick="loadPrevChapter" title="Load Previous Chapter" aria-label="Load Previous Chapter"><b>&lArr;</b></button>
+          <span data-ws-label-state="currentChapterLabel"></span> / <span data-ws-label-state="totalChapters"></span>
+          <button data-ws-onClick="loadNextChapter" title="Load Next Chapter" aria-label="Load Next Chapter"><b>&rArr;</b></button>
+        </div>
+        <div class="Text-box-container">
+          <div class="Text-box" contentEditable=true data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Digita o incolla il testo in questa casella, fai clic sul pulsante di riproduzione e lo leggerò ad alta voce per te. Per leggere una pagina web - incolla semplicemente il suo URL e fai clic su riproduci. Puoi anche caricare file, cambiare voci, tema, dimensione del carattere e altro ancora." placeholder2="Questo lettore è in sviluppo attivo, stiamo lavorando per migliorarlo ogni giorno. ❤️ Buon ascolto! 🎧"></div>
+        </div>
+        <div class="Playback-buttons-bar">
+          <span>
+            <button data-ws-show-if-state="isRepeatMode=false" title="Loop" aria-label="Loop"                              data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
+            <button data-ws-show-if-state="isRepeatMode=true" title="Loop" aria-label="Loop" style="color: cornflowerblue" data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
+            <button class="Hide-on-narrow-screens" data-ws-show-if-state="isRecordingSupported=true" title="Go to beginning" aria-label="Go to beginning" data-ws-onClick="goToStart"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"></path></svg></button>
+            <button title="Jump backwards" aria-label="Jump backwards" data-ws-onClick="rewind"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6 8.5 6V6l-8.5 6z"></path></svg></button>
+            <span style="display: inline-block; width: 80px;"></span>
+            <button title="Jump forward" aria-label="Jump forward" data-ws-onClick="forward"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 18 8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path></svg></button>
+            <button class="Hide-on-narrow-screens" title="Toggle recording" aria-label="Toggle recording" data-ws-show-if-state="isRecordingSupported=true" data-ws-onClick="toggleRecord">
+              <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
+              <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
+            </button>
+            <button title="Set narration language, voice & speed" aria-label="Set narration language, voice & speed" data-ws-toggle="#voicesModal"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg></button>
+            <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
+              <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg></span>
+              <span data-ws-show-if-state="isPlayingOn=false"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <div class="remaining-chars-line" data-ws-show-if-state="isPremium=false" style="text-align: center; cursor: pointer; padding: 2px 10px;" data-ws-toggle="#upgradeModal">
+        <p>
+          Utilizzato<!-- Used -->
+          <b>
+            <span data-ws-label-state="charsUsedToday"></span>&nbsp;/&nbsp;
+            <span data-ws-label-state="dailyCharsLimit"></span>
+          </b>
+          caratteri gratuiti al giorno. Clicca per rimuovere il limite.<!-- free chars per day. Click to remove limit. -->
+        </p>
+      </div>
+      <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626"
+              crossorigin="anonymous"></script>-->
+      <!-- ResponsiveHorizontal20230518 -->
+      <ins class="adsbygoogle Ad Ad-bottom-banner"
+           data-ad-client="ca-pub-5434274073094626"
+           data-ad-slot="8622089184" data-ws-show-if-state="isPremium=false"></ins>
+
+      <div class="Bottom-lift-up" style="height: 0;width: 100%;"></div>
+    </div>
+
+    <!-- ResponsiveVertical20230518 -->
+    <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626"
+            crossorigin="anonymous"></script>-->
+    <ins class="adsbygoogle Ad Ad-right-banner"
+         data-ad-client="ca-pub-5434274073094626"
+         data-ad-slot="1642597928" data-ws-show-if-state="isPremium=false"></ins>
+
+  </div>
+
+  <div class="Modal" id="voicesModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4 style="font-size: 1.2em;">
+        <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;background-color:transparent;width: 230px;outline: none;border:none;"></select>
+      </h4>
+      <div style="max-width: 100%; width: 350px; margin: -5px auto 30px; flex: 1;overflow-y: auto;text-align: left">
+
+        <div style="text-align: center;position: relative">
+          <div style="position: absolute;left: 0;top: 7px;opacity: 0.7;font-size: smaller;">
+            Velocità<!-- Speed --> X
+          </div>
+          <span data-ws-onClick="slower" style="user-select: none;vertical-align: baseline;border: 1px solid blue;text-align: center;cursor: pointer;display: inline-block; line-height: 16px; font-size: 18px; margin: 5px; width: 20px;height: 20px; border-radius: 10px;background-color: white; color: blue;">-</span>
+          <span data-ws-label-state="selectedRate" style="width: 2em;display:inline-block;text-align: center">1</span>
+          <span data-ws-onClick="faster" style="user-select: none;vertical-align: baseline;border: 1px solid blue;text-align: center;cursor: pointer;display: inline-block; line-height: 16px; font-size: 18px; margin: 5px; width: 20px;height: 20px; border-radius: 10px;background-color: white; color: blue;">+</span>
+          <input type="range" data-ws-value-state="selectedRateSliderValue" style="width: 300px;max-width:90%; margin: auto;display: block;height: 50px;" min="1" max="20" data-ws-onInput="onRateChange">
+        </div>
+        <div style="text-align: right;opacity: 0.7;margin-bottom: 15px;margin-right: 10px;">
+          <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+            <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+          </svg>
+          <a href="/docs/guides/voiceover/#mix-languages-voices--speeds" target="_blank" style="text-decoration: none;">
+            Copia<!-- Copy -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path>
+              <path d="M11 13l9 -9"></path>
+              <path d="M15 4h5v5"></path>
+            </svg>
+          </a>
+        </div>
+        <div class="Best-voices"></div>
+        <div class="Voices-list"></div>
+      </div>
+      <!--<select class="Voice-selector" data-ws-onChange="handleVoiceChange" data-ws-value-state="selectedVoiceUri"></select>-->
+      <p style="text-align: center">
+        <span style="color: green">✓</span> Indica che la voce è consentita per la pubblicazione per gli utenti premium<!-- Indicates voice is allowed for publishing for premium users --> <span data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">come te stesso 💎<!-- as yourself 💎 --></span><a data-ws-show-if-state="isPremium=false" data-ws-toggle="#upgradeModal" style="cursor: pointer;">- <u>clicca qui per aggiornare<!-- click here to upgrade --></u></a>
+      </p>
+    </div>
+  </div>
+
+  <div class="Modal" id="interfaceLangModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: auto;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4 style="font-size: 1.2em;">
+        Seleziona la lingua dell'interfaccia<!-- Interface Language -->
+      </h4>
+      <div class="language-selector">
+        <!-- Latin Alphabet -->
+        <a href="/player/" target="_parent"><img src="https://flagcdn.com/us.svg" alt="English">English</a>
+        <a href="/es/" target="_parent"><img src="https://flagcdn.com/es.svg" alt="Español">Español</a>
+        <a href="/fr/" target="_parent"><img src="https://flagcdn.com/fr.svg" alt="Français">Français</a>
+        <a href="/de/" target="_parent"><img src="https://flagcdn.com/de.svg" alt="Deutsch">Deutsch</a>
+        <a href="/it/" target="_parent"><img src="https://flagcdn.com/it.svg" alt="Italiano">Italiano</a>
+        <a href="/pt/" target="_parent"><img src="https://flagcdn.com/br.svg" alt="Português">Português</a>
+        <a href="/ro/" target="_parent"><img src="https://flagcdn.com/ro.svg" alt="Română">Română</a>
+        <a href="/nl/" target="_parent"><img src="https://flagcdn.com/nl.svg" alt="Nederlands">Nederlands</a>
+
+        <!-- Cyrillic Alphabet -->
+        <a href="/ru" target="_parent"><img src="https://flagcdn.com/ru.svg" alt="Русский">Русский</a>
+
+        <!-- Indic Alphabet -->
+        <a href="/hi/" target="_parent"><img src="https://flagcdn.com/in.svg" alt="हिन्दी">हिन्दी</a>
+
+        <!-- East Asian Scripts -->
+        <a href="/zh/" target="_parent"><img src="https://flagcdn.com/cn.svg" alt="中文">中文</a>
+        <a href="/ja/" target="_parent"><img src="https://flagcdn.com/jp.svg" alt="日本語">日本語</a>
+        <a href="/ko/" target="_parent"><img src="https://flagcdn.com/kr.svg" alt="한국어">한국어</a>
+
+        <!-- Semic Alphabet -->
+        <a href="/ar/" target="_parent"><img src="https://flagcdn.com/sa.svg" alt="العربية">العربية</a>
+        <a href="/he/" target="_parent"><img src="https://flagcdn.com/il.svg" alt="עברית">עברית</a>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="Modal" id="openUrlModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: auto;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <br/>
+      <p style="text-align: justify"><b>Incolla l'URL della pagina web che desideri ascoltare.<!-- Paste the URL of the webpage you would like to listen to. --></b>
+        &nbsp;Come ottenere l'URL? Apri la pagina desiderata in una scheda diversa, quindi copia il suo indirizzo dalla barra degli indirizzi.<!-- How to get the URL? Open the desired page in a different tab - then copy its address from the address bar --></p>
+      <br/>
+      <div class="input-container">
+        <input type="text" id="urlInput" class="styled-input" placeholder="https://en.wikipedia.org/wiki/The_Beatles">
+        <button class="styled-button" id="urlSubmitButton" data-ws-onClick="onUrlSubmitClick">GO</button>
+      </div>
+
+      <br/>
+      <p style="text-space: 1.2">Esempi di URL<!-- Examples of valid URLs: --></p>
+      <div style="text-align: left; color: orangered; line-height: 1.3em; font-style: italic">
+        <p>https://en.wikipedia.org/wiki/The_Beatles</i></p>
+        <p>https://www.bbc.com/sport/football/articles/c97dllq4gg1o</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="Modal" id="recordModalNonPremium" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow: auto;padding:10px;">
+        <h4>Registrazione del discorso sintetizzato<!-- Recording the Synthesized Speech --></h4>
+        <div data-ws-show-if-state="isPremium=false">
+          <p style="text-align: justify">
+            La registrazione richiede Premium e include la licenza per uso commerciale e pubblicazione (vedi termini di pubblicazione<!-- Recording requires premium and includes licensing for commercial use & publishing (see publishing terms --> <a href="https://ttsreader.com/docs/guides/commercial/" target="_blank">qui<!-- here --></a>).
+          </p>
+          <button data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" class="Full-width-btn" style="background-color: darkgreen;color: white">Passa a Premium<!-- Upgrade to Premium --></button>
+          <div data-ws-show-if-state="isSignedIn=false">
+            <p style="text-align: center">Già Premium? Accedi<!-- Already premium? Sign in --></p>
+            <button onclick="signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Accedi con Google<!-- Sign In with Google --></button>
+          </div>
+        </div>
+        <div data-ws-show-if-state="isPremium=true">
+          <p style="text-align: center;font-size: larger;">💎 🍾🥂 Grazie per l'aggiornamento!!!<!-- Thank you for upgrading!!! --> 🎉🚀 💎 </p>
+          <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="background-color: transparent;color: cornflowerblue;border-color: cornflowerblue">Continua con la registrazione<!-- Continue with recording --></button>
+        </div>
+        <br/><br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="recordStartModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow: auto;padding:10px 30px;">
+        <h4>Registrazione del discorso sintetizzato<!-- Recording the Synthesized Speech --></h4>
+        <p style="text-align: justify">Guarda questo breve video per comprendere i passaggi. Quando sei pronto, clicca sul pulsante 'Inizia registrazione'.<!-- Watch this short video for understanding the steps. When ready - click the 'Start Recording' button. --></p>
+        <div class="videowrapper">
+          <iframe style="display:block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        </div>
+        <button data-ws-onClick="startRecording" class="Full-width-btn" style="background-color: darkgreen;color: white">Inizia registrazione<!-- Start Recording --></button>
+        <br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="upgradeModal" style="display: none">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div data-ws-show-if-state="isPremium=true" style="padding: 20px;text-align: center;">
+        <p style="font-size: larger;">Congratulazioni! Ora sei Premium!<!-- Congrats! You are now Premium! --></p>
+        <p style="font-size: 70px; padding: 20px;margin-block: 0.3em;">🏆</p>
+        <p data-ws-show-if-state="subscriptionId=true">
+          Tramite<!-- Via --> <a style="cursor: pointer;" data-ws-toggle="#subscriptionModal">Abbonamento<!-- Subscription --></a> - clicca qui per visualizzare e gestire<!-- click here to view & manage -->
+        </p>
+        <p data-ws-show-if-state="subscriptionId=false">
+          <span data-ws-show-if-state="isPremiumByLegacy=false">
+            Tramite l'acquisto di una licenza annuale. Scade in<!-- Via purchase of 1 year license. Expires in --> <span data-ws-label-state="daysLeftForPremium"></span> giorni.<!-- days. --> <a target="_blank" href="https://ttsreader.com/upgrade/">Clicca qui per estendere<!-- Click here to extend --></a>
+          </span>
+          <span data-ws-show-if-state="isPremiumByLegacy=true">
+            Tramite il piano legacy - sei fantastico!!<!-- Via legacy plan - you rock!! -->
+          </span>
+        </p>
+      </div>
+      <div style="overflow: auto;padding:10px 30px;" data-ws-show-if-state="isPremium=false">
+        <p style="font-weight: bold;color: yellow; background-color: black;">BLACK FRIDAY SALE PARTY!!</p>
+        <h4>Ottieni di più e supporta il team 🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --></h4>
+        <br/>
+        <div data-ws-show-if-state="isSignedIn=false">
+          <button class="styled-btn" onclick="toggleSignIn();">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:v="https://vecta.io/nano" width="12" height="12" viewBox="0 0 186.69 190.5">
+              <g transform="translate(1184.583 765.171)">
+                <path clip-path="none" mask="none" d="M-1089.333-687.239v36.888h51.262c-2.251 11.863-9.006 21.908-19.137 28.662l30.913 23.986c18.011-16.625 28.402-41.044 28.402-70.052 0-6.754-.606-13.249-1.732-19.483z" fill="#4285f4"/>
+                <path clip-path="none" mask="none" d="M-1142.714-651.791l-6.972 5.337-24.679 19.223h0c15.673 31.086 47.796 52.561 85.03 52.561 25.717 0 47.278-8.486 63.038-23.033l-30.913-23.986c-8.486 5.715-19.31 9.179-32.125 9.179-24.765 0-45.806-16.712-53.34-39.226z" fill="#34a853"/>
+                <path clip-path="none" mask="none" d="M-1174.365-712.61c-6.494 12.815-10.217 27.276-10.217 42.689s3.723 29.874 10.217 42.689c0 .086 31.693-24.592 31.693-24.592-1.905-5.715-3.031-11.776-3.031-18.098s1.126-12.383 3.031-18.098z" fill="#fbbc05"/>
+                <path d="M-1089.333-727.244c14.028 0 26.497 4.849 36.455 14.201l27.276-27.276c-16.539-15.413-38.013-24.852-63.731-24.852-37.234 0-69.359 21.388-85.032 52.561l31.692 24.592c7.533-22.514 28.575-39.226 53.34-39.226z" fill="#ea4335" clip-path="none" mask="none"/>
+              </g>
+            </svg>
+            &nbsp;&nbsp;Accedi con Google per iniziare<!-- Sign In with Google to Start -->
+          </button>
+          <p style="text-transform: uppercase; opacity: 0.7;font-size: 0.7em;">
+            Accesso sicuro con Google<!-- Secure sign in with Google -->
+          </p>
+        </div>
+
+        <div data-ws-show-if-state="isSignedIn=true" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 12px; background-color: white; border-radius: 10px;">
+          <h2 style="color: black">Seleziona il tuo piano Premium<!-- Select Your Premium Plan --></h2>
+          <form id="subscriptionForm">
+            <div class="option selected" id="option1" onclick="updateStateWithParentData({recurringTab: true})">
+              <input type="radio" id="monthly" name="plan" value="monthly" checked>
+              <label for="monthly">
+                <strong>Abbonamento<!-- Subscription --> <span class="price-tag">$10.99 / mo.</span></strong><br>
+                <span>Annulla in qualsiasi momento.<!-- Cancel anytime. --></span>
+              </label>
+            </div>
+            <div class="option" id="option2" onclick="updateStateWithParentData({recurringTab: false})">
+              <input type="radio" id="yearly" name="plan" value="yearly">
+              <label for="yearly">
+                <strong>Pagamento unico<!-- One-Time Payment --> <span class="price-tag"><span style="text-decoration: line-through">$39.00</span>&nbsp;$26 Black Friday Sale ⚡</span></strong><br>
+                <span>Nessun pagamento ricorrente. Valido per un<!-- No recurring payments. Valid for a --> <u>anno intero<!-- whole year --></u>. Non si rinnova <u>AUTOMATICAMENTE</u>. Non preoccuparti mai di annullare.<!-- Does <u>NOT</u> auto-renew. Never worry about canceling. --></span>
+              </label>
+            </div>
+          </form>
+          <script>
+            document.querySelectorAll('#upgradeModal .option').forEach(option => {
+              option.addEventListener('click', () => {
+                document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                option.querySelector('input').checked = true;
+              });
+            });
+          </script>
+          <div data-ws-show-if-state="recurringTab=true">
+            <div id="paypal-button-container-subscription"></div>
+          </div>
+          <div data-ws-show-if-state="recurringTab=false">
+            <div id="paypal-button-container"></div>
+          </div>
+          <p style="color: #282c34; font-weight: bolder;">Acquisto sicuro. Soddisfazione garantita al 100%<!-- Secure purchase. 100% satisfaction guaranteed --></p>
+        </div>
+        <br/>
+        <h4 style="text-align: start">&nbsp;&nbsp;&nbsp;Principali vantaggi<!-- Main Benefits --></h4>
+        <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 0 0 1em 0; text-align: start">
+          <li>Senza pubblicità<!-- No Ads --></li>
+          <li>Caricamento più veloce<!-- Faster loading --></li>
+          <li>Lettura continua illimitata<!-- Unlimited continuous reading --></li>
+          <li>Registrazione abilitata su PC Windows<!-- Recording enabled on Windows PC --></li>
+          <li>Licenza commerciale<!-- Commercial license --></li>
+          <li>Sblocca tutte le funzionalità<!-- Unlock all features --></li>
+          <li>Supporto Premium<!-- Premium support --></li>
+        </ul>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+
+  <div class="Modal" id="subscriptionModal" style="display: none">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;">
+      <button data-ws-hide-all=".Modal" class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow: auto;padding:10px 30px;text-align: center">
+        <h4 style="text-align: center">Gestisci abbonamento<!-- Manage Subscription --></h4>
+        <div data-ws-show-if-state="isPremium=true">
+          <p style="font-size: 1em;text-align: center">ℹ️ ID abbonamento<!-- Subscription id -->: <b><span data-ws-label-state="subscriptionId"></span></b></p>
+          <p style="line-height: 1.8em;margin: 10px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform?usp=sf_link" target="_blank" style="text-decoration: none;">Problemi? Domande? Contattaci (apre un modulo di contatto premium in una nuova finestra)<!-- Issues? Questions? Contact us (opens a premium contact form in new window) --></a></p>
+          <br/>
+          <p style="color: red;line-height: 1.8em;margin: 10px;">ZONA PERICOLOSA<!-- DANGER ZONE --></p>
+          <p style="color: red; cursor: pointer; padding: 5px 10px; border: red 1px solid; border-radius: 20px; line-height: 1.8em;margin: 10px;" onclick="cancelSubscription();">Annulla abbonamento. Cliccando qui perderai immediatamente lo stato Premium.<!-- Cancel subscription. Clicking this will result in losing your premium status - taking effect immediately. --></p>
+        </div>
+        <div data-ws-show-if-state="isPremium=false">
+          <br/>
+          <p style="font-size: 1em;text-align: center">Attualmente non sei abbonato a Premium<!-- You are now not subscribed to Premium --></p>
+        </div>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="mp3GuideModal" style="display: none">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h3>Come generare file mp3 da testo con TTSReader?<!-- How to generate mp3 files from text with TTSReader? --></h3>
+      <div class="videowrapper">
+        <iframe style="display:block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+      </div>
+      <br/>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="helpModal" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal"><svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
+      <div>
+        <img id="helpImgId" data-src="images/help.png" style="max-width: 95%;
+    margin: auto;
+    max-height: 90vh;
+    border: orangered 2px solid;
+    border-radius: 10px;">
+      </div>
+    </div>
+  </div>
+
+  <div class="Modal" id="moreVoices" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal">
+        <svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow-y: auto;max-height: 90%;text-align: justify;">
+        <h3 style="text-align: center">Altre voci<!-- More Voices --></h3>
+
+        <div data-ws-show-if-state="os=win">
+          <div data-ws-show-if-state="isChrome=true">
+            <p>Sono disponibili più voci utilizzando TTSReader nel browser Edge. In particolare, Christopher e Michelle sono entrambi eccezionali!<!-- More voices are available when using TTSReader on the Edge browser. Specifically - Christopher & Michelle are both exceptional! --></p>
+          </div>
+          <div data-ws-show-if-state="isChrome=false">
+            <p>Sono disponibili più voci utilizzando TTSReader nei browser Chrome / Edge. In particolare, in Chrome, Noah è il nostro consiglio. In Edge, Christopher e Michelle sono entrambi eccezionali!<!-- More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher & Michelle are both exceptional! --></p>
+          </div>
+        </div>
+        <div data-ws-show-if-state="os=mac">
+          <p>Sono disponibili più voci utilizzando TTSReader nei browser Chrome / Edge. In particolare, in Chrome, Noah è il nostro consiglio. In Edge, Christopher e Michelle sono entrambi eccezionali!<!-- More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher & Michelle are both exceptional! --></p>
+        </div>
+        <div>
+          <p style="font-weight: bold">Ecco alcune delle voci disponibili:<!-- Here are some of the available voices: --></p>
+          <p><u>Su Edge:<!-- On Edge: --></u></p>
+          <div>Christopher: <audio style="vertical-align: middle" controls src="audio/Christopher.mp3" preload="metadata"/></div>
+          <div>Michelle: <audio controls src="audio/Michelle.mp3" preload="metadata"/></div>
+          <br/>
+          <p><u>Su Chrome:<!-- On Chrome: --></u></p>
+          <div>Noah: <audio controls src="audio/Noah.mp3" preload="metadata"></audio></div>
+          <div>Lily: <audio controls src="audio/Lily.mp3" preload="metadata"></audio></div>
+          <br/>
+        </div>
+        <p>L'uso di voci SAPI5 personalizzate è possibile su Windows utilizzando il browser Firefox.<!-- Using custom SAPI5 voices is possible on Windows using Firefox browser. --></p>
+        <p>Su mobile, troverai più voci utilizzando le nostre<!-- On mobile, you will find more voices using our --> <a href="/mobile/" target="_blank">app mobili di testo in voce<!-- text-to-speech mobile apps --></a></p>
+        <p>Stiamo lavorando per rendere disponibili ancora più voci per gli utenti Premium<!-- We're working on making even more voices available for Premium users --></p>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+  </div>
+
+  <div class="Modal" id="addPauseModal" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal">
+        <svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow-y: auto;max-height: 90%;text-align: center;">
+        <h3>Aggiungi timer di pausa lettura<!-- Add Pause Reading Timer --></h3>
+        <p>Copia la seguente riga e incollala nel testo. Modifica la durata della pausa in millisecondi.<!-- Copy the following line and paste into the text. Edit the duration of the pause in milliseconds. --></p>
+        <br/>
+        <code>{{pause:1000}}</code>
+        <br/>
+        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addPauseModal" onclick="navigator.clipboard.writeText('\n{{pause:1000}}\n')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+            <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+          </svg>&nbsp;Copia<!-- Copy -->
+        </a>
+        <br/><br/><br/>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+  </div>
+
+  <div class="Modal" id="shareModal" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal">
+        <svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div>
+        <p><a href="https://www.facebook.com/sharer.php?u=https://ttsreader.com/player/" target="_blank">Condividi su Facebook<!-- Share on Facebook --></a></p>
+        <p><a href="https://twitter.com/intent/tweet?url=https://ttsreader.com/player/" target="_blank">Condividi su Twitter<!-- Share on Twitter --></a></p>
+        <p><a href="https://api.whatsapp.com/send?text=https://ttsreader.com/player/" target="_blank">Condividi su WhatsApp<!-- Share on WhatsApp --></a></p>
+        <p><a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ttsreader.com/player/" target="_blank">Condividi su LinkedIn<!-- Share on LinkedIn --></a></p>
+        <p><a href="#" onclick="copy('https://ttsreader.com/player/');">Copia link<!-- Copy link --></a></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  function copy(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      console.log('Copied!');
+    }, function() {
+      console.log('Copy error')
+    });
+  }
+
+  function share() {
+    const shareData = {
+      title: "TTSReader",
+      text: "Listen to any text with TTSReader. AI powered natural sounding voices.",
+      url: "https://ttsreader.com/player/",
+    };
+
+    navigator.share(shareData)
+            .then(() => console.log('Share was successful.'))
+            .catch((error) => console.log('Sharing failed', error));
+  }
+
+  function loadImages(selector) {
+    document.querySelectorAll(selector).forEach((el)=>{
+      if (!el.getAttribute('src')) {
+        el.setAttribute('src', el.getAttribute('data-src'));
+      }
+    });
+  }
+
+  var ce = document.querySelector('[contenteditable]')
+  ce.addEventListener('paste', function (e) {
+    e.preventDefault()
+    var text = e.clipboardData.getData('text/plain')
+    document.execCommand('insertText', false, text)
+  })
+
+  document.querySelectorAll('.Modal').forEach((el)=>{
+    el.addEventListener('click',((evt) => {
+      if (!evt.target.closest('.Modal-content')) {
+        evt.target.closest('.Modal').style.display = "none";
+      }
+    }));
+  });
+
+  document.querySelectorAll('.Close-modal').forEach((el)=>{
+    el.addEventListener('click',((evt) => {
+      evt.target.closest('.Modal').style.display = "none";
+    }));
+  });
+
+  if (window.matchMedia( "(hover: none)" ).matches) {
+    // hover unavailable
+    document.addEventListener('click', ({ target }) => {
+      if (!target.closest('.Dropdown-content')) {
+        document.querySelectorAll('.Dropdown-content').forEach((el)=>{
+          el.style.display = 'none';
+          document.querySelector('.Text-box').setAttribute('contentEditable',true);
+        })
+      }
+    });
+
+    document.querySelectorAll('.Dropdown-header').forEach((el)=>{
+      if (el instanceof Element) {
+        el.addEventListener('click',(ev)=>{
+          if (ev.target.closest('.Dropdown-content')) {
+            return;
+          }
+          let child = el.querySelector('.Dropdown-content');
+          let textBox = document.querySelector('.Text-box');
+          if (getComputedStyle(child).display!=="none") {
+            child.style.display = 'none';
+            textBox.setAttribute('contentEditable',true);
+          } else {
+            child.style.display = 'block';
+            textBox.removeAttribute('contentEditable');
+            ev.preventDefault();
+            ev.stopPropagation();
+          }
+        });
+      }
+    })
+  }
+
+  function feedback(value) {
+    if (gtag) {
+      gtag('event', value>0 ? "feedback_good" : "feedback_bad", {
+        'value': value>0 ? "good" : "bad"
+      });
+    }
+
+    if (value<0) {
+      window.open("https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link","_blank");
+    } else {
+      alert('Thank you for your feedback ❤️');
+    }
+  }
+</script>
+
+<div id="area" style="height: 0;width: 0; visibility: hidden"></div>
+
+<script>
+  /*
+  This script is for sign-in and for premium status.
+   */
+
+  let clockStartedOn = Date.now();
+  function stopper() {
+    return Math.round((Date.now()-clockStartedOn)/1000) + ": ";
+  }
+
+  function fetchJsFile(url, callback) {
+    let newEl = document.createElement('script');
+    newEl.src=url;
+    newEl.onload = function(){
+      if (callback) {
+        callback();
+      }
+    };
+    document.getElementsByTagName("head")[0].appendChild(newEl);
+  }
+
+  if (document.readyState == "loading") {
+    // Still loading, no need for optional added scripts. Wait.
+    console.log(stopper() + 'Script awaiting to load all DOM');
+    addEventListener('DOMContentLoaded', (event) => {
+      runPostLoadScript();
+    });
+  } else {
+    console.log(stopper() + 'Loading script right away');
+    runPostLoadScript();
+  }
+
+  function runPostLoadScript() {
+
+    console.log(stopper() + 'Loading script post DOM');
+
+    let srcs = [
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js",
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js",
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"
+    ]
+
+    let loadedScripts = 0;
+    function onScriptLoaded() {
+      loadedScripts++;
+      if (loadedScripts==srcs.length) {
+        runDependentScript();
+      } else {
+        fetchJsFile(srcs[loadedScripts], onScriptLoaded);
+      }
+    }
+
+    fetchJsFile(srcs[0], onScriptLoaded);
+
+    function runDependentScript() {
+      let firebaseConfig = {
+        apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
+        authDomain: "ttsreader.firebaseapp.com",
+        databaseURL: "https://ttsreader.firebaseio.com",
+        projectId: "ttsreader",
+        messagingSenderId: "656667743185"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        //window.globalMethods.closeModalById("modalSigninVertical");
+        console.log(stopper() + 'user signed ' + (user ? "IN" : "OUT"));
+
+        if (user) {
+          // User is signed in.
+          window.updateStateWithParentData({
+            wasAuthReceived: true,
+            uid: user.uid,
+            email: user.email
+          });
+          window.uid = user.uid;
+          listenToDatabaseData(user.uid);
+          if (window.resetPayPalButtons) {resetPayPalButtons(user.uid);}
+        } else {
+          // User signed out.
+          window.updateStateWithParentData({
+            isPremium: false,
+            wasAuthReceived: false,
+            uid:  "",
+            email: ""
+          });
+          window.uid = null;
+          if (window.getAppState && !getAppState().data.isPremium) {
+            injectAds();
+          }
+        }
+      });
+    }
+  }
+
+  function hashFromString(str) {
+    let hash = 0,
+            i, chr;
+    if (str.length === 0) return hash;
+    for (i = 0; i < str.length; i++) {
+      chr = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  }
+
+  function cancelSubscription() {
+    if (!window.subscriptionId) {
+      alert('No subscription to cancel. If you think this is an error, please contact us via the form or via admin@speechlogger.com');
+      return;
+    }
+
+    if (confirm('Are you sure you want to cancel your subscription?')) {
+      if (window.subscriptionId) {
+        // `curl -H 'Content-Type: application/json' -d '{"appId":"speechninja","uid":"", "subId": "I-XBC6BF63D347", "checkSum":"822831988"}' -X POST https://us-central1-ttsreader.cloudfunctions.net/cancelPayPalSubById2`
+        let url = "https://us-central1-ttsreader.cloudfunctions.net/cancelPayPalSubById2";  // Production
+        // let url = "http://127.0.0.1:5001/ttsreader/us-central1/cancelPayPalSubById2"; // Local testing
+        let uid = window.uid;
+        let subId = window.subscriptionId;
+        let checkSum = "" + hashFromString(uid + subId);
+        fetch(url, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'text/plain',
+          },
+          body: JSON.stringify({
+            appId: "ttsreader",
+            uid: uid,
+            subId: subId,
+            checkSum: checkSum
+          })
+        }).then((response) => {
+          if (!response.ok) {
+            console.log('Error ' + response.status);
+            throw new Error('Error ' + response.status);
+          } else {
+            firebase.database().ref('/subs/' + uid + "/" + subId).remove().then(()=>{
+              console.log('Subscription removed');
+              alert('Subscription cancelled successfully.');
+              window.updateStateWithParentData({
+                isPremium: false,
+                subs: [],
+              });
+              injectAds();
+            }).catch((err)=>{
+              console.log('Subscription remove failed', err);
+            });
+            updateStateWithParentData({isPremium: false})
+          }
+        }).then((data) => {
+          console.log('Success:', data);
+        }).catch((error) => {
+          console.error('Error:', error);
+          alert('Error cancelling subscription. Please try again later or contact us via the form or via admin@speechlogger.com');
+        });
+      }
+    }
+  }
+
+
+
+  function listenToDatabaseData(uid) {
+    firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log(stopper() + 'got user data from db: ', data);
+      if (!data) {
+        window.updateStateWithParentData({
+          wasUserDataReceived: true,
+          isPremiumByLegacy: false,
+        })
+        return;
+      }
+
+      if (data.isPremium) {
+        window.updateStateWithParentData({
+          wasUserDataReceived: true,
+          isPremiumByLegacy: true,
+          isPremium: true,
+        });
+      } else {
+        window.updateStateWithParentData({
+          wasUserDataReceived: true,
+          isPremiumByLegacy: false,
+        });
+      }
+    });
+
+    // Listen to subs and purchases:
+    firebase.database().ref('/subs/' + uid).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log(stopper() + 'got subscriptions data from db: ', data);
+      if (data) {
+        let subs = data;
+        let subsIds = Object.getOwnPropertyNames(subs);
+        let additionalParams = {};
+        for (const subId of subsIds) {
+          let sub = subs[subId];
+          if (sub.hasOwnProperty('sku') && sub.sku === "SKU_TTSREADER_PREMIUM_MONTHLY__" && sub.hasOwnProperty('state') && sub.state === "active") {
+            additionalParams.isPremium = true;
+            additionalParams.subscriptionId = subId; // This will let us determine iof premium comes from sub or other (legacy / purchase)
+            window.subscriptionId = subId;
+          }
+        }
+        window.updateStateWithParentData({
+          wereSubsReceived: true,
+          subs: data,
+          ...additionalParams
+        });
+      } else {
+        window.updateStateWithParentData({
+          wereSubsReceived: true,
+          subs: [],
+        });
+      }
+    });
+
+    firebase.database().ref('/purchases/' + uid).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log(stopper() + 'got purchases data from db: ', data);
+      if (data) {
+        window.updateStateWithParentData({
+          werePurchasesReceived: true,
+          purchases: data,
+        });
+      } else {
+        window.updateStateWithParentData({
+          werePurchasesReceived: true,
+          purchases: [],
+        });
+      }
+    });
+
+    setTimerToCheckIfAllDbDataReceived(()=>{if (!getAppState().data.isPremium) injectAds();});
+  }
+
+  function setTimerToCheckIfAllDbDataReceived(onAllDataReceived) {
+    let interval = setInterval(() => {
+      if (window.getAppState && window.getAppState().data &&
+              window.getAppState().data.werePurchasesReceived &&
+              window.getAppState().data.wereSubsReceived) {
+        clearInterval(interval);
+        onAllDataReceived();
+      }
+    }, 2000);
+  }
+
+  function getOs() {
+    if (!window.navigator) {
+      return "unknown";
+    }
+
+    let userAgentLowerCaseString = ("" + navigator.userAgent + " " + navigator.platform + " " + navigator.userAgentData).toLowerCase();
+
+    if (/android/i.test(userAgentLowerCaseString)) {
+      return "android";
+    }
+
+    if (/mac/i.test(userAgentLowerCaseString) && "ontouchend" in document) {
+      return "ios";
+    }
+
+    if (/ipad|iphone|ipod|ios/i.test(userAgentLowerCaseString)) {
+      return "ios";
+    }
+
+    if (/mac/i.test(userAgentLowerCaseString)) {
+      return "mac";
+    }
+
+    if (/win/i.test(userAgentLowerCaseString)) {
+      return "win";
+    }
+
+    return "unknown"
+  }
+
+  function injectAds() {
+    if (!window.paypal) {
+      // Fetch the following js files:
+      const url1 = "https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true"
+      const url2 = "static/js/paypal-utils-bf.js"
+      fetchJsFile(url1, ()=>{
+        fetchJsFile(url2, ()=>{
+          console.log('Paypal loaded');
+        });
+      });
+    }
+
+    let isSafari = window.safari !== undefined;
+    let isIos = getOs() === 'ios';
+
+    if (isSafari || isIos) {
+      // TODO: Inject static images links to amazon, or write about premium advantages with a call to action button...
+      return;
+    } else {
+      document.documentElement.removeAttribute('data-no-ads');
+      // Inject Adsense:
+      let newScriptEl = document.createElement('script');
+      newScriptEl.setAttribute("src", "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626");
+      newScriptEl.setAttribute("async", "true");
+      newScriptEl.setAttribute("crossorigin", "anonymous");
+      document.getElementsByTagName("head")[0].appendChild(newScriptEl);
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  }
+
+  function toggleSignIn() {
+    var user = firebase.auth().currentUser;
+    //console.log("user " , user);
+
+    if (user) {
+      // User is signed in.
+      signOut();
+    } else {
+      // No user is signed in.
+      signIn();
+    }
+  }
+
+  function signInIfNeeded() {
+    /*let uid = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
+    if (!uid) {
+      signIn();
+    }*/
+  }
+
+  function signOut() {
+    firebase.auth().signOut();
+  }
+
+  function signIn() {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      let token = result.credential.accessToken;
+      // The signed-in user info.
+      let user = result.user;
+      let isNewUser = result.additionalUserInfo.isNewUser;
+      if (isNewUser) {
+        // Api.sendWelcomeEmail();
+      }
+    }).catch(function(error) {
+      // Handle Errors here.
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      // The email of the user's account used.
+      let email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      let credential = error.credential;
+      // ...
+    });
+  }
+</script>
+
+<script>
+  function getUrl(url) {
+    fetch(url).then(function(response) {
+      return response.text();
+    }).then(function(data) {
+      console.log(data);
+    }).catch(function(err) {
+      console.log('Fetch Error :-S', err);
+    });
+  }
+</script>
+</body>
+</html>

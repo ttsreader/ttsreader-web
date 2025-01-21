@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-47292499-3'); 
+  </script>
+  
+
+
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Player | TTSReader</title>
+  <meta name="author" content="ttsreader.com" />
+
+  
+  <meta name="keywords" content="text to speech, text reader, text to speech online, epub reader, read epub, ebook reader, read ebooks, online, text2speech, text2voice, speech generator, wellsource, ttsreader, text to speach, text for speech, txt 2 speech, tts, TTS, read text, speech online, speech software, textaloud, text aloud, natural reader, voice software, speaking software, demo, free, pdf to text, convert pdf, read pdf, pdf reader, read pdf, read text, speech synthesize, voices, web speech api, text to voice, chrome, webspeech">	
+  
+
+  
+  <meta name="description" content="Read Out Loud Webpages, Wiki Articles, etc.">
+  
+
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  
+
+  
+  
+    <link href="https://ttsreader.com/css/style.default.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+
+  
+  
+
+  
+  <link rel="apple-touch-icon" sizes="72x72" href="https://ttsreader.com/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://ttsreader.com/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://ttsreader.com/img/favicon-16x16.png">
+  <link rel="manifest" href="https://ttsreader.com/img/manifest.json">
+  <link rel="mask-icon" href="https://ttsreader.com/img/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  <link href="https://ttsreader.com/css/owl.carousel.css" rel="stylesheet">
+  <link href="https://ttsreader.com/css/owl.theme.css" rel="stylesheet">
+
+  <link rel="alternate" href="https://ttsreader.com/index.xml" type="application/rss+xml" title="TTSReader | Text To Speech Reader. Online, Free &amp; Unlimited">
+
+  
+  <meta property="og:title" content="Web Player | TTSReader" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/webplayer//" />
+  
+
+
+  <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/pakknklefcjdhejnffafpeelofiekebg">
+
+  <script>
+    
+      function openTTSREADERXinNewWindow() {
+          window.open("https://ttsreader.com/blog/2017/05/10/ttsreaderx/", "_blank");
+      }
+
+      function openTTSREADERinNewWindow() {
+          window.open("https://ttsreader.com", "_blank");
+      }
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+  <script>
+      
+      var config = {
+          apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
+          authDomain: "ttsreader.firebaseapp.com",
+          databaseURL: "https://ttsreader.firebaseio.com",
+          projectId: "ttsreader",
+          storageBucket: "",
+          messagingSenderId: "656667743185"
+      };
+      firebase.initializeApp(config);
+  </script>
+
+  
+  <script>
+    function popCookieConsent() {
+      let cookieConsentNotification = document.getElementById('cookieConsentNotification');
+      if (cookieConsentNotification) {
+        cookieConsentNotification.classList.remove('displayNone');
+      }
+    }
+
+    function okCookieNotification() {
+      localStorage.setItem('wasCookieNotified', true);
+      let cookieConsentNotification = document.getElementById('cookieConsentNotification');
+      if (cookieConsentNotification) {
+        cookieConsentNotification.classList.add('displayNone');
+      }
+    }
+
+    function runGdprStuff() {
+      let lsParams = ['wasCookieNotified', 'wholeText', 'emailForSignIn', 'sessionIndex'];
+      for (const lsParam of lsParams) {
+        let str = localStorage.getItem(lsParam);
+        if (str && Boolean(localStorage.getItem(lsParam)) && str!="Click Play button to listen to this text. You may edit this text here, or upload a file such as text, pdf or e-book.") {
+          
+          return;
+        }
+      }
+
+      
+      
+      let tz = "";
+      try {
+        tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      } catch (e) {
+        tz = "";
+      }
+      tz = tz ? tz.toLowerCase() : "";
+
+      if (tz.includes("europe") || tz.includes("jerusalem")) {
+        console.log("Country is in eu: ", tz);
+        popCookieConsent();
+      } else {
+        console.log("Not in eu. Hurray!");
+      }
+    }
+
+    window.addEventListener("load", function(){
+      setTimeout(()=>{
+        runGdprStuff();
+      },2000);
+    });
+  </script>
+  
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://ttsreader.com/css/all_main.min.css" rel="stylesheet">
+
+<style>
+    #application .no-bg-button, #application label{
+        text-shadow: 0 0 3px #ffffff, 0 0 5px #ffffff;
+    }
+
+    .navbar-affixed-top.affix {
+        box-shadow: #dddddd 1px 1px;
+    }
+
+    ins.adsbygoogle[data-ad-status="unfilled"] {
+        display: none !important;
+    }
+
+    .displayNone {
+        display: none;
+    }
+
+    .sidebar-column-if-room-left, .sidebar-column-if-room-right {
+        display: none;
+        position:relative;box-sizing: border-box;overflow-x: hidden;
+        max-height: 100vh;
+        position: sticky;
+        top: 0;
+        width: 0;
+    }
+
+    @media screen and (min-width: 967px) {
+        .sidebar-column-if-room-right {
+            display: block;
+        }
+    }
+
+    @media screen and (min-width: 1500px) {
+        .sidebar-column-if-room-left {
+            display: block;
+        }
+    }
+
+</style>
+
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "kyj82ozvnf");
+    </script>
+</head>
+
+
+<body>
+
+<style>
+    .navbar-item {
+        margin: 0 5px;
+    }
+</style>
+
+<div id="all">
+
+    <div style="z-index: 9999;position: fixed;top:0;left:0;right:0;background-color: #3b3b3b; padding: 20px 5px;display: flex" >
+        <a class="navbar-item" style="color: white" href="../">HOME</a>
+        &nbsp;
+        <a target="_blank" style="color: white" href="https://forms.gle/bP4TMJJuxvQh19q1A">Feedback</a>
+        <span class="navbar-item" style="flex:1;display: inline-block"></span>
+        <input class="navbar-item" type="text" id="url_input_box" style="width: 300px;" placeholder="Paste url here, eg: https://en.wikipedia.org/wiki/The_Beatles"/>
+        <button style="margin-left: -2px;" class="navbar-item" data-ws-onclick="playUrl">GO</button>
+        <button class="navbar-item" data-ws-onclick="playRandom">RANDOM</button>
+    </div>
+
+    <div style="display: flex;min-height: 90vh;margin-top: 66px;">
+        <div class="sidebar-column-if-room-left">
+            <div data-ws-ad="300x600" style="position: sticky;top: 90px;margin: 200px auto 30px auto; background-color: transparent;height: 600px;">
+                
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:600px"
+                     data-ad-client="ca-pub-5434274073094626"
+                     data-ad-slot="2778238166"></ins>
+                <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        <div style="flex: 1;">
+            <iframe height="100%" width="100%" id="content_iframe" src=""></iframe>
+        </div>
+        <div class="sidebar-column-if-room-right">
+            <div data-ws-ad="300x600" style="position: sticky;top: 90px;margin: 200px auto 30px auto; background-color: transparent;height: 600px;">
+                
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:600px"
+                     data-ad-client="ca-pub-5434274073094626"
+                     data-ad-slot="2778238166"></ins>
+                <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer" style="overflow: hidden">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            The best Text-To-Speech app online. Making Text to Speech available for everyday use, for free.<br>Developed by <strong><a href='https://wellsrc.com' target='_blank'>Ronen Rabinovici</a></strong>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+            <h4>Privacy & Terms</h4>
+
+            <a href="https://ttsreader.com/privacy/" target="_blank">See our privacy & terms page</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+            <b>Other Speech - Text Apps by Us</b>
+            <ul>
+                <li><a href="https://speechnotes.co" target="_blank" title="Try our online speech-recognition notepad">Speechnotes - Dictation Notepad</a></li>
+                <li><a href="https://speechkeys.io" target="_blank" title="A New Kind of Voice Typing Keyboard">Speechkeys - Dictation Keyboard for Mobile</a></li>
+                <li><a href="https://speechlogger.appspot.com/en/" target="_blank" title="Free online speech-captioning and instant translation">Speechlogger - Instant Captioning & Translation</a></li>
+                <li><a href='https://ttsreader.com/blog/2017/05/10/ttsreaderx/' target="_blank" title="Text to Speech Extension for ANY website">TTSReader-X - Speech to Text Extension</a></li>
+            </ul>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+            
+            
+
+            
+                
+                
+                    
+                        
+                          
+                            
+                          
+                        
+                    
+                    
+                        
+                    
+                
+                
+                
+                    
+                        
+                          
+                            
+                          
+                        
+                    
+                    
+                        
+                    
+                
+                
+                
+                    
+                        
+                          
+                            
+                          
+                        
+                    
+                    
+                        
+                    
+                
+                
+            
+
+            
+            
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>Contact</h4>
+
+            <p><strong><a href='https://wellsrc.com' target='_blank'>WellSource Ltd.</a></strong>
+        <br>admin@speechlogger.com
+        <br/><a href='https://twitter.com/RabinoviciR'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                          <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                        </svg>&nbsp;Twitter</a>&nbsp;
+      </p>
+
+
+            
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+
+    <div class=" text-center">
+        <a style="display: inline-block;" href="https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader" target="_blank" rel="nofollow">
+            <img style="margin: 0;display: inline-block;" height="81px" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
+        </a>
+
+        <a style="display: inline-block;" href="https://apps.apple.com/il/app/simple-text-reader-ttsreader/id1493463248" target="_blank" rel="nofollow">
+            <img style="margin: 0;display: inline-block;" height="57px" alt='Download on the App Store' src="https://ttsreader.com/img/Download_on_the_App_Store_Badge_US-UK_135x40.svg"/>
+        </a>
+
+        <a id="recordBtn"></a>
+    </div>
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="text-center">
+                <b>PRIVACY: </b> We respect your privacy - your text is not sent to us unless you chose to use cloud sync. We do use cookies and your local storage to enhance your experience & targeted ads. <a href="https://ttsreader.com/privacy/" target="_blank">Read more about privacy here.</a>
+                <br>Copyright (c) 2015 - 2023, <a href='https://wellsrc.com' target='_blank'>Ronen Rabinovici</a> ; all rights reserved.&nbsp;&nbsp;&nbsp;&nbsp;Based on template by <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
+                
+
+                Ported to Hugo by <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.&nbsp;&nbsp;Icons by <a href="https://www.glyphicons.com/" target="_blank">glyphicons</a> and by <a href="https://fontawesome.com/license" target="_blank">font-awesome</a>.
+                <br><span style="font-size: smaller">Reader BG image includes modification of image by Norman Bruderhofer - Collection of John Lampert-Hopkins, <a href="https://creativecommons.org/licenses/by-sa/2.5" title="Creative Commons Attribution-Share Alike 2.5">CC BY-SA 2.5</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1308343">Link</a></span>.
+            </p>
+            
+            <p id="languageLinks" class="text-center">
+                <a href="https://ttsreader.com/">English</a>
+                <a href="https://ttsreader.com/de/">Deutsch</a>
+                <a href="https://ttsreader.com/es/">español</a>
+                <a href="https://ttsreader.com/fr/">Français</a>
+                <a href="https://ttsreader.com/it/">italiano</a>
+                <a href="https://ttsreader.com/ja/">日本語</a>
+                <a href="https://ttsreader.com/zh/">中國</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</div>
+
+
+<script>
+
+  function loadUrl(url) {
+    let el = document.querySelector("#content_iframe");
+    if (el) {
+      el.src = "https://audactive.com/web?url=" + url;
+    }
+
+    
+
+  }
+
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  let urlParam = params.url || 'rand';
+  loadUrl(urlParam);
+</script>
+
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+
+  
+
+
+  
+  KEYS = {
+    
+    selected_language: "selected_language",
+    select_speed: "select_speed",
+    wholeText: "wholeText",
+    caretPos: "caretPos",
+    selected_voice: "selected_voice",
+
+    
+    isBookOn: "isBookOn",
+    currentChapterIndexInApp: "currentChapterIndexInApp",
+    totalNumberOfChapters: "totalNumberOfChapters",
+    bookTitle: "bookTitle",
+
+    
+    isPremium: "isPremium",
+    counter_refer_to_X: "counter_refer_to_X"
+  };
+
+  function chapterIndexToStorageKey(i) {
+    return 'chapter' + i;
+  }
+
+  let links = document.querySelectorAll('a');
+
+  for (const link of links) {
+    if (!link.getAttribute('target')) {
+      link.setAttribute('target', '_blank');
+    }
+  }
+
+
+  
+  (function(){
+    var plat = navigator.platform.toUpperCase();
+    if (window.location.href.indexOf('localhost')<0) {
+      if (plat.indexOf('MAC')>=0 || plat.indexOf('LINUX')>=0){
+        $('#recordBtn').hide();
+        $('#recordBtnNew').hide();
+      }
+    }
+  })();
+
+  $('.closeAdBtn').on('click',function () {
+    invokePremiumDialog2();
+  });
+  if (document.getElementById('closeDialogBtn')) {
+    document.getElementById('closeDialogBtn').addEventListener('click', closeDialog);
+  }
+
+  $('#helpBtn').on('click',function () {
+    invokeHelpDialog();
+  });
+
+  var isFullScreen = false;
+
+  if (document.addEventListener)
+  {
+    document.addEventListener('webkitfullscreenchange', exitHandler, false);
+    document.addEventListener('mozfullscreenchange', exitHandler, false);
+    document.addEventListener('fullscreenchange', exitHandler, false);
+    document.addEventListener('MSFullscreenChange', exitHandler, false);
+  }
+
+  function exitHandler()
+  {
+    if (!(document.webkitIsFullScreen))
+    {
+      setUiNotFullScreen();
+    } else {
+
+    }
+  }
+
+  function toggleFullScreen() {
+    
+
+
+    if (!isFullScreen) {
+      application.webkitRequestFullscreen();
+      $('#application').css('background',"white");
+      $('#application').css('width',"100%");
+      $('#application').css('min-height',"80vh");
+    } else {
+      document.webkitCancelFullScreen();
+      setUiNotFullScreen();
+    }
+    isFullScreen = !isFullScreen;
+  }
+
+  function setUiNotFullScreen() {
+    
+    $('#application').css('background-image',"url('../img/app/desk.jpeg')");
+    $('#application').css('background-size',"cover");
+    $('#application').css('height',"700px");
+    $('#application').css('width',"none");
+    $('#application').css('max-height',"80vh");
+  }
+
+
+  $("#fullScreenBtn").on('click',toggleFullScreen);
+
+  function openInNewTab(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
+
+  function invokePremiumDialog() {
+    window.open("https://ttsreader.com/upgrade/", "_blank");
+  }
+
+  function invokePremiumDialog2() {
+    window.open("https://ttsreader.com/upgrade/", "_blank");
+  }
+
+  function invokeHelpDialog() {
+    invokeDialog('helpDialog');
+  }
+
+  function invokeDialog(dialogId) {
+    document.getElementById('dialogContainer').style.display = 'block';
+    document.getElementById(dialogId).style.display = 'block';
+    bindKey(27,closeDialog);
+  }
+
+  function notifyMe(msg, action, callback) {
+    document.getElementById('notificationMsg').innerText = msg;
+    if (action) {
+      document.getElementById('notificationBtn').innerText = action;
+      document.getElementById('notificationBtn').addEventListener('click', function (e) {
+        closeDialog();
+        if (callback) {
+          callback();
+        }
+      });
+    }
+    invokeDialog('notificationDialog');
+  }
+
+  function closeDialog() {
+    document.getElementById('dialogContainer').style.display = 'none';
+    $('.dialog').hide();
+    unbindKey(27);
+  }
+  
+  function isSignedIn() {
+    if (window.firebase && window.firebase.auth() && window.firebase.auth().currentUser && window.firebase.auth().currentUser.uid) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function syncFromFirebase() {
+    
+    if (firebase.auth().currentUser) {
+      var userId = firebase.auth().currentUser.uid;
+      firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+        for (var iProperty in KEYS) {
+          
+          if (!KEYS.hasOwnProperty(iProperty)) continue;
+
+          
+          var iKey = KEYS[iProperty];
+          var iValueToStore = "" + snapshot.val()[iProperty];
+          localStorage.setItem(iKey, iValueToStore);
+        }
+
+        
+        
+        var numberOfChapters = getNumberOfChapters(snapshot.val());
+        if (numberOfChapters) {
+          for(var i=0; i<numberOfChapters; i++) {
+            var iKey = chapterIndexToStorageKey(i);
+            var iValue = snapshot.val()[iKey];
+            if (!iValue) {
+              iValue = "";
+            }
+            localStorage.setItem(iKey,iValue);
+          }
+        }
+
+        
+        loadUserPrefs();
+      });
+    } else {
+      invokeSignInDialog();
+    }
+  }
+
+  function getNumberOfChapters(object) {
+    var isBookOn = false;
+    var totalNumberOfChapters = 0;
+    var currentChapterIndexInApp = null;
+
+    if(!object) {
+      
+      isBookOn = localStorage.getItem(KEYS.isBookOn);
+      totalNumberOfChapters = localStorage.getItem(KEYS.totalNumberOfChapters);
+      currentChapterIndexInApp = localStorage.getItem(KEYS.currentChapterIndexInApp);
+    } else {
+      
+      isBookOn = object[KEYS.isBookOn];
+      totalNumberOfChapters = object[KEYS.totalNumberOfChapters];
+      currentChapterIndexInApp = object[KEYS.currentChapterIndexInApp];
+    }
+
+    if (totalNumberOfChapters!=null && currentChapterIndexInApp!=null) {
+      totalNumberOfChapters = parseInt(totalNumberOfChapters);
+      currentChapterIndexInApp = parseInt(currentChapterIndexInApp);
+
+      if (isBookOn=='true' && totalNumberOfChapters>0) {
+        return totalNumberOfChapters;
+      }
+    }
+
+    return 0;
+  }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<script>
+  function playUrl() {
+    let inEl = document.querySelector('#url_input_box');
+    if (inEl) {
+      let url = inEl.value || "https://en.wikipedia.org/wiki/The_Beatles";
+      window.open('?url=' + url, '_self');
+    }
+  }
+
+  function playRandom() {
+    window.open('?url=rand', '_self');
+  }
+</script>
+
+
+<script defer src="/js/page-state.js"></script>
+<script defer src="/js/dom-hooks.js"></script>
+
+</body>
+</html>

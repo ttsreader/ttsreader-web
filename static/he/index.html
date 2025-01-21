@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="no-js consumer" lang="he" style="scroll-behavior: smooth;direction: rtl;"> <!-- Page Specific -->
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-47292499-3'); // Specific for ttsreader.
+	</script>
+	<!-- End: Global site tag (gtag.js) - Google Analytics -->
+
+
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link rel=icon href=https://ttsreader.com/favicon2.ico sizes=16x16><link rel=icon type=image/svg+xml href=https://ttsreader.com/favicon2.svg sizes=any><link rel=apple-touch-icon sizes=180x180 href=https://ttsreader.com/apple-touch-icon.png>
+
+	<title>TTSReader | מקריא טקסט אונליין</title>
+	<meta content="הקראת טקסט אונליין בחינם, בעברית ושפות נוספות. יצירת קבצי אודיו מטקסט ועוד." name="description"/>
+
+	<style>
+		@font-face{font-family:'Arizonia';font-style:normal;font-weight:400;src:local('Arizonia'),local('Arizonia-Regular'),url(https://fonts.gstatic.com/s/arizonia/v6/2LCopz-tiFTquWPI_IJCyBTbgVql8nDJpwnrE27mub0.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Arizonia';font-style:normal;font-weight:400;src:local('Arizonia'),local('Arizonia-Regular'),url(https://fonts.gstatic.com/s/arizonia/v6/PwrsyFTYH2Wmsvpn0dx4s_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01mxJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/RjgO7rYTmqiVp7vzi-Q5URJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/LWCjsQkB6EMdfHrEVqA1KRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+1F00-1FFF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0370-03FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0102-0103,U+1EA0-1EF1,U+20AB}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01mxJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/RjgO7rYTmqiVp7vzi-Q5URJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/LWCjsQkB6EMdfHrEVqA1KRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+1F00-1FFF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0370-03FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0102-0103,U+1EA0-1EF1,U+20AB}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Droid Sans Mono';font-style:normal;font-weight:400;src:local('Droid Sans Mono'),local('DroidSansMono'),url(https://fonts.gstatic.com/s/droidsansmono/v7/ns-m2xQYezAtqh7ai59hJYdJ2JT0J65PSe7wdxAnx_I.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}body{overflow-x:hidden;margin:0;font-family:"Century Gothic","Apple Gothic",sans-serif}select{font-family:cursive;font-weight:bold;border-radius:6px;background-color:#fac660;box-shadow:3px 3px black;margin-left:20px}select:focus{outline:0;background-color:white}#content{max-width:95%;line-height:160%;margin:auto auto}#header{position:relative;height:175px}#phonograph_img{width:140px;height:175px;background:url('../assets/images/phonograph_small_crayon.png');background-size:100%;display:block;position:absolute;left:10px;z-index:-99}#phonograph_credit{width:140px;height:175px;display:block;position:absolute;left:10px;border-radius:20px}#logo_container{width:100%;height:150px}#logo{display:block;position:static;width:100%;max-width:500px;height:150px;margin:10px auto;margin-top:10px;background-image:url('https://speechlogger.appspot.com/images/20150607_long_header.png');background-repeat:no-repeat;background-color:transparent;background-size:contain}#access{display:block;width:100%;line-height:220%}#access ul{list-style:none;text-align:center;font-weight:bold;font-size:110%;padding:0}#access li{display:inline-block;margin:5px 16px;background-color:rgba(151,209,253,0.4);border:1px gray;border-radius:20px;padding:7px 20px;box-shadow:0 3px 3px rgba(0,0,0,0.5)}#access li:hover{cursor:pointer;background-color:rgba(151,209,253,1)}#access li>a{color:black;text-decoration:none}h1,h2,h3,h4{text-align:center;line-height:150%}h1{vertical-align:middle;text-shadow:2px 2px #fff;color:#7d0303}h2{clear:both;opacity:.8}p{color:#655a5a}#content p{text-align:justify}.center{text-align:center}.resizeableYoutube{width:50%;min-width:336px;max-width:560px;float:right;margin-left:25px;margin-top:5px}.resizeableYoutube>div{position:relative;padding-bottom:64%;height:0}.resizeableYoutube iframe{position:absolute;top:0;left:0;width:100%;height:100%}.ad_336x280{width:336px;height:280px;float:right;margin-left:25px;margin-top:5px}#content #userReviews p{width:80%;margin:30px auto;text-align:center;font-size:120%;color:gray;font-style:italic}.ad_728x15{clear:both;width:728px;height:90px;margin:20px auto}.ad_728x90{clear:both;width:728px;height:90px;margin:20px auto}.ad_120x600{width:120px;height:600px;position:absolute;right:-150px;bottom:0}#application{position:relative;clear:both;max-width:90%;padding:20px;border-radius:10px 10px 10px 10px;margin:0 auto;background:url('wood_texture.jpg')}#buttons_row{height:100px;margin:20px auto;margin-top:0;width:100%;position:relative}#speak_button_container{position:absolute;top:0;left:50%}#speak_button{margin:0;margin-left:-50px;opacity:.8;width:100px;height:100px;background-color:transparent;background-image:url('start_button.png');cursor:pointer;border-radius:50px}#speak_button:hover{opacity:1}#left_half_container{display:inline-block;margin:0;padding:0;width:50%}#left_buttons{margin-right:60px;height:100px;text-align:center;line-height:100px;overflow-y:hidden;padding-right:5px}#reset_button{vertical-align:middle;display:inline-block;opacity:.8;width:50px;height:50px;margin:0 auto;background-color:transparent;background-image:url('restart.png');cursor:pointer;border-radius:10px;box-shadow:3px 3px black;background-repeat:no-repeat;background-size:contain;border:1px black solid}#reset_button:hover{opacity:1;margin-bottom:5px}#clear_button{vertical-align:middle;display:inline-block;opacity:.8;width:50px;height:50px;margin:0 auto;background-color:transparent;background-image:url('new3.png');cursor:pointer;border-radius:10px;box-shadow:3px 3px black;background-repeat:no-repeat;background-size:contain;border:1px black solid}#clear_button:hover{opacity:1;margin-bottom:5px}#right_half_container{position:absolute;top:40px;right:0;width:50%}#right_buttons{margin-left:40px;text-align:center}#text_box,#text_box_mirror{display:block;height:300px;width:90%;margin:auto;background-color:white;padding:20px;overflow-y:scroll;font-family:"Droid Sans Mono",monospace;font-size:16px}#text_box::selection{background-color:yellow}.zero_height_container{margin:0;height:0;width:100%;overflow-y:hidden}#placeholder{color:gray;font-weight:bold}#text_box::-webkit-scrollbar{width:16px}#text_box::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);-webkit-border-radius:10px;border-radius:10px}#text_box::-webkit-scrollbar-thumb{-webkit-border-radius:10px;border-radius:10px;background:rgba(0,0,0,0.3);-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5)}#text_box::-webkit-scrollbar-thumb:hover{-webkit-border-radius:10px;border-radius:10px;background:rgba(0,0,0,0.6);-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5)}#footer{width:100%;background-color:#7d0303;padding-bottom:10px}#footer_menu{text-align:center;width:100%;border-top:solid 1px gray}#footer_menu a{display:inline-block;padding:10px 20px;margin:0 20px;border-radius:20px;font-weight:bold;color:#ffecc7}#footer_menu a:hover,a:visited,a:link,a:active{text-decoration:none}#languageLinks a{display:inline-block;padding:10px 10px;margin:0 2px;border-radius:20px;font-weight:normal;color:green}#footer_menu a:hover{background-color:#ffecc7;color:black}#footer p{margin-bottom:0}
+
+
+		html,body {
+			width: 100vw;
+			padding: 0;
+			margin: 0;
+			overflow-x: hidden;
+		}
+
+
+		h1 {
+			position: relative;
+			top: 70px;
+		}
+
+		#header {
+			position: relative;
+		}
+
+		#donateButtonTop {
+			width: 100px;
+			height: 30px;
+			position: absolute;
+			top: 65px;
+			right: 10px;
+			z-index: 999;
+		}
+
+		#donateButtonCenter {
+			width: 100px;
+			height: 30px;
+			margin: 10px auto;
+			z-index: 999;
+		}
+
+		.link_box a,a:hover,a:visited { color:inherit; text-decoration:none; }
+		.link_box {max-width: 90%;margin: 0 auto;padding: 10px;}
+
+		#store_img_container{
+			display: block;
+			position: absolute;
+			height: 100%;
+			width: 210px;
+			bottom: 50%;
+		}
+
+		#store_logo {
+			width: 210px;
+			height: 80px;
+		}
+
+		#logo-img {
+			display: block;
+			position: absolute;
+			width: 210px;
+			height: 80px;
+			bottom: -40px;
+		}
+
+		.ad_120x600{width:120px;height:600px;position:absolute;left:-150px;bottom:0}
+		.ad_160x600{width:160px;height:600px;position:absolute;right:-190px;bottom:0}
+
+		#top_pane {
+			height: 34px;
+			position: fixed;
+			max-width: 100vw;
+			top: 0;
+			right: 0;
+			left: 0;
+			background-color: #7d0303;
+			line-height: 34px;
+			z-index: 999;
+			padding: 0;
+			overflow: hidden;
+			color: white;
+		}
+
+		#top_menu {
+			margin: 0 20px;
+			font-size: 14px;
+			font-weight: normal;
+			text-align: left;
+			display: inline-block;
+			text-space: 80%;
+			font-family: Arial;
+		}
+
+		#top_menu a {
+			display: inline-block;
+			margin: 0 5px;
+			padding: 0 5px;
+			color: white;
+		}
+
+		#top_menu a:hover, a:visited, a:link, a:active {
+			text-decoration: none;
+		}
+
+		#top_menu a:hover {
+			background-color: #8d1010;
+		}
+
+		#shareButtons {
+			display: block;
+			position: absolute;
+			right: 160px;
+			top: 3px;
+		}
+
+		#donateButton {
+			display: block;
+			overflow-y: hidden;
+			position: absolute;
+			right: 20px;
+			width: 100px;
+			top: 4px;
+			text-align: center;
+		}
+
+		#phonograph_img, #phonograph_credit {
+			bottom: -20px;
+		}
+
+		.parent-ad-container {
+			height: 600px;
+			margin-top: 30px;
+		}
+
+		.ad-container {
+			width:90%;
+			margin-bottom: 20px;
+			min-width: 120px;
+			padding: 0;
+			max-width: 400px;
+			overflow: hidden;
+		}
+
+		.ad-left{
+			margin-left:10%;margin-right:0;
+		}
+
+		.ad-right{
+			margin-right:10%;margin-left:0;
+		}
+
+		@media (max-width: 991px) {
+			.title h2 {
+				font-size: 16px;
+			}
+
+			.parent-ad-container {
+				height: auto;
+				margin-top: 10px;
+			}
+
+			.ad-container {
+				width:90%;
+				max-width: 90%;
+				padding: 0;
+				overflow: hidden;
+			}
+
+			.ad-left,.ad-right {
+				margin: 10px auto;
+			}
+
+			.ad-left {
+				max-height: 100px;
+			}
+		}
+
+	</style>
+
+	<!-- fb metas -->
+	<meta property="og:title" content="מקריא טקסט ואתרים אונליין" />
+	<meta property="og:site_name" content="TTSReader"/>
+	<meta property="og:description" content="הקראת טקסט אונליין בחינם, בעברית ושפות נוספות. יצירת קבצי אודיו מטקסט ועוד." />
+	<meta property="og:image" content="https://ttsreader.com/images/tile_1400x560.jpg"/>
+	<meta property="og:locale:alternate" content="en_US" />  <!-- En -->
+	<meta property="og:locale:alternate" content="fr_FR" />  <!-- French -->
+	<meta property="og:locale:alternate" content="it_IT" />  <!-- Italian -->
+	<meta property="og:locale:alternate" content="es_ES" />  <!-- Spanish -->
+	<meta property="og:locale:alternate" content="de_DE" />  <!-- German -->
+	<meta property="og:locale:alternate" content="ja_JP" />  <!-- Japanese -->
+	<meta property="og:locale:alternate" content="zh_CN" />  <!-- Chinese -->
+	<!-- end of fb metas -->
+
+	<link rel="alternate" hreflang="x-default" href="https://ttsreader.com/" />
+	<link rel="alternate" hreflang="en" href="https://ttsreader.com/" />
+	<link rel="alternate" hreflang="de" href="https://ttsreader.com/de/" />
+	<link rel="alternate" hreflang="es" href="https://ttsreader.com/es/" />
+	<link rel="alternate" hreflang="fr" href="https://ttsreader.com/fr/" />
+	<link rel="alternate" hreflang="it" href="https://ttsreader.com/it/" />
+	<link rel="alternate" hreflang="ja" href="https://ttsreader.com/ja/" />
+	<link rel="alternate" hreflang="zh" href="https://ttsreader.com/zh/" />
+	<link rel="alternate" hreflang="ar" href="https://ttsreader.com/ar/" />
+	<link rel="alternate" hreflang="he" href="https://ttsreader.com/he/" />
+	<link rel="alternate" hreflang="ko" href="https://ttsreader.com/ko/" />
+	<link rel="alternate" hreflang="pt" href="https://ttsreader.com/pt/" />
+	<link rel="alternate" hreflang="ru" href="https://ttsreader.com/ru/" />
+	<link rel="alternate" hreflang="ro" href="https://ttsreader.com/ro/" />
+	<link rel="alternate" hreflang="hi" href="https://ttsreader.com/hi/" />
+	<link rel="alternate" hreflang="nl" href="https://ttsreader.com/nl/" />
+
+	<script>
+		localStorage.setItem("interfaceLang", "es");
+	</script>
+
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+	<script>
+		window.addEventListener("load", function(){
+			window.cookieconsent.initialise({
+				"palette": {
+					"popup": {
+						"background": "#000"
+					},
+					"button": {
+						"background": "#f1d600"
+					}
+				},
+				"content": {
+					"href": "https://ttsreader.com/privacy/"
+				}
+			})});
+	</script>
+</head>
+
+<body>
+
+<div id="top_pane">
+	<div id="top_menu">
+		<a href="#about" target="_self">אודות</a>
+		<a href="https://speechnotes.co/he/" target="_blank" title="המרת דיבור לטקסט">המרת דיבור לטקסט</a>
+		<a href="https://speechlogger.com/" target="_blank" title="תרגום מיידי">תרגום מיידי</a>
+	</div>
+</div>
+
+<div class="hero" style="width: 100vw; height: 100vh;background-color: #7d0303; display: flex; flex-direction: column;">
+	<div style="height: 34px;"></div>
+	<iframe src="../embeds/player/he.html" style="width: 100%; flex: 1; border: none;"></iframe>
+</div>
+
+<a id="about"></a>
+<br/>
+
+<div id="content">
+
+	<div id="header">
+		<a id="phonograph_img" href="https://commons.wikimedia.org/wiki/File:VictorVPhonograph.jpg#/media/File:VictorVPhonograph.jpg" title="תמונה של גרמופון ויקטור, מאת נורמן ברודרהופר - אוסף של ג'ון למפרט-הופקינס. ברישיון CC BY-SA 2.5 דרך ויקיפדיה"></a>
+		<a id="phonograph_credit" href="https://commons.wikimedia.org/wiki/File:VictorVPhonograph.jpg#/media/File:VictorVPhonograph.jpg" title="תמונה של גרמופון ויקטור, מאת נורמן ברודרהופר - אוסף של ג'ון למפרט-הופקינס. ברישיון CC BY-SA 2.5 דרך ויקיפדיה"></a>
+		<h1>מקריא טקסט ואתרים אונליין</h1>
+	</div>
+
+	<h2>מקריא באופן מיידי כל טקסט - קובץ - או אתר - בקול טבעי בעברית ושפות נוספות</h2>
+
+	<div class="text-content" style="width: 960px; max-width: 95%;margin: 20px auto">
+		<div class="center">
+			<p>אפליקציית אינטרנט שעובדת היטב גם בכרום וגם בספארי. אין צורך בהורדה או התקנה, ואין תהליכים מעצבנים לגישה. פשוט הדבק את הטקסט ולחץ על "נגן".</p>
+			<p>עובד גם בכרום למובייל. אידיאלי להאזנה למאמרים בזמן נהיגה, נסיעה, אימון, עבודה ועוד.</p>
+		</div><br>
+
+		<h2>הפוך פודקאסט מטקסטים כתובים.</h2>
+		<h3>האזן לספרים ולמאמרים מעניינים בזמן עבודה או נהיגה.</h3>
+		<!-- <div class="resizeableYoutube">
+            <div><iframe src="https://www.youtube.com/embed/Xu1nOUuucFE?rel=0" frameborder="0" allowfullscreen></iframe></div>
+        </div>-->
+		<p>TTSReader הוא בהחלט שימושי למי שרוצה להאזין לתוכן כתוב בזמן שעושה משהו אחר.
+			<br>לדוגמה - תוכל להאזין למאמרים שלמים מויקיפדיה (פשוט העתק והדבק אותם כאן), או מסמכים אחרים שעליך ללמוד לעבודה או לפיתוח אישי.
+			<br>צפה בסרטון YouTube זה כדי לראות כיצד הוא קורא את "החתול בכובע" מאת ד"ר סוס. זה יפתיע אותך.
+		</p><br><h4>חוסך לך המון תעבורת נתונים ועלויות ניידות.</h4>
+		<p>רוב אפליקציות הפודקאסט צורכות כמות גדולה של נתונים, ככל שהקובץ ארוך יותר, כך גודל הקובץ גדול יותר. עם זאת, TTSReader משתמש במנועי טקסט לדיבור המובנים במכשיר הנייד שלך. כך תוכל להאזין לשעות של פודקאסטים טקסטואליים עם כמעט שום שימוש בנתונים. זה הופך אותו לתוכנה אידיאלית לנהגים ולכל מי שרוצה להאזין לתוכן מעניין בדרכים.</p><br><h3>חינוכי ותעסוקתי לילדים</h3>
+		<p>ילדים אוהבים להאזין לסיפורים טובים, וזה טוב מאוד להתפתחותם. אין כמו אמא או אבא שקוראים סיפור לפני השינה, אבל עם TTSReader עכשיו תוכל להניח להם להאזין לסיפורים נוספים בנוסף לאלה שאמא ואבא קוראים להם. נסה זאת, הדעות אומרות שהילדים אוהבים את זה!
+		</p><br><h3>עוזר לאנשים עם קשיים בקריאה</h3>
+		<p>אנשים עם קשיים בקריאה (רגילים או זמניים), אבל לא רוצים לוותר על הפיתוח העצמי משתמשים ב-TTSReader כעוזר שלהם.
+		</p><br><h3>מספר ומדבב סרטים, מצגות ועוד</h3>
+		<p>פשוט כתוב את הטקסט שאתה צריך לקריינות בשפה הרצויה (ניתן לתרגם קודם באמצעות גוגל תרגום) - לחץ על כפתור הנגן - והקלט את הקול שהתקבל.
+			<br>הרגע יצרת קובץ שמע מקצועי משלך - שנשמע בכל שפה.
+		</p><br><br><h2>דירוג וחוות דעת משתמשים (4.5 כוכבים!)</h2>
+		<p>עשינו את התוכנה הזו למען המשתמשים שלנו. לכן אנחנו כל כך שמחים לשמוע את חוות דעתכם. המשתמשים שלנו דירגו את TTSReader בחנות כרום ביותר מ-4.5 כוכבים! הרבה מעל חלופות מקוונות אחרות. הנה כמה מהחוות דעת שהשאירו לנו המשתמשים בחנות <a href="https://chromewebstore.google.com/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg?pli=1" rel="nofollow" target="_blank" title="חוות דעת על TTSReader בחנות">store</a>:</p>
+		<div id="userReviews">
+			<p>"עובד בצורה מושלמת, והוא הקורא החינמי הטוב ביותר עם שימוש בלתי מוגבל, הילדים שלי אוהבים את זה. תודה רבה"</p>
+			<p>"עובד נהדר. ניסיתי אפליקציות והרחבות "טקסט לדיבור" אחרות וזו היחידה שעובדת ועובדת טוב!!"</p>
+			<p>"מדהים! המשפטים נשמעים ברור והקצב מושלם!"</p>
+		</div>
+		<p>... ויש עוד הרבה. קרא את כולם ב-<a href="https://chromewebstore.google.com/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg?pli=1" rel="nofollow" target="_blank" title="חוות דעת על TTSReader בחנות">חנות כרום</a></p>
+		<p>תודה רבה חברים! חוות דעתכם הן דחף גדול להמשיך לפתח פתרונות נהדרים</p><br> <h2>הוראות ועוד</h2>
+		<h4>הוראות</h4>
+		<P>הדבק את הטקסט שאתה רוצה שיקראו בתיבת הטקסט של האפליקציה.
+			<br>לחץ על "נגן". זה הכל. TTSReader יטפל בכל השאר כדי שתוכל ליהנות מההאזנה.
+			<br>
+			<br><b>השהה והפעל - </b>לחיצה על כפתור "הפעל / השהה" תשהה או תחזיר את הקריאה מהנקודה שבה היא הופסקה.
+			<br><b>חידוש - </b>לחץ על כפתור "החזרה" כדי להחזיר את הקריאה מההתחלה.
+			<br><b>כוונן את השפה והקצב של הקריאה - </b>גם השפה וגם קצב הקריאה ניתנים לכוונון כדי להתאים לצרכיך. תומך בשפות הבאות: אנגלית בריטית, אנגלית אמריקאית, ספרדית, צרפתית, איטלקית, גרמנית, יפנית, קוריאנית וסינית.
+		</p><br><h4>תאימות</h4>
+		<p>TTSReader הוא רב-פלטפורמות, יעבוד כל עוד תפעיל אותו בכרום או ספארי. עובד נהדר בכל מחשב שולחני, נייד, מק, כרוםבוק ואפילו במובייל.
+		</p><br><h4>פרטיות</h4>
+		<p><a style="color: blue" href="https://ttsreader.com/docs/guides/privacy/" target="_blank">ראה פרטים על מדיניות פרטיות פה</a>
+		</p>
+		<br>
+		<h4>כתב ויתור</h4>
+		<p>למרות שאנו מנסים, ייתכן שהקריאות לא יהיו מדויקות. בנוסף, TTSReader.com הוא שירות המסופק כפי שהוא ואיננו יכולים להבטיח שהוא ימשיך בעתיד (שתפו אותו עם חבריכם כדי להבטיח שיישאר לנצח :))
+		</p><br><h4>אנו מעריכים את דירוגיך ותמיכתך</h4>
+		<p>אם יש לך הערות, רעיונות או בקשות, אנא <a target="_blank" href="mailto:admin@speechlogger.com">צור איתנו קשר</a>, נשמח לשמוע ממך.
+			<br>אם אתה אוהב את TTSReader, אנא תמוך בנו על ידי <a rel="nofollow" href="https://chromewebstore.google.com/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg?pli=1" target="_blank" title="אנא תן לנו 5 כוכבים, נודה לך מאוד :)">דירוגנו</a> בחנות כרום,
+			שיתוף עם חברים, או אזכור אותנו בפוסטים ובלוגים שלך. גם חבריך ומעקביך יעריכו זאת. אתה יכול גם לתרום תרומה קטנה (בסגנון "קנה לי קפה").
+		</p><br><h3>הכר את האפליקציות האחרות שלנו - אפליקציות אינטרנט לדיבור לטקסט</h3>
+		<ul>
+			<li>
+				<a href="http://speechninja.co" target="_blank" title="תהנה מדיבור מהיר עם הכתבה קולית שלנו"><b>SpeechNinja AAC</b> - </a>אם אתה מחפש פתרון תקשורת תומכת חליפית (AAC) (תוכנת טקסט לדיבור המיועדת לטקסטים מהירים וקצרים), <a href="http://speechninja.co" target="_blank">SpeechNinja</a> החדש שלנו הוא הפתרון שאתה מחפש.
+			</li>
+			<li>
+				<a href="https://speechnotes.co/he/" target="_blank" title="נסה את פנקס הרשימות המקוון שלנו עם זיהוי קולי."><b>Speechnotes</b> - </a>פנקס רשימות מקצועי לדיבור לטקסט (הכתבה) לכרום.
+			</li>
+			<li>
+				<a href="https://speechlogger.appspot.com/he/" target="_blank" title="מתרגם וסובטיטלר מיידי מקוון חינם."><b>Speechlogger</b> - </a>
+				מתרגם וסובטיטלר מיידי מקוון חינם.
+			</li>
+		</ul>
+
+	</div>
+
+</div>
+
+<div id="footer">
+	<div id="footer_menu">
+		<a id="contact_us" href="mailto:admin@speechlogger.com" target="_blank">צור איתנו קשר</a>
+		<a href="http://speechninja.co" target="_blank" title="תהנה מדיבור מהיר עם הכתבה קולית שלנו">SpeechNinja AAC</a>
+		<a href="https://speechnotes.co/he/" target="_blank" title="נסה את פנקס הרשימות המקוון שלנו עם זיהוי קולי.">המרת דיבור לטקסט (הכתבה קולית)</a>
+		<a href="https://speechlogger.appspot.com/he/" target="_blank" title="מתרגם וסובטיטלר מיידי מקוון חינם.">תרגום קול</a>
+		<a href="https://chromewebstore.google.com/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg?pli=1" target="_blank" title="אנא תן לנו 5 כוכבים, נודה לך מאוד :)">דרג אותנו</a>
+		<br>
+		<div id="languageLinks">
+			<a href="https://ttsreader.com/">English</a>
+			<a href="https://ttsreader.com/de/">Deutsch</a>
+			<a href="https://ttsreader.com/es/">español</a>
+			<a href="https://ttsreader.com/fr/">Français</a>
+			<a href="https://ttsreader.com/it/">italiano</a>
+			<a href="https://ttsreader.com/ja/">日本語</a>
+			<a href="https://ttsreader.com/zh/">中國</a>
+			<a href="https://ttsreader.com/ar/">العربية</a>
+			<a href="https://ttsreader.com/he/">עברית</a>
+			<a href="https://ttsreader.com/ko/">한국어</a>
+			<a href="https://ttsreader.com/pt/">Português</a>
+			<a href="https://ttsreader.com/ru/">Русский</a>
+			<a href="https://ttsreader.com/ro/">Română</a>
+			<a href="https://ttsreader.com/hi/">हिन्दी</a>
+			<a href="https://ttsreader.com/nl/">Nederlands</a>
+		</div>
+	</div>
+	<p style="text-align:center;color:#FFECC7;">כל הזכויות שמורות לבעלים בכל העולם. אין הרשאה להעתיק או להשתמש בקוד, בסגנון, בשמות ובכל תוכן אחר ללא אישור בכתב מפורש מהבעלים (admin@speechlogger.com). אתה רשאי להדגים שימוש ב-TTSReader.com, ביקורות וכו', כל עוד אתה מקשר בחזרה ל-https://ttsreader.com. תודה.
+	</p>
+</div>
+</div>
+
+</body>

@@ -1,0 +1,37 @@
+google.com, pub-5030295218223297, DIRECT, f08c47fec0942fa0
+google.com, pub-5434274073094626, DIRECT, f08c47fec0942fa0
+google.com, pub-2697679518515886, DIRECT, f08c47fec0942fa0
+
+avantisvideo.com, 7947, DIRECT
+spotxchange.com, 165877, RESELLER, 7842df1d2fe2db34
+spotx.tv, 165877, RESELLER, 7842df1d2fe2db34
+Advertising.com, 23598, RESELLER
+Appnexus.com, 10062, DIRECT, f5ab79cb980f11d1
+Appnexus.com, 3391, DIRECT, f5ab79cb980f11d1
+openx.com, 538911542, DIRECT, 6a698e2ec38604c6
+openx.com, 539955014, DIRECT, 6a698e2ec38604c6
+rubiconproject.com, 19002, DIRECT, 0bfd66d529a55807
+indexexchange.com, 192106, DIRECT
+sonobi.com, 3f7e72fd0f, DIRECT, d1a215d9eb5aee9e
+rhythmone.com, 1059622079, RESELLER, a670c89d4a324e47
+contextweb.com, 560606, RESELLER, 89ff185a4c4e857c
+rhythmone.com, 871930104, DIRECT, a670c89d4a324e47
+video.unrulymedia.com, 871930104, DIRECT
+EMXDGT.com, 1745, DIRECT, 1e1d41537f7cad7f
+Contextweb.com, 562357, DIRECT, 89ff185a4c4e857c
+Pubmatic.com, 159970, RESELLER, 5d62403b186f2ace
+freewheel.tv, 969937, DIRECT
+freewheel.tv, 972177, RESELLER
+google.com, pub-5717092533913515, RESELLER, f08c47fec0942fa0 #NPMpartners
+indexexchange.com, 185192, RESELLER #EBDA
+rhythmone.com,1149317856,RESELLER,a670c89d4a324e47 #EBDA
+rubiconproject.com, 17346, RESELLER, 0bfd66d529a55807 #EBDA
+pubmatic.com, 157904, RESELLER, 5d62403b186f2ace #EBDA
+advertising.com, 28613, RESELLER #VerizonOBVideo
+openx.com, 538929384, RESELLER, 6a698e2ec38604c6 #EBDA
+spotx.tv, 108706, RESELLER, 7842df1d2fe2db34 #EBDA
+spotxchange.com, 108706, RESELLER, 7842df1d2fe2db34 #EBDA
+video.unrulymedia.com, 1149317856, RESELLER #EBDA
+
+google.com, pub-2930805104418204, RESELLER, f08c47fec0942fa0
+google.com, pub-4903453974745530, RESELLER, f08c47fec0942fa0

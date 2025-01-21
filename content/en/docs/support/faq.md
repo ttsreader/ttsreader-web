@@ -13,5 +13,5 @@ weight: 210
 toc: false
 ---
 
-### Visit our complete [FAQ](/faqs/) page for more answers to frequently asked questions. We're working to update it for the new player.
+### Visit our complete [FAQ](/faq/) page for more answers to frequently asked questions. We're working to update it for the new player.
 

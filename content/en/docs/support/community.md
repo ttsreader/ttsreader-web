@@ -1,6 +1,6 @@
 ---
 title: "Community"
-description: "Discussions, feedback, issues and requests on Speechnotes"
+description: "Discussions, feedback, issues and requests on TTSReader"
 lead: "Discussions, feedback, issues and requests on Speechnotes"
 date: 2023-02-12T15:22:20+01:00
 lastmod: 2023-02-12T15:22:20+01:00

@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+  <head>
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-47292499-3'); 
+  </script>
+  
+
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Legacy Player | TTSReader</title>
+  <meta name="author" content="WellSource" />
+
+  
+  <meta name="keywords" content="text to speech, text reader, text to speech online, epub reader, read epub, ebook reader, read ebooks, online, text2speech, text2voice, speech generator, wellsource, ttsreader, text to speach, text for speech, txt 2 speech, tts, TTS, read text, speech online, speech software, textaloud, text aloud, natural reader, voice software, speaking software, demo, free, pdf to text, convert pdf, read pdf, pdf reader, read pdf, read text, speech synthesize, voices, web speech api, text to voice, chrome, webspeech">	
+  
+
+  
+  <meta name="description" content="Free Text to Speech Online">
+  
+
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <link rel="apple-touch-icon" sizes="72x72" href="https://ttsreader.com/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://ttsreader.com/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://ttsreader.com/img/favicon-16x16.png">
+  <link rel="manifest" href="https://ttsreader.com/img/manifest.json">
+  <link rel="mask-icon" href="https://ttsreader.com/img/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">
+
+  
+
+  <link rel="alternate" href="https://ttsreader.com/index.xml" type="application/rss+xml" title="TTSReader | Text To Speech Reader. Online, Free &amp; Unlimited">
+
+  
+  <meta property="og:title" content="Legacy Player | TTSReader" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/legacy//" />
+  
+
+
+  
+  <meta property="og:site_name" content="TTSReader"/>
+  <meta property="og:description" content="The online text-to-speech reader. Reads out loud texts, web pages, pdfs &amp; ebooks with natural sounding voices." />
+  <meta property="og:image" content="https://ttsreader.com/images/tile_1400x560.jpg"/>
+  <meta property="og:locale:alternate" content="en_US" />  
+  <meta property="og:locale:alternate" content="fr_FR" />  
+  <meta property="og:locale:alternate" content="it_IT" />  
+  <meta property="og:locale:alternate" content="es_ES" />  
+  <meta property="og:locale:alternate" content="de_DE" />  
+  <meta property="og:locale:alternate" content="ja_JP" />  
+  <meta property="og:locale:alternate" content="zh_CN" />  
+  
+
+  <link rel="alternate" hreflang="x-default" href="https://ttsreader.com/" />
+  <link rel="alternate" hreflang="en" href="https://ttsreader.com/" />
+  <link rel="alternate" hreflang="de" href="https://ttsreader.com/de/" />
+  <link rel="alternate" hreflang="es" href="https://ttsreader.com/es/" />
+  <link rel="alternate" hreflang="fr" href="https://ttsreader.com/fr/" />
+  <link rel="alternate" hreflang="it" href="https://ttsreader.com/it/" />
+  <link rel="alternate" hreflang="ja" href="https://ttsreader.com/ja/" />
+  <link rel="alternate" hreflang="zh" href="https://ttsreader.com/zh/" />
+
+  <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/pakknklefcjdhejnffafpeelofiekebg">
+
+  <script>
+    
+      function openTTSREADERXinNewWindow() {
+          window.open("https://ttsreader.com/blog/2017/05/10/ttsreaderx/", "_blank");
+      }
+
+      function openTTSREADERinNewWindow() {
+          window.open("https://ttsreader.com", "_blank");
+      }
+  </script>
+
+  
+  <script>
+    function popCookieConsent() {
+      let cookieConsentNotification = document.getElementById('cookieConsentNotification');
+      if (cookieConsentNotification) {
+        cookieConsentNotification.classList.remove('displayNone');
+        localStorage.setItem('wasCookieNotified', true);
+      }
+    }
+
+    function okCookieNotification() {
+      localStorage.setItem('wasCookieNotified', true);
+      let cookieConsentNotification = document.getElementById('cookieConsentNotification');
+      if (cookieConsentNotification) {
+        cookieConsentNotification.classList.add('displayNone');
+      }
+    }
+
+    function runGdprStuff() {
+      let lsParams = ['wasCookieNotified', 'wholeText', 'emailForSignIn', 'sessionIndex'];
+      for (const lsParam of lsParams) {
+        let str = localStorage.getItem(lsParam);
+        if (str && Boolean(localStorage.getItem(lsParam)) && str!="Click Play button to listen to this text. You may edit this text here, or upload a file such as text, pdf or e-book.") {
+          
+          return;
+        }
+      }
+
+      
+      
+      let tz = "";
+      try {
+        tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      } catch (e) {
+        tz = "";
+      }
+      tz = tz ? tz.toLowerCase() : "";
+
+      if (tz.includes("europe") || tz.includes("jerusalem")) {
+        console.log("Country is in eu: ", tz);
+        popCookieConsent();
+      } else {
+        console.log("Not in eu. Hurray!");
+      }
+    }
+
+    function fetchJsFile(url, callback) {
+      let newEl = document.createElement('script');
+      newEl.src=url;
+      newEl.onload = function(){
+        if (callback) {
+          callback();
+        }
+      };
+      document.getElementsByTagName("head")[0].appendChild(newEl);
+    }
+
+
+    function fetchStyleSheet(url) {
+      let newLinkEl = document.createElement('link');
+      newLinkEl.rel='stylesheet';
+      newLinkEl.href=url;
+      document.getElementsByTagName("head")[0].appendChild(newLinkEl);
+    }
+
+    window.addEventListener("load", function(){
+      setTimeout(()=>{
+        runGdprStuff();
+      },2000);
+    });
+
+    function retainUserData(key,value,forceCloudSync) {
+      value = '' + value; 
+      
+      if (window.firebase) {
+        if (firebase.auth().currentUser &&
+                (forceCloudSync || localStorage.getItem("shouldCloudSync")=="true")) {
+          var userId = firebase.auth().currentUser.uid;
+          firebase.database().ref('users/' + userId + '/' + key).set(value);
+        }
+      }
+
+      localStorage.setItem(key, value);
+    }
+
+    function removeUserData(key, forceCloudSync) {
+      
+      if (window.firebase) {
+        if (firebase.auth().currentUser &&
+                (forceCloudSync || localStorage.getItem("shouldCloudSync")=="true")) {
+          var userId = firebase.auth().currentUser.uid;
+          firebase.database().ref('users/' + userId + '/' + key).remove();
+        }
+      }
+
+      localStorage.removeItem(key);
+    }
+  </script>
+  
+
+
+  <script>
+    if (localStorage.getItem("wholeText")==null || localStorage.getItem("wholeText")==undefined) {
+      localStorage.setItem("wholeText", "Click Play button to listen to this text. You may edit this text here, or upload a file such as text, pdf or e-book.");
+    }
+  </script>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://ttsreader.com/css/all_main.min.css" rel="stylesheet">
+
+<style>
+    #application .no-bg-button, #application label{
+        text-shadow: 0 0 3px #ffffff, 0 0 5px #ffffff;
+    }
+
+    .navbar-affixed-top.affix {
+        box-shadow: #dddddd 1px 1px;
+    }
+
+    ins.adsbygoogle[data-ad-status="unfilled"] {
+        display: none !important;
+    }
+
+    .displayNone {
+        display: none;
+    }
+
+    .sidebar-column-if-room-left, .sidebar-column-if-room-right {
+        display: none;
+        position:relative;box-sizing: border-box;overflow-x: hidden;
+        max-height: 100vh;
+        position: sticky;
+        top: 0;
+        width: 0;
+    }
+
+    @media screen and (min-width: 967px) {
+        .sidebar-column-if-room-right {
+            display: block;
+        }
+    }
+
+    @media screen and (min-width: 1500px) {
+        .sidebar-column-if-room-left {
+            display: block;
+        }
+    }
+
+</style>
+
+</head>
+
+
+  <style>
+      html, body, * {
+          max-width: 100vw;
+      }
+  </style>
+
+  <body style="">
+
+      <header>
+
+          <style>
+    @media screen and (min-width: 759px) {
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 65px;
+            text-align: center;
+        }
+
+        .yamm .nav.navbar-right .dropdown-menu {
+            right: -100px;
+            padding: 10px 30px;
+        }
+
+        .dropdown .dropdown-menu li {
+            text-align: center;
+        }
+
+        .dropdown .dropdown-menu li:hover {
+            border-bottom: orangered solid 4px;
+        }
+
+        .navbar ul.dropdown-menu li a {
+            color: #222;
+            font-size: 14px;
+        }
+    }
+
+</style>
+
+<div class="navbar-affixed-top" style="background-color: white; z-index: 1000;position: fixed;top:0;right:0;left:0;" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" style="z-index:1000;" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <div class = "navbar-brand">
+                    <div class="panel-body" style="margin-top: -10px;">
+                        <a target="_blank" href="https://ttsreader.com/" style="position:relative;top:-2px;font-weight:bold;color: teal;">TTSREADER</a>
+                        &nbsp;
+                        <a rel="nofollow" target="_blank" href="https://apps.apple.com/il/app/simple-text-reader-ttsreader/id1493463248" style="cursor:pointer;font-size: 30px;vertical-align: bottom"><svg style="height: 30px;" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="apple" class="svg-inline--fa fa-apple fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path></svg></i></a>
+                        &nbsp;
+                        <a rel="nofollow" target="_blank" href="https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader" style="cursor:pointer;font-size: 27px;vertical-align: bottom"><svg style="height: 27px;" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google-play" class="svg-inline--fa fa-google-play fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"></path></svg></a>
+                    </div>
+                </div>
+                
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="dropdown">
+                        
+                        <a href="https://speechnotes.co/">Speech Recognition</a>
+                        
+                    </li>
+                    
+                    <li class="dropdown">
+                        
+                        <a href="/blog/2017/05/10/commercial/">Commercial</a>
+                        
+                    </li>
+                    
+
+                    <li><a target="_blank" href="https://ttsreader.com/player/" class="">New Player 📣</a></li>
+
+                    <li class="dropdown" style="text-align:center;">
+                        <a style="" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            
+                            <li style="cursor: pointer">
+                                <a style="" href="https://speechninja.co/" target="_blank">SpeechNinja - Say What I Type</a>
+                            </li>
+                            <li style="cursor: pointer">
+                                <a style="" href="https://ttsreader.com/upgrade/" target="_blank">Premium 💎</a>
+                            </li>
+                            <li style="cursor: pointer">
+                                <a style="" href="https://ttsreader.com/faqs/" target="_blank">FAQs</a>
+                            </li>
+                            <li style="cursor: pointer">
+                                <a style="" href="https://ttsreader.com/blog/" target="_blank">News</a>
+                            </li>
+                            <li style="cursor: pointer">
+                                <a style="" rel="nofollow" onclick="gtag('event', 'audioread_click', {'value': 'top_nav'});window.open('https://audioread.com?utm_source=ttsreader&utm_medium=menu','_blank');">Turn Text into Podcasts (Affiliated)</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    
+                    <li class="dropdown" style="text-align:center;">
+                        <a id="signinBtn" title="Sign in to enjoy synced content between devices" style="background-color: #0cc70c;cursor:pointer;color: white;font-style: normal" class="show-when-signed-out" onclick="toggleSignIn()">Sign-In</a>
+                        <a id="signoutBtn" class="show-when-signed-in" style="color: #cc0000;display: none;" onclick="toggleSignIn()">Sign Out</a>
+                    </li>
+
+                </ul>
+            </div>
+            
+
+            
+
+        </div>
+    </div>
+    
+
+
+
+</div>
+
+<div style="height: 70px;width: 100%;"></div>
+
+
+
+
+
+      </header>
+
+      <script>
+          function onTopAnnouncementClicked() {
+            window.gtag&&gtag("event","click_top_announcement_earthquake",{value:"earthquake support"});
+            window.open("https://twitter.com/Israel/status/1623290603634143232?s=20&t=aPt1-bvZxsIAMOkfiHI3sQ","_blank");
+          }
+      </script>
+      
+      <div style="display: flex;min-height: 95vh; padding: 0 10px">
+          <div class="sidebar-column-if-room-left ad">
+              <div data-ws-ad="300x600" style="position: sticky;top: 90px;margin: 90px auto 30px auto; background-color: transparent;height: 600px;max-height: 50vh !important; overflow: hidden;">
+                  
+                  <ins class="adsbygoogle"
+                       style="display:block"
+                       data-ad-format="autorelaxed"
+                       data-ad-client="ca-pub-5434274073094626"
+                       data-ad-slot="1068676458"></ins>
+                  <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                  </script>
+              </div>
+          </div>
+          <div style="flex: 1;">
+
+              
+
+<a id="removeAdsBtn"></a>
+<a id="installTtsreaderxBtn"></a>
+
+<div id="app_panel" class="" style="background: url('/img/bg1.jpg') repeat;height: 80vh;min-height: 430px;background-attachment: fixed;max-width: 800px;margin: auto;">
+    <div id="app_container" style="position: relative">
+        
+        <div id="application" style="position: relative;
+    /*background: #f5f5f599;*/
+
+    background: url('/img/app/desk.jpeg') 0% 0% / cover white;
+    border-radius: 20px; height: 80vh; min-height: 600px;
+    display: flex;flex-direction: column;
+    overflow: hidden;">
+            <div id="fullScreenBtn" class="no-bg-button " style="z-index:99;position: absolute;top:20px;right:20px;" title="Toggle full screen view">
+                <span class="glyphicon glyphicon-fullscreen btn-glyph" aria-hidden="true"></span>
+            </div>
+
+            <div id="helpBtn" class="no-bg-button " style="z-index:99;position: absolute;top:20px;left:20px;" title="Instructions">
+                <span class="glyphicon glyphicon-question-sign btn-glyph" aria-hidden="true" style=""></span>
+            </div>
+
+            
+            <p id="bookHeader" style="display:none;text-align:center;color: white;"><b>
+                <span>Reading</span>&nbsp;
+                <span id="bookTitleLabel"></span>&nbsp;
+                <span>part</span>&nbsp;
+                <span id="chapterNumberLabel"></span>
+                <span>/</span>
+                <span id="totalChaptersLabel"></span>
+            </b></p>
+
+            <div class="buttons_row">
+                <button id="backBtn" style="display: none;" type="button" class="btn btn-default btn-lg tts-btn" title="Previous Chapter">
+                    <span class="glyphicon glyphicon-fast-backward btn-glyph" aria-hidden="true"></span>
+                </button>
+
+                <button type="button" class="btn btn-default btn-lg tts-btn" title="Upload text, pdf or ebook file">
+                    <span class="glyphicon glyphicon-open-file btn-glyph" aria-hidden="true"></span>
+                    <input type="file" id="files" name="files[]" />
+                </button>
+
+                <button id="play_button" type="button" class="btn btn-default btn-lg tts-btn" onclick="startOrPause();" title="Play / Pause">
+                    <span id="speak_button_new" class="glyphicon glyphicon-play btn-glyph" aria-hidden="true"></span>
+                </button>
+                &nbsp;
+                <button id="insertPauseBtn" type="button" class="btn btn-default btn-lg tts-btn" title="Insert 1 second of silence">
+                    <span class="glyphicon glyphicon-hourglass btn-glyph" aria-hidden="true"></span>
+                </button>
+
+                <button type="button" class="btn btn-default btn-lg tts-btn" onclick="goToBeginning();" title="Go to beginning">
+                    <span class="glyphicon glyphicon-repeat btn-glyph" aria-hidden="true"></span>
+                </button>
+
+                <button id="clearBtn" type="button" class="btn btn-default btn-lg tts-btn" aria-label="Left Align" onclick="clearText();" title="Clear text">
+                    <span class="glyphicon glyphicon-trash btn-glyph" aria-hidden="true"></span>
+                </button>
+
+                <button id="nextBtn" style="display:none;" type="button" class="btn btn-default btn-lg tts-btn" title="Next Chapter">
+                    <span class="glyphicon glyphicon-fast-forward btn-glyph" aria-hidden="true"></span>
+                </button>
+
+                <button data-ws-onclick="toggleRecord" id="recordBtnNew" type="button" data-toggle="tooltip" data-placement="bottom" class="btn btn-default btn-lg tts-btn" style="color: #38a7bb"
+                        title="Record button. Recording instructions:
+1) Click this button.
+2) In the popup select 'Entire Screen' -> then select screen -> then check 'Share system audio' -> then click 'Share'.
+3) TTSReader will start playing & recording. To stop, click this button again.
+4) An audio file will be downloaded to your computer.">
+                    <span class="glyphicon glyphicon-record btn-glyph" aria-hidden="true"></span>
+                </button>
+
+                <button style="display: none;margin-left: 10px;position: relative;top: 5px;" id="cloudDownloadBtn" class="no-bg-button" title="Download last text & position from cloud sync (replaces content currently in text-box)">
+                    <span class="glyphicon glyphicon-cloud-download btn-glyph" aria-hidden="true"></span>
+                </button>
+            </div>
+
+            <div class="buttons_row" style="margin-top: 0;">
+                <select class="btn btn-template-primary" id="select_language">
+                    <option value="Google UK English Male">UK English (default)</option>
+                </select>
+
+                <select  class="btn btn-template-primary" id="select_speed">
+                    <option value=0.9>Normal Speed</option>
+                    <option value=0.6>Very slow</option>
+                    <option value=0.75>Slow</option>
+                    <option value=1.2>Fast</option>
+                    <option value=1.35>Faster</option>
+                    <option value=1.5>Even Faster</option>
+                    <option value=2>Speeding x2</option>
+                    <option value=3>Speeding x3</option>
+                </select>
+            </div>
+
+            <p class="ad" style="text-align: center;font-weight: bold; border-radius: 20px; cursor: pointer; background-color: #ffffd5; margin-bottom: 12px; color: #006383;" onclick="window.open('https://ttsreader.com/upgrade/', '_blank');">Support development & get better experience 💎 <a href="https://ttsreader.com/upgrade/", target="_blank">Click to learn more.</a></p>
+
+            <div class="buttons_row" style="display: none; overflow: hidden; height: 0;line-height: 40px;max-width: 100%;">
+                <div id="cloudUploadBtn" class="no-bg-button" title="Upload current text & position to cloud (replace content in cloud)" style="display: none;width:0;height: 0;overflow: hidden;pointer-events: none;">
+                    <span class="glyphicon glyphicon-cloud-upload btn-glyph" aria-hidden="true"></span>
+                </div>
+                &nbsp;&nbsp;
+                <div style="max-width:100%;overflow-x: hidden;color:#18505a;vertical-align: middle;display: inline-block;margin-bottom:0;height: 40px;line-height: normal;text-align: center;font-size:120%;display: none;width:0;height: 0;overflow: hidden;pointer-events: none;" >
+                    <input type="checkbox" id="cloudSyncCheckbox" name="cloudSyncCheckbox">
+                    <label for="cloudSyncCheckbox">Automatically sync to cloud</label>
+                </div>
+            </div>
+
+            <div style="flex-grow: 1;">
+                
+                <textarea id="text_box" style="font-family: sans-serif;outline: none;border-color: #37a7bb;border-radius: 10px;resize: none;width:100%;height:100%;" placeholder="Write something in this box and click play.
+Our text-to-speech will read it out loud for you.
+You can also drag files to here and edit the text.
+
+Go ahead, enjoy listening to any written content :)" value="Hello. How are you? Type or paste any text, and I will read it out loud for you."></textarea>
+                
+            </div>
+
+            <p style="text-align: center;font-weight: bold; position: relative; top: 14px; background-color: wheat;border-radius: 20px;">What do you think? Would love to hear your <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdVYIL6UxGrX3VSgJvdrYq2XE0tdCP3BXfScDf5MT4INYXh_w/viewform?usp=sf_link" class="">feedback</a>.</p>
+        </div>
+
+
+<div id="area" style="height: 0;width: 0; visibility: hidden"></div>
+
+        <script>
+
+            var playBtnCounter = 0;
+            var recBtnCounter = 0;
+
+            
+            (function () {
+              var el;
+
+              
+
+
+              el = document.getElementById("recordBtn");
+              if (el != null && el != undefined) {
+                el.addEventListener('click', function (ev) {
+                  console.log('clicked rec');
+                  recBtnCounter++;
+                  if (gtag != undefined && gtag != null) {
+                    gtag('event', 'record_' + recBtnCounter, {
+                      'event_category': 'player-action',
+                      'event_label': 'record-button'
+                    });
+                  }
+                });
+              }
+            }());
+        </script>
+
+
+
+    </div>
+</div>
+
+<br/><br/>
+
+
+
+          </div>
+          <div class="sidebar-column-if-room-right ad">
+              <div data-ws-ad="300x600" style="position: sticky;top: 90px;margin: 90px auto 30px auto; background-color: transparent;min-height: 600px;">
+                  
+                  <ins class="adsbygoogle"
+                       style="display:block"
+                       data-ad-client="ca-pub-5434274073094626"
+                       data-ad-slot="5490678095"
+                       data-ad-format="auto"
+                       data-full-width-responsive="true"></ins>
+                  <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                  </script>
+              </div>
+          </div>
+      </div>
+
+            
+
+            <footer id="footer" style="overflow: hidden">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            The best Text-To-Speech app online. Making Text to Speech available for everyday use, for free.<br>Developed by <strong><a href='https://wellsrc.com' target='_blank'>Ronen Rabinovici</a></strong>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+            <h4>Privacy & Terms</h4>
+
+            <a href="https://ttsreader.com/privacy/" target="_blank">See our privacy & terms page</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+            <b>Other Speech - Text Apps by Us</b>
+            <ul>
+                <li><a href="https://speechnotes.co" target="_blank" title="Try our online speech-recognition notepad">Speechnotes - Dictation Notepad</a></li>
+                <li><a href="https://speechkeys.io" target="_blank" title="A New Kind of Voice Typing Keyboard">Speechkeys - Dictation Keyboard for Mobile</a></li>
+                <li><a href="https://speechlogger.appspot.com/en/" target="_blank" title="Free online speech-captioning and instant translation">Speechlogger - Instant Captioning & Translation</a></li>
+                <li><a href='https://ttsreader.com/blog/2017/05/10/ttsreaderx/' target="_blank" title="Text to Speech Extension for ANY website">TTSReader-X - Speech to Text Extension</a></li>
+            </ul>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+            
+            
+
+            
+                
+                
+                    
+                        
+                          
+                            
+                          
+                        
+                    
+                    
+                        
+                    
+                
+                
+                
+                    
+                        
+                          
+                            
+                          
+                        
+                    
+                    
+                        
+                    
+                
+                
+                
+                    
+                        
+                          
+                            
+                          
+                        
+                    
+                    
+                        
+                    
+                
+                
+            
+
+            
+            
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>Contact</h4>
+
+            <p><strong><a href='https://wellsrc.com' target='_blank'>WellSource Ltd.</a></strong>
+        <br>admin@speechlogger.com
+        <br/><a href='https://twitter.com/RabinoviciR'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                          <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                        </svg>&nbsp;Twitter</a>&nbsp;
+      </p>
+
+
+            
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+
+    <div class=" text-center">
+        <a style="display: inline-block;" href="https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader" target="_blank" rel="nofollow">
+            <img style="margin: 0;display: inline-block;" height="81px" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
+        </a>
+
+        <a style="display: inline-block;" href="https://apps.apple.com/il/app/simple-text-reader-ttsreader/id1493463248" target="_blank" rel="nofollow">
+            <img style="margin: 0;display: inline-block;" height="57px" alt='Download on the App Store' src="https://ttsreader.com/img/Download_on_the_App_Store_Badge_US-UK_135x40.svg"/>
+        </a>
+
+        <a id="recordBtn"></a>
+    </div>
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="text-center">
+                <b>PRIVACY: </b> We respect your privacy - your text is not sent to us unless you chose to use cloud sync. We do use cookies and your local storage to enhance your experience & targeted ads. <a href="https://ttsreader.com/privacy/" target="_blank">Read more about privacy here.</a>
+                <br>Copyright (c) 2015 - 2023, <a href='https://wellsrc.com' target='_blank'>Ronen Rabinovici</a> ; all rights reserved.&nbsp;&nbsp;&nbsp;&nbsp;Based on template by <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
+                
+
+                Ported to Hugo by <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.&nbsp;&nbsp;Icons by <a href="https://www.glyphicons.com/" target="_blank">glyphicons</a> and by <a href="https://fontawesome.com/license" target="_blank">font-awesome</a>.
+                <br><span style="font-size: smaller">Reader BG image includes modification of image by Norman Bruderhofer - Collection of John Lampert-Hopkins, <a href="https://creativecommons.org/licenses/by-sa/2.5" title="Creative Commons Attribution-Share Alike 2.5">CC BY-SA 2.5</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1308343">Link</a></span>.
+            </p>
+            
+            <p id="languageLinks" class="text-center">
+                <a href="https://ttsreader.com/">English</a>
+                <a href="https://ttsreader.com/de/">Deutsch</a>
+                <a href="https://ttsreader.com/es/">español</a>
+                <a href="https://ttsreader.com/fr/">Français</a>
+                <a href="https://ttsreader.com/it/">italiano</a>
+                <a href="https://ttsreader.com/ja/">日本語</a>
+                <a href="https://ttsreader.com/zh/">中國</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+            <div id="dialogContainer" style="z-index: 9999;position: fixed;top: 0;bottom: 0;right: 0;left: 0;background-color: rgba(11,11,11,0.5);display: none;">
+    <div id="dialogBox" style="padding: 20px;
+                                padding-top: 50px;
+                                position: relative;
+                                top: 10%;
+                                background-color: rgba(256,256,256,1);
+                                font-weight: lighter;
+                                border-radius: 20px;
+                                width: 500px;
+                                max-width: 90%;
+                                max-height: 80%;
+                                margin: auto; display: flex; flex-direction: column;
+">
+
+        <div class="no-bg-button" id="closeDialogBtn" style="z-index: 99;position: absolute; top: 10px;left: 10px;font-size: 30px;">
+            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" style=""></span>
+        </div>
+
+        <div style="overflow-y: scroll;flex: 1;margin: 0 auto;">
+            <div id="premiumDialog" style="display: none;" class="dialog">
+                <p style="color: green;font-size: 120%">AVAILABLE FOR PREMIUM USERS</p>
+                <p>Upgrade to enjoy a premium ad-free experience with all current and future upgrades. Your contribution will directly support development.</p>
+                <p>Simple & secure payment on the Chrome store.</p>
+                <p>
+                    <a href="https://ttsreader.com/upgrade/" target="_blank">TTSReader Premium Token on the Chrome Store<br>https://ttsreader.com/upgrade/</a>
+                </p>
+
+                <p style="color: green;font-size: 120%">100% Satisfaction Warranty!</p>
+                <p>Full refund for any reason</p>
+            </div>
+
+            <div id="signinDialog" style="display: none;" class="dialog">
+                <p><u>Sign in / sign up</u></p>
+                <p style="color: green">So we can register your premium & sync your text & reader preferences.</p>
+                <div id="firebaseui-auth-container"></div>
+            </div>
+
+            <div id="goPremiumDialog" style="display: none;text-align: center" class="dialog">
+                <p style="color: green"><b>Make sure to RELOAD this page after purchasing and installing the Premium token extension</b></p>
+                <br>
+                <p>If you were not directed to the Chrome Store to purchase premium, simply click on the following link:</p>
+                <p>
+                    <a href="https://ttsreader.com/upgrade/" target="_blank">TTSReader Premium Token on the Chrome Store<br>https://ttsreader.com/upgrade/</a>
+                </p>
+                <br>
+                <p>Thanks for supporting us, and we hope you enjoy your upgrade, and reach great achievements using it!</p>
+                <br><br><br>
+                <p>
+                    <i>Refresh this page after purchasing and enabling the premium-token extension.</i>
+                </p>
+            </div>
+
+            <div id="goPremiumDialog2" style="display: none;text-align: center" class="dialog">
+                <a style="display: block;width: 100%;height: 100%;" href="https://ttsreader.com/upgrade/" target="_blank">
+                    <p style="color: green;letter-spacing: 0.2em"><b>THIS IS A PREMIUM FEATURE - UPGRADE TO UNLOCK</b></p>
+                    <br>
+                    <p>Securely purchase on the Chrome store&nbsp;&nbsp;</p>
+                    <p style="font-size: 20px;color: gray">&rarr;</p>
+                    <br><br><br>
+                    <p>
+                        <i>Important: Refresh this page after purchasing and enabling the premium-token extension.</i>
+                    </p>
+                </a>
+            </div>
+
+            <div id="helpDialog" style="height:100%;display: none;text-align: justify;overflow-y: scroll;text-transform: none;color: #3d3d3d;font-weight: normal;" class="dialog">
+                    <p>Paste or type text / files into the text-box and click play. That's all the basics.</p>
+                    <p>Select language / voice using the language-voice select options.</p>
+                    <p>Change speech-rates using the rates select options. Speech can be in defferent degrees between very fast and very slow.</p>
+                    <p>Record audio - see more <a href="https://ttsreader.com/blog/2017/05/10/record/" target="_blank">here</a>.</p>
+                    <p>File types: you can upload to ttsreader online text files, pdf files and ebooks of epub format.</p>
+                    <p>File upload - use the upload button or drag files to the box.</p>
+                    <p>Edit text - feel free to edit the text in the box.</p>
+                    <p>Questions? See our <a href="/faqs/">FAQ page</a>, or contact us at admin@speechlogger.com</p>
+                    <p>Upgrade <a href="/upgrade/">here</a></p>
+            </div>
+
+            <div id="notificationDialog" style="display: none;" class="dialog">
+                <p id="notificationMsg"></p>
+                <button class="btn" id="notificationBtn">
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+  document.getElementById('dialogContainer').addEventListener('click',ev=>{
+    if (ev.target.id==="dialogContainer") {
+      ev.currentTarget.style.display = 'none';
+    }
+  });
+</script>
+
+
+
+
+            
+
+
+        
+
+    
+    <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+
+  
+
+
+  
+  KEYS = {
+    
+    selected_language: "selected_language",
+    select_speed: "select_speed",
+    wholeText: "wholeText",
+    caretPos: "caretPos",
+    selected_voice: "selected_voice",
+
+    
+    isBookOn: "isBookOn",
+    currentChapterIndexInApp: "currentChapterIndexInApp",
+    totalNumberOfChapters: "totalNumberOfChapters",
+    bookTitle: "bookTitle",
+
+    
+    isPremium: "isPremium",
+    counter_refer_to_X: "counter_refer_to_X"
+  };
+
+  function chapterIndexToStorageKey(i) {
+    return 'chapter' + i;
+  }
+
+  let links = document.querySelectorAll('a');
+
+  for (const link of links) {
+    if (!link.getAttribute('target')) {
+      link.setAttribute('target', '_blank');
+    }
+  }
+
+
+  
+  (function(){
+    var plat = navigator.platform.toUpperCase();
+    if (window.location.href.indexOf('localhost')<0) {
+      if (plat.indexOf('MAC')>=0 || plat.indexOf('LINUX')>=0){
+        $('#recordBtn').hide();
+        $('#recordBtnNew').hide();
+      }
+    }
+  })();
+
+  $('.closeAdBtn').on('click',function () {
+    invokePremiumDialog2();
+  });
+  if (document.getElementById('closeDialogBtn')) {
+    document.getElementById('closeDialogBtn').addEventListener('click', closeDialog);
+  }
+
+  $('#helpBtn').on('click',function () {
+    invokeHelpDialog();
+  });
+
+  var isFullScreen = false;
+
+  if (document.addEventListener)
+  {
+    document.addEventListener('webkitfullscreenchange', exitHandler, false);
+    document.addEventListener('mozfullscreenchange', exitHandler, false);
+    document.addEventListener('fullscreenchange', exitHandler, false);
+    document.addEventListener('MSFullscreenChange', exitHandler, false);
+  }
+
+  function exitHandler()
+  {
+    if (!(document.webkitIsFullScreen))
+    {
+      setUiNotFullScreen();
+    } else {
+
+    }
+  }
+
+  function toggleFullScreen() {
+    
+
+
+    if (!isFullScreen) {
+      application.webkitRequestFullscreen();
+      $('#application').css('background',"white");
+      $('#application').css('width',"100%");
+      $('#application').css('min-height',"80vh");
+    } else {
+      document.webkitCancelFullScreen();
+      setUiNotFullScreen();
+    }
+    isFullScreen = !isFullScreen;
+  }
+
+  function setUiNotFullScreen() {
+    
+    $('#application').css('background-image',"url('../img/app/desk.jpeg')");
+    $('#application').css('background-size',"cover");
+    $('#application').css('height',"700px");
+    $('#application').css('width',"none");
+    $('#application').css('max-height',"80vh");
+  }
+
+
+  $("#fullScreenBtn").on('click',toggleFullScreen);
+
+  function openInNewTab(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
+
+  function invokePremiumDialog() {
+    window.open("https://ttsreader.com/upgrade/", "_blank");
+  }
+
+  function invokePremiumDialog2() {
+    window.open("https://ttsreader.com/upgrade/", "_blank");
+  }
+
+  function invokeHelpDialog() {
+    invokeDialog('helpDialog');
+  }
+
+  function invokeDialog(dialogId) {
+    document.getElementById('dialogContainer').style.display = 'block';
+    document.getElementById(dialogId).style.display = 'block';
+    bindKey(27,closeDialog);
+  }
+
+  function notifyMe(msg, action, callback) {
+    document.getElementById('notificationMsg').innerText = msg;
+    if (action) {
+      document.getElementById('notificationBtn').innerText = action;
+      document.getElementById('notificationBtn').addEventListener('click', function (e) {
+        closeDialog();
+        if (callback) {
+          callback();
+        }
+      });
+    }
+    invokeDialog('notificationDialog');
+  }
+
+  function closeDialog() {
+    document.getElementById('dialogContainer').style.display = 'none';
+    $('.dialog').hide();
+    unbindKey(27);
+  }
+  
+  function isSignedIn() {
+    if (window.firebase && window.firebase.auth() && window.firebase.auth().currentUser && window.firebase.auth().currentUser.uid) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function syncFromFirebase() {
+    
+    if (firebase.auth().currentUser) {
+      var userId = firebase.auth().currentUser.uid;
+      firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+        for (var iProperty in KEYS) {
+          
+          if (!KEYS.hasOwnProperty(iProperty)) continue;
+
+          
+          var iKey = KEYS[iProperty];
+          var iValueToStore = "" + snapshot.val()[iProperty];
+          localStorage.setItem(iKey, iValueToStore);
+        }
+
+        
+        
+        var numberOfChapters = getNumberOfChapters(snapshot.val());
+        if (numberOfChapters) {
+          for(var i=0; i<numberOfChapters; i++) {
+            var iKey = chapterIndexToStorageKey(i);
+            var iValue = snapshot.val()[iKey];
+            if (!iValue) {
+              iValue = "";
+            }
+            localStorage.setItem(iKey,iValue);
+          }
+        }
+
+        
+        loadUserPrefs();
+      });
+    } else {
+      invokeSignInDialog();
+    }
+  }
+
+  function getNumberOfChapters(object) {
+    var isBookOn = false;
+    var totalNumberOfChapters = 0;
+    var currentChapterIndexInApp = null;
+
+    if(!object) {
+      
+      isBookOn = localStorage.getItem(KEYS.isBookOn);
+      totalNumberOfChapters = localStorage.getItem(KEYS.totalNumberOfChapters);
+      currentChapterIndexInApp = localStorage.getItem(KEYS.currentChapterIndexInApp);
+    } else {
+      
+      isBookOn = object[KEYS.isBookOn];
+      totalNumberOfChapters = object[KEYS.totalNumberOfChapters];
+      currentChapterIndexInApp = object[KEYS.currentChapterIndexInApp];
+    }
+
+    if (totalNumberOfChapters!=null && currentChapterIndexInApp!=null) {
+      totalNumberOfChapters = parseInt(totalNumberOfChapters);
+      currentChapterIndexInApp = parseInt(currentChapterIndexInApp);
+
+      if (isBookOn=='true' && totalNumberOfChapters>0) {
+        return totalNumberOfChapters;
+      }
+    }
+
+    return 0;
+  }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        
+        var isOnAppPage = true;
+    </script>
+
+    
+    <script>
+  
+
+
+  
+  KEYS = {
+    
+    selected_language: "selected_language",
+    select_speed: "select_speed",
+    wholeText: "wholeText",
+    caretPos: "caretPos",
+    selected_voice: "selected_voice",
+
+
+    
+
+    
+    isBookOn: "isBookOn",
+    currentChapterIndexInApp: "currentChapterIndexInApp",
+    totalNumberOfChapters: "totalNumberOfChapters",
+    bookTitle: "bookTitle",
+
+    
+    isPremium: "isPremium",
+    counter_refer_to_X: "counter_refer_to_X"
+  };
+
+  function chapterIndexToStorageKey(i) {
+    return 'chapter' + i;
+  }
+</script>
+
+<script>
+    
+    localStorage.setItem("interfaceLang", "en");
+</script>
+
+
+
+
+
+
+
+
+<script src="https://unpkg.com/ttsreader@1.0.27/build/bundle.min.js"></script>
+<script src="https://ttsreader.com/js/pdfparser_merged_into_script_32_with_npm_engine.js"></script>
+<script src="https://ttsreader.com/js/recorder.js"></script> 
+
+<script>
+    if ( localStorage.getItem("counter_refer_to_X") === null) {
+        $("#refer_box").delay(5000).slideDown(300);
+        retainUserData(KEYS.counter_refer_to_X,"1");
+    } else if ( localStorage.getItem("counter_refer_to_X") === "1" ) {
+        $("#refer_box").delay(5000).slideDown(300);
+        retainUserData(KEYS.counter_refer_to_X,"2");
+    }
+</script>
+
+<script>
+    document.getElementById('installTtsreaderxBtn').onclick = installTtsreaderx;
+
+    function installTtsreaderx() {
+        chrome.webstore.install('https://chrome.google.com/webstore/detail/pakknklefcjdhejnffafpeelofiekebg',openTTSREADERXinNewWindow,openTTSREADERXinNewWindow);
+    }
+</script>
+
+
+
+
+      
+
+      <script>
+          function playUrl() {
+            console.log('hi');
+            debugger;
+            let inEl = document.querySelector('#url_input_box');
+            if (inEl) {
+              let url = inEl.value || "https://en.wikipedia.org/wiki/The_Beatles";
+              debugger;
+              url = url.trim();
+              if (url.includes(" ")) {
+                
+                let textBoxEl = document.getElementById("text_box");
+                if (textBoxEl) {
+                  document.getElementById("application").scrollIntoView();
+                  let oldText = textBoxEl.value;
+                  if (oldText && oldText!="Click Play button to listen to this text. You may edit this text here, or upload a file such as text, pdf or e-book.") {
+                    alert('Seems like this is not a link, but rather plain text. To play it - use the in-page text player.');
+                  } else {
+                    
+                    textBoxEl.value = url;
+                    startOrPause();
+                  }
+                }
+              } else {
+                if (!url.toLowerCase().startsWith("https://") && !url.toLowerCase().startsWith("http://")) {
+                  url = "https://" + url;
+                }
+                window.open('webplayer/?url=' + url, '_self');
+              }
+            }
+          }
+
+          function playRandomArticle() {
+              window.open('webplayer/?url=rand', '_self');
+          }
+      </script>
+
+      
+      <script src="https://unpkg.com/data-ws-hooks/build/bundle.min.js"></script>
+
+
+      <script>
+        let clockStartedOn = Date.now();
+        function stopper() {
+          return Math.round((Date.now()-clockStartedOn)/1000) + ": ";
+        }
+
+        function log() {
+          if (!arguments) {
+            return;
+          }
+          console.log(Math.round((Date.now()-clockStartedOn)/1000) + ": ", ...arguments);
+        }
+
+        let licenseInterpretations = {
+          UNKNOWN: "UNKNOWN",
+          NONE: "NONE",  
+          LIFETIME: "LIFETIME",  
+          SUBSCRIPTION: "SUBSCRIPTION",  
+          SUBSCRIPTION_SOON_OVER: "SUBSCRIPTION_SOON_OVER", 
+          SUBSCRIPTION_OVER: "SUBSCRIPTION_OVER", 
+        }
+
+        let classNamesForUiUpdates = {
+          showWhenOffline: "showWhenOffline",
+          showWhenLoading: "showWhenLoading",
+          showWhenLoaded: "showWhenLoaded",
+          showWhenSignedIn: "show-when-signed-in",
+          showWhenSignedOut: "show-when-signed-out",
+          showWhenLicenseNone: "showWhenLicenseNone",
+          showWhenLicenseExpired: "showWhenLicenseExpired",
+          showWhenLicenseLife: "showWhenLicenseLife",
+          showWhenLicenseSoonToExpire: "showWhenLicenseSoonToExpire",
+          showWhenLicenseUnknown: "showWhenLicenseUnknown",
+          showWhenLicenseSubscriptionValid: "showWhenLicenseSubscriptionValid",
+        }
+
+        let pageState = {
+          isOffline: !window.navigator.onLine,
+          loading: true,
+          email: "",
+          uid: "",
+          epochLicenseExpirationDateInSecs: -1  
+        }
+
+        window.addEventListener('online', () => updatePageStateWithParams({isOffline: false}));
+        window.addEventListener('offline', () => updatePageStateWithParams({isOffline: true}));
+
+        function epochArrayToString(epochs) {
+          if (!epochs) {
+            return;
+          }
+
+          let str = "";
+          for (const epoch of epochs) {
+            str += ("" + (new Date(epoch*1000)).toLocaleDateString() + "; ")
+          }
+
+          return str;
+        }
+
+        function updatePageStateWithParams(params) {
+          console.log(stopper() + 'Updating state with: ', params);
+          if (!params) {
+            params = {};
+          }
+
+          if (params.isPremium) {
+            params.epochLicenseExpirationDateInSecs = 3000000000;
+          }
+
+          if (params.purchases) {
+            let expEpochInSecs = 1000;
+            let purchasesIds = Object.getOwnPropertyNames(params.purchases);
+            let epochs = [];
+            for (const id of purchasesIds) {
+              let purchase = params.purchases[id];
+              if (purchase.sku==="SKU_TTSREADER_PREMIUM_1_YEAR__") {
+                epochs.push(purchase.epochDateInSecs);
+              }
+            }
+            if (epochs.length>0) {
+              epochs.sort();
+            }
+
+            let singleYearInSecs = 365*24*60*60;
+            for (const epoch of epochs) {
+              if (epoch<expEpochInSecs) {
+                expEpochInSecs = expEpochInSecs + singleYearInSecs;
+              } else {
+                expEpochInSecs = epoch + singleYearInSecs;
+              }
+            }
+
+            console.log(stopper() + 'Premium expires on ' + (new Date(expEpochInSecs*1000)).toLocaleDateString() + ', for the following purchases: ' + epochArrayToString(epochs))
+            if (pageState.epochLicenseExpirationDateInSecs) {
+              if (expEpochInSecs>pageState.epochLicenseExpirationDateInSecs) {
+                params.epochLicenseExpirationDateInSecs = expEpochInSecs;
+              }
+            }
+          }
+
+          let props = Object.getOwnPropertyNames(params);
+
+          if (props && props.length>0) {
+            for (const key of props) {
+              if (params[key]!=undefined && params[key]!=null) { 
+                if (key=="epochLicenseExpirationDateInSecs") {
+                  let latestEpoch = Math.max(pageState.epochLicenseExpirationDateInSecs, params.epochLicenseExpirationDateInSecs);
+                  pageState.epochLicenseExpirationDateInSecs = latestEpoch;
+                  let msg = {message: "epochLicenseExpirationDateInSecs", data: latestEpoch};
+                  updateChromeExtensionWith(msg);
+                  
+                  
+
+                  localStorage.setItem("epochLicenseExpirationDateInSecs", latestEpoch);
+                  
+                  checkAndSetPremiumAccordingToEpoch(latestEpoch);
+                } else {
+                  pageState[key] = params[key];
+                }
+              }
+            }
+          }
+
+          console.log(stopper() + 'new state: ', pageState);
+          updateUiByState(pageState);
+        }
+
+        function interpretLicenseState(epochToExpirationSecs) {
+          const ONE_MONTH_IN_SECONDS = 3600 * 24 * 30;
+
+          if (!epochToExpirationSecs || epochToExpirationSecs<(Date.now()/1000-20*365*24*3600)) {
+            return licenseInterpretations.NONE;
+          } else if (epochToExpirationSecs<0) {
+            return licenseInterpretations.UNKNOWN;
+          } else if (epochToExpirationSecs>=3000000000) {
+            return licenseInterpretations.LIFETIME;
+          } else {
+            let timeInSecsTillExpiration = epochToExpirationSecs - Date.now()/1000 ;
+            if (timeInSecsTillExpiration<=0) {
+              return licenseInterpretations.SUBSCRIPTION_OVER;
+            } else if (timeInSecsTillExpiration >= ONE_MONTH_IN_SECONDS) {
+              return licenseInterpretations.SUBSCRIPTION;
+            } else {
+              return licenseInterpretations.SUBSCRIPTION_SOON_OVER;
+            }
+          }
+        }
+
+        
+        function isPremium() {
+          let today = Date.now();
+
+          let expirationEpochInSecsFromStorage = localStorage.getItem("epochLicenseExpirationDateInSecs");
+          if (expirationEpochInSecsFromStorage) {
+            if (expirationEpochInSecsFromStorage instanceof String) {
+              expirationEpochInSecsFromStorage = Number.parseInt(expirationEpochInSecsFromStorage);
+            }
+
+            if (expirationEpochInSecsFromStorage*1000>today) {
+              return true;
+            }
+          }
+
+          let isPremiumStored = localStorage.getItem("isPremium");
+          if (isPremiumStored!=null && isPremiumStored!=undefined) {
+            if (isPremiumStored===true || isPremiumStored==="true") {
+              return true;
+            }
+          }
+
+          if (pageState) {
+            if (pageState.epochLicenseExpirationDateInSecs * 1000 > today) {
+              return true;
+            }
+
+            if (pageState.isPremiumByLegacy) {
+              return true;
+            }
+          }
+
+          return false;
+        }
+
+        function checkAndSetPremiumAccordingToEpoch(expirationEpochInSecs) {
+          let today = Date.now();
+          if (expirationEpochInSecs*1000>today) {
+            if (setPremium) {
+              
+              setPremium(); 
+            }
+          }
+        }
+
+        function updateUiByState(newState) {
+          
+          if (!pageState.wereAdsLoaded && !isPremium()) {
+            if ((pageState.wasAuthReceived && !pageState.uid) ||
+              (pageState.wasAuthReceived &&
+                pageState.uid  &&
+                pageState.wasUserDataReceived  &&
+                !pageState.isPremiumByLegacy  &&
+                pageState.werePurchasesReceived )
+            ){
+              loadAds();
+            }
+          }
+
+          let labelEls = document.querySelectorAll("[data-ws-label]");
+          if (labelEls && labelEls.length>0) {
+            for (const el of labelEls) {
+              if (el.getAttribute("data-ws-label")=="epochAsDate") {
+                var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                el.innerText = (new Date(1000 * newState.epochLicenseExpirationDateInSecs)).toLocaleDateString("en-US", options)
+              } else {
+                el.innerText = newState[el.getAttribute("data-ws-label")];
+              }
+            }
+          }
+
+          let keys = Object.getOwnPropertyNames(classNamesForUiUpdates);
+          if (!keys || keys.length==0) {
+            return;
+          }
+
+          let classesToHideOrShow = [];
+          let classesToShow = [];
+          for (const key of keys) {
+            classesToHideOrShow.push(classNamesForUiUpdates[key]);
+          }
+
+          if (newState.isOffline) {
+            classesToShow.push(classNamesForUiUpdates.showWhenOffline);
+          }
+
+          if (newState.loading && !newState.uid) {
+            classesToShow.push(classNamesForUiUpdates.showWhenLoading);
+          } else {
+            classesToShow.push(classNamesForUiUpdates.showWhenLoaded);
+          }
+
+          if (newState.uid) {
+            classesToShow.push(classNamesForUiUpdates.showWhenSignedIn);
+          } else {
+            classesToShow.push(classNamesForUiUpdates.showWhenSignedOut);
+          }
+
+          let licenseState = interpretLicenseState(newState.epochLicenseExpirationDateInSecs);
+
+          if (licenseState==licenseInterpretations.NONE) {
+            classesToShow.push(classNamesForUiUpdates.showWhenLicenseNone);
+          } else if (licenseState==licenseInterpretations.UNKNOWN) {
+            classesToShow.push(classNamesForUiUpdates.showWhenLicenseUnknown);
+          } else if (licenseState==licenseInterpretations.LIFETIME) {
+            classesToShow.push(classNamesForUiUpdates.showWhenLicenseLife);
+          } else if (licenseState==licenseInterpretations.SUBSCRIPTION) {
+            classesToShow.push(classNamesForUiUpdates.showWhenLicenseSubscriptionValid);
+          } else if (licenseState==licenseInterpretations.SUBSCRIPTION_OVER) {
+            classesToShow.push(classNamesForUiUpdates.showWhenLicenseExpired);
+          } else if (licenseState==licenseInterpretations.SUBSCRIPTION_SOON_OVER) {
+            classesToShow.push(classNamesForUiUpdates.showWhenLicenseSoonToExpire);
+          }
+
+          for (const className of classesToHideOrShow) {
+            let elements = document.querySelectorAll("." + className);
+            if (elements && elements.length>0) {
+              for (const el of elements) {
+                let displayIfShown = el.getAttribute("data-ws-display") || "";
+                el.style.display = classesToShow.includes(className) ? displayIfShown : "none";
+              }
+            }
+          }
+          for (const className of classesToShow) {
+            let elements = document.querySelectorAll("." + className);
+            if (elements && elements.length>0) {
+              for (const el of elements) {
+                let displayIfShown = el.getAttribute("data-ws-display") || "";
+                el.style.display = displayIfShown;
+              }
+            }
+          }
+        }
+
+        function updateChromeExtensionWith(msg, callback) {
+          
+          if (window.chrome && chrome.runtime && chrome.runtime.sendMessage) {
+            if (!callback) {
+              callback = function (response){
+                console.log(stopper() + 'Sent msg to extension ', msg, ", ", response);
+              };
+            }
+            let TTSReaderExtensionID = "pakknklefcjdhejnffafpeelofiekebg";
+            chrome.runtime.sendMessage(TTSReaderExtensionID, msg, callback);
+          }
+        }
+
+        updatePageStateWithParams({});
+        function goTo(selector) {
+          if (!selector) {
+            return;
+          }
+          let el = document.querySelector(selector);
+          if (el && el instanceof Element) {
+            el.scrollIntoView({behavior: "smooth"});
+          }
+        }
+      </script>
+
+      <script>
+        if (document.readyState == "loading") {
+          
+          console.log(stopper() + 'Script awaiting to load all DOM');
+          addEventListener('DOMContentLoaded', (event) => {
+            runPostLoadScript();
+          });
+        } else {
+          console.log(stopper() + 'Loading script right away');
+          runPostLoadScript();
+        }
+
+        
+        function loadAds() {
+          let isSafari = window.safari !== undefined;
+          if (isSafari) return;
+
+          try {
+            console.log(stopper() + 'Ads are being loaded.');
+            updatePageStateWithParams({wereAdsLoaded: true});
+            if (!window.location.href.includes("/web")) {
+              document.querySelectorAll(".sidebar-column-if-room-right,.sidebar-column-if-room-left").forEach((el) => {
+                el.setAttribute("style", "min-width:306px;");
+              });
+            }
+
+            
+            let s1 = document.createElement("script");
+            s1.setAttribute("async", "");
+            s1.setAttribute("crossorigin", "anonymous");
+            s1.setAttribute("src", "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626");
+            document.querySelector("head").append(s1);
+          } catch (e) {
+            console.log('caught some errors in loading ads.');
+          }
+        }
+
+        function setPremiumUi() {
+            setPremium();
+        }
+
+        function setPremium() {
+            $('.ad').hide();
+            $('.hide-if-premium').hide();
+            $('.upgradeRequestMsg').hide();
+        }
+
+        function runPostLoadScript() {
+
+          console.log(stopper() + 'Loading script post DOM');
+
+          let srcs = [
+            "https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js",
+            "https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js",
+            "https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js",
+          ]
+
+          let loadedScripts = 0;
+          function onScriptLoaded() {
+            loadedScripts++;
+            if (loadedScripts==srcs.length) {
+              runDependentScript();
+            } else {
+              fetchJsFile(srcs[loadedScripts], onScriptLoaded);
+            }
+          }
+
+          fetchJsFile(srcs[0], onScriptLoaded);
+
+          function runDependentScript() {
+            let firebaseConfig = {
+              apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
+              authDomain: "ttsreader.firebaseapp.com",
+              databaseURL: "https://ttsreader.firebaseio.com",
+              projectId: "ttsreader",
+              messagingSenderId: "656667743185"
+            };
+
+            
+            firebase.initializeApp(firebaseConfig);
+
+            firebase.auth().onAuthStateChanged(function(user) {
+              
+              console.log(stopper() + 'user signed ' + (user ? "IN" : "OUT"));
+              updatePageStateWithParams({
+                wasAuthReceived: true,
+                loading: false,
+                uid: user ? user.uid : "",
+                email: user ? user.email : ""
+              });
+
+              if (user) {
+                
+                listenToDatabaseData(user.uid);
+
+                
+                
+                
+              } else {
+                
+                if (pageState.email) {
+                  toggleSignIn();
+                }
+                
+                
+              }
+            });
+          }
+
+        }
+
+        function listenToDatabaseData(uid) {
+          firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
+            let data = snapshot.val();
+            console.log(stopper() + 'got user data from db: ', data);
+            if (!data) {
+              updatePageStateWithParams({
+                wasUserDataReceived: true,
+                isPremiumByLegacy: false,
+              })
+              return;
+            }
+
+            if (data.wholeText) {
+              let cloudDownloadBtn = document.getElementById("cloudDownloadBtn");
+              if (cloudDownloadBtn) {
+                cloudDownloadBtn.style.display = "inline-block";
+              }
+            }
+
+            if (data.isPremium) {
+              updatePageStateWithParams({
+                wasUserDataReceived: true,
+                isPremiumByLegacy: true,
+                isPremium: true,
+                
+              });
+            } else {
+              updatePageStateWithParams({
+                wasUserDataReceived: true,
+                isPremiumByLegacy: false,
+                isPremium: false,
+                
+              });
+            }
+          });
+
+          firebase.database().ref('/purchases/' + uid).on('value', (snapshot) => {
+            let data = snapshot.val();
+            console.log(stopper() + 'got purchases data from db: ', data);
+            if (data) {
+              updatePageStateWithParams({
+                werePurchasesReceived: true,
+                purchases: data,
+              });
+            } else {
+              updatePageStateWithParams({
+                werePurchasesReceived: true,
+                purchases: [],
+              });
+            }
+          });
+        }
+
+        function toggleSignIn() {
+          var user = firebase.auth().currentUser;
+          
+
+          if (user) {
+            
+            signOut();
+          } else {
+            
+            signIn();
+          }
+        }
+
+        function signOut() {
+          firebase.auth().signOut();
+        }
+
+        function signIn() {
+          let provider = new firebase.auth.GoogleAuthProvider();
+          firebase.auth().signInWithPopup(provider).then(function(result) {
+            
+            let token = result.credential.accessToken;
+            
+            let user = result.user;
+            let isNewUser = result.additionalUserInfo.isNewUser;
+            if (isNewUser) {
+              
+            }
+          }).catch(function(error) {
+            
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            
+            let email = error.email;
+            
+            let credential = error.credential;
+            
+          });
+        }
+      </script>
+
+  <script>
+    let appRecorder = new AppRecorder({
+      optionalOnDone: function (url) {
+        try {
+          const a = document.createElement('A');
+          a.href = url;
+          a.download = 'recording.webm';
+          a.click();
+          a.remove();
+        } catch (e) {
+          console.log('some error: ', e);
+        }
+        updatePageStateWithParams({
+          isRecording: false
+        });
+        if (pageState.isPlaying) {
+          startOrPause();
+        }
+      },
+      optionalOnStart: function () {
+        updatePageStateWithParams({
+          isRecording: true
+        });
+        if (!pageState.isPlaying) {
+          startOrPause();
+        }
+      }
+    });
+
+    if (showPausedUi) {
+      let oldFunction = showPausedUi;
+      showPausedUi = function () {
+        oldFunction();
+        if (updatePageStateWithParams) {
+          updatePageStateWithParams({isPlaying: false});
+        }
+      }
+    }
+
+    if (showPlayingUi) {
+      let oldFunction = showPlayingUi;
+      showPlayingUi = function () {
+        oldFunction();
+        if (updatePageStateWithParams) {
+          updatePageStateWithParams({isPlaying: true});
+        }
+      }
+    }
+
+      function toggleRecord() {
+        if (isPremium()) {
+          appRecorder.toggleCapture();
+        } else {
+          alert('This feature requires a premium account. Please upgrade to support us ❤️');
+          invokePremiumDialog2();
+        }
+      }
+
+    let fullScreenBtn = document.getElementById("fullScreenBtn");
+    if (fullScreenBtn && !isPremium()) {
+      fullScreenBtn.addEventListener('click',(ev => {
+        if (!isPremium()) {
+          alert('This feature requires a premium account. Please upgrade to support us ❤️');
+          invokePremiumDialog2();
+        }
+      }))
+    }
+  </script>
+
+  </body>
+</html>
