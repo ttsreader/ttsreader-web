@@ -1,0 +1,99 @@
+/* css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 20px;
+    color: #333;
+}
+h1, h2, h3 {
+    text-align: center;
+}
+section {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 750px;
+}
+.controller-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+.row-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+canvas {
+    border: 1px solid #ccc;
+    background: #fafafa;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+label, input {
+    font-size: 16px;
+    margin: 5px;
+}
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    background: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+button:hover {
+    background: #0056b3;
+}
+.preset-button {
+    background: #6c757d;
+}
+.preset-button:hover {
+    background: #5a6268;
+}
+.custom-preset-button {
+    background: #17a2b8;
+}
+.custom-preset-button:hover {
+    background: #138496;
+}
+.delete-button {
+    background: #dc3545;
+}
+.delete-button:hover {
+    background: #c82333;
+}
+.edit-button {
+    background: #ffc107;
+    color: #333;
+}
+.edit-button:hover {
+    background: #e0a800;
+}
+.info {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+}
+.freq-slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.freq-slider-wrapper {
+    margin-right: 10px;
+    text-align: center;
+}
+#globalFreqSlider {
+    -webkit-appearance: slider-vertical;
+    width: 20px;
+    height: 200px;
+    writing-mode: bt-lr; /* for Firefox */
+}

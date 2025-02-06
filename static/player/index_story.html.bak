@@ -155,7 +155,7 @@
     <button onclick="toggleTheme();" id="mode" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
       <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
     </button>
-    <button data-ws-show-if-state="isPremium=true" onclick="alert('You are premium!');">💎</button>
+    <button data-ws-show-if-state="isPremium=true" onclick="alert('You are premium!');">🏆</button>
     <span style="display: inline-block;flex: 1"></span>
   </div>
 
@@ -181,7 +181,7 @@
           <a data-ws-show-if-state="isSignedIn=true" class="Menu-list-element" onclick="toggleSignIn();" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="m17 7-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg>&nbsp;&nbsp;Sign out</a>
         </div>
         <div data-ws-show-if-state="isPremium=false">
-          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" style="cursor: pointer;text-decoration: none;display: block">💎&nbsp;&nbsp;&nbsp;Go Premium&nbsp;&nbsp;&nbsp;💎💎💎</a>
+          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;Go Premium&nbsp;&nbsp;&nbsp;</a>
         </div>
         <a class="Menu-list-element" onclick="gtag('event','mp3_guide_click_player_drawer',{value:'1'})" data-ws-toggle="#mp3GuideModal" style="text-decoration:none;">Download mp3 audio file</a>
         <a class="Menu-list-element" data-ws-toggle="#moreVoices" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">Need more voices ❓</a>
@@ -341,7 +341,7 @@
           <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="background-color: transparent;color: cornflowerblue;border-color: cornflowerblue">Record 10 seconds</button>-->
         </div>
         <div data-ws-show-if-state="isPremium=true">
-          <p style="text-align: center;font-size: larger;">💎 🍾🥂 Thank you for upgrading!!! 🎉🚀 💎 </p>
+          <p style="text-align: center;font-size: larger;">🏆 🍾🥂 Thank you for upgrading!!! 🎉🚀 🏆 </p>
           <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="background-color: transparent;color: cornflowerblue;border-color: cornflowerblue">Continue with recording</button>
         </div>
         <br/><br/>

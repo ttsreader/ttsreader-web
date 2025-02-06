@@ -28,6 +28,161 @@
         "source": "/blog/2017/05/10/commercial/",
         "destination": "/docs/guides/commercial/",
         "type": 301
+      },
+      {
+        "source": "/blog/2023/02/06/ronen/",
+        "destination": "/contributors/ronen-rabinovici/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2019/10/03/pause/",
+        "destination": "/docs/guides/voiceover/",
+        "type": 301
+      },
+      {
+        "source": "/page/2/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/page/1/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/online-reader/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/payment/cancel/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/payment/success/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/gopremium/",
+        "destination": "/upgrade/",
+        "type": 301
+      },
+      {
+        "source": "/studio/",
+        "destination": "/docs/guides/voiceover/",
+        "type": 301
+      },
+      {
+        "source": "/faqs/",
+        "destination": "/faq/",
+        "type": 301
+      },
+      {
+        "source": "/voiceover/",
+        "destination": "/docs/guides/voiceover/",
+        "type": 301
+      },
+      {
+        "source": "/privacy/",
+        "destination": "/docs/guides/privacy/",
+        "type": 301
+      },
+      {
+        "source": "/portfolio/",
+        "destination": "/#portfolio",
+        "type": 301
+      },
+      {
+        "source": "/premium/",
+        "destination": "/upgrade/",
+        "type": 301
+      },
+      {
+        "source": "/speechninja/",
+        "destination": "https://speechninja.co",
+        "type": 301
+      },
+      {
+        "source": "/blog/2020/01/16/mobile_app/",
+        "destination": "/mobile/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/12/12/api/",
+        "destination": "/plugin/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/06/06/ttsreaderdroid-news20170606/",
+        "destination": "/blog/2017/06/06/ttsreaderdroid-news20170606/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/05/10/record/",
+        "destination": "/docs/guides/voiceover/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/05/10/ttsreaderdroid/",
+        "destination": "/mobile/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/05/10/ttsreader/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/10/09/voiceartists/",
+        "destination": "/docs/guides/voiceover/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2023/02/05/sapi5/",
+        "destination": "/blog/exciting-news-use-custom-sapi5-voices-on-ttsreader/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2023/02/06/webplayer/",
+        "destination": "/blog/read-out-loud-any-website-directly-on-ttsreader.com/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2019/07/25/speechnotes_files/",
+        "destination": "/blog/new-service-automatically-transcribes-audio-video-files/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/08/05/thanks/",
+        "destination": "/blog/special-thanks/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/07/05/comparison-news20170705/",
+        "destination": "/tags/comparison/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/06/06/kindle/",
+        "destination": "/tags/kindle/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/05/10/speechnotes/",
+        "destination": "/tags/speechnotes/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/05/10/ttsreaderx/",
+        "destination": "/blog/websites-reader-ttsreaderx-chrome-extension/",
+        "type": 301
+      },
+      {
+        "source": "/blog/2017/05/10/copyright/",
+        "destination": "/blog/who-owns-the-copyrights-for-synthesized-speech/",
+        "type": 301
       }
     ],
     "headers": [
@@ -72,21 +227,5 @@
         ]
       }
     ]
-  },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "*.local"
-      ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
-      ]
-    }
-  ]
+  }
 }

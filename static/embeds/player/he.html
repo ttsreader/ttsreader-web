@@ -191,7 +191,7 @@
       background-color: #0056b3;
     }
   </style>
-<script defer src="static/js/main.eb28a320.js"></script><link href="static/css/main.fb00809f.css" rel="stylesheet"></head>
+<script defer src="static/js/main.f94c3be1.js"></script><link href="static/css/main.93552bd1.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column">
@@ -245,11 +245,11 @@
       </div>
     </div>
     &nbsp;
-    <button onclick="toggleTheme();" id="mode" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
+    <button onclick="toggleTheme();" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
       <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
     </button>
     &nbsp;
-    <button data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">💎</button>
+    <button data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal" style="position: relative;top:-1px;">🏆</button>
     <span style="flex: 1"></span>
 
     <button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
@@ -273,14 +273,21 @@
           <a data-ws-show-if-state="isSignedIn=true" class="Menu-list-element" onclick="toggleSignIn();" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="m17 7-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg>&nbsp;&nbsp;התנתק<!-- Sign out --></a>
         </div>
         <div data-ws-show-if-state="isPremium=false">
-          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" style="cursor: pointer;text-decoration: none;display: block">💎&nbsp;&nbsp;&nbsp;עבור לפרימיום<!-- Go Premium -->&nbsp;&nbsp;&nbsp;💎💎💎</a>
+          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;עבור לפרימיום<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
         </div>
         <div data-ws-show-if-state="isPremium=true">
-          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">סטטוס פרימיום 💎<!-- Premium 💎 Status --></a>
+          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">סטטוס פרימיום 🏆<!-- Premium 🏆 Status --></a>
         </div>
-        <a class="Menu-list-element" onclick="gtag('event','mp3_guide_click_player_drawer',{value:'1'})" data-ws-toggle="#mp3GuideModal" style="text-decoration:none;">
-          הורד קובץ אודיו mp3<!-- Download mp3 audio file -->
-        </a>
+        <div data-ws-show-if-state="isPremium=true">
+          <a class="Menu-list-element" onclick="gtag('event','mp3_guide_click_player_drawer',{value:'1'})" data-ws-toggle="#recordStartModal" style="text-decoration:none;">
+            הורד קובץ אודיו mp3<!-- Download mp3 audio file -->
+          </a>
+        </div>
+        <div data-ws-show-if-state="isPremium=false">
+          <a class="Menu-list-element" onclick="gtag('event','mp3_guide_click_player_drawer',{value:'1'})" data-ws-toggle="#recordModalNonPremium" style="text-decoration:none;">
+            הורד קובץ אודיו mp3<!-- Download mp3 audio file -->
+          </a>
+        </div>
         <a class="Menu-list-element" onclick="gtag('event','audioread_click_player_drawer',{value:'1'})" href="https://audioread.com/?via=ttsreader" target="_blank" rel="nofollow" style="text-decoration:none;">
           הפוך לפודקאסט<!-- Turn into podcast -->
           <span style="font-size: 0.5em; color: orange; position: relative; top: -5px; left: 2px; display: inline-block;">
@@ -288,10 +295,10 @@
   </span>
         </a>
         <a class="Menu-list-element" data-ws-toggle="#helpModal" onclick="loadImages('#helpImgId');">
-          ❓ ממשק עזרה<!-- Help overlay -->
+          ממשק עזרה<!-- Help overlay -->
         </a>
         <a class="Menu-list-element" data-ws-toggle="#moreVoices" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
-          צריך עוד קולות ❓<!-- Need more voices -->
+          צריך עוד קולות<!-- Need more voices -->
         </a>
         <a class="Menu-list-element" href="/docs/guides/quick-start-new-player/" target="_blank" style="text-decoration: none;display: block">
           מדריך למשתמש<!-- User manual -->
@@ -300,14 +307,11 @@
           פרסום מסחרי<!-- Commercial & publishing -->
         </a>
         <!--<a class="Menu-list-element" href="https://speechnotes.co/files/webm_to_mp3/" target="_blank" style="text-decoration: none;display: block">Convert webm to mp3</a>-->
-        <a class="Menu-list-element" href="/mobile/" target="_blank" style="text-decoration: none;display: block">
-          גרסאות ניידות<!-- Mobile versions -->
-        </a>
+        <!--<a class="Menu-list-element" href="/mobile/" target="_blank" style="text-decoration: none;display: block">
+          גרסאות ניידות&lt;!&ndash; Mobile versions &ndash;&gt;
+        </a>-->
         <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank" style="text-decoration: none;display: block">
-          <svg class="Top-btn-svg MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MessageIcon">
-            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"></path>
-          </svg>
-          &nbsp;&nbsp;טופס משוב<!-- Feedback form -->
+          טופס משוב<!-- Feedback form -->
         </a>
         <div data-ws-show-if-state="isShareSupported=true">
           <a class="Menu-list-element" onclick="share();"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -328,6 +332,9 @@
             <path d="M8.7 10.7l6.6 -3.4"></path>
             <path d="M8.7 13.3l6.6 3.4"></path>
           </svg>&nbsp;&nbsp;Share</a>
+        </div>
+        <div class="Menu-list-element" >
+          Version: 1.1.5-1/23/2025, 2:15:01 PM
         </div>
 
       </div>
@@ -438,7 +445,7 @@
       </div>
       <!--<select class="Voice-selector" data-ws-onChange="handleVoiceChange" data-ws-value-state="selectedVoiceUri"></select>-->
       <p style="text-align: center">
-        <span style="color: green">✓</span> מציין כי הקול מאושר לפרסום עבור משתמשי פרימיום<!-- Indicates voice is allowed for publishing for premium users --> <span data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">כמוך 💎<!-- as yourself 💎 --></span><a data-ws-show-if-state="isPremium=false" data-ws-toggle="#upgradeModal" style="cursor: pointer;">- <u>לחץ כאן לשדרוג<!-- click here to upgrade --></u></a>
+        <span style="color: green">✓</span> מציין כי הקול מאושר לפרסום עבור משתמשי פרימיום<!-- Indicates voice is allowed for publishing for premium users --> <span data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">כמוך 🏆<!-- as yourself 🏆 --></span><a data-ws-show-if-state="isPremium=false" data-ws-toggle="#upgradeModal" style="cursor: pointer;">- <u>לחץ כאן לשדרוג<!-- click here to upgrade --></u></a>
       </p>
     </div>
   </div>
@@ -531,7 +538,7 @@
           </div>
         </div>
         <div data-ws-show-if-state="isPremium=true">
-          <p style="text-align: center;font-size: larger;">💎 🍾🥂 תודה ששידרגת!!!<!-- Thank you for upgrading!!! --> 🎉🚀 💎 </p>
+          <p style="text-align: center;font-size: larger;">🏆 🍾🥂 תודה ששידרגת!!!<!-- Thank you for upgrading!!! --> 🎉🚀 🏆 </p>
           <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="background-color: transparent;color: cornflowerblue;border-color: cornflowerblue">המשך בהקלטה<!-- Continue with recording --></button>
         </div>
         <br/><br/>
@@ -549,13 +556,18 @@
         </svg>
       </button>
       <div style="overflow: auto;padding:10px 30px;">
-        <h4>הקלטת דיבור מסונתז<!-- Recording the Synthesized Speech --></h4>
-        <p style="text-align: justify">צפה בסרטון הקצר הזה להבנת השלבים. כאשר אתה מוכן - לחץ על כפתור 'התחל הקלטה'.<!-- Watch this short video for understanding the steps. When ready - click the 'Start Recording' button. --></p>
+        <p style="text-align: justify">Once you click the following button a popup will show. There select the 'Entire Screen' & 'Also share system audio' options. Finally, click 'Share'.</p>
+        <button data-ws-onClick="startRecording" class="Full-width-btn" style="background-color: darkgreen;color: white">התחל הקלטה<!-- Start Recording --></button>
+        <br/>
+        <div>
+          <img src="images/share_audio.png" style="max-width: 90%; margin: auto;"/>
+        </div>
+        <p><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Learn on generating mp3 files and the different options here.</a></p>
+        <!--<p style="text-align: justify">צפה בסרטון הקצר הזה להבנת השלבים. כאשר אתה מוכן - לחץ על כפתור 'התחל הקלטה'.&lt;!&ndash; Watch this short video for understanding the steps. When ready - click the 'Start Recording' button. &ndash;&gt;</p>
         <div class="videowrapper">
           <iframe style="display:block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
         </div>
-        <button data-ws-onClick="startRecording" class="Full-width-btn" style="background-color: darkgreen;color: white">התחל הקלטה<!-- Start Recording --></button>
-        <br/>
+        <br/>-->
       </div>
     </div>
     <div style="height:20px;"></div>
@@ -632,9 +644,11 @@
             });
           </script>
           <div data-ws-show-if-state="recurringTab=true">
+            <p style="text-align: center">Selected monthly subscription</p>
             <div id="paypal-button-container-subscription"></div>
           </div>
           <div data-ws-show-if-state="recurringTab=false">
+            <p style="text-align: center">Selected 1 yr license, non recurring</p>
             <div id="paypal-button-container"></div>
           </div>
           <p style="color: #282c34; font-weight: bolder;">רכישה מאובטחת. שביעות רצון מובטחת 100%<!-- Secure purchase. 100% satisfaction guaranteed --></p>
@@ -701,7 +715,7 @@
 
   <div class="Modal" id="helpModal" style="display: none;">
     <div style="flex:1"></div>
-    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+    <div class="Modal-content" style="max-width: 100%;max-height: 90vh;">
       <button class="Close-modal"><svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
       <div>
         <img id="helpImgId" data-src="images/help.png" style="max-width: 95%;
@@ -711,11 +725,12 @@
     border-radius: 10px;">
       </div>
     </div>
+    <div style="flex:1"></div>
   </div>
 
   <div class="Modal" id="moreVoices" style="display: none;">
     <div style="flex:1"></div>
-    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+    <div class="Modal-content">
       <button class="Close-modal">
         <svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
@@ -724,6 +739,9 @@
       <div style="overflow-y: auto;max-height: 90%;text-align: justify;">
         <h3 style="text-align: center">עוד קולות<!-- More Voices --></h3>
 
+        <p style="text-align: center"><a href="#" onclick="appMethods.showModal('voicesModal');">Click here to preview & select a voice available on your browser</a></p>
+        <br/>
+        <p style="text-align: center"><b>Other voices on other browsers</b></p>
         <div data-ws-show-if-state="os=win">
           <div data-ws-show-if-state="isChrome=true">
             <p>קיימים יותר קולות כאשר משתמשים ב-TTSReader בדפדפן Edge. במיוחד - כריסטופר ומישל הם יוצאי דופן!<!-- More voices are available when using TTSReader on the Edge browser. Specifically - Christopher & Michelle are both exceptional! --></p>
@@ -739,14 +757,18 @@
           <p style="font-weight: bold">הנה כמה מהקולות הזמינים:<!-- Here are some of the available voices: --></p>
           <p><u>ב-Edge:<!-- On Edge: --></u></p>
           <div>Christopher: <audio style="vertical-align: middle" controls src="audio/Christopher.mp3" preload="metadata"/></div>
+          <br/>
           <div>Michelle: <audio controls src="audio/Michelle.mp3" preload="metadata"/></div>
           <br/>
           <p><u>ב-Chrome:<!-- On Chrome: --></u></p>
           <div>Noah: <audio controls src="audio/Noah.mp3" preload="metadata"></audio></div>
+          <br/>
           <div>Lily: <audio controls src="audio/Lily.mp3" preload="metadata"></audio></div>
           <br/>
         </div>
+        <p><b>SAPI5 (custom / locally installed) Voices Supported</b></p>
         <p>שימוש בקולות SAPI5 מותאמים אישית אפשרי על Windows עם דפדפן Firefox.<!-- Using custom SAPI5 voices is possible on Windows using Firefox browser. --></p>
+        <p><a target="_blank" href="/blog/exciting-news-use-custom-sapi5-voices-on-ttsreader/">See how to use SAPI5 voices with TTSReader</a></p>
         <p>בנייד, תמצא יותר קולות באמצעות שלנו<!-- On mobile, you will find more voices using our --> <a href="/mobile/" target="_blank">אפליקציות טקסט לדיבור לנייד<!-- text-to-speech mobile apps --></a></p>
         <p>אנו עובדים על זמינות של יותר קולות עבור משתמשי פרימיום<!-- We're working on making even more voices available for Premium users --></p>
       </div>

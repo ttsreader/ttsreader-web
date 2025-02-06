@@ -15,6 +15,11 @@
   weight = 12
 
 [[main]]
+  name = "AI Transcriber"
+  url = "https://speechnotes.co/transcribe/"
+  weight = 13
+
+[[main]]
   name = "More"
   weight = 40
   identifier = "tools"
@@ -72,6 +77,12 @@
     weight = 50
     identifier = "docs"
     url = "/docs/"
+    parent = "tools"
+  [[main]]
+    name = "Blog, News & Updates"
+    weight = 50
+    identifier = "blog"
+    url = "/blog/"
     parent = "tools"
   [[main]]
     name = "Contact"

@@ -1,157 +1,158 @@
 
+
 <!doctype html>
 <html>
 <head>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-      gtag('config', 'UA-47292499-3');
-    </script>
+    gtag('config', 'UA-47292499-3');
+  </script>
 
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8"/>
 
-    <title>TTSReader Upgrade</title>
-    <style>
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
+  <title>TTSReader Upgrade</title>
+  <style>
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
 
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 180px;
-            background-color: black;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px 0;
-            position: absolute;
-            z-index: 1;
-            top: 150%;
-            left: 50%;
-            margin-left: -90px;
-        }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 180px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      top: 150%;
+      left: 50%;
+      margin-left: -90px;
+    }
 
-        .tooltip .tooltiptext::after {
-            content: "";
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent black transparent;
-        }
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent black transparent;
+    }
 
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-        }
-        ul {
-            list-style-type: '\2705   ';
-            list-style-position: outside;
-            margin: 0 0 0.5em 0;
-            line-height: 1.8em;
-            color: #3d3d3d;
-        }
-        html,body {
-            width: 100vw;
-            height: 100vh;
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
-            font-size: 16px;
-            text-align: justify;
-            font-weight: 100;
-            color: #555;
-        }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+    ul {
+      list-style-type: '\2705   ';
+      list-style-position: outside;
+      margin: 0 0 0.5em 0;
+      line-height: 1.8em;
+      color: #3d3d3d;
+    }
+    html,body {
+      width: 100vw;
+      height: 100vh;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+      font-size: 16px;
+      text-align: justify;
+      font-weight: 100;
+      color: #555;
+    }
 
-        h1, h2, h3 {
-            font-weight: 100;
-            text-align: center;
-            background-color: #ffffff;
-            padding: 10px;
-            color: black;
-        }
-        h1 {
-            font-weight: normal;
-            letter-spacing: 0.007em;
-            text-transform: uppercase;
-        }
-        h2 {
-            padding: 0;
-            font-size: 1.8em;
-        }
-        h3 {
-            font-size: 1.4em;
-        }
+    h1, h2, h3 {
+      font-weight: 100;
+      text-align: center;
+      background-color: #ffffff;
+      padding: 10px;
+      color: black;
+    }
+    h1 {
+      font-weight: normal;
+      letter-spacing: 0.007em;
+      text-transform: uppercase;
+    }
+    h2 {
+      padding: 0;
+      font-size: 1.8em;
+    }
+    h3 {
+      font-size: 1.4em;
+    }
 
-        article {
-            max-width: 800px;
-            margin: auto;
-        }
+    article {
+      max-width: 800px;
+      margin: auto;
+    }
 
-        p {
-            margin: 0 0 0.5em 0;
-            line-height: 1.8em;
-            color: #555;
-        }
-        ol {
+    p {
+      margin: 0 0 0.5em 0;
+      line-height: 1.8em;
+      color: #555;
+    }
+    ol {
 
-        }
-        ol li {
-            margin: 0 0 0.5em 0;
-            font-size: 0.9em;
-            line-height: 1.8em;
-        }
+    }
+    ol li {
+      margin: 0 0 0.5em 0;
+      font-size: 0.9em;
+      line-height: 1.8em;
+    }
 
-        figure {
-            text-align: center;
-            font-weight: bold;
-            font-size: small;
-            margin-bottom: 40px;
-        }
+    figure {
+      text-align: center;
+      font-weight: bold;
+      font-size: small;
+      margin-bottom: 40px;
+    }
 
-        code {
-            display: inline-block;
-            padding: 0.1em;
-            background-color: #F8F8F8;
-            border: 1px solid #DDD;
-            border-radius: 3px;
-            font-family: Consolas,"Liberation Mono",Courier,monospace;
-            font-size: 0.9em;
-            line-height: 1;
-        }
-        .centered-img {
-            display: block;
-            max-width: 80%;
-            margin: 20px auto;
-        }
+    code {
+      display: inline-block;
+      padding: 0.1em;
+      background-color: #F8F8F8;
+      border: 1px solid #DDD;
+      border-radius: 3px;
+      font-family: Consolas,"Liberation Mono",Courier,monospace;
+      font-size: 0.9em;
+      line-height: 1;
+    }
+    .centered-img {
+      display: block;
+      max-width: 80%;
+      margin: 20px auto;
+    }
 
-        .centered-txt {
-            text-align: center;
-        }
+    .centered-txt {
+      text-align: center;
+    }
 
-        .screen {
-            min-height: 100%;
-            padding: 0 20px;
-        }
+    .screen {
+      min-height: 100%;
+      padding: 0 20px;
+    }
 
-        button {
-            margin:auto;
-            cursor: pointer;
-            text-transform:uppercase;
-            color:#3b3b3b;font-weight:bold;background-color: white;border: 1px grey solid;border-radius: 30px; padding: 10px 40px;
-        }
-    </style>
+    button {
+      margin:auto;
+      cursor: pointer;
+      text-transform:uppercase;
+      color:#3b3b3b;font-weight:bold;background-color: white;border: 1px grey solid;border-radius: 30px; padding: 10px 40px;
+    }
+  </style>
 </head>
 <body style="background: url(https://ttsreader.com/img/bg1.jpg) repeat;">
 <script>
@@ -165,27 +166,27 @@
     SUBSCRIPTION_OVER: "SUBSCRIPTION_OVER", // Queried SN - or got notified by SN - and the expiration date is over
   }
 
-    let classNamesForUiUpdates = {
-      showWhenOffline: "showWhenOffline",
-      showWhenLoading: "showWhenLoading",
-      showWhenLoaded: "showWhenLoaded",
-      showWhenSignedIn: "show-when-signed-in",
-      showWhenSignedOut: "show-when-signed-out",
-      showWhenLicenseNone: "showWhenLicenseNone",
-      showWhenLicenseExpired: "showWhenLicenseExpired",
-      showWhenLicenseLife: "showWhenLicenseLife",
-      showWhenLicenseSoonToExpire: "showWhenLicenseSoonToExpire",
-      showWhenLicenseUnknown: "showWhenLicenseUnknown",
-      showWhenLicenseSubscriptionValid: "showWhenLicenseSubscriptionValid",
-    }
+  let classNamesForUiUpdates = {
+    showWhenOffline: "showWhenOffline",
+    showWhenLoading: "showWhenLoading",
+    showWhenLoaded: "showWhenLoaded",
+    showWhenSignedIn: "show-when-signed-in",
+    showWhenSignedOut: "show-when-signed-out",
+    showWhenLicenseNone: "showWhenLicenseNone",
+    showWhenLicenseExpired: "showWhenLicenseExpired",
+    showWhenLicenseLife: "showWhenLicenseLife",
+    showWhenLicenseSoonToExpire: "showWhenLicenseSoonToExpire",
+    showWhenLicenseUnknown: "showWhenLicenseUnknown",
+    showWhenLicenseSubscriptionValid: "showWhenLicenseSubscriptionValid",
+  }
 
-    let pageState = {
-      isOffline: !window.navigator.onLine,
-      loading: true,
-      email: "",
-      uid: "",
-      epochLicenseExpirationDateInSecs: -1  // -1 = unknown, 0 = none, 3000000000 or above = life
-    }
+  let pageState = {
+    isOffline: !window.navigator.onLine,
+    loading: true,
+    email: "",
+    uid: "",
+    epochLicenseExpirationDateInSecs: -1  // -1 = unknown, 0 = none, 3000000000 or above = life
+  }
 
   window.addEventListener('online', () => updatePageStateWithParams({isOffline: false}));
   window.addEventListener('offline', () => updatePageStateWithParams({isOffline: true}));
@@ -221,365 +222,350 @@
   }
 
   function updatePageStateWithParams(params) {
-      console.log('updating state with: ', params);
-      if (!params) {
-        params = {};
-      }
-
-      if (params.isPremium) {
-        params.epochLicenseExpirationDateInSecs = 3000000000;
-      }
-
-      if (params.purchases) {
-        let expEpochInSecs = 1000;
-        let purchasesIds = Object.getOwnPropertyNames(params.purchases);
-        let epochs = [];
-        for (const id of purchasesIds) {
-          let purchase = params.purchases[id];
-          if (purchase.sku==="SKU_TTSREADER_PREMIUM_1_YEAR__") {
-            epochs.push(purchase.epochDateInSecs);
-          }
-        }
-        if (epochs.length>0) {
-          epochs.sort();
-        }
-
-        let singleYearInSecs = 365*24*60*60;
-        for (const epoch of epochs) {
-          if (epoch<expEpochInSecs) {
-            expEpochInSecs = expEpochInSecs + singleYearInSecs;
-          } else {
-            expEpochInSecs = epoch + singleYearInSecs;
-          }
-        }
-
-        console.log('Premium expires on ' + (new Date(expEpochInSecs*1000)).toLocaleDateString() + ', for the following purchases: ' + epochArrayToString(epochs))
-        if (pageState.epochLicenseExpirationDateInSecs) {
-          if (expEpochInSecs>pageState.epochLicenseExpirationDateInSecs) {
-            params.epochLicenseExpirationDateInSecs = expEpochInSecs;
-          }
-        }
-      }
-
-      let props = Object.getOwnPropertyNames(params);
-
-      if (props && props.length>0) {
-        for (const key of props) {
-          if (params[key]!=undefined && params[key]!=null) { // Since it can be false...
-            if (key=="epochLicenseExpirationDateInSecs") {
-              let latestEpoch = Math.max(pageState.epochLicenseExpirationDateInSecs, params.epochLicenseExpirationDateInSecs);
-              pageState.epochLicenseExpirationDateInSecs = latestEpoch;
-              localStorage.setItem("epochLicenseExpirationDateInSecs", pageState.epochLicenseExpirationDateInSecs);
-              let msg = {message: "epochLicenseExpirationDateInSecs", data: latestEpoch};
-              updateChromeExtensionWith(msg);
-              // Sets to local storage, so that premium can be set as soon as the main webapp page loads.
-              // Does not read from local, only sets it.
-
-              localStorage.setItem("epochLicenseExpirationDateInSecs", latestEpoch);
-            } else {
-              pageState[key] = params[key];
-            }
-          }
-        }
-      }
-
-      console.log('new state: ', pageState);
-      updateUiByState(pageState);
+    console.log('updating state with: ', params);
+    if (!params) {
+      params = {};
     }
 
-    function interpretLicenseState(epochToExpirationSecs) {
-      const ONE_MONTH_IN_SECONDS = 3600 * 24 * 30;
+    if (params.isPremium) {
+      params.epochLicenseExpirationDateInSecs = 3000000000;
+    }
 
-      if (!epochToExpirationSecs || epochToExpirationSecs<(Date.now()/1000-20*365*24*3600)) {
-        return licenseInterpretations.NONE;
-      } else if (epochToExpirationSecs<0) {
-        return licenseInterpretations.UNKNOWN;
-      } else if (epochToExpirationSecs>=3000000000) {
-        return licenseInterpretations.LIFETIME;
-      } else {
-        let timeInSecsTillExpiration = epochToExpirationSecs - Date.now()/1000 ;
-        if (timeInSecsTillExpiration<=0) {
-          return licenseInterpretations.SUBSCRIPTION_OVER;
-        } else if (timeInSecsTillExpiration >= ONE_MONTH_IN_SECONDS) {
-          return licenseInterpretations.SUBSCRIPTION;
+    if (params.purchases) {
+      let expEpochInSecs = 1000;
+      let purchasesIds = Object.getOwnPropertyNames(params.purchases);
+      let epochs = [];
+      for (const id of purchasesIds) {
+        let purchase = params.purchases[id];
+        if (purchase.sku==="SKU_TTSREADER_PREMIUM_1_YEAR__") {
+          epochs.push(purchase.epochDateInSecs);
+        }
+      }
+      if (epochs.length>0) {
+        epochs.sort();
+      }
+
+      let singleYearInSecs = 365*24*60*60;
+      for (const epoch of epochs) {
+        if (epoch<expEpochInSecs) {
+          expEpochInSecs = expEpochInSecs + singleYearInSecs;
         } else {
-          return licenseInterpretations.SUBSCRIPTION_SOON_OVER;
+          expEpochInSecs = epoch + singleYearInSecs;
+        }
+      }
+
+      console.log('Premium expires on ' + (new Date(expEpochInSecs*1000)).toLocaleDateString() + ', for the following purchases: ' + epochArrayToString(epochs))
+      if (pageState.epochLicenseExpirationDateInSecs) {
+        if (expEpochInSecs>pageState.epochLicenseExpirationDateInSecs) {
+          params.epochLicenseExpirationDateInSecs = expEpochInSecs;
         }
       }
     }
 
-    function updateUiByState(newState) {
+    let props = Object.getOwnPropertyNames(params);
 
-      let labelEls = document.querySelectorAll("[data-ws-label]");
-      if (labelEls && labelEls.length>0) {
-        for (const el of labelEls) {
-          if (el.getAttribute("data-ws-label")=="epochAsDate") {
-            var options = { year: 'numeric', month: 'long', day: 'numeric' };
-            el.innerText = (new Date(1000 * newState.epochLicenseExpirationDateInSecs)).toLocaleDateString("en-US", options)
+    if (props && props.length>0) {
+      for (const key of props) {
+        if (params[key]!=undefined && params[key]!=null) { // Since it can be false...
+          if (key=="epochLicenseExpirationDateInSecs") {
+            let latestEpoch = Math.max(pageState.epochLicenseExpirationDateInSecs, params.epochLicenseExpirationDateInSecs);
+            pageState.epochLicenseExpirationDateInSecs = latestEpoch;
+            localStorage.setItem("epochLicenseExpirationDateInSecs", pageState.epochLicenseExpirationDateInSecs);
+            let msg = {message: "epochLicenseExpirationDateInSecs", data: latestEpoch};
+            updateChromeExtensionWith(msg);
+            // Sets to local storage, so that premium can be set as soon as the main webapp page loads.
+            // Does not read from local, only sets it.
+
+            localStorage.setItem("epochLicenseExpirationDateInSecs", latestEpoch);
           } else {
-            el.innerText = newState[el.getAttribute("data-ws-label")];
-          }
-        }
-      }
-
-      let keys = Object.getOwnPropertyNames(classNamesForUiUpdates);
-      if (!keys || keys.length==0) {
-        return;
-      }
-
-      let classesToHideOrShow = [];
-      let classesToShow = [];
-      for (const key of keys) {
-        classesToHideOrShow.push(classNamesForUiUpdates[key]);
-      }
-
-      if (newState.isOffline) {
-        classesToShow.push(classNamesForUiUpdates.showWhenOffline);
-      }
-
-      if (newState.loading && !newState.uid) {
-        classesToShow.push(classNamesForUiUpdates.showWhenLoading);
-      } else {
-        classesToShow.push(classNamesForUiUpdates.showWhenLoaded);
-      }
-
-      if (newState.uid) {
-        classesToShow.push(classNamesForUiUpdates.showWhenSignedIn);
-      } else {
-        classesToShow.push(classNamesForUiUpdates.showWhenSignedOut);
-      }
-
-      let licenseState = interpretLicenseState(newState.epochLicenseExpirationDateInSecs);
-
-      if (licenseState==licenseInterpretations.NONE) {
-        classesToShow.push(classNamesForUiUpdates.showWhenLicenseNone);
-      } else if (licenseState==licenseInterpretations.UNKNOWN) {
-        classesToShow.push(classNamesForUiUpdates.showWhenLicenseUnknown);
-      } else if (licenseState==licenseInterpretations.LIFETIME) {
-        classesToShow.push(classNamesForUiUpdates.showWhenLicenseLife);
-      } else if (licenseState==licenseInterpretations.SUBSCRIPTION) {
-        classesToShow.push(classNamesForUiUpdates.showWhenLicenseSubscriptionValid);
-      } else if (licenseState==licenseInterpretations.SUBSCRIPTION_OVER) {
-        classesToShow.push(classNamesForUiUpdates.showWhenLicenseExpired);
-      } else if (licenseState==licenseInterpretations.SUBSCRIPTION_SOON_OVER) {
-        classesToShow.push(classNamesForUiUpdates.showWhenLicenseSoonToExpire);
-      }
-
-      for (const className of classesToHideOrShow) {
-        let elements = document.querySelectorAll("." + className);
-        if (elements && elements.length>0) {
-          for (const el of elements) {
-            let displayIfShown = el.getAttribute("data-ws-display") || "";
-            el.style.display = classesToShow.includes(className) ? displayIfShown : "none";
-          }
-        }
-      }
-      for (const className of classesToShow) {
-        let elements = document.querySelectorAll("." + className);
-        if (elements && elements.length>0) {
-          for (const el of elements) {
-            let displayIfShown = el.getAttribute("data-ws-display") || "";
-            el.style.display = displayIfShown;
+            pageState[key] = params[key];
           }
         }
       }
     }
 
-    function setPremiumLife() {
-      updatePageStateWithParams({
-        epochLicenseExpirationDateInSecs: 3000000000
-      });
+    console.log('new state: ', pageState);
+    updateUiByState(pageState);
+  }
 
-      if (pageState.uid) {
-        let apiUrl = "https://itranscribe.app:8443/apiLicenses";
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST',
-          apiUrl + '?type=__sn_premium_life__' +
-          '&uid=' + encodeURIComponent(pageState.uid));
-        xhr.onload = function(e) {
-          if (this.status == 200) {
-            //console.log('response', this.response); // JSON response
-          } else {
-            console.log('error in xhr to: ' + apiUrl);
-          }
+  function interpretLicenseState(epochToExpirationSecs) {
+    const ONE_MONTH_IN_SECONDS = 3600 * 24 * 30;
+
+    if (!epochToExpirationSecs || epochToExpirationSecs<(Date.now()/1000-20*365*24*3600)) {
+      return licenseInterpretations.NONE;
+    } else if (epochToExpirationSecs<0) {
+      return licenseInterpretations.UNKNOWN;
+    } else if (epochToExpirationSecs>=3000000000) {
+      return licenseInterpretations.LIFETIME;
+    } else {
+      let timeInSecsTillExpiration = epochToExpirationSecs - Date.now()/1000 ;
+      if (timeInSecsTillExpiration<=0) {
+        return licenseInterpretations.SUBSCRIPTION_OVER;
+      } else if (timeInSecsTillExpiration >= ONE_MONTH_IN_SECONDS) {
+        return licenseInterpretations.SUBSCRIPTION;
+      } else {
+        return licenseInterpretations.SUBSCRIPTION_SOON_OVER;
+      }
+    }
+  }
+
+  function updateUiByState(newState) {
+
+    let labelEls = document.querySelectorAll("[data-ws-label]");
+    if (labelEls && labelEls.length>0) {
+      for (const el of labelEls) {
+        if (el.getAttribute("data-ws-label")=="epochAsDate") {
+          var options = { year: 'numeric', month: 'long', day: 'numeric' };
+          el.innerText = (new Date(1000 * newState.epochLicenseExpirationDateInSecs)).toLocaleDateString("en-US", options)
+        } else {
+          el.innerText = newState[el.getAttribute("data-ws-label")];
+        }
+      }
+    }
+
+    let keys = Object.getOwnPropertyNames(classNamesForUiUpdates);
+    if (!keys || keys.length==0) {
+      return;
+    }
+
+    let classesToHideOrShow = [];
+    let classesToShow = [];
+    for (const key of keys) {
+      classesToHideOrShow.push(classNamesForUiUpdates[key]);
+    }
+
+    if (newState.isOffline) {
+      classesToShow.push(classNamesForUiUpdates.showWhenOffline);
+    }
+
+    if (newState.loading && !newState.uid) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLoading);
+    } else {
+      classesToShow.push(classNamesForUiUpdates.showWhenLoaded);
+    }
+
+    if (newState.uid) {
+      classesToShow.push(classNamesForUiUpdates.showWhenSignedIn);
+    } else {
+      classesToShow.push(classNamesForUiUpdates.showWhenSignedOut);
+    }
+
+    let licenseState = interpretLicenseState(newState.epochLicenseExpirationDateInSecs);
+
+    if (licenseState==licenseInterpretations.NONE) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseNone);
+    } else if (licenseState==licenseInterpretations.UNKNOWN) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseUnknown);
+    } else if (licenseState==licenseInterpretations.LIFETIME) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseLife);
+    } else if (licenseState==licenseInterpretations.SUBSCRIPTION) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseSubscriptionValid);
+    } else if (licenseState==licenseInterpretations.SUBSCRIPTION_OVER) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseExpired);
+    } else if (licenseState==licenseInterpretations.SUBSCRIPTION_SOON_OVER) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseSoonToExpire);
+    }
+
+    for (const className of classesToHideOrShow) {
+      let elements = document.querySelectorAll("." + className);
+      if (elements && elements.length>0) {
+        for (const el of elements) {
+          let displayIfShown = el.getAttribute("data-ws-display") || "";
+          el.style.display = classesToShow.includes(className) ? displayIfShown : "none";
+        }
+      }
+    }
+    for (const className of classesToShow) {
+      let elements = document.querySelectorAll("." + className);
+      if (elements && elements.length>0) {
+        for (const el of elements) {
+          let displayIfShown = el.getAttribute("data-ws-display") || "";
+          el.style.display = displayIfShown;
+        }
+      }
+    }
+  }
+
+  function setPremiumLife() {
+    updatePageStateWithParams({
+      epochLicenseExpirationDateInSecs: 3000000000
+    });
+
+    if (pageState.uid) {
+      let apiUrl = "https://itranscribe.app:8443/apiLicenses";
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST',
+        apiUrl + '?type=__sn_premium_life__' +
+        '&uid=' + encodeURIComponent(pageState.uid));
+      xhr.onload = function(e) {
+        if (this.status == 200) {
+          //console.log('response', this.response); // JSON response
+        } else {
+          console.log('error in xhr to: ' + apiUrl);
+        }
+      };
+      xhr.send();
+      console.log('sending req', xhr);
+    }
+  }
+
+  function addOneYearToLicense() {
+    let todayInSecs = (new Date()).getTime()/1000;
+    let latestExpiration = pageState.epochLicenseExpirationDateInSecs || 0;
+    if (todayInSecs > latestExpiration) {
+      latestExpiration = todayInSecs;
+    }
+    latestExpiration += (3600*24*365);
+    updatePageStateWithParams({
+      epochLicenseExpirationDateInSecs: latestExpiration
+    });
+  }
+
+  function updateChromeExtensionWith(msg, callback) {
+    if (window.chrome && chrome.runtime && chrome.runtime.sendMessage) {
+      if (!callback) {
+        callback = function (response){
+          console.log('Sent msg to extension ', msg, ", ", response);
         };
-        xhr.send();
-        console.log('sending req', xhr);
       }
+      let TTSReaderExtensionID = "pakknklefcjdhejnffafpeelofiekebg";
+      chrome.runtime.sendMessage(TTSReaderExtensionID, msg, callback);
     }
-
-    function addOneYearToLicense() {
-        let todayInSecs = (new Date()).getTime()/1000;
-        let latestExpiration = pageState.epochLicenseExpirationDateInSecs || 0;
-        if (todayInSecs > latestExpiration) {
-          latestExpiration = todayInSecs;
-        }
-        latestExpiration += (3600*24*365);
-        updatePageStateWithParams({
-          epochLicenseExpirationDateInSecs: latestExpiration
-        });
-    }
-
-    function updateChromeExtensionWith(msg, callback) {
-      if (window.chrome && chrome.runtime && chrome.runtime.sendMessage) {
-        if (!callback) {
-          callback = function (response){
-            console.log('Sent msg to extension ', msg, ", ", response);
-          };
-        }
-        let TTSReaderExtensionID = "pakknklefcjdhejnffafpeelofiekebg";
-        chrome.runtime.sendMessage(TTSReaderExtensionID, msg, callback);
-      }
-    }
+  }
 </script>
 
-    <div class="showWhenOffline" style="display:none;position: fixed; z-index: 99999; color: white;background-color: red;font-size: large;bottom: 50%;right:0;left:0;padding:30px;text-transform: uppercase;text-align: center;">
-        <b>No internet connection. Try to reconnect and refresh the page</b>
-    </div>
+<div class="showWhenOffline" style="display:none;position: fixed; z-index: 99999; color: white;background-color: red;font-size: large;bottom: 50%;right:0;left:0;padding:30px;text-transform: uppercase;text-align: center;">
+  <b>No internet connection. Try to reconnect and refresh the page</b>
+</div>
 
-    <div class="screen showWhenLoading show-when-signed-out" style="display: flex; flex-direction: column" data-ws-display="flex">
-        <div style="flex: 2"></div>
-        <br/>
-        <article>
-            <h1><span style="color: darkcyan;font-weight: bold">TTS</span><span style="font-weight: bold">Reader</span>&nbsp; | The Web's #1 Reader</h1>
-            <h2>Upgrade to Get More & Support the Team 🔥🔥🔥</h2>
+<div class="screen showWhenLoading show-when-signed-out" style="display: flex; flex-direction: column" data-ws-display="flex">
+  <div style="flex: 2"></div>
+  <br/>
+  <article>
+    <h1><span style="color: darkcyan;font-weight: bold">TTS</span><span style="font-weight: bold">Reader</span>&nbsp; | The Web's #1 Reader</h1>
+    <h2>Upgrade to Get More & Support the Team 🔥🔥🔥</h2>
+    <h3>We're 100% self-supported, so we need your help to maintain and further develop this tool we all ❤️, thank you! 🙏
+      <br/><br/>High quality voices. Fair & safe. 💯% Satisfaction guaranteed</h3>
+    <br/>
+    <p class="centered-txt" style="background-color: navajowhite;padding: 3px 20px;border-radius: 10px;cursor: pointer;" onclick="goTo('#details')">Single upgrade gets you premium on all of ttsreader's brand: - <span style="color: blue;">ttsreader.com</span>, <span style="color: blue;">ttsreader.com/player/</span>, <span style="color: blue;">ttsreader.com/webplayer/</span>, publishing & <span style="color: blue;">Chrome extension</span></p>
+    <br/>
+  </article>
+  <div style="flex: 1"></div>
+  <p class="centered-txt">
+    <button class="google-sign-in-btn" data-ws-onclick="toggleSignIn">
+      <span class="firebaseui-idp-icon-wrapper" style="vertical-align: -webkit-baseline-middle"><img style="height: 20px" class="firebaseui-idp-icon" alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <span class="firebaseui-idp-text firebaseui-idp-text-long" style="vertical-align: -webkit-baseline-middle">Sign in To Start</span>
+    </button>
+  </p>
+  <br/><br/><br/>
+  <div style="flex: 2"></div>
+  <div>
+    <p class="centered-txt">
+      <button onclick="goTo('#details')" style="background-color: darkcyan;color: white;">LEARN MORE &nbsp;&nbsp;<span style="font-size: 1.5em;transform: rotateZ(90deg);display: inline-block;">➮</span></button>
+    </p>
+  </div>
+  <br/><br/><br/>
+  <div style="position: fixed; bottom: 0; right: 0; left: 0; border-top: 1px solid gray">
 
-            <p style="font-weight: bold; text-align: center;margin-top: 50px; margin-bottom: 30px; font-size: 1.3em">
-                <a href="#" style="color: yellow;padding: 8px 20px;border-radius: 20px;background-color: black;position: relative;box-decoration-break: clone;-webkit-box-decoration-break: clone;text-decoration: none">⚡ BLACK FRIDAY SALE ⚡</a>
-            </p>
-            <p style="margin: auto; text-align: center">
-                <span style="content: '';border: 1px solid orangered;background-color: white;position: relative; display: inline-block;background-color: orangered;color:white;font-size: 1.5em;font-weight: bold;padding: 8px 16px;transform: rotate(15deg);transform-origin: 0 0;">33% OFF</span>
-            </p>
-            <p style="text-align: center;margin-top: 50px; margin-bottom: 30px; font-size: 1.3em">
-                <a href="#" style="font-weight: bold; color: red;padding: 8px 20px;border-radius: 20px;background-color: white;position: relative;box-decoration-break: clone;-webkit-box-decoration-break: clone;text-decoration: none">EXCLUSIVE OFFER - DON'T MISS OUT!!</a>
-            </p>
+  </div>
+</div>
 
-
-            <h3>We're 100% self-supported, so we need your help to maintain and further develop this tool we all ❤️, thank you! 🙏
-                <br/><br/>High quality voices. Fair & safe. 💯% Satisfaction guaranteed</h3>
-        <br/>
-        <p class="centered-txt" style="background-color: navajowhite;padding: 3px 20px;border-radius: 10px;cursor: pointer;" onclick="goTo('#details')">Single upgrade gets you premium on all of ttsreader's brand: - <span style="color: blue;">ttsreader.com</span>, <span style="color: blue;">ttsreader.com/player/</span>, <span style="color: blue;">ttsreader.com/webplayer/</span>, publishing & <span style="color: blue;">Chrome extension</span></p>
-        <br/>
-        </article>
-        <div style="flex: 1"></div>
-        <p class="centered-txt">
-            <button class="google-sign-in-btn" data-ws-onclick="toggleSignIn">
-                <span class="firebaseui-idp-icon-wrapper" style="vertical-align: -webkit-baseline-middle"><img style="height: 20px" class="firebaseui-idp-icon" alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"></span>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="firebaseui-idp-text firebaseui-idp-text-long" style="vertical-align: -webkit-baseline-middle">Sign in To Start</span>
-            </button>
-        </p>
-        <br/><br/><br/>
-        <div style="flex: 2"></div>
-        <div>
-            <p class="centered-txt">
-                <button onclick="goTo('#details')" style="background-color: darkcyan;color: white;">LEARN MORE &nbsp;&nbsp;<span style="font-size: 1.5em;transform: rotateZ(90deg);display: inline-block;">➮</span></button>
-            </p>
-        </div>
-        <br/><br/><br/>
-        <div style="position: fixed; bottom: 0; right: 0; left: 0; border-top: 1px solid gray">
-
-        </div>
-    </div>
-
-    <div class="screen show-when-signed-in">
-        <br/>
-        <h1><span style="color: darkcyan;font-weight: bold">TTS</span><span style="font-weight: bold">Reader</span>&nbsp; | The Web's #1 Reader</h1>
-        <br/>
-        <p class="centered-txt">
-            <code data-ws-label="email" style="font-size: large;vertical-align: -webkit-baseline-middle"></code>
-            &nbsp;
-            <span class="tooltip" style="color: dodgerblue;cursor: pointer;" data-ws-onclick="toggleSignIn">
+<div class="screen show-when-signed-in">
+  <br/>
+  <h1><span style="color: darkcyan;font-weight: bold">TTS</span><span style="font-weight: bold">Reader</span>&nbsp; | The Web's #1 Reader</h1>
+  <br/>
+  <p class="centered-txt">
+    <code data-ws-label="email" style="font-size: large;vertical-align: -webkit-baseline-middle"></code>
+    &nbsp;
+    <span class="tooltip" style="color: dodgerblue;cursor: pointer;" data-ws-onclick="toggleSignIn">
                             <svg style="vertical-align: -webkit-baseline-middle" height="24px" stroke="lightgray" fill="black" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path></svg>
                             <span class="tooltiptext">Switch account</span>
                         </span>
-        </p>
-        <br/>
+  </p>
+  <br/>
 
-        <div class="showWhenLicenseLife centered-txt">
-            <p style="font-size: xx-large">Congrats! You have a lifetime license! <span style="font-size: xxx-large">🚀</span></p>
-        </div>
+  <div class="showWhenLicenseLife centered-txt">
+    <p style="font-size: xx-large">Congrats! You have a lifetime license! <span style="font-size: xxx-large">🚀</span></p>
+  </div>
+
+  <div class="showWhenLicenseNone showWhenLicenseExpired showWhenLicenseSoonToExpire showWhenLicenseSubscriptionValid">
+    <p class="showWhenLicenseExpired centered-txt ">
+      ℹ️ Your previous license has expired, you may renew it now
+    </p>
+    <p class="showWhenLicenseSoonToExpire centered-txt ">
+      ℹ️ Your license will expire soon <i>(<span data-ws-label="epochAsDate"></span>)</i>, you may renew it now
+    </p>
+    <div class="showWhenLicenseSubscriptionValid centered-txt">
+      <p style="font-size: xx-large">Congratulations! Your license is valid till <span data-ws-label="epochAsDate"></span>&nbsp;&nbsp;<span style="font-size: xxx-large">🚀</span></p>
+      <br/>
+      <p>Want to add another year? You may do so now.</p>
+    </div>
+  </div>
+
+  <div class="showWhenLicenseLife showWhenLicenseSoonToExpire showWhenLicenseSubscriptionValid centered-txt">
+    <p>Enjoy your premium on <a href="https://ttsreader.com/">ttsreader.com</a></p>, <a href="https://ttsreader.com/player/">ttsreader.com/player/ - the new player under development</a></p>, <a href="https://ttsreader.com/webplayer/">ttsreader.com/webplayer/ - the url web player</a></p>
+    <p>As well as using our <a target="_blank" href="https://chrome.google.com/webstore/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg">extension for reading webpages</a></p>
+    <br/>
+  </div>
+
+  <div  style="display: flex; flex-direction: column-reverse;padding: 20px;margin-bottom: 40px;">
+    <div style="flex: 50%;max-width: 600px;margin: auto;" id="buyPanelId">
+
+      <div style="border: 2px solid darkcyan;padding: 20px;border-radius: 20px;background-color: white">
 
         <div class="showWhenLicenseNone showWhenLicenseExpired showWhenLicenseSoonToExpire showWhenLicenseSubscriptionValid">
-            <p class="showWhenLicenseExpired centered-txt ">
-                ℹ️ Your previous license has expired, you may renew it now
-            </p>
-            <p class="showWhenLicenseSoonToExpire centered-txt ">
-                ℹ️ Your license will expire soon <i>(<span data-ws-label="epochAsDate"></span>)</i>, you may renew it now
-            </p>
-            <div class="showWhenLicenseSubscriptionValid centered-txt">
-                <p style="font-size: xx-large">Congratulations! Your license is valid till <span data-ws-label="epochAsDate"></span>&nbsp;&nbsp;<span style="font-size: xxx-large">🚀</span></p>
-                <br/>
-                <p>Want to add another year? You may do so now.</p>
-            </div>
+          <p style="font-size: 26px;" class="centered-txt">Only $39 valid for the whole year (only $3.25 per month)! Does NOT auto renew.</p>
+          <p class="centered-txt">- 100% Satisfaction guaranteed! -</p>
+          <div id="paypal-button-container" style="max-width:90%;margin: 30px auto;"></div>
+          <p class="centered-txt">Use Credit Card or PayPal. Both are secure, processed by PayPal. We do not get any access or details about your card.</p>
         </div>
-
-        <div class="showWhenLicenseLife showWhenLicenseSoonToExpire showWhenLicenseSubscriptionValid centered-txt">
-            <p>Enjoy your premium on <a href="https://ttsreader.com/">ttsreader.com</a></p>, <a href="https://ttsreader.com/player/">ttsreader.com/player/ - the new player under development</a></p>, <a href="https://ttsreader.com/webplayer/">ttsreader.com/webplayer/ - the url web player</a></p>
-            <p>As well as using our <a target="_blank" href="https://chrome.google.com/webstore/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg">extension for reading webpages</a></p>
-            <br/>
-        </div>
-
-        <div  style="display: flex; flex-direction: column-reverse;padding: 20px;margin-bottom: 40px;">
-            <div style="flex: 50%;max-width: 600px;margin: auto;" id="buyPanelId">
-
-                <div style="border: 2px solid darkcyan;padding: 20px;border-radius: 20px;background-color: white">
-
-                    <div class="showWhenLicenseNone showWhenLicenseExpired showWhenLicenseSoonToExpire showWhenLicenseSubscriptionValid">
-                        <p style="font-size: 26px;" class="centered-txt">Only <span style="font-weight: bold; font-size: 1.2em; text-decoration: line-through;color: slategray">$39</span>&nbsp;<span style="font-weight: bold; font-size: 1.2em;color: black">$26 valid for a whole year! ⚡</span> Does NOT auto renew!!</p>
-                        <p style="margin: auto; text-align: center">
-                            <span style="content: '';border: 1px solid orangered;background-color: white;position: relative; display: inline-block;background-color: orangered;color:white;font-size: 1.5em;font-weight: bold;padding: 8px 16px;margin-bottom: 20px">33% OFF</span>
-                        </p>
-                        <p class="centered-txt">- 100% Satisfaction guaranteed! -</p>
-                        <div id="paypal-button-container" style="max-width:90%;margin: 30px auto;"></div>
-                        <p class="centered-txt">Use Credit Card or PayPal. Both are secure, processed by PayPal. We do not get any access or details about your card.</p>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-        <br/><br/><br/>
+      </div>
     </div>
 
-    <div id="details" style="background-color: #ffffffbb;">
-    <div style="padding: 20px;max-width: 600px;margin: auto;">
-        <h3>Applies to all of <a target="_blank" href="https://ttsreader.com/" style="color: blue;">ttsreader.com</a> including <a target="_blank" href="https://ttsreader.com/player/" style="color: blue;">the new player</a>, the <a target="_blank" href="https://ttsreader.com/webplayer/" style="color: blue;">web player</a> and our <a target="_blank" style="color: blue;" href="https://chrome.google.com/webstore/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg">Chrome extension</a>
-        </h3>
-        <ul>
-            <li>No Ads</li>
-            <li>Faster loading</li>
-            <li>Unlimited continuous reading</li>
-            <li>Recording enabled (ttsreader.com on Windows machines only). See more <a href="https://ttsreader.com/blog/2017/05/10/record/" target="_blank">here</a>.</li>
-            <li>Use commercially. Probably the most convenient available commercial plan on the web. Upgrading is a must for business use and / or for publishing the recorded speech</li>
-            <li>Unlocks all voices (may differ between devices & browsers)</li>
-            <li>Enjoy all additional future premium features</li>
-            <li><b>!!! Exclusive access to our development team for support & requests !!! Once upgraded - use <a href="https://forms.gle/aEMroawC7shXGtWM8" target="_blank">this form for any request to get the best responses.</a></b></li>
-            <li>Linked to your account - use on any number of devices</li>
-            <li>Support our team for maintenance and further development</li>
-            <li>100% satisfaction guaranteed! Full refund upon request.</li>
-            <li>We're growing TTSReader with your help! Need any feature added? Have ideas? Let us know - and we'll do our best to make it happen for you and other users. Premium users are guaranteed to receive a reply from our developers.</li>
-        </ul>
-        <br/><br/><br/>
-        <h2>Fixed Pricing, <b>No Recurring Payments!</b></h2>
-        <h3>Does NOT renew automatically! You are in control.</h3>
-        <p>Pricing is only <b><span style="font-weight: bold; font-size: 1.2em; text-decoration: line-through;color: slategray">$39</span>&nbsp;<span style="font-weight: bold; font-size: 1.2em;color: black">$26 valid for a whole year! ⚡</span></b> You pay once for the year, and that's it. No surprises. You don't have to worry about keeping track of recurring payments, not monthly and not yearly.</p>
-        <p></p>
-    </div>
-    <br/><br/><br/>
-    <p class="centered-txt show-when-signed-out" style="position: sticky;bottom: 0;background-color: white; padding: 20px;">
-        <button class="google-sign-in-btn" data-ws-onclick="toggleSignIn">
-            <span class="firebaseui-idp-icon-wrapper" style="vertical-align: -webkit-baseline-middle"><img style="height: 20px" class="firebaseui-idp-icon" alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"></span>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="firebaseui-idp-text firebaseui-idp-text-long" style="vertical-align: -webkit-baseline-middle">Sign in To Start</span>
-        </button>
-    </p>
+
+  </div>
+  <br/><br/><br/>
 </div>
 
-    <footer class="centered-txt show-when-signed-in" style="z-index:999;color: grey;position: fixed;bottom: 0;right:0;left:0;background-color: white">
-        <div style="height: 20px;"></div>
-        <div style="padding:20px;background-color: black;color:white;">Need help? Contact us at admin@speechlogger.com</div>
-    </footer>
+<div id="details" style="background-color: #ffffffbb;">
+  <div style="padding: 20px;max-width: 600px;margin: auto;">
+    <h3>Applies to all of <a target="_blank" href="https://ttsreader.com/" style="color: blue;">ttsreader.com</a> including <a target="_blank" href="https://ttsreader.com/player/" style="color: blue;">the new player</a>, the <a target="_blank" href="https://ttsreader.com/webplayer/" style="color: blue;">web player</a> and our <a target="_blank" style="color: blue;" href="https://chrome.google.com/webstore/detail/ttsreader-text-to-speech/pakknklefcjdhejnffafpeelofiekebg">Chrome extension</a>
+    </h3>
+    <ul>
+      <li>No Ads</li>
+      <li>Faster loading</li>
+      <li>Unlimited continuous reading</li>
+      <li>Recording enabled (ttsreader.com on Windows machines only). See more <a href="https://ttsreader.com/blog/2017/05/10/record/" target="_blank">here</a>.</li>
+      <li>Use commercially. Probably the most convenient available commercial plan on the web. Upgrading is a must for business use and / or for publishing the recorded speech</li>
+      <li>Unlocks all voices (may differ between devices & browsers)</li>
+      <li>Enjoy all additional future premium features</li>
+      <li><b>!!! Exclusive access to our development team for support & requests !!! Once upgraded - use <a href="https://forms.gle/aEMroawC7shXGtWM8" target="_blank">this form for any request to get the best responses.</a></b></li>
+      <li>Linked to your account - use on any number of devices</li>
+      <li>Support our team for maintenance and further development</li>
+      <li>100% satisfaction guaranteed! Full refund upon request.</li>
+      <li>We're growing TTSReader with your help! Need any feature added? Have ideas? Let us know - and we'll do our best to make it happen for you and other users. Premium users are guaranteed to receive a reply from our developers.</li>
+    </ul>
+    <br/><br/><br/>
+    <h2>Fixed Pricing, <b>No Recurring Payments!</b></h2>
+    <h3>Does NOT renew automatically! You are in control.</h3>
+    <p>Pricing is only <b>$39.00 valid for a whole year</b>. You pay once for the year, and that's it. No surprises. You don't have to worry about keeping track of recurring payments, not monthly and not yearly.</p>
+    <p></p>
+  </div>
+  <br/><br/><br/>
+  <p class="centered-txt show-when-signed-out" style="position: sticky;bottom: 0;background-color: white; padding: 20px;">
+    <button class="google-sign-in-btn" data-ws-onclick="toggleSignIn">
+      <span class="firebaseui-idp-icon-wrapper" style="vertical-align: -webkit-baseline-middle"><img style="height: 20px" class="firebaseui-idp-icon" alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <span class="firebaseui-idp-text firebaseui-idp-text-long" style="vertical-align: -webkit-baseline-middle">Sign in To Start</span>
+    </button>
+  </p>
+</div>
+
+<footer class="centered-txt show-when-signed-in" style="z-index:999;color: grey;position: fixed;bottom: 0;right:0;left:0;background-color: white">
+  <div style="height: 20px;"></div>
+  <div style="padding:20px;background-color: black;color:white;">Need help? Contact us at admin@speechlogger.com</div>
+</footer>
 
 <script>
   updatePageStateWithParams({});
@@ -630,7 +616,7 @@
 
 
     if (user) {
-      resetPayPalButton(26, user.uid);
+      resetPayPalButton(39, user.uid);
 
       // User is signed in.
       console.log('user signed in ', user);

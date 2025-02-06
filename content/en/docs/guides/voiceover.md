@@ -1,6 +1,6 @@
 ---
-title: "Generating Voice Overs"
-description: "How to generate audio files from synthesized speech with TTSReader"
+title: "Generating Mp3 Files Voice Overs"
+description: "How to generate mp3 audio files from synthesized speech with TTSReader"
 date: 2023-08-21T13:59:39+01:00
 lastmod: 2023-08-21T13:59:39+01:00
 draft: false
