@@ -189,3 +189,48 @@ audio {
 [data-dark-mode] .carousel-dark .carousel-control-next-icon {
   filter: none;
 }
+
+.inline-bg {
+  background-color: #ffffff99;
+  border-radius: 10px;
+}
+
+[data-dark-mode] .inline-bg {
+  background-color: #21252966;
+}
+
+.half-bg {
+  background-color: #ffffff99;
+  border-radius: 10px;
+}
+
+[data-dark-mode] .half-bg {
+  background-color: #21252966;
+}
+
+@keyframes jitter {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-1px); }
+}
+
+.jittery {
+  animation: jitter 0.2s ease-in-out 1;
+}
+
+.jittery-hover:hover {
+  background-color: #c91f18 !important;
+}
+
+/* Optional: make the animation subtle and not constant */
+@keyframes jitterLoop {
+  0%, 97% { transform: none; }
+  98% { transform: translateX(-1px); }
+  99% { transform: translateX(1px); }
+  100% { transform: none; }
+}
+
+.jitter-loop {
+  animation: jitterLoop 5s infinite;
+}

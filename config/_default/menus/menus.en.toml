@@ -4,12 +4,6 @@
   weight = 10
 
 [[main]]
-  name = "Studio"
-  url = "https://get.murf.ai/bz1lyjc4o3nr"
-  weight = 11
-  params = { noFollow = true }
-
-[[main]]
   name = "Plugin"
   url = "/plugin/"
   weight = 12

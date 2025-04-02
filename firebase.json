@@ -15,6 +15,16 @@
     } ],
     "redirects": [
       {
+        "source": "/preview20250325/",
+        "destination": "/player/",
+        "type": 301
+      },
+      {
+        "source": "/preview20250325",
+        "destination": "/player/",
+        "type": 301
+      },
+      {
         "source": "/speechninja",
         "destination": "https://speechninja.co/",
         "type": 301

@@ -1,3 +1,9 @@
+To publish - not so easy -
+1. 1st build the player...
+2. Then - copy whatever needed to static - in 4 places: /player/, /embeds/player/, /images/, /audio/ ...
+3. Then build here 'npm run build'
+4. Then - move from /static/player/ index.html to REPLACE the generated index.html...
+
 <h1 align="center">
   TTSReader
 </h1>

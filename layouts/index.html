@@ -1,68 +1,70 @@
 {{ define "main" }}
 
+<div style="position: fixed; top: 0; bottom: 0; left: 0; right: 0; width: 100vw; height: 100vh; background: url('/images/anima2.webp') no-repeat center;background-size: cover;z-index: -999;"></div>
 
-<section class="section container-fluid mt-n3 pb-3">
-  <h1 class="mt-0 text-center">{{ .Title }}</h1>
+<section class="section container-fluid mt-n3 pb-3" style="min-height: 100vh; text-align: center;">
+  <h1 class="mt-0 text-center"><span class="inline-bg"><span style="color: darkred">TTS</span>Reader Brings Text to Life<span class="inline-bg"></h1>
+  <br/><br/>
+  <video preload="metadata" style="aspect-ratio: 2.33;border-radius: 10px; width: 500px;max-width: 95%;margin: auto;" src="/images/demo_banner.webm" controls></video>
+  <br/><br/>
+  <a style="width: 500px; max-width: 95%; color: white !important; background-color: #a51b14; border-color: #a51b14" class="jittery-hover btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});">Launch Text Player <svg style="position: relative;top:-3px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg></a>
+  <div class="row justify-content-center">
+    <div class="text-center">
+      <div class="row justify-content-center text-center" style="margin-top: 20px;">
+        <div class="card" role="button" onclick="window.location='/player/';gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});" style="cursor: pointer;box-shadow: 0 0 10px antiquewhite;width:500px;max-width: 95%;margin: auto;">
+          <!--<div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1wmkh38" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="HeadphonesOutlinedIcon" fill="currentColor" stroke-width="0.25px">
+            &lt;!&ndash; Original Headphones &ndash;&gt;
+            <path d="M12 3c-4.97 0-9 4.03-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7c0-4.97-4.03-9-9-9M7 15v4H5v-4zm12 4h-2v-4h2z"></path>
+
+            &lt;!&ndash;&lt;!&ndash; Added Text 'AB' &ndash;&gt;
+            <text x="7" y="12.5" font-size="5.5" fill="currentColor" font-family="Arial, sans-serif" text-anchor="start">
+              TXT
+            </text>&ndash;&gt;
+            &lt;!&ndash; Added Lines Representing Text &ndash;&gt;
+            <line x1="10" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+            <line x1="10" y1="12" x2="14" y2="12" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+            <line x1="10" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          </svg></div>-->
+
+
+          <p class="meta" style="text-align: justify;font-size: larger">Reads out loud plain text, files, PDFs, e-books and websites. Remembers text, caret position & prefs, so you can come back to listening later. Supports commercial mp3 publishing as well.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section container-fluid mt-n3 pb-3 half-bg">
+  <h1 class="mt-0 text-center">AI Text To Speech (TTS)<br/>Online Reader</h1>
   <div class="row justify-content-center">
     <div class="text-center">
       <h2 class="lead" style="font-size: 1.3em;">{{ .Params.lead | safeHTML }}</h2>
       <a id="portfolio"></a>
       <p class="caption-top" style="margin-top:35px"><i>TTSReader turns any textual content into audio since 2015; Microsoft for Startups 2024<br>Trusted by millions of users worldwide, including businesses, colleges & schools, students, bloggers, authors and anyone who likes to enjoy a story or learn something new by listening.</i></p>
-      <div class="row justify-content-center text-center" style="margin-top: 20px;">
-        <div class="col-md-7 col-lg-6 card" role="button" onclick="window.location='/player/';gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});" style="cursor: pointer;box-shadow: 0 0 10px antiquewhite;">
-          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1wmkh38" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="HeadphonesOutlinedIcon" fill="currentColor" stroke-width="0.25px">
-            <!-- Original Headphones -->
-            <path d="M12 3c-4.97 0-9 4.03-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7c0-4.97-4.03-9-9-9M7 15v4H5v-4zm12 4h-2v-4h2z"></path>
-
-            <!--&lt;!&ndash; Added Text 'AB' &ndash;&gt;
-            <text x="7" y="12.5" font-size="5.5" fill="currentColor" font-family="Arial, sans-serif" text-anchor="start">
-              TXT
-            </text>-->
-            <!-- Added Lines Representing Text -->
-            <line x1="10" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-            <line x1="10" y1="12" x2="14" y2="12" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-            <line x1="10" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-          </svg></div>
-          <h2 class="h4">Listen to Textual Content</h2>
-          <a style="color: white !important; background-color: #a51b14; border-color: #a51b14" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});">Start Text Player</a>
-          <p class="meta" style="text-align: justify">Reads out loud plain text, files, PDFs, e-books and websites. Remembers text, caret position & prefs, so you can come back to listening later. Supports export to mp3 as well.</p>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-7 col-lg-6 card" target="_blank" rel="nofollow" href="{{ .Site.Params.links.murf }}" role="button" onclick="gtag('event', 'ttsreader_click_murf_main', {'value': 'home_page_body'});window.open('{{ .Site.Params.links.murf }}','_blank')" style="cursor: pointer; box-shadow: 0 0 10px antiquewhite;">
-          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg xmlns="http://www.w3.org/2000/svg" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg></div>
-          <h2 class="h4">Studio Grade Narrations</h2>
-          <a style="color: #ffce00 !important; background-color: #2b3140; border-color: #2b3140" class="btn btn-lg px-4 mb-2" target="_blank" rel="nofollow" href="{{ .Site.Params.links.murf }}" role="button" onclick="gtag('event', 'ttsreader_click_murf_main', {'value': 'home_page_body'});">Start Voiceover Studio<sup style="font-size: 11px;
-    color: #aaa;
-    font-weight: bold;
-    position: relative;
-    top: -9px;"><i>&nbsp;Partner</i></sup>{{ i18n "start-transcribing" }}</a>
-          <p class="meta" style="text-align: justify">Build professional audio experiences with Murf's new GenII AI voice generator. Mix voices, bg music, intonation & more. Enterprise quality at affordable pricing. Try for free.</p>
-        </div>
-      </div>
     </div>
   </div>
 
-    <!--<div class="row text-center" style="margin: 40px auto;">
-      <p style="font-size: 1.2em;">Natural sounding AI voices are available - here are a few samples</p>
-      <div class="col justify-content-center text-center">
-        <br/>
-        <p><i>Synthesized with TTSReader on Edge browser</i></p>
-        <div>Christopher - <audio style="vertical-align: middle" controls src="{{ .Site.Params.links.audioSampleChristopher }}" preload="metadata"/></div>
-        <div>Michelle - &nbsp;&nbsp;&nbsp;&nbsp;<audio controls src="{{ .Site.Params.links.audioSampleMichelle }}" preload="metadata"/></div>
-      </div>
-      <div class="col justify-content-center text-center">
-        <br/>
-        <p><i>Synthesized with TTSReader on Chrome browser</i></p>
-        <div>Noah - <audio controls src="{{ .Site.Params.links.audioSampleNoah }}" preload="metadata"></audio></div>
-        <div>Lily - &nbsp;&nbsp;<audio controls src="{{ .Site.Params.links.audioSampleLily }}" preload="metadata"></audio></div>
-        <br/>
-      </div>
+  <!--<div class="row text-center" style="margin: 40px auto;">
+    <p style="font-size: 1.2em;">Natural sounding AI voices are available - here are a few samples</p>
+    <div class="col justify-content-center text-center">
+      <br/>
+      <p><i>Synthesized with TTSReader on Edge browser</i></p>
+      <div>Christopher - <audio style="vertical-align: middle" controls src="{{ .Site.Params.links.audioSampleChristopher }}" preload="metadata"/></div>
+      <div>Michelle - &nbsp;&nbsp;&nbsp;&nbsp;<audio controls src="{{ .Site.Params.links.audioSampleMichelle }}" preload="metadata"/></div>
+    </div>
+    <div class="col justify-content-center text-center">
+      <br/>
+      <p><i>Synthesized with TTSReader on Chrome browser</i></p>
+      <div>Noah - <audio controls src="{{ .Site.Params.links.audioSampleNoah }}" preload="metadata"></audio></div>
+      <div>Lily - &nbsp;&nbsp;<audio controls src="{{ .Site.Params.links.audioSampleLily }}" preload="metadata"></audio></div>
+      <br/>
+    </div>
 
-      <p style="font-size: 1.2em;margin-top: 40px;">Ready to start? <a href="/player/">Click here for our main text-to-speech reader</a>, or take a look at our complementary text-to-speech solutions including our experimental (please tell us what you think) <a href="/stories/" style="text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px yellow, 0 0 20px yellow, 0 0 25px yellow, 0 0 30px yellow, 0 0 35px yellow;color: red;font-weight:bold;padding: 3px 10px;border-radius: 10px;display: inline-block;">NEW STORIES 📚</a> read-along >></p>
-    </div>-->
+    <p style="font-size: 1.2em;margin-top: 40px;">Ready to start? <a href="/player/">Click here for our main text-to-speech reader</a>, or take a look at our complementary text-to-speech solutions including our experimental (please tell us what you think) <a href="/stories/" style="text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px yellow, 0 0 20px yellow, 0 0 25px yellow, 0 0 30px yellow, 0 0 35px yellow;color: red;font-weight:bold;padding: 3px 10px;border-radius: 10px;display: inline-block;">NEW STORIES 📚</a> read-along >></p>
+  </div>-->
 
 </section>
-
 
 
 
@@ -227,7 +229,7 @@
       <div style="max-width: 800px;margin: auto; font-size: larger; text-align: justify">
         <h2 class="h2 text-center" >About</h2>
         <br/>
-        <p>TTSReader reads out loud texts, webpages, pdfs & ebooks with natural sounding voices. Works out of the box. No need to download or install. No sign in required. Simply click 'play' and enjoy listening right in your browser. TTSReader remembers your text and position between sessions, so you can continue listening right where you left. Recording the generated speech is supported as well. Works offline, so you can use it at home, in the office, on the go, driving or taking a walk. Listening to textual content using TTSReader enables multitasking, reading on the go, improved comprehension and more. With support for multiple languages, it can be used for unlimited <a href="/#use_cases">use cases</a>.</p>
+        <p class="half-bg" style="padding: 20px;">TTSReader reads out loud texts, webpages, pdfs & ebooks with natural sounding voices. Works out of the box. No need to download or install. No sign in required. Simply click 'play' and enjoy listening right in your browser. TTSReader remembers your text and position between sessions, so you can continue listening right where you left. Recording the generated speech is supported as well. Works offline, so you can use it at home, in the office, on the go, driving or taking a walk. Listening to textual content using TTSReader enables multitasking, reading on the go, improved comprehension and more. With support for multiple languages, it can be used for unlimited <a href="/#use_cases">use cases</a>.</p>
         <br/>
         <p style="text-align: center"><a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_getstarted2_body', {'value': 'home_page_body'});">Get Started for Free{{ i18n "start-dictating" }}</a></p>
         <br/><br/>
@@ -237,7 +239,7 @@
 
 <section id="use_cases" class="section section-sm">
   <br/><br/>
-  <div class="container">
+  <div class="container half-bg" >
     <div class="row justify-content-center text-center">
       <h2>Main Use Cases</h2>
       <div class="col-lg-5">
@@ -287,7 +289,7 @@
   </div>
 </section>
 
-<section class="bar background-white" id="speech-to-text-features">
+<section class="bar background-white half-bg" id="speech-to-text-features">
   <br>
   <div class="container text-center">
     <div class="heading text-center">
