@@ -210,7 +210,7 @@
       transform: translateX(32px);
     }
   </style>
-<script defer src="/static/js/main.823ec273.js"></script><link href="/static/css/main.7cb2416d.css" rel="stylesheet"></head>
+<script defer src="/static/js/main.77bb70c4.js"></script><link href="/static/css/main.7cb2416d.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column">
@@ -353,7 +353,7 @@
           </svg>&nbsp;&nbsp;Share</a>
         </div>
         <div class="Menu-list-element" >
-          Version: 1.1.5-4/1/2025, 4:00:00 PM
+          Version: 3.0.1-4/25/2025, 1:51:21 PM
         </div>
 
       </div>
@@ -369,7 +369,7 @@
           <button data-ws-onClick="loadNextChapter" title="Load Next Chapter" aria-label="Load Next Chapter"><b>&rArr;</b></button>
         </div>
         <div class="Text-box-container">
-          <div class="Text-box" contentEditable=true data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Type or paste text into this box, click the play button, and I will read it out loud for you. To read a webpage - simply paste its URL and click play. You may also upload files, change voices, theme, font size and more." placeholder2="This player is under active development, we're working on making it better every day. ❤️ Enjoy listening! 🎧"></div>
+          <div style="direction: ltr" class="Text-box" contentEditable=true data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Type or paste text into this box, click the play button, and I will read it out loud for you. To read a webpage - simply paste its URL and click play. You may also upload files, change voices, theme, font size and more." placeholder2="This player is under active development, we're working on making it better every day. ❤️ Enjoy listening! 🎧"></div>
         </div>
         <div class="Playback-buttons-bar">
           <span>
@@ -421,44 +421,45 @@
 
   </div>
 
-  <div id="onboardingModal" style="display: none;">
+  <div id="onboardingModal" style="display: none;" dir="ltr">
     <div data-ws-step="1" class="modal-step" style="background: url('/images/anima2.webp') no-repeat center;background-size: cover;">
-        <div style="flex:1"></div>
-        <h1>Welcome to <span style="color:darkred;">TTS</span>Reader 3</h1>
-        <p>Bring text to life with realistic AI voices</p>
-        <br/>
-        <button class="primary" id="nextBtn" onclick="nextStep(this)" style="margin: auto;">Let's Start</button>
-        <br/><br/>
-        <div class="theme-toggle">
-          <span class="label">🌞 Light</span>
-          <label class="switch">
-            <input type="checkbox" class="themeSwitch">
-            <span class="slider"></span>
-          </label>
-          <span class="label">🌙 Dark</span>
-        </div>
-        <div style="flex:1;" ></div>
+      <div style="flex:1"></div>
+      <h1>Welcome to <span style="color:darkred;">TTS</span>Reader 3<!-- Welcome to <span style="color:darkred;">TTS</span>Reader 3 --></h1>
+      <h2 style="font-size: smaller; font-weight: normal">Text to Speech in English and other languages</h2>
+      <p>Bring text to life with realistic AI voices<!-- Bring text to life with realistic AI voices --></p>
+      <br/>
+      <button class="primary" id="nextBtn" onclick="nextStep(this)" style="margin: auto;">Let's Start<!-- Let's Start --></button>
+      <br/><br/>
+      <div data-nosnippet class="theme-toggle">
+        <span class="label">🌞 Light<!-- 🌞 Light --></span>
+        <label class="switch">
+          <input type="checkbox" class="themeSwitch">
+          <span class="slider"></span>
+        </label>
+        <span class="label">🌙 Dark<!-- 🌙 Dark --></span>
+      </div>
+      <div style="flex:1;" ></div>
     </div>
 
     <div data-ws-step="2" class="modal-step" style="display: none">
       <div class="modal-content">
         <div style="flex:1"></div>
-        <p style="font-size: larger">Select Your Reading Language</p>
-        <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;background-color:transparent;"></select>
-        <p>You can always change it later.</p>
+        <p style="font-size: larger;">Select Your Reading Language<!-- Select Your Reading Language --></p>
+        <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;"></select>
+        <p>You can always change it later.<!-- You can always change it later. --></p>
         <br/>
         <div>
-          <button class="primary" id="nextBtn" onclick="nextStep(this)">Next</button>
+          <button class="primary" id="nextBtn" onclick="nextStep(this)">Next<!-- Next --></button>
         </div>
         <br/>
         <div style="flex:0.67"></div>
-        <div class="theme-toggle">
-          <span class="label">🌞</span>
+        <div data-nosnippet class="theme-toggle">
+          <span class="label">🌞 Light<!-- 🌞 Light --></span>
           <label class="switch">
             <input type="checkbox" class="themeSwitch">
             <span class="slider"></span>
           </label>
-          <span class="label">🌙</span>
+          <span class="label">🌙 Dark<!-- 🌙 Dark --></span>
         </div>
         <div style="flex:0.33"></div>
       </div>
@@ -476,8 +477,8 @@
             </div>
             <br/>
             <div class="loading-text">
-              <p style="font-size: larger">Loading voices...</p>
-              <p>This will only take a moment</p>
+              <p style="font-size: larger;">Loading voices...<!-- Loading voices... --></p>
+              <p>This will only take a moment<!-- This will only take a moment --></p>
             </div>
           </div>
           <div style="flex: 1"></div>
@@ -487,8 +488,8 @@
 
     <div data-ws-step="3" class="modal-step" style="display: none">
       <div class="modal-header">
-        <span>Select Your Preferred Voice</span><br/>
-        <span style="font-size: 16px;opacity: 0.8">Click a voice to hear how it sounds. When ready, tap <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Next</a>.</span>
+        <span>Select Your Preferred Voice<!-- Select Your Preferred Voice --></span><br/>
+        <span style="font-size: 16px;opacity: 0.8;">Click a voice to hear how it sounds. When ready, tap <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Next</a>.<!-- Click a voice to hear how it sounds. When ready, tap <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Next</a>. --></span>
       </div>
       <div class="modal-content">
         <div style="flex:1"></div>
@@ -505,10 +506,17 @@
               <span class="voice-gender-female" title="Female">👩</span>
               <span class="voice-lang">🇬🇧</span>
               <span class="voice-premium" title="Premium Voice">🌟</span>
-              <span class="voice-publishing" title="Allowed for Publishing for Premium Users"><svg style="width:1em;height:1em;position: relative;top:3px;" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1phnduy" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 12c0 .74-.4 1.38-1 1.72V22h-2v-8.28c-.6-.35-1-.98-1-1.72 0-1.1.9-2 2-2s2 .9 2 2m-2-6c-3.31 0-6 2.69-6 6 0 1.74.75 3.31 1.94 4.4l1.42-1.42C8.53 14.25 8 13.19 8 12c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.19-.53 2.25-1.36 2.98l1.42 1.42C17.25 15.31 18 13.74 18 12c0-3.31-2.69-6-6-6m0-4C6.48 2 2 6.48 2 12c0 2.85 1.2 5.41 3.11 7.24l1.42-1.42C4.98 16.36 4 14.29 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 2.29-.98 4.36-2.53 5.82l1.42 1.42C20.8 17.41 22 14.85 22 12c0-5.52-4.48-10-10-10"></path></svg>&nbsp;</span>
+              <span class="voice-publishing" title="Allowed for Publishing for Premium Users">
+                <svg style="width:1em;height:1em;position: relative;top:3px;" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1phnduy" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M14 12c0 .74-.4 1.38-1 1.72V22h-2v-8.28c-.6-.35-1-.98-1-1.72 0-1.1.9-2 2-2s2 .9 2 2m-2-6c-3.31 0-6 2.69-6 6 0 1.74.75 3.31 1.94 4.4l1.42-1.42C8.53 14.25 8 13.19 8 12c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.19-.53 2.25-1.36 2.98l1.42 1.42C17.25 15.31 18 13.74 18 12c0-3.31-2.69-6-6-6m0-4C6.48 2 2 6.48 2 12c0 2.85 1.2 5.41 3.11 7.24l1.42-1.42C4.98 16.36 4 14.29 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 2.29-.98 4.36-2.53 5.82l1.42 1.42C20.8 17.41 22 14.85 22 12c0-5.52-4.48-10-10-10"></path>
+                </svg>&nbsp;
+              </span>
             </div>
             <div class="checkmark">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+              </svg>
             </div>
           </div>
         </template>
@@ -516,20 +524,22 @@
       </div>
       <div class="modal-footer">
         <p style="opacity: 0.8">
-          <svg style="width:1em;height:1em;" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1phnduy" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 12c0 .74-.4 1.38-1 1.72V22h-2v-8.28c-.6-.35-1-.98-1-1.72 0-1.1.9-2 2-2s2 .9 2 2m-2-6c-3.31 0-6 2.69-6 6 0 1.74.75 3.31 1.94 4.4l1.42-1.42C8.53 14.25 8 13.19 8 12c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.19-.53 2.25-1.36 2.98l1.42 1.42C17.25 15.31 18 13.74 18 12c0-3.31-2.69-6-6-6m0-4C6.48 2 2 6.48 2 12c0 2.85 1.2 5.41 3.11 7.24l1.42-1.42C4.98 16.36 4 14.29 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 2.29-.98 4.36-2.53 5.82l1.42 1.42C20.8 17.41 22 14.85 22 12c0-5.52-4.48-10-10-10"></path></svg>&nbsp;
-          Indicates voice is allowed for publishing, given a <a style="color: orangered;cursor: pointer;" data-ws-toggle="#upgradeModal">Premium License</a>.
+          <svg style="width:1em;height:1em;" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1phnduy" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M14 12c0 .74-.4 1.38-1 1.72V22h-2v-8.28c-.6-.35-1-.98-1-1.72 0-1.1.9-2 2-2s2 .9 2 2m-2-6c-3.31 0-6 2.69-6 6 0 1.74.75 3.31 1.94 4.4l1.42-1.42C8.53 14.25 8 13.19 8 12c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.19-.53 2.25-1.36 2.98l1.42 1.42C17.25 15.31 18 13.74 18 12c0-3.31-2.69-6-6-6m0-4C6.48 2 2 6.48 2 12c0 2.85 1.2 5.41 3.11 7.24l1.42-1.42C4.98 16.36 4 14.29 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 2.29-.98 4.36-2.53 5.82l1.42 1.42C20.8 17.41 22 14.85 22 12c0-5.52-4.48-10-10-10"></path>
+          </svg>&nbsp;
+          Indicates voice is allowed for publishing, given a <a style="color: orangered;cursor: pointer;" data-ws-toggle="#upgradeModal">Premium License</a>.<!-- Indicates voice is allowed for publishing, given a <a style="color: orangered;cursor: pointer;" data-ws-toggle="#upgradeModal">Premium License</a>. -->
         </p>
-        <button class="secondary" id="backBtn" onclick="prevStep(this)">Back</button>
-        <button class="primary" id="nextBtn" onclick="nextStep(this)">Next</button>
+        <button class="secondary" id="backBtn" onclick="prevStep(this)">Back<!-- Back --></button>
+        <button class="primary" id="nextBtn" onclick="nextStep(this)">Next<!-- Next --></button>
       </div>
     </div>
 
     <div data-ws-step="4" class="modal-step" style="display: none;">
       <div style="flex:1"></div>
-      <h1>You're all set</h1>
-      <p style="max-width: 600px; margin: auto;">In the next view you'll have a text box, where you can input your own text or select a file using the buttons at the top. When ready, click the 'play' button at the bottom and enjoy listening.</p>
+      <h1>You're all set<!-- You're all set --></h1>
+      <p style="max-width: 600px; margin: auto;">In the next view you'll have a text box, where you can input your own text or select a file using the buttons at the top. When ready, click the 'play' button at the bottom and enjoy listening.<!-- In the next view you'll have a text box, where you can input your own text or select a file using the buttons at the top. When ready, click the 'play' button at the bottom and enjoy listening. --></p>
       <br/>
-      <button class="primary" id="nextBtn" onclick="closeOnboarding()" style="margin: auto;">Let's Go</button>
+      <button class="primary" id="nextBtn" onclick="closeOnboarding()" style="margin: auto;">Let's Go<!-- Let's Go --></button>
       <div style="flex:2"></div>
 
       <!-- Sign in overlay if premium voice -->
@@ -537,36 +547,33 @@
         <div data-ws-show-if-state="isVoicePremium=true" class="hidden">
           <div class="modal-step-overlay" style="display:flex;position: absolute;top:0;bottom:0;left:0;right:0;flex-direction: column">
             <div style="flex:1"></div>
-            <p style="max-width: 600px; margin: auto;font-size: larger">The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required.
-              <br/><br/>Please securely sign in with Google to continue.</p>
+            <p style="max-width: 600px; margin: auto;font-size: larger;">The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required.<br/><br/>Please securely sign in with Google to continue.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required.
+              <br/><br/>Please securely sign in with Google to continue. --></p>
             <br/><br/>
             <button onclick="signIn();" class="primary" style="margin: auto;border: 1px solid;max-width: 500px;border-radius: 10px;">Sign In with Google<!-- Sign In with Google --></button>
             <br/>
-            <p>No password or payment method required.</p>
+            <p>No password or payment method required.<!-- No password or payment method required. --></p>
             <div style="flex:2"></div>
             <div class="modal-footer">
-              <button class="secondary" id="backBtn" onclick="prevStep(this)">Back</button>
+              <button class="secondary" id="backBtn" onclick="prevStep(this)">Back<!-- Back --></button>
             </div>
           </div>
         </div>
       </div>
 
     </div>
-
-
-
   </div>
 
   <div class="Modal" id="premiumVoiceSignInModal" style="display: none;">
     <div style="height:20px;"></div>
     <div class="Modal-content" style="display: flex; flex-direction: column;">
-        <button class="Close-modal" style="z-index: 999">
-          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
-            <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-          </svg>
-        </button>
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
       <div style="flex: 1"></div>
-      <p style="font-size: larger">The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue.</p>
+      <p style="font-size: larger;">The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
       <br/>
       <button onclick="signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Sign In with Google<!-- Sign In with Google --></button>
       <div style="flex: 2"></div>
@@ -583,7 +590,7 @@
         </svg>
       </button>
       <h4 style="font-size: 1.2em;">
-        <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;background-color:transparent;"></select>
+        <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;"></select>
       </h4>
       <div style="max-width: 100%; width: 350px; margin: -5px auto 30px; flex: 1;overflow-y: auto;text-align: left">
 

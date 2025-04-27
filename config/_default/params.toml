@@ -1,10 +1,10 @@
 # Meta Data for SEO
 
 ## Homepage
-name = "TTSReader 🔊"
-title = "🔊 TTS (Text to Speech) Reader Online"
+name = "TTSReader"
+title = "Text To Speech Live Player - Not Just a Converter"
 titleSeparator = "|"
-description = "Listen to ANY textual content with this AI Text To Speech Reader. Type or upload any text, file, website & book for listening online, proofreading, reading-along or generating professional mp3 voice-overs."
+description = "Unlike others, TTSReader delivers engaging text-to-speech — with live-edit, read-along, MP3 export, auto-save and new expressive AI voices. Enjoy listening!"
 
 
 ## Documentation

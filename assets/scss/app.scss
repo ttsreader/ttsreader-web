@@ -220,7 +220,8 @@ audio {
 }
 
 .jittery-hover:hover {
-  background-color: #c91f18 !important;
+  background-color: lightcyan !important;
+  color: #333333;
 }
 
 /* Optional: make the animation subtle and not constant */
@@ -233,4 +234,184 @@ audio {
 
 .jitter-loop {
   animation: jitterLoop 5s infinite;
+}
+
+.star-rating {
+  align-items: center;
+  gap: 6px;
+  font-family: sans-serif;
+  position: relative;
+}
+
+.star-rating::before {
+  content: '★★★★★';
+  letter-spacing: 2px;
+  background: linear-gradient(
+      90deg,
+      #FFA500 calc(var(--rating) / 5 * 100%),
+      #e0e0e0 calc(var(--rating) / 5 * 100%)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 20px;
+}
+
+#avatars_demos_id {
+
+}
+
+.avatar-container-tile {
+  background-color: transparent;
+}
+
+.avatar-container-tile {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.avatar-container-tile img {
+  width: 150px;
+  border-radius: 50%;
+  background-color: lightblue;
+  border: 3px solid lightblue;
+}
+
+.avatar-container-tile:hover img {
+  cursor: pointer;
+  background-color: lightcyan;
+  border-color: lightcyan;
+}
+
+.play-overlay {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: lightblue;
+  color: darkslategrey;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.avatar-container-tile:hover .play-overlay {
+  background-color: lightcyan;
+  color: orangered;
+}
+
+
+.avatar-container-tile .wave-loader {
+  display: none;
+}
+
+.avatar-container-tile.playing .wave-loader {
+  display: flex;
+}
+
+
+.wave-loader {
+  gap: 4px;
+  align-items: center;
+  height: 30px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -25px;
+}
+
+.bar {
+  width: 6px;
+  height: 100%;
+  background-color: #3b82f6;
+  border-radius: 4px;
+  animation: voice-wave 1.5s infinite ease-in-out;
+}
+
+.bar:nth-child(1) { animation-delay: -0.3s; }
+.bar:nth-child(2) { animation-delay: -0.4s; }
+.bar:nth-child(3) { animation-delay: -0.5s; }
+.bar:nth-child(4) { animation-delay: -0.6s; }
+.bar:nth-child(5) { animation-delay: -0.7s; }
+.bar:nth-child(6) { animation-delay: -0.6s; }
+.bar:nth-child(7) { animation-delay: -0.5s; }
+.bar:nth-child(8) { animation-delay: -0.4s; }
+.bar:nth-child(9) { animation-delay: -0.3s; }
+.bar:nth-child(10) { animation-delay: -0.4s; }
+.bar:nth-child(11) { animation-delay: -0.5s; }
+
+@keyframes voice-wave {
+  0%, 100% {
+    transform: scaleY(0.2);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.avatar-container-tile .play-overlay .play-button-svg-container {
+  display: block;
+}
+
+.avatar-container-tile .play-overlay .stop-button-svg-container {
+  display: none;
+}
+
+.avatar-container-tile.playing .play-overlay .play-button-svg-container {
+  display: none;
+}
+
+.avatar-container-tile.playing .play-overlay .stop-button-svg-container {
+  display: block;
+}
+
+/* Container for the news ticker */
+.news-ticker {
+  width: 100%; /* Full width */
+  overflow: hidden; /* Hide the overflowed content */
+  white-space: nowrap; /* Prevent line breaks */
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+/* The content that will scroll */
+.news-content {
+  display: inline-block;
+  animation: scroll-left 30s linear infinite; /* Scroll animation */
+}
+
+/* Animation keyframes */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(20%); /* Start off the screen from the right */
+  }
+  100% {
+    transform: translateX(-80%); /* Move off the screen to the left */
+  }
+}
+
+/* Styling for each headline */
+.news-content a {
+  display: inline-block;
+  margin-right: 50px; /* Space between the links */
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.news-content a:hover {
+  box-shadow: orangered 0 2px 0; /* Add a hover effect */
+}
+
+.news-content a::before {
+  content: "| "; /* Add a pipe symbol after each link */
 }

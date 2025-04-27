@@ -117,3 +117,45 @@
     <script src="{{ $index.Permalink }}" integrity="{{ $index.Data.Integrity }}" crossorigin="anonymous" defer></script>
   {{ end -}}
 {{ end -}}
+
+<script>
+  (function() {
+    const avatars = document.querySelectorAll("[data-ws-avatar-id]");
+    if (avatars) {
+      avatars.forEach((el) => {
+        let isPlaying = false;
+        const audio = el.querySelector('audio');
+        el.addEventListener('click', () => {
+          if (!isPlaying) {
+            audio.play();
+          } else {
+            audio.pause();
+            audio.currentTime = 0;
+          }
+        });
+
+        audio.addEventListener('play', () => {
+          let allAudios = document.querySelectorAll("audio");
+          allAudios.forEach(el => {
+            if (el !== audio) {
+              el.pause();
+              el.currentTime = 0;
+            }
+          })
+          isPlaying = true;
+          el.classList.add('playing');
+        });
+
+        audio.addEventListener('pause', () => {
+          isPlaying = false;
+          el.classList.remove('playing');
+        });
+
+        audio.addEventListener('ended', () => {
+          isPlaying = false;
+          el.classList.remove('playing');
+        });
+      })
+    }
+  })();
+</script>

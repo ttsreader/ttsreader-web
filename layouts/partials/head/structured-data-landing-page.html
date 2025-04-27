@@ -1,0 +1,170 @@
+{{ $baseURL := "/" | absURL -}}
+
+{{ $dot := . -}}
+{{ $dot.Scratch.Set "path" "" -}}
+{{ $dot.Scratch.Set "breadcrumb" slice -}}
+
+{{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" -}}
+{{ $.Scratch.Add "path" .Site.BaseURL -}}
+
+{{ $.Scratch.Add "breadcrumb" (slice (dict "url" .Site.BaseURL "name" "home" "position" 1 )) -}}
+  {{ range $index, $element := split $url "/" -}}
+    {{ $dot.Scratch.Add "path" $element -}}
+    {{ $.Scratch.Add "path" "/" -}}
+    {{ if ne $element "" -}}
+    {{ $.Scratch.Add "breadcrumb" (slice (dict "url" ($.Scratch.Get "path") "name" . "position" (add $index 2))) -}}
+  {{ end -}}
+{{ end -}}
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "TTSReader — Text to Speech",
+        "title": "New AI Text To Speech Player - Not Just a Converter",
+        "operatingSystem": "Web, Android, iOS, Chrome Extension",
+        "applicationCategory": "UtilitiesApplication",
+        "description": "Unlike others, TTSReader delivers engaging text-to-speech — with live-edit, read-along, MP3 export, auto-save and new expressive AI voices. Enjoy listening!",
+        "url": "https://ttsreader.com",
+        "author": {
+          "@type": "Organization",
+          "name": "WellSource Ltd.",
+          "url": "https://wellsrc.com"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "WellSource Ltd."
+        },
+        "copyrightHolder": {
+          "@type": "Organization",
+          "name": "WellSource Ltd."
+        },
+        "sameAs": [
+          "https://github.com/ttsreader/",
+          "https://x.com/speechlogger"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.4",
+          "reviewCount": "2910"
+        },
+        "image": "https://ttsreader.com/android-chrome-512x512.png",
+        "screenshot": [
+          "https://ttsreader.com/images/screenshots/player/Screenshot 2025-04-23 at 18.32.10_500x.webp"
+        ],
+        "video": {
+          "@type": "VideoObject",
+          "name": "TTSReader Demo – Read Text, PDFs & Webpages Aloud",
+          "description": "Watch how TTSReader instantly converts text into speech using smooth AI voices.",
+          "thumbnailUrl": "https://ttsreader.com/images/screenshots/player/Screenshot 2025-04-23 at 18.32.10_500x.webp",
+          "uploadDate": "2025-04-02",
+          "contentUrl": "https://ttsreader.com/images/demo_banner.webm",
+          "embedUrl": "https://www.youtube.com/embed/F0EgHHb1tUI?si=laH4oeZ8wInpqXa6"
+        },
+        "audio": {
+          "@type": "AudioObject",
+          "name": "Sample TTS Voice Output",
+          "description": "Example speech generated using TTSReader's expressive AI voices.",
+          "contentUrl": "https://ttsreader.com/audio/john.mp3",
+          "encodingFormat": "mp3"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "TTSReader Pricing Plans",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "name": "Text to Speech Player – Free",
+              "price": "0",
+              "priceCurrency": "USD",
+              "description": "Free tier: Up to 5,000 characters per day"
+            },
+            {
+              "@type": "Offer",
+              "name": "Text to Speech Player – Premium Monthly Subscription",
+              "price": "10.99",
+              "priceCurrency": "USD",
+              "description": "Premium tier: $10.99/month – Up to 1 million characters per month"
+            },
+            {
+              "@type": "Offer",
+              "name": "Text to Speech Player – Premium 1 Year License",
+              "price": "39",
+              "priceCurrency": "USD",
+              "description": "Annual plan: $39/year – Up to 12 million characters per year"
+            },
+            {
+              "@type": "Offer",
+              "name": "Text to Speech Synthesis API – Coming Soon",
+              "price": "0.00",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/PreOrder",
+              "description": "Powerful TTS API for developers – Coming soon"
+            }
+          ]
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://ttsreader.com/#organization",
+        "name": "WellSource Ltd.",
+        "url": "https://wellsrc.com"
+      },
+      {
+        "@type": "MobileApplication",
+        "name": "TTSReader for Android",
+        "operatingSystem": "ANDROID",
+        "applicationCategory": "UtilitiesApplication",
+        "url": "https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader"
+      },
+      {
+        "@type": "MobileApplication",
+        "name": "TTSReader for iOS",
+        "operatingSystem": "iOS",
+        "applicationCategory": "UtilitiesApplication",
+        "url": "https://apps.apple.com/il/app/simple-text-reader-ttsreader/id1493463248"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is TTSReader free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, TTSReader has a completely free version available online, with premium plans available for power users and commercial use."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What file types does TTSReader support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "TTSReader supports plain text, PDFs, web pages, and eBooks."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://ttsreader.com/privacy",
+        "name": "Privacy Policy",
+        "url": "https://ttsreader.com/docs/guides/privacy/"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://ttsreader.com/terms",
+        "name": "Terms of Use",
+        "url": "https://ttsreader.com/docs/guides/commercial/"
+      },
+      {
+        "@type": "AboutPage",
+        "name": "About TTSReader",
+        "url": "https://ttsreader.com/"
+      }
+    ]
+  }
+</script>

@@ -12,7 +12,7 @@ publishDir = "public"
 # Multilingual
 # Make sure multilingualMode = true in Params.options.multilingualMode
 defaultContentLanguage = "en"
-disableLanguages = ["he"]
+disableLanguages = ["he", "de", "nl"]
 # defaultContentLanguageInSubdir = true
 
 # add redirects/headers

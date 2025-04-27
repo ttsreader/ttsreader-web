@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <link rel="icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#a51b14" />
   <meta
           name="description"
-          content="TTSReader's Player - Online Text to Speech for Free"
+          content="TTSReader's Player - Free Online Text to Speech Reader"
   />
   <link rel="apple-touch-icon" href="logo192.png" />
   <!--
@@ -39,6 +39,7 @@
   <script>
     // Dark mode toggle:
     let storedTheme = localStorage.getItem('theme-player-only');
+    let DEFAULT_THEME = 'dark-no-bg';
 
     if (!storedTheme) {
       let storedBlogTheme = localStorage.getItem('theme');
@@ -47,7 +48,7 @@
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
           storedTheme = 'dark-no-bg';
         } else {
-          storedTheme = 'light-no-bg';
+          storedTheme = DEFAULT_THEME;
         }
       } else {
         if (storedBlogTheme === 'dark') {
@@ -78,6 +79,9 @@
     }
 
     function setUiToDarkModeAndBgTheme(isDark, isBg) {
+      if (isBg===null || isBg===undefined) {
+        isBg = document.documentElement.hasAttribute('data-theme-bg');
+      }
       if (isDark && isBg) {
         document.documentElement.setAttribute('data-dark-mode','true');
         document.documentElement.setAttribute('data-theme-bg','true');
@@ -131,67 +135,82 @@
   </script>
 
   <style>
-    .language-selector {
-      text-align: center;
-      max-width: 90%;
-      margin: auto;
+    .modal-step {
+      background: url('./images/anima2_transparent_white.webp') no-repeat center;
+      background-size: cover;
     }
-    .language-selector a {
-      text-align: center;
+    [data-dark-mode] .modal-step {
+      background: url('./images/anima2_transparent_black.webp') no-repeat center;
+      background-size: cover;
+    }
+    .modal-step-overlay {
+      background: url('./images/anima2_transparent_white.webp') no-repeat center;
+      background-size: cover;
+    }
+    [data-dark-mode] .modal-step-overlay {
+      background: url('./images/anima2_transparent_black.webp') no-repeat center;
+      background-size: cover;
+    }
+    body {
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .theme-toggle {
       display: flex;
       align-items: center;
-      width: 100%;
-      text-align: left;
-      padding: 5px 10px;
-      margin: 5px;
-      text-decoration: none;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-    .language-selector a:hover {
-      background-color: #eee;
-    }
-    .language-selector img {
-      margin-right: 10px;
-      width: 20px;
-      height: 20px;
-    }
-    .input-container {
-      display: flex;
-      justify-content: center;
-    }
-
-    .styled-input {
-      padding: 10px;
+      gap: 10px;
+      user-select: none;
       font-size: 16px;
-      border: 2px solid #ccc;
-      border-radius: 5px 0 0 5px;
-      outline: none;
-      flex: 1;
-      transition: border-color 0.3s;
+      margin: auto;
     }
 
-    .styled-input:focus {
-      border-color: #007BFF;
-    }
-
-    .styled-button {
-      padding: 10px 20px;
-      font-size: 16px;
-      color: white;
-      background-color: #007BFF;
-      border: none;
-      border-radius: 0 5px 5px 0;
+    .theme-toggle .label {
       cursor: pointer;
-      transition: background-color 0.3s;
     }
 
-    .styled-button:hover {
-      background-color: #0056b3;
+    .theme-toggle .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 28px;
+    }
+
+    .theme-toggle .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .theme-toggle .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #bbb;
+      transition: 0.3s;
+      border-radius: 30px;
+    }
+
+    .theme-toggle .slider::before {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      left: 3px;
+      top: 3px;
+      background-color: #fff;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+
+    .theme-toggle input:checked + .slider {
+      background-color: #3b82f6;
+    }
+
+    .theme-toggle input:checked + .slider::before {
+      transform: translateX(32px);
     }
   </style>
-<script defer src="/static/js/main.f94c3be1.js"></script><link href="/static/css/main.93552bd1.css" rel="stylesheet"></head>
+<script defer src="/static/js/main.77bb70c4.js"></script><link href="/static/css/main.7cb2416d.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column">
@@ -334,7 +353,7 @@
           </svg>&nbsp;&nbsp;Share</a>
         </div>
         <div class="Menu-list-element" >
-          Version: 1.1.5-1/23/2025, 2:15:01 PM
+          Version: 3.0.1-4/25/2025, 1:51:21 PM
         </div>
 
       </div>
@@ -350,7 +369,7 @@
           <button data-ws-onClick="loadNextChapter" title="Load Next Chapter" aria-label="Load Next Chapter"><b>&rArr;</b></button>
         </div>
         <div class="Text-box-container">
-          <div class="Text-box" contentEditable=true data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Digite ou cole texto nesta caixa, clique no botão de reprodução, e eu lerei em voz alta para você. Para ler uma página da web - basta colar seu URL e clicar em reproduzir. Você também pode fazer upload de arquivos, mudar vozes, tema, tamanho da fonte e mais." placeholder2="Este player está em desenvolvimento ativo, estamos trabalhando para torná-lo melhor a cada dia. ❤️ Aproveite a audição! 🎧"></div>
+          <div style="direction: " class="Text-box" contentEditable=true data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Digite ou cole texto nesta caixa, clique no botão de reprodução, e eu lerei em voz alta para você. Para ler uma página da web - basta colar seu URL e clicar em reproduzir. Você também pode fazer upload de arquivos, mudar vozes, tema, tamanho da fonte e mais." placeholder2="Este player está em desenvolvimento ativo, estamos trabalhando para torná-lo melhor a cada dia. ❤️ Aproveite a audição! 🎧"></div>
         </div>
         <div class="Playback-buttons-bar">
           <span>
@@ -402,6 +421,166 @@
 
   </div>
 
+  <div id="onboardingModal" style="display: none;" dir="">
+    <div data-ws-step="1" class="modal-step" style="background: url('/images/anima2.webp') no-repeat center;background-size: cover;">
+      <div style="flex:1"></div>
+      <h1>Bem-vindo ao <span style="color:darkred;">TTS</span>Reader 3<!-- Welcome to <span style="color:darkred;">TTS</span>Reader 3 --></h1>
+      <h2 style="font-size: smaller; font-weight: normal">Texto para fala em português e outros idiomas</h2>
+      <p>Dê vida ao texto com vozes de IA realistas<!-- Bring text to life with realistic AI voices --></p>
+      <br/>
+      <button class="primary" id="nextBtn" onclick="nextStep(this)" style="margin: auto;">Vamos começar<!-- Let's Start --></button>
+      <br/><br/>
+      <div data-nosnippet class="theme-toggle">
+        <span class="label">🌞 Claro<!-- 🌞 Light --></span>
+        <label class="switch">
+          <input type="checkbox" class="themeSwitch">
+          <span class="slider"></span>
+        </label>
+        <span class="label">🌙 Escuro<!-- 🌙 Dark --></span>
+      </div>
+      <div style="flex:1;" ></div>
+    </div>
+
+    <div data-ws-step="2" class="modal-step" style="display: none">
+      <div class="modal-content">
+        <div style="flex:1"></div>
+        <p style="font-size: larger;">Selecione o idioma de leitura<!-- Select Your Reading Language --></p>
+        <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;"></select>
+        <p>Você sempre pode mudar isso mais tarde.<!-- You can always change it later. --></p>
+        <br/>
+        <div>
+          <button class="primary" id="nextBtn" onclick="nextStep(this)">Próximo<!-- Next --></button>
+        </div>
+        <br/>
+        <div style="flex:0.67"></div>
+        <div data-nosnippet class="theme-toggle">
+          <span class="label">🌞 Claro<!-- 🌞 Light --></span>
+          <label class="switch">
+            <input type="checkbox" class="themeSwitch">
+            <span class="slider"></span>
+          </label>
+          <span class="label">🌙 Escuro<!-- 🌙 Dark --></span>
+        </div>
+        <div style="flex:0.33"></div>
+      </div>
+
+      <div data-ws-show-if-state="ttsReady=false" style="position: absolute;top:0;bottom:0;right:0;left:0;text-align: center;">
+        <div style="width: 100%;height: 100%;display: flex;flex-direction: column;background-color: white;">
+          <div style="flex: 1"></div>
+          <div class="voice-loader-container">
+            <div class="wave-loader">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+            <br/>
+            <div class="loading-text">
+              <p style="font-size: larger;">Carregando vozes...<!-- Loading voices... --></p>
+              <p>Isso vai levar apenas um momento<!-- This will only take a moment --></p>
+            </div>
+          </div>
+          <div style="flex: 1"></div>
+        </div>
+      </div>
+    </div>
+
+    <div data-ws-step="3" class="modal-step" style="display: none">
+      <div class="modal-header">
+        <span>Selecione sua voz preferida<!-- Select Your Preferred Voice --></span><br/>
+        <span style="font-size: 16px;opacity: 0.8;">Clique em uma voz para ouvir como ela soa. Quando estiver pronto, toque em <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Próximo</a>.<!-- Click a voice to hear how it sounds. When ready, tap <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Next</a>. --></span>
+      </div>
+      <div class="modal-content">
+        <div style="flex:1"></div>
+        <div class="Voices-Gallery" style="max-width: 600px; margin: auto;">
+          <!-- Container to be filled by js. Keep empty. -->
+        </div>
+        <template id="voiceTileTemplate">
+          <div class="voice-tile" data-ws-voiceURI="ttsreader.gcp.standard-A" data-ws-audio-src="https://ttsreader.com/player/audio/Christopher.mp3" style="font-size: larger; position: relative;">
+            <div>
+              <span class="voice-name">David</span>
+            </div>
+            <div class="Voice-Icons">
+              <span class="voice-gender-male" title="Male">👨</span>
+              <span class="voice-gender-female" title="Female">👩</span>
+              <span class="voice-lang">🇬🇧</span>
+              <span class="voice-premium" title="Premium Voice">🌟</span>
+              <span class="voice-publishing" title="Allowed for Publishing for Premium Users">
+                <svg style="width:1em;height:1em;position: relative;top:3px;" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1phnduy" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M14 12c0 .74-.4 1.38-1 1.72V22h-2v-8.28c-.6-.35-1-.98-1-1.72 0-1.1.9-2 2-2s2 .9 2 2m-2-6c-3.31 0-6 2.69-6 6 0 1.74.75 3.31 1.94 4.4l1.42-1.42C8.53 14.25 8 13.19 8 12c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.19-.53 2.25-1.36 2.98l1.42 1.42C17.25 15.31 18 13.74 18 12c0-3.31-2.69-6-6-6m0-4C6.48 2 2 6.48 2 12c0 2.85 1.2 5.41 3.11 7.24l1.42-1.42C4.98 16.36 4 14.29 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 2.29-.98 4.36-2.53 5.82l1.42 1.42C20.8 17.41 22 14.85 22 12c0-5.52-4.48-10-10-10"></path>
+                </svg>&nbsp;
+              </span>
+            </div>
+            <div class="checkmark">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-circle-check">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+              </svg>
+            </div>
+          </div>
+        </template>
+        <div style="flex:2"></div>
+      </div>
+      <div class="modal-footer">
+        <p style="opacity: 0.8">
+          <svg style="width:1em;height:1em;" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1phnduy" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M14 12c0 .74-.4 1.38-1 1.72V22h-2v-8.28c-.6-.35-1-.98-1-1.72 0-1.1.9-2 2-2s2 .9 2 2m-2-6c-3.31 0-6 2.69-6 6 0 1.74.75 3.31 1.94 4.4l1.42-1.42C8.53 14.25 8 13.19 8 12c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.19-.53 2.25-1.36 2.98l1.42 1.42C17.25 15.31 18 13.74 18 12c0-3.31-2.69-6-6-6m0-4C6.48 2 2 6.48 2 12c0 2.85 1.2 5.41 3.11 7.24l1.42-1.42C4.98 16.36 4 14.29 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 2.29-.98 4.36-2.53 5.82l1.42 1.42C20.8 17.41 22 14.85 22 12c0-5.52-4.48-10-10-10"></path>
+          </svg>&nbsp;
+          Indica que a voz pode ser publicada, com uma <a style="color: orangered;cursor: pointer;" data-ws-toggle="#upgradeModal">Licença Premium</a>.<!-- Indicates voice is allowed for publishing, given a <a style="color: orangered;cursor: pointer;" data-ws-toggle="#upgradeModal">Premium License</a>. -->
+        </p>
+        <button class="secondary" id="backBtn" onclick="prevStep(this)">Voltar<!-- Back --></button>
+        <button class="primary" id="nextBtn" onclick="nextStep(this)">Próximo<!-- Next --></button>
+      </div>
+    </div>
+
+    <div data-ws-step="4" class="modal-step" style="display: none;">
+      <div style="flex:1"></div>
+      <h1>Tudo pronto<!-- You're all set --></h1>
+      <p style="max-width: 600px; margin: auto;">Na próxima visualização, você terá uma caixa de texto onde pode inserir seu próprio texto ou selecionar um arquivo usando os botões no topo. Quando estiver pronto, clique no botão 'play' na parte inferior e aproveite a escuta.<!-- In the next view you'll have a text box, where you can input your own text or select a file using the buttons at the top. When ready, click the 'play' button at the bottom and enjoy listening. --></p>
+      <br/>
+      <button class="primary" id="nextBtn" onclick="closeOnboarding()" style="margin: auto;">Vamos lá<!-- Let's Go --></button>
+      <div style="flex:2"></div>
+
+      <!-- Sign in overlay if premium voice -->
+      <div data-ws-show-if-state="isSignedIn=false">
+        <div data-ws-show-if-state="isVoicePremium=true" class="hidden">
+          <div class="modal-step-overlay" style="display:flex;position: absolute;top:0;bottom:0;left:0;right:0;flex-direction: column">
+            <div style="flex:1"></div>
+            <p style="max-width: 600px; margin: auto;font-size: larger;">A voz que você selecionou <span data-ws-label-state="voiceLabel"></span>&nbsp; é uma excelente escolha! Como é uma voz premium, é necessário fazer login.<br/><br/>Por favor, faça login com segurança usando o Google para continuar.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required.
+              <br/><br/>Please securely sign in with Google to continue. --></p>
+            <br/><br/>
+            <button onclick="signIn();" class="primary" style="margin: auto;border: 1px solid;max-width: 500px;border-radius: 10px;">Entrar com o Google<!-- Sign In with Google --></button>
+            <br/>
+            <p>Nenhuma senha ou método de pagamento é necessário.<!-- No password or payment method required. --></p>
+            <div style="flex:2"></div>
+            <div class="modal-footer">
+              <button class="secondary" id="backBtn" onclick="prevStep(this)">Voltar<!-- Back --></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="Modal" id="premiumVoiceSignInModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="flex: 1"></div>
+      <p style="font-size: larger;">A voz que você selecionou <span data-ws-label-state="voiceLabel"></span>&nbsp; é uma excelente escolha! Como é uma voz premium, é necessário fazer login. Por favor, faça login com segurança usando o Google para continuar.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
+      <br/>
+      <button onclick="signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Entrar com o Google<!-- Sign In with Google --></button>
+      <div style="flex: 2"></div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
   <div class="Modal" id="voicesModal" style="display: none;">
     <div style="height:20px;"></div>
     <div class="Modal-content" style="display: flex; flex-direction: column;">
@@ -411,7 +590,7 @@
         </svg>
       </button>
       <h4 style="font-size: 1.2em;">
-        <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;background-color:transparent;width: 230px;outline: none;border:none;"></select>
+        <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;"></select>
       </h4>
       <div style="max-width: 100%; width: 350px; margin: -5px auto 30px; flex: 1;overflow-y: auto;text-align: left">
 
@@ -422,7 +601,7 @@
           <span data-ws-onClick="slower" style="user-select: none;vertical-align: baseline;border: 1px solid blue;text-align: center;cursor: pointer;display: inline-block; line-height: 16px; font-size: 18px; margin: 5px; width: 20px;height: 20px; border-radius: 10px;background-color: white; color: blue;">-</span>
           <span data-ws-label-state="selectedRate" style="width: 2em;display:inline-block;text-align: center">1</span>
           <span data-ws-onClick="faster" style="user-select: none;vertical-align: baseline;border: 1px solid blue;text-align: center;cursor: pointer;display: inline-block; line-height: 16px; font-size: 18px; margin: 5px; width: 20px;height: 20px; border-radius: 10px;background-color: white; color: blue;">+</span>
-          <input type="range" data-ws-value-state="selectedRateSliderValue" style="width: 300px;max-width:90%; margin: auto;display: block;height: 50px;" min="1" max="20" data-ws-onInput="onRateChange">
+          <input type="range" data-ws-value-state="selectedRateSliderValue" style="width: 300px;max-width:90%; margin: auto;display: block;height: 50px;" min="1" max="16" data-ws-onInput="onRateChange">
         </div>
         <div style="text-align: right;opacity: 0.7;margin-bottom: 15px;margin-right: 10px;">
           <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -696,7 +875,7 @@
     <div style="height:20px;"></div>
   </div>
 
-  <div class="Modal" id="mp3GuideModal" style="display: none">
+  <!--<div class="Modal" id="mp3GuideModal" style="display: none">
     <div style="height:20px;"></div>
     <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;">
       <button class="Close-modal">
@@ -704,14 +883,14 @@
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
         </svg>
       </button>
-      <h3>Como gerar arquivos mp3 a partir do texto com o TTSReader?<!-- How to generate mp3 files from text with TTSReader? --></h3>
+      <h3>Como gerar arquivos mp3 a partir do texto com o TTSReader?&lt;!&ndash; How to generate mp3 files from text with TTSReader? &ndash;&gt;</h3>
       <div class="videowrapper">
         <iframe style="display:block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
       </div>
       <br/>
     </div>
     <div style="height:20px;"></div>
-  </div>
+  </div>-->
 
   <div class="Modal" id="helpModal" style="display: none;">
     <div style="flex:1"></div>
@@ -929,6 +1108,8 @@
   This script is for sign-in and for premium status.
    */
 
+  window.getIdToken = async () => null;
+
   let clockStartedOn = Date.now();
   function stopper() {
     return Math.round((Date.now()-clockStartedOn)/1000) + ": ";
@@ -995,22 +1176,30 @@
         console.log(stopper() + 'user signed ' + (user ? "IN" : "OUT"));
 
         if (user) {
+          window.getIdToken = async () => {
+            return await user.getIdToken();
+          }
+
           // User is signed in.
           window.updateStateWithParentData({
             wasAuthReceived: true,
             uid: user.uid,
-            email: user.email
+            email: user.email,
+            ronenMock: true,
           });
           window.uid = user.uid;
           listenToDatabaseData(user.uid);
           if (window.resetPayPalButtons) {resetPayPalButtons(user.uid);}
         } else {
           // User signed out.
+          window.getIdToken = async () => null;
+
           window.updateStateWithParentData({
             isPremium: false,
             wasAuthReceived: false,
             uid:  "",
-            email: ""
+            email: "",
+            ronenMock: {key: true},
           });
           window.uid = null;
           if (window.getAppState && !getAppState().data.isPremium) {
@@ -1294,5 +1483,137 @@
     });
   }
 </script>
+
+<script>
+
+  let currentAudio = new Audio();
+
+  document.querySelector(".Voices-Gallery").addEventListener('click',(ev) => {
+    if (ev.target.closest("[data-ws-voiceURI]")?.getAttribute("data-ws-voiceURI")) {
+      ev.stopPropagation();
+      let voiceURI = ev.target.closest("[data-ws-voiceURI]")?.getAttribute("data-ws-voiceURI");
+      if (!voiceURI) {
+        return;
+      }
+
+      appMethods.handleVoiceChange({currentTarget: {value: voiceURI}});
+      ev.target.closest('.Voices-Gallery').querySelectorAll('.selected').forEach((el)=> {
+        el.classList.remove('selected');
+      });
+      ev.target.closest(".voice-tile").classList.add('selected');
+      let audioSrc = ev.target.closest("[data-ws-voiceURI]").getAttribute("data-ws-audio-src");
+      console.log(audioSrc);
+
+      console.log(currentAudio.src.endsWith(audioSrc), currentAudio.src)
+      console.log(currentAudio.paused)
+      console.log(currentAudio.ended)
+
+      let shouldSimplyStop = audioSrc && currentAudio.src.endsWith(audioSrc) && !currentAudio.paused && !currentAudio.ended;
+      // Stop:
+      currentAudio.currentTime = 0;  // Always restart from beginning
+      currentAudio.pause();
+
+      // Potentially play something else:
+      if (!shouldSimplyStop) {
+        if (audioSrc) {
+          currentAudio.src = audioSrc;
+          currentAudio.play();
+        } else {
+          appMethods.testVoice(voiceURI);
+        }
+      }
+    };
+  });
+
+  function openOnboarding() {
+    document.getElementById('onboardingModal').style.display = 'flex';
+  }
+
+  function closeOnboarding() {
+    document.getElementById('onboardingModal').style.display = 'none';
+    localStorage.setItem("ttsreader.wasOnboarding3", "true");
+  }
+
+  function isVoicePremium() {
+    return appMethods.isVoicePremium();
+  }
+
+  function jumpToStep(el, index) {
+    let parent = el.closest("[data-ws-step]")?.parentElement;
+    if (parent) {
+      parent.querySelectorAll("[data-ws-step]").forEach((el)=> {
+        if (el.getAttribute("data-ws-step")===index) {
+          el.style.display = "flex";
+        } else {
+          el.style.display = "none";
+        }
+      });
+    }
+  }
+
+  function nextStep(el) {
+    let currentStep = "" + el.closest("[data-ws-step]")?.getAttribute("data-ws-step");
+    jumpToStep(el, "" + (Number.parseInt(currentStep) + 1));
+  }
+
+  function prevStep(el) {
+    let currentStep = "" + el.closest("[data-ws-step]")?.getAttribute("data-ws-step");
+    jumpToStep(el, "" + (Number.parseInt(currentStep) - 1));
+  }
+
+  function selectVoice(uri){
+    selectedVoice=voices.find(v=>v.voiceURI===uri);
+    document.querySelectorAll('.voice-tile').forEach(t=>t.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    document.getElementById('currentVoice').textContent=selectedVoice.name;
+  }
+
+  function testVoice(uri,event){
+    event.stopPropagation();
+    const utterance = new SpeechSynthesisUtterance("Hello, this is a test.");
+    utterance.voice = speechSynthesis.getVoices().find(v=>v.voiceURI===uri);
+    speechSynthesis.speak(utterance);
+  }
+
+  async function testChromeVoices(){
+    return new Promise(resolve=>{
+      let startTime = Date.now();
+      let timer;
+      const utterance=new SpeechSynthesisUtterance('hi');
+      utterance.volume=0;
+      utterance.voice=speechSynthesis.getVoices().find(v=>v.voiceURI==="Google UK English Male");
+      utterance.onstart=()=>{console.log('onstart ' + (Date.now()-startTime));
+        timer = setTimeout(()=>{
+        voices=voices.filter(v=>!v.voiceURI.includes('Google'));
+        resolve();
+      },2000);};
+      utterance.onend=()=>{console.log('onend in ' + (Date.now()-startTime));clearTimeout(timer);resolve();};
+      console.log('calling speak: ' + (Date.now()-startTime));
+      speechSynthesis.speak(utterance);
+    });
+  }
+
+  const themeSwitches = document.querySelectorAll('.themeSwitch');
+  if (document.documentElement.hasAttribute('data-dark-mode')) {
+    themeSwitches.forEach((el)=>{
+      el.setAttribute('checked', true);
+    });
+  }
+  themeSwitches.forEach((themeSwitch)=>{
+    themeSwitch.addEventListener('change', () => {
+      if(themeSwitch.checked) {
+        setUiToDarkModeAndBgTheme(true);
+      } else {
+        setUiToDarkModeAndBgTheme(false);
+      }
+    });
+  });
+
+  if (!localStorage.getItem("ttsreader.wasOnboarding3")) {
+    openOnboarding();
+  }
+
+</script>
+
 </body>
 </html>
