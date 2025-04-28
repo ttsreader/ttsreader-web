@@ -3,7 +3,7 @@ title: "Community"
 description: "Discussions, feedback, issues and requests on TTSReader"
 lead: "Discussions, feedback, issues and requests on Speechnotes"
 date: 2023-02-12T15:22:20+01:00
-lastmod: 2023-02-12T15:22:20+01:00
+lastmod: 2025-04-28T15:22:20+01:00
 draft: false
 images: []
 menu:
@@ -12,6 +12,18 @@ menu:
 weight: 230
 toc: true
 ---
+
+## New Community!!
+
+Excited to open our new space for our community to connect, share ideas, and provide feedback. We value your input and want to hear from you!
+
+It's a great opportunity to connect with other users, share your experiences, and help us improve our product.
+
+Here's a link to our new community space: [Join TTSReader's community](https://discord.gg/GQT5f5kM)
+
+This will eventually - we believe - become the main place for discussions, feedback and issues reporting.
+
+Our developers are very active there as well - so - your feedback will be heard, taken into consideration and responded to.
 
 ## Discussions & issues reporting
 

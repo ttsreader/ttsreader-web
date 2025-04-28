@@ -22,7 +22,7 @@ twitterCreator = "@speechlogger"
 
 ## JSON-LD
 # schemaType = "Person"
-schemaType = "Organization"
+schemaType = "SoftwareApplication"
 schemaName = "TTSReader"
 schemaAuthor = "Ronen Rabinovici"
 schemaAuthorTwitter = "https://twitter.com/speechlogger"
@@ -69,12 +69,12 @@ fillImage = "1024x512 Center" # normalize image size
 footer = "Powered by <a class=\"text-muted\" href=\"https://ttsreader.com/\">TTSReader Text to Speech</a>"
 
 # Feed
-copyRight = "Copyright (c) 2015-2023 Ronen Rabinovici @ WellSource"
+copyRight = "Copyright (c) 2015-2025 Ronen Rabinovici @ WellSource"
 
 # Alert
-alert = false
+alert = true
 alertDismissible = true
-alertText = "Welcome to our new site! Need the previous version? <a class=\"alert-link stretched-link\" href=\"/legacy/\" target=\"_self\">Click here for the legacy version</a>"
+alertText = "<a class=\"alert-link stretched-link\" href=\"https://discord.gg/GQT5f5kM\" target=\"_blank\">🕺💃 Join our new discord space where users & developers meet together & share ideas 💃🕺</a>"
 
 # Edit Page
 # repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster

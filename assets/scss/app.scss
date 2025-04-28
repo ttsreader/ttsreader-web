@@ -415,3 +415,12 @@ audio {
 .news-content a::before {
   content: "| "; /* Add a pipe symbol after each link */
 }
+
+[data-dark-mode] body .alert-primary {
+  background-color: darkred;
+}
+
+[data-dark-mode] body .alert-primary a {
+  color: white;
+  text-decoration: none;
+}

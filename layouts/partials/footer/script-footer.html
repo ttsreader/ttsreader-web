@@ -126,6 +126,7 @@
         let isPlaying = false;
         const audio = el.querySelector('audio');
         el.addEventListener('click', () => {
+          gtag('event', 'avatar_click_' + el.getAttribute('data-ws-avatar-id'), {'value': '1'});
           if (!isPlaying) {
             audio.play();
           } else {
