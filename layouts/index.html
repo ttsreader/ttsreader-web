@@ -1,13 +1,16 @@
 {{ define "main" }}
 
 <section class="section container-fluid mt-n3 pb-3 ">
-  <h1 class="mt-0 text-center">New AI Text To Speech Player<br/>- Not Just a Converter</h1>
+  <h1 class="mt-0 text-center">The Real TTSReader - Free Text To Speech Reader</h1>
   <div class="row justify-content-center" style="text-align: center">
 
     <div class="text-center">
       <h2 class="lead" style="font-size: 1.3em;"><!--{{ .Params.lead | safeHTML }}-->
-        Unlike others, <b>TTSReader</b> delivers engaging text-to-speech — with live-edit, read-along, MP3 export, auto-save and new expressive AI voices. Enjoy listening!
+        Instantly reads out loud text, PDFs, books & websites with natural sounding speech. Works out of the box, just select voice, drop the text and click play.
       </h2>
+      <!--<h2 class="lead" style="font-size: 1.3em;">&lt;!&ndash;{{ .Params.lead | safeHTML }}&ndash;&gt;
+        Unlike others, <b>TTSReader</b> delivers engaging text-to-speech — with live-edit, read-along, MP3 export, auto-save and new expressive AI voices. Enjoy listening!
+      </h2>-->
       <br/>
       <div id="avatars_demos_id" class="row justify-content-center text-center" style="margin-top: 20px;">
         <div class="avatar-container-tile col-sm-4"  data-ws-avatar-id="john">
@@ -151,9 +154,25 @@
         </div>
       </div>
       <br/>
-      <div>
+      <!--<div>
         <a style="padding: 5px 2px; color: black !important; background-color: lightblue; border-color: lightskyblue; font-weight: bold; text-transform: uppercase" class="jittery-hover btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});">Start Text Player <svg style="position: relative;top:-3px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg></a>
+      </div>-->
+
+      <div class="row justify-content-center text-center" style="margin-top: 10px;">
+        <p>Click on the avatars above to hear them speak. Select your preferred player below to start reading.</p>
+        <div class="col-md-7 col-lg-6 card highlight-on-hover" role=button onclick='window.location="/player/"' style=cursor:pointer>
+          <br/>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="/player/" role="button" onclick="gtag('event', 'ttsreader_click_new', {'value': 'home_page_body'});" style="font-weight:700;color:white !important;background-color: #cc4500;border-color:#cc4500;">Start NEW Text-Player</a>
+          <p class="meta" style="text-align: justify">Our new player has all the latest features, including highly expressive AI voices, and is actively being developed and improved daily. Free for 5k chars per day.</a></p>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-7 col-lg-6 card highlight-on-hover" role=button onclick='window.location="/legacy/"' style=cursor:pointer>
+          <br/>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="/legacy/" role="button" onclick="gtag('event', 'ttsreader_click_legacy', {'value': 'home_page_body'});" style="font-weight:700;color:#ffce00!important;background-color:#2b3140;border-color:#2b3140">Start LEGACY Text-Player</a>
+          <p class="meta" style="text-align: justify">With a retro look and feel that many people love. 100% free & 100% unlimited!! But - as it is legacy - less maintained than the new player and without the new AI voices.</p>
+        </div>
       </div>
+
       <br/>
       <p class="meta" style="text-align: center;font-size: larger">Bring text, PDFs, ebooks, and webpages to life with TTSReader's new player. Listen on the fly, or later, or download as MP3.</p>
       <!--<p class="meta" style="text-align: center;font-size: larger">Type or paste your text, or upload documents, PDFs, ebooks, and webpages and our AI text-to-speech player will instantly read it out loud for you with natural sounding expressive voices from the latest generations of AI speech synthesis technology. You can combine voices, set speed, pauses, font size, and more to create your perfect narration and listening experience. Your text and position are preserved between sessions, so you can come back later and continue exactly where you left.</p>-->
