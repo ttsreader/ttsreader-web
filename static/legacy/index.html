@@ -3,16 +3,16 @@
 
   <head>
 
-  
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'UA-47292499-3'); 
+    gtag('config', 'UA-47292499-3');
   </script>
-  
+
 
   <meta charset="utf-8">
   <meta name="robots" content="all,follow">
@@ -21,17 +21,17 @@
   <title>Legacy Player | TTSReader</title>
   <meta name="author" content="WellSource" />
 
-  
-  <meta name="keywords" content="text to speech, text reader, text to speech online, epub reader, read epub, ebook reader, read ebooks, online, text2speech, text2voice, speech generator, wellsource, ttsreader, text to speach, text for speech, txt 2 speech, tts, TTS, read text, speech online, speech software, textaloud, text aloud, natural reader, voice software, speaking software, demo, free, pdf to text, convert pdf, read pdf, pdf reader, read pdf, read text, speech synthesize, voices, web speech api, text to voice, chrome, webspeech">	
-  
 
-  
+  <meta name="keywords" content="text to speech, text reader, text to speech online, epub reader, read epub, ebook reader, read ebooks, online, text2speech, text2voice, speech generator, wellsource, ttsreader, text to speach, text for speech, txt 2 speech, tts, TTS, read text, speech online, speech software, textaloud, text aloud, natural reader, voice software, speaking software, demo, free, pdf to text, convert pdf, read pdf, pdf reader, read pdf, read text, speech synthesize, voices, web speech api, text to voice, chrome, webspeech">
+
+
+
   <meta name="description" content="Free Text to Speech Online">
-  
+
 
   <meta name="generator" content="Hugo 0.91.2" />
 
-  
+
   <link rel="apple-touch-icon" sizes="72x72" href="https://ttsreader.com/img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://ttsreader.com/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://ttsreader.com/img/favicon-16x16.png">
@@ -39,29 +39,29 @@
   <link rel="mask-icon" href="https://ttsreader.com/img/safari-pinned-tab.svg" color="#5bbad5">
   <meta name="theme-color" content="#ffffff">
 
-  
+
 
   <link rel="alternate" href="https://ttsreader.com/index.xml" type="application/rss+xml" title="TTSReader | Text To Speech Reader. Online, Free &amp; Unlimited">
 
-  
+
   <meta property="og:title" content="Legacy Player | TTSReader" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="/legacy//" />
-  
 
 
-  
+
+
   <meta property="og:site_name" content="TTSReader"/>
   <meta property="og:description" content="The online text-to-speech reader. Reads out loud texts, web pages, pdfs &amp; ebooks with natural sounding voices." />
   <meta property="og:image" content="https://ttsreader.com/images/tile_1400x560.jpg"/>
-  <meta property="og:locale:alternate" content="en_US" />  
-  <meta property="og:locale:alternate" content="fr_FR" />  
-  <meta property="og:locale:alternate" content="it_IT" />  
-  <meta property="og:locale:alternate" content="es_ES" />  
-  <meta property="og:locale:alternate" content="de_DE" />  
-  <meta property="og:locale:alternate" content="ja_JP" />  
-  <meta property="og:locale:alternate" content="zh_CN" />  
-  
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="fr_FR" />
+  <meta property="og:locale:alternate" content="it_IT" />
+  <meta property="og:locale:alternate" content="es_ES" />
+  <meta property="og:locale:alternate" content="de_DE" />
+  <meta property="og:locale:alternate" content="ja_JP" />
+  <meta property="og:locale:alternate" content="zh_CN" />
+
 
   <link rel="alternate" hreflang="x-default" href="https://ttsreader.com/" />
   <link rel="alternate" hreflang="en" href="https://ttsreader.com/" />
@@ -75,7 +75,7 @@
   <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/pakknklefcjdhejnffafpeelofiekebg">
 
   <script>
-    
+
       function openTTSREADERXinNewWindow() {
           window.open("https://ttsreader.com/blog/2017/05/10/ttsreaderx/", "_blank");
       }
@@ -85,7 +85,7 @@
       }
   </script>
 
-  
+
   <script>
     function popCookieConsent() {
       let cookieConsentNotification = document.getElementById('cookieConsentNotification');
@@ -108,13 +108,13 @@
       for (const lsParam of lsParams) {
         let str = localStorage.getItem(lsParam);
         if (str && Boolean(localStorage.getItem(lsParam)) && str!="Click Play button to listen to this text. You may edit this text here, or upload a file such as text, pdf or e-book.") {
-          
+
           return;
         }
       }
 
-      
-      
+
+
       let tz = "";
       try {
         tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -157,8 +157,8 @@
     });
 
     function retainUserData(key,value,forceCloudSync) {
-      value = '' + value; 
-      
+      value = '' + value;
+
       if (window.firebase) {
         if (firebase.auth().currentUser &&
                 (forceCloudSync || localStorage.getItem("shouldCloudSync")=="true")) {
@@ -171,7 +171,7 @@
     }
 
     function removeUserData(key, forceCloudSync) {
-      
+
       if (window.firebase) {
         if (firebase.auth().currentUser &&
                 (forceCloudSync || localStorage.getItem("shouldCloudSync")=="true")) {
@@ -183,7 +183,7 @@
       localStorage.removeItem(key);
     }
   </script>
-  
+
 
 
   <script>
@@ -296,7 +296,7 @@
                         <a rel="nofollow" target="_blank" href="https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader" style="cursor:pointer;font-size: 27px;vertical-align: bottom"><svg style="height: 27px;" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google-play" class="svg-inline--fa fa-google-play fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"></path></svg></a>
                     </div>
                 </div>
-                
+
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
                         <span class="sr-only">Toggle Navigation</span>
@@ -304,30 +304,30 @@
                     </button>
                 </div>
             </div>
-            
+
 
             <div class="navbar-collapse collapse" id="navigation">
                 <ul class="nav navbar-nav navbar-right">
-                    
+
                     <li class="dropdown">
-                        
+
                         <a href="https://speechnotes.co/">Speech Recognition</a>
-                        
+
                     </li>
-                    
+
                     <li class="dropdown">
-                        
+
                         <a href="/blog/2017/05/10/commercial/">Commercial</a>
-                        
+
                     </li>
-                    
+
 
                     <li><a target="_blank" href="https://ttsreader.com/player/" class="">New Player 📣</a></li>
 
                     <li class="dropdown" style="text-align:center;">
                         <a style="" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More&nbsp;<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            
+
                             <li style="cursor: pointer">
                                 <a style="" href="https://speechninja.co/" target="_blank">SpeechNinja - Say What I Type</a>
                             </li>
@@ -346,7 +346,7 @@
                         </ul>
                     </li>
 
-                    
+
                     <li class="dropdown" style="text-align:center;">
                         <a id="signinBtn" title="Sign in to enjoy synced content between devices" style="background-color: #0cc70c;cursor:pointer;color: white;font-style: normal" class="show-when-signed-out" onclick="toggleSignIn()">Sign-In</a>
                         <a id="signoutBtn" class="show-when-signed-in" style="color: #cc0000;display: none;" onclick="toggleSignIn()">Sign Out</a>
@@ -354,13 +354,13 @@
 
                 </ul>
             </div>
-            
 
-            
+
+
 
         </div>
     </div>
-    
+
 
 
 
@@ -380,11 +380,11 @@
             window.open("https://twitter.com/Israel/status/1623290603634143232?s=20&t=aPt1-bvZxsIAMOkfiHI3sQ","_blank");
           }
       </script>
-      
+
       <div style="display: flex;min-height: 95vh; padding: 0 10px">
           <div class="sidebar-column-if-room-left ad">
               <div data-ws-ad="300x600" style="position: sticky;top: 90px;margin: 90px auto 30px auto; background-color: transparent;height: 600px;max-height: 50vh !important; overflow: hidden;">
-                  
+
                   <ins class="adsbygoogle"
                        style="display:block"
                        data-ad-format="autorelaxed"
@@ -397,14 +397,24 @@
           </div>
           <div style="flex: 1;">
 
-              
+
 
 <a id="removeAdsBtn"></a>
 <a id="installTtsreaderxBtn"></a>
 
+            <p style="width: 960px; max-width: 95%; margin: auto; font-size: 1.2em;line-height: 1.5em;">
+              <span style="padding: 2px 5px;background-color: black; color: white;">IMPORTANT Announcement - 2025-April-30: A new bug in many Google Chrome voices makes them stop reading after a single sentence ON SOME MACHINES.</span><br/>
+              <span style="padding: 2px 5px;background-color: black; color: white;">If this happens to you - please do one of 4 options:</span><br/>
+              <span style="padding: 2px 5px;background-color: black; color: white;">1) Use non-Google voices.</span><br/>
+              <span style="padding: 2px 5px;background-color: black; color: white;">2) Use Edge browser (has great voices by Microsoft)</span><br/>
+              <span style="padding: 2px 5px;background-color: black; color: white;">3) Use TTSReader's new <a style="color: yellow" href="https://ttsreader.com/">text-to-speech player on https://ttsreader.com/</a> - has new amazingly expressive AI voices</span><br/>
+              <span style="padding: 2px 5px;background-color: black; color: white;">4) use a different device</span><br/>
+              <span style="padding: 2px 5px;background-color: black; color: white;">To learn more about this bug <a style="color: yellow" href="https://ttsreader.com/blog/new-bug-in-google-chrome-voices/" target="_blank">click here</a></span>
+            </p>
+
 <div id="app_panel" class="" style="background: url('/img/bg1.jpg') repeat;height: 80vh;min-height: 430px;background-attachment: fixed;max-width: 800px;margin: auto;">
     <div id="app_container" style="position: relative">
-        
+
         <div id="application" style="position: relative;
     /*background: #f5f5f599;*/
 
@@ -420,7 +430,7 @@
                 <span class="glyphicon glyphicon-question-sign btn-glyph" aria-hidden="true" style=""></span>
             </div>
 
-            
+
             <p id="bookHeader" style="display:none;text-align:center;color: white;"><b>
                 <span>Reading</span>&nbsp;
                 <span id="bookTitleLabel"></span>&nbsp;
@@ -505,13 +515,13 @@
             </div>
 
             <div style="flex-grow: 1;">
-                
+
                 <textarea id="text_box" style="font-family: sans-serif;outline: none;border-color: #37a7bb;border-radius: 10px;resize: none;width:100%;height:100%;" placeholder="Write something in this box and click play.
 Our text-to-speech will read it out loud for you.
 You can also drag files to here and edit the text.
 
 Go ahead, enjoy listening to any written content :)" value="Hello. How are you? Type or paste any text, and I will read it out loud for you."></textarea>
-                
+
             </div>
 
             <p style="text-align: center;font-weight: bold; position: relative; top: 14px; background-color: wheat;border-radius: 20px;">What do you think? Would love to hear your <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdVYIL6UxGrX3VSgJvdrYq2XE0tdCP3BXfScDf5MT4INYXh_w/viewform?usp=sf_link" class="">feedback</a>.</p>
@@ -525,11 +535,11 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
             var playBtnCounter = 0;
             var recBtnCounter = 0;
 
-            
+
             (function () {
               var el;
 
-              
+
 
 
               el = document.getElementById("recordBtn");
@@ -560,7 +570,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
           </div>
           <div class="sidebar-column-if-room-right ad">
               <div data-ws-ad="300x600" style="position: sticky;top: 90px;margin: 90px auto 30px auto; background-color: transparent;min-height: 600px;">
-                  
+
                   <ins class="adsbygoogle"
                        style="display:block"
                        data-ad-client="ca-pub-5434274073094626"
@@ -574,12 +584,12 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
           </div>
       </div>
 
-            
+
 
             <footer id="footer" style="overflow: hidden">
     <div class="container">
 
-        
+
         <div class="col-md-4 col-sm-6">
             <h4>About us</h4>
 
@@ -594,8 +604,8 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
             <hr class="hidden-md hidden-lg hidden-sm">
 
         </div>
-        
-        
+
+
 
         <div class="col-md-4 col-sm-6">
 
@@ -609,59 +619,59 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 
             <hr class="hidden-md hidden-lg hidden-sm">
 
-            
-            
 
-            
-                
-                
-                    
-                        
-                          
-                            
-                          
-                        
-                    
-                    
-                        
-                    
-                
-                
-                
-                    
-                        
-                          
-                            
-                          
-                        
-                    
-                    
-                        
-                    
-                
-                
-                
-                    
-                        
-                          
-                            
-                          
-                        
-                    
-                    
-                        
-                    
-                
-                
-            
 
-            
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
-        
 
-        
+
+
         <div class="col-md-4 col-sm-6">
 
           <h4>Contact</h4>
@@ -674,16 +684,16 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
       </p>
 
 
-            
+
 
             <hr class="hidden-md hidden-lg hidden-sm">
 
         </div>
-        
-        
+
+
 
     </div>
-    
+
 
     <div class=" text-center">
         <a style="display: inline-block;" href="https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader" target="_blank" rel="nofollow">
@@ -707,16 +717,16 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 <div id="copyright">
     <div class="container">
         <div class="col-md-12">
-            
+
             <p class="text-center">
                 <b>PRIVACY: </b> We respect your privacy - your text is not sent to us unless you chose to use cloud sync. We do use cookies and your local storage to enhance your experience & targeted ads. <a href="https://ttsreader.com/privacy/" target="_blank">Read more about privacy here.</a>
                 <br>Copyright (c) 2015 - 2023, <a href='https://wellsrc.com' target='_blank'>Ronen Rabinovici</a> ; all rights reserved.&nbsp;&nbsp;&nbsp;&nbsp;Based on template by <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
-                
+
 
                 Ported to Hugo by <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.&nbsp;&nbsp;Icons by <a href="https://www.glyphicons.com/" target="_blank">glyphicons</a> and by <a href="https://fontawesome.com/license" target="_blank">font-awesome</a>.
                 <br><span style="font-size: smaller">Reader BG image includes modification of image by Norman Bruderhofer - Collection of John Lampert-Hopkins, <a href="https://creativecommons.org/licenses/by-sa/2.5" title="Creative Commons Attribution-Share Alike 2.5">CC BY-SA 2.5</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1308343">Link</a></span>.
             </p>
-            
+
             <p id="languageLinks" class="text-center">
                 <a href="https://ttsreader.com/">English</a>
                 <a href="https://ttsreader.com/de/">Deutsch</a>
@@ -834,36 +844,36 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 
 
 
-            
 
 
-        
 
-    
+
+
+
     <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script>
 
-  
 
 
-  
+
+
   KEYS = {
-    
+
     selected_language: "selected_language",
     select_speed: "select_speed",
     wholeText: "wholeText",
     caretPos: "caretPos",
     selected_voice: "selected_voice",
 
-    
+
     isBookOn: "isBookOn",
     currentChapterIndexInApp: "currentChapterIndexInApp",
     totalNumberOfChapters: "totalNumberOfChapters",
     bookTitle: "bookTitle",
 
-    
+
     isPremium: "isPremium",
     counter_refer_to_X: "counter_refer_to_X"
   };
@@ -881,7 +891,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
   }
 
 
-  
+
   (function(){
     var plat = navigator.platform.toUpperCase();
     if (window.location.href.indexOf('localhost')<0) {
@@ -924,7 +934,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
   }
 
   function toggleFullScreen() {
-    
+
 
 
     if (!isFullScreen) {
@@ -940,7 +950,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
   }
 
   function setUiNotFullScreen() {
-    
+
     $('#application').css('background-image',"url('../img/app/desk.jpeg')");
     $('#application').css('background-size',"cover");
     $('#application').css('height',"700px");
@@ -993,7 +1003,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
     $('.dialog').hide();
     unbindKey(27);
   }
-  
+
   function isSignedIn() {
     if (window.firebase && window.firebase.auth() && window.firebase.auth().currentUser && window.firebase.auth().currentUser.uid) {
       return true;
@@ -1003,22 +1013,22 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
   }
 
   function syncFromFirebase() {
-    
+
     if (firebase.auth().currentUser) {
       var userId = firebase.auth().currentUser.uid;
       firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
         for (var iProperty in KEYS) {
-          
+
           if (!KEYS.hasOwnProperty(iProperty)) continue;
 
-          
+
           var iKey = KEYS[iProperty];
           var iValueToStore = "" + snapshot.val()[iProperty];
           localStorage.setItem(iKey, iValueToStore);
         }
 
-        
-        
+
+
         var numberOfChapters = getNumberOfChapters(snapshot.val());
         if (numberOfChapters) {
           for(var i=0; i<numberOfChapters; i++) {
@@ -1031,7 +1041,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
           }
         }
 
-        
+
         loadUserPrefs();
       });
     } else {
@@ -1045,12 +1055,12 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
     var currentChapterIndexInApp = null;
 
     if(!object) {
-      
+
       isBookOn = localStorage.getItem(KEYS.isBookOn);
       totalNumberOfChapters = localStorage.getItem(KEYS.totalNumberOfChapters);
       currentChapterIndexInApp = localStorage.getItem(KEYS.currentChapterIndexInApp);
     } else {
-      
+
       isBookOn = object[KEYS.isBookOn];
       totalNumberOfChapters = object[KEYS.totalNumberOfChapters];
       currentChapterIndexInApp = object[KEYS.currentChapterIndexInApp];
@@ -1082,18 +1092,18 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 
 
     <script>
-        
+
         var isOnAppPage = true;
     </script>
 
-    
+
     <script>
-  
 
 
-  
+
+
   KEYS = {
-    
+
     selected_language: "selected_language",
     select_speed: "select_speed",
     wholeText: "wholeText",
@@ -1101,15 +1111,15 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
     selected_voice: "selected_voice",
 
 
-    
 
-    
+
+
     isBookOn: "isBookOn",
     currentChapterIndexInApp: "currentChapterIndexInApp",
     totalNumberOfChapters: "totalNumberOfChapters",
     bookTitle: "bookTitle",
 
-    
+
     isPremium: "isPremium",
     counter_refer_to_X: "counter_refer_to_X"
   };
@@ -1120,7 +1130,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 </script>
 
 <script>
-    
+
     localStorage.setItem("interfaceLang", "en");
 </script>
 
@@ -1133,7 +1143,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 
 <script src="https://unpkg.com/ttsreader@1.0.27/build/bundle.min.js"></script>
 <script src="https://ttsreader.com/js/pdfparser_merged_into_script_32_with_npm_engine.js"></script>
-<script src="https://ttsreader.com/js/recorder.js"></script> 
+<script src="https://ttsreader.com/js/recorder.js"></script>
 
 <script>
     if ( localStorage.getItem("counter_refer_to_X") === null) {
@@ -1156,7 +1166,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 
 
 
-      
+
 
       <script>
           function playUrl() {
@@ -1168,7 +1178,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
               debugger;
               url = url.trim();
               if (url.includes(" ")) {
-                
+
                 let textBoxEl = document.getElementById("text_box");
                 if (textBoxEl) {
                   document.getElementById("application").scrollIntoView();
@@ -1176,7 +1186,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
                   if (oldText && oldText!="Click Play button to listen to this text. You may edit this text here, or upload a file such as text, pdf or e-book.") {
                     alert('Seems like this is not a link, but rather plain text. To play it - use the in-page text player.');
                   } else {
-                    
+
                     textBoxEl.value = url;
                     startOrPause();
                   }
@@ -1195,7 +1205,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
           }
       </script>
 
-      
+
       <script src="https://unpkg.com/data-ws-hooks/build/bundle.min.js"></script>
 
 
@@ -1214,11 +1224,11 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 
         let licenseInterpretations = {
           UNKNOWN: "UNKNOWN",
-          NONE: "NONE",  
-          LIFETIME: "LIFETIME",  
-          SUBSCRIPTION: "SUBSCRIPTION",  
-          SUBSCRIPTION_SOON_OVER: "SUBSCRIPTION_SOON_OVER", 
-          SUBSCRIPTION_OVER: "SUBSCRIPTION_OVER", 
+          NONE: "NONE",
+          LIFETIME: "LIFETIME",
+          SUBSCRIPTION: "SUBSCRIPTION",
+          SUBSCRIPTION_SOON_OVER: "SUBSCRIPTION_SOON_OVER",
+          SUBSCRIPTION_OVER: "SUBSCRIPTION_OVER",
         }
 
         let classNamesForUiUpdates = {
@@ -1240,7 +1250,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
           loading: true,
           email: "",
           uid: "",
-          epochLicenseExpirationDateInSecs: -1  
+          epochLicenseExpirationDateInSecs: -1
         }
 
         window.addEventListener('online', () => updatePageStateWithParams({isOffline: false}));
@@ -1304,17 +1314,17 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 
           if (props && props.length>0) {
             for (const key of props) {
-              if (params[key]!=undefined && params[key]!=null) { 
+              if (params[key]!=undefined && params[key]!=null) {
                 if (key=="epochLicenseExpirationDateInSecs") {
                   let latestEpoch = Math.max(pageState.epochLicenseExpirationDateInSecs, params.epochLicenseExpirationDateInSecs);
                   pageState.epochLicenseExpirationDateInSecs = latestEpoch;
                   let msg = {message: "epochLicenseExpirationDateInSecs", data: latestEpoch};
                   updateChromeExtensionWith(msg);
-                  
-                  
+
+
 
                   localStorage.setItem("epochLicenseExpirationDateInSecs", latestEpoch);
-                  
+
                   checkAndSetPremiumAccordingToEpoch(latestEpoch);
                 } else {
                   pageState[key] = params[key];
@@ -1348,7 +1358,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
           }
         }
 
-        
+
         function isPremium() {
           let today = Date.now();
 
@@ -1387,14 +1397,14 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
           let today = Date.now();
           if (expirationEpochInSecs*1000>today) {
             if (setPremium) {
-              
-              setPremium(); 
+
+              setPremium();
             }
           }
         }
 
         function updateUiByState(newState) {
-          
+
           if (!pageState.wereAdsLoaded && !isPremium()) {
             if ((pageState.wasAuthReceived && !pageState.uid) ||
               (pageState.wasAuthReceived &&
@@ -1483,7 +1493,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
         }
 
         function updateChromeExtensionWith(msg, callback) {
-          
+
           if (window.chrome && chrome.runtime && chrome.runtime.sendMessage) {
             if (!callback) {
               callback = function (response){
@@ -1509,7 +1519,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 
       <script>
         if (document.readyState == "loading") {
-          
+
           console.log(stopper() + 'Script awaiting to load all DOM');
           addEventListener('DOMContentLoaded', (event) => {
             runPostLoadScript();
@@ -1519,7 +1529,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
           runPostLoadScript();
         }
 
-        
+
         function loadAds() {
           let isSafari = window.safari !== undefined;
           if (isSafari) return;
@@ -1533,7 +1543,7 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
               });
             }
 
-            
+
             let s1 = document.createElement("script");
             s1.setAttribute("async", "");
             s1.setAttribute("crossorigin", "anonymous");
@@ -1585,11 +1595,11 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
               messagingSenderId: "656667743185"
             };
 
-            
+
             firebase.initializeApp(firebaseConfig);
 
             firebase.auth().onAuthStateChanged(function(user) {
-              
+
               console.log(stopper() + 'user signed ' + (user ? "IN" : "OUT"));
               updatePageStateWithParams({
                 wasAuthReceived: true,
@@ -1599,19 +1609,19 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
               });
 
               if (user) {
-                
+
                 listenToDatabaseData(user.uid);
 
-                
-                
-                
+
+
+
               } else {
-                
+
                 if (pageState.email) {
                   toggleSignIn();
                 }
-                
-                
+
+
               }
             });
           }
@@ -1642,14 +1652,14 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
                 wasUserDataReceived: true,
                 isPremiumByLegacy: true,
                 isPremium: true,
-                
+
               });
             } else {
               updatePageStateWithParams({
                 wasUserDataReceived: true,
                 isPremiumByLegacy: false,
                 isPremium: false,
-                
+
               });
             }
           });
@@ -1673,13 +1683,13 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
 
         function toggleSignIn() {
           var user = firebase.auth().currentUser;
-          
+
 
           if (user) {
-            
+
             signOut();
           } else {
-            
+
             signIn();
           }
         }
@@ -1691,23 +1701,23 @@ Go ahead, enjoy listening to any written content :)" value="Hello. How are you? 
         function signIn() {
           let provider = new firebase.auth.GoogleAuthProvider();
           firebase.auth().signInWithPopup(provider).then(function(result) {
-            
+
             let token = result.credential.accessToken;
-            
+
             let user = result.user;
             let isNewUser = result.additionalUserInfo.isNewUser;
             if (isNewUser) {
-              
+
             }
           }).catch(function(error) {
-            
+
             let errorCode = error.code;
             let errorMessage = error.message;
-            
+
             let email = error.email;
-            
+
             let credential = error.credential;
-            
+
           });
         }
       </script>

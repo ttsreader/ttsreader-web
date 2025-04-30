@@ -1,43 +1,30 @@
 ---
-title: "New Bug in Google Chrome Voices"
-description: "New bug in Google voices on Chrome on Windows - description and solutions"
-excerpt: "New bug in Google voices on Chrome on Windows - description and solutions"
+title: "New Expressive Voices"
+description: "New best in class expressive & natural sounding voices on TTSReader's new player"
+excerpt: "New best in class expressive & natural sounding voices on TTSReader's new player"
 date: 2025-04-28T09:19:42+01:00
 lastmod: 2025-04-28T09:19:42+01:00
 draft: false
 weight: 50
 images: []
 categories: ["News"]
-tags: ["development", "bug", "web-speech-api"]
+tags: ["development", "voices", "text-to-speech"]
 contributors: ["Ronen Rabinovici"]
-pinned: false
-homepage: false
+pinned: true
+homepage: true
 ---
 
-## TL;DR
-
-- **Affected Systems**: Some Chrome browsers on Some Windows 11
-- **Symptoms**: Google voices do not read past the first sentence.
-- **Prevalence**: This affects circa 25% of Chrome users.
-- **Workarounds**:
-  - Select non-Google voices
-  - Use Microsoft Edge
-  - Use the new TTSReader player at [https://ttsreader.com/player/](https://ttsreader.com/player/) with premium voices, that are server-side generated and thus not affected by this bug.
+New amazing expressive voices are now available on [TTSReader's new text-to-speech player](https://ttsreader.com/player/).
 
 
-## Description of the bug
+Here you can listen to a sample of the new voices:
 
-A new bug has been affecting the Web-Speech-API and its users - including [TTSReader's Text-to-Speech Player](https://ttsreader.com/) since early April 2025. Some say it has been introduced due to updates on Chrome or on Windows OS. It manifests itself as Google's voices don't fire their callback events as they should according to the webspeech API spec - and thus can't read more than a single utterance at a time.
+* John: <audio controls src="/images/avatars/john.mp3"></audio>
+* Adam: <audio controls src="/images/avatars/adam.mp3"></audio>
+* Aria: <audio controls src="/images/avatars/aria.mp3"></audio>
+* Nova: <audio controls src="/images/avatars/nova.mp3"></audio>
 
-The way it shows on TTSReader Legacy is that the voice reads the first sentence, and then stops. It doesn't read the rest of the text.
-The new player knows to recognize the bug - and on affected systems - it will switch to a different voice that is not affected by this bug.
-
-
-## Solutions
-
-1) Use Microsoft Edge - it has the best voices available on Windows. Specifically, the Christopher voice is excellent, as well as other Microsoft voices. This is a great solution both for the [Legacy player](https://ttsreader.com/legacy/) as well as the [New player](https://ttsreader.com/player/).
-2) Use the new [TTSReader player](https://ttsreader.com/player/) - it has premium voices that are not affected by this bug. The new premium voices are excellent and are server-side generated, so they are not affected by this bug. They are smooth and expressive.
-3) Lastly, you may use Chrome with non-Google voices. But the previous two options are better.
+<br/>
 
 We would love to hear your feedback! Please join our Discord community and let us know what you think about the new player and the premium voices. Your feedback is invaluable to us as we continue to improve our service. Specifically now - we're entering a boost in development and we need you to direct us to make the best text-to-speech player in the world for you. [Join TTSReader's community](https://discord.gg/GQT5f5kM)
 
