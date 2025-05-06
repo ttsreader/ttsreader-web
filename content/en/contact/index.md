@@ -2,7 +2,7 @@
 title: "Contact"
 description: "Ways to contact TTSReader's team & community"
 date: 2023-04-27T19:25:12+02:00
-lastmod: 2023-04-27T19:25:12+02:00
+lastmod: 2025-05-05T19:25:12+02:00
 draft: false
 images: []
 ---
@@ -10,6 +10,12 @@ images: []
 Here are a few ways to get in touch with us at TTSReader:
 
 ## Discussions & issues reporting
+
+### Our Discord community:
+
+Join our growing community space on Discord, for discussions, feedback, questions and more. Shared space with our own developers & owners. [Join TTSReader's community](https://discord.gg/GQT5f5kM)
+
+### Github
 
 Here are links to the following public forums, where you can see what others posted and post your own. Links open on Github platform.
 - [Discussions](https://github.com/ttsreader/ttsreader-web/discussions) - This is where you can see our roadmap and post your suggestions, feature requests and other discussions.

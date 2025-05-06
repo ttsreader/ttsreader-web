@@ -1,6 +1,6 @@
 ---
 title: "Generating Mp3 Files Voice Overs"
-description: "How to generate mp3 audio files from synthesized speech with TTSReader"
+description: "How to generate mp3 audio files, voiceovers, and mix multiple voices with TTSReader"
 date: 2023-08-21T13:59:39+01:00
 lastmod: 2023-08-21T13:59:39+01:00
 draft: false
@@ -10,6 +10,7 @@ menu:
     parent: "guides"
 weight: 111
 toc: true
+keywords: ["text-to-speech", "mp3", "audio", "voiceover", "voice over", "mix voices", "combine voices", "combine languages", "combine speeds"]
 ---
 
 <br/>
@@ -26,17 +27,39 @@ toc: true
 
 <br/>
 
-## Mix Languages, Voices & Speeds
+## NEW: Mix Languages, Voices & Speeds
 
-You may use multiple languages, voices & speeds in the same file, by inserting the following text: `{{set: lang=en; name=Noah; rate=1.1}}` (with 2 curly brackets on each side) in the text. You do not need to remember that text - it is available in the voice selection dropdown - via the 'copy' button next to each voice.
+You may use multiple languages, voices & speeds in the same file, by inserting the following text:
+
+
+`{{set: lang=en; name=Noah; rate=1.1}}` (with 2 curly brackets on each side)
+
+
+in the text. You do not need to remember that text - it is available in the voice selection dropdown - via the 'copy' button next to each voice.
 
 Once the player reaches the setter text - it will set itself to the parameters specified by the setter - thus reading from that point on according to those params - language, voice & rate, until the next setter is reached. And so on.
 
 This way you can mix unlimited languages, voices & speeds in the same file, eventually generating a single mp3 file with all the different languages, voices & speeds.
 
-Here's a short demo on how it's done:
+-> Here's a short demo showing combining voices, and reading speeds:
 
 <br/>
+
+<div class="videowrapper">
+  <iframe style="display: block" src="https://www.youtube.com/embed/g8x4ZiWkguI?rel=0" title="Demo on combining multiple voices in text-to-speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+
+<br/>
+
+-> And here's a short video showing HOW TO ACHIEVE THAT with TTSReader's controls::
+
+<br/>
+
+<div class="videowrapper">
+  <iframe src="https://www.youtube.com/embed/F0EgHHb1tUI?rel=0" title="How to mix voices in text-to-speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+
+
 
 ## Download the Synthesized Speech as an mp3 Audio File
 
@@ -51,7 +74,7 @@ The only tricky part is Share popup window - there you have to select the 'Entir
 Here's the short video showing it all in action:
 
 <div class="videowrapper">
-  <iframe style="display: block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+  <iframe style="display: block" src="https://www.youtube.com/embed/Xq09r01GetQ?rel=0" title="Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 </div>
 
 <br/>
@@ -84,25 +107,12 @@ You may add 1 second long pause by inserting the following text: `{{pause}}` (wi
 
 ## More voices
 
-Need more voices? Here are some tips:
+Need more voices? There are some more voices when using TTSReader on Edge browser - but mainly - we're working on adding more Premium Voices - which are AI most updated & natural sounding voices.
 
-<p>- More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher &amp; Michelle are both exceptional!</p>
-
-<div>
-  <p style="font-weight: bold">Here are some of the available voices:</p>
-  <p><u>On Edge:</u></p>
-  <div>Christopher: <audio style="vertical-align: middle" controls="" src="/player/audio/Christopher.mp3" preload="metadata"></audio></div>
-  <div>Michelle: <audio controls="" src="/player/audio/Michelle.mp3" preload="metadata"></audio></div>
-  <br>
-  <p><u>On Chrome:</u></p>
-  <div>Noah: <audio controls="" src="/player/audio/Noah.mp3" preload="metadata"></audio></div>
-  <div>Lily: <audio controls="" src="/player/audio/Lily.mp3" preload="metadata"></audio></div>
-  <br>
-
-</div>
-<p>- Using custom SAPI5 voices is possible on Windows using Firefox browser.</p>
 <p>- On mobile, you will find more voices using our <a href="/mobile/" target="_blank">text-to-speech mobile apps</a></p>
-<p>- We're working on making even more voices available for <a href="/upgrade/" target="_blank">Premium users</a>.</p>
+
+Also - you can use your own SAPI5 voices with TTSReader. Here's how:
+
 
 <br/>
 
@@ -111,5 +121,5 @@ Need more voices? Here are some tips:
 Using custom SAPI5 voices is possible on Windows using Firefox browser. See example here:
 
 <div class="videowrapper">
-  <iframe style="display: block" src="https://www.youtube.com/embed/Ke9YXAC4h64" title="Speech Synthesis with SAPI5 voices using TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+  <iframe style="display: block" src="https://www.youtube.com/embed/Ke9YXAC4h64?rel=0" title="Speech Synthesis with SAPI5 voices using TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 </div>

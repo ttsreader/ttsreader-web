@@ -1,20 +1,20 @@
 # Meta Data for SEO
 
 ## Homepage
-name = "TTSReader AI"
-title = "TTSReader AI - Free Text To Speech Reader"
+name = "TTSReader"
+title = "Free AI Text To Speech Reader & MP3 Generator | TTSReader"
 titleSeparator = "|"
-description = "Instantly reads out loud text, PDFs, books & websites with natural sounding speech. Works out of the box, just select voice, drop the text and click play."
+description = "Online text-to-speech reader & MP3 generator. Reads out loud texts, PDFs, books & webpages with the most advanced AI-voices. Listen online or download audio"
 
 
 ## Documentation
 # docsVersion = "0.3"
 
 ## Open Graph
-images = ["tile_1024x512.jpeg"]
+images = ["assets/images/demo_poster_20250506_900x.webp"]
 ogLocale = "en"
 domainTLD = "ttsreader.com"
-titleHome = "TTSReader - Text To Speech Reader & AI Voice-Overs"
+titleHome = "Free AI Text To Speech Reader & MP3 Generator | TTSReader"
 
 ## Twitter Cards
 twitterSite = "@speechlogger"
@@ -72,9 +72,9 @@ footer = "Powered by <a class=\"text-muted\" href=\"https://ttsreader.com/\">TTS
 copyRight = "Copyright (c) 2015-2025 Ronen Rabinovici @ WellSource"
 
 # Alert
-alert = true
+alert = false
 alertDismissible = true
-alertText = "<a class=\"alert-link stretched-link\" href=\"https://discord.gg/GQT5f5kM\" target=\"_blank\">🕺💃 Join our new discord space where users & developers meet together & share ideas 💃🕺</a>"
+alertText = "<a data-nosnippet class=\"alert-link stretched-link\" href=\"https://docs.google.com/forms/d/e/1FAIpQLSe9MIR8DNHNzow92eC8zs4vjlXdFCiplfDom8wqsrQlWBHp0w/viewform?usp=dialog\" target=\"_blank\">📣 We're looking for creators to show how TTSReader can be used. Click to learn more & join.</a>"
 
 # Edit Page
 # repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster

@@ -48,7 +48,7 @@ The only tricky part is Share popup window - there you have to select the 'Entir
 Here's the short video showing it all in action:
 
 <div class="videowrapper">
-  <iframe style="display: block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+  <iframe style="display: block" src="https://www.youtube.com/embed/Xq09r01GetQ?rel=0" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 </div>
 
 <br/>
@@ -108,5 +108,5 @@ Need more voices? Here are some tips:
 Using custom SAPI5 voices is possible on Windows using Firefox browser. See example here:
 
 <div class="videowrapper">
-  <iframe style="display: block" src="https://www.youtube.com/embed/Ke9YXAC4h64" title="Speech Synthesis with SAPI5 voices using TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+  <iframe style="display: block" src="https://www.youtube.com/embed/Ke9YXAC4h64?rel=0" title="Speech Synthesis with SAPI5 voices using TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 </div>

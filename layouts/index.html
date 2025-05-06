@@ -1,18 +1,100 @@
 {{ define "main" }}
 
-<section class="section container-fluid mt-n3 pb-3 ">
-  <h1 class="mt-0 text-center">The Real TTSReader - Free Text To Speech Reader</h1>
+<section class="section container-fluid mt-n3 pb-3" id="hero" style="display: flex; flex-direction: column; min-height: 100vh;">
+  <div class="row text-center">
+    <h1 class="mt-0">AI-Powered Text To Speech (TTS) Reader & MP3 Generator</h1>
+    <p class="caption-top" style="text-align: center;margin: 30px auto"><i>A speech-synthesis powerhouse - serving thousands of users, schools & businesses at any given moment, since 2015. Private & secure. Proudly partnering with Microsoft for Startups</i></p>
+    <!--<h2 class="lead" style="font-size: 1.3em;display: inline-block">{{ .Params.lead | safeHTML }}</h2>-->
+  </div>
+  <!--<p style="text-align: center;margin-top: 30px;">
+    <a href="/samples/" style="color: #ffce00;padding: 5px 20px;border-radius: 20px;background-color: #2b3140;position: relative; box-decoration-break: clone; -webkit-box-decoration-break: clone;">
+      View real-life videos & audios transcribed by Speechnotes<span style="content: '';border: 1px solid orangered;background-color: white;position: absolute;top: -3px;left: -35px;color: orangered;font-size: 12px;font-weight: bold;padding: 5px 10px;transform: rotate(-25deg);transform-origin: 0 0;">NEW</span>
+    </a>
+  </p>-->
+
+  <script>
+    function playVideo(el) {
+      console.log('play', el);
+      let video = el.parentElement.querySelector('video');
+      if (video) {
+        el.parentElement.style.backgroundImage = 'none';
+        el.style.display = 'none';
+        video.setAttribute('controls', 'controls');
+        video.setAttribute('src', video.getAttribute('data-src'));
+
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+    }
+  </script>
+
+  <div class="row" style="flex: 1">
+    <div class="col-md-8" style="display: flex; flex: 1;flex-direction: column">
+      <div style="flex: 1"></div>
+      <h2 style="margin-bottom: 1em; font-weight: normal">Reads out loud texts, PDFs, books & webpages with the world's leading expressive AI-voices. Listen online or download audio. Start for free.</h2>
+      <br/>
+      <!--<p class="text-center" style="font-size: larger">
+        Pay-as-you-go (only $0.1/minute!) no subscription, no commitment.<br/>Whether it's a single one-time recording, or a need for an ongoing speech to text service - we've got you covered.
+      </p>
+      <h2 class="text-center" style="margin: 70px 0 50px;">Supports local & online files & <a href="https://zapier.com/apps/speechnotes/integrations" target="_blank">automatic workflows</a></h2>
+      -->
+      <div style="text-align: center">
+        <a class="btn btn-primary btn-lg px-4 mb-2" href="/player/" role="button" onclick="gtag('event', 'ttsreader_click_new', {'value': 'home_page_body'});" style="text-transform: uppercase;font-weight:bold;color:white !important;background-color: darkred;border-color:darkred;width: 100%;max-width:600px;">Start Text-To-Speech Reader</a>
+      </div>
+      <br/>
+      <div style="flex: 3"></div>
+    </div>
+    <div class="col-md-8 text-center" style="display: flex;flex-direction: column">
+      <div style="flex: 1"></div>
+      <p style="text-align:center">WATCH DEMO - TURN VOLUME ON</p>
+      <div style="aspect-ratio: 1.7;background-color: black;border: 6px solid black; border-radius: 20px 20px 0 0;overflow: hidden;position: relative;background-image: url('/assets/images/demo_poster_20250506_900x.webp');background-size: cover;background-position: center;">
+        <video style="width: 100%;aspect-ratio: 1.74" data-src="/assets/videos/ttsreader3_demo_720p_20250506.webm" playsinline></video>
+        <div class="video-overlay" onclick='try{gtag("event","ttsreader_click_video;",{value:"1"})}catch(err){}playVideo(this);'>
+          <div style="width: 50px;height: 50px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="white" class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"/></svg>
+          </div>
+        </div>
+      </div>
+      <img src="/assets/images/laptop_base.png" style="max-width: unset;width:110%;position:relative;left:-5%;"/>
+      <br/>
+      <div style="flex: 1.3"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section container-fluid mt-n3 pb-3" style="padding-top: 0;">
+  <!--<h1 class="mt-0 text-center">AI Text To Speech (TTS) Reader Online</h1>-->
   <div class="row justify-content-center" style="text-align: center">
 
     <div class="text-center">
-      <h2 class="lead" style="font-size: 1.3em;"><!--{{ .Params.lead | safeHTML }}-->
-        Instantly reads out loud text, PDFs, books & websites with natural sounding speech. Works out of the box, just select voice, drop the text and click play.
-      </h2>
-      <!--<h2 class="lead" style="font-size: 1.3em;">&lt;!&ndash;{{ .Params.lead | safeHTML }}&ndash;&gt;
+      <!--<h2 class="lead" style="margin-top:20px;margin-bottom:50px; font-size: 1.5em;">Online player & MP3 generator. Listen to any text, PDF, book & webpage with the world's leading expressive AI-voices.</h2>
+      <p class="caption-top"><i>The original TTSReader, since 2015. Trusted by millions of users, businesses, and educators. Microsoft for Startups 2025</i></p>
+      &lt;!&ndash;<h2 class="lead" style="font-size: 1.3em;">&lt;!&ndash;{{ .Params.lead | safeHTML }}&ndash;&gt;
         Unlike others, <b>TTSReader</b> delivers engaging text-to-speech — with live-edit, read-along, MP3 export, auto-save and new expressive AI voices. Enjoy listening!
-      </h2>-->
-      <br/>
-      <div id="avatars_demos_id" class="row justify-content-center text-center" style="margin-top: 20px;">
+      </h2>&ndash;&gt;
+
+      <div class="row justify-content-center text-center" style="margin-top: 40px;">
+        <div class="col-md-7 col-lg-6 card highlight-on-hover" role=button onclick='window.location="/player/"' style=cursor:pointer>
+          <img src="/images/screenshots/home/screenshot_new_player.webp" alt="TTSReader New Player" style="width: 100%; max-width: 600px; margin: auto; display: block;"/>
+          <br/>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="/player/" role="button" onclick="gtag('event', 'ttsreader_click_new', {'value': 'home_page_body'});" style="text-transform: uppercase;font-weight:700;color:white !important;background-color: #cc4500;border-color:#cc4500;">NEW Text Player</a>
+          <p class="meta" style="text-align: justify">Our new player has all the latest features, including highly expressive AI voices, and is actively being developed and improved daily. Free for basic usage.</a></p>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-7 col-lg-6 card highlight-on-hover" role=button onclick='window.location="/legacy/"' style=cursor:pointer>
+          <img src="/images/screenshots/home/screenshot_legacy_player.webp" alt="TTSReader Legacy Player" style="width: 100%; max-width: 600px; margin: auto; display: block;"/>
+          <br/>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="/legacy/" role="button" onclick="gtag('event', 'ttsreader_click_legacy', {'value': 'home_page_body'});" style="text-transform: uppercase;font-weight:700;color:#ffce00!important;background-color:#2b3140;border-color:#2b3140">LEGACY Text Player</a>
+          <p class="meta" style="text-align: justify">With a retro look and feel that many people love. 100% free & 100% unlimited!! But - as it is legacy - less maintained and lacks the new AI voices.</p>
+        </div>
+      </div>-->
+
+      <div id="avatars_demos_id" class="row justify-content-center text-center" style="margin-top: 40px;">
+        <h3 style="margin-bottom: 20px;">New Expressive AI Voices to Speak Your Text</h3>
+        <p style="margin-bottom: 50px;">Try them out here, you'll be surprised how natural & clear they sound</p>
         <div class="avatar-container-tile col-sm-4"  data-ws-avatar-id="john">
           <div style="position: relative; display: inline-block;">
             <img src="/images/avatars/anglo_m_200x.webp" alt="TTSReader Voice Avatar Male USA - John" title="Click to listen to John" />
@@ -25,7 +107,7 @@
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
               </div>
             </div>
-            <audio src="/images/avatars/john.mp3"></audio>
+            <audio src="/images/avatars/john.mp3" preload="none"></audio>
             <!--<div class="play-overlay">
               <div class="play-button-svg-container" style="opacity: 0.5">
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
@@ -62,7 +144,7 @@
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
               </div>
             </div>
-            <audio  src="/images/avatars/aria.mp3"></audio>
+            <audio  src="/images/avatars/aria.mp3"  preload="none"></audio>
             <!--<div class="play-overlay">
               <div class="play-button-svg-container" style="opacity: 0.5">
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
@@ -99,7 +181,7 @@
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
               </div>
             </div>
-            <audio  src="/images/avatars/adam.mp3"></audio>
+            <audio  src="/images/avatars/adam.mp3" preload="none"></audio>
             <!--<div class="play-overlay">
               <div class="play-button-svg-container" style="opacity: 0.5">
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
@@ -136,7 +218,7 @@
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
               </div>
             </div>
-            <audio  src="/images/avatars/nova.mp3"></audio>
+            <audio  src="/images/avatars/nova.mp3" preload="none"></audio>
           </div>
           <div class="wave-loader">
             <div class="bar"></div>
@@ -158,45 +240,25 @@
         <a style="padding: 5px 2px; color: black !important; background-color: lightblue; border-color: lightskyblue; font-weight: bold; text-transform: uppercase" class="jittery-hover btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});">Start Text Player <svg style="position: relative;top:-3px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg></a>
       </div>-->
 
-      <div class="row justify-content-center text-center" style="margin-top: 10px;">
-        <p>Click on the avatars above to hear them speak. Select your preferred player below to start reading.</p>
-        <div class="col-md-7 col-lg-6 card highlight-on-hover" role=button onclick='window.location="/player/"' style=cursor:pointer>
-          <br/>
-          <a class="btn btn-primary btn-lg px-4 mb-2" href="/player/" role="button" onclick="gtag('event', 'ttsreader_click_new', {'value': 'home_page_body'});" style="font-weight:700;color:white !important;background-color: #cc4500;border-color:#cc4500;">Start NEW Text-Player</a>
-          <p class="meta" style="text-align: justify">Our new player has all the latest features, including highly expressive AI voices, and is actively being developed and improved daily. Free for 5k chars per day.</a></p>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-7 col-lg-6 card highlight-on-hover" role=button onclick='window.location="/legacy/"' style=cursor:pointer>
-          <br/>
-          <a class="btn btn-primary btn-lg px-4 mb-2" href="/legacy/" role="button" onclick="gtag('event', 'ttsreader_click_legacy', {'value': 'home_page_body'});" style="font-weight:700;color:#ffce00!important;background-color:#2b3140;border-color:#2b3140">Start LEGACY Text-Player</a>
-          <p class="meta" style="text-align: justify">With a retro look and feel that many people love. 100% free & 100% unlimited!! But - as it is legacy - less maintained than the new player and without the new AI voices.</p>
-        </div>
-      </div>
 
       <br/>
-      <p class="meta" style="text-align: center;font-size: larger">Bring text, PDFs, ebooks, and webpages to life with TTSReader's new player. Listen on the fly, or later, or download as MP3.</p>
+      <p class="meta" style="text-align: center;font-size: larger">Ready to have your own text read out loud? <a href="/player/">Click here to start for free.</a></p>
       <!--<p class="meta" style="text-align: center;font-size: larger">Type or paste your text, or upload documents, PDFs, ebooks, and webpages and our AI text-to-speech player will instantly read it out loud for you with natural sounding expressive voices from the latest generations of AI speech synthesis technology. You can combine voices, set speed, pauses, font size, and more to create your perfect narration and listening experience. Your text and position are preserved between sessions, so you can come back later and continue exactly where you left.</p>-->
 
-      <p class="caption-top" style="margin-top:35px"><i>Trusted by millions of users worldwide since 2015 -- including businesses, educators, students, bloggers, authors, content creators, autodidacts, and reading enthusiasts. Microsoft for Startups 2025</i></p>
-      <div class="star-rating" style="--rating: 4.4;margin: auto" aria-label="Rated 4.4 out of 5">
+      <!--<div class="star-rating" style="&#45;&#45;rating: 4.4;margin: auto" aria-label="Rated 4.4 out of 5">
         <strong>4.4 / 5</strong>  ·<span style="font-size: smaller;color: darkslategrey"><br/>Based on 2910 user reviews on Google Play</span>
-      </div>
+      </div>-->
     </div>
   </div>
-
-  <br/>
-  <p class="lead text-center" >All our voices are opened for 5k chars per day for free!
-    <br/>Then, for extended & commercial use, our <a target="_blank" href="/upgrade/">premium plan</a> is <strong>only <u>$39</u> per year</strong> - that is literally <strong>ONE THIRD</strong> of the price offered by NaturalReaders for example. And the best part? It's <strong>non recurring</strong>! - So you don't need to remember to cancel in the future.</p>
 </section>
 
 <section class="section section-sm">
-  <br/>
   <div class="container">
 
     <div style="text-align: center;align-items: center;align-content: center; vertical-align: middle;margin-bottom: 30px;">
-      <div style="display:inline-block;text-align:center;font-size:1.3em;font-weight:700"><p style="font-size:3em"><span style="font-size:1.3em">+4</span>M</p><p style="font-size:1em;margin-top:-2em">Words Read Per Day</p></div>
-      &nbsp;
-      <div style="display:inline-block;"><img src="https://firebasestorage.googleapis.com/v0/b/wellsrc-7ebaf.appspot.com/o/static-assets%2Fwellsrc%2Fms_300px.webp?alt=media&token=4a7a770f-4b5d-459f-9ae8-31a8c976e3d8" style="max-width:80%;margin:10px auto;width:250px;display:block"></div>
+      <div style="display:inline-block;text-align:center;font-size:1.3em;font-weight:700"><p style="font-size:3em"><span style="font-size:1.3em">+5</span>M</p><p style="font-size:1em;margin-top:-2em">Words Read Per Day</p></div>
+      <!--&nbsp;
+      <div style="display:inline-block;"><img src="https://firebasestorage.googleapis.com/v0/b/wellsrc-7ebaf.appspot.com/o/static-assets%2Fwellsrc%2Fms_300px.webp?alt=media&token=4a7a770f-4b5d-459f-9ae8-31a8c976e3d8" style="max-width:80%;margin:10px auto;width:250px;display:block"></div>-->
     </div>
 
     <div style="text-align: center">
@@ -213,349 +275,54 @@
   </div>
 </section>
 
-<section id="offering" class="section section-sm">
-  <br/>
-  <div class="container">
-    <div style="max-width: 900px;margin: auto; font-size: larger; text-align: justify">
-      <h2 class="h2 text-center" >Best Offering On The Market - Guaranteed!</h2>
-      <br/>
-      <p><b>TTSReader</b> Offers the best text-to-speech offering on the market. Best voices & player experience combined with the <strong>best premium-plan price</strong> available.</p>This is due to our text-player offering the best-in-class AI voices free of charge for limited use and a Premium upgrade offered at a fraction of a price
-      <p><b>Best Voices</b> - we bring the best AI voices in the world, by the leading tech giants - such as Microsoft, OpenAI, Google, ElevenLabs.</p>
-      <p><b>Best Price & Plan - by Far</b> -
-        We offer a free plan, including for the premium voices, for limited use.
-      </p>
-
-      <h4 style="margin-top: 40px;">Guaranteed!</h4>
-      <p>
-        If you find a better premium-price offering for a similar text-to-speech player, we will match it. If you upgrade and for any regret your purchase - we will refund 100%.
-      </p>
-
-      <h4>Upgrade</h4>
-      <p>Click this link to upgrade to TTSReader Premium at a single non-recurring - no-surprises payment. <a href="/upgrade/" target="_blank">Upgrade TTSReader</a>.</p>
-    </div>
-
-
-  </div>
-</section>
-
-<section id="about" class="section section-sm bg-light">
-  <br/>
-  <div class="container">
-    <div style="max-width: 900px;margin: auto; font-size: larger; text-align: justify">
-      <h2 class="h2 text-center" >About</h2>
-      <br/>
-      <p><b>TTSReader</b> is a browser-based text-to-speech player (more than just a simple text-to-speech converter) that instantly reads out loud texts, PDFs, ebooks, and webpages using natural-sounding AI voices — no downloads, no installation, and no sign-in required. It works out of the box and remembers your progress across sessions, so you can seamlessly continue listening from where you left off.
-        <br/><br/>
-        Designed for multitasking, accessibility, and convenience, TTSReader empowers users to consume textual content anywhere — whether at home, work, on the road, or during a walk. It even supports offline playback and exporting speech to audio files.
-        With support for multiple languages, it can be used for unlimited <a href="/#use_cases">use cases</a>.</p>
-
-      <h4 style="margin-top: 40px;">We gather the most advanced AI voices in the world - and bring them here just for you.</h4>
-      <p>
-        We bring the most advanced and smooth AI voices from the best vendors such as Microsoft, ElevenLabs, OpenAI, and Google. As we stand on the shoulders of these AI giants, we're able to bring our users the best text player possible, as we focus on continuous updates to meet your needs.
-      </p>
-
-      <p style="margin-top: 2em;"><strong>💡 Perfect For:</strong></p>
-      <ul>
-        <li>Students, educators, bloggers, and authors</li>
-        <li>Professionals multitasking while working</li>
-        <li>Learners mastering new languages</li>
-        <li>Children enjoying story time or practicing reading</li>
-        <li>Anyone who loves to listen instead of read</li>
-      </ul>
-
-      <p style="margin-top: 2em;"><strong>Company</strong></p>
-      <p><strong>TTSReader</strong> is developed and maintained by <a target="_blank" href="https://wellsrc.com/">WellSource Ltd.</a> as well as our sister apps  <a target="_blank" href="https://speechnotes.co/">Speechnotes (Speech to Text)</a>,  <a target="_blank" href="https://speechninja.co/">SpeechNinja - Type to Speak</a>,  <a target="_blank" href="https://speechlogger.com/">Speechlogger - Live Captioning</a>, and others.</p>
-    </div>
-
-
-  </div>
-</section>
-
-<section id="use_cases" class="section section-sm  section-sm bg-light">
-  <br/><br/>
-  <div class="container" >
-    <h3 style="text-align: center">✅ Key Features & Use Cases</h3>
-    <br/>
-    <ul style="margin: auto; width: 600px; max-width: 90%; text-align: justify;display: block;">
-      <li>📖 <strong>Read-Aloud Player:</strong> Paste or upload text and click play. Supports continuous playback with text memory.</li>
-      <li>🌐 <strong>Web Page Reader:</strong> Listen to articles using the built-in URL importer or Chrome extension.</li>
-      <li>📚 <strong>Audiobook Mode:</strong> Upload EPUB files and turn ebooks into audiobooks.</li>
-      <li>🧠 <strong>Proofreading Tool:</strong> Catch grammar and structure errors by hearing your writing aloud.</li>
-      <li>🎧 <strong>Audio Export:</strong> Generate MP3s from text (premium feature).</li>
-      <li>🧩 <strong>Read-Along Support:</strong> Highlights sentences as they’re read for better speed and comprehension.</li>
-      <li>🌍 <strong>Multilingual & Language Learning:</strong> Supports multiple languages for pronunciation and comprehension practice.</li>
-      <li>🧒 <strong>Kids Mode:</strong> Use slower voices and visual highlighting to help kids learn to read.</li>
-      <li>🦮 <strong>Accessibility:</strong> Helps users with dyslexia or visual impairments access content more easily.</li>
-    </ul>
-    <div class="row justify-content-center text-center">
-
-      <div class="col-lg-5">
-        <h4 class="h4">Listen to great content</h4>
-        <p style="text-align: justify;">Most of the world's content is in textual form. Being able to listen to it - is huge! In that sense, TTSReader has a huge advantage over podcasts. You choose your content - out of an infinite variety - that includes humanity's entire knowledge and art richness. Listen to lectures, to PDF files. Paste or upload any text from anywhere, edit it if needed, and listen to it anywhere and anytime.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Proofreading</h4>
-        <p style="text-align: justify;">One of the best ways to catch errors in your writing is to listen to it being read aloud. By using TTSReader for proofreading, you can catch errors that you might have missed while reading silently, allowing you to improve the quality and accuracy of your written content. Errors can be in sentence structure, punctuation, and grammar, but also in your essay's structure, order and content.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Listen to web pages</h4>
-        <p style="text-align: justify;">TTSReader can be used to read out loud webpages in two different ways. 1. Using the <a href="/player/">regular player</a> - paste the URL and click play. The website's content will be imported into the player. (2) Using our <a href="" target="_blank">Chrome extension to listen to pages without leaving the page</a>.<br/>Listening to web pages with TTSReader can provide a more accessible, convenient, and efficient way of consuming online content.</p>
-      </div>
-    </div>
-    <br/>
-    <div class="row justify-content-center text-center">
-      <br/>
-      <div class="col-lg-5">
-        <h4 class="h4">Turn ebooks into audiobooks</h4>
-        <p style="text-align: justify;">Upload any ebook file of epub format - and TTSReader will read it out loud for you, effectively turning it into an audiobook alternative. You can find thousands of epub books for free, available for download on <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg's</a> site, which is an open library for free ebooks.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Read along for speed & comprehension</h4>
-        <p style="text-align: justify;">TTSReader enables read along by highlighting the sentence being read and automatically scrolling to keep it in view. This way you can follow with your own eyes - in parallel to listening to it. This can boost reading speed and improve comprehension.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Generate audio files from text</h4>
-        <p style="text-align: justify;">TTSReader enables exporting the synthesized speech with a single click. This is available currently only on Windows and requires <a href="/upgrade/">TTSReader’s premium</a>. Adhering to the <a href="https://ttsreader.com/blog/2017/05/10/commercial/">commercial terms</a> some of the voices may be used commercially for publishing, such as narrating videos.</p>
-      </div>
-    </div>
-    <br/>
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-5">
-        <h4 class="h4">Accessibility, dyslexia, etc.</h4>
-        <p style="text-align: justify;">For individuals with visual impairments or reading difficulties, listening to textual content, lectures, articles & web pages can be an essential tool for accessing & comprehending information.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Language learning</h4>
-        <p style="text-align: justify;">TTSReader can read out text in multiple languages, providing learners with listening as well as speaking practice. By listening to the text being read aloud, learners can improve their comprehension skills and pronunciation.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Kids - stories & learning</h4>
-        <p style="text-align: justify;">Kids love stories! And if you can read them stories - it's definitely the best! But, if you can't, let TTSReader read them stories for you. Set the right voice and speed, that is appropriate for their comprehension level. For kids who are at the age of learning to read - this can also be an effective tool to strengthen that skill, as it highlights every sentence being read.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!--
-<section class="background-white " id="speech-to-text-features">
-  <br>
-  <div class="container text-center">
-    <div class="heading text-center">
-      <h2>Main Features</h2>
-    </div>
-
-    <div class="box-simple" style="min-height: auto;max-width: 700px;margin: auto">
-      <h3>TTSReader is a free Text to Speech Reader that supports all modern browsers, including Chrome, Firefox and Safari.</h3>
-      <p>
-        Includes multiple languages and accents. If on Chrome - you will get access to Google's voices as well. Super easy to use - no download, no login required. Here are some more features
-      </p>
-
-      <br>
-    </div>
-
-
-
-
-    <div class="row justify-content-center text-center">
-      <br>
-
-      <div class="col-lg-5">
-        <div class="box-simple">
-          <div class="icon">
-            <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
-          </div>
-          <h3>Fun, Online, Free. Listen to great content</h3>
-          <p>Drag, drop &amp; play (or directly copy text &amp; play). That’s it. No downloads. No logins. No passwords. No fuss. Simply fun to use and listen to great content. Great for listening in the background. Great for proof-reading. Great for kids and more. <a href="/blog/2017/05/10/ttsreader/">Learn more, including a YouTube we made, here</a>.
-
-          </p>
-        </div>
-      </div>
-
-
-
-      <div class="col-lg-5">
-        <div class="box-simple">
-          <div class="icon">
-            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-          </div>
-          <h3>Multilingual, Natural Voices</h3>
-          <p>We facilitate high-quality natural-sounding voices from different sources. There are male &amp; female voices, in different accents and different languages. Choose the voice you like, insert text, click play to generate the synthesized speech and enjoy listening.
-
-          </p>
-        </div>
-      </div>
-
-
-
-      <div class="col-lg-5">
-        <div class="box-simple">
-          <div class="icon">
-            <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
-          </div>
-          <h3>Exit, Come Back &amp; Play from Where You Stopped</h3>
-          <p>TTSReader remembers the article and last position when paused, even if you close the browser. This way, you can come back to listening right where you previously left. Works on Chrome &amp; Safari on mobile too. Ideal for listening to articles.
-
-          </p>
-        </div>
-      </div>
-
-    </div>
-
-
-
-    <div class="row justify-content-center text-center">
-      <br>
-
-      <div class="col-lg-5">
-        <div class="box-simple">
-          <div class="icon">
-            <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
-          </div>
-          <h3>Vs. Recorded Podcasts</h3>
-          <p>In many aspects, synthesized speech has advantages over recorded podcasts. Here are some: First of all - you have unlimited - free - content. That includes high-quality articles and books, that are not available on podcasts. Second - it’s free. Third - it uses almost no data - so it’s available offline too, and you save money. If you like listening on the go, as while driving or walking - get our free <strong><a href="/blog/2017/05/10/ttsreaderdroid/">Android Text Reader App</a></strong>.
-
-          </p>
-        </div>
-      </div>
-
-
-
-      <div class="col-lg-5">
-        <div class="box-simple">
-          <div class="icon">
-            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-          </div>
-          <h3>Read PDF Files, Texts &amp; Websites</h3>
-          <p>TTSReader extracts the text from pdf files, and reads it out loud. Also useful for simply copying text from pdf to anywhere. In addition, it highlights the text currently being read - so you can follow with your eyes. If you specifically want to listen to websites - such as blogs, news, wiki - you should get our free <strong><a href="/blog/2017/05/10/ttsreaderx/">extension for Chrome</a></strong>
-
-          </p>
-        </div>
-      </div>
-
-
-
-      <div class="col-lg-5">
-        <div class="box-simple">
-          <div class="icon">
-            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-          </div>
-          <h3>Export Speech to Audio Files</h3>
-          <p>TTSReader enables exporting the synthesized speech to mp3 audio files. This is available currently only on Windows, and requires ttsreader’s <a href="/upgrade/" target="_blank">premium</a>.
-
-          </p>
-        </div>
-      </div>
-
-    </div>
-
-
-  </div>
-</section>
--->
-
-
-{{ end }}
-
-
-
-{{ define "sidebar-prefooter" }}
-  {{ if eq $.Site.Language.LanguageName "English" }}
-
-<!--<section id="stories" class="section section-sm">
-  <div style="max-width: 95%;padding: 0 20px;margin: auto;">
-    <div class="row justify-content-center text-center">
-      <h3>Listen to Stories 📚</h3>
-      <p class="lead">This is NEW & EXCITING! Experimental - content library with some of the best stories ever written. Please try, share & tell us what you think! Need something else, like generating mp3 voice overs? Aid with speaking? Keep scrolling, or jump to our <a href="#portfolio">full text-to-speech portfolio</a>.</p>
-      <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" style="width: 600px;max-width: 100%;margin: 30px auto;">
-        <div class="carousel-indicators" style="position: absolute;bottom: -50px;">
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
-        </div>
-        <div class="carousel-inner">
-          {{- range ( where site.RegularPages "Section" "stories" | first 1 ) }}
-          <div class="carousel-item active" data-bs-interval="3000">
-            <a href="{{ .Permalink }}" class="card">
-              <p class="h5">{{ .Title }}</p>
-              <p>{{ .Params.intro }}</p>
-              <img src="{{ .Permalink }}/cover.webp">
-            </a>
-          </div>
-          {{ end }}
-          {{- range first 4 ( where site.RegularPages "Section" "stories" | after 1) }}
-          <div class="carousel-item" data-bs-interval="3000">
-            <a href="{{ .Permalink }}" class="card">
-              <p class="h5">{{ .Title }}</p>
-              <p>{{ .Params.intro }}</p>
-              <img src="{{ .Permalink }}/cover.webp">
-            </a>
-          </div>
-          {{ end }}
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>-->
-
-
 <section class="section section-sm">
   <div style="max-width: 95%;padding: 0 20px;margin: auto;">
 
     <h3 style="text-align: center;margin-bottom: 30px;">Additional Text-To-Speech Solutions</h3>
-  <div class="row justify-content-center text-center" style="margin-top: -30px;">
+    <div class="row justify-content-center text-center" style="margin-top: -30px;">
 
-    <div class="col-md-5 col-sm-8 card">
-      <br/>
-      <a target="_blank" rel="nofollow" style="color: white;background:linear-gradient(119.6deg,#fe40fe 9.06%,#fe25a3 49.04%,#fe5435 93.41%);" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.audioread }}" role="button" onclick="gtag('event', 'ttsreader_click_audioread_body', {'value': 'home_page_body'});">Text To Podcast<sup style="font-size: 11px;
+      <div class="col-md-5 col-sm-8 card">
+        <br/>
+        <a target="_blank" rel="nofollow" style="color: white;background:linear-gradient(119.6deg,#fe40fe 9.06%,#fe25a3 49.04%,#fe5435 93.41%);" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.audioread }}" role="button" onclick="gtag('event', 'ttsreader_click_audioread_body', {'value': 'home_page_body'});">Text To Podcast<sup style="font-size: 11px;
     color: lightgoldenrodyellow;
     font-weight: bold;
     position: relative;
     top: -9px;"><i>&nbsp;Partner</i></sup>&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
-      <br/>
-      <a target="_blank" href="{{ .Site.Params.links.audioread }}" rel="nofollow" onclick="gtag('event', 'ttsreader_click_audioread_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/audioread.webp');"></div></a>
-      <br/>
-      <p class="meta">Turns your articles, PDFs, emails, etc. into podcasts, so you can listen to it on your own podcast player when convenient, with all the advantages that come with your podcast app.</p>
+        <br/>
+        <a target="_blank" href="{{ .Site.Params.links.audioread }}" rel="nofollow" onclick="gtag('event', 'ttsreader_click_audioread_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/audioread.webp');"></div></a>
+        <br/>
+        <p class="meta">Turns your articles, PDFs, emails, etc. into podcasts, so you can listen to it on your own podcast player when convenient, with all the advantages that come with your podcast app.</p>
+      </div>
+      &nbsp;&nbsp;
+      <div class="col-md-5 col-sm-8 card">
+        <br/>
+        <a target="_blank" style="color: white;background-color: #5d2f86" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechninja }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">Type to Speak&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
+        <br/>
+        <a target="_blank" href="{{ .Site.Params.links.speechninja }}" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/speechninja.webp');"></div></a>
+        <br/>
+        <p class="meta">SpeechNinja says what you type in real time. It enables people with speech difficulties to speak out loud using synthesized voice (AAC) and more.</p>
+      </div>
+      &nbsp;&nbsp;
+      <div class="col-md-5 col-sm-8 card">
+        <br/>
+        <a style="color: white;background-color: #39a7bb" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});">Legacy Player&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
+        <br/>
+        <a href="{{ .Site.Params.links.legacy }}" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});"><div class="Player-preview-img-legacy" style=""></div></a>
+        <br/>
+        <p class="meta">Battle tested for years, serving millions of users, especially good for very long texts.</p>
+      </div>
     </div>
-    &nbsp;&nbsp;
-    <div class="col-md-5 col-sm-8 card">
-      <br/>
-      <a target="_blank" style="color: white;background-color: #5d2f86" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechninja }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">Type to Speak&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
-      <br/>
-      <a target="_blank" href="{{ .Site.Params.links.speechninja }}" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/speechninja.webp');"></div></a>
-      <br/>
-      <p class="meta">SpeechNinja says what you type in real time. It enables people with speech difficulties to speak out loud using synthesized voice (AAC) and more.</p>
-    </div>
-    &nbsp;&nbsp;
-    <div class="col-md-5 col-sm-8 card">
-      <br/>
-      <a style="color: white;background-color: #39a7bb" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.legacy }}" role="button" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});">Legacy Player&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
-      <br/>
-      <a href="{{ .Site.Params.links.legacy }}" onclick="gtag('event', 'ttsreader_click_retro_body', {'value': 'home_page_body'});"><div class="Player-preview-img-legacy" style=""></div></a>
-      <br/>
-      <p class="meta">Battle tested for years, serving millions of users, especially good for very long texts.</p>
-    </div>
-  </div>
 
-  <div style="max-width: 95%; margin: 30px auto;width: 800px;text-align: center;">
-    <a style="color: white;background-color: black;padding-left: 30px;padding-right: 30px;" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.webplayer }}" role="button" onclick="gtag('event', 'ttsreader_click_webplayer_body', {'value': 'home_page_body'});">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Web Player&nbsp;&rarr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i18n "start-transcribing" }}</a>
+    <div style="max-width: 95%; margin: 30px auto;width: 800px;text-align: center;">
+      <a style="color: white;background-color: black;padding-left: 30px;padding-right: 30px;" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.webplayer }}" role="button" onclick="gtag('event', 'ttsreader_click_webplayer_body', {'value': 'home_page_body'});">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Web Player&nbsp;&rarr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i18n "start-transcribing" }}</a>
+      <br/><br/>
+      <p>Need to read a webpage? Simply paste its URL here & click play. Leave empty to read about the Beatles 🎸</p>
+      <div style="display: flex; max-width: 800px;" >
+        <input id="url_input_box" style="padding: 5px;display: inline-block;flex: 1;border-radius: 20px 0 0 20px;padding-left: 10px;" type="text" placeholder="https://en.wikipedia.org/wiki/The_Beatles" /><button style="border-radius: 0 20px 20px 0;" onclick="playUrl()">PLAY ▷</button>
+      </div>
+    </div>
+
     <br/><br/>
-    <p>Need to read a webpage? Simply paste its URL here & click play. Leave empty to read about the Beatles 🎸</p>
-    <div style="display: flex; max-width: 800px;" >
-      <input id="url_input_box" style="padding: 5px;display: inline-block;flex: 1;border-radius: 20px 0 0 20px;padding-left: 10px;" type="text" placeholder="https://en.wikipedia.org/wiki/The_Beatles" /><button style="border-radius: 0 20px 20px 0;" onclick="playUrl()">PLAY ▷</button>
-    </div>
-  </div>
-
-  <br/><br/>
   </div>
 
 
@@ -610,6 +377,224 @@
 </section>
 
 
+<section id="about" class="section section-sm bg-light">
+  <br/>
+  <div class="container">
+    <div style="max-width: 900px;margin: auto; font-size: larger; text-align: justify">
+      <h2 class="h2 text-center" >About</h2>
+      <br/>
+      <p><b>TTSReader</b> is a feature-rich text-to-speech online player & mp3 generator. Instantly reads out loud texts, PDFs, ebooks, and webpages using the world's leading natural-sounding AI voices. No downloads or onboarding required. TTSReader remembers your text & position, so you can seamlessly continue listening from where you last left off.
+        <br/><br/>
+        Designed for multitasking, accessibility, convenience, and professional voice-overs generation. TTSReader empowers users to consume textual content anywhere — whether at home, work, on the road, or during a walk. It even supports offline playback and exporting speech to audio files.
+        With support for multiple languages, it can be used for unlimited <a href="/#use_cases">use cases</a>.</p>
+
+      <p style="margin-top: 2em;"><strong>💡 Perfect For:</strong></p>
+      <ul>
+        <li>Students, educators, bloggers, and authors</li>
+        <li>Multitasking: listen while working</li>
+        <li>Mastering new languages</li>
+        <li>Children enjoying story time or practicing reading</li>
+        <li>Anyone who loves to listen instead of read</li>
+        <li>Enhance reading comprehension by listening while following the text</li>
+        <li>Speed up reading by listening at fast speed</li>
+        <li>Video narrations & dubbing</li>
+        <li>Commercial voiceovers</li>
+      </ul>
+
+      <br/>
+    </div>
+
+
+  </div>
+</section>
+
+<section class="background-white " id="speech-to-text-features">
+  <br>
+  <div class="container text-center">
+    <div class="heading text-center">
+      <h2>Main Features</h2>
+    </div>
+
+    <div class="box-simple" style="max-width: 900px;margin: auto; margin-top: 30px;">
+      <p>
+        Easy to use - just drop the text & click play. Text follow-along & highlighting while reading out loud. Remembers text & caret position between sessions. Set font-size. Dark & light themes. Offline capabilities. And more:
+      </p>
+
+      <br>
+    </div>
+
+
+
+
+    <div class="row justify-content-center text-center">
+      <br>
+
+      <div class="col-lg-5">
+        <div class="box-simple">
+          <div class="icon">
+            <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
+          </div>
+          <h3>Fun, Online, Free. Listen to great content</h3>
+          <p>Drag, drop &amp; play (or directly copy text &amp; play). That’s it. No downloads. No onboarding. No fuss. Simply fun to use and listen to great content. Great for listening in the background. Great for proof-reading. Follow along with text-highlighting. Set preferred font-size & theme to make reading as comfortable as it can be. Great for kids and more.
+
+          </p>
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-5">
+        <div class="box-simple">
+          <div class="icon">
+            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+          </div>
+          <h3>Multilingual, Natural Voices</h3>
+          <p>We facilitate high-quality natural-sounding voices from different sources. There are male &amp; female voices, in different accents and different languages. Choose the voice you like, insert text, click play to generate the synthesized speech and enjoy listening. We bring the latest cutting-edge AI voices from <a href="https://cloud.google.com/text-to-speech/docs/list-voices-and-types" target="_blank">Google</a>, <a href="https://speech.microsoft.com/portal/47e652ae62044c38a3964f2914437ad2/voicegallery" target="_blank">Microsoft</a>, and <a href="https://platform.openai.com/docs/guides/text-to-speech" target="_blank">OpenAI</a>, as well as system installed voices for offline availability via the web's <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis" target="_blank">SpeechSynthesis API</a>.
+
+          </p>
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-5">
+        <div class="box-simple">
+          <div class="icon">
+            <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+          </div>
+          <h3>Exit, Come Back &amp; Play from Where You Stopped</h3>
+          <p>TTSReader remembers the article and last position when paused, even if you close the browser. This way, you can come back to listening right where you previously left. Works on your browser and on mobile too. Ideal for listening to articles & stories.
+
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="row justify-content-center text-center">
+      <br>
+
+      <div class="col-lg-5">
+        <div class="box-simple">
+          <div class="icon">
+            <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+          </div>
+          <h3>Vs. Recorded Podcasts</h3>
+          <p>In many aspects, synthesized speech has advantages over recorded podcasts. Here are some: First of all - you have unlimited - free - content. That includes high-quality articles and books, that are not available on podcasts. Second - it’s free. Third - it uses almost no data - so it’s available offline too, and you save money. If you like listening on the go, as while driving or walking - get our free <strong><a href="/blog/2017/05/10/ttsreaderdroid/">Android Text Reader App</a></strong>.
+
+          </p>
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-5">
+        <div class="box-simple">
+          <div class="icon">
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+          </div>
+          <h3>Read PDF Files, Books, Texts &amp; Websites</h3>
+          <p>TTSReader extracts the text from pdf & ebook files, and reads it out loud. Also useful for simply copying text from pdf to anywhere. In addition, it highlights the text currently being read - so you can follow with your eyes. This is great for speed and comprehension. You can also use it to read out loud web pages, by simply pasting the URL into the text area. It will extract the text from the page and read it out loud.
+
+          </p>
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-5">
+        <div class="box-simple">
+          <div class="icon">
+            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+          </div>
+          <h3>Export Speech to Audio Files</h3>
+          <p>TTSReader enables exporting the synthesized speech to mp3 audio files. This is currently available only on Windows for premium users. We're working to make mp3 export available on other platforms as well. Great for generating video narrations and commercial voice-overs.
+
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</section>
+
+<section id="use_cases" class="section section-sm  section-sm bg-light">
+  <br/><br/>
+  <div class="container" >
+    <h3 style="text-align: center">Use Cases</h3>
+    <br/>
+    <div class="row justify-content-center text-center">
+
+      <div class="col-lg-5">
+        <h4 class="h4">Listen to great content</h4>
+        <p style="text-align: justify;">Most of the world's content is in textual form. Being able to listen to it - is huge! In that sense, TTSReader has a huge advantage over podcasts. You choose your content - out of an infinite variety - that includes humanity's entire knowledge and art richness. Listen to lectures, to PDF files. Paste or upload any text from anywhere, edit it if needed, and listen to it anywhere and anytime.</p>
+      </div>
+      <div class="col-lg-5">
+        <h4 class="h4">Proofreading</h4>
+        <p style="text-align: justify;">One of the best ways to catch errors in your writing is to listen to it being read aloud. By using TTSReader for proofreading, you can catch errors that you might have missed while reading silently, allowing you to improve the quality and accuracy of your written content. Errors can be in sentence structure, punctuation, and grammar, but also in your essay's structure, order and content.</p>
+      </div>
+      <div class="col-lg-5">
+        <h4 class="h4">Listen to web pages</h4>
+        <p style="text-align: justify;">TTSReader can be used to read out loud webpages in two different ways. 1. Using the <a href="/player/">regular player</a> - paste the URL and click play. The website's content will be imported into the player. (2) Using our <a href="" target="_blank">Chrome extension to listen to pages without leaving the page</a>.<br/>Listening to web pages with TTSReader can provide a more accessible, convenient, and efficient way of consuming online content.</p>
+      </div>
+    </div>
+    <br/>
+    <div class="row justify-content-center text-center">
+      <br/>
+      <div class="col-lg-5">
+        <h4 class="h4">Turn ebooks into audiobooks</h4>
+        <p style="text-align: justify;">Upload any ebook file of epub format - and TTSReader will read it out loud for you, effectively turning it into an audiobook alternative. You can find thousands of epub books for free, available for download on <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg's</a> site, which is an open library for free ebooks.</p>
+      </div>
+      <div class="col-lg-5">
+        <h4 class="h4">Read along for speed & comprehension</h4>
+        <p style="text-align: justify;">TTSReader enables read along by highlighting the sentence being read and automatically scrolling to keep it in view. This way you can follow with your own eyes - in parallel to listening to it. This can boost reading speed and improve comprehension.</p>
+      </div>
+      <div class="col-lg-5">
+        <h4 class="h4">Generate audio files from text</h4>
+        <p style="text-align: justify;">TTSReader enables exporting the synthesized speech with a single click. This is available currently only on Windows and requires <a href="/upgrade/">TTSReader’s premium</a>. Adhering to the <a href="https://ttsreader.com/blog/2017/05/10/commercial/">commercial terms</a> some of the voices may be used commercially for publishing, such as narrating videos.</p>
+      </div>
+    </div>
+    <br/>
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-5">
+        <h4 class="h4">Accessibility, dyslexia, etc.</h4>
+        <p style="text-align: justify;">For individuals with visual impairments or reading difficulties, listening to textual content, lectures, articles & web pages can be an essential tool for accessing & comprehending information.</p>
+      </div>
+      <div class="col-lg-5">
+        <h4 class="h4">Language learning</h4>
+        <p style="text-align: justify;">TTSReader can read out text in multiple languages, providing learners with listening as well as speaking practice. By listening to the text being read aloud, learners can improve their comprehension skills and pronunciation.</p>
+      </div>
+      <div class="col-lg-5">
+        <h4 class="h4">Kids - stories & learning</h4>
+        <p style="text-align: justify;">Kids love stories! And if you can read them stories - it's definitely the best! But, if you can't, let TTSReader read them stories for you. Set the right voice and speed, that is appropriate for their comprehension level. For kids who are at the age of learning to read - this can also be an effective tool to strengthen that skill, as it highlights every sentence being read.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="company" class="section section-sm">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <h3 class="h2 text-center" >Best Offering On The Market - Guaranteed!</h3>
+      <br/>
+      <p><b>TTSReader</b> Offers the best text-to-speech offering on the market. Best voices & player experience combined with the <strong>best premium-plan price</strong> available.</p>This is due to our text-player offering the best-in-class AI voices free of charge for limited use and a Premium upgrade offered at a fraction of a price
+      <p><b>Best Voices</b> - we bring the best AI voices in the world, by the leading tech giants - such as Microsoft, OpenAI, Google, ElevenLabs.</p>
+      <p><b>Best Price & Plan - by Far</b> -
+        We offer a free plan, including for the premium voices, for limited use.
+      </p>
+
+      <br/>
+
+      <p style="margin-top: 2em;"><strong>Company</strong></p>
+      <p><strong>TTSReader</strong> is developed and maintained by <a target="_blank" href="https://wellsrc.com/">WellSource Ltd.</a> as well as our sister apps  <a target="_blank" href="https://speechnotes.co/">Speechnotes (Speech to Text)</a>,  <a target="_blank" href="https://speechninja.co/">SpeechNinja - Type to Speak</a>,  <a target="_blank" href="https://speechlogger.com/">Speechlogger - Live Captioning</a>, and others.</p>
+    </div>
+  </div>
+</section>
+
 <section id="sister-apps" class="section section-sm bg-light" >
   <div class="container">
     <div class="row justify-content-center text-center">
@@ -632,7 +617,7 @@
           <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
             <img src="/images/buttonsLogo.webp" width="100px">
           </div>
-          <p class="h3">Buttons - Kids Dictionary</p>
+          <p class="h3">Kids Dictionary</p>
           <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.buttons }}" role="button" onclick="gtag('event', 'ttsreader_click_buttons_body', {'value': 'home_page_body'});">Learn more{{ i18n "start-dictating" }}</a>
           <p class="h5">Turns your device into multiple push-buttons interactive games</p>
           <p class="meta">Animals, numbers, colors, counting, letters, objects and more. Different levels. Multilingual. No ads. Made by parents, for our own kids.</p>
@@ -645,14 +630,68 @@
 </section>
 
 
-  <section id="contact" class="section section-sm">
+<section id="contact" class="section section-sm">
   <br/>
-    <div class="container">
-      <h2 style="text-align: center">Ways to Get In Touch, Feedback & Community</h2>
-      <p style="text-align: center"><span style="display: block;text-align: center;"><i>Visit our <a href="/contact/">contact page</a>, for various ways to get in touch with us, send us feedback and interact with our community of users & developers.</i></span></p>
-    </div>
-    <br/>
+  <div class="container">
+    <h2 style="text-align: center">Ways to Get In Touch, Feedback & Community</h2>
+    <p style="text-align: center"><span style="display: block;text-align: center;"><i>Visit our <a href="/contact/" target="_blank">contact page</a>, for various ways to get in touch with us, send us feedback and interact with our community of users & developers.</i></span></p>
+  </div>
+  <br/>
 </section>
+
+
+{{ end }}
+
+
+
+{{ define "sidebar-prefooter" }}
+  {{ if eq $.Site.Language.LanguageName "English" }}
+
+<!--<section id="stories" class="section section-sm">
+  <div style="max-width: 95%;padding: 0 20px;margin: auto;">
+    <div class="row justify-content-center text-center">
+      <h3>Listen to Stories 📚</h3>
+      <p class="lead">This is NEW & EXCITING! Experimental - content library with some of the best stories ever written. Please try, share & tell us what you think! Need something else, like generating mp3 voice overs? Aid with speaking? Keep scrolling, or jump to our <a href="#portfolio">full text-to-speech portfolio</a>.</p>
+      <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" style="width: 600px;max-width: 100%;margin: 30px auto;">
+        <div class="carousel-indicators" style="position: absolute;bottom: -50px;">
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        </div>
+        <div class="carousel-inner">
+          {{- range ( where site.RegularPages "Section" "stories" | first 1 ) }}
+          <div class="carousel-item active" data-bs-interval="3000">
+            <a href="{{ .Permalink }}" class="card">
+              <p class="h5">{{ .Title }}</p>
+              <p>{{ .Params.intro }}</p>
+              <img src="{{ .Permalink }}/cover.webp">
+            </a>
+          </div>
+          {{ end }}
+          {{- range first 4 ( where site.RegularPages "Section" "stories" | after 1) }}
+          <div class="carousel-item" data-bs-interval="3000">
+            <a href="{{ .Permalink }}" class="card">
+              <p class="h5">{{ .Title }}</p>
+              <p>{{ .Params.intro }}</p>
+              <img src="{{ .Permalink }}/cover.webp">
+            </a>
+          </div>
+          {{ end }}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>-->
 
   <br/><br/><br/><br/>
   {{ end }}

@@ -210,7 +210,7 @@
       transform: translateX(32px);
     }
   </style>
-<script defer src="/static/js/main.77bb70c4.js"></script><link href="/static/css/main.7cb2416d.css" rel="stylesheet"></head>
+<script defer src="/static/js/main.be3082de.js"></script><link href="/static/css/main.7cb2416d.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column">
@@ -307,6 +307,11 @@
             Scarica file audio mp3<!-- Download mp3 audio file -->
           </a>
         </div>
+        <div>
+          <a href="https://ttsreader.com/docs/guides/voiceover/#mix-languages-voices--speeds" target="_blank" class="Menu-list-element" onclick="gtag('event','drawer_click_multivoices',{value:'1'})" style="text-decoration:none;">
+            🎉 NEW: Combine Voices for Multi-Voice Narration / Dialogs
+          </a>
+        </div>
         <a class="Menu-list-element" onclick="gtag('event','audioread_click_player_drawer',{value:'1'})" href="https://audioread.com/?via=ttsreader" target="_blank" rel="nofollow" style="text-decoration:none;">
           Trasforma in podcast<!-- Turn into podcast -->
           <span style="font-size: 0.5em; color: orange; position: relative; top: -5px; left: 2px; display: inline-block;">
@@ -316,7 +321,7 @@
         <a class="Menu-list-element" data-ws-toggle="#helpModal" onclick="loadImages('#helpImgId');">
           Overlay di aiuto<!-- Help overlay -->
         </a>
-        <a class="Menu-list-element" data-ws-toggle="#moreVoices" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
+        <a class="Menu-list-element" data-ws-toggle="#voicesModal" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
           Hai bisogno di più voci<!-- Need more voices -->
         </a>
         <a class="Menu-list-element" href="/docs/guides/quick-start-new-player/" target="_blank" style="text-decoration: none;display: block">
@@ -353,7 +358,7 @@
           </svg>&nbsp;&nbsp;Share</a>
         </div>
         <div class="Menu-list-element" >
-          Version: 3.0.1-4/25/2025, 1:51:21 PM
+          Version: 3.1.1-5/5/2025, 10:59:23 PM
         </div>
 
       </div>
@@ -405,19 +410,19 @@
       <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626"
               crossorigin="anonymous"></script>-->
       <!-- ResponsiveHorizontal20230518 -->
-      <ins class="adsbygoogle Ad Ad-bottom-banner"
+      <!--<ins class="adsbygoogle Ad Ad-bottom-banner"
            data-ad-client="ca-pub-5434274073094626"
            data-ad-slot="8622089184" data-ws-show-if-state="isPremium=false"></ins>
-
+      -->
       <div class="Bottom-lift-up" style="height: 0;width: 100%;"></div>
     </div>
 
     <!-- ResponsiveVertical20230518 -->
     <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626"
             crossorigin="anonymous"></script>-->
-    <ins class="adsbygoogle Ad Ad-right-banner"
+    <!--<ins class="adsbygoogle Ad Ad-right-banner"
          data-ad-client="ca-pub-5434274073094626"
-         data-ad-slot="1642597928" data-ws-show-if-state="isPremium=false"></ins>
+         data-ad-slot="1642597928" data-ws-show-if-state="isPremium=false"></ins>-->
 
   </div>
 
@@ -504,7 +509,7 @@
             <div class="Voice-Icons">
               <span class="voice-gender-male" title="Male">👨</span>
               <span class="voice-gender-female" title="Female">👩</span>
-              <span class="voice-lang">🇬🇧</span>
+              <span class="voice-lang Flag-font">🇬🇧</span>
               <span class="voice-premium" title="Premium Voice">🌟</span>
               <span class="voice-publishing" title="Allowed for Publishing for Premium Users">
                 <svg style="width:1em;height:1em;position: relative;top:3px;" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1phnduy" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
@@ -920,31 +925,31 @@
 
         <p style="text-align: center"><a href="#" onclick="appMethods.showModal('voicesModal');">Click here to preview & select a voice available on your browser</a></p>
         <br/>
-        <p style="text-align: center"><b>Other voices on other browsers</b></p>
+        <!--<p style="text-align: center"><b>Other voices on other browsers</b></p>
         <div data-ws-show-if-state="os=win">
           <div data-ws-show-if-state="isChrome=true">
-            <p>Sono disponibili più voci utilizzando TTSReader nel browser Edge. In particolare, Christopher e Michelle sono entrambi eccezionali!<!-- More voices are available when using TTSReader on the Edge browser. Specifically - Christopher & Michelle are both exceptional! --></p>
+            <p>Sono disponibili più voci utilizzando TTSReader nel browser Edge. In particolare, Christopher e Michelle sono entrambi eccezionali!&lt;!&ndash; More voices are available when using TTSReader on the Edge browser. Specifically - Christopher & Michelle are both exceptional! &ndash;&gt;</p>
           </div>
           <div data-ws-show-if-state="isChrome=false">
-            <p>Sono disponibili più voci utilizzando TTSReader nei browser Chrome / Edge. In particolare, in Chrome, Noah è il nostro consiglio. In Edge, Christopher e Michelle sono entrambi eccezionali!<!-- More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher & Michelle are both exceptional! --></p>
+            <p>Sono disponibili più voci utilizzando TTSReader nei browser Chrome / Edge. In particolare, in Chrome, Noah è il nostro consiglio. In Edge, Christopher e Michelle sono entrambi eccezionali!&lt;!&ndash; More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher & Michelle are both exceptional! &ndash;&gt;</p>
           </div>
         </div>
         <div data-ws-show-if-state="os=mac">
-          <p>Sono disponibili più voci utilizzando TTSReader nei browser Chrome / Edge. In particolare, in Chrome, Noah è il nostro consiglio. In Edge, Christopher e Michelle sono entrambi eccezionali!<!-- More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher & Michelle are both exceptional! --></p>
+          <p>Sono disponibili più voci utilizzando TTSReader nei browser Chrome / Edge. In particolare, in Chrome, Noah è il nostro consiglio. In Edge, Christopher e Michelle sono entrambi eccezionali!&lt;!&ndash; More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher & Michelle are both exceptional! &ndash;&gt;</p>
         </div>
         <div>
-          <p style="font-weight: bold">Ecco alcune delle voci disponibili:<!-- Here are some of the available voices: --></p>
-          <p><u>Su Edge:<!-- On Edge: --></u></p>
+          <p style="font-weight: bold">Ecco alcune delle voci disponibili:&lt;!&ndash; Here are some of the available voices: &ndash;&gt;</p>
+          <p><u>Su Edge:&lt;!&ndash; On Edge: &ndash;&gt;</u></p>
           <div>Christopher: <audio style="vertical-align: middle" controls src="audio/Christopher.mp3" preload="metadata"/></div>
           <br/>
           <div>Michelle: <audio controls src="audio/Michelle.mp3" preload="metadata"/></div>
           <br/>
-          <p><u>Su Chrome:<!-- On Chrome: --></u></p>
+          <p><u>Su Chrome:&lt;!&ndash; On Chrome: &ndash;&gt;</u></p>
           <div>Noah: <audio controls src="audio/Noah.mp3" preload="metadata"></audio></div>
           <br/>
           <div>Lily: <audio controls src="audio/Lily.mp3" preload="metadata"></audio></div>
           <br/>
-        </div>
+        </div>-->
         <p><b>SAPI5 (custom / locally installed) Voices Supported</b></p>
         <p>L'uso di voci SAPI5 personalizzate è possibile su Windows utilizzando il browser Firefox.<!-- Using custom SAPI5 voices is possible on Windows using Firefox browser. --></p>
         <p><a target="_blank" href="/blog/exciting-news-use-custom-sapi5-voices-on-ttsreader/">See how to use SAPI5 voices with TTSReader</a></p>
@@ -1394,6 +1399,7 @@
   }
 
   function injectAds() {
+    console.log("inject ads");
     if (!window.paypal) {
       // Fetch the following js files:
       const url1 = "https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true"
@@ -1407,11 +1413,13 @@
 
     let isSafari = window.safari !== undefined;
     let isIos = getOs() === 'ios';
+    let DISABLE_ADS = true;
 
-    if (isSafari || isIos) {
+    if (DISABLE_ADS || isSafari || isIos) {
       // TODO: Inject static images links to amazon, or write about premium advantages with a call to action button...
       return;
     } else {
+      // Actually inserting ads:
       document.documentElement.removeAttribute('data-no-ads');
       // Inject Adsense:
       let newScriptEl = document.createElement('script');
@@ -1419,7 +1427,6 @@
       newScriptEl.setAttribute("async", "true");
       newScriptEl.setAttribute("crossorigin", "anonymous");
       document.getElementsByTagName("head")[0].appendChild(newScriptEl);
-      (adsbygoogle = window.adsbygoogle || []).push({});
       (adsbygoogle = window.adsbygoogle || []).push({});
     }
   }

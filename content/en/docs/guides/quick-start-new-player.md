@@ -48,7 +48,7 @@ The only tricky part is Share popup window - there you have to select the 'Entir
 Here's the short video showing it all in action:
 
 <div class="videowrapper">
-  <iframe style="display: block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+  <iframe style="display: block" src="https://www.youtube.com/embed/Xq09r01GetQ?rel=0" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 </div>
 
 <br/>
@@ -79,27 +79,7 @@ You may add 1 second long pause by inserting the following text: `{{pause}}` (wi
 
 <br/>
 
-## More voices
-
-Need more voices? Here are some tips:
-
-<p>- More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher &amp; Michelle are both exceptional!</p>
-
-<div>
-  <p style="font-weight: bold">Here are some of the available voices:</p>
-  <p><u>On Edge:</u></p>
-  <div>Christopher: <audio style="vertical-align: middle" controls="" src="/player/audio/Christopher.mp3" preload="metadata"></audio></div>
-  <div>Michelle: <audio controls="" src="/player/audio/Michelle.mp3" preload="metadata"></audio></div>
-  <br>
-  <p><u>On Chrome:</u></p>
-  <div>Noah: <audio controls="" src="/player/audio/Noah.mp3" preload="metadata"></audio></div>
-  <div>Lily: <audio controls="" src="/player/audio/Lily.mp3" preload="metadata"></audio></div>
-  <br>
-
-</div>
-<p>- Using custom SAPI5 voices is possible on Windows using Firefox browser.</p>
-<p>- On mobile, you will find more voices using our <a href="/mobile/" target="_blank">text-to-speech mobile apps</a></p>
-<p>- We're working on making even more voices available for <a href="/upgrade/" target="_blank">Premium users</a>.</p>
+<p>- We're working on making more voices available for <a href="/upgrade/" target="_blank">Premium users</a>.</p>
 
 <br/>
 
@@ -108,5 +88,5 @@ Need more voices? Here are some tips:
 Using custom SAPI5 voices is possible on Windows using Firefox browser. See example here:
 
 <div class="videowrapper">
-  <iframe style="display: block" src="https://www.youtube.com/embed/Ke9YXAC4h64" title="Speech Synthesis with SAPI5 voices using TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+  <iframe style="display: block" src="https://www.youtube.com/embed/Ke9YXAC4h64?rel=0" title="Speech Synthesis with SAPI5 voices using TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 </div>
