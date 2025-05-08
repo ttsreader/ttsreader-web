@@ -210,7 +210,7 @@
       transform: translateX(32px);
     }
   </style>
-<script defer src="/static/js/main.be3082de.js"></script><link href="/static/css/main.7cb2416d.css" rel="stylesheet"></head>
+<script defer src="/static/js/main.fc9474a8.js"></script><link href="/static/css/main.39d9ee91.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column">
@@ -271,6 +271,9 @@
     <button data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal" style="position: relative;top:-1px;">🏆</button>
     <span style="flex: 1"></span>
 
+    <button title="Text analytics - word counter & more" aria-label="Text analytics - word counter & more" style="" data-ws-onClick="calculateStats" data-ws-toggle="#statsModal">
+      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>
+    </button>
     <button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-language"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7" /><path d="M9 3v2c0 4.418 -2.239 8 -5 8" /><path d="M5 9c0 2.144 2.952 3.908 6.7 4" /><path d="M12 20l4 -9l4 9" /><path d="M19.1 18h-6.2" /></svg>
     </button>
@@ -297,13 +300,8 @@
         <div data-ws-show-if-state="isPremium=true">
           <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">Statut Premium 🏆<!-- Premium 🏆 Status --></a>
         </div>
-        <div data-ws-show-if-state="isPremium=true">
-          <a class="Menu-list-element" onclick="gtag('event','mp3_guide_click_player_drawer',{value:'1'})" data-ws-toggle="#recordStartModal" style="text-decoration:none;">
-            Télécharger le fichier audio mp3<!-- Download mp3 audio file -->
-          </a>
-        </div>
-        <div data-ws-show-if-state="isPremium=false">
-          <a class="Menu-list-element" onclick="gtag('event','mp3_guide_click_player_drawer',{value:'1'})" data-ws-toggle="#recordModalNonPremium" style="text-decoration:none;">
+        <div>
+          <a class="Menu-list-element" onclick="gtag('event','mp3_export_click_player_drawer',{value:'1'})" data-ws-toggle="#exportModal" style="text-decoration:none;">
             Télécharger le fichier audio mp3<!-- Download mp3 audio file -->
           </a>
         </div>
@@ -358,7 +356,7 @@
           </svg>&nbsp;&nbsp;Share</a>
         </div>
         <div class="Menu-list-element" >
-          Version: 3.1.1-5/5/2025, 10:59:23 PM
+          Version: 3.2.2-5/8/2025, 5:05:29 PM
         </div>
 
       </div>
@@ -388,7 +386,9 @@
               <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
               <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
             </button>
-            <button title="Set narration language, voice & speed" aria-label="Set narration language, voice & speed" data-ws-toggle="#voicesModal"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg></button>
+            <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal">
+              <svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+            </button>
             <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
               <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg></span>
               <span data-ws-show-if-state="isPlayingOn=false"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
@@ -701,6 +701,61 @@
     </div>
   </div>
 
+  <div class="Modal" id="exportModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: auto;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4>NEW Export Text to Audio - MP3 / WAV</h4><!-- TODO: replace with:  -->
+      <p><strong>Instant MP3 / WAV generation</strong> for premium users. <strong>You own the copyrights! Use the generated audio for ANY purpose.</strong></p>
+      <div style="text-align: justify; font-size: smaller;">
+      <p>If you need to record more than 5k chars, or mix voices, or add in-text pauses - please use the 'RECORD ◉' button for now. You shuold know, we're developing server-side mp3 generation that will overcome these limitations.</p>
+      <ul style="text-align: justify">
+        <li>Requires Premium<span data-ws-show-if-state="isPremium=true">, which you are! Fantastic.</span><span data-ws-show-if-state="isPremium=false">. <a href="#" data-ws-toggle="#upgradeModal">Click to upgrade.</a></span></li>
+        <li><strong>Please PLAY before export - to make sure it ALL sounds exactly as you like it to. Edit to perfection. Then export when ready.</strong></li>
+        <li>It's new - so it may have issues we're unaware of.</li>
+        <li>It consumes chars from your quota just like PLAY would.</li>
+        <li>Limited to 5,000 chars. Your current text has <span data-ws-label-state="charsCount"></span> chars.</li>
+        <li>It only works with premium voices (those marked with a star at the voices gallery)</li>
+        <li>It does NOT respect the codes for pauses in text, or for setting voice & rate in text. So <b>make sure the voice & rate are set correctly by the voice-selector controls</b>.</li>
+      </ul>
+      </div>
+      <br/>
+      <div>
+        <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">Create & Download MP3</button>
+        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button" data-ws-params="wav" data-ws-onClick="exportToMp3">Create & Download WAV</button>
+      </div>
+      <br/>
+      <p>How are we doing? Let us know please! <a href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank">Feedback Form Link</a></p>
+    </div>
+  </div>
+
+  <div class="Modal" id="statsModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: auto;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <p style="font-weight: bold">
+        Words Count: <span data-ws-label-state="wordsCount">...</span>
+      </p>
+      <p style="font-weight: bold">
+        Characters Count: <span data-ws-label-state="charsCount">...</span>
+      </p>
+      <p style="font-weight: bold">
+        Paragraphs Count: <span data-ws-label-state="paragraphsCount">...</span>
+      </p>
+
+      <br/>
+      <button class="full-width-button" data-ws-onClick="calculateStats">Refresh</button>
+    </div>
+  </div>
+
   <div class="Modal" id="recordModalNonPremium" style="display: none;">
     <div style="height:20px;"></div>
     <div class="Modal-content" style="display: flex; flex-direction: column;border: orangered 1px solid;">
@@ -769,7 +824,7 @@
         <p style="font-size: larger;">Félicitations ! Vous êtes maintenant Premium !<!-- Congrats! You are now Premium! --></p>
         <p style="font-size: 70px; padding: 20px;margin-block: 0.3em;">🏆</p>
         <p data-ws-show-if-state="subscriptionId=true">
-          Via<!-- Via --> <a style="cursor: pointer;" data-ws-toggle="#subscriptionModal">Abonnement<!-- Subscription --></a> - cliquez ici pour voir et gérer<!-- click here to view & manage -->
+          Via<!-- Via --> <a style="cursor: pointer;text-decoration: underline" data-ws-toggle="#subscriptionModal">Abonnement<!-- Subscription --> - cliquez ici pour voir et gérer<!-- click here to view & manage --></a>
         </p>
         <p data-ws-show-if-state="subscriptionId=false">
           <span data-ws-show-if-state="isPremiumByLegacy=false">
@@ -1089,6 +1144,13 @@
         });
       }
     })
+  }
+
+  function sendAnalyticsEvent(name) {
+    let pre = "ttsreader_player_";
+    if (gtag) {
+      gtag('event', pre + name, {'value': "1"});
+    }
   }
 
   function feedback(value) {

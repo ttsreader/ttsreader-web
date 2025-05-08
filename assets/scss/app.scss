@@ -444,3 +444,37 @@ audio {
   cursor: pointer;
 }
 
+@media (max-width: 660px) {
+  .avatar-container-tile:nth-child(4) {
+    display: none !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .avatar-container-tile:nth-child(3),
+  .avatar-container-tile:nth-child(4) {
+    display: none !important;
+  }
+}
+
+/* Show only 1 avatar below 576px */
+@media (max-width: 360px) {
+  .avatar-container-tile:nth-child(2),
+  .avatar-container-tile:nth-child(3),
+  .avatar-container-tile:nth-child(4) {
+    display: none !important;
+  }
+}
+
+#avatars_demos_id {
+  display: grid;
+  gap: 20px; /* spacing between tiles */
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  justify-content: center;
+  max-width: 1000px; /* optional for centering */
+  margin: 40px auto;
+}
+
+.avatar-container-tile {
+  text-align: center;
+}

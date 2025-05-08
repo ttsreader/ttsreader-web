@@ -9,5 +9,5 @@ images: []
 layout: embedded
 embedded: "sounds"
 sitemap:
-  priority: 1.0
+  priority: 0.8
 ---
