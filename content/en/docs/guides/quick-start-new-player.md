@@ -35,7 +35,20 @@ That's All!
 
 <br/>
 
+## Advanced Options for Exporting for Publishing
+
+See here: [Generating Professional Voiceovers](/docs/guides/voiceover/)
+
+
 ## Download the Synthesized Speech as an mp3 Audio File
+
+### First option - single click to export
+
+See details here: [How to export to MP3 with a single click on TTSReader](/blog/new-single-click-export-text-to-audio-feature/)
+
+
+<a id="record"></a>
+### 2nd option - Record as it Plays
 
 On Windows machines, TTSReader can record in real time the synthesized speech, and save it as an mp3 audio file.
 

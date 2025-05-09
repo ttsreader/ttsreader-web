@@ -2,7 +2,7 @@
 title: "Generating Mp3 Files Voice Overs"
 description: "How to generate mp3 audio files, voiceovers, and mix multiple voices with TTSReader"
 date: 2023-08-21T13:59:39+01:00
-lastmod: 2023-08-21T13:59:39+01:00
+lastmod: 2025-05-09T13:59:39+01:00
 draft: false
 images: []
 menu:
@@ -10,7 +10,7 @@ menu:
     parent: "guides"
 weight: 111
 toc: true
-keywords: ["text-to-speech", "mp3", "audio", "voiceover", "voice over", "mix voices", "combine voices", "combine languages", "combine speeds"]
+keywords: ["text-to-speech", "mp3", "wav", "export text to mp3",  "export text to audio", "export text to wav", "download audio", "audio", "voiceover", "voice over", "mix voices", "combine voices", "combine languages", "combine speeds"]
 ---
 
 <br/>
@@ -23,9 +23,14 @@ keywords: ["text-to-speech", "mp3", "audio", "voiceover", "voice over", "mix voi
 * Click Play
 * Make sure you like the text, voice & speed. If you don't - change them and click Play again - until it's perfect.
 * You may add pauses by inserting the following text: `{{pause:1000}}` (with 2 curly brackets on each side) in the text. The number is the pause duration in milliseconds.
-* You may use multiple languages, voices & speeds in the same file, by inserting the following text: `{{set: lang=en; name=Noah; rate=1.1}}` (with 2 curly brackets on each side) in the text. You do not need to remember that text - it is available in the voice selection dropdown. More on this subject will follow in the next sections.
+* You may use [multiple languages](#mix), voices & speeds in the same file, by inserting the following text: `{{set: lang=en; name=Noah; rate=1.1}}` (with 2 curly brackets on each side) in the text. You do not need to remember that text - it is available in the voice selection dropdown. More on this subject will follow in the next sections.
+* When ready - after you played the text and like the output - you may now export to MP3 / WAV audio file by one of 2 options:
+  * Fast Export - see details here: [How to export to MP3 with a single click on TTSReader](/blog/new-single-click-export-text-to-audio-feature/)
+  * Live Recording - see details here: [Live record text-to-speech to create an audio file for publishing](#record)
 
 <br/>
+
+<a id="mix"></a>
 
 ## NEW: Mix Languages, Voices & Speeds
 
@@ -62,6 +67,14 @@ This way you can mix unlimited languages, voices & speeds in the same file, even
 
 
 ## Download the Synthesized Speech as an mp3 Audio File
+
+### First option - single click to export
+
+See details here: [How to export to MP3 with a single click on TTSReader](/blog/new-single-click-export-text-to-audio-feature/)
+
+
+<a id="record"></a>
+### 2nd option - Record as it Plays
 
 On Windows machines, TTSReader can record in real time the synthesized speech, and save it as an mp3 audio file.
 
