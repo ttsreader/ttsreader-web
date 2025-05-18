@@ -96,12 +96,32 @@
       },
       {
         "source": "/privacy/",
-        "destination": "/docs/guides/privacy/",
+        "destination": "/docs/legal/privacy/",
+        "type": 301
+      },
+      {
+        "source": "/docs/guides/privacy/",
+        "destination": "/docs/legal/privacy/",
+        "type": 301
+      },
+      {
+        "source": "/docs/guides/commercial/",
+        "destination": "/docs/legal/commercial/",
+        "type": 301
+      },
+      {
+        "source": "/docs/tech/",
+        "destination": "/docs/developers/",
+        "type": 301
+      },
+      {
+        "source": "/docs/tech/stack/",
+        "destination": "/docs/developers/tech-stack/",
         "type": 301
       },
       {
         "source": "/portfolio/",
-        "destination": "/#portfolio",
+        "destination": "/",
         "type": 301
       },
       {

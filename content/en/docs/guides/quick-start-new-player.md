@@ -2,7 +2,7 @@
 title: "Quick Start Guide"
 description: "How to work with the new TTSReader player"
 date: 2023-04-17T13:59:39+01:00
-lastmod: 2023-04-17T13:59:39+01:00
+lastmod: 2025-05-14T13:59:39+01:00
 draft: false
 images: []
 menu:

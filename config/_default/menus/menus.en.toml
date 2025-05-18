@@ -1,5 +1,5 @@
 [[main]]
-  name = "Player"
+  name = "Text Player"
   url = "/player/"
   weight = 10
 
@@ -83,4 +83,10 @@
     weight = 51
     identifier = "contact"
     url = "/contact/"
+    parent = "tools"
+  [[main]]
+    name = "Privacy & Terms"
+    weight = 60
+    identifier = "contact"
+    url = "/docs/legal/"
     parent = "tools"

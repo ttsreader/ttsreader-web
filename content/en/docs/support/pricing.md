@@ -1,154 +1,259 @@
 ---
-title: "Pricing"
-description: "Pricing & plans"
+title: "Plans & Pricing"
+description: "TTSReader's Plans & Pricing - Free, Premium, Extras, API & Quotas"
 lead: ""
 date: 2023-02-12T15:22:20+01:00
-lastmod: 2023-02-12T15:22:20+01:00
+lastmod: 2025-05-18T15:22:20+01:00
 draft: false
 images: []
 menu:
   docs:
     parent: "support"
-weight: 250
+weight: 230
 toc: true
 ---
 
-## Pricing & Plans
+
+
+
+## Overview
+
+Different plans and pricing models are available in order to accommodate all our users and fit their needs and budgets. From free personal use to advanced plans for power users, businesses, APIs, and automations.
+
+All plans refer to the TTSReader.com web app & API. New mobile apps and browser-extensions are under development and when published will also be included under these plans. Legacy mobile apps and Chrome extension are mostly free and are not included in these plans.
+
+The paid plans are required for private power-users, businesses, organizations, schools, colleges, commercial use, publishing and selling the generated audio, API, bots and any automations. The paid plans cover our new player, API, Chrome extension, other browser extensions. It will cover our mobile apps as well, when they will be updated. Currently (as of 2025-05-18) the mobile apps are (unfortunately) outdated and have their own independent plans (which is mostly free). There are 3 complementary paid plans:
+* [Premium plan](#2-premium-plan) - single seat premium for most users.
+* [Premium Plus plan](#3-premium-plus-plan) - single seat premium for top 5% heavy users.
+* [Pay-as-you-go plan](#4-pay-as-you-go-plan) - for API users and for those who need to exceed the limits of the Premium and Premium Plus plans.
+
+## Plans
+
+### 1. Free Plan
+
+#### Scope
+
+The free plan is meant for personal use only, or for testing purposes prior to purchasing. Please upgrade to a paid plan if you need to use TTSReader for any of the following: heavy usage, or any usage in a businesses or organizational setup, commercial use, API, bots, automation, or publishing or selling the generated audio.
+
+
+#### Quotas for the free plan are:
+
+As of 2025-05-18 the free plan is limited to:
+
+* Unlimited for the [legacy player](/legacy/).
+* Limited on the [new text-to-speech-player](/player/) to 3k chars of non premium voices per day and to 3k chars of premium voices per account total. That may change from time to time. Generated audio under the free plan is not allowed for publishing or selling. Not to be sold, resold, or abused. For a single personal use only.
+
+#### Pricing
+
+Free
+
+See [comparison table](#comparison-table) to compare the different plans.
+
 
 <br/>
-<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-  <div class="col">
-    <div class="card mb-4 rounded-3 shadow-sm border-primary">
-      <div class="card-header py-3">
-        <h4 class="my-0 fw-normal">Free</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>Online text to speech player</li>
-          <li>Chrome extension for reading webpages</li>
-        </ul>
-        <a href="/player/" type="button" class="w-100 btn btn-lg btn-outline-primary">Get started for free</a>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card mb-4 rounded-3 shadow-sm border-primary">
-      <div class="card-header py-3">
-        <h4 class="my-0 fw-normal">Premium Subscription</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">$10.99<small class="text-muted fw-light">/mo</small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>Premium TTSReader.com</li>
-          <li>Premium Chrome extension</li>
-          <li>Better support from the development team</li>
-          <li>No ads</li>
-        </ul>
-        <a href="/upgrade/" type="button" class="w-100 btn btn-lg btn-primary">Purchase now</a>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card mb-4 rounded-3 shadow-sm border-primary">
-      <div class="card-header py-3">
-        <h4 class="my-0 fw-normal">Premium <b>Non</b> Subscription</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">$39</h1>
-        <p><small class="text-muted fw-light">1 yr license. Does NOT auto renew.</small></p>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>Premium TTSReader.com</li>
-          <li>Premium Chrome extension</li>
-          <li>Better support from the development team</li>
-          <li>No ads</li>
-          <li>1 year, Does NOT auto renew.</li>
-        </ul>
-        <a href="/upgrade/" type="button" class="w-100 btn btn-lg btn-primary">Purchase now</a>
-      </div>
-    </div>
-  </div>
-  <div style="flex: 1"></div>
-</div>
 
-## Compare plans
+### 2. Premium Plan
 
-<div class="table-responsive">
-<table class="table text-center">
+#### Scope
+
+- Based on a monthly subscription / yearly license - and is meant for a single seat normal use per account. As such, it is limited to normal no-abuse single-seat usage, that is based on common usage stats. Single seat user license - not for multiple users. Multiple users require multiple licenses - 1 for each user, or purchasing credits via the Pay-as-you-go plan.
+
+#### Quotas for the Premium Plan are:
+
+As of 2025-05-18 the premium plan is limited to:
+
+* Non premium voices: unlimited. This is both for the legacy player and the new player.
+* Premium voices: 200k chars per day and 1M chars per month.
+
+#### Pricing
+
+You can choose between a monthly subscription or a yearly license. The advantages of the yearly license are 2 fold: (1) cheaper per month, and (2) it does not auto-renew - so you can choose to renew it or not at the end of the year.
+
+* Monthly subscription: $10.99 per month.
+* Yearly license: $48 per whole year (ie only $4 per month, this is circa 60% off the monthly subscription). This is a one-time payment for a whole year. It does not auto-renew. You can choose to renew it or not at the end of the year.
+
+See [comparison table](#comparison-table) to compare the different plans.
+
+<br/>
+
+### 3. Premium Plus Plan
+
+#### Scope
+
+Same as the Premium Plan but for the top 5% of our heavy-users. Single seat user license - not for multiple users. Multiple users require multiple licenses - 1 for each user, or purchasing credits via the Pay-as-you-go plan.
+
+#### Quotas for the Premium Plan are:
+
+As of 2025-05-18 the premium plan is limited to:
+
+* Non premium voices: unlimited. This is both for the legacy player and the new player.
+* Premium voices: 500k chars per day and 2.5M chars per month.
+
+
+#### Pricing
+
+You can choose between a monthly subscription or a yearly license. The advantages of the yearly license are 2 fold: (1) cheaper per month, and (2) it does not auto-renew - so you can choose to renew it or not at the end of the year.
+
+* Monthly subscription: $20.99 per month.
+* Yearly license: $180 per whole year (ie only $15 per month, this is circa 25% off the monthly subscription). This is a one-time payment for a whole year. It does not auto-renew. You can choose to renew it or not at the end of the year.
+
+
+See [comparison table](#comparison-table) to compare the different plans.
+
+<br/>
+
+### 4. Pay-as-you-go Plan
+
+#### Scope
+
+Intended for anyone who prefers to only pay for what they actually use - and for users who need to exceed the limits of the Premium and Premium Plus plans. This plan is based on pre-purchasing credits. It is perfect for API users.
+
+#### Quotas for the Pay-as-you-go Plan are:
+
+Unlimited for as long as your account has remaining credits available. Fill up your credits as needed. The credits are consumed by the number of characters actually generated by your account. The credits expire after 1 year - which is extended to 1 year on every new purchase - so even older credits get the expiration extended to 1 year from the last purchase. If the account has both a premium plan and credits, then the credits will be consumed only after the quota of the premium plan is reached.
+
+#### Pricing
+
+Credits are purchased in different packages:
+- 200k chars: $10
+- 1M chars: $40
+- 10M chars: $300
+- 100M chars: $2000
+
+See [comparison table](#comparison-table) to compare the different plans.
+
+<br/>
+
+## Comparison Table
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2em 0;
+    font-family: sans-serif;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 0.8em;
+    text-align: center;
+  }
+  th {
+    background-color: #f5f5f5;
+  }
+  tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  td:first-child {
+    text-align: left;
+    font-weight: bold;
+  }
+</style>
+
+<table>
   <thead>
-  <tr>
-    <th style="width: 34%;"></th>
-    <th style="width: 22%;">Free</th>
-    <th style="width: 22%;">Premium</th>
-  </tr>
+    <tr>
+      <th>Feature</th>
+      <th>Free</th>
+      <th>Premium</th>
+      <th>Premium+</th>
+      <th>Pay-As-You-Go</th>
+    </tr>
   </thead>
   <tbody>
-  <tr>
-    <th scope="row" class="text-start">Unlimited text reading</th>
-    <td>✅</td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Online text to speech</th>
-    <td>✅</td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Upload files, PDFs, ebooks</th>
-    <td>✅</td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Web player</th>
-    <td>✅</td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Webpage reading Chrome extension</th>
-    <td>✅</td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Editing</th>
-    <td>✅</td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Ads free</th>
-    <td></td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Unlock features</th>
-    <td></td>
-    <td>✅</td>
-  </tr>
-  </tbody>
-
-  <tbody>
-  <tr>
-    <th scope="row" class="text-start">Recording audio - for generating audio files from text</th>
-    <td></td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Commercial license</th>
-    <td></td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Publishing license (under the following <a href="https://ttsreader.com/blog/2017/05/10/commercial/">terms</a>)</th>
-    <td></td>
-    <td>✅</td>
-  </tr>
-  <tr>
-    <th scope="row" class="text-start">Better support from the development team</th>
-    <td></td>
-    <td>✅</td>
-  </tr>
+    <tr>
+      <td>Usage Scope</td>
+      <td>Personal use / testing only</td>
+      <td>Single-seat normal use</td>
+      <td>Single-seat heavy use</td>
+      <td>Credits-based / API / volume use</td>
+    </tr>
+    <tr>
+      <td>Allowed for commercial or business use</td>
+      <td>❌</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Allowed for publishing audio generated with premium voices</td>
+      <td>❌</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Unlock premium player features</td>
+      <td>❌</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Legacy Player Quota - Unlimited for Normal Personal Non Commercial Use</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>New Player – Non-premium voices quota</td>
+      <td>3k/day</td>
+      <td>✅ Unlimited</td>
+      <td>✅ Unlimited</td>
+      <td>✅ Unlimited</td>
+    </tr>
+    <tr>
+      <td>New Player – Premium voices quota</td>
+      <td>3k total</td>
+      <td>✅ 200k/day, 1M/month</td>
+      <td>✅ 500k/day, 2.5M/month</td>
+      <td>✅ Unlimited (credits-based)</td>
+    </tr>
+    <tr>
+      <td>API / Automation Support</td>
+      <td>❌</td>
+      <td>❌</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Subscription model</td>
+      <td>❌</td>
+      <td>$10.99/month</td>
+      <td>$20.99/month</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td>Yearly (non-renewing)</td>
+      <td>❌</td>
+      <td>$48/year ($4/mo)</td>
+      <td>$180/year ($15/mo)</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td>Pay-as-you-go pricing</td>
+      <td>Credits can be purchased to enable use above plan's limits</td>
+      <td>Credits can be purchased to enable use above plan's limits</td>
+      <td>Credits can be purchased to enable use above plan's limits</td>
+      <td>
+        200k: $10<br>
+        1M: $40<br>
+        10M: $300<br>
+        100M: $2000
+      </td>
+    </tr>
+    <tr>
+      <td>Quick Purchase Links</td>
+      <td></td>
+      <td>Purchase on <a href="/player/">the new player</a></td>
+      <td>Coming soon...</td>
+      <td>Coming soon...</td>
+    </tr>
   </tbody>
 </table>
-</div>
+
+<br/>
 
 
 ## Contact us

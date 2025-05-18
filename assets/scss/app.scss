@@ -34,13 +34,22 @@
 @import "layouts/posts";
 @import "layouts/sidebar";
 
-html, body {
-  /*overflow-x: hidden;*/
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: unset;
 }
 
 header {
   box-shadow: 1px 1px 10px gainsboro;
   opacity: 1;
+}
+
+footer {
+  background-color: #222;
+  color: white !important;
 }
 
 .dropdown > .dropdown-menu {
@@ -478,3 +487,8 @@ audio {
 .avatar-container-tile {
   text-align: center;
 }
+
+#languageLinks {
+  text-align: center;
+}
+#languageLinks a{display:inline-block;padding:10px 10px;margin:0 2px;border-radius:20px;font-weight:normal;color:green}

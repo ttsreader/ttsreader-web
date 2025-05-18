@@ -8,7 +8,7 @@ images: []
 menu:
   docs:
     parent: "guides"
-weight: 111
+weight: 120
 toc: true
 keywords: ["text-to-speech", "mp3", "wav", "export text to mp3",  "export text to audio", "export text to wav", "download audio", "audio", "voiceover", "voice over", "mix voices", "combine voices", "combine languages", "combine speeds"]
 ---

@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.39d9ee91.css",
+    "main.js": "/static/js/main.5470dcc8.js",
+    "hi.html": "/hi.html",
+    "ru.html": "/ru.html",
+    "ar.html": "/ar.html",
+    "ja.html": "/ja.html",
+    "he.html": "/he.html",
+    "fr.html": "/fr.html",
+    "ko.html": "/ko.html",
+    "ro.html": "/ro.html",
+    "de.html": "/de.html",
+    "es.html": "/es.html",
+    "pt.html": "/pt.html",
+    "it.html": "/it.html",
+    "nl.html": "/nl.html",
+    "en.html": "/en.html",
+    "zh.html": "/zh.html",
+    "index.html": "/index.html",
+    "main.39d9ee91.css.map": "/static/css/main.39d9ee91.css.map",
+    "main.5470dcc8.js.map": "/static/js/main.5470dcc8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.39d9ee91.css",
+    "static/js/main.5470dcc8.js"
+  ]
+}

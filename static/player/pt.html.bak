@@ -356,7 +356,7 @@
           </svg>&nbsp;&nbsp;Share</a>
         </div>
         <div class="Menu-list-element" >
-          Version: 3.2.2-5/9/2025, 4:46:19 PM
+          Version: 3.2.3-5/11/2025, 12:28:40 PM
         </div>
 
       </div>
@@ -1513,6 +1513,32 @@
     }*/
   }
 
+  async function sendWelcome() {
+    try {
+      let idToken = await firebase.auth().currentUser.getIdToken();
+      const response = await fetch('https://us-central1-ttsreader.cloudfunctions.net/welcome', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${idToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: 'value' })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP ${response.status} – ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log('Success:', data);
+      return data;
+    } catch (err) {
+      console.error('Error:', err.message);
+      return null;
+    }
+  }
+
   function signOut() {
     firebase.auth().signOut();
   }
@@ -1526,7 +1552,11 @@
       let user = result.user;
       let isNewUser = result.additionalUserInfo.isNewUser;
       if (isNewUser) {
-        // Api.sendWelcomeEmail();
+        try {
+          sendWelcome();
+        } catch (err) {
+          console.error('Error on isNewUser: ', err.message);
+        }
       }
     }).catch(function(error) {
       // Handle Errors here.

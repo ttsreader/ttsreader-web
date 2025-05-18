@@ -25,6 +25,7 @@
 				</nav>
 			{{ end }}
 			<h1>{{ .Title }}</h1>
+      <p style="opacity: 0.8;"><i>Updated on: <time class="updated" datetime="{{ .Lastmod }}">{{ .Lastmod.Format "January 2, 2006" }}</time></i></p>
 			<p class="lead">{{ .Params.lead | safeHTML }}</p>
 			{{ if ne .Params.toc false -}}
 			<nav class="d-xl-none" aria-label="Quaternary navigation">

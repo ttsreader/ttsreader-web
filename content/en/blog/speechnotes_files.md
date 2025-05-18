@@ -15,14 +15,14 @@ contributors: ["Editorial Team"]
 * Supports captions
 * Most private, highly secured
 * Fast turnarounds, cost-effective
-* Has affiliates program - so you can direct people and get 10% off of all their purchases ever.
-* Use this link to get $5 bonus on your first purchase: https://speechnotes.co/files/?ref=akI3Fb
+* Has affiliates program - so you can direct people and get 20% off of all their purchases ever.
+* Use this link to get $5 bonus on your first purchase: https://speechnotes.co/transcribe/?ref=akI3Fb
 
 ## How it works
 
 So, here's how it works:
 
-You simply go to the website https://speechnotes.co/files/ and sign in with your google account.
+You simply go to the website https://speechnotes.co/transcribe/ and sign in with your google account.
 This means you don't need to download any software, and you don't need to remember passwords.
 Then you load credit - you can start as loading as little as $4.5 for transcribing 45 minutes.
 Then you click on 'UPLOAD FILE' and select the file you want to transcribe.
@@ -50,10 +50,10 @@ Transcriptions are available only to you, and Google-signin is required. No user
 ## Affiliates
 
 Speechnotes files has launched a very generous affiliates program that can really generate you nice passive income for life if you can refer many people to the service. They offer you 10% of every purchases your referrals will ever make. You can withdraw the money to your PayPal account if your reach more than $50 earnings, so you can actually turn your referrals to cash, not just virtual credit.
-Read more about it here: https://speechnotes.co/files/affiliates/
+Read more about it here: https://speechnotes.co/transcribe/affiliates/
 
 ### Get $5 bonus
-Need to transcribe some files? Use this link to get $5 bonus on your first purchase: https://speechnotes.co/files/?ref=akI3Fb
+Need to transcribe some files? Use this link to get $5 bonus on your first purchase: https://speechnotes.co/transcribe/?ref=akI3Fb
 
 
 Thanks for reading!
