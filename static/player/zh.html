@@ -9,7 +9,7 @@
           name="description"
           content="TTSReader's Player - Free Online Text to Speech Reader"
   />
-  <link rel="apple-touch-icon" href="logo192.png" />
+  <link rel="apple-touch-icon" href="/favicon2.svg" />
   <!--
     manifest.json provides metadata used when your web app is installed on a
     user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -210,7 +210,7 @@
       transform: translateX(32px);
     }
   </style>
-<script defer src="static/js/main.5470dcc8.js"></script><link href="static/css/main.39d9ee91.css" rel="stylesheet"></head>
+<script defer src="static/js/main.482f6b66.js"></script><link href="static/css/main.39d9ee91.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column">
@@ -356,7 +356,7 @@
           </svg>&nbsp;&nbsp;Share</a>
         </div>
         <div class="Menu-list-element" >
-          Version: 3.2.3-5/11/2025, 12:28:40 PM
+          Version: 3.2.6-5/19/2025, 12:30:14 AM
         </div>
 
       </div>
@@ -443,6 +443,10 @@
         </label>
         <span class="label">🌙 暗黑<!-- 🌙 Dark --></span>
       </div>
+
+      <br/>
+      <p style="font-size: smaller"><i>By continuing you agree to our <a href="/docs/legal/terms/" target="_blank">terms</a> & <a href="/docs/legal/privacy/" target="_blank">privacy policy</a></i></p>
+
       <div style="flex:1;" ></div>
     </div>
 
@@ -897,9 +901,11 @@
         <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 0 0 1em 0; text-align: start">
           <li>无广告<!-- No Ads --></li>
           <li>加载更快<!-- Faster loading --></li>
-          <li>无限连续阅读<!-- Unlimited continuous reading --></li>
+          <li>无限连续阅读 - For non premium voices<!-- Unlimited continuous reading --></li>
+          <li>Lift daily limit to 200,000 chars per day, 1M char per month for premium voices</li>
+          <li>Export to MP3 & WAV</li>
           <li>在Windows PC上启用录制<!-- Recording enabled on Windows PC --></li>
-          <li>商业许可证<!-- Commercial license --></li>
+          <li>商业许可证 and Publishing<!-- Commercial license --></li>
           <li>解锁所有功能<!-- Unlock all features --></li>
           <li>高级支持<!-- Premium support --></li>
         </ul>
@@ -1058,6 +1064,16 @@
         <p><a href="#" onclick="copy('https://ttsreader.com/player/');">复制链接<!-- Copy link --></a></p>
       </div>
     </div>
+  </div>
+
+  <div class="Modal" id="processingModal" style="display: none; flex-direction: column; align-items: center; justify-content: center;">
+    <div style="flex: 1"></div>
+    <div class="Modal-content" style="max-width: 100%; max-height: 100vh; text-align: center;">
+      <p>Generating audio file... Expect results in:</p>
+      <p id="processingTimer" style="font-size: 1.2em;font-weight: bold">01:00</p>
+      <p>If results aren't yet ready - please keep waiting - it make take up to a minute in some cases for longer texts.</p>
+    </div>
+    <div style="flex: 1"></div>
   </div>
 
 </div>
@@ -1545,6 +1561,9 @@
 
   function signIn() {
     let provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: 'select_account'  // 🔑 This forces the account selection UI
+    });
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Google Access Token. You can use it to access the Google API.
       let token = result.credential.accessToken;
@@ -1621,7 +1640,7 @@
           appMethods.testVoice(voiceURI);
         }
       }
-    };
+    }
   });
 
   function openOnboarding() {

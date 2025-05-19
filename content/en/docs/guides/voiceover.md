@@ -34,8 +34,11 @@ keywords: ["text-to-speech", "mp3", "wav", "export text to mp3",  "export text t
 
 ## NEW: Mix Languages, Voices & Speeds
 
-You may use multiple languages, voices & speeds in the same file, by inserting the following text:
+You may use multiple languages, voices & speeds in the same file. See this short video how to combine voices, speeds, etc.:
 
+<div style="position: relative; padding-bottom: 56.69291338582677%; height: 0;"><iframe src="https://www.loom.com/embed/bb599265da434d74ba2b784d54eb723d?sid=c502fcf8-5574-464d-8a8b-eb3c50f2ec41" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+By inserting the following text:
 
 `{{set: lang=en; name=Noah; rate=1.1}}` (with 2 curly brackets on each side)
 
