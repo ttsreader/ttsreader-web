@@ -4,6 +4,9 @@ description: "About the technologies operating TTSReader"
 lead: "About the technologies operating TTSReader"
 date: 2023-02-12T15:22:20+01:00
 lastmod: 2025-05-18T15:22:20+01:00
+tags: ["tech", "developers"]
+categories: ["tech"]
+contributors: ["Company"]
 draft: false
 images: []
 menu:

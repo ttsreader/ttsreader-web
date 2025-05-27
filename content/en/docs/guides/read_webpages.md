@@ -4,6 +4,9 @@ description: "How to read out loud any webpage using TTSReader"
 lead: "How to read out loud any webpage using TTSReader"
 date: 2025-05-18T13:59:39+01:00
 lastmod: 2025-05-18T13:59:39+01:00
+tags: ["guide", "user-manual", "text to speech", "tts", "player"]
+categories: ["guides"]
+contributors: ["Company"]
 draft: false
 images: []
 menu:

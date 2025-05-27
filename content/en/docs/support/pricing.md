@@ -4,6 +4,9 @@ description: "TTSReader's Plans & Pricing - Free, Premium, Extras, API & Quotas"
 lead: ""
 date: 2023-02-12T15:22:20+01:00
 lastmod: 2025-05-18T15:22:20+01:00
+tags: ["pricing", "plans"]
+categories: ["plans"]
+contributors: ["Company"]
 draft: false
 images: []
 menu:

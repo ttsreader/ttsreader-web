@@ -1,0 +1,741 @@
+
+
+<!doctype html>
+<html>
+<head>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-47292499-3');
+  </script>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8"/>
+
+  <title>TTSReader Account Management</title>
+  <style>
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 180px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      top: 150%;
+      left: 50%;
+      margin-left: -90px;
+    }
+
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent black transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+    ul {
+      list-style-type: '\2705   ';
+      list-style-position: outside;
+      margin: 0 0 0.5em 0;
+      line-height: 1.8em;
+      color: #3d3d3d;
+    }
+    html,body {
+      width: 100vw;
+      height: 100vh;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+      font-size: 16px;
+      text-align: justify;
+      font-weight: 100;
+      color: #555;
+    }
+
+    h1, h2, h3 {
+      font-weight: 100;
+      text-align: center;
+      background-color: #ffffff;
+      padding: 10px;
+      color: black;
+    }
+    h1 {
+      font-weight: normal;
+      letter-spacing: 0.007em;
+      text-transform: uppercase;
+    }
+    h2 {
+      padding: 0;
+      font-size: 1.8em;
+    }
+    h3 {
+      font-size: 1.4em;
+    }
+
+    article {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    p {
+      margin: 0 0 0.5em 0;
+      line-height: 1.8em;
+      color: #555;
+    }
+    ol {
+
+    }
+    ol li {
+      margin: 0 0 0.5em 0;
+      font-size: 0.9em;
+      line-height: 1.8em;
+    }
+
+    figure {
+      text-align: center;
+      font-weight: bold;
+      font-size: small;
+      margin-bottom: 40px;
+    }
+
+    code {
+      display: inline-block;
+      padding: 0.1em;
+      background-color: #F8F8F8;
+      border: 1px solid #DDD;
+      border-radius: 3px;
+      font-family: Consolas,"Liberation Mono",Courier,monospace;
+      font-size: 0.9em;
+      line-height: 1;
+    }
+    .centered-img {
+      display: block;
+      max-width: 80%;
+      margin: 20px auto;
+    }
+
+    .centered-txt {
+      text-align: center;
+    }
+
+    .screen {
+      min-height: 100%;
+      padding: 0 20px;
+    }
+
+    button {
+      margin:auto;
+      cursor: pointer;
+      text-transform:uppercase;
+      color:#3b3b3b;font-weight:bold;background-color: white;border: 1px grey solid;border-radius: 30px; padding: 10px 40px;
+    }
+  </style>
+</head>
+<body style="background: url(https://ttsreader.com/img/bg1.jpg) repeat;">
+<script>
+
+  let licenseInterpretations = {
+    UNKNOWN: "UNKNOWN",
+    NONE: "NONE",  // Queried Google (if prev was 2.0.1) and queried SN and got response none from both
+    LIFETIME: "LIFETIME",  // Queried Google (if prev was 2.0.1) and this was the response
+    SUBSCRIPTION: "SUBSCRIPTION",  // Queried SN - or got notified by SN - and this was the response + there's enough time till renewal
+    SUBSCRIPTION_SOON_OVER: "SUBSCRIPTION_SOON_OVER", // // Queried SN - or got notified by SN - and the expiration date is soon (± a month)
+    SUBSCRIPTION_OVER: "SUBSCRIPTION_OVER", // Queried SN - or got notified by SN - and the expiration date is over
+  }
+
+  let classNamesForUiUpdates = {
+    showWhenOffline: "showWhenOffline",
+    showWhenLoading: "showWhenLoading",
+    showWhenLoaded: "showWhenLoaded",
+    showWhenSignedIn: "show-when-signed-in",
+    showWhenSignedOut: "show-when-signed-out",
+    showWhenLicenseNone: "showWhenLicenseNone",
+    showWhenLicenseExpired: "showWhenLicenseExpired",
+    showWhenLicenseLife: "showWhenLicenseLife",
+    showWhenLicenseSoonToExpire: "showWhenLicenseSoonToExpire",
+    showWhenLicenseUnknown: "showWhenLicenseUnknown",
+    showWhenLicenseSubscriptionValid: "showWhenLicenseSubscriptionValid",
+  }
+
+  let pageState = {
+    isOffline: !window.navigator.onLine,
+    loading: true,
+    email: "",
+    uid: "",
+    epochLicenseExpirationDateInSecs: -1  // -1 = unknown, 0 = none, 3000000000 or above = life
+  }
+
+  window.addEventListener('online', () => updatePageStateWithParams({isOffline: false}));
+  window.addEventListener('offline', () => updatePageStateWithParams({isOffline: true}));
+
+  function generateFakePurchases(n) {
+    if (!n) {
+      n=2;
+    }
+    let epochRefDate = Math.floor(Date.now()/1000)-(n*1.5)*365*24*3600;
+    let data = {};
+    for (let i=0;i<n;i++) {
+      data[i] = {
+        sku: "SKU_TTSREADER_PREMIUM_1_YEAR__",
+        epochDateInSecs: epochRefDate + Math.floor(Math.random()*n*365*24*3600),
+        misc: ""
+      }
+    }
+
+    return data;
+  }
+
+  function epochArrayToString(epochs) {
+    if (!epochs) {
+      return;
+    }
+
+    let str = "";
+    for (const epoch of epochs) {
+      str += ("" + (new Date(epoch*1000)).toLocaleDateString() + "; ")
+    }
+
+    return str;
+  }
+
+  function updatePageStateWithParams(params) {
+    console.log('updating state with: ', params);
+    if (!params) {
+      params = {};
+    }
+
+    if (params.isPremium) {
+      params.epochLicenseExpirationDateInSecs = 3000000000;
+    }
+
+    if (params.purchases) {
+      let expEpochInSecs = 1000;
+      let purchasesIds = Object.getOwnPropertyNames(params.purchases);
+      let epochs = [];
+      for (const id of purchasesIds) {
+        let purchase = params.purchases[id];
+        if (purchase.sku==="SKU_TTSREADER_PREMIUM_1_YEAR__") {
+          epochs.push(purchase.epochDateInSecs);
+        }
+      }
+      if (epochs.length>0) {
+        epochs.sort();
+      }
+
+      let singleYearInSecs = 365*24*60*60;
+      for (const epoch of epochs) {
+        if (epoch<expEpochInSecs) {
+          expEpochInSecs = expEpochInSecs + singleYearInSecs;
+        } else {
+          expEpochInSecs = epoch + singleYearInSecs;
+        }
+      }
+
+      console.log('Premium expires on ' + (new Date(expEpochInSecs*1000)).toLocaleDateString() + ', for the following purchases: ' + epochArrayToString(epochs))
+      if (pageState.epochLicenseExpirationDateInSecs) {
+        if (expEpochInSecs>pageState.epochLicenseExpirationDateInSecs) {
+          params.epochLicenseExpirationDateInSecs = expEpochInSecs;
+        }
+      }
+    }
+
+    let props = Object.getOwnPropertyNames(params);
+
+    if (props && props.length>0) {
+      for (const key of props) {
+        if (params[key]!=undefined && params[key]!=null) { // Since it can be false...
+          if (key=="epochLicenseExpirationDateInSecs") {
+            let latestEpoch = Math.max(pageState.epochLicenseExpirationDateInSecs, params.epochLicenseExpirationDateInSecs);
+            pageState.epochLicenseExpirationDateInSecs = latestEpoch;
+            localStorage.setItem("epochLicenseExpirationDateInSecs", pageState.epochLicenseExpirationDateInSecs);
+            let msg = {message: "epochLicenseExpirationDateInSecs", data: latestEpoch};
+            updateChromeExtensionWith(msg);
+            // Sets to local storage, so that premium can be set as soon as the main webapp page loads.
+            // Does not read from local, only sets it.
+
+            localStorage.setItem("epochLicenseExpirationDateInSecs", latestEpoch);
+          } else {
+            pageState[key] = params[key];
+          }
+        }
+      }
+    }
+
+    console.log('new state: ', pageState);
+    updateUiByState(pageState);
+  }
+
+  function interpretLicenseState(epochToExpirationSecs) {
+    const ONE_MONTH_IN_SECONDS = 3600 * 24 * 30;
+
+    if (!epochToExpirationSecs || epochToExpirationSecs<(Date.now()/1000-20*365*24*3600)) {
+      return licenseInterpretations.NONE;
+    } else if (epochToExpirationSecs<0) {
+      return licenseInterpretations.UNKNOWN;
+    } else if (epochToExpirationSecs>=3000000000) {
+      return licenseInterpretations.LIFETIME;
+    } else {
+      let timeInSecsTillExpiration = epochToExpirationSecs - Date.now()/1000 ;
+      if (timeInSecsTillExpiration<=0) {
+        return licenseInterpretations.SUBSCRIPTION_OVER;
+      } else if (timeInSecsTillExpiration >= ONE_MONTH_IN_SECONDS) {
+        return licenseInterpretations.SUBSCRIPTION;
+      } else {
+        return licenseInterpretations.SUBSCRIPTION_SOON_OVER;
+      }
+    }
+  }
+
+  function updateUiByState(newState) {
+
+    let labelEls = document.querySelectorAll("[data-ws-label]");
+    if (labelEls && labelEls.length>0) {
+      for (const el of labelEls) {
+        if (el.getAttribute("data-ws-label")=="epochAsDate") {
+          var options = { year: 'numeric', month: 'long', day: 'numeric' };
+          el.innerText = (new Date(1000 * newState.epochLicenseExpirationDateInSecs)).toLocaleDateString("en-US", options)
+        } else {
+          el.innerText = newState[el.getAttribute("data-ws-label")];
+        }
+      }
+    }
+
+    let keys = Object.getOwnPropertyNames(classNamesForUiUpdates);
+    if (!keys || keys.length==0) {
+      return;
+    }
+
+    let classesToHideOrShow = [];
+    let classesToShow = [];
+    for (const key of keys) {
+      classesToHideOrShow.push(classNamesForUiUpdates[key]);
+    }
+
+    if (newState.isOffline) {
+      classesToShow.push(classNamesForUiUpdates.showWhenOffline);
+    }
+
+    if (newState.loading && !newState.uid) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLoading);
+    } else {
+      classesToShow.push(classNamesForUiUpdates.showWhenLoaded);
+    }
+
+    if (newState.uid) {
+      classesToShow.push(classNamesForUiUpdates.showWhenSignedIn);
+    } else {
+      classesToShow.push(classNamesForUiUpdates.showWhenSignedOut);
+    }
+
+    let licenseState = interpretLicenseState(newState.epochLicenseExpirationDateInSecs);
+
+    if (licenseState==licenseInterpretations.NONE) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseNone);
+    } else if (licenseState==licenseInterpretations.UNKNOWN) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseUnknown);
+    } else if (licenseState==licenseInterpretations.LIFETIME) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseLife);
+    } else if (licenseState==licenseInterpretations.SUBSCRIPTION) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseSubscriptionValid);
+    } else if (licenseState==licenseInterpretations.SUBSCRIPTION_OVER) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseExpired);
+    } else if (licenseState==licenseInterpretations.SUBSCRIPTION_SOON_OVER) {
+      classesToShow.push(classNamesForUiUpdates.showWhenLicenseSoonToExpire);
+    }
+
+    for (const className of classesToHideOrShow) {
+      let elements = document.querySelectorAll("." + className);
+      if (elements && elements.length>0) {
+        for (const el of elements) {
+          let displayIfShown = el.getAttribute("data-ws-display") || "";
+          el.style.display = classesToShow.includes(className) ? displayIfShown : "none";
+        }
+      }
+    }
+    for (const className of classesToShow) {
+      let elements = document.querySelectorAll("." + className);
+      if (elements && elements.length>0) {
+        for (const el of elements) {
+          let displayIfShown = el.getAttribute("data-ws-display") || "";
+          el.style.display = displayIfShown;
+        }
+      }
+    }
+  }
+
+  function setPremiumLife() {
+    updatePageStateWithParams({
+      epochLicenseExpirationDateInSecs: 3000000000
+    });
+
+    if (pageState.uid) {
+      let apiUrl = "https://itranscribe.app:8443/apiLicenses";
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST',
+        apiUrl + '?type=__sn_premium_life__' +
+        '&uid=' + encodeURIComponent(pageState.uid));
+      xhr.onload = function(e) {
+        if (this.status == 200) {
+          //console.log('response', this.response); // JSON response
+        } else {
+          console.log('error in xhr to: ' + apiUrl);
+        }
+      };
+      xhr.send();
+      console.log('sending req', xhr);
+    }
+  }
+
+  function addOneYearToLicense() {
+    let todayInSecs = (new Date()).getTime()/1000;
+    let latestExpiration = pageState.epochLicenseExpirationDateInSecs || 0;
+    if (todayInSecs > latestExpiration) {
+      latestExpiration = todayInSecs;
+    }
+    latestExpiration += (3600*24*365);
+    updatePageStateWithParams({
+      epochLicenseExpirationDateInSecs: latestExpiration
+    });
+  }
+
+  function updateChromeExtensionWith(msg, callback) {
+    if (window.chrome && chrome.runtime && chrome.runtime.sendMessage) {
+      if (!callback) {
+        callback = function (response){
+          console.log('Sent msg to extension ', msg, ", ", response);
+        };
+      }
+      let TTSReaderExtensionID = "pakknklefcjdhejnffafpeelofiekebg";
+      chrome.runtime.sendMessage(TTSReaderExtensionID, msg, callback);
+    }
+  }
+</script>
+
+<div class="showWhenOffline" style="display:none;position: fixed; z-index: 99999; color: white;background-color: red;font-size: large;bottom: 50%;right:0;left:0;padding:30px;text-transform: uppercase;text-align: center;">
+  <b>No internet connection. Try to reconnect and refresh the page</b>
+</div>
+
+<article style="text-align: center">
+  <h1><span style="color: darkcyan;font-weight: bold">TTS</span><span style="font-weight: bold">Reader</span>&nbsp; | The Web's #1 Reader</h1>
+  <h2>Manage Account</h2>
+  <p>Remove account, subscribe / unsubscribe to updates via email, etc.</p>
+  <br/>
+</article>
+
+<div class="screen showWhenLoading show-when-signed-out" style="display: flex; flex-direction: column" data-ws-display="flex">
+  <p class="centered-txt">
+    <button class="google-sign-in-btn" data-ws-onclick="toggleSignIn">
+      <span class="firebaseui-idp-icon-wrapper" style="vertical-align: -webkit-baseline-middle"><img style="height: 20px" class="firebaseui-idp-icon" alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <span class="firebaseui-idp-text firebaseui-idp-text-long" style="vertical-align: -webkit-baseline-middle">Sign in To Start</span>
+    </button>
+  </p>
+  <br/><br/><br/>
+  <div style="flex: 2"></div>
+</div>
+
+<div class="screen show-when-signed-in">
+  <p class="centered-txt">
+    <code data-ws-label="email" style="font-size: large;vertical-align: -webkit-baseline-middle"></code>
+    &nbsp;
+    <span class="tooltip" style="color: dodgerblue;cursor: pointer;" data-ws-onclick="toggleSignIn">
+                            <svg style="vertical-align: -webkit-baseline-middle" height="24px" stroke="lightgray" fill="black" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path></svg>
+                            <span class="tooltiptext">Switch account</span>
+                        </span>
+  </p>
+  <br/>
+
+  <br/><br/>
+  <h3>MANAGE EMAIL UPDATES</h3>
+  <div style="text-align: center;margin: 20px auto;"><button onclick="unsubscribe();">Unsubscribe from Email Updates</button></div>
+  <div style="text-align: center;margin: 20px auto;"><button onclick="subscribe();">Subscribe to Email Updates (Default)</button></div>
+
+  <br/><br/>
+  <h3 style="color: red;">DANGER ZONE</h3>
+  <!--TODO:...<div style="text-align: center;margin: 20px auto;"><button onclick="cancelPremiumSub();">Cancel Premium Subscription (if any) - Effective Immediately</button></div>-->
+  <div style="text-align: center;margin: 20px auto;"><button onclick="removeAccount();">Remove Account</button></div>
+
+</div>
+
+<footer class="centered-txt" style="z-index:999;color: grey;position: fixed;bottom: 0;right:0;left:0;background-color: white">
+  <div style="height: 20px;"></div>
+  <div style="padding:20px;background-color: black;color:white;">Need help? Contact us at contact@ttsreader.com</div>
+</footer>
+
+<script>
+  updatePageStateWithParams({});
+  function goTo(selector) {
+    if (!selector) {
+      return;
+    }
+    let el = document.querySelector(selector);
+    if (el && el instanceof Element) {
+      el.scrollIntoView({behavior: "smooth"});
+    }
+  }
+</script>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AbvUIH2jxOuBf_TbnAj8p5PgIuISCm8VRvfb6xcVR5S48p7o3jsKn9iOC8yJ5ross5_Q5RmP5L5hn0W-" ></script>
+<script src="paypal-utils7.js"></script>
+<script src="dom-hooks.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+<script>
+  let firebaseConfig = {
+    apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
+    authDomain: "ttsreader.firebaseapp.com",
+    databaseURL: "https://ttsreader.firebaseio.com",
+    projectId: "ttsreader",
+    messagingSenderId: "656667743185"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    //window.globalMethods.closeModalById("modalSigninVertical");
+    if (user) {
+      updatePageStateWithParams({
+        loading: false,
+        uid: user.uid,
+        email: user.email
+      });
+    } else {
+      updatePageStateWithParams({
+        loading: false,
+        uid: user ? user.uid : ""
+      });
+    }
+
+
+    if (user) {
+      // resetPayPalButton(39, user.uid);
+
+      // User is signed in.
+      console.log('user signed in ', user);
+
+      listenToDatabaseData(user.uid);
+
+      // let pathWithoutDomain = window.location.href.split("//")[1].split("/")[1];
+      // const urlParams = new URLSearchParams(window.location.search);
+      // const langParam = urlParams.get('lng');
+    } else {
+      // No user is signed in.
+      console.log('user signed out');
+      if (pageState.email) {
+        // toggleSignIn();
+      }
+      //document.getElementById("iframeWhenSignedIn").style.display = "none";
+      //document.querySelector("main").style.display = "block";
+    }
+
+  });
+
+  function listenToDatabaseData(uid) {
+    firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log('got user data from db: ', data);
+      if (data && data.isPremium) {
+        updatePageStateWithParams({
+          isPremium: true,
+          //epochLicenseExpirationDateInSecs: doc.data() ? (doc.data().hasOwnProperty("epochLicenseExpirationDateInSecs") ? doc.data().epochLicenseExpirationDateInSecs : 0) : 0
+        });
+      }
+    });
+
+    firebase.database().ref('/purchases/' + uid).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log('got purchases data from db: ', data);
+      if (data) {
+        updatePageStateWithParams({
+          purchases: data,
+        });
+      } else {
+        updatePageStateWithParams({
+          purchases: [],
+        });
+      }
+    });
+  }
+</script>
+
+<script src="init-firebase-signin.js"></script>
+
+<script>
+  async function removeAccount() {
+    let user = firebase.auth().currentUser;
+    if (!user) {
+      alert('Sign in first');
+      return;
+    }
+
+    let tokenId = await user.getIdToken(true);
+    // Call the removeUser function: ... On success - logout the user & alert. On fail - alert.
+    // curl -X POST "https://us-central1-ttsreader.cloudfunctions.net/removeUser" -H "Authorization: Bearer <TOKEN_ID>" -H "Content-Type: application/json" --data '{"name": "value" }'
+    fetch("https://us-central1-ttsreader.cloudfunctions.net/removeUser", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + tokenId,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name: "value" }) // include any needed payload
+    })
+      .then(async response => {
+        if (response.ok) {
+          // ✅ Success - log out and alert
+          await firebase.auth().signOut();
+          alert("Your account has been successfully removed.");
+          // Optionally redirect
+          // window.location.href = "/";
+        } else {
+          // ❌ Server responded with error (e.g. 500, 401)
+          const text = await response.text();
+          alert("Failed to remove account. Server says: " + text);
+        }
+      })
+      .catch(err => {
+        // ❌ Network or fetch-level failure
+        console.error("Fetch error:", err);
+        alert("Failed to connect to server. Please try again.");
+      });
+  }
+
+  async function cancelPremiumSub() {
+    let user = firebase.auth().currentUser;
+    if (!user) {
+      alert('Sign in first');
+      return;
+    }
+
+    let tokenId = await user.getIdToken(true);
+    // Call the removeUser function: ... On success - logout the user & alert. On fail - alert.
+    // curl -X POST "https://us-central1-ttsreader.cloudfunctions.net/removeUser" -H "Authorization: Bearer <TOKEN_ID>" -H "Content-Type: application/json" --data '{"name": "value" }'
+    fetch("https://us-central1-ttsreader.cloudfunctions.net/cancelPremiumSubscription", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + tokenId,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name: "value" }) // include any needed payload
+    })
+      .then(async response => {
+        if (response.ok) {
+          // ✅ Success - log out and alert
+          alert("Your subscription has been successfully cancelled.");
+          // Optionally redirect
+          // window.location.href = "/";
+        } else {
+          // ❌ Server responded with error (e.g. 500, 401)
+          const text = await response.text();
+          alert("Failed to cancel subscription. Server says: " + text);
+        }
+      })
+      .catch(err => {
+        // ❌ Network or fetch-level failure
+        console.error("Fetch error:", err);
+        alert("Failed to connect to server. Please try again.");
+      });
+  }
+
+  async function subscribe() {
+    let user = firebase.auth().currentUser;
+    if (!user) {
+      alert('Sign in first');
+      return;
+    }
+
+    let tokenId = await user.getIdToken(true);
+    // Call the removeUser function: ... On success - logout the user & alert. On fail - alert.
+    // curl -X POST "https://us-central1-ttsreader.cloudfunctions.net/subscribe" -H "Authorization: Bearer <TOKEN_ID>" -H "Content-Type: application/json" --data '{"name": "value" }'
+    fetch("https://us-central1-ttsreader.cloudfunctions.net/subscribe", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + tokenId,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name: "value" }) // include any needed payload
+    })
+      .then(async response => {
+        if (response.ok) {
+          // ✅ Success - log out and alert
+          alert("Your account has been successfully subscribed to email updates.");
+          // Optionally redirect
+          // window.location.href = "/";
+        } else {
+          // ❌ Server responded with error (e.g. 500, 401)
+          const text = await response.text();
+          alert("Failed to subscribe account. Server says: " + text);
+        }
+      })
+      .catch(err => {
+        // ❌ Network or fetch-level failure
+        console.error("Fetch error:", err);
+        alert("Failed to connect to server. Please try again.");
+      });
+  }
+
+  async function unsubscribe() {
+    let user = firebase.auth().currentUser;
+    if (!user) {
+      alert('Sign in first');
+      return;
+    }
+
+    let tokenId = await user.getIdToken(true);
+    // Call the removeUser function: ... On success - logout the user & alert. On fail - alert.
+    // curl -X POST "https://us-central1-ttsreader.cloudfunctions.net/unsubscribe" -H "Authorization: Bearer <TOKEN_ID>" -H "Content-Type: application/json" --data '{"name": "value" }'
+    fetch("https://us-central1-ttsreader.cloudfunctions.net/unsubscribe", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + tokenId,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name: "value" }) // include any needed payload
+    })
+      .then(async response => {
+        if (response.ok) {
+          // ✅ Success - log out and alert
+          alert("Your account has been successfully unsubscribed from email updates.");
+          // Optionally redirect
+          // window.location.href = "/";
+        } else {
+          // ❌ Server responded with error (e.g. 500, 401)
+          const text = await response.text();
+          alert("Failed to unsubscribe account. Server says: " + text);
+        }
+      })
+      .catch(err => {
+        // ❌ Network or fetch-level failure
+        console.error("Fetch error:", err);
+        alert("Failed to connect to server. Please try again.");
+      });
+  }
+</script>
+
+</body>
+</html>

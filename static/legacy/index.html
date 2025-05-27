@@ -88,27 +88,15 @@
 
   <script>
     function popCookieConsent() {
-      let cookieConsentNotification = document.getElementById('cookieConsentNotification');
-      if (cookieConsentNotification) {
-        cookieConsentNotification.classList.remove('displayNone');
-        localStorage.setItem('wasCookieNotified', true);
-      }
     }
 
-    function okCookieNotification() {
-      localStorage.setItem('wasCookieNotified', true);
-      let cookieConsentNotification = document.getElementById('cookieConsentNotification');
-      if (cookieConsentNotification) {
-        cookieConsentNotification.classList.add('displayNone');
-      }
-    }
+    function okCookieNotification() {}
 
     function runGdprStuff() {
       let lsParams = ['wasCookieNotified', 'wholeText', 'emailForSignIn', 'sessionIndex'];
       for (const lsParam of lsParams) {
         let str = localStorage.getItem(lsParam);
         if (str && Boolean(localStorage.getItem(lsParam)) && str!="Click Play button to listen to this text. You may edit this text here, or upload a file such as text, pdf or e-book.") {
-
           return;
         }
       }

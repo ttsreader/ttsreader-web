@@ -2,16 +2,16 @@
 <html lang="en">
 
 <head>
-  
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'UA-47292499-3'); 
+    gtag('config', 'UA-47292499-3');
   </script>
-  
+
 
 
   <meta charset="utf-8">
@@ -21,29 +21,29 @@
   <title>Web Player | TTSReader</title>
   <meta name="author" content="ttsreader.com" />
 
-  
-  <meta name="keywords" content="text to speech, text reader, text to speech online, epub reader, read epub, ebook reader, read ebooks, online, text2speech, text2voice, speech generator, wellsource, ttsreader, text to speach, text for speech, txt 2 speech, tts, TTS, read text, speech online, speech software, textaloud, text aloud, natural reader, voice software, speaking software, demo, free, pdf to text, convert pdf, read pdf, pdf reader, read pdf, read text, speech synthesize, voices, web speech api, text to voice, chrome, webspeech">	
-  
 
-  
+  <meta name="keywords" content="text to speech, text reader, text to speech online, epub reader, read epub, ebook reader, read ebooks, online, text2speech, text2voice, speech generator, wellsource, ttsreader, text to speach, text for speech, txt 2 speech, tts, TTS, read text, speech online, speech software, textaloud, text aloud, natural reader, voice software, speaking software, demo, free, pdf to text, convert pdf, read pdf, pdf reader, read pdf, read text, speech synthesize, voices, web speech api, text to voice, chrome, webspeech">
+
+
+
   <meta name="description" content="Read Out Loud Webpages, Wiki Articles, etc.">
-  
+
 
   <meta name="generator" content="Hugo 0.91.2" />
 
-  
-  
 
-  
-  
+
+
+
+
     <link href="https://ttsreader.com/css/style.default.css" rel="stylesheet" id="theme-stylesheet">
-  
 
 
-  
-  
 
-  
+
+
+
+
   <link rel="apple-touch-icon" sizes="72x72" href="https://ttsreader.com/img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://ttsreader.com/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://ttsreader.com/img/favicon-16x16.png">
@@ -51,23 +51,23 @@
   <link rel="mask-icon" href="https://ttsreader.com/img/safari-pinned-tab.svg" color="#5bbad5">
   <meta name="theme-color" content="#ffffff">
 
-  
+
   <link href="https://ttsreader.com/css/owl.carousel.css" rel="stylesheet">
   <link href="https://ttsreader.com/css/owl.theme.css" rel="stylesheet">
 
   <link rel="alternate" href="https://ttsreader.com/index.xml" type="application/rss+xml" title="TTSReader | Text To Speech Reader. Online, Free &amp; Unlimited">
 
-  
+
   <meta property="og:title" content="Web Player | TTSReader" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="/webplayer//" />
-  
+
 
 
   <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/pakknklefcjdhejnffafpeelofiekebg">
 
   <script>
-    
+
       function openTTSREADERXinNewWindow() {
           window.open("https://ttsreader.com/blog/2017/05/10/ttsreaderx/", "_blank");
       }
@@ -79,7 +79,7 @@
 
   <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
   <script>
-      
+
       var config = {
           apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
           authDomain: "ttsreader.firebaseapp.com",
@@ -91,21 +91,11 @@
       firebase.initializeApp(config);
   </script>
 
-  
   <script>
     function popCookieConsent() {
-      let cookieConsentNotification = document.getElementById('cookieConsentNotification');
-      if (cookieConsentNotification) {
-        cookieConsentNotification.classList.remove('displayNone');
-      }
     }
 
     function okCookieNotification() {
-      localStorage.setItem('wasCookieNotified', true);
-      let cookieConsentNotification = document.getElementById('cookieConsentNotification');
-      if (cookieConsentNotification) {
-        cookieConsentNotification.classList.add('displayNone');
-      }
     }
 
     function runGdprStuff() {
@@ -113,13 +103,13 @@
       for (const lsParam of lsParams) {
         let str = localStorage.getItem(lsParam);
         if (str && Boolean(localStorage.getItem(lsParam)) && str!="Click Play button to listen to this text. You may edit this text here, or upload a file such as text, pdf or e-book.") {
-          
+
           return;
         }
       }
 
-      
-      
+
+
       let tz = "";
       try {
         tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -138,11 +128,11 @@
 
     window.addEventListener("load", function(){
       setTimeout(()=>{
-        runGdprStuff();
+        // runGdprStuff();
       },2000);
     });
   </script>
-  
+
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link href="https://ttsreader.com/css/all_main.min.css" rel="stylesheet">
@@ -220,7 +210,7 @@
     <div style="display: flex;min-height: 90vh;margin-top: 66px;">
         <div class="sidebar-column-if-room-left">
             <div data-ws-ad="300x600" style="position: sticky;top: 90px;margin: 200px auto 30px auto; background-color: transparent;height: 600px;">
-                
+
                 <ins class="adsbygoogle"
                      style="display:inline-block;width:300px;height:600px"
                      data-ad-client="ca-pub-5434274073094626"
@@ -235,7 +225,7 @@
         </div>
         <div class="sidebar-column-if-room-right">
             <div data-ws-ad="300x600" style="position: sticky;top: 90px;margin: 200px auto 30px auto; background-color: transparent;height: 600px;">
-                
+
                 <ins class="adsbygoogle"
                      style="display:inline-block;width:300px;height:600px"
                      data-ad-client="ca-pub-5434274073094626"
@@ -250,7 +240,7 @@
     <footer id="footer" style="overflow: hidden">
     <div class="container">
 
-        
+
         <div class="col-md-4 col-sm-6">
             <h4>About us</h4>
 
@@ -265,8 +255,8 @@
             <hr class="hidden-md hidden-lg hidden-sm">
 
         </div>
-        
-        
+
+
 
         <div class="col-md-4 col-sm-6">
 
@@ -280,59 +270,59 @@
 
             <hr class="hidden-md hidden-lg hidden-sm">
 
-            
-            
 
-            
-                
-                
-                    
-                        
-                          
-                            
-                          
-                        
-                    
-                    
-                        
-                    
-                
-                
-                
-                    
-                        
-                          
-                            
-                          
-                        
-                    
-                    
-                        
-                    
-                
-                
-                
-                    
-                        
-                          
-                            
-                          
-                        
-                    
-                    
-                        
-                    
-                
-                
-            
 
-            
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
-        
 
-        
+
+
         <div class="col-md-4 col-sm-6">
 
           <h4>Contact</h4>
@@ -345,16 +335,16 @@
       </p>
 
 
-            
+
 
             <hr class="hidden-md hidden-lg hidden-sm">
 
         </div>
-        
-        
+
+
 
     </div>
-    
+
 
     <div class=" text-center">
         <a style="display: inline-block;" href="https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader" target="_blank" rel="nofollow">
@@ -378,16 +368,16 @@
 <div id="copyright">
     <div class="container">
         <div class="col-md-12">
-            
+
             <p class="text-center">
                 <b>PRIVACY: </b> We respect your privacy - your text is not sent to us unless you chose to use cloud sync. We do use cookies and your local storage to enhance your experience & targeted ads. <a href="https://ttsreader.com/privacy/" target="_blank">Read more about privacy here.</a>
                 <br>Copyright (c) 2015 - 2023, <a href='https://wellsrc.com' target='_blank'>Ronen Rabinovici</a> ; all rights reserved.&nbsp;&nbsp;&nbsp;&nbsp;Based on template by <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
-                
+
 
                 Ported to Hugo by <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.&nbsp;&nbsp;Icons by <a href="https://www.glyphicons.com/" target="_blank">glyphicons</a> and by <a href="https://fontawesome.com/license" target="_blank">font-awesome</a>.
                 <br><span style="font-size: smaller">Reader BG image includes modification of image by Norman Bruderhofer - Collection of John Lampert-Hopkins, <a href="https://creativecommons.org/licenses/by-sa/2.5" title="Creative Commons Attribution-Share Alike 2.5">CC BY-SA 2.5</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1308343">Link</a></span>.
             </p>
-            
+
             <p id="languageLinks" class="text-center">
                 <a href="https://ttsreader.com/">English</a>
                 <a href="https://ttsreader.com/de/">Deutsch</a>
@@ -416,7 +406,7 @@
       el.src = "https://audactive.com/web?url=" + url;
     }
 
-    
+
 
   }
 
@@ -432,25 +422,25 @@
 
 <script>
 
-  
 
 
-  
+
+
   KEYS = {
-    
+
     selected_language: "selected_language",
     select_speed: "select_speed",
     wholeText: "wholeText",
     caretPos: "caretPos",
     selected_voice: "selected_voice",
 
-    
+
     isBookOn: "isBookOn",
     currentChapterIndexInApp: "currentChapterIndexInApp",
     totalNumberOfChapters: "totalNumberOfChapters",
     bookTitle: "bookTitle",
 
-    
+
     isPremium: "isPremium",
     counter_refer_to_X: "counter_refer_to_X"
   };
@@ -468,7 +458,7 @@
   }
 
 
-  
+
   (function(){
     var plat = navigator.platform.toUpperCase();
     if (window.location.href.indexOf('localhost')<0) {
@@ -511,7 +501,7 @@
   }
 
   function toggleFullScreen() {
-    
+
 
 
     if (!isFullScreen) {
@@ -527,7 +517,7 @@
   }
 
   function setUiNotFullScreen() {
-    
+
     $('#application').css('background-image',"url('../img/app/desk.jpeg')");
     $('#application').css('background-size',"cover");
     $('#application').css('height',"700px");
@@ -580,7 +570,7 @@
     $('.dialog').hide();
     unbindKey(27);
   }
-  
+
   function isSignedIn() {
     if (window.firebase && window.firebase.auth() && window.firebase.auth().currentUser && window.firebase.auth().currentUser.uid) {
       return true;
@@ -590,22 +580,22 @@
   }
 
   function syncFromFirebase() {
-    
+
     if (firebase.auth().currentUser) {
       var userId = firebase.auth().currentUser.uid;
       firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
         for (var iProperty in KEYS) {
-          
+
           if (!KEYS.hasOwnProperty(iProperty)) continue;
 
-          
+
           var iKey = KEYS[iProperty];
           var iValueToStore = "" + snapshot.val()[iProperty];
           localStorage.setItem(iKey, iValueToStore);
         }
 
-        
-        
+
+
         var numberOfChapters = getNumberOfChapters(snapshot.val());
         if (numberOfChapters) {
           for(var i=0; i<numberOfChapters; i++) {
@@ -618,7 +608,7 @@
           }
         }
 
-        
+
         loadUserPrefs();
       });
     } else {
@@ -632,12 +622,12 @@
     var currentChapterIndexInApp = null;
 
     if(!object) {
-      
+
       isBookOn = localStorage.getItem(KEYS.isBookOn);
       totalNumberOfChapters = localStorage.getItem(KEYS.totalNumberOfChapters);
       currentChapterIndexInApp = localStorage.getItem(KEYS.currentChapterIndexInApp);
     } else {
-      
+
       isBookOn = object[KEYS.isBookOn];
       totalNumberOfChapters = object[KEYS.totalNumberOfChapters];
       currentChapterIndexInApp = object[KEYS.currentChapterIndexInApp];

@@ -3,6 +3,9 @@ title: "Privacy Policy"
 description: "Privacy policy"
 date: 2023-04-17T13:59:39+01:00
 lastmod: 2025-05-14T13:59:39+01:00
+tags: ["terms", "legal", "privacy"]
+categories: ["legal"]
+contributors: ["Company"]
 draft: false
 images: []
 menu:

@@ -3,6 +3,9 @@ title: "EULA & Terms of Service"
 description: "EULA & Terms of Service"
 date: 2025-05-14T13:59:39+01:00
 lastmod: 2025-05-15T13:59:39+01:00
+tags: ["terms", "legal"]
+categories: ["legal"]
+contributors: ["Company"]
 draft: false
 images: []
 menu:
@@ -46,7 +49,7 @@ Some emails are personal to you, regrading your account, support, billing, etc. 
 
 11. Non-Personal Updates via Emails
 
-Other emails, which are generic and include news, updates, etc. - you can opt out of simply by clicking the unsubscribe link at the bottom of the email.
+Other emails, which are generic and include news, updates, etc. - you can opt out of these non-personal emails by clicking the unsubscribe link at the bottom of the email, or by managing your account on the [account-management page](/account/).
 
 12. Email Privacy
 
@@ -54,6 +57,14 @@ Other emails, which are generic and include news, updates, etc. - you can opt ou
   - We will not spam you.
   - We will not sell your email to any 3rd parties.
   - We will not use your email for any other purpose than providing our services and communicating with you about your account and our services.
+
+13. Email Security
+
+Please note that email addresses are easy to impersonate. How to tell our emails are really from us? All of the following must be true together:
+  - The sender-email address is from one of our domains: @ttsreader.com, OR @wellsrc.com (the owner company of TTSReader), OR @speechlogger.com (for historical reasons)
+  - We will never ask you for your password or any other sensitive information via email. If you receive an email from us that seems suspicious, please contact us immediately to contact@ttsreader.com
+  - Our emails will always be signed with DKIM and SPF, and will always have a valid SSL certificate.
+  - The ReplyTo address is always to one of our domains: @ttsreader.com, OR @wellsrc.com (the owner company of TTSReader), OR @speechlogger.com (for historical reasons).
 
 
 ## No Warranty, No Liability, License Grant
@@ -123,8 +134,7 @@ Any use not in the scope as described above, including opening multiple accounts
 
 21. Remove Account.
 
-To remove your account, please [contact us]({{< relref "contact/index.md" >}}). We will remove your account and all your personal data from our servers within 30 days.
-We're developing a self-service option for this and will update this page when it's available.
+You may remove your account altogether at any time by going to the [account-management page](/account/) and clicking on the "Remove Account" button. This will remove your account and all your data from our servers. Please note that this action is irreversible and cannot be undone.
 
 
 <br/>

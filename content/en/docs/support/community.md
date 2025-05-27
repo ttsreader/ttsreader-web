@@ -4,6 +4,9 @@ description: "Discussions, feedback, issues and requests on TTSReader"
 lead: "Discussions, feedback, issues and requests on Speechnotes"
 date: 2023-02-12T15:22:20+01:00
 lastmod: 2025-04-28T15:22:20+01:00
+tags: ["support", "company", "contact", "community"]
+categories: ["support"]
+contributors: ["Company"]
 draft: false
 images: []
 menu:
@@ -52,3 +55,11 @@ Here are links to the following public forums, where you can see what others pos
 
 ## Contact us
 [Contact page](/contact/)
+
+## Email Correspondence from Us:
+
+Please note that email addresses are easy to impersonate. How to tell our emails are really from us? All of the following must be true together:
+- The sender-email address is from one of our domains: @ttsreader.com, OR @wellsrc.com (the owner company of TTSReader), OR @speechlogger.com (for historical reasons)
+- We will never ask you for your password or any other sensitive information via email. If you receive an email from us that seems suspicious, please contact us immediately to contact@ttsreader.com
+- Our emails will always be signed with DKIM and SPF, and will always have a valid SSL certificate.
+- The ReplyTo address is always to one of our domains: @ttsreader.com, OR @wellsrc.com (the owner company of TTSReader), OR @speechlogger.com (for historical reasons).

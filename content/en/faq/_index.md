@@ -8,5 +8,5 @@ lastmod: 2023-04-26T08:48:23+00:00
 draft: false
 images: []
 sitemap:
-  priority: 0.8
+  priority: 0.5
 ---

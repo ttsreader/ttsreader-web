@@ -210,7 +210,7 @@
       transform: translateX(32px);
     }
   </style>
-<script defer src="static/js/main.1f991a3a.js"></script><link href="static/css/main.39d9ee91.css" rel="stylesheet"></head>
+<script defer src="static/js/main.42395e34.js"></script><link href="static/css/main.39d9ee91.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column">
@@ -356,7 +356,7 @@
           </svg>&nbsp;&nbsp;Share</a>
         </div>
         <div class="Menu-list-element" >
-          Version: 3.2.7-5/19/2025, 10:29:44 AM
+          Version: 3.3.3-5/26/2025, 5:04:21 PM
         </div>
 
       </div>
@@ -372,7 +372,7 @@
           <button data-ws-onClick="loadNextChapter" title="Load Next Chapter" aria-label="Load Next Chapter"><b>&rArr;</b></button>
         </div>
         <div class="Text-box-container">
-          <div style="direction: " class="Text-box" contentEditable=true data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Digite ou cole texto nesta caixa, clique no botão de reprodução, e eu lerei em voz alta para você. Para ler uma página da web - basta colar seu URL e clicar em reproduzir. Você também pode fazer upload de arquivos, mudar vozes, tema, tamanho da fonte e mais." placeholder2="Este player está em desenvolvimento ativo, estamos trabalhando para torná-lo melhor a cada dia. ❤️ Aproveite a audição! 🎧"></div>
+          <div class="Text-box" contentEditable="plaintext-only" data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Digite ou cole texto nesta caixa, clique no botão de reprodução, e eu lerei em voz alta para você. Para ler uma página da web - basta colar seu URL e clicar em reproduzir. Você também pode fazer upload de arquivos, mudar vozes, tema, tamanho da fonte e mais." placeholder2="Este player está em desenvolvimento ativo, estamos trabalhando para torná-lo melhor a cada dia. ❤️ Aproveite a audição! 🎧"></div>
         </div>
         <div class="Playback-buttons-bar">
           <span>
@@ -573,6 +573,7 @@
     </div>
   </div>
 
+  <div data-ws-show-if-state="isSignedIn=false">
   <div class="Modal" id="premiumVoiceSignInModal" style="display: none;">
     <div style="height:20px;"></div>
     <div class="Modal-content" style="display: flex; flex-direction: column;">
@@ -588,6 +589,7 @@
       <div style="flex: 2"></div>
     </div>
     <div style="height:20px;"></div>
+  </div>
   </div>
 
   <div class="Modal" id="voicesModal" style="display: none;">
@@ -1108,12 +1110,12 @@
     });
   }
 
-  var ce = document.querySelector('[contenteditable]')
+  /*var ce = document.querySelector('[contenteditable]')
   ce.addEventListener('paste', function (e) {
     e.preventDefault()
     var text = e.clipboardData.getData('text/plain')
     document.execCommand('insertText', false, text)
-  })
+  })*/
 
   document.querySelectorAll('.Modal').forEach((el)=>{
     el.addEventListener('click',((evt) => {
@@ -1245,7 +1247,7 @@
     function runDependentScript() {
       let firebaseConfig = {
         apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
-        authDomain: "ttsreader.firebaseapp.com",
+        authDomain: "ttsreader.com",
         databaseURL: "https://ttsreader.firebaseio.com",
         projectId: "ttsreader",
         messagingSenderId: "656667743185"
@@ -1633,12 +1635,7 @@
 
       // Potentially play something else:
       if (!shouldSimplyStop) {
-        if (audioSrc) {
-          currentAudio.src = audioSrc;
-          currentAudio.play();
-        } else {
-          appMethods.testVoice(voiceURI);
-        }
+        appMethods.testVoice(voiceURI);
       }
     }
   });
@@ -1677,38 +1674,6 @@
   function prevStep(el) {
     let currentStep = "" + el.closest("[data-ws-step]")?.getAttribute("data-ws-step");
     jumpToStep(el, "" + (Number.parseInt(currentStep) - 1));
-  }
-
-  function selectVoice(uri){
-    selectedVoice=voices.find(v=>v.voiceURI===uri);
-    document.querySelectorAll('.voice-tile').forEach(t=>t.classList.remove('selected'));
-    event.currentTarget.classList.add('selected');
-    document.getElementById('currentVoice').textContent=selectedVoice.name;
-  }
-
-  function testVoice(uri,event){
-    event.stopPropagation();
-    const utterance = new SpeechSynthesisUtterance("Hello, this is a test.");
-    utterance.voice = speechSynthesis.getVoices().find(v=>v.voiceURI===uri);
-    speechSynthesis.speak(utterance);
-  }
-
-  async function testChromeVoices(){
-    return new Promise(resolve=>{
-      let startTime = Date.now();
-      let timer;
-      const utterance=new SpeechSynthesisUtterance('hi');
-      utterance.volume=0;
-      utterance.voice=speechSynthesis.getVoices().find(v=>v.voiceURI==="Google UK English Male");
-      utterance.onstart=()=>{console.log('onstart ' + (Date.now()-startTime));
-        timer = setTimeout(()=>{
-        voices=voices.filter(v=>!v.voiceURI.includes('Google'));
-        resolve();
-      },2000);};
-      utterance.onend=()=>{console.log('onend in ' + (Date.now()-startTime));clearTimeout(timer);resolve();};
-      console.log('calling speak: ' + (Date.now()-startTime));
-      speechSynthesis.speak(utterance);
-    });
   }
 
   const themeSwitches = document.querySelectorAll('.themeSwitch');

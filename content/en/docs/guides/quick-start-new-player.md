@@ -3,6 +3,9 @@ title: "Quick Start Guide"
 description: "How to work with the new TTSReader player"
 date: 2023-04-17T13:59:39+01:00
 lastmod: 2025-05-14T13:59:39+01:00
+tags: ["guide", "user-manual", "text to speech", "tts", "player"]
+categories: ["guides"]
+contributors: ["Company"]
 draft: false
 images: []
 menu:

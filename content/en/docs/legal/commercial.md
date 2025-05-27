@@ -3,6 +3,9 @@ title: "Commercial & Publishing"
 description: "License & terms for using TTSReader commercially, and for using the generated audio for publishing."
 date: 2023-04-17T13:59:39+01:00
 lastmod: 2025-05-15T13:59:39+01:00
+tags: ["terms", "legal", "commercial", "publishing"]
+categories: ["legal"]
+contributors: ["Company"]
 draft: false
 images: []
 menu:

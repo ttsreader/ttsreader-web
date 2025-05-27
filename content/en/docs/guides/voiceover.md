@@ -3,6 +3,9 @@ title: "Generating Mp3 Files Voice Overs"
 description: "How to generate mp3 audio files, voiceovers, and mix multiple voices with TTSReader"
 date: 2023-08-21T13:59:39+01:00
 lastmod: 2025-05-09T13:59:39+01:00
+tags: ["guide", "user-manual", "text to speech", "tts", "voice over", "mp3", "wav", "voiceovers", "audio", "export", "record"]
+categories: ["guides"]
+contributors: ["Company"]
 draft: false
 images: []
 menu:
