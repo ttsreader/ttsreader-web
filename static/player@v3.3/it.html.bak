@@ -1309,7 +1309,7 @@
 
   function cancelSubscription() {
     if (!window.subscriptionId) {
-      alert('No subscription to cancel. If you think this is an error, please contact us via the form or via admin@speechlogger.com');
+      alert('No subscription to cancel. If you think this is an error, please contact us via the form or via contact@ttsreader.com');
       return;
     }
 
@@ -1355,7 +1355,7 @@
           console.log('Success:', data);
         }).catch((error) => {
           console.error('Error:', error);
-          alert('Error cancelling subscription. Please try again later or contact us via the form or via admin@speechlogger.com');
+          alert('Error cancelling subscription. Please try again later or contact us via the form or via contact@ttsreader.com');
         });
       }
     }

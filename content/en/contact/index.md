@@ -31,7 +31,9 @@ Here are links to the following public forums, where you can see what others pos
 - [Feedback on the Chrome extension](https://docs.google.com/forms/d/e/1FAIpQLSdrXYHPCdhNNEpXgoGZ3aV1_zAPrkjlrQGJURn3jWIvIsIj6g/viewform?usp=sf_link)
 
 ## Email
-{{< email user="admin" domain="speechlogger.com" >}}
+{{< email user="contact" domain="ttsreader.com" >}}
+
+**Please note** We may replay from either one of the following domains, that belong to our company: ttsreader.com / speechlogger.com / wellsrc.com - all these domains belong to us and are used by our support team. If you receive a VERIFIED SIGNED email from one of these domains, it is from us.
 
 ## Social Media
 - [Twitter](https://twitter.com/speechlogger)

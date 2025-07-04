@@ -100,7 +100,7 @@ TTSReader-X uses novel algorithms to extract the main content of any webpage. As
 ## Privacy
 
 We at TTSReader.com value your privacy, and that's why we do not store anything you type or any other data about you.
-For additional info & feedback, please contact us at admin@speechlogger.com,  For TTSReader for PCs, iOS (on Safari), desktops, laptops, go to https://ttsreader.com
+For additional info & feedback, please contact us at contact@ttsreader.com,  For TTSReader for PCs, iOS (on Safari), desktops, laptops, go to https://ttsreader.com
 
 ### Enjoy listening!
 

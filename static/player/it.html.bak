@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" data-dark-mode data-no-ads>
+<html lang="it" data-dark-mode data-no-ads data-is-signed-out>
 <head>
   <script type="application/ld+json">
     {
@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-06-05T06:36:33.506Z",
-      "version": "3.4.3",
+      "dateModified": "2025-07-04T10:51:44.868Z",
+      "version": "3.6.3",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -49,7 +49,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.4.3 - Lettore di testo in voce di TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.6.3 - Lettore di testo in voce di TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
@@ -163,6 +163,11 @@
   </script>
 
   <style>
+
+    [data-is-signed-out] [data-ws-show-if-state="isSignedIn=true"] {
+      display: none;
+    }
+
     .highlight {
       background-color: #ff0;
       color: black;
@@ -245,20 +250,35 @@
     /* Quill styles */
     .ql-toolbar.ql-snow {
       border: none !important;
+      position: relative !important;
+    }
+    .Sliding-In-Modal.hidden {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
     }
   </style>
-<script defer src="/static/js/main.099d1fb3.js"></script><link href="/static/css/main.ceaa6ee2.css" rel="stylesheet"></head>
+<script defer src="/static/js/main.0152c1a3.js"></script><link href="/static/css/main.afeb5a96.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
-  <div class="Go-premium-banner" data-ws-show-if-state="isPremium=false" style="text-align: center;text-transform: uppercase;
-    color: white;
-    font-weight: bold;
-    font-size: smaller;
-    background-color: darkgreen;"><a style="cursor: pointer; text-decoration: none;color: white;display: block; padding: 10px;" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();">
-    Clicca qui per aggiornare. Soddisfazione garantita al 100%<!-- Click here to upgrade. 100% satisfaction guaranteed -->
-  </a></div>
+  <div data-ws-show-if-state="isPremium=false">
+    <div class="Go-premium-banner" data-ws-show-if-state="isSignedIn=false" style="text-align: center;text-transform: uppercase;
+      color: white;
+      font-weight: bold;
+      font-size: smaller;
+      background-color: darkgreen;"><a style="cursor: pointer; text-decoration: none;color: white;display: block; padding: 10px;" data-ws-toggle="#upgradeModal">
+      Clicca qui per aggiornare. Soddisfazione garantita al 100%<!-- Click here to upgrade. 100% satisfaction guaranteed -->
+    </a></div>
+    <div class="Go-premium-banner" data-ws-show-if-state="isSignedIn=true" style="text-align: center;text-transform: uppercase;
+      color: white;
+      font-weight: bold;
+      font-size: smaller;
+      background-color: darkgreen;"><a style="cursor: pointer; text-decoration: none;color: white;display: block; padding: 10px;" onclick="openNewUpgradeModal()">
+      Clicca qui per aggiornare. Soddisfazione garantita al 100%<!-- Click here to upgrade. 100% satisfaction guaranteed -->
+    </a></div>
+  </div>
 
   <div style="flex: 1; display: flex;max-height: 100%;overflow: hidden;">
     <drawer style="overflow: hidden;max-height: 100%;">
@@ -274,20 +294,30 @@
         <div data-ws-show-if-state="isSignedIn=false">
           <a class="Menu-list-element" onclick="toggleSignIn();" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"></path></svg>&nbsp;&nbsp;Accedi / Registrati<!-- Sign in / Sign up --></a>
         </div>
-        <div data-ws-show-if-state="isSignedIn=true" style="display: flex;align-items: center;">
-          <p data-ws-show-if-state="isSignedIn=true" style="text-decoration: none;padding-left:10px; display: block;flex:1"><i><span data-ws-label-state="email"></span></i></p>
-          <a class="Menu-list-element" onclick="toggleSignIn();" style="padding: 10px;" title="Sign out" aria-label="Sign out">
-            <svg class="Top-btn-svg"><path d="m17 7-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg>
-          </a>
+        <div data-ws-show-if-state="isSignedIn=true" >
+          <div style="display: flex;align-items: center;">
+            <p data-ws-show-if-state="isSignedIn=true" style="text-decoration: none;padding-left:10px; display: block;flex:1"><i><span data-ws-label-state="email"></span></i></p>
+            <a class="Menu-list-element" onclick="toggleSignIn();" style="padding: 10px;" title="Sign out" aria-label="Sign out">
+              <svg class="Top-btn-svg"><path d="m17 7-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg>
+            </a>
+          </div>
         </div>
         <div data-ws-show-if-state="isPremium=false">
-          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;Passa a Premium<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
+          <div data-ws-show-if-state="isSignedIn=false">
+            <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;Passa a Premium<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
+          </div>
+          <div data-ws-show-if-state="isSignedIn=true">
+            <a class="Menu-list-element" onclick="openNewUpgradeModal()" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;Passa a Premium<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
+          </div>
         </div>
         <div data-ws-show-if-state="isPremium=true">
           <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>&nbsp;&nbsp;Stato Premium 🏆<!-- Premium 🏆 Status --></a>
         </div>
+        <div data-ws-show-if-state="isPremium=true">
+          <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform" target="_blank" style="cursor: pointer;text-decoration: none;display: block">-&nbsp;&nbsp;<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-sos"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" /><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /></svg>&nbsp;&nbsp;Premium Support Form</a>
+        </div>
         <div data-ws-show-if-state="isSignedIn=true">
-          <a href="https://ttsreader.com/account/" rel="nofollow" target="_blank" data-ws-show-if-state="isSignedIn=true" class="Menu-list-element" style="text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>&nbsp;&nbsp;Manage Account</a>
+          <a href="https://ttsreader.com/account/" rel="nofollow" target="_blank" class="Menu-list-element" style="text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>&nbsp;&nbsp;Manage Account</a>
         </div>
 
         <div class="Menu-list-element" style="position: relative;">
@@ -306,6 +336,11 @@
             <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M11 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 16l0 -5l2 1" /></svg>&nbsp;&nbsp;Scarica file audio mp3<!-- Download mp3 audio file -->
           </a>
         </div>
+        <div>
+          <a class="Menu-list-element" onclick="openOrCloseExportsListModal()" style="text-decoration:none;">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;MP3 Exports List
+          </a>
+        </div>
         <a class="Menu-list-element" data-ws-toggle="#voicesModal" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;Hai bisogno di più voci<!-- Need more voices -->
         </a>
@@ -321,6 +356,9 @@
         <a class="Menu-list-element" data-ws-toggle="#helpModal" onclick="loadImages('#helpImgId');">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-help"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 17l0 .01" /><path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" /></svg>&nbsp;&nbsp;Overlay di aiuto<!-- Help overlay -->
         </a>
+        <a class="Menu-list-element" data-ws-toggle="#onboardingModal">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-progress-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" /><path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" /><path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" /><path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" /><path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" /><path d="M9 12l2 2l4 -4" /></svg>&nbsp;&nbsp;Onboarding<!-- Help overlay -->
+        </a>
 
 
         <a class="Menu-list-element" href="/docs/guides/commercial/" target="_blank" style="text-decoration: none;display: block">
@@ -332,6 +370,9 @@
         </a>-->
         <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank" style="text-decoration: none;display: block">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-message-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" /></svg>&nbsp;&nbsp;Modulo di feedback<!-- Feedback form -->
+        </a>
+        <a class="Menu-list-element" href="https://ttsreader.com/contact/" target="_blank" style="text-decoration: none;display: block">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>&nbsp;&nbsp;Contact Us<!-- Contact us -->
         </a>
         <div data-ws-show-if-state="isShareSupported=true">
           <a class="Menu-list-element" onclick="share();"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -355,7 +396,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.4.3</b> Build 2025-06-05T06:36:33.506Z
+          <b>V3.6.3</b> Build 2025-07-04T10:51:44.868Z
           <br/><span style="margin-top: 10px;display: block">ALL VERSIONS <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -369,12 +410,6 @@
         <div>
           <a class="Menu-list-element" href="https://speechnotes.co/transcribe/" target="_blank" style="text-decoration: none;display: block">
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-device-audio-tape"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 17l4 -3h10l4 3" /><circle cx="7.5" cy="9.5" r=".5" fill="currentColor" /><circle cx="16.5" cy="9.5" r=".5" fill="currentColor" /></svg>&nbsp;&nbsp;Automatic AI Transcription
-          </a>
-        </div>
-        <div>
-          <a class="Menu-list-element" onclick="gtag('event','audioread_click_player_drawer',{value:'1'})" href="https://audioread.com/?via=ttsreader" target="_blank" rel="nofollow" style="text-decoration:none;">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon-tabler-headphones"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 13m0 2a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M15 13m0 2a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M4 15v-3a8 8 0 0 1 16 0v3" /></svg>&nbsp;&nbsp;Trasforma in podcast<!-- Turn into podcast -->
-            <span style="font-size: 0.5em; color: orange; position: relative; top: -5px; left: 2px; display: inline-block;">Partner<!-- Partner --></span>
           </a>
         </div>
         <div>
@@ -406,11 +441,11 @@
           <span class="Hide-on-narrow-screens">
         &nbsp;
         <span class="Voice-label Flag-font" data-ws-label-state="voiceLabel"></span>
-        <span data-ws-label-state="selectedRate"></span>X
         &nbsp;
         <svg class="Top-btn-svg" style="margin-left: -10px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5z"></path></svg>
       </span>
         </button>
+        <button title="Reading speed" data-ws-toggle="#voicesModal"><span data-ws-label-state="selectedRate"></span>X</button>
         &nbsp;
         <button data-ws-toggle="#addPauseModal" title="Insert pause in reading" aria-label="Insert pause in reading">
           <svg xmlns="http://www.w3.org/2000/svg" class="Top-btn-svg" style="width: 1.3em; height: 1.3em;" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -454,7 +489,7 @@
               <span data-ws-label-state="currentChapterLabel"></span> / <span data-ws-label-state="totalChapters"></span>
               <button data-ws-onClick="loadNextChapter" title="Load Next Chapter" aria-label="Load Next Chapter"><b>&rArr;</b></button>
             </div>
-            <div class="Text-box-container" data-ws-style-state="font-size=selectedFontSize">
+            <div class="Text-box-container" style="position: relative;" data-ws-style-state="font-size=selectedFontSize">
               <!-- Create the toolbar container -->
               <!--<div id="toolbar"></div>-->
               <!-- Create the editor container -->
@@ -611,15 +646,44 @@
             </div>
           </div>
 
-          <div class="remaining-chars-line" data-ws-show-if-state="isPremium=false" style="text-align: center; cursor: pointer; padding: 2px 10px;" data-ws-toggle="#upgradeModal">
+          <div data-ws-show-if-state="isSignedIn=false" class="remaining-chars-line" style="text-align: center; cursor: pointer; padding: 2px 10px;" onclick="signIn()">
+            <p data-ws-show-if-state="isSignedIn=false">
+              Sign in to enable unlimited basic voices & 5k chars free premium voices.
+            </p>
+          </div>
+          <div data-ws-show-if-state="isSignedIn=true" class="remaining-chars-line hidden" style="text-align: center; cursor: pointer; padding: 2px 10px;" onclick="openNewUpgradeModal()" >
+            <!--Old version:
             <p>
-              Utilizzato<!-- Used -->
+              Utilizzato&lt;!&ndash; Used &ndash;&gt;
               <b>
                 <span data-ws-label-state="charsUsedToday"></span>&nbsp;/&nbsp;
                 <span data-ws-label-state="dailyCharsLimit"></span>
               </b>
-              caratteri gratuiti al giorno. Clicca per rimuovere il limite.<!-- free chars per day. Click to remove limit. -->
-            </p>
+              caratteri gratuiti al giorno. Clicca per rimuovere il limite.&lt;!&ndash; free chars per day. Click to remove limit. &ndash;&gt;
+            </p>-->
+            <!-- New version: -->
+
+              <div data-ws-show-if-state="serverData=false">
+                <p>Fetching server data...</p>
+              </div>
+              <div data-ws-show-if-state="serverData=true">
+                <p data-ws-show-if-state="isPremium=false">
+                  Free plan. Unlimited basic voices. Used <span data-ws-label-state="usageLife"></span> / 5,000 chars for premium voices.&nbsp;Click to get more.
+                </p>
+                <p data-ws-show-if-state="isPremium=true">
+                  Premium. Unlimited Basic voices.&nbsp;
+                  <span data-ws-show-if-state="isPremiumPlan=true">
+                    Plan <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> / month.
+                  </span>
+                  &nbsp;
+                  <span data-ws-show-if-state="isPayAsYouGo=true">
+                    Additional chars: <span data-ws-label-state="remainingCreditsChars"></span>.
+                  </span>
+                  &nbsp;
+                  Click to add.
+                </p>
+              </div>
+
           </div>
           <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626"
                   crossorigin="anonymous"></script>-->
@@ -643,7 +707,43 @@
     </div>
   </div>
 
-  <div id="onboardingModal" style="display: none;" dir="">
+  <div id="exportsListModal" class="Sliding-In-Modal hidden">
+    <div class="Sliding-In-Modal-Content" style="background-color: darkred; color: white; overflow-y: auto;position: relative;">
+      <div onclick="openOrCloseExportsListModal(true);" style="position: absolute; right: 10px; top: 10px; cursor: pointer;width: 32px;height: 32px;display: flex;align-items: center;justify-content: center;border-radius: 50%;border: 2px solid white;color:white;stroke:white;">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+      </div>
+      <div style="text-align: center">
+        <h2>Long-Texts Exports List</h2>
+        <a data-ws-toggle="#exportModal" style="text-decoration: none;cursor: pointer; color: orangered;text-transform: uppercase">Click here to create a new MP3 from text</a>
+        <p>Cick on a file item to download. Make sure to save on your own device ASAP, as files will be automatically deleted from our storage in 30 days.</p>
+      </div>
+      <br/>
+      <div id="exportsRowsContainer">
+        <!-- rows inserted here -->
+        <p style="text-align: center">Nothing here yet. Export your texts to MP3. If the text is long, then your rendered MP3 will be saved on our servers for 30 days for your convenience.</p>
+      </div>
+
+      <template id="exportsListItemTemplate">
+        <a class="job-download-link" style="text-decoration: none;"><div class="job-row">
+          <span class="job-date"></span>
+          <span class="job-preview"></span>
+          <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
+          <span class="voice-name">David</span>&nbsp;X
+          <span class="job-rate" style="padding-left: 0"></span>
+          <span class="job-state" style="font-weight: bold;border: 1px solid yellow; padding: 0;"></span>
+          <span class="job-download-btn"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></span>
+        </div></a>
+      </template>
+    </div>
+  </div>
+
+  <div id="newUpgradeModal" class="Sliding-In-Modal hidden">
+      <iframe></iframe>
+  </div>
+
+
+
+  <div id="onboardingModal" class="wideModal" style="display: none;" dir="">
     <div data-ws-step="1" class="modal-step" style="background: url('/images/anima2.webp') no-repeat center;background-size: cover;">
       <div style="flex:1"></div>
       <h1>Benvenuto su <span style="color:darkred;">TTS</span>Reader 3<!-- Welcome to <span style="color:darkred;">TTS</span>Reader 3 --></h1>
@@ -663,7 +763,7 @@
 
       <br/>
       <p style="font-size: smaller"><i>By continuing you agree to our <a href="/docs/legal/terms/" target="_blank">terms</a> & <a href="/docs/legal/privacy/" target="_blank">privacy policy</a></i></p>
-
+      <p data-ws-show-if-state="isSignedIn=false">Already have an account? <button class="secondary" onclick="signIn()">Sign in with Google</button></p>
       <div style="flex:1;" ></div>
     </div>
 
@@ -713,14 +813,20 @@
     </div>
 
     <div data-ws-step="3" class="modal-step" style="display: none">
-      <div class="modal-header">
-        <span>Seleziona la tua voce preferita<!-- Select Your Preferred Voice --></span><br/>
-        <span style="font-size: 16px;opacity: 0.8;">Clicca su una voce per ascoltare come suona. Quando sei pronto, tocca <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Avanti</a>.<!-- Click a voice to hear how it sounds. When ready, tap <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Next</a>. --></span>
-      </div>
+      <!--<div class="modal-header">
+        <span>Seleziona la tua voce preferita&lt;!&ndash; Select Your Preferred Voice &ndash;&gt;</span><br/>
+        <span style="font-size: 16px;opacity: 0.8;">Clicca su una voce per ascoltare come suona. Quando sei pronto, tocca <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Avanti</a>.&lt;!&ndash; Click a voice to hear how it sounds. When ready, tap <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Next</a>. &ndash;&gt;</span>
+      </div>-->
       <div class="modal-content">
+        <p>Select preferred voice. Puoi cambiarla in seguito.<!-- You can always change it later. --></p>
         <div style="flex:1"></div>
-        <div class="Voices-Gallery" style="max-width: 600px; margin: auto;">
-          <!-- Container to be filled by js. Keep empty. -->
+        <div class="Voices-Gallery" style="max-width: 1000px; margin: auto;margin-top: -15px;">
+          <h2>Premium AI Voices (Free Trial Requires Signin, No Payment)</h2>
+          <div class="Gallery-Container Voices-Gallery-Container-Premium"></div>
+          <br/>
+          <h2>Free & Unlimited Voices - No Signin Required</h2>
+          <div class="Gallery-Container Voices-Gallery-Container-Free"></div>
+
         </div>
         <template id="voiceTileTemplate">
           <div class="voice-tile" data-ws-voiceURI="ttsreader.gcp.standard-A" data-ws-audio-src="https://ttsreader.com/player/audio/Christopher.mp3" style="font-size: larger; position: relative;">
@@ -748,15 +854,18 @@
         </template>
         <div style="flex:2"></div>
       </div>
-      <div class="modal-footer">
-        <p style="opacity: 0.8">
-          <svg style="width:1em;height:1em;" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1phnduy" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
-            <path d="M14 12c0 .74-.4 1.38-1 1.72V22h-2v-8.28c-.6-.35-1-.98-1-1.72 0-1.1.9-2 2-2s2 .9 2 2m-2-6c-3.31 0-6 2.69-6 6 0 1.74.75 3.31 1.94 4.4l1.42-1.42C8.53 14.25 8 13.19 8 12c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.19-.53 2.25-1.36 2.98l1.42 1.42C17.25 15.31 18 13.74 18 12c0-3.31-2.69-6-6-6m0-4C6.48 2 2 6.48 2 12c0 2.85 1.2 5.41 3.11 7.24l1.42-1.42C4.98 16.36 4 14.29 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 2.29-.98 4.36-2.53 5.82l1.42 1.42C20.8 17.41 22 14.85 22 12c0-5.52-4.48-10-10-10"></path>
-          </svg>&nbsp;
-          Indica che la voce è consentita per la pubblicazione, con una <a style="color: orangered;cursor: pointer;" data-ws-toggle="#upgradeModal">Licenza Premium</a>.<!-- Indicates voice is allowed for publishing, given a <a style="color: orangered;cursor: pointer;" data-ws-toggle="#upgradeModal">Premium License</a>. -->
-        </p>
-        <button class="secondary" onclick="prevStep(this)">Indietro<!-- Back --></button>
-        <button class="primary" onclick="nextStep(this)">Avanti<!-- Next --></button>
+      <div data-ws-show-if-state="isSignedIn=false">
+        <div class="modal-footer" style="display: flex">
+          <button class="secondary" style="flex: 1" onclick="prevStep(this)">Indietro<!-- Back --></button>
+          <button data-ws-show-if-state="isVoicePremium=true" class="primary" style="flex: 2" onclick="signIn()">Accedi con Google</button>
+          <button data-ws-show-if-state="isVoicePremium=false" class="primary hidden" style="flex: 2" onclick="closeOnboarding()">Andiamo</button>
+        </div>
+      </div>
+      <div data-ws-show-if-state="isSignedIn=true">
+        <div class="modal-footer" style="display: flex">
+          <button class="secondary" style="flex: 1" onclick="prevStep(this)">Indietro<!-- Back --></button>
+          <button class="primary" style="flex: 2" onclick="closeOnboarding()">Andiamo</button>
+        </div>
       </div>
     </div>
 
@@ -772,17 +881,21 @@
       <div data-ws-show-if-state="isSignedIn=false">
         <div data-ws-show-if-state="isVoicePremium=true" class="hidden">
           <div class="modal-step-overlay" style="display:flex;position: absolute;top:0;bottom:0;left:0;right:0;flex-direction: column">
-            <div style="flex:1"></div>
-            <p style="max-width: 600px; margin: auto;font-size: larger;">La voce che hai selezionato <span data-ws-label-state="voiceLabel"></span>&nbsp; è un'ottima scelta! Poiché è una voce premium, è richiesta la registrazione.<br/><br/>Effettua l'accesso in sicurezza con Google per continuare.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required.
-              <br/><br/>Please securely sign in with Google to continue. --></p>
+            <div style="flex:1.5"></div>
+            <p style="max-width: 600px; margin: auto;font-size: larger;">
+              La voce che hai selezionato <span data-ws-label-state="voiceLabel"></span>&nbsp; è un'ottima scelta! Poiché è una voce premium, è richiesta la registrazione.<br/><br/>Effettua l'accesso in sicurezza con Google per continuare.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. -->
+            </p>
             <br/><br/>
-            <button onclick="signIn();" class="primary" style="margin: auto;border: 1px solid;max-width: 500px;border-radius: 10px;">Accedi con Google<!-- Sign In with Google --></button>
+            <button onclick="signIn();" class="primary" style="margin: auto;border: 1px solid;border-radius: 10px;width: 500px;max-width: 90%;">Accedi con Google<!-- Sign In with Google --></button>
             <br/>
-            <p>Nessuna password o metodo di pagamento richiesto.<!-- No password or payment method required. --></p>
-            <div style="flex:2"></div>
-            <div class="modal-footer">
+            Nessuna password o metodo di pagamento richiesto.
+            <br/>
+            <div style="flex:1"></div>
+            <p>Or, if you prefer, you may <a style="text-decoration: underline; cursor: pointer" onclick="prevStep(this)">go back and select a free & unlimited voice.</a></p>
+            <div>
               <button class="secondary" onclick="prevStep(this)">Indietro<!-- Back --></button>
             </div>
+            <div style="flex:1"></div>
           </div>
         </div>
       </div>
@@ -820,7 +933,7 @@
       <h4 style="font-size: 1.2em;">
         <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;"></select>
       </h4>
-      <div style="max-width: 100%; width: 350px; margin: -5px auto 30px; flex: 1;overflow-y: auto;text-align: left">
+      <div style="max-width: 100%; width: 450px; margin: -5px auto 30px; flex: 1;overflow-y: auto;text-align: left">
 
         <div style="text-align: center;position: relative">
           <div style="position: absolute;left: 0;top: 7px;opacity: 0.7;font-size: smaller;">
@@ -847,8 +960,26 @@
             </svg>
           </a>
         </div>
+        <h3 style="text-align: center">Premium AI Voices</h3>
         <div class="Best-voices"></div>
+        <h3 style="text-align: center">Free Unlimited Voices</h3>
         <div class="Voices-list"></div>
+
+        <template id="voiceOptionTemplate">
+          <div class="Voice-list-element" data-ws-voiceURI="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-ws-voiceName="David" data-ws-select-if-state="selectedVoiceUri=ttsreaderServer.gcp.en-US-Chirp-HD-D" selected="true">
+            <span onclick="window.appMethods.selectVoice(this)">
+              <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
+              <span class="voice-gender-male" title="Male">👨</span>
+              <span class="voice-gender-female" title="Female">👩</span>
+              <span class="voice-name" title="Click to select voice">David</span>
+            </span>
+            <span class="voice-publishing" style="color: green"  title="Allowed for publishing for Premium accounts">✓</span>
+            <span class="voice-premium" title="Premium Voice">🌟</span>
+            <span title="Copy inline voice-setter" onclick="window.appMethods.copyVoice(this)"><svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path></svg></span>
+            <span title="Click to test voice" onclick="window.appMethods.testVoice(this)"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
+          </div>
+        </template>
+
       </div>
       <!--<select class="Voice-selector" data-ws-onChange="handleVoiceChange" data-ws-value-state="selectedVoiceUri"></select>-->
       <p style="text-align: center">
@@ -935,24 +1066,56 @@
       <h4>NEW Export Text to Audio - MP3 / WAV</h4><!-- TODO: replace with:  -->
       <p><strong>Instant MP3 / WAV generation</strong> for premium users. <strong>You own the copyrights! Use the generated audio for ANY purpose.</strong></p>
       <div style="text-align: justify; font-size: smaller;">
-      <p>If you need to export more than 5k chars, or mix voices, or add in-text pauses - please use the 'RECORD ◉' button for now. We're developing solutions to overcome these limitations.</p>
+      <p style="text-align: center">PLEASE NOTE:</p>
       <ul style="text-align: justify">
-        <li>Requires Premium<span data-ws-show-if-state="isPremium=true">, which you are! Fantastic.</span><span data-ws-show-if-state="isPremium=false">. <a href="#" data-ws-toggle="#upgradeModal">Click to upgrade.</a></span></li>
+        <li><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ </span>Requires Premium<span data-ws-show-if-state="isPremium=true">, which you are! ✅ Fantastic.</span><span data-ws-show-if-state="isPremium=false">. <a href="#" data-ws-toggle="#upgradeModal" style="font-weight: bold">Click to upgrade.</a></span></li>
         <li><strong>Please PLAY before export - to make sure it ALL sounds exactly as you like it to. Edit to perfection. Then export when ready.</strong></li>
         <li>It's new - so it may have issues we're unaware of.</li>
         <li>It consumes chars from your quota just like PLAY would.</li>
-        <li>Limited to 5,000 chars. Your current text has <span data-ws-label-state="charsCount"></span> chars.</li>
-        <li>It only works with premium voices (those marked with a star at the voices gallery)</li>
-        <li>It does NOT respect the codes for pauses in text, or for setting voice & rate in text. So <b>make sure the voice & rate are set correctly by the voice-selector controls</b>.</li>
+        <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
+        <li>It only works with premium voices (those marked with a star at the voices gallery).</li>
+        <li><b>Make sure the voice & rate are set correctly by the voice-selector controls</b> as it ignores inline voice-setter codes.</li>
+        <li style="color: green">New: {{pause}} And {{pause:DURATION_IN_MS}} are supported. Make sure they are formatted WITHOUT any white space/s inside the double-braces {{...}}</li>
       </ul>
       </div>
       <br/>
       <div>
         <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">Create & Download MP3</button>
-        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button" data-ws-params="wav" data-ws-onClick="exportToMp3">Create & Download WAV</button>
+        <p style="font-weight: bold;color: orangered;cursor: pointer;background-color: lightgoldenrodyellow; padding: 5px; border: 1px solid;" onclick="openOrCloseExportsListModal();" data-ws-toggle="#exportModal">CLICK HERE FOR PROCESSING / READY LONG-FORM EXPORTS</p>
+        <br/>
+        <p>For short texts (less than 2,000 chars) - you can export to WAV as well</p>
+        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">Create & Download WAV (LESS THAN 2,000 CHARS ONLY)</button>
       </div>
       <br/>
       <p>How are we doing? Let us know please! <a href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank">Feedback Form Link</a></p>
+    </div>
+  </div>
+
+  <div class="Modal" id="uploadModal" style="z-index: 9999; display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: auto;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4>UPLOADING TEXT TO GENERATE SPEECH</h4><!-- TODO: replace with:  -->
+      <p><strong>PLEASE KEEP THIS TAB OPEN</strong></p>
+    </div>
+  </div>
+
+  <div class="Modal" id="uploadSuccessModal" style="z-index: 9999; display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: auto;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4> ✅ UPLOAD SUCCESS</h4><!-- TODO: replace with:  -->
+      <p style="font-size: larger">Your audio file is now being rendered by our server in the background.
+        <br/><br/>It is now safe to keep working, and even close the tab.
+        <br/><br/>The task shows in the exports-list, and when ready the audio file can be downloaded by click on the task's row in the list.</p>
     </div>
   </div>
 
@@ -1047,19 +1210,55 @@
         </svg>
       </button>
       <div data-ws-show-if-state="isPremium=true" style="padding: 20px;text-align: center;">
-        <p style="font-size: larger;">Congratulazioni! Ora sei Premium!<!-- Congrats! You are now Premium! --></p>
+        <p style="font-size: larger;">Premium Plan<!-- Congrats! You are now Premium! --></p>
         <p style="font-size: 70px; padding: 20px;margin-block: 0.3em;">🏆</p>
         <p data-ws-show-if-state="subscriptionId=true">
           Tramite<!-- Via --> <a style="cursor: pointer;text-decoration: underline" data-ws-toggle="#subscriptionModal">Abbonamento<!-- Subscription --> - clicca qui per visualizzare e gestire<!-- click here to view & manage --></a>
+          <br/>
+          Planned to renew automatically on: <span data-ws-label-state="premiumPlanExpirationDateReadable"></span>
+        </p>
+        <p data-ws-show-if-state="isPremiumPlan=false">
+          <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Click to purchase a convenient Premium Subscription</a>
         </p>
         <p data-ws-show-if-state="subscriptionId=false">
-          <span data-ws-show-if-state="isPremiumByLegacy=false">
-            Tramite l'acquisto di una licenza annuale. Scade in<!-- Via purchase of 1 year license. Expires in --> <span data-ws-label-state="daysLeftForPremium"></span> giorni.<!-- days. --> <a target="_blank" href="https://ttsreader.com/upgrade/">Clicca qui per estendere<!-- Click here to extend --></a>
-          </span>
-          <span data-ws-show-if-state="isPremiumByLegacy=true">
-            Tramite il piano legacy - sei fantastico!!<!-- Via legacy plan - you rock!! -->
+          <span data-ws-show-if-state="isPremiumPlan=true">
+            Expires on: <!-- Via purchase of 1 year license. Expires in --> <span data-ws-label-state="premiumPlanExpirationDateReadable"></span>
           </span>
         </p>
+        <hr/>
+        <div style="text-align: center">
+          <div data-ws-show-if-state="isSignedIn=true">
+            <div data-ws-show-if-state="serverData=false">
+              <p>Fetching server data...</p>
+            </div>
+            <div data-ws-show-if-state="serverData=true">
+              <p data-ws-show-if-state="isPremium=false">
+                Free plan. Unlimited basic voices.
+                <br/>
+                Used <span data-ws-label-state="usageLife"></span> / 5,000 chars of Premium Voices.
+              </p>
+              <p data-ws-show-if-state="isPremium=true">
+                Unlimited basic voices.
+                <br/>
+                <span data-ws-show-if-state="isPremiumPlan=true">
+                  Used <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> chars of Premium Voices for this month.
+                </span>
+                <br/>
+                <span data-ws-show-if-state="isPayAsYouGo=true">
+                  Additional remaining premium chars <span data-ws-label-state="remainingCreditsChars"></span>.
+                </span>
+                <br/>
+                <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Click to purchase Pay-As-You-Go Premium Voices Characters</a>
+                <br/>
+                <hr/>
+                <br/>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform" target="_blank" style="color: orangered;cursor: pointer;text-decoration: none;display: block"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-sos"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" /><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /></svg>&nbsp;&nbsp;Premium Support Form</a>
+                <br/>
+                <span>Or, email us to <span style="color: orangered">contact@ttsreader.com</span> please mention in the subject line you are a premium user</span>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
       <div style="overflow: auto;padding:10px 30px;" data-ws-show-if-state="isPremium=false">
         <h4>Ottieni di più e supporta il team 🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --></h4>
@@ -1082,50 +1281,16 @@
         </div>
 
         <div data-ws-show-if-state="isSignedIn=true" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 12px; background-color: white; border-radius: 10px;">
-          <h2 style="color: black">Seleziona il tuo piano Premium<!-- Select Your Premium Plan --></h2>
-          <form id="subscriptionForm">
-            <div class="option selected" id="option1" onclick="updateStateWithParentData({recurringTab: true})">
-              <input type="radio" id="monthly" name="plan" value="monthly" checked>
-              <label for="monthly">
-                <strong>Abbonamento<!-- Subscription --> <span class="price-tag">$10.99 / mo.</span></strong><br>
-                <span>Annulla in qualsiasi momento.<!-- Cancel anytime. --></span>
-              </label>
-            </div>
-            <div class="option" id="option2" onclick="updateStateWithParentData({recurringTab: false})">
-              <input type="radio" id="yearly" name="plan" value="yearly">
-              <label for="yearly">
-                <strong>Pagamento unico<!-- One-Time Payment --> <span class="price-tag">$39.00</span></strong><br>
-                <span>Nessun pagamento ricorrente. Valido per un<!-- No recurring payments. Valid for a --> <u>anno intero<!-- whole year --></u>. Non si rinnova <u>AUTOMATICAMENTE</u>. Non preoccuparti mai di annullare.<!-- Does <u>NOT</u> auto-renew. Never worry about canceling. --></span>
-              </label>
-            </div>
-          </form>
-          <script>
-            document.querySelectorAll('#upgradeModal .option').forEach(option => {
-              option.addEventListener('click', () => {
-                document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                option.querySelector('input').checked = true;
-              });
-            });
-          </script>
-          <div data-ws-show-if-state="recurringTab=true">
-            <p style="text-align: center">Selected monthly subscription</p>
-            <div id="paypal-button-container-subscription"></div>
-          </div>
-          <div data-ws-show-if-state="recurringTab=false">
-            <p style="text-align: center">Selected 1 yr license, non recurring</p>
-            <div id="paypal-button-container"></div>
-          </div>
-          <p style="color: #282c34; font-weight: bolder;">Acquisto sicuro. Soddisfazione garantita al 100%<!-- Secure purchase. 100% satisfaction guaranteed --></p>
+          <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Click to select a convenient Premium Subscription, or purchase extra Premium Credits.</a>
         </div>
         <br/>
         <h4 style="text-align: start">&nbsp;&nbsp;&nbsp;Principali vantaggi<!-- Main Benefits --></h4>
         <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 0 0 1em 0; text-align: start">
           <li>Senza pubblicità<!-- No Ads --></li>
           <li>Caricamento più veloce<!-- Faster loading --></li>
-          <li>Lettura continua illimitata - For non premium voices<!-- Unlimited continuous reading --></li>
-          <li>Lift daily limit to 200,000 chars per day, 1M char per month for premium voices</li>
-          <li>Export to MP3 & WAV</li>
+          <li>Lettura continua illimitata - For the non premium voices<!-- Unlimited continuous reading --></li>
+          <li>For premium voices: lift limit to 1+ million chars per month or as many as you like via Pay-As-You-Go</li>
+          <li>Export to MP3</li>
           <li>Registrazione abilitata su PC Windows<!-- Recording enabled on Windows PC --></li>
           <li>Licenza commerciale and Publishing<!-- Commercial license --></li>
           <li>Sblocca tutte le funzionalità<!-- Unlock all features --></li>
@@ -1137,6 +1302,7 @@
   </div>
 
 
+  <div data-ws-show-if-state="subscriptionId=true" style="position: relative">
   <div class="Modal" id="subscriptionModal" style="display: none">
     <div style="height:20px;"></div>
     <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;">
@@ -1161,6 +1327,7 @@
       </div>
     </div>
     <div style="height:20px;"></div>
+  </div>
   </div>
 
   <!--<div class="Modal" id="mp3GuideModal" style="display: none">
@@ -1293,7 +1460,9 @@
     <div class="Modal-content" style="max-width: 100%; max-height: 100vh; text-align: center;">
       <p>Generating audio file... Expect results in:</p>
       <p id="processingTimer" style="font-size: 1.2em;font-weight: bold">01:00</p>
-      <p>If results aren't yet ready - please keep waiting - it make take up to a minute in some cases for longer texts.</p>
+      <p>If results aren't yet ready - please keep waiting.
+        <br/><b>- KEEP THIS TAB OPEN WHILE RUNNING -</b>
+      </p>
     </div>
     <div style="flex: 1"></div>
   </div>
@@ -1412,6 +1581,199 @@
   /*
   This script is for sign-in and for premium status.
    */
+  let currentAudioInJobs = null;
+  let currentPlayButtonInJobs = null;
+  const exportsRowsContainer = document.getElementById('exportsRowsContainer');
+  const rowTemplate = document.getElementById('exportsListItemTemplate');
+
+  const voiceToName = {
+    "en-US-AndrewMultilingualNeural": "John",
+    "it-IT-MarcelloMultilingualNeural": "Marcello",
+    "de-DE-SeraphinaMultilingualNeural": "Seraphina",
+  }
+
+  function getNameFromVoiceUri(voiceUri) {
+    if (voiceToName[voiceUri]) {
+      return voiceToName[voiceUri];
+    }
+
+    let parts = voiceUri.split(".");
+    // find largest part:
+    let largestPart = parts.reduce((a, b) => a.length > b.length ? a : b);
+    parts = largestPart.split("-");
+    // find largest part again:
+    largestPart = parts.reduce((a, b) => a.length > b.length ? a : b);
+
+    largestPart = largestPart.replace("Multilingual","").replace("Neural", "").replace("Standard", "").replace("Premium", "").replace("Expressive", "").replace("Enhanced", "");
+    return largestPart;
+  }
+
+    // Handle cases like "Google UK
+
+  function getFlagForLocaleCode(code, voiceUri) {
+    if (code === undefined || code === "") {
+      return "";
+    }
+
+    if (code==="i18n") {
+      return "🌎";
+    }
+
+    if (code.includes("-")) {
+      // Handle locale codes like "en-US", "fr-FR", etc.
+      code = code.split("-")[1];
+    } else if (code.includes("_")) {
+      // Handle locale codes like "en_US", "fr_FR", etc.
+      code = code.split("_")[1];
+    } else {
+      // code is only lang, no country - get country from voiceUri
+      if (code==="en") {
+        if (voiceUri.includes("en-US")) {
+          code = "US";
+        } else if (voiceUri.includes("en-GB")) {
+          code = "GB";
+        } else if (voiceUri.includes("en-AU")) {
+          code = "AU";
+        } else if (voiceUri.includes("en-CA")) {
+          code = "CA";
+        } else if (voiceUri.includes("en-IN")) {
+          code = "IN";
+        } else if (voiceUri.includes("en-NZ")) {
+          code = "NZ";
+        } else if (voiceUri.includes("en-ZA")) {
+          code = "ZA";
+        } else {
+          code = "US"; // Default if no specific country is found
+        }
+      } else if (code==="fr") {
+        if (voiceUri.includes("fr-FR")) {
+          code = "FR";
+        } else if (voiceUri.includes("fr-CA")) {
+          code = "CA";
+        } else {
+          code = "FR"; // Default if no specific country is found
+        }
+      } else if (code==="es") {
+        if (voiceUri.includes("es-ES")) {
+          code = "ES";
+        } else if (voiceUri.includes("es-MX")) {
+          code = "MX";
+        } else if (voiceUri.includes("es-US")) {
+          code = "US";
+        } else {
+          code = "MX"; // Default if no specific country is found
+        }
+      }
+    }
+
+    if (code === null || code.length !== 2) {
+      return code ? code.substring(0,3) : "";
+    }
+
+    code = code.toUpperCase();
+
+    if (code==="IL") {
+      return "🇮🇱";
+    }
+
+    if (code==="PS") {
+      return "🇵🇸";
+    }
+
+    let sb = "";
+    const a = String.fromCodePoint(code.codePointAt(0) - 0x41 + 0x1F1E6);
+    const b = String.fromCodePoint(code.codePointAt(1) - 0x41 + 0x1F1E6);
+    return a + b;
+  }
+
+  function startCountdown(row, job) {
+    const etaSeconds = job.estimatedTimeInSecs || 10;
+    const startTime = job.createdAt;
+    const endTime = startTime + etaSeconds * 1000;
+
+    const stateEl = row.querySelector('.job-state');
+
+    function updateCountdown() {
+      const now = Date.now();
+      let remaining = Math.max(0, Math.floor((endTime - now) / 1000)); // in seconds
+
+      const minutes = String(Math.floor(remaining / 60)).padStart(2, '0');
+      const seconds = String(remaining % 60).padStart(2, '0');
+
+      stateEl.textContent = `Processing. ETA: ${minutes}:${seconds}`;
+
+      if (remaining <= 0) {
+        if (timer) {
+        clearInterval(timer);
+        }
+        stateEl.textContent = 'Finalizing...'; // or "Done", depending on your app logic
+      }
+    }
+
+    const timer = setInterval(updateCountdown, 1000);
+  }
+
+  function renderJobRow(job) {
+    const clone = rowTemplate.content.cloneNode(true);
+    const row = clone.querySelector('.job-row');
+
+    /*
+      <div class="job-row">
+          <span class="job-date"></span>
+          <div class="job-preview flex-fill"></div>
+          <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
+          <span class="voice-name">David</span>
+          <div class="job-rate"></div>
+          <span class="job-state"></span>
+          <span class="job-download-btn"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></span>
+      </div>
+     */
+    const downloadLink = clone.querySelector('.job-download-link');
+    downloadLink.setAttribute("data-ws-job-id", job.id);
+    row.querySelector('.job-date').textContent = new Date(job.createdAt).toLocaleDateString();
+    row.querySelector('.job-preview').textContent = job.previewText || '';
+    row.querySelector('.voice-lang').textContent = getFlagForLocaleCode(job.lang, job.voiceURI);
+    row.querySelector('.voice-name').textContent = getNameFromVoiceUri(job.voiceURI);
+    row.querySelector('.job-rate').textContent = job.rate;
+
+    if (job.statusCode==="Done") {
+      row.querySelector('.job-state').remove();
+    } else {
+      row.querySelector('.job-download-btn').remove();
+      if (job.statusCode==="Processing") {
+        let estimatedTimeInSecs = 10 + Math.floor(job.requestedChars * 70/15000);
+        //row.querySelector('.job-state').textContent = "Processing. ETA: " + new Date(job.createdAt + estimatedTimeInSecs * 1000).toLocaleTimeString();
+        job.estimatedTimeInSecs = estimatedTimeInSecs;
+        startCountdown(row, job);
+      } else {
+        row.querySelector('.job-state').textContent = job.statusCode;
+      }
+    }
+
+
+    if (job.mp3Url) {
+      downloadLink.href = job.mp3Url.split('?')[0];
+      downloadLink.setAttribute('download', job.fileName || `ttsreader-${job.id}.mp3`);
+    } else {
+      downloadLink.href ="javascript:alert('Job is not ready yet, please wait for it to finish processing.');";
+      downloadLink.removeAttribute('target');
+    }
+
+    // If exportsRowsContainer contains a row with [data-ws-job-id] equal to job.id, replace it with the new row.
+    // Otherwise, append the new row.
+
+    if (exportsRowsContainer.querySelector(`[data-ws-job-id="${job.id}"]`)) {
+      const existingRow = exportsRowsContainer.querySelector(`[data-ws-job-id="${job.id}"]`);
+      exportsRowsContainer.replaceChild(clone, existingRow);
+      if (job.mp3Url && !existingRow.querySelector('.job-download-btn')) {
+        // IE newly available link:
+        downloadLink.click();
+      }
+    } else {
+      // 'Append' to be the first child:
+      exportsRowsContainer.insertBefore(clone, exportsRowsContainer.firstChild);
+    }
+  }
 
   window.getIdToken = async () => null;
 
@@ -1486,6 +1848,11 @@
             return await user.getIdToken();
           }
 
+          localStorage.setItem("ttsreader.wasSignedIn", "true");
+          // Remove the "data-is-signed-out" attribute from the html tag:
+          document.documentElement.removeAttribute("data-is-signed-out");
+          closeOnboarding();
+
           // User is signed in.
           window.updateStateWithParentData({
             wasAuthReceived: true,
@@ -1494,13 +1861,16 @@
             ronenMock: true,
           });
           window.uid = user.uid;
-          listenToDatabaseData(user.uid);
-          if (window.resetPayPalButtons) {resetPayPalButtons(user.uid);}
+          initDbListeners(user.uid);
         } else {
           // User signed out.
           window.getIdToken = async () => null;
+          localStorage.removeItem("ttsreader.wasSignedIn");
+          // Set the "data-is-signed-out" attribute to the html tag:
+          document.documentElement.setAttribute("data-is-signed-out", "true");
 
           window.updateStateWithParentData({
+            serverData: null,
             isPremium: false,
             wasAuthReceived: false,
             uid:  "",
@@ -1509,7 +1879,7 @@
           });
           window.uid = null;
           if (window.getAppState && !getAppState().data.isPremium) {
-            injectAds();
+            // injectAds();
           }
         }
       });
@@ -1528,145 +1898,203 @@
     return hash;
   }
 
-  function cancelSubscription() {
+  async function cancelSubscription() {
     if (!window.subscriptionId) {
-      alert('No subscription to cancel. If you think this is an error, please contact us via the form or via admin@speechlogger.com');
+      alert('No subscription to cancel. If you think this is an error, please contact us via the form or via contact@ttsreader.com');
       return;
     }
 
     if (confirm('Are you sure you want to cancel your subscription?')) {
-      if (window.subscriptionId) {
-        // `curl -H 'Content-Type: application/json' -d '{"appId":"speechninja","uid":"", "subId": "I-XBC6BF63D347", "checkSum":"822831988"}' -X POST https://us-central1-ttsreader.cloudfunctions.net/cancelPayPalSubById2`
-        let url = "https://us-central1-ttsreader.cloudfunctions.net/cancelPayPalSubById2";  // Production
-        // let url = "http://127.0.0.1:5001/ttsreader/us-central1/cancelPayPalSubById2"; // Local testing
-        let uid = window.uid;
-        let subId = window.subscriptionId;
-        let checkSum = "" + hashFromString(uid + subId);
-        fetch(url, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'text/plain',
-          },
-          body: JSON.stringify({
-            appId: "ttsreader",
-            uid: uid,
-            subId: subId,
-            checkSum: checkSum
-          })
-        }).then((response) => {
-          if (!response.ok) {
-            console.log('Error ' + response.status);
-            throw new Error('Error ' + response.status);
-          } else {
-            firebase.database().ref('/subs/' + uid + "/" + subId).remove().then(()=>{
-              console.log('Subscription removed');
-              alert('Subscription cancelled successfully.');
-              window.updateStateWithParentData({
-                isPremium: false,
-                subs: [],
+      let url = "https://us-central1-ttsreader.cloudfunctions.net/cancelPremiumSubscription";  // Production
+      //let url = "http://127.0.0.1:5001/ttsreader/us-central1/cancelPremiumSubscription"; // Local testing
+      const subId = window.subscriptionId;
+      const authToken = await window.getIdToken();
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${authToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ subId })
+      })
+              .then(async (response) => {
+                const text = await response.text();
+                if (!response.ok) {
+                  alert("Error: " + response.status + " - " + text);
+                  throw new Error(text || "Unknown error");
+                }
+                // Success
+                alert("Action completed successfully!");
+              })
+              .catch((error) => {
+                // Failure
+                console.error("Request failed:", error);
+                alert("An error occurred: " + error.message);
               });
-              injectAds();
-            }).catch((err)=>{
-              console.log('Subscription remove failed', err);
-            });
-            updateStateWithParentData({isPremium: false})
-          }
-        }).then((data) => {
-          console.log('Success:', data);
-        }).catch((error) => {
-          console.error('Error:', error);
-          alert('Error cancelling subscription. Please try again later or contact us via the form or via admin@speechlogger.com');
-        });
-      }
     }
   }
 
+  function confirmUploadSucceeded() {
+    openOrCloseExportsListModal();
+    appMethods.closeModal('uploadModal');
+    appMethods.showModal('uploadSuccessModal');
+    window.isWaitingForUploadConfirmation = false;
+  }
 
+  async function initDbListeners(uid) {
 
-  function listenToDatabaseData(uid) {
-    firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
+    // Listen to 'users' data: TODO...
+    /*firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
       let data = snapshot.val();
       console.log(stopper() + 'got user data from db: ', data);
-      if (!data) {
-        window.updateStateWithParentData({
-          wasUserDataReceived: true,
-          isPremiumByLegacy: false,
-        })
+      // If we need anything from the user data, we can use it here.
+      // In the future - this would be the place to sync between devices.
+    });*/
+
+    // Listen to the new plans path.
+    // If none - then fetch legacy data. If data there - then call sync plans once.
+    firebase.database().ref('/users_server_data/' + uid).on('value', async (snapshot) => {
+      let data = snapshot.val();
+      let wasLegacyPlanFound = false;
+
+      if (!localStorage.getItem('wasBWCompatRun') && (!data || Object.keys(data).length === 0 || !data.currentPremiumPlan || Object.keys(data.currentPremiumPlan).length === 0)) {
+        // No new plan found.
+
+        console.log(stopper() + 'No server data found for user: ' + uid);
+        // Let's see if there's legacy data to sync:
+
+        const subsSnapshot = await firebase.database().ref('/subs/' + uid).once('value');
+        const subsData = subsSnapshot.val();
+        if (!subsData || Object.keys(subsData).length === 0) {
+          // Continues to 'purchases':
+          const purchasesSnapshot = await firebase.database().ref('/purchases/' + uid).once('value');
+          const purchasesData = purchasesSnapshot.val();
+          if (purchasesData && Object.keys(purchasesData).length > 0) {
+            wasLegacyPlanFound = true;
+          }
+        } else {
+          wasLegacyPlanFound = true;
+        }
+      }
+
+      if (!data || Object.keys(data).length===0) {
+        data = true; // A simple flag to indicate that the data was fetched, although empty.
+      }
+      updateStateWithParentData({serverData: data || true});
+      if (wasLegacyPlanFound) {
+        // Sync plans:
+        setBackwardsCompatibilityQuotas();
+      }
+    });
+
+    let jobsRef = firebase.database().ref('/exports/' + uid);
+
+    // On child added listener, sort by createdAt descending:
+    jobsRef.orderByChild('createdAt').on('child_added', (snapshot) => {
+      const jobData = snapshot.val();
+      if (!jobData || typeof jobData.createdAt !== 'number') return;
+
+      const job = {
+        id: snapshot.key,
+        ...jobData
+      };
+
+      // Render the new job row:
+      renderJobRow(job);
+      let createdAt = job.createdAt || 0;
+      if (window.isWaitingForUploadConfirmation && job.statusCode === "Processing" && ((Date.now() - createdAt) < (1000*60*5))) {
+        // If we are waiting for upload confirmation and the job is done, confirm it:
+        confirmUploadSucceeded();
+      }
+    });
+
+    // Add onchild change listener to update existing jobs:
+    jobsRef.on('child_changed', (snapshot) => {
+      console.log('Job changed:', snapshot.key);
+      const jobData = snapshot.val();
+      if (!jobData || typeof jobData.createdAt !== 'number') return;
+
+      const job = {
+        id: snapshot.key,
+        ...jobData
+      };
+
+      // Render the updated job row - it will replace the existing one:
+      renderJobRow(job);
+    });
+
+
+    /*firebase.database().ref('/exports/' + uid).on('value',
+            async (snapshot) => {
+              try {
+                const data = snapshot.val();
+
+                if (!data || typeof data !== 'object') {
+                  jobs = [];
+                  return;
+                }
+
+                jobs = Object.entries(data)
+                        .map(([jobId, jobData]) => {
+                          if (!jobData || typeof jobData.createdAt !== 'number') return null;
+
+                          return {
+                            jobId,
+                            ...jobData
+                          };
+                        })
+                        .filter(job => job !== null) // remove invalid entries
+                        .sort((a, b) => b.createdAt - a.createdAt);
+
+                if (jobs.length>0) {
+                  document.getElementById("exportsRowsContainer").innerHTML = ""; // Clear the previous jobs list
+                }
+                // console.log('Updated jobs list:', jobs);
+                // TODO: Update the UI with the new jobs list.
+                for (const job of jobs) {
+                  renderJobRow(job);
+                }
+              } catch (err) {
+                console.error('Error processing jobs snapshot:', err);
+                jobs = [];
+              }
+            },
+            (error) => {
+              console.error('Firebase listener error:', error);
+            }
+    );*/
+  }
+
+  async function setBackwardsCompatibilityQuotas() {
+    try {
+      const user = firebase.auth().currentUser;
+      if (!user) {
         return;
       }
 
-      if (data.isPremium) {
-        window.updateStateWithParentData({
-          wasUserDataReceived: true,
-          isPremiumByLegacy: true,
-          isPremium: true,
-        });
-      } else {
-        window.updateStateWithParentData({
-          wasUserDataReceived: true,
-          isPremiumByLegacy: false,
-        });
-      }
-    });
+      const idToken = await user.getIdToken();
 
-    // Listen to subs and purchases:
-    firebase.database().ref('/subs/' + uid).on('value', (snapshot) => {
-      let data = snapshot.val();
-      console.log(stopper() + 'got subscriptions data from db: ', data);
-      if (data) {
-        let subs = data;
-        let subsIds = Object.getOwnPropertyNames(subs);
-        let additionalParams = {};
-        for (const subId of subsIds) {
-          let sub = subs[subId];
-          if (sub.hasOwnProperty('sku') && sub.sku === "SKU_TTSREADER_PREMIUM_MONTHLY__" && sub.hasOwnProperty('state') && sub.state === "active") {
-            additionalParams.isPremium = true;
-            additionalParams.subscriptionId = subId; // This will let us determine iof premium comes from sub or other (legacy / purchase)
-            window.subscriptionId = subId;
-          }
+      const response = await fetch("https://us-central1-ttsreader.cloudfunctions.net/functionArrangePastPayments", {
+        method: "GET", // Or "POST" if your function expects POST
+        headers: {
+          "Authorization": `Bearer ${idToken}`
         }
-        window.updateStateWithParentData({
-          wereSubsReceived: true,
-          subs: data,
-          ...additionalParams
-        });
-      } else {
-        window.updateStateWithParentData({
-          wereSubsReceived: true,
-          subs: [],
-        });
-      }
-    });
+      });
 
-    firebase.database().ref('/purchases/' + uid).on('value', (snapshot) => {
-      let data = snapshot.val();
-      console.log(stopper() + 'got purchases data from db: ', data);
-      if (data) {
-        window.updateStateWithParentData({
-          werePurchasesReceived: true,
-          purchases: data,
-        });
-      } else {
-        window.updateStateWithParentData({
-          werePurchasesReceived: true,
-          purchases: [],
-        });
+      if (!response.ok) {
+        const errText = await response.text();
+        return;
       }
-    });
 
-    setTimerToCheckIfAllDbDataReceived(()=>{if (!getAppState().data.isPremium) injectAds();});
-  }
+      const responseMessage = await response.text();
+      console.log("Function response: ", responseMessage);
 
-  function setTimerToCheckIfAllDbDataReceived(onAllDataReceived) {
-    let interval = setInterval(() => {
-      if (window.getAppState && window.getAppState().data &&
-              window.getAppState().data.werePurchasesReceived &&
-              window.getAppState().data.wereSubsReceived) {
-        clearInterval(interval);
-        onAllDataReceived();
-      }
-    }, 2000);
+      localStorage.setItem('wasBWCompatRun', true);
+      return responseMessage;
+    } catch (err) {
+      console.error("Failed to call setBackwardsCompatibilityQuotas:", err);
+    }
   }
 
   function getOs() {
@@ -1700,18 +2128,6 @@
   }
 
   function injectAds() {
-    console.log("inject ads");
-    if (!window.paypal) {
-      // Fetch the following js files:
-      const url1 = "https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true"
-      const url2 = "static/js/paypal-utils4.js"
-      fetchJsFile(url1, ()=>{
-        fetchJsFile(url2, ()=>{
-          console.log('Paypal loaded');
-        });
-      });
-    }
-
     let isSafari = window.safari !== undefined;
     let isIos = getOs() === 'ios';
     let DISABLE_ADS = true;
@@ -1856,7 +2272,7 @@
 
       // Potentially play something else:
       if (!shouldSimplyStop) {
-        appMethods.testVoice(voiceURI);
+        appMethods.testVoice(null, voiceURI);
       }
     }
   });
@@ -1913,11 +2329,79 @@
     });
   });
 
-  if (!localStorage.getItem("ttsreader.wasOnboarding3")) {
+  if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn")) {
     openOnboarding();
+  }
+  
+  function closeNewUpgradeModal() {
+    let modalEl = document.getElementById('newUpgradeModal');
+    if (modalEl) {
+      modalEl.classList.remove("show");
+      modalEl.addEventListener("transitionend", () => {
+        //modalEl.classList.add("hidden");
+      }, { once: true });
+    }
+  }
+
+  function openOrCloseExportsListModal(isToClose) {
+    let modalEl = document.getElementById('exportsListModal');
+    if (isToClose) {
+      modalEl.classList.remove("show");
+    } else {
+      modalEl.classList.add("show");
+      modalEl.classList.remove("hidden");
+    }
+  }
+
+  function openNewUpgradeModal() {
+    let uid = firebase?.auth()?.currentUser?.uid;
+    if (!uid) {
+      alert("Please sign in first to upgrade your account.");
+      signIn();
+      return;
+    }
+    
+    let modalEl = document.getElementById('newUpgradeModal');
+    if (!modalEl) {
+      console.error("Modal element not found");
+      return;
+    }
+    
+    let iframeEl = modalEl.querySelector('iframe');
+    if (!iframeEl) {
+      console.error("Iframe element not found in modal");
+      return;
+    }
+    let lang = document.documentElement.getAttribute('lang') || 'en';
+    let theme = document.documentElement.getAttribute('data-dark-mode') ? 'dark' : 'light';
+
+    iframeEl.onload = function () {
+      modalEl.classList.remove("hidden");
+      requestAnimationFrame(() => modalEl.classList.add("show"));
+    };
+    iframeEl.src = `newUpgradeModal.${lang}.html?uid=${uid}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${window.getAppState().data.isPremiumPlan}`;
   }
 
 </script>
+
+
+<!-- JS STRINGS -->
+<div id="JS_STRINGS" style="display: none">
+  <div data-ws-string-key="alert_file_not_supported" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_quota_reached" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_copied" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_missing_credits" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_requires_premium" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_export_too_long" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_export_limited" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_export_premium_voice" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_no_text_to_export" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_paste_to_editor" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_new_payment_received" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_unknown_tts_error" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_remove_setters_to_export" data-ws-string-value=""></div>
+</div>
+<!-- end of JS STRINGS -->
 
 </body>
 </html>

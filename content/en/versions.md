@@ -3,7 +3,7 @@ title: "Versions & Change Log"
 description: "Change log of TTSReader versions & links to stable, previous & preview versions"
 lead: "Change log of TTSReader versions & links to stable, previous & preview versions"
 date: 2025-06-04T08:50:23+02:00
-lastmod: 2025-06-04T08:50:23+02:00
+lastmod: 2025-06-17T08:50:23+02:00
 draft: false
 images: []
 sitemap:
@@ -16,9 +16,39 @@ Change log of TTSReader versions & links to stable, previous & preview versions.
 
 <br/>
 
-## Latest Preview Version - Nightly Build
+## Latest Preview Version - Nightly Builds
 
-* **Player V3.4.+** - [https://ttsreader.com/player@v3.4.0/](https://ttsreader.com/player@v3.4.0/)
+* **Player V3.6.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
+
+<br/>
+
+## Latest Stable Version
+
+* **Player V3.6.0** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
+
+  * Link to version: [https://ttsreader.com/player/](https://ttsreader.com/player/)
+  * Description: Export long texts to audio files.
+  * Main Changes:
+    * Export long texts to audio MP3 files.
+
+<br/>
+
+
+## Previous Versions
+
+* **Player V3.5.4** - [https://ttsreader.com/player@v3.5/](https://ttsreader.com/player@v3.5/)
+
+  * Link to version: [https://ttsreader.com/player@v3.5/](https://ttsreader.com/player@v3.5/)
+  * Description: Free unlimited voices & quotas indicators.
+  * Main Changes:
+    * Free unlimited for the non-premium voices!!!
+    * Added languages and AI voices. We now support 90+ languages and accents in the world, including all the major languages and many minor ones.
+    * Better quotas indicators in the player.
+    * Better Sentence detection.
+    * Fixes caret-jumping issue in the text editor when clicking outside the text area.
+
+
+* **Player V3.4.3** - [https://ttsreader.com/player@v3.4.0/](https://ttsreader.com/player@v3.4.0/)
 
   * Link to version: [https://ttsreader.com/player@v3.4.0/](https://ttsreader.com/player@v3.4.0/)
   * Description: New text editor.
@@ -27,25 +57,6 @@ Change log of TTSReader versions & links to stable, previous & preview versions.
     * Better sentence detection.
     * DOCX support.
     * Edit text in the player WHILE playback is still on! This is especially helpful for proofreading. You can now fix & edit while still listening to the text being read out loud.
-
-<br/>
-
-## Latest Stable Version
-
-* **Player V3.4.3** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
-
-  * Link to version: [https://ttsreader.com/player/](https://ttsreader.com/player/)
-  * Description: New text editor.
-  * Main Changes:
-    * New text editor with advanced features.
-    * Better sentence detection.
-    * DOCX support.
-    * Edit text in the player WHILE playback is still on! This is especially helpful for proofreading. You can now fix & edit while still listening to the text being read out loud.
-
-<br/>
-
-
-## Previous Versions
 
 * **Player V3.3.3** - [https://ttsreader.com/player@v3.3/](https://ttsreader.com/player@v3.3/)
 

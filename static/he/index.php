@@ -5,10 +5,10 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://speechlogger.appspot.com/images/icon.ico" rel="icon" type="image/x-icon"> 
+	<link href="https://speechlogger.appspot.com/images/icon.ico" rel="icon" type="image/x-icon">
 	<!-- TODO: import language file => and then import language specific header file -->
 	<!-- TODO: change the following to language specific + add fb support -->
-	<meta content="Fun & accurate text-to-speech reader online. Natural voices, multilingual. Real time. Free & always will be." name="description"/>  
+	<meta content="Fun & accurate text-to-speech reader online. Natural voices, multilingual. Real time. Free & always will be." name="description"/>
 	<title>TTSReader | Reads Out Loud for You</title>
 
 	<style>
@@ -17,7 +17,7 @@
 		  margin: 0;
 		  background: url('wood_texture.jpg');
 		}
-		
+
 		#content {
 		  max-width: 960px;
 		  min-height: 90%;
@@ -25,12 +25,12 @@
 		  line-height: 160%;
 		  margin: auto auto;
 		}
-		
+
 		#header {
 			position: relative;
 			height: 175px;
 		}
-		
+
 		#phonograph_img {
 			width: 140px;
 			height: 175px;
@@ -41,7 +41,7 @@
 			left: 10px;
 			z-index: -99;
 		}
-		
+
 		#phonograph_credit {
 			width: 140px;
 			height: 175px;
@@ -50,12 +50,12 @@
 			left: 10px;
 			border-radius: 20px;
 		}
-		
+
 		#logo_container {
 		  width: 100%;
 		  height: 150px;
 		}
-		
+
 		#logo {
 		  display: block;
 		  position: static;
@@ -63,20 +63,20 @@
 		  max-width: 500px;
 		  height: 150px;
 		  margin: 10px auto;
-		  margin-top: 10px;      
+		  margin-top: 10px;
 		  background-image: url('https://speechlogger.appspot.com/images/20150607_long_header.png');
 		  background-repeat: no-repeat;
 		  background-color: transparent;
 		  background-size: contain;
-		}	
-		
+		}
+
 		#access {
 		  display: block;
 		  width: 100%;
 		  line-height:220%;
 		}
 
-		#access ul {    
+		#access ul {
 		  list-style: none;
 		  text-align: center;
 		  font-weight: bold;
@@ -87,11 +87,11 @@
 		#access li {
 		  display: inline-block;
 		  margin: 5px 16px;
-		  background-color: rgba(151, 209, 253, 0.4); 
+		  background-color: rgba(151, 209, 253, 0.4);
 		  border: 1px gray;
 		  border-radius: 20px;
 		  padding: 7px 20px;
-		  box-shadow: 0 3px 3px rgba(0,0,0,0.5);  
+		  box-shadow: 0 3px 3px rgba(0,0,0,0.5);
 		}
 
 		#access li:hover {
@@ -103,37 +103,37 @@
 			color: black;
 			text-decoration: none;
 		}
-				
+
 		h1,h2 {
 			text-align: center;
 			line-height: 150%;
 		}
-		
+
 		h1 {
 			vertical-align: middle;
 			text-shadow: 2px 2px #FFFFFF;
 			color: #7D0303;
 		}
-		
+
 		h2 {
 			clear: both;
 			opacity: 0.8;
 		}
-		
+
 		.ad_728x15 {
 			clear: both;
 			width: 728px;
 			height: 15px;
 			margin: 20px auto;
 		}
-		
+
 		.ad_728x90 {
 			clear: both;
 			width: 728px;
 			height: 90px;
 			margin: 20px auto;
 		}
-		
+
 		.ad_120x600 {
 			width: 120px;
 			height: 600px;
@@ -141,7 +141,7 @@
 			right: -150px;
 			bottom: 0;
 		}
-		
+
 		.addthis_sharing_toolbox {
 			position: absolute;
 			top: 20px;
@@ -149,7 +149,7 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
-		
+
 		#application {
 			position: relative;
 			clear: both;
@@ -159,7 +159,7 @@
 			margin: 0 auto;
 			background-color: rgb(255, 236, 199);
 		}
-		
+
 		#buttons_row {
 			text-align: center;
 			height: 100px;
@@ -168,7 +168,7 @@
 			width: 100%;
 			position: relative;
 		}
-		
+
 		#speak_button {
 			opacity: 0.8;
 			width: 100px;
@@ -179,11 +179,11 @@
 			cursor: pointer;
 			border-radius: 50px;
 		}
-		
+
 		#speak_button:hover {
 			opacity: 1;
 		}
-		
+
 		#left_buttons {
 			position: absolute;
 			top: 0;
@@ -202,11 +202,11 @@
 			cursor: pointer;
 			border-radius: 50px;
 		}
-		
+
 		#reset_button:hover {
 			opacity: 1;
 		}
-		
+
 		#right_buttons {
 			position: absolute;
 			top: 30px;
@@ -214,47 +214,47 @@
 			width: 33%;
 			text-align: center;
 		}
-		
+
 		#text_box {
 			height: 300px;
 			background-color: white;
 			padding: 20px;
 			overflow-y: scroll;
 		}
-		
+
 		/* text_box scrollbar */
 		#text_box::-webkit-scrollbar {
 			width: 16px;
 		}
-		 
+
 		/* Track */
 		#text_box::-webkit-scrollbar-track {
-			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 			-webkit-border-radius: 10px;
 			border-radius: 10px;
 		}
-		 
+
 		/* Handle */
 		#text_box::-webkit-scrollbar-thumb {
 			-webkit-border-radius: 10px;
 			border-radius: 10px;
-			background: rgba(0,0,0,0.3); 
-			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+			background: rgba(0,0,0,0.3);
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 		}
 		#text_box::-webkit-scrollbar-thumb:hover {
 			-webkit-border-radius: 10px;
 			border-radius: 10px;
-			background: rgba(0,0,0,0.6); 
-			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+			background: rgba(0,0,0,0.6);
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 		}
-		
+
 		#footer {
 		  width: 100%;
 		  background-color: #7D0303;
 		}
 
 		#footer_menu {
-			text-align: center;	
+			text-align: center;
 			width: 100%;
 			border-top: solid 1px gray;
 		}
@@ -281,19 +281,19 @@
 			background-color: rgb(255, 236, 199);
 			color: black;
 		}
-		
-		
+
+
 	</style>
-	
+
 </head>
 
 <body>
 	<div id="content">
-	
+
 		<!--<div id="logo_container">
 			<a id="logo" href="https://ttsreader.appspot.com/"></a>
 		</div>-->
-		
+
 		<div id="header">
 			<div class="addthis_sharing_toolbox"></div> <!-- Go to www.addthis.com/dashboard to customize your tools -->
 			<a id="phonograph_img" href="https://commons.wikimedia.org/wiki/File:VictorVPhonograph.jpg#/media/File:VictorVPhonograph.jpg" title="Victor Phonograph, by Norman Bruderhofer - Collection of John Lampert-Hopkins. Licensed under CC BY-SA 2.5 via Wikimedia Commons"></a>
@@ -302,7 +302,7 @@
 		</div>
 
 		<h2>Fun & accurate text-to-speech reader online. Natural voices, multilingual. Real time.  &nbsp;&nbsp;  Free & always will be. Enjoy listening.</h2>
-		
+
 		<div class="ad_728x15 ad">
 			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 			<!-- ad_728x15_notepad -->
@@ -314,9 +314,9 @@
 			(adsbygoogle = window.adsbygoogle || []).push({});
 			</script>
 		</div>
-		
+
 		<div id="application">
-		
+
 			<div class="ad_120x600 ad">
 				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 				<!-- ad_120x600 -->
@@ -330,7 +330,7 @@
 			</div>
 
 			<!-- TODO: enable color change:
-			<div id="colorpicker"> 
+			<div id="colorpicker">
 				<div class="colorButtons colorGradientBack"><input type="color" id="favcolor" onchange="changeColor('custom');"></div>
 				<div class="colorButtons blueBack" onclick="changeColor('blue')"></div>
 				<div class="colorButtons greenBack" onclick="changeColor('green')"></div>
@@ -338,7 +338,7 @@
 				<div class="colorButtons whiteBack" onclick="changeColor('white')"></div>
 			</div>
 			-->
-			
+
 			<div id="buttons_row">
 			<!-- TODO: enable mp3 download
 			<div id="download_mp3_button"></div>
@@ -346,9 +346,9 @@
 				<div id = "left_buttons">
 					<div id="reset_button" onclick="reset();" title="Start from Beginning"></div>
 				</div>
-				
+
 				<div id="speak_button" onclick="startOrPause();" title="Play / Pause"></div>
-				
+
 				<div id = "right_buttons">
 					<select id="select_language" onchange="updateLanguage();">
 						<option value="en-GB" selected="true">UK English</option>
@@ -365,12 +365,12 @@
 						<option value=0.9>Normal Speed</option>
 						<option value=0.7>Slow</option>
 						<option value=1.3>Fast</option>
-					</select>				
+					</select>
 				</div>
 			</div>
-			
+
 			<div id="text_box" contenteditable="true">
-			</div>		
+			</div>
 		</div>
 
 		<div class="ad_728x90 ad">
@@ -381,8 +381,8 @@
 			 data-ad-client="ca-pub-5030295218223297"
 			 data-ad-slot="9173644800"></ins>
 		<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-		</div> 
-		
+		</div>
+
 		<div class="ad_728x15 ad">
 			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 			<!-- ad_728x15_notepad -->
@@ -395,10 +395,10 @@
 			</script>
 		</div>
 	</div>
-	
+
 	<div id="footer">
 		<div id="footer_menu">
-			<a id="contact_us" href="mailto:admin@speechlogger.com" target="_blank">Contact Us</a> 
+			<a id="contact_us" href="mailto:contact@ttsreader.com" target="_blank">Contact Us</a>
 			<!--
 			<br>
 			<div id="languageLinks">
@@ -419,10 +419,10 @@
 
 	<script>
 		if (!('speechSynthesis' in window)) {
-		// Synthesis not supported. 
+		// Synthesis not supported.
 			alert('Speech Synthesis is not supported by your browser. Switch to Chrome.');
-		} 
-		
+		}
+
 		<!-- TODO: save locally language and preferences... -->
 		var shouldSpeak = false;
 		var wholeText = document.getElementById("text_box").innerText;
@@ -438,13 +438,13 @@
 		msg.onstart = function(e) {
 			var expectedTime = msg.text.length * 100 / msg.rate;
 			lastStartTime = Date.now();
-			setTimeout(function(){ 
+			setTimeout(function(){
 				if ((Date.now()-expectedTime-900) >= lastEndTime && shouldSpeak) { //i.e. end was not fired since we began, & not because paused
 					speechSynthesis.cancel();
 				}
 			}, expectedTime + 1000);
 		};
-		
+
 		msg.onend = function(e) {
 			lastEndTime = Date.now();
 			console.log('Finished in ' + event.elapsedTime + ' seconds.');
@@ -455,27 +455,27 @@
 				if (wholeText.length == 0) counter = 0;
 			}
 		};
-		
+
 		msg.onerror = function(e) {
 			speechSynthesis.cancel();
 			if (shouldSpeak) speakOut();
 		};
-		 
+
 		msg.onboundary = function(e) {
 			console.log('onboundary reached');
 		};
-		
-		
+
+
 		function updateLanguage() {
 			var e = document.getElementById("select_language");
 			msg.lang = e.options[e.selectedIndex].value;
 		}
-		
+
 		function updateSpeed() {
 			var e = document.getElementById("select_speed");
 			msg.rate = e.options[e.selectedIndex].value;
 		}
-		
+
 		function reset() {
 			counter = 0;
 			wholeText = document.getElementById("text_box").innerText;
@@ -483,7 +483,7 @@
 				speechSynthesis.cancel();
 			}
 		}
-		
+
 		function startOrPause() {
 			if (!shouldSpeak) { //Start speaking:
 				if ((counter==0 && document.getElementById("text_box").innerText.length>0) || wholeText.length>0) {
@@ -501,7 +501,7 @@
 				document.getElementById("speak_button").style.backgroundImage = "url('start_button.png')";
 			}
 		}
-		
+
 		function speakOut() {
 		<!-- TODO: websites, wiki, upload files, ... -->
 			if (counter == 0) {
@@ -510,28 +510,28 @@
 			var endOfSegment = findSegment(wholeText.slice(0,200));
 			msg.text = wholeText.slice(0,endOfSegment);
 			var allowedStartingChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-			while (allowedStartingChars.indexOf(msg.text[0]) == -1 && msg.text.length>0) { 
+			while (allowedStartingChars.indexOf(msg.text[0]) == -1 && msg.text.length>0) {
 				msg.text=msg.text.slice(1);
 			}//Make sure sentence starts...
-			
+
 			wholeText = wholeText.slice(endOfSegment);
 			counter = counter + endOfSegment;
-			
-			if (msg.text.length > 0 && shouldSpeak) { 
+
+			if (msg.text.length > 0 && shouldSpeak) {
 				speechSynthesis.speak(msg);
 				console.log('Cut at: ' + endOfSegment);
 				console.log('Say: ' + msg.text);
 				console.log('Next: ' + wholeText);
 			} else {
 				if (wholeText.length>0 && shouldSpeak) speakOut();
-				else { 
+				else {
 					counter = 0;
 					shouldSpeak = false;
 					document.getElementById("speak_button").style.backgroundImage = "url('start_button.png')";
 				}
 			}
 		}
-		
+
 		function findSegment(str) {
 			var i = str.length+1;
 			var temp = -1;
@@ -548,10 +548,10 @@
 			temp = str.indexOf("![");  if (temp>-1 && temp < i) i = temp+2;
 			temp = str.indexOf("?[");  if (temp>-1 && temp < i) i = temp+2;
 			temp = str.indexOf(":[");  if (temp>-1 && temp < i) i = temp+2;
-			
+
 			if (i<=str.length) return i;
 			//Otherwise continue:
-			
+
 			temp = str.indexOf(", ");  if (temp>-1 && temp < i) i = temp+2;
 			temp = str.indexOf("(");   if (temp>-1 && temp < i) i = temp+1;
 			temp = str.indexOf(")");   if (temp>-1 && temp < i) i = temp+1;
@@ -559,24 +559,24 @@
 			temp = str.indexOf("]");   if (temp>-1 && temp < i) i = temp+1;
 			if (i<=str.length) return i;
 			//Otherwise continue:
-			
+
 			temp = str.indexOf(" ");  if (temp>-1 && temp < i) i = temp+1;
 			if (i<=str.length) return i;
 			//Otherwise continue:
-			
+
 			i = str.length;
 			return i;
 		}
-		
+
 		/* TODO:
 			Timeout - to cancel speech
 			pause on ".", "?", "...", "Line breaks"
 			Either native only, or stop and restart other voices, otherwise it stops after ~2 lines...
 		*/
-		
+
 	</script>
-	
-	<script>		
+
+	<script>
 	//Google analytics
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

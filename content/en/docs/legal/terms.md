@@ -61,7 +61,7 @@ Other emails, which are generic and include news, updates, etc. - you can opt ou
 13. Email Security
 
 Please note that email addresses are easy to impersonate. How to tell our emails are really from us? All of the following must be true together:
-  - The sender-email address is from one of our domains: @ttsreader.com, OR @wellsrc.com (the owner company of TTSReader), OR @speechlogger.com (for historical reasons)
+  - The sender-email address is from one of our domains: @ttsreader.com, OR @wellsrc.com (the owner company of TTSReader), OR @speechlogger.com (for historical reasons, also belongs to us and may be used by our support team).
   - We will never ask you for your password or any other sensitive information via email. If you receive an email from us that seems suspicious, please contact us immediately to contact@ttsreader.com
   - Our emails will always be signed with DKIM and SPF, and will always have a valid SSL certificate.
   - The ReplyTo address is always to one of our domains: @ttsreader.com, OR @wellsrc.com (the owner company of TTSReader), OR @speechlogger.com (for historical reasons).

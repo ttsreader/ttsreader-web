@@ -27,7 +27,7 @@ It's worth noting that you can share the playable article with anyone directly b
 
 <br/>
 
-<i>❤️ Ronen Rabinovici, developer. Contact / follow me on [Twitter](https://twitter.com/RabinoviciR), [Github](https://github.com/RonenR/), or via email at admin@speechlogger.com</i>
+<i>❤️ Ronen Rabinovici, developer. Contact / follow me on [Twitter](https://twitter.com/RabinoviciR), [Github](https://github.com/RonenR/), or via email at contact@ttsreader.com</i>
 
 
 

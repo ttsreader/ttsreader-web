@@ -12,7 +12,15 @@
         "functionId": "fetchHtml",
         "region": "us-central1"
       }
-    } ],
+    },
+      {
+        "source": "/api/paypalWebhook265465",
+        "function": {
+          "functionId": "handlePayPalWebhook",
+          "region": "us-central1"
+        }
+      }
+    ],
     "redirects": [
       {
         "source": "/preview20250325/",

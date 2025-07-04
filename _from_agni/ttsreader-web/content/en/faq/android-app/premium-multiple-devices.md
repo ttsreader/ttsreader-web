@@ -25,7 +25,7 @@ No need to purchase again. The premium is per account, not per device (given fai
 In that case - please try the following:
 * Make sure you are logged in with the same account on both devices.
 * Go on and start the purchase process again, and you will see that it will not charge you again, but will recognize your premium status.
-* In case it still did not recognize you - go on and purchase again, and then contact us via email <code>admin@speechlogger.com</code> for a refund of the second purchase. We will be happy to refund you - without any hassle on your part - no questions asked - just forward us the email with the Google receipt so we can track the order to refund.
+* In case it still did not recognize you - go on and purchase again, and then contact us via email <code>contact@ttsreader.com</code> for a refund of the second purchase. We will be happy to refund you - without any hassle on your part - no questions asked - just forward us the email with the Google receipt so we can track the order to refund.
   * In the subject line - please say 'Refund'.
   * Please include the Google receipt (best to simply forward the email you received upon purchase to us).
 

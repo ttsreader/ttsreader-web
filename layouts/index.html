@@ -3,8 +3,10 @@
 <section class="section container-fluid mt-n3 pb-3" id="hero" style="display: flex; flex-direction: column; min-height: 100vh;">
   <div class="row text-center">
     <h1 class="mt-0">AI Text To Speech (TTS) Reader & MP3 Generator</h1>
-    <p class="caption-top" style="text-align: center;margin: 30px auto"><i>A speech-synthesis powerhouse - trusted by millions of users, schools & businesses, since 2015. Private & secure. Proudly partnering with Microsoft for Startups</i></p>
+    <p class="caption-top" style="text-align: center;margin: 10px auto 30px"><i>A speech-synthesis powerhouse - trusted by millions of individuals, schools & businesses, since 2015. Private & secure. Proudly partnering with Microsoft for Startups</i></p>
     <!--<h2 class="lead" style="font-size: 1.3em;display: inline-block">{{ .Params.lead | safeHTML }}</h2>-->
+
+    <p style="font-size: larger"><span class="Flag-font">🇺🇸</span> TTSReader Wishes a HAPPY 4th of JULY to All Our American Users <span class="Flag-font">🇺🇸</span></p>
 
     <div id="avatars_demos_id" class="justify-content-center text-center" style="margin: 30px auto;">
       <div class="avatar-container-tile"  data-ws-avatar-id="john">
@@ -176,12 +178,12 @@
     <div class="col-lg-8" style="">
       <!--<p style="text-align: center">Let our text-to-speech player read your own text</p>-->
       <div style="text-align: center">
-        <a class="btn btn-primary btn-lg px-4 mb-2" href="/player/" role="button" onclick="gtag('event', 'ttsreader_click_new', {'value': 'home_page_body'});" style="text-transform: uppercase;font-weight:bold;width: 100%;max-width:600px;">Click<span style="position: relative;bottom:-10px;left:0;font-size:larger">👆</span>to Start</a>
+        <a class="btn btn-primary btn-lg px-4 mb-2" href="/player/" role="button" onclick="gtag('event', 'ttsreader_click_new', {'value': 'home_page_body'});" style="text-transform: uppercase;font-weight:bold;width: 100%;max-width:600px;">Click to Start <svg style="vertical-align: sub;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-click"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12l3 0" /><path d="M12 3l0 3" /><path d="M7.8 7.8l-2.2 -2.2" /><path d="M16.2 7.8l2.2 -2.2" /><path d="M7.8 16.2l-2.2 2.2" /><path d="M12 12l9 3l-4 2l-2 4l-3 -9" /></svg></a>
       </div>
-      <h2 class="h3" style="margin-bottom: 1em; font-weight: normal">#1 Text To Speech online with human-like AI voices. Type or upload any text, file, website & book for listening online, proofreading, or generating mp3 voice-overs. Start free.</h2>
-      <div>
-        <p>📣 The new version of our text-to-speech reader has some big changes. - Rich text editor. - Edit while playback is on - especially designed for proofreading. - DOCX support for importing WORD documents. - Importing webpages preserving main format & links. If you prefer an older version, go to our <a href="/versions/">versions page</a>.</p>
-      </div>
+      <h2 class="h3" style="margin-bottom: 1em; font-weight: normal">Listen to text, proofread, or generate MP3s with our online Text To Speech (TTS) Reader. Plain text, documents, websites & ebooks. Free unlimited voices & premium AI voices with free trial. No ads.</h2>
+      <!--<div>
+        <p>📣 New Preview version with FREE & UNLIMITED basic non-premium voices here: <a href="/player@v3.5/">New Player V3.5 Preview</a>.</p>
+      </div>-->
 
       <!--<p class="text-center" style="font-size: larger">
         Pay-as-you-go (only $0.1/minute!) no subscription, no commitment.<br/>Whether it's a single one-time recording, or a need for an ongoing speech to text service - we've got you covered.
@@ -277,6 +279,7 @@
     <h3 style="text-align: center;margin-bottom: 30px;">Additional Text-To-Speech Solutions</h3>
     <div class="row justify-content-center text-center" style="margin-top: -30px;">
 
+      <!-- Used to be a link for AudioRead:
       <div class="col-md-5 col-sm-8 card">
         <br/>
         <a target="_blank" rel="nofollow" style="color: white;background:linear-gradient(119.6deg,#fe40fe 9.06%,#fe25a3 49.04%,#fe5435 93.41%);" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.audioread }}" role="button" onclick="gtag('event', 'ttsreader_click_audioread_body', {'value': 'home_page_body'});">Text To Podcast<sup style="font-size: 11px;
@@ -289,7 +292,7 @@
         <br/>
         <p class="meta">Turns your articles, PDFs, emails, etc. into podcasts, so you can listen to it on your own podcast player when convenient, with all the advantages that come with your podcast app.</p>
       </div>
-      &nbsp;&nbsp;
+      &nbsp;&nbsp;-->
       <div class="col-md-5 col-sm-8 card">
         <br/>
         <a target="_blank" style="color: white;background-color: #5d2f86" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechninja }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">Type to Speak&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
@@ -379,7 +382,7 @@
     <div style="max-width: 900px;margin: auto; font-size: larger; text-align: justify">
       <h2 class="h2 text-center" >About</h2>
       <br/>
-      <p><b>TTSReader</b> is an online text-to-speech read-along player & mp3 generator. Great for proofreading, learning, reading, and generating professional voice-overs. Reads out loud texts, documents, books, and webpages using the world's leading natural-sounding AI voices. Zero onboarding. Persists your text & position, so you can seamlessly continue listening from where you last left off.
+      <p>Online text-to-speech is TTSReader. Live read-aloud & export to audio. Supports plain text, documents, ebooks & webpages. Used for proofreading, learning, reading, and generating professional voice-overs, audio files for content and self-produced audiobooks. TTSReader is utilizing the world's leading natural-sounding AI voices. Zero onboarding. Persists your text & position, so you can seamlessly continue listening from where you last left off.
         <br/><br/>
         Designed for multitasking, accessibility, convenience, and professional voice-overs generation. TTSReader empowers users to consume textual content anywhere — whether at home, work, on the road, or during a walk. It even supports offline playback and exporting speech to audio files.
         With support for multiple languages, it can be used for unlimited <a href="/#use_cases">use cases</a>.</p>

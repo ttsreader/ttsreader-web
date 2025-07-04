@@ -3,7 +3,7 @@ title: "Plans & Pricing"
 description: "TTSReader's Plans & Pricing - Free, Premium, Extras, API & Quotas"
 lead: ""
 date: 2023-02-12T15:22:20+01:00
-lastmod: 2025-05-18T15:22:20+01:00
+lastmod: 2025-06-20T15:22:20+01:00
 tags: ["pricing", "plans"]
 categories: ["plans"]
 contributors: ["Company"]
@@ -23,11 +23,13 @@ toc: true
 
 Different plans and pricing models are available in order to accommodate all our users and fit their needs and budgets. From free personal use to advanced plans for power users, businesses, APIs, and automations.
 
+**NOTE: ALL IS ACCORDING TO OUR TEMS AND CONDITIONS** - see our [Terms of Service](/docs/legal/terms/) for details. The terms are updated from time to time.
+
 All plans refer to the TTSReader.com web app & API. New mobile apps and browser-extensions are under development and when published will also be included under these plans. Legacy mobile apps and Chrome extension are mostly free and are not included in these plans.
 
 The paid plans are required for private power-users, businesses, organizations, schools, colleges, commercial use, publishing and selling the generated audio, API, bots and any automations. The paid plans cover our new player, API, Chrome extension, other browser extensions. It will cover our mobile apps as well, when they will be updated. Currently (as of 2025-05-18) the mobile apps are (unfortunately) outdated and have their own independent plans (which is mostly free). There are 3 complementary paid plans:
 * [Premium plan](#2-premium-plan) - single seat premium for most users.
-* [Premium Plus plan](#3-premium-plus-plan) - single seat premium for top 5% heavy users.
+* [Premium Plus plan](#3-premium-plus-plan) - single seat premium for top 5% heavy users. To be developed in the future.
 * [Pay-as-you-go plan](#4-pay-as-you-go-plan) - for API users and for those who need to exceed the limits of the Premium and Premium Plus plans.
 
 ## Plans
@@ -41,10 +43,13 @@ The free plan is meant for personal use only, or for testing purposes prior to p
 
 #### Quotas for the free plan are:
 
-As of 2025-05-18 the free plan is limited to:
+As of 2025-06-20 the free plan is limited to:
 
-* Unlimited for the [legacy player](/legacy/).
-* Limited on the [new text-to-speech-player](/player/) to 3k chars of non premium voices per day and to 3k chars of premium voices per account total. That may change from time to time. Generated audio under the free plan is not allowed for publishing or selling. Not to be sold, resold, or abused. For a single personal use only.
+* Unlimited free non-premium voices both on the [legacy player](/legacy/) and the new player!! [new text-to-speech-player](/player/).
+* New AI premium voices are limited to 5k chars free. That may change from time to time. Generated audio under the free plan is not allowed for publishing or selling.
+* Not to be sold, resold, or abused.
+* For a single personal use only.
+* No bots, automations, API or any commercial use.
 
 #### Pricing
 
@@ -59,21 +64,24 @@ See [comparison table](#comparison-table) to compare the different plans.
 
 #### Scope
 
-- Based on a monthly subscription / yearly license - and is meant for a single seat normal use per account. As such, it is limited to normal no-abuse single-seat usage, that is based on common usage stats. Single seat user license - not for multiple users. Multiple users require multiple licenses - 1 for each user, or purchasing credits via the Pay-as-you-go plan.
+- Based on a monthly / annual subscription.
+- Meant for a single seat normal use per account. As such, it is limited to normal no-abuse single-seat usage, that is based on common usage stats. Single seat user license - not for multiple users.
+- Multiple users require multiple licenses - 1 for each user, or purchasing credits via the Pay-as-you-go plan.
+
 
 #### Quotas for the Premium Plan are:
 
 As of 2025-05-18 the premium plan is limited to:
 
 * Non premium voices: unlimited. This is both for the legacy player and the new player.
-* Premium voices: 200k chars per day and 1M chars per month.
+* Premium voices: 1M (1 million) chars per month.
 
 #### Pricing
 
-You can choose between a monthly subscription or a yearly license. The advantages of the yearly license are 2 fold: (1) cheaper per month, and (2) it does not auto-renew - so you can choose to renew it or not at the end of the year.
+You can choose between a monthly subscription or a yearly subscription. The advantage of the yearly license is it is cheaper per month.
 
 * Monthly subscription: $10.99 per month.
-* Yearly license: $48 per whole year (ie only $4 per month, this is circa 60% off the monthly subscription). This is a one-time payment for a whole year. It does not auto-renew. You can choose to renew it or not at the end of the year.
+* Annual subscription: $99 per whole year - which becomes only $8.25 per month..
 
 See [comparison table](#comparison-table) to compare the different plans.
 
@@ -81,27 +89,7 @@ See [comparison table](#comparison-table) to compare the different plans.
 
 ### 3. Premium Plus Plan
 
-#### Scope
-
-Same as the Premium Plan but for the top 5% of our heavy-users. Single seat user license - not for multiple users. Multiple users require multiple licenses - 1 for each user, or purchasing credits via the Pay-as-you-go plan.
-
-#### Quotas for the Premium Plan are:
-
-As of 2025-05-18 the premium plan is limited to:
-
-* Non premium voices: unlimited. This is both for the legacy player and the new player.
-* Premium voices: 500k chars per day and 2.5M chars per month.
-
-
-#### Pricing
-
-You can choose between a monthly subscription or a yearly license. The advantages of the yearly license are 2 fold: (1) cheaper per month, and (2) it does not auto-renew - so you can choose to renew it or not at the end of the year.
-
-* Monthly subscription: $20.99 per month.
-* Yearly license: $180 per whole year (ie only $15 per month, this is circa 25% off the monthly subscription). This is a one-time payment for a whole year. It does not auto-renew. You can choose to renew it or not at the end of the year.
-
-
-See [comparison table](#comparison-table) to compare the different plans.
+Not yet available, but coming soon.
 
 <br/>
 
@@ -119,9 +107,8 @@ Unlimited for as long as your account has remaining credits available. Fill up y
 
 Credits are purchased in different packages:
 - 200k chars: $10
-- 1M chars: $40
+- 1M chars: $32
 - 10M chars: $300
-- 100M chars: $2000
 
 See [comparison table](#comparison-table) to compare the different plans.
 
@@ -201,16 +188,16 @@ See [comparison table](#comparison-table) to compare the different plans.
     </tr>
     <tr>
       <td>New Player – Non-premium voices quota</td>
-      <td>3k/day</td>
+      <td>✅ Unlimited</td>
       <td>✅ Unlimited</td>
       <td>✅ Unlimited</td>
       <td>✅ Unlimited</td>
     </tr>
     <tr>
       <td>New Player – Premium voices quota</td>
-      <td>3k total</td>
-      <td>✅ 200k/day, 1M/month</td>
-      <td>✅ 500k/day, 2.5M/month</td>
+      <td>5k total</td>
+      <td>✅ 1M/month</td>
+      <td>✅ 2.5M/month</td>
       <td>✅ Unlimited (credits-based)</td>
     </tr>
     <tr>
@@ -228,9 +215,9 @@ See [comparison table](#comparison-table) to compare the different plans.
       <td>❌</td>
     </tr>
     <tr>
-      <td>Yearly (non-renewing)</td>
+      <td>Annual Billing</td>
       <td>❌</td>
-      <td>$48/year ($4/mo)</td>
+      <td>$99/year ($8.25/mo)</td>
       <td>$180/year ($15/mo)</td>
       <td>❌</td>
     </tr>
@@ -241,9 +228,8 @@ See [comparison table](#comparison-table) to compare the different plans.
       <td>Credits can be purchased to enable use above plan's limits</td>
       <td>
         200k: $10<br>
-        1M: $40<br>
-        10M: $300<br>
-        100M: $2000
+        1M: $32<br>
+        10M: $300
       </td>
     </tr>
     <tr>
@@ -251,7 +237,7 @@ See [comparison table](#comparison-table) to compare the different plans.
       <td></td>
       <td>Purchase on <a href="/player/">the new player</a></td>
       <td>Coming soon...</td>
-      <td>Coming soon...</td>
+      <td>Purchase on <a href="/player/">the new player</a></td>
     </tr>
   </tbody>
 </table>
