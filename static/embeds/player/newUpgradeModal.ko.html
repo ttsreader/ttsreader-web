@@ -39,13 +39,14 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TTSReader Purchase Page</title>
+  <title>TTSReader Purchase Page</title> <!-- TODO: use strings.newUpgradeModal_title... -->
+  <!-- TODO: consider &currency=USD as in https://developer.paypal.com/reference/currency-codes/ with a currency selector. -->
   <script
-          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true"
+          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&locale=ko_KR"
           data-namespace="paypalSubs">
   </script>
   <script
-          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG"
+          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&locale=ko_KR"
           data-namespace="paypalOnce">
   </script>
 
@@ -569,7 +570,7 @@
   function delayAcknowledgeAlertAsync() {
     // Acknowledge alert after a delay to ensure the UI is responsive
     setTimeout(() => {
-      alert('Thank you - order received.\nIf all goes well - PayPal will notify our server and your new purchase will be activated in just a few seconds.\nIf it does not - please contact us at contact@ttsreader.com');
+      alert('감사합니다 - 주문이 접수되었습니다. 정상 처리 시 PayPal이 서버에 알리고 구매가 몇 초 내 활성화됩니다. 문제가 있으면 contact@ttsreader.com 으로 연락하세요.');
       onClose(); // Close the modal after acknowledging
     }, 100);
   }
@@ -605,7 +606,7 @@
     let onCancel = function (data) {
       console.log('Payment cancelled:', data);
       // Optionally, you can add a message to the user here
-      alert('Payment was cancelled. Please try again.');
+      alert('결제가 취소되었습니다. 다시 시도해주세요.');
     };
     custom_id = sku + "__" + uid;
 

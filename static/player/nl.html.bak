@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-07-04T10:51:44.872Z",
-      "version": "3.6.3",
+      "dateModified": "2025-07-10T20:33:56.614Z",
+      "version": "3.6.8",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -49,7 +49,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.6.3 - TTSReader's Tekst-naar-Spraak Speler</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.6.8 - TTSReader's Tekst-naar-Spraak Speler</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
@@ -258,7 +258,7 @@
       pointer-events: none;
     }
   </style>
-<script defer src="/static/js/main.0152c1a3.js"></script><link href="/static/css/main.afeb5a96.css" rel="stylesheet"></head>
+<script defer src="/static/js/main.1ebfdae1.js"></script><link href="/static/css/main.5d5d3cbf.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
@@ -297,7 +297,7 @@
         <div data-ws-show-if-state="isSignedIn=true" >
           <div style="display: flex;align-items: center;">
             <p data-ws-show-if-state="isSignedIn=true" style="text-decoration: none;padding-left:10px; display: block;flex:1"><i><span data-ws-label-state="email"></span></i></p>
-            <a class="Menu-list-element" onclick="toggleSignIn();" style="padding: 10px;" title="Sign out" aria-label="Sign out">
+            <a class="Menu-list-element" onclick="toggleSignIn();" style="padding: 10px;" title="Uitloggen" aria-label="Uitloggen">
               <svg class="Top-btn-svg"><path d="m17 7-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg>
             </a>
           </div>
@@ -314,21 +314,21 @@
           <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>&nbsp;&nbsp;Premium 🏆 Status<!-- Premium 🏆 Status --></a>
         </div>
         <div data-ws-show-if-state="isPremium=true">
-          <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform" target="_blank" style="cursor: pointer;text-decoration: none;display: block">-&nbsp;&nbsp;<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-sos"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" /><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /></svg>&nbsp;&nbsp;Premium Support Form</a>
+          <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform" target="_blank" style="cursor: pointer;text-decoration: none;display: block">-&nbsp;&nbsp;<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-sos"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" /><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /></svg>&nbsp;&nbsp;Premium support formulier</a>
         </div>
         <div data-ws-show-if-state="isSignedIn=true">
-          <a href="https://ttsreader.com/account/" rel="nofollow" target="_blank" class="Menu-list-element" style="text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>&nbsp;&nbsp;Manage Account</a>
+          <a href="https://ttsreader.com/account/" rel="nofollow" target="_blank" class="Menu-list-element" style="text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>&nbsp;&nbsp;Account beheren</a>
         </div>
 
         <div class="Menu-list-element" style="position: relative;">
           <input style="position: absolute;display: block;opacity: 0; right:0;left:0;top:0;bottom:0; cursor: pointer" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
           <a onclick="gtag('event','import_file_click_player_drawer',{value:'1'})"  data-ws-onClick="openFile" style="text-decoration:none;display: flex;align-items: center">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span style="display: block;flex: 1;">Import File (DOCX, TXT, PDF, EPUB, ...)</span> <!-- Document Stats -->
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span style="display: block;flex: 1;">Bestand importeren (DOCX, TXT, PDF, EPUB, ...)</span>
           </a>
         </div>
         <div>
           <a class="Menu-list-element" onclick="gtag('event','stats_click_player_drawer',{value:'1'})" data-ws-onClick="calculateStats" data-ws-toggle="#statsModal" style="text-decoration:none;">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>&nbsp;&nbsp;Document Stats <!-- Document Stats -->
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>&nbsp;&nbsp;Documentstatistieken <!-- Document Stats -->
           </a>
         </div>
         <div>
@@ -338,15 +338,15 @@
         </div>
         <div>
           <a class="Menu-list-element" onclick="openOrCloseExportsListModal()" style="text-decoration:none;">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;MP3 Exports List
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;MP3 exportlijst
           </a>
         </div>
         <a class="Menu-list-element" data-ws-toggle="#voicesModal" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;Meer stemmen nodig<!-- Need more voices -->
         </a>
         <div>
-          <a href="https://ttsreader.com/docs/guides/voiceover/#mix-languages-voices--speeds" target="_blank" class="Menu-list-element" onclick="gtag('event','drawer_click_multivoices',{value:'1'})" style="text-decoration:none;">
-            <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4c.96 0 1.84 .338 2.53 .901" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>&nbsp;&nbsp;Multi-Voice Dialogs
+          <a href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds" target="_blank" class="Menu-list-element" onclick="gtag('event','drawer_click_multivoices',{value:'1'})" style="text-decoration:none;">
+            <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4c.96 0 1.84 .338 2.53 .901" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>&nbsp;&nbsp;Multi-voice dialogen
           </a>
         </div>
 
@@ -356,8 +356,8 @@
         <a class="Menu-list-element" data-ws-toggle="#helpModal" onclick="loadImages('#helpImgId');">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-help"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 17l0 .01" /><path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" /></svg>&nbsp;&nbsp;Help overlay<!-- Help overlay -->
         </a>
-        <a class="Menu-list-element" data-ws-toggle="#onboardingModal">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-progress-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" /><path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" /><path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" /><path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" /><path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" /><path d="M9 12l2 2l4 -4" /></svg>&nbsp;&nbsp;Onboarding<!-- Help overlay -->
+        <a class="Menu-list-element" onclick="openOnboarding();">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-progress-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" /><path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" /><path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" /><path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" /><path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" /><path d="M9 12l2 2l4 -4" /></svg>&nbsp;&nbsp;Introductie
         </a>
 
 
@@ -372,7 +372,7 @@
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-message-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" /></svg>&nbsp;&nbsp;Feedbackformulier<!-- Feedback form -->
         </a>
         <a class="Menu-list-element" href="https://ttsreader.com/contact/" target="_blank" style="text-decoration: none;display: block">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>&nbsp;&nbsp;Contact Us<!-- Contact us -->
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>&nbsp;&nbsp;Contacteer ons<!-- Contact us -->
         </a>
         <div data-ws-show-if-state="isShareSupported=true">
           <a class="Menu-list-element" onclick="share();"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -382,7 +382,7 @@
             <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
             <path d="M8.7 10.7l6.6 -3.4"></path>
             <path d="M8.7 13.3l6.6 3.4"></path>
-          </svg>&nbsp;&nbsp;Share</a>
+          </svg>&nbsp;&nbsp;Delen</a>
         </div>
         <div data-ws-show-if-state="isShareSupported=false">
           <a class="Menu-list-element" data-ws-toggle="#shareModal"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -392,30 +392,50 @@
             <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
             <path d="M8.7 10.7l6.6 -3.4"></path>
             <path d="M8.7 13.3l6.6 3.4"></path>
-          </svg>&nbsp;&nbsp;Share</a>
+          </svg>&nbsp;&nbsp;Delen</a>
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.6.3</b> Build 2025-07-04T10:51:44.872Z
-          <br/><span style="margin-top: 10px;display: block">ALL VERSIONS <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
+          <b>V3.6.8</b> Build 2025-07-10T20:33:56.614Z
+          <br/><span style="margin-top: 10px;display: block">ALLE VERSIES <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
-          <b>Complementary Utils</b>
+          <b>Aanvullende hulpmiddelen</b>
         </div>
         <div>
           <a class="Menu-list-element" href="https://speechnotes.co/dictate/" target="_blank" style="text-decoration: none;display: block">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-microphone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" /><path d="M5 10a7 7 0 0 0 14 0" /><path d="M8 21l8 0" /><path d="M12 17l0 4" /></svg>&nbsp;&nbsp;Speech to Text
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-microphone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" /><path d="M5 10a7 7 0 0 0 14 0" /><path d="M8 21l8 0" /><path d="M12 17l0 4" /></svg>&nbsp;&nbsp;Spraak naar tekst
           </a>
         </div>
         <div>
           <a class="Menu-list-element" href="https://speechnotes.co/transcribe/" target="_blank" style="text-decoration: none;display: block">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-device-audio-tape"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 17l4 -3h10l4 3" /><circle cx="7.5" cy="9.5" r=".5" fill="currentColor" /><circle cx="16.5" cy="9.5" r=".5" fill="currentColor" /></svg>&nbsp;&nbsp;Automatic AI Transcription
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-device-audio-tape"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 17l4 -3h10l4 3" /><circle cx="7.5" cy="9.5" r=".5" fill="currentColor" /><circle cx="16.5" cy="9.5" r=".5" fill="currentColor" /></svg>&nbsp;&nbsp;Automatische AI-transcriptie
           </a>
         </div>
         <div>
           <a class="Menu-list-element" href="/sounds/" target="_blank" style="text-decoration: none;display: block">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-bell-ringing"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727" /><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727" /></svg>&nbsp;&nbsp;Beeps Generator
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-bell-ringing"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727" /><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727" /></svg>&nbsp;&nbsp;Pieptonen generator
           </a>
+        </div>
+        <div style="margin: 20px auto; text-align: center;">
+          Interface beschikbaar in deze talen:
+        </div>
+        <div>
+          <a class="interface-lang-link" target="_parent" href="/en/">English</a>
+          <a class="interface-lang-link" target="_parent" href="/es/">Español</a>
+          <a class="interface-lang-link" target="_parent" href="/fr/">Français</a>
+          <a class="interface-lang-link" target="_parent" href="/ar/">العربية</a>
+          <a class="interface-lang-link" target="_parent" href="/he/">עברית</a>
+          <a class="interface-lang-link" target="_parent" href="/ja/">日本語</a>
+          <a class="interface-lang-link" target="_parent" href="/de/">Deutsch</a>
+          <a class="interface-lang-link" target="_parent" href="/it/">Italiano</a>
+          <a class="interface-lang-link" target="_parent" href="/zh/">中文</a>
+          <a class="interface-lang-link" target="_parent" href="/ko/">한국어</a>
+          <a class="interface-lang-link" target="_parent" href="/pt/">Português</a>
+          <a class="interface-lang-link" target="_parent" href="/ru/">Русский</a>
+          <a class="interface-lang-link" target="_parent" href="/ro/">Română</a>
+          <a class="interface-lang-link" target="_parent" href="/hi/">हिन्दी</a>
+          <a class="interface-lang-link" target="_parent" href="/nl/">Nederlands</a>
         </div>
       </div>
 
@@ -474,9 +494,9 @@
         <button title="Text analytics - word counter & more" aria-label="Text analytics - word counter & more" style="" data-ws-onClick="calculateStats" data-ws-toggle="#statsModal">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>
         </button>
-        <button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
+        <!--<button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-language"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7" /><path d="M9 3v2c0 4.418 -2.239 8 -5 8" /><path d="M5 9c0 2.144 2.952 3.908 6.7 4" /><path d="M12 20l4 -9l4 9" /><path d="M19.1 18h-6.2" /></svg>
-        </button>
+        </button>-->
       </div>
 
       <div style="display: flex;flex: 1;overflow: hidden;">
@@ -648,7 +668,7 @@
 
           <div data-ws-show-if-state="isSignedIn=false" class="remaining-chars-line" style="text-align: center; cursor: pointer; padding: 2px 10px;" onclick="signIn()">
             <p data-ws-show-if-state="isSignedIn=false">
-              Sign in to enable unlimited basic voices & 5k chars free premium voices.
+              Log in om onbeperkte basisstemmen en 5k gratis premium karakters te gebruiken.
             </p>
           </div>
           <div data-ws-show-if-state="isSignedIn=true" class="remaining-chars-line hidden" style="text-align: center; cursor: pointer; padding: 2px 10px;" onclick="openNewUpgradeModal()" >
@@ -707,20 +727,26 @@
     </div>
   </div>
 
+
+
+
+
+
+
   <div id="exportsListModal" class="Sliding-In-Modal hidden">
     <div class="Sliding-In-Modal-Content" style="background-color: darkred; color: white; overflow-y: auto;position: relative;">
       <div onclick="openOrCloseExportsListModal(true);" style="position: absolute; right: 10px; top: 10px; cursor: pointer;width: 32px;height: 32px;display: flex;align-items: center;justify-content: center;border-radius: 50%;border: 2px solid white;color:white;stroke:white;">
         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
       </div>
       <div style="text-align: center">
-        <h2>Long-Texts Exports List</h2>
-        <a data-ws-toggle="#exportModal" style="text-decoration: none;cursor: pointer; color: orangered;text-transform: uppercase">Click here to create a new MP3 from text</a>
-        <p>Cick on a file item to download. Make sure to save on your own device ASAP, as files will be automatically deleted from our storage in 30 days.</p>
+        <h2>Lange teksten exportlijst</h2>
+        <a data-ws-toggle="#exportModal" style="text-decoration: none;cursor: pointer; color: orangered;text-transform: uppercase">Klik hier om een nieuwe MP3 van tekst te maken</a>
+        <p>Klik op een bestand om te downloaden. Zorg dat u het snel opslaat, want bestanden worden na 30 dagen automatisch verwijderd.</p>
       </div>
       <br/>
       <div id="exportsRowsContainer">
         <!-- rows inserted here -->
-        <p style="text-align: center">Nothing here yet. Export your texts to MP3. If the text is long, then your rendered MP3 will be saved on our servers for 30 days for your convenience.</p>
+        <p style="text-align: center">Nog niets hier. Exporteer je teksten naar MP3. Bij lange teksten wordt je MP3 30 dagen op onze servers opgeslagen.</p>
       </div>
 
       <template id="exportsListItemTemplate">
@@ -743,7 +769,11 @@
 
 
 
+
+
+
   <div id="onboardingModal" class="wideModal" style="display: none;" dir="">
+    <!-- Step 1: Welcome Message -->
     <div data-ws-step="1" class="modal-step" style="background: url('/images/anima2.webp') no-repeat center;background-size: cover;">
       <div style="flex:1"></div>
       <h1>Welkom bij <span style="color:darkred;">TTS</span>Reader 3<!-- Welcome to <span style="color:darkred;">TTS</span>Reader 3 --></h1>
@@ -760,13 +790,13 @@
         </label>
         <span class="label">🌙 Donker<!-- 🌙 Dark --></span>
       </div>
-
       <br/>
       <p style="font-size: smaller"><i>By continuing you agree to our <a href="/docs/legal/terms/" target="_blank">terms</a> & <a href="/docs/legal/privacy/" target="_blank">privacy policy</a></i></p>
-      <p data-ws-show-if-state="isSignedIn=false">Already have an account? <button class="secondary" onclick="signIn()">Sign in with Google</button></p>
+      <p data-ws-show-if-state="isSignedIn=false">Heb je al een account?&nbsp;<button class="secondary" onclick="signIn()">Inloggen met Google</button></p>
       <div style="flex:1;" ></div>
     </div>
 
+    <!-- Step 2: Language Selector -->
     <div data-ws-step="2" class="modal-step" style="display: none">
       <div class="modal-content">
         <div style="flex:1"></div>
@@ -812,19 +842,20 @@
       </div>
     </div>
 
+    <!-- Step 3: Voice Selector -->
     <div data-ws-step="3" class="modal-step" style="display: none">
       <!--<div class="modal-header">
         <span>Selecteer je voorkeursstem&lt;!&ndash; Select Your Preferred Voice &ndash;&gt;</span><br/>
         <span style="font-size: 16px;opacity: 0.8;">Klik op een stem om te horen hoe deze klinkt. Wanneer je klaar bent, tik op <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Volgende</a>.&lt;!&ndash; Click a voice to hear how it sounds. When ready, tap <a style="color: orangered;cursor: pointer" onclick="nextStep(this)">Next</a>. &ndash;&gt;</span>
       </div>-->
       <div class="modal-content">
-        <p>Select preferred voice. Je kunt deze later altijd wijzigen.<!-- You can always change it later. --></p>
+        <p>Selecteer voorkeurstem. Je kunt deze later altijd wijzigen.<!-- You can always change it later. --></p>
         <div style="flex:1"></div>
         <div class="Voices-Gallery" style="max-width: 1000px; margin: auto;margin-top: -15px;">
-          <h2>Premium AI Voices (Free Trial Requires Signin, No Payment)</h2>
+          <h2>Premium AI stemmen (gratis proef vereist inloggen, geen betaling)</h2>
           <div class="Gallery-Container Voices-Gallery-Container-Premium"></div>
           <br/>
-          <h2>Free & Unlimited Voices - No Signin Required</h2>
+          <h2>Gratis & onbeperkte stemmen - geen inloggen nodig</h2>
           <div class="Gallery-Container Voices-Gallery-Container-Free"></div>
 
         </div>
@@ -869,6 +900,7 @@
       </div>
     </div>
 
+    <!-- Step 4: Finish Onborading - Not active -->
     <div data-ws-step="4" class="modal-step" style="display: none;">
       <div style="flex:1"></div>
       <h1>Je bent klaar<!-- You're all set --></h1>
@@ -950,7 +982,7 @@
             <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
             <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
           </svg>
-          <a href="/docs/guides/voiceover/#mix-languages-voices--speeds" target="_blank" style="text-decoration: none;">
+          <a href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds" target="_blank" style="text-decoration: none;">
             Kopiëren<!-- Copy -->
             <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -1043,7 +1075,7 @@
       <br/>
       <div class="input-container">
         <input type="text" id="urlInput" class="styled-input" placeholder="https://en.wikipedia.org/wiki/The_Beatles">
-        <button class="styled-button" id="urlSubmitButton" data-ws-onClick="onUrlSubmitClick">GO</button>
+        <button class="styled-button" id="urlSubmitButton" data-ws-onClick="onUrlSubmitClick">GA</button>
       </div>
 
       <br/>
@@ -1063,31 +1095,29 @@
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
         </svg>
       </button>
-      <h4>NEW Export Text to Audio - MP3 / WAV</h4><!-- TODO: replace with:  -->
-      <p><strong>Instant MP3 / WAV generation</strong> for premium users. <strong>You own the copyrights! Use the generated audio for ANY purpose.</strong></p>
+      <h4>NIEUW Tekst exporteren naar audio - MP3 / WAV</h4><!-- TODO: replace with:  -->
+      <p><strong>Directe MP3 / WAV generatie voor premium gebruikers. U bezit de auteursrechten! Gebruik de gegenereerde audio voor ELK doel.</strong></p>
       <div style="text-align: justify; font-size: smaller;">
-      <p style="text-align: center">PLEASE NOTE:</p>
+      <p style="text-align: center">LET OP:</p>
       <ul style="text-align: justify">
-        <li><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ </span>Requires Premium<span data-ws-show-if-state="isPremium=true">, which you are! ✅ Fantastic.</span><span data-ws-show-if-state="isPremium=false">. <a href="#" data-ws-toggle="#upgradeModal" style="font-weight: bold">Click to upgrade.</a></span></li>
-        <li><strong>Please PLAY before export - to make sure it ALL sounds exactly as you like it to. Edit to perfection. Then export when ready.</strong></li>
-        <li>It's new - so it may have issues we're unaware of.</li>
-        <li>It consumes chars from your quota just like PLAY would.</li>
+        <li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false">style="color: red;">✘ Premium.&nbsp;<a href="#" data-ws-toggle="#upgradeModal" style="font-weight: bold">Upgrade naar Premium</a></span></li>
+        <li><strong>Speel het af voordat u exporteert om zeker te zijn dat alles precies klinkt zoals u wilt. Bewerk tot perfectie. Exporteer dan wanneer klaar.</strong></li>
+        <li>Het verbruikt karakters uit uw tegoed, net zoals bij afspelen.</li>
         <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
-        <li>It only works with premium voices (those marked with a star at the voices gallery).</li>
-        <li><b>Make sure the voice & rate are set correctly by the voice-selector controls</b> as it ignores inline voice-setter codes.</li>
-        <li style="color: green">New: {{pause}} And {{pause:DURATION_IN_MS}} are supported. Make sure they are formatted WITHOUT any white space/s inside the double-braces {{...}}</li>
+        <li>Werkt alleen met premium stemmen (gemarkeerd met een ster in de galerij).</li>
+        <li>Zorg dat stem en snelheid correct zijn ingesteld via de voice-selector, inline voice-codes worden genegeerd.</li>
+        <li style="color: green">Nieuw: {{pause}} en {{pause:DURATION_IN_MS}} worden ondersteund. Zorg dat ze zonder spaties binnen de dubbele accolades {{...}} zijn geformatteerd.</li>
       </ul>
       </div>
       <br/>
       <div>
-        <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">Create & Download MP3</button>
-        <p style="font-weight: bold;color: orangered;cursor: pointer;background-color: lightgoldenrodyellow; padding: 5px; border: 1px solid;" onclick="openOrCloseExportsListModal();" data-ws-toggle="#exportModal">CLICK HERE FOR PROCESSING / READY LONG-FORM EXPORTS</p>
+        <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">Maak & download MP3</button>
+        <p style="font-weight: bold;color: orangered;cursor: pointer;background-color: lightgoldenrodyellow; padding: 5px; border: 1px solid;" onclick="openOrCloseExportsListModal();" data-ws-toggle="#exportModal">KLIK HIER VOOR VERWERKING / KLAAR LANGTEKST EXPORTS</p>
         <br/>
-        <p>For short texts (less than 2,000 chars) - you can export to WAV as well</p>
-        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">Create & Download WAV (LESS THAN 2,000 CHARS ONLY)</button>
+        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">Maak & download WAV (ALLEEN MINDER DAN 2000 KARAKTERS)</button>
       </div>
       <br/>
-      <p>How are we doing? Let us know please! <a href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank">Feedback Form Link</a></p>
+      <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank">Hoe doen we het? Laat het ons weten! Link feedbackformulier</a></p>
     </div>
   </div>
 
@@ -1099,8 +1129,28 @@
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
         </svg>
       </button>
-      <h4>UPLOADING TEXT TO GENERATE SPEECH</h4><!-- TODO: replace with:  -->
-      <p><strong>PLEASE KEEP THIS TAB OPEN</strong></p>
+      <h4>TEKST UPLOADEN OM SPRAAK TE GENEREREN</h4>
+      <p><strong>HOUD DEZE TAB OPEN</strong></p>
+    </div>
+  </div>
+
+
+  <div class="Modal" id="postOnboardingModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: auto;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4 style="font-size: larger">Je bent klaar! Begin tips:</h4>
+      <p><strong>Stel taal, stem & snelheid in op de bovenste knopbalk&nbsp;<img style="display: inline-block; max-height: 45px;margin: 3px; border-radius: 5px; border: 2px solid yellow; vertical-align: middle;max-width: 90%;" src="images/voice_guide.jpg"/></strong></p>
+      <p><strong>Plak, typ & bewerk tekst direct in het tekstvak.</strong></p>
+      <p><strong>Gebruik de knoppen Openen & Webpagina in de bovenste menubalk om documenten & webpagina's te importeren&nbsp;<img style="display: inline-block; max-height: 45px;margin: 3px; border-radius: 5px; border: 2px solid yellow; vertical-align: middle;max-width: 90%;" src="images/open_guide2.jpg"/></strong></p>
+      <p><strong>Om MP3 te exporteren, klik op de EXPORT knop rechtsonder</strong></p>
+      <img style="max-width: 80%; margin: auto; width: 382px;display: block;" src="images/export_btn_guide.png"/>
+      <br/>
+      <button data-ws-toggle="#postOnboardingModal" class="full-width-button">Laten we beginnen</button>
     </div>
   </div>
 
@@ -1112,10 +1162,8 @@
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
         </svg>
       </button>
-      <h4> ✅ UPLOAD SUCCESS</h4><!-- TODO: replace with:  -->
-      <p style="font-size: larger">Your audio file is now being rendered by our server in the background.
-        <br/><br/>It is now safe to keep working, and even close the tab.
-        <br/><br/>The task shows in the exports-list, and when ready the audio file can be downloaded by click on the task's row in the list.</p>
+      <h4> ✅ UPLOAD GELUKT</h4>
+      <p style="font-size: larger">Je audiobestand wordt nu op de achtergrond door onze server verwerkt.<br/><br/>Je kunt veilig doorgaan met werken of de tab sluiten.<br/><br/>De taak verschijnt in de exportlijst en kan gedownload worden zodra deze klaar is door op de taak te klikken.</p>
     </div>
   </div>
 
@@ -1128,20 +1176,20 @@
         </svg>
       </button>
       <p style="font-weight: bold">
-        Words Count: <span data-ws-label-state="wordsCount">...</span>
+        Aantal woorden: <span data-ws-label-state="wordsCount">...</span>
       </p>
       <p style="font-weight: bold">
-        Characters Count: <span data-ws-label-state="charsCount">...</span>
+        Aantal karakters: <span data-ws-label-state="charsCount">...</span>
       </p>
       <p style="font-weight: bold">
-        Paragraphs Count: <span data-ws-label-state="paragraphsCount">...</span>
+        Aantal alinea's: <span data-ws-label-state="paragraphsCount">...</span>
       </p>
       <p style="font-weight: bold">
-        Duration:&nbsp;~<span data-ws-label-state="expectedDuration"></span>&nbsp;<span style="font-weight:normal">(at speed X1)</span>.
+        Duur:&nbsp;~<span data-ws-label-state="expectedDuration"></span>&nbsp;<span style="font-weight:normal">(at speed X1)</span>.
       </span>
 
       <br/>
-      <button class="full-width-button" data-ws-onClick="calculateStats">Refresh</button>
+      <button class="full-width-button" data-ws-onClick="calculateStats">Vernieuwen</button>
     </div>
   </div>
 
@@ -1209,20 +1257,22 @@
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
         </svg>
       </button>
+
+
       <div data-ws-show-if-state="isPremium=true" style="padding: 20px;text-align: center;">
-        <p style="font-size: larger;">Premium Plan<!-- Congrats! You are now Premium! --></p>
+        <p style="font-size: larger;">Premium plan</p>
         <p style="font-size: 70px; padding: 20px;margin-block: 0.3em;">🏆</p>
         <p data-ws-show-if-state="subscriptionId=true">
           Via<!-- Via --> <a style="cursor: pointer;text-decoration: underline" data-ws-toggle="#subscriptionModal">Abonnement<!-- Subscription --> - klik hier om te bekijken en beheren<!-- click here to view & manage --></a>
           <br/>
-          Planned to renew automatically on: <span data-ws-label-state="premiumPlanExpirationDateReadable"></span>
+          Automatically renews on: <span data-ws-label-state="premiumPlanExpirationDateReadable"></span>
         </p>
         <p data-ws-show-if-state="isPremiumPlan=false">
-          <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Click to purchase a convenient Premium Subscription</a>
+          <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Subscription - Klik hier om te upgraden. 100% tevredenheid gegarandeerd</a>
         </p>
         <p data-ws-show-if-state="subscriptionId=false">
           <span data-ws-show-if-state="isPremiumPlan=true">
-            Expires on: <!-- Via purchase of 1 year license. Expires in --> <span data-ws-label-state="premiumPlanExpirationDateReadable"></span>
+            Vervalt op: <span data-ws-label-state="premiumPlanExpirationDateReadable"></span>
           </span>
         </p>
         <hr/>
@@ -1233,28 +1283,28 @@
             </div>
             <div data-ws-show-if-state="serverData=true">
               <p data-ws-show-if-state="isPremium=false">
-                Free plan. Unlimited basic voices.
+                FREE PLAN. Onbeperkte basisstemmen.
                 <br/>
                 Used <span data-ws-label-state="usageLife"></span> / 5,000 chars of Premium Voices.
               </p>
-              <p data-ws-show-if-state="isPremium=true">
-                Unlimited basic voices.
+          <p data-ws-show-if-state="isPremium=true">
+                Onbeperkte basisstemmen.
                 <br/>
                 <span data-ws-show-if-state="isPremiumPlan=true">
-                  Used <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> chars of Premium Voices for this month.
+                  Gebruikte karakters voor premium stemmen deze maand.: <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span>
                 </span>
                 <br/>
                 <span data-ws-show-if-state="isPayAsYouGo=true">
-                  Additional remaining premium chars <span data-ws-label-state="remainingCreditsChars"></span>.
+                  Remaining premium chars: <span data-ws-label-state="remainingCreditsChars"></span>.
                 </span>
                 <br/>
-                <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Click to purchase Pay-As-You-Go Premium Voices Characters</a>
+                <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Klik om Pay-As-You-Go premium karakters te kopen</a>
                 <br/>
                 <hr/>
                 <br/>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform" target="_blank" style="color: orangered;cursor: pointer;text-decoration: none;display: block"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-sos"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" /><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /></svg>&nbsp;&nbsp;Premium Support Form</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform" target="_blank" style="color: orangered;cursor: pointer;text-decoration: none;display: block"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-sos"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" /><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /></svg>&nbsp;&nbsp;Premium support formulier</a>
                 <br/>
-                <span>Or, email us to <span style="color: orangered">contact@ttsreader.com</span> please mention in the subject line you are a premium user</span>
+                <span>Of mail ons op contact@ttsreader.com met vermelding dat je premium gebruiker bent</span>
               </p>
             </div>
           </div>
@@ -1458,11 +1508,9 @@
   <div class="Modal" id="processingModal" style="display: none; flex-direction: column; align-items: center; justify-content: center;">
     <div style="flex: 1"></div>
     <div class="Modal-content" style="max-width: 100%; max-height: 100vh; text-align: center;">
-      <p>Generating audio file... Expect results in:</p>
+      <p>Bezig met verwerken... ETA:</p>
       <p id="processingTimer" style="font-size: 1.2em;font-weight: bold">01:00</p>
-      <p>If results aren't yet ready - please keep waiting.
-        <br/><b>- KEEP THIS TAB OPEN WHILE RUNNING -</b>
-      </p>
+      <p><b>- HOUD DEZE TAB OPEN -</b></p>
     </div>
     <div style="flex: 1"></div>
   </div>
@@ -1570,7 +1618,7 @@
     if (value<0) {
       window.open("https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link","_blank");
     } else {
-      alert('Thank you for your feedback ❤️');
+      alert('Bedankt voor je feedback ❤️');
     }
   }
 </script>
@@ -1700,13 +1748,13 @@
       const minutes = String(Math.floor(remaining / 60)).padStart(2, '0');
       const seconds = String(remaining % 60).padStart(2, '0');
 
-      stateEl.textContent = `Processing. ETA: ${minutes}:${seconds}`;
+      stateEl.textContent = `Bezig met verwerken. ETA: ${minutes}:${seconds}`;
 
       if (remaining <= 0) {
         if (timer) {
         clearInterval(timer);
         }
-        stateEl.textContent = 'Finalizing...'; // or "Done", depending on your app logic
+        stateEl.textContent = 'Bezig met afronden...'; // or "Done", depending on your app logic
       }
     }
 
@@ -1755,7 +1803,7 @@
       downloadLink.href = job.mp3Url.split('?')[0];
       downloadLink.setAttribute('download', job.fileName || `ttsreader-${job.id}.mp3`);
     } else {
-      downloadLink.href ="javascript:alert('Job is not ready yet, please wait for it to finish processing.');";
+      downloadLink.href ="javascript:alert('Taak is nog niet klaar, wacht alsjeblieft tot het verwerken is voltooid.');";
       downloadLink.removeAttribute('target');
     }
 
@@ -1900,7 +1948,7 @@
 
   async function cancelSubscription() {
     if (!window.subscriptionId) {
-      alert('No subscription to cancel. If you think this is an error, please contact us via the form or via contact@ttsreader.com');
+      alert('Geen abonnement om te annuleren. Als je denkt dat dit een fout is, neem dan contact met ons op via het formulier of via contact@ttsreader.com');
       return;
     }
 
@@ -1925,7 +1973,7 @@
                   throw new Error(text || "Unknown error");
                 }
                 // Success
-                alert("Action completed successfully!");
+                alert("Actie succesvol voltooid");
               })
               .catch((error) => {
                 // Failure
@@ -2279,10 +2327,15 @@
 
   function openOnboarding() {
     document.getElementById('onboardingModal').style.display = 'flex';
+    localStorage.removeItem("ttsreader.wasOnboarding3");
   }
 
   function closeOnboarding() {
     document.getElementById('onboardingModal').style.display = 'none';
+    if (!localStorage.getItem("ttsreader.wasOnboarding3")) {
+      // If we never did the onboarding, set the flag:
+      appMethods.showModal("postOnboardingModal");
+    }
     localStorage.setItem("ttsreader.wasOnboarding3", "true");
   }
 
@@ -2356,7 +2409,7 @@
   function openNewUpgradeModal() {
     let uid = firebase?.auth()?.currentUser?.uid;
     if (!uid) {
-      alert("Please sign in first to upgrade your account.");
+      alert("Log eerst in om je account te upgraden.");
       signIn();
       return;
     }
@@ -2387,19 +2440,21 @@
 
 <!-- JS STRINGS -->
 <div id="JS_STRINGS" style="display: none">
-  <div data-ws-string-key="alert_file_not_supported" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_quota_reached" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_copied" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_missing_credits" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_requires_premium" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_export_too_long" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_export_limited" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_export_premium_voice" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_no_text_to_export" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_paste_to_editor" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_new_payment_received" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_unknown_tts_error" data-ws-string-value=""></div>
-  <div data-ws-string-key="alert_remove_setters_to_export" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_file_not_supported" data-ws-string-value="Bestandstype niet ondersteund. Als dit een fout is, laat het ons weten via contact@ttsreader.com"></div>
+  <div data-ws-string-key="alert_quota_reached" data-ws-string-value="Quota bereikt. Controleer je saldo, koop meer indien nodig via Pay-As-You-Go of schakel over naar een van de gratis & onbeperkte stemmen."></div>
+  <div data-ws-string-key="alert_copied" data-ws-string-value="Gekopieerd naar klembord."></div>
+  <div data-ws-string-key="alert_missing_credits" data-ws-string-value="Niet genoeg credits om je verzoek te voltooien"></div>
+  <div data-ws-string-key="alert_requires_premium" data-ws-string-value="Deze nieuwe functie vereist premium. Upgrade eerst. Je kunt altijd annuleren, en we bieden 100% tevredenheidsgarantie."></div>
+  <div data-ws-string-key="alert_export_too_long" data-ws-string-value="Tekst te lang. Splits de tekst in delen, zodat elk deel minder dan 200k karakters bevat voor redelijke audiobestandsformaten."></div>
+  <div data-ws-string-key="alert_export_limited" data-ws-string-value="Sorry, de geselecteerde stem kan tot 6k karakters exporteren. Verkort de tekst tot 6k karakters of schakel over naar een stem die lange tekst export ondersteunt. Deze stemmen zijn allemaal premium ** BEHALVE: NOAH, LILLY, OLIVIA. **"></div>
+  <div data-ws-string-key="alert_export_premium_voice" data-ws-string-value="De exportfunctie is alleen beschikbaar voor premium stemmen. Selecteer een premium stem (gemarkeerd met een ster ⭐) om door te gaan, of gebruik in plaats daarvan de 'RECORD ◉' knop."></div>
+  <div data-ws-string-key="alert_no_text_to_export" data-ws-string-value="Leeg tekstvak. Typ, plak of upload eerst tekst."></div>
+  <div data-ws-string-key="alert_paste_to_editor" data-ws-string-value="Plak het in de editor op de plaats waar u wilt dat het werkt."></div>
+  <div data-ws-string-key="alert_new_payment_received" data-ws-string-value="Betaling ontvangen en geregistreerd op uw account."></div>
+  <div data-ws-string-key="alert_unknown_tts_error" data-ws-string-value="Er is een fout opgetreden bij het afspelen van de tekst, daarom hebben we de weergave gepauzeerd. Zorg ervoor dat de internetverbinding in orde is en probeer het opnieuw. Als het probleem aanhoudt, vernieuw dan de pagina. Als het nog steeds voorkomt, laat het ons weten via contact@ttsreader.com."></div>
+  <div data-ws-string-key="alert_remove_setters_to_export" data-ws-string-value="Verwijder eventuele stem- / snelheidsinstellingen uit de tekst voordat u exporteert. Deze worden niet ondersteund in het geëxporteerde MP3-bestand. Instellingen zijn in het formaat {{set:...}}."></div>
+  <div data-ws-string-key="app_js__processing_finished" data-ws-string-value="Verwerking voltooid. Controleer de exportlijst. Bij problemen neem contact op met contact@ttsreader.com"></div>
+  <div data-ws-string-key="app_js__invalid_url" data-ws-string-value="Ongeldige URL"></div>
 </div>
 <!-- end of JS STRINGS -->
 

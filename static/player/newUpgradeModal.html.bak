@@ -570,7 +570,7 @@
   function delayAcknowledgeAlertAsync() {
     // Acknowledge alert after a delay to ensure the UI is responsive
     setTimeout(() => {
-      alert('Thank you - order received.\nIf all goes well - PayPal will notify our server and your new purchase will be activated in just a few seconds.\nIf it does not - please contact us at contact@ttsreader.com');
+      alert('<%= htmlWebpackPlugin.options.strings.main__thank_you_order_received %>');
       onClose(); // Close the modal after acknowledging
     }, 100);
   }
@@ -606,7 +606,7 @@
     let onCancel = function (data) {
       console.log('Payment cancelled:', data);
       // Optionally, you can add a message to the user here
-      alert('Payment was cancelled. Please try again.');
+      alert('<%= htmlWebpackPlugin.options.strings.main__payment_cancelled %>');
     };
     custom_id = sku + "__" + uid;
 
