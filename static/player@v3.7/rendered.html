@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="https://ttsreader.com/favicon.ico" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>TTSReader Playback</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        #loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        iframe {
+            display: none;
+            border: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="loader"></div>
+<iframe id="exportFrame"></iframe>
+
+<script>
+    function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            url: params.get('url'),
+            voice: params.get('voice'),
+            rate: parseFloat(params.get('rate')),
+            date: parseInt(params.get('date'))
+        };
+    }
+
+    function jsonToCaptions(json) {
+        return json.map(entry => {
+            const startSec = entry.AudioOffset / 1000;
+            const endSec = (entry.AudioOffset + entry.Duration) / 1000;
+            return [entry.Text, parseFloat(startSec.toFixed(2)), parseFloat(endSec.toFixed(2)), 0];
+        });
+    }
+
+    async function main() {
+        const { url, voice, rate, date } = getQueryParams();
+        if (!url) return alert("Missing URL parameter");
+
+        try {
+            const response = await fetch(url + ".sentence.json");
+            const json = await response.json();
+
+            window.videoDetails = {
+                id: 0,
+                voice,
+                rate,
+                orderedAt: date,
+                title: "",
+                speakers: 1,
+                fileName: "",
+                url: url + ".mp3",
+                duration: "",
+                description: "",
+                caps: jsonToCaptions(json)
+            };
+
+            const iframe = document.getElementById("exportFrame");
+            iframe.onload = () => {
+                document.getElementById("loader").style.display = "none";
+                iframe.style.display = "block";
+            };
+
+            iframe.src = "embedded/embeddedPlayback/";
+        } catch (err) {
+            console.error("Error loading or processing JSON:", err);
+            alert("Failed to load JSON.");
+        }
+    }
+
+    main();
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <meta charset="UTF-8">
+  <title>TTSReader Plugin with Default UI</title>
+  <script src="https://unpkg.com/ttsreader-plugin@0.3.0/main.js" defer></script>
+  <style>
+    [data-ttsreader-role="togglePlay"] {
+      height: 30px;
+      width: 30px;
+      padding: 10px;
+      border-radius: 50%;
+      vertical-align: middle;
+      background-image: url('data:image/svg+xml;utf8,<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="green"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+    [data-ttsreader-role="togglePlay"].isPlaying {
+      background-image: url('data:image/svg+xml;utf8,<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="red"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-pause"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" /><path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" /></svg>');
+    }
+
+    #ttsreader-plugin-container button {
+      cursor: pointer;
+    }
+
+    #ttsreader-plugin-container #ttsreader-info {
+      display: none;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    #ttsreader-plugin-container:hover #ttsreader-info {
+      display: block;
+    }
+
+
+  </style>
+</head>
+
+<body style="overflow-y: auto;padding: 20px;">
+
+<nav><p>Some text not to include</p></nav>
+
+<div style="display: none">
+  <p>my name is</p>
+</div>
+
+<p>Ronen</p>
+<h1>Hi</h1>
+<nav><p>Some text not to include</p></nav>
+<p>Some text</p>
+<p>Some more text</p>
+<div></div>
+<br/>
+<p>Some more text 2</p>
+<br/>
+<hr/>
+
+<!-- generic paragraph placeholder:  -->
+<div>
+  <div>
+    <div>
+      <nav><p>Some text not to include</p></nav>
+      <h2>What is Lorem Ipsum?</h2>
+      <p><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </div>
+    <div>
+      <h2>Why do we use it?</h2>
+      <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+    </div>
+    <br/>
+    <div>
+      <h2>Where does it come from?</h2>
+      <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p><p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+    </div>
+    <div>
+      <h2>Where can I get some?</h2>
+      <ul>
+        <li>hi1</li>
+        <li>hi2</li>
+      </ul>
+      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+    </div>
+    <ul>
+      <li>hi1</li>
+      <li>hi2</li>
+    </ul>
+  </div>
+</div>
+
+<ttsplugin style="position: fixed; top: 50%; left: 50%;"></ttsplugin>
+
+<!--
+Must: data-ttsreader-role="togglePlay"
+
+Optional - additional buttons
+data-ttsreader-role  ="preferences"
+data-ttsreader-role="forward"
+data-ttsreader-role="rewind"
+data-ttsreader-role="goToStart"
+
+We will identify these attributes and provide the required js functionality with hooks.
+
+CSS on class="isPlaying" (which will be applied on the play button) will enable to indicate the user that the tts is playing.
+-->
+<!--<div id="ttsreader-plugin-container" style="position: fixed; z-index: 99; top: 20px; right: 20px;">
+  <button data-ttsreader-role="goToStart">|<</button>
+  <button data-ttsreader-role="rewind"><<</button>
+  <button data-ttsreader-role="togglePlay"></button>
+  <button data-ttsreader-role="forward">>></button>
+  <button data-ttsreader-role="preferences">Prefs</button>
+  <p id="ttsreader-info" style="text-align: center"><a href="https://ttsreader.com/">Text To Speech by TTSReader</a></p>
+</div>-->
+
+<script>
+  window.ttspluginOnReadyListener = function() {
+    console.log('ttsplugin is ready');
+  };
+</script>
+
+</body>
+</html>
