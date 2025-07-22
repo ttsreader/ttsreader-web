@@ -48,11 +48,13 @@
 <body>
 <div id="loader"></div>
 <iframe id="exportFrame"></iframe>
+<div onclick="onClose()" style="background-color: whitesmoke; cursor: pointer; position: fixed;padding: 10px;top: 10px;right: 10px;border-radius: 50%; border: 2px solid gray; color: darkslategrey"><svg style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="3"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg></div>
 
 <script>
     function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
         return {
+            onClose: params.get('onClose'),
             url: params.get('url'),
             voice: params.get('voice'),
             rate: parseFloat(params.get('rate')),
@@ -69,12 +71,20 @@
     }
 
     async function main() {
-        const { url, voice, rate, date } = getQueryParams();
+        const { url, voice, rate, date, onClose, lang } = getQueryParams();
         if (!url) return alert("Missing URL parameter");
+
+        if (onClose) {
+            window.onClose = () => {
+                window.parent[onClose]();
+            };
+        }
 
         try {
             const response = await fetch(url + ".sentence.json");
             const json = await response.json();
+
+            let code = url.replace("https://ttsreaderstorage.blob.core.windows.net/tts-outputs/","").split("/")[0];
 
             window.videoDetails = {
                 id: 0,
@@ -87,7 +97,8 @@
                 url: url + ".mp3",
                 duration: "",
                 description: "",
-                caps: jsonToCaptions(json)
+                caps: jsonToCaptions(json),
+                directLink: `https://ttsreader.com/rendered/?c=${code}&lang=${lang}&voice=${voice}&rate=${rate}&date=${date}`
             };
 
             const iframe = document.getElementById("exportFrame");

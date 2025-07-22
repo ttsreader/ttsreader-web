@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-07-10T20:33:56.608Z",
-      "version": "3.6.8",
+      "dateModified": "2025-07-22T13:30:58.086Z",
+      "version": "3.7.1",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -49,10 +49,10 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.6.8 - TTSReader | Lector de textos con voz . Online. Preciso. Gratis.</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.7.1 - TTSReader | Lector de textos con voz . Online. Preciso. Gratis.</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+  <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -164,6 +164,14 @@
 
   <style>
 
+    .job-download-link a {
+      color: orange;
+    }
+
+    .job-download-link a:hover {
+      color: greenyellow;
+    }
+
     [data-is-signed-out] [data-ws-show-if-state="isSignedIn=true"] {
       display: none;
     }
@@ -257,8 +265,42 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-overlay .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ccc;
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+    }
+
+    .loading-overlay .loading-text {
+      margin-top: 20px;
+      color: white;
+      font-size: 18px;
+      font-family: sans-serif;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
-<script defer src="static/js/main.1ebfdae1.js"></script><link href="static/css/main.5d5d3cbf.css" rel="stylesheet"></head>
+<script defer src="static/js/main.de975743.js"></script><link href="static/css/main.5d5d3cbf.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
@@ -396,7 +438,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.6.8</b> Build 2025-07-10T20:33:56.608Z
+          <b>V3.7.1</b> Build 2025-07-22T13:30:58.086Z
           <br/><span style="margin-top: 10px;display: block">TODAS LAS VERSIONES <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -750,20 +792,26 @@
       </div>
 
       <template id="exportsListItemTemplate">
-        <a class="job-download-link" style="text-decoration: none;"><div class="job-row">
+        <div class="job-download-link" style="text-decoration: none;"><div class="job-row">
           <span class="job-date"></span>
           <span class="job-preview"></span>
           <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
           <span class="voice-name">David</span>&nbsp;X
           <span class="job-rate" style="padding-left: 0"></span>
           <span class="job-state" style="font-weight: bold;border: 1px solid yellow; padding: 0;"></span>
-          <span class="job-download-btn"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></span>
-        </div></a>
+          <a href="somehreftofile" download="ttsreader.mp3">
+            <span class="job-download-btn"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></span>
+          </a>
+        </div></div>
       </template>
     </div>
   </div>
 
   <div id="newUpgradeModal" class="Sliding-In-Modal hidden">
+      <iframe></iframe>
+  </div>
+
+  <div id="renderedModal" class="Sliding-In-Modal hidden">
       <iframe></iframe>
   </div>
 
@@ -1515,6 +1563,10 @@
     <div style="flex: 1"></div>
   </div>
 
+  <div class="loading-overlay hidden" data-ws-show-if-state="isLoading=true">
+    <div class="spinner"></div>
+    <div class="loading-text">Loading...</div>
+  </div>
 </div>
 
 
@@ -1800,11 +1852,13 @@
 
 
     if (job.mp3Url) {
-      downloadLink.href = job.mp3Url.split('?')[0];
-      downloadLink.setAttribute('download', job.fileName || `ttsreader-${job.id}.mp3`);
+      let mp3Link = job.mp3Url.split('?')[0];
+      let jobLink = mp3Link.split('.mp3')[0];
+      downloadLink.querySelector("a").href = mp3Link;
+      downloadLink.querySelector("a").setAttribute("onclick", "event.stopPropagation();");
+      downloadLink.setAttribute("onclick", "openRenderedModal(" + JSON.stringify({url: jobLink, voice: getNameFromVoiceUri(job.voiceURI), lang: job.lang, rate: job.rate, date: job.createdAt}) + "); return false;");
     } else {
-      downloadLink.href ="javascript:alert('El trabajo no está listo aún, espera a que termine.');";
-      downloadLink.removeAttribute('target');
+      downloadLink.onclick ="alert('El trabajo no está listo aún, espera a que termine.');";
     }
 
     // If exportsRowsContainer contains a row with [data-ws-job-id] equal to job.id, replace it with the new row.
@@ -2396,6 +2450,16 @@
     }
   }
 
+  function closeRenderedModal() {
+    let modalEl = document.getElementById('renderedModal');
+    if (modalEl) {
+      modalEl.classList.remove("show");
+      modalEl.addEventListener("transitionend", () => {
+        //modalEl.classList.add("hidden");
+      }, { once: true });
+    }
+  }
+
   function openOrCloseExportsListModal(isToClose) {
     let modalEl = document.getElementById('exportsListModal');
     if (isToClose) {
@@ -2433,6 +2497,28 @@
       requestAnimationFrame(() => modalEl.classList.add("show"));
     };
     iframeEl.src = `newUpgradeModal.${lang}.html?uid=${uid}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${window.getAppState().data.isPremiumPlan}`;
+  }
+
+  function openRenderedModal(params) {
+    const {url, voice, rate, date, lang} = params;
+    let modalEl = document.getElementById('renderedModal');
+    if (!modalEl) {
+      console.error("Modal element not found");
+      return;
+    }
+
+    let iframeEl = modalEl.querySelector('iframe');
+    if (!iframeEl) {
+      console.error("Iframe element not found in modal");
+      return;
+    }
+    let theme = document.documentElement.getAttribute('data-dark-mode') ? 'dark' : 'light';
+
+    iframeEl.onload = function () {
+      modalEl.classList.remove("hidden");
+      requestAnimationFrame(() => modalEl.classList.add("show"));
+    };
+    iframeEl.src = `rendered.html?url=${url}&lang=${lang}&voice=${encodeURIComponent(voice)}&rate=${rate}&date=${date}&onClose=closeRenderedModal&theme=${theme}`;
   }
 
 </script>

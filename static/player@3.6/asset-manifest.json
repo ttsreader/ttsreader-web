@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5d5d3cbf.css",
+    "main.js": "/static/js/main.1ebfdae1.js",
+    "hi.html": "/hi.html",
+    "ru.html": "/ru.html",
+    "ar.html": "/ar.html",
+    "ja.html": "/ja.html",
+    "he.html": "/he.html",
+    "ro.html": "/ro.html",
+    "ko.html": "/ko.html",
+    "de.html": "/de.html",
+    "fr.html": "/fr.html",
+    "pt.html": "/pt.html",
+    "it.html": "/it.html",
+    "nl.html": "/nl.html",
+    "es.html": "/es.html",
+    "en.html": "/en.html",
+    "zh.html": "/zh.html",
+    "index.html": "/index.html",
+    "newUpgradeModal.hi.html": "/newUpgradeModal.hi.html",
+    "newUpgradeModal.ru.html": "/newUpgradeModal.ru.html",
+    "newUpgradeModal.ar.html": "/newUpgradeModal.ar.html",
+    "newUpgradeModal.he.html": "/newUpgradeModal.he.html",
+    "newUpgradeModal.ja.html": "/newUpgradeModal.ja.html",
+    "newUpgradeModal.de.html": "/newUpgradeModal.de.html",
+    "newUpgradeModal.fr.html": "/newUpgradeModal.fr.html",
+    "newUpgradeModal.ro.html": "/newUpgradeModal.ro.html",
+    "newUpgradeModal.ko.html": "/newUpgradeModal.ko.html",
+    "newUpgradeModal.nl.html": "/newUpgradeModal.nl.html",
+    "newUpgradeModal.es.html": "/newUpgradeModal.es.html",
+    "newUpgradeModal.pt.html": "/newUpgradeModal.pt.html",
+    "newUpgradeModal.it.html": "/newUpgradeModal.it.html",
+    "newUpgradeModal.en.html": "/newUpgradeModal.en.html",
+    "newUpgradeModal.zh.html": "/newUpgradeModal.zh.html",
+    "main.5d5d3cbf.css.map": "/static/css/main.5d5d3cbf.css.map",
+    "main.1ebfdae1.js.map": "/static/js/main.1ebfdae1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5d5d3cbf.css",
+    "static/js/main.1ebfdae1.js"
+  ]
+}
