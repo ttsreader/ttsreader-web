@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+
+<html class="no-js consumer" lang="en"> <!-- Page Specific -->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="icon.png" rel="icon" type="image/x-icon">
+  <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/pakknklefcjdhejnffafpeelofiekebg">
+
+  <title>TTSReader | Text To Speech Reader. Online. Accurate. Free.</title>
+  <meta content="Free online Text To Speech Reader. Accurate with natural voices, multilingual. Real time. Free & always will be." name="description"/>
+
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script>
+    function openTTSREADERXinNewWindow() {
+      window.open("https://chrome.google.com/webstore/detail/ttsreader-x-in-page-text/pakknklefcjdhejnffafpeelofiekebg", "_blank");
+    }
+
+    function openTTSREADERinNewWindow() {
+      window.open("http://ttsreader.com", "_blank");
+    }
+  </script>
+  <!--<link rel="stylesheet" type="text/css" href="http://ttsreader.com/style4.min.css"> <!-- TODO: update in all languages-->
+  <style>
+    @font-face{font-family:'Arizonia';font-style:normal;font-weight:400;src:local('Arizonia'),local('Arizonia-Regular'),url(https://fonts.gstatic.com/s/arizonia/v6/2LCopz-tiFTquWPI_IJCyBTbgVql8nDJpwnrE27mub0.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Arizonia';font-style:normal;font-weight:400;src:local('Arizonia'),local('Arizonia-Regular'),url(https://fonts.gstatic.com/s/arizonia/v6/PwrsyFTYH2Wmsvpn0dx4s_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01mxJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/RjgO7rYTmqiVp7vzi-Q5URJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/LWCjsQkB6EMdfHrEVqA1KRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+1F00-1FFF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0370-03FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0102-0103,U+1EA0-1EF1,U+20AB}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01mxJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/RjgO7rYTmqiVp7vzi-Q5URJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/LWCjsQkB6EMdfHrEVqA1KRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+1F00-1FFF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0370-03FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0102-0103,U+1EA0-1EF1,U+20AB}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF,U+20A0-20AB,U+20AD-20CF,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}@font-face{font-family:'Droid Sans Mono';font-style:normal;font-weight:400;src:local('Droid Sans Mono'),local('DroidSansMono'),url(https://fonts.gstatic.com/s/droidsansmono/v7/ns-m2xQYezAtqh7ai59hJYdJ2JT0J65PSe7wdxAnx_I.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}body{overflow-x:hidden;margin:0;font-family:"Century Gothic","Apple Gothic",sans-serif}select{font-family:cursive;font-weight:bold;border-radius:6px;background-color:#ffd176;box-shadow:3px 3px black;margin-left:20px}select:focus{outline:0;background-color:white}#content{width:960px;max-width:90%;line-height:160%;margin:auto auto}#header{position:relative;height:175px}#phonograph_img{width:140px;height:175px;background:url('phonograph_small_crayon.png');background-size:100%;display:block;position:absolute;left:10px;z-index:-99}#phonograph_credit{width:140px;height:175px;display:block;position:absolute;left:10px;border-radius:20px}#logo_container{width:100%;height:150px}#logo{display:block;position:static;width:100%;max-width:500px;height:150px;margin:10px auto;margin-top:10px;background-image:url('https://speechlogger.appspot.com/images/20150607_long_header.png');background-repeat:no-repeat;background-color:transparent;background-size:contain}#access{display:block;width:100%;line-height:220%}#access ul{list-style:none;text-align:center;font-weight:bold;font-size:110%;padding:0}#access li{display:inline-block;margin:5px 16px;background-color:rgba(151,209,253,0.4);border:1px gray;border-radius:20px;padding:7px 20px;box-shadow:0 3px 3px rgba(0,0,0,0.5)}#access li:hover{cursor:pointer;background-color:rgba(151,209,253,1)}#access li>a{color:black;text-decoration:none}h1,h2,h3,h4{text-align:center;line-height:150%}h1{vertical-align:middle;text-shadow:2px 2px #fff;color:#7d0303}h2{clear:both;opacity:.8}p{color:#655a5a}#content p{text-align:justify}.center{text-align:center}.resizeableYoutube{width:50%;min-width:336px;max-width:560px;float:right;margin-left:25px;margin-top:5px}.resizeableYoutube>div{position:relative;padding-bottom:64%;height:0}.resizeableYoutube iframe{position:absolute;top:0;left:0;width:100%;height:100%}.ad_336x280{width:336px;height:280px;float:right;margin-left:25px;margin-top:5px}#content #userReviews p{width:80%;margin:30px auto;text-align:center;font-size:120%;color:gray;font-style:italic}.ad_728x15{clear:both;width:728px;height:15px;margin:20px auto}.ad_728x90{clear:both;width:728px;height:90px;margin:20px auto}.ad_120x600{width:120px;height:600px;position:absolute;right:-150px;bottom:0}#application{position:relative;clear:both;max-width:90%;padding:20px;border-radius:10px 10px 10px 10px;margin:0 auto;background:url('wood_texture.jpg')}#buttons_row{height:100px;margin:20px auto;margin-top:0;width:100%;position:relative}#speak_button_container{position:absolute;top:0;left:50%}#speak_button{margin:0;margin-left:-50px;opacity:.8;width:100px;height:100px;background-color:transparent;background-image:url('start_button.png');cursor:pointer;border-radius:50px}#speak_button:hover{opacity:1}#left_half_container{display:inline-block;margin:0;padding:0;width:50%}#left_buttons{margin-right:60px;height:100px;text-align:center;line-height:100px;overflow-y:hidden;padding-right:5px}#reset_button{vertical-align:middle;display:inline-block;opacity:.8;width:50px;height:50px;margin:0 auto;background-color:transparent;background-image:url('images/rewind.png');cursor:pointer;border-radius:10px;box-shadow:3px 3px black;background-repeat:no-repeat;background-size:contain;border:1px black solid}#reset_button:hover{opacity:1;margin-bottom:5px}#clear_button{vertical-align:middle;display:inline-block;opacity:.8;width:50px;height:50px;margin:0 auto;background-color:transparent;background-image:url('images/clean.png');cursor:pointer;border-radius:10px;box-shadow:3px 3px black;background-repeat:no-repeat;background-size:contain;border:1px black solid}#clear_button:hover{opacity:1;margin-bottom:5px}#right_half_container{position:absolute;top:40px;right:0;width:50%}#right_buttons{margin-left:40px;text-align:center}#text_box,#text_box_mirror{display:block;height:300px;width:90%;margin:auto;padding:20px;overflow-y:scroll;font-family:"Droid Sans Mono",monospace;font-size:16px}#text_box::selection{background-color:yellow}.zero_height_container{margin:0;height:0;width:100%;overflow-y:hidden}#placeholder{color:gray;font-weight:bold}#text_box::-webkit-scrollbar{width:16px}#text_box::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);-webkit-border-radius:10px;border-radius:10px}#text_box::-webkit-scrollbar-thumb{-webkit-border-radius:10px;border-radius:10px;background:rgba(0,0,0,0.3);-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5)}#text_box::-webkit-scrollbar-thumb:hover{-webkit-border-radius:10px;border-radius:10px;background:rgba(0,0,0,0.6);-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5)}#footer{width:100%;background-color:#7d0303;padding-bottom:10px}#footer_menu{text-align:center;width:100%;border-top:solid 1px gray}#footer_menu a{display:inline-block;padding:10px 20px;margin:0 20px;border-radius:20px;font-weight:bold;color:#ffecc7}#footer_menu a:hover,a:visited,a:link,a:active{text-decoration:none}#languageLinks a{display:inline-block;padding:10px 10px;margin:0 2px;border-radius:20px;font-weight:normal;color:green}#footer_menu a:hover{background-color:#ffecc7;color:black}#footer p{margin-bottom:0}
+
+    h1 {
+      position: relative;
+      top: 70px;
+    }
+
+    #header {
+      position: relative;
+    }
+
+    #donateButtonTop {
+      width: 100px;
+      height: 30px;
+      position: absolute;
+      top: 65px;
+      right: 10px;
+      z-index: 999;
+    }
+
+    #donateButtonCenter {
+      width: 100px;
+      height: 30px;
+      margin: 10px auto;
+      z-index: 999;
+    }
+
+    #android_promo {
+      direction: ltr;
+      position: relative;
+      margin: 20px auto;
+      background-color: antiquewhite;    max-height: 100px; overflow-y: hidden; overflow-x: hidden;   max-height: 100px; overflow-y: hidden; overflow-x: hidden;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #android_promo p{ max-height:80px; overflow-y:hidden }
+
+    #android_promo:hover {
+      background-color: #FBD29B;
+    }
+
+    #android_app_left_text {
+      direction: ltr;
+      font-weight: lighter;
+      font-size: large;
+      margin-left: 300px;
+    }
+
+    .link_box a,.link_box a:hover,.link_box a:visited {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .link_box {max-width: 90%;margin: 0 auto;padding: 10px;}
+
+    .promo-text-banner {
+      text-align: center;
+      border-radius: 10px;
+      background-color: #fffae3;
+      max-width: 90%;
+      margin: 20px auto;
+      padding: 5px;
+      font-size: larger;
+      color: #8c6239;
+    }
+
+    .add-to-chrome-button{
+      background-color: #32b732;
+      color: white;
+      padding: 2px 10px;
+      border-color: #0cc70c;
+      border-radius: 5px;
+      font-size: initial;
+    }
+
+    #store_img_container{
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 290px;
+      bottom: 50%;
+    }
+
+    #store_logo {
+      width: 210px;
+      height: 80px;
+    }
+
+    #logo-img {
+      display: block;
+      position: absolute;
+      width: 290px;
+      height: 80px;
+      bottom: -40px;
+    }
+
+    .activated {
+      border: dashed #7d0303 2px;
+      background: #fff6af;
+    }
+
+    #files {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    #text_box:focus {
+      /*outline-color: #fd9393;*/
+      outline-color: yellow;
+    }
+
+    .tts-btn {
+      background: #ffd176;
+      box-shadow: 5px 5px 2px #000000;
+      position: relative;
+    }
+
+    .btn-glyph {
+      font-size: 23px;
+      color: #7d5a03;
+    }
+
+    select{font-family:cursive;font-weight:bold;border-radius:6px;background-color:#ffd176;box-shadow:3px 3px black;margin-left:20px;cursor: pointer}
+
+    iframe {
+      margin-outside: 20px;
+    }
+
+    #open_button{vertical-align:middle;display:inline-block;opacity:.8;width:50px;height:50px;margin:0 auto;background-color:transparent;background-image:url('images/open.png');cursor:pointer;border-radius:10px;box-shadow:3px 3px black;background-repeat:no-repeat;background-size:contain;border:1px black solid}#open_button:hover{opacity:1;margin-bottom:5px}
+
+    .ad_120x600{width:120px;height:600px;position:absolute;left:-150px;bottom:0}
+    .ad_160x600{width:160px;height:600px;position:absolute;right:-190px;bottom:0}
+
+    #top_pane {
+      height: 34px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      background-color: #7d0303;
+      line-height: 34px;
+      z-index: 999;
+      padding: 0;
+      overflow-y: hidden;
+      color: white;
+    }
+
+    #top_menu {
+      margin: 0 20px;
+      font-size: 14px;
+      font-weight: normal;
+      text-align: left;
+      display: inline-block;
+      text-space: 80%;
+      font-family: Arial;
+    }
+
+    #top_menu a {
+      display: inline-block;
+      margin: 0 5px;
+      padding: 0 5px;
+      color: white;
+    }
+
+    #top_menu a:hover, a:visited, a:link, a:active {
+      text-decoration: none;
+    }
+
+    #top_menu a:hover {
+      background-color: #8d1010;
+    }
+
+    #shareButtons {
+      display: block;
+      position: absolute;
+      right: 160px;
+      top: 3px;
+    }
+
+    #donateButton {
+      display: block;
+      overflow-y: hidden;
+      position: absolute;
+      right: 20px;
+      width: 100px;
+      top: 4px;
+      text-align: center;
+    }
+
+    #phonograph_img, #phonograph_credit {
+      bottom: -20px;
+    }
+
+    p {
+      font-size: larger;
+    }
+
+    #content ul{
+      font-size: larger;
+    }
+
+    #refer_box {
+      position: fixed;
+      display: none;
+      bottom: 15px;
+      right: 10px;
+      width: 400px;
+      background-color: #FFFF66;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 10px 10px 5px #888888;
+      z-index: 1000;
+
+    }
+
+    #refer_box_closeButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 16px;
+      height: 16px;
+      background-image: url('https://speechnotes.co/images/close_button.png');
+      opacity: 0.4;
+      border-radius: 8px;
+    }
+
+    #refer_box_closeButton:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    #refer_box a {
+      cursor: pointer;
+    }
+
+  </style>
+
+  <!-- fb metas -->
+  <meta property="og:title" content="Text To Speech Reader. Online. Accurate. Free." />
+  <meta property="og:site_name" content="TTSReader"/>
+  <meta property="og:description" content="Free online Text To Speech Reader. Accurate with natural voices, multilingual. Real time. Free & always will be." />
+  <meta property="og:image" content="http://ttsreader.com/images/tile_1400x560.jpg"/>
+  <meta property="og:locale:alternate" content="en_US" />  <!-- En -->
+  <meta property="og:locale:alternate" content="fr_FR" />  <!-- French -->
+  <meta property="og:locale:alternate" content="it_IT" />  <!-- Italian -->
+  <meta property="og:locale:alternate" content="es_ES" />  <!-- Spanish -->
+  <meta property="og:locale:alternate" content="de_DE" />  <!-- German -->
+  <meta property="og:locale:alternate" content="ru_RU" />  <!-- Ruassian -->
+  <meta property="og:locale:alternate" content="ja_JP" />  <!-- Japanese -->
+  <meta property="og:locale:alternate" content="zh_CN" />  <!-- Chinese -->
+  <meta property="og:locale:alternate" content="pt_BR" />  <!-- Portuguese (Brazil)  -->
+  <meta property="og:locale:alternate" content="ar_AR" />  <!-- Arabic -->
+  <!-- end of fb metas -->
+
+  <link rel="alternate" hreflang="x-default" href="http://ttsreader.com/" />
+  <link rel="alternate" hreflang="en" href="http://ttsreader.com/" />
+  <link rel="alternate" hreflang="de" href="http://ttsreader.com/de/" />
+  <link rel="alternate" hreflang="es" href="http://ttsreader.com/es/" />
+  <link rel="alternate" hreflang="fr" href="http://ttsreader.com/fr/" />
+  <link rel="alternate" hreflang="it" href="http://ttsreader.com/it/" />
+  <link rel="alternate" hreflang="ja" href="http://ttsreader.com/ja/" />
+  <link rel="alternate" hreflang="pt" href="http://ttsreader.com/pt/" />
+  <link rel="alternate" hreflang="ar" href="http://ttsreader.com/ar/" />
+  <link rel="alternate" hreflang="ru" href="http://ttsreader.com/ru/" />
+  <link rel="alternate" hreflang="zh" href="http://ttsreader.com/zh/" />
+
+  <script>
+    localStorage.setItem("interfaceLang", "en");
+  </script>
+
+
+  <script type="text/javascript" src="jsm/pdf.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="top_pane">
+  <div id="top_menu">
+    <a href="#app_top" target="_self">App</a>
+    <a href="http://ttsreader.com/intro/" target="_blank">About</a>
+    <a href="https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader" target="_blank" title="Android App">Android</a>
+    <a href="https://speechnotes.co" target="_blank" title="Online text editor with speech recognition">Dictation</a>
+    <a href="http://ttsreader.com/intro/blog/2017/05/10/commercial/">Commercial & Licensing</a>
+    <a href="http://ttsreader.com/intro/blog/2017/05/10/record/" target="_blank">Record</a>
+  </div>
+  <div id="shareButtons">
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+  <div id="donateButton">
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_s-xclick">
+      <input type="hidden" name="hosted_button_id" value="BHNBURRFX5KP6">
+      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+      <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
+  </div>
+</div>
+
+<div id="content">
+
+  <div id="header">
+
+    <a id="phonograph_img" href="https://commons.wikimedia.org/wiki/File:VictorVPhonograph.jpg#/media/File:VictorVPhonograph.jpg" title="Image of a Victor Phonograph, by Norman Bruderhofer - Collection of John Lampert-Hopkins. Licensed under CC BY-SA 2.5 via Wikimedia Commons"></a>
+    <a id="phonograph_credit" href="https://commons.wikimedia.org/wiki/File:VictorVPhonograph.jpg#/media/File:VictorVPhonograph.jpg" title="Image of a Victor Phonograph, by Norman Bruderhofer - Collection of John Lampert-Hopkins. Licensed under CC BY-SA 2.5 via Wikimedia Commons"></a>
+    <h1>Text To Speech Reader<br>Online. Accurate. Free.</h1>
+  </div>
+
+  <h2>Instantly reads out loud any text with natural sounding voices
+    <br>Now reads PDF & txt files too - drag, drop & play
+  </h2>
+
+  <a id="app_top"></a>
+  <div class="promo-text-banner">
+    Bring TTS to ANY website with our new <a target="_blank" href='https://chrome.google.com/webstore/detail/ttsreader-x-in-page-text/pakknklefcjdhejnffafpeelofiekebg' title="Get TTSReader Extension and make any website speak">extension</a> for FREE.&nbsp;&nbsp;<button onclick="chrome.webstore.install('https://chrome.google.com/webstore/detail/pakknklefcjdhejnffafpeelofiekebg',openTTSREADERinNewWindow, openTTSREADERXinNewWindow)" class="add-to-chrome-button">Add to Chrome</button>
+  </div>
+
+  <div class="ad_728x15 ad">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- ad_728x15_notepad -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:15px"
+         data-ad-client="ca-pub-5030295218223297"
+         data-ad-slot="8822269200"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <!--<div class="link_box">
+  <a target="_blank" href='https://chrome.google.com/webstore/detail/ttsreader-x-in-page-text/pakknklefcjdhejnffafpeelofiekebg' title="Get TTSReader Extension and make any website speak">
+  <div id="android_promo">
+    <div id="store_img_container"><img style="vertical-align:middle" alt="Get it on Google Play" class="" id="logo-img" src='http://www.ttsreader.com/ChromeWebStore_BadgeWBorder_v2_340x96.png'></div>
+    <p id="android_app_left_text"><b><i>** NEW **</i></b> &nbsp;Get <b>TTSReaderX</b> and make ANY website speak out. Listen to news, wiki & more.</p>
+    </div>
+  </a>
+  </div>-->
+
+
+  <div id="application">
+
+    <div class="ad_120x600 ad">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- ad_120x600 -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:120px;height:600px"
+           data-ad-client="ca-pub-5030295218223297"
+           data-ad-slot="8519560801"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <div class="ad_160x600 ad">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- ad_160x600_2 -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-5030295218223297"
+           data-ad-slot="9102907201"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+      <!--<script src="//ap.lijit.com/www/delivery/fpi.js?z=444117&width=160&height=600"></script>-->
+    </div>
+
+    <div id="buttons_row">   <!-- TODO: Change this whole div in all languages -->
+      <!-- TODO: enable mp3 download
+      <div id="download_mp3_button"></div>
+      -->
+      <div id="left_half_container">
+        <div id="left_buttons">
+
+          <button type="button" class="btn btn-default btn-lg tts-btn" aria-label="Left Align" onclick="clearText();" title="Clear text">
+            <span class="glyphicon glyphicon-trash btn-glyph" aria-hidden="true"></span>
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-default btn-lg tts-btn" title="Upload text or pdf file">
+            <span class="glyphicon glyphicon-open-file btn-glyph" aria-hidden="true"></span>
+            <input type="file" id="files" name="files[]" />
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-default btn-lg tts-btn" onclick="goToBeginning();" title="Go to beginning">
+            <span class="glyphicon glyphicon-fast-backward btn-glyph" aria-hidden="true"></span>
+          </button>
+
+          <button id="recordBtn" type="button" class="btn btn-default btn-lg tts-btn">
+            RECORD
+          </button>
+
+        </div>
+      </div>
+      <div id="right_half_container">
+        <div id="right_buttons">
+          <select id="select_language">
+            <option value="Google UK English Male">UK English (default)</option>
+            <!--<option value="en-US">US English</option>
+            <option value="es-ES">Español</option>
+            <option value="fr-FR">Français</option>
+            <option value="it-IT">Italiano</option>
+            <option value="de-DE">Deutsch</option>
+            <option value="ja-JP">日本人</option>
+            <option value="ko-KR">한국의</option>
+            <option value="zh-CN">中国的</option>-->
+          </select>
+          <select id="select_speed">
+            <option value=0.9>Normal Speed</option>
+            <option value=0.6>Very slow</option>
+            <option value=0.75>Slow</option>
+            <option value=1.2>Fast</option>
+            <option value=1.35>Very Fast</option>
+            <option value=1.5>Too Fast</option>
+          </select>
+        </div>
+      </div>
+      <div id="speak_button_container">
+        <div id="speak_button" onclick="startOrPause();" title="Play / Pause"></div>
+      </div>
+    </div>
+
+    <!-- TODO: change the following div to textarea in all languages -->
+    <textarea id="text_box" placeholder='Drag text/pdf files to here, or directly paste in text. Click Play and I will read it out. I will also remember the text and position, so do not worry about pausing or even closing me.'></textarea>
+
+    <div class="zero_height_container">
+      <textarea id="text_box_mirror"></textarea>
+    </div>
+
+  </div>
+
+  <div id="about">
+  </div>
+
+  <div class="ad_728x90 ad">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- ad_728x90 -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-5030295218223297"
+         data-ad-slot="9173644800"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="center">
+    <p>A Web app that works great both on Chrome and Safari. No need to download or install. No annoying login either. Simply paste the text and click "play".
+      <br>TTSReader remembers the article and last position when paused, even if you close the browser. This way, you can come back to listening right where you previously left.</p>
+    <p>Works on Chrome for mobile too. Ideal for listening to articles while driving, travelling, exercising, working and more.</p>
+    <p><b>
+      Need to export the voices to an audio file?</b> <a href="http://ttsreader.com/intro/blog/2017/05/10/record/" target="_blank">Click here to learn how to record the audio output</a>
+    </p>
+  </div>
+  <br>
+
+  <h2>Podcast Written Texts</h2>
+  <h3>While working, or driving, listen to interesting articles and books</h3>
+  <div class="resizeableYoutube">
+    <div>
+      <iframe src="https://www.youtube.com/embed/Xu1nOUuucFE?rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+  <p>TTSReader is really helpful for busy people who want to be able to listen to written content while doing something else.
+    <br>For instance - you can listen to whole Wikipedia articles (just copy-paste them to here), or to some documents you need to study for work or personal education.
+    <br>Watch this YouTube to see how it reads Dr. Seuss' "the cat in the hat". You'll be surprised.
+  </p>
+  <br>
+
+  <h4>Saves you tons of mobile data traffic and charges</h4>
+  <p>Regular podcast apps consume a ton of data, as long audio files are also large in size. Contrary to that, TTSReader uses text to speech engines, which are built in your mobile system. This way, you can listen to hours of textual podcasts with close to zero data consumption. This makes this software ideal for drivers and really everyone who wants to listen to interesting material on the go.</p>
+  <br>
+
+
+  <!-- TODO: Link -->
+  <h2>Make Any Website Speak for Itself</h2>
+  <h3>Listen to any web content - with a single click within the website itself</h3>
+  <div class="resizeableYoutube">
+    <div>
+      <iframe src="https://www.youtube.com/embed/AotR04vcmPw" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+  <p><a href="https://chrome.google.com/webstore/detail/ttsreader-x-in-page-text/pakknklefcjdhejnffafpeelofiekebg" target="_blank" title="Get TTSReader as a chrome extension to make every website speak"><b>New - TTS Extension - Make Websites Speak! --></b></a></p>
+  <p>Ttsreader.com chrome extension provides for all your website reading needs in a simple, efficient and intuitive manner! The extension is super simple to use and, a professional text to speech. The extension allows for instant reading of text with natural sounding voices, directly from within any website.
+    <br>
+    The extension's icon will be placed right on your Chrome's toolbar, so it will always be available without exiting your working tab. In addition, you can simply select the text you want to be read, and click "Speak" right from the popup context menu upon the right-mouse-click.
+  </p>
+  <br><br>
+
+  <h4>Learn how to make a website read itself</h4>
+  <p>Watch this YouTube to see how you can listen to any web content directly from within the website serving the content. Try it on Wikipedia articles for example. You'll find a whole new possibility to experience the richness of knowledge on the web through listening. You can get the extension through the following link:
+  </p>
+  <p><a href="https://chrome.google.com/webstore/detail/ttsreader-x-in-page-text/pakknklefcjdhejnffafpeelofiekebg" target="_blank" title="Get TTSReader as a chrome extension to make every website speak"><b>New - TTS Extension - Make Websites Speak!</b></a></p>
+  <br>
+
+  <div class="ad_728x15 ad">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- ad_728x15_notepad -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:15px"
+         data-ad-client="ca-pub-5030295218223297"
+         data-ad-slot="8822269200"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+  <br>
+
+  <h2>Read PDF Files</h2>
+  <h3>Transform any pdf file to plain text</h3>
+  <p>Need to get the text of a pdf? Long text you need to read? TTSReader can help with both tasks. Simply drag your pdf file to TTSReader's text area, or click the Open button, and TTSReader will start working. It will first extract the text from the pdf files, and insert it into the text box. From there you can copy it as plain text and use it everywhere. Then - click Play - and the content will be read out loud for you.
+  </p>
+  <br><br>
+
+  <h3>Educational & Occupational for Kids</h3>
+  <p>Kids love hearing good stories, and it's also great for their development. Nothing can come close to mommy or daddy reading the bed time story. But, with TTSReader you can now let them listen to additional stories on top of those that mommy & daddy read them. Try it, our feedback is that kids love it!
+  </p>
+  <br>
+
+  <h3>Aid for people with difficulties in reading</h3>
+  <p>People with difficulties in reading (regular or temporal), but don't want to compromise self-developing utilize TTSReader as their helper.
+  </p>
+  <br>
+
+  <h3>Narrating & dubbing movies, presentations & more</h3>
+  <p>Simply type the text you need narrated in the required language (you can translate it first via Google-Translate) - click the Play button - and record the output speech.
+    <br>You've just created your professional - sounding audio file in any language.
+  </p>
+  <p><b>
+    Need to export the voices to an audio file?</b> <a href="http://ttsreader.com/intro/blog/2017/05/10/record/" target="_blank">Click here to learn how to record the audio output</a>
+  </p>
+  <br>
+
+  <h2>Reviews & Users’ Feedback (4.5 stars!)</h2>
+  <p>We made this software for our users. That's why we're so happy to hear your feedback. Our users have rated TTSReader on the Chrome-store higher than 4.5 stars! Well above other online alternatives. Here are some of the user reviews we got on the <a href="https://chrome.google.com/webstore/detail/ttsreader-unlimited-text/melfcogdhodeocnkdiplgdpkllopbhan/reviews?hl=en" rel="nofollow" target="_blank" title="TTSReader reviews on the store">store</a>:</p>
+  <div id="userReviews">
+    <p>"It works perfectly. and its free Best reader with unlimited usage my kids love it Thank you very much"
+    </p>
+    <p>"Works like a charm. I have tries several other "text to speech" apps and extensions and this is the only one that works and it works well!!"
+    </p>
+    <p>"Fantastic! Sentences are clear and the pacing is perfect!"
+    </p>
+  </div>
+  <p>... And there are many more. Read all of them on the <a href="https://chrome.google.com/webstore/detail/ttsreader-unlimited-text/melfcogdhodeocnkdiplgdpkllopbhan/reviews?hl=en" rel="nofollow" target="_blank" title="TTSReader reviews on the store">Chrome store</a></p>
+  <p>Thanks a lot guys! Your feedback gives us great motivation to keep going in developing great solutions</p>
+  <br>
+
+  <h2>Instructions & More</h2>
+  <h4>Instructions</h4>
+  <P>Paste in the app's text box any text you want to be read out for you.
+    <br>Click "play". That's it. TTSReader will take care of the rest, so you can enjoy listening.
+    <br>
+    <br><b>Pause & Play - </b>any click on the central "play/pause" button will pause or restasrt the reading from the last spot accordingly.
+    <br><b>Restart - </b>click the "rewind" button to restart reading from the beginning.
+    <br><b>Set language & reading pace - </b>both the language and speech pace can be changed to fit your needs. Supported languages are: UK English, US English, Spanish, French, Italian, German, Japanese, Korean and Chinese.
+  </p>
+  <br>
+
+  <h4>Compatibility</h4>
+  <p>TTSReader is really cross-platform, as long as you run it on Chrome or Safari. It works great on any desktop, mac, laptop, Chromebook and even mobile.
+  </p>
+  <br>
+
+  <a id="privacy"></a>
+  <h4>Privacy
+  </h4>
+  <p>We at TTSReader.com value your privacy, and that's why we do not store anything you type or in fact any other data about you.
+  </p>
+  <br>
+
+  <a id="commercial"></a>
+  <h4>Commercial & Licensing</h4>
+  <p>TTSReader is given for free for private usage only. If commercial license is needed, please follow the terms as explained <a href="http://ttsreader.com/intro/blog/2017/05/10/commercial/">here</a>.
+    You need commercial license for:<br>
+  <ul>
+    <li>Using TTSReader in a business or institution.</li>
+    <li>Recording and using the audio generated by TTSReader in a commercial application (ie publishing)</li>
+  </ul>
+  </p>
+  <p><a href="http://ttsreader.com/intro/blog/2017/05/10/commercial/">See more here</a></p>
+  <p><b>
+    Need to export the voices to an audio file?</b> <a href="http://ttsreader.com/intro/blog/2017/05/10/record/" target="_blank">Click here to learn how to record the audio output</a>
+  </p>
+  <br>
+
+  <h4>Disclaimer
+  </h4>
+  <p>Although we try, speech results might not be accurate. Also, TTSReader.com is a service provided AS-IS and we cannot guarantee that it will continue in the future (share with friends to make sure it will stay for ever :) )
+  </p>
+  <br>
+
+  <h4>We appreciate your Feedback & Support
+  </h4>
+  <p>If you have feedback, ideas or requests, please <a target="_blank" href="mailto:admin@speechlogger.com">contact us</a>, we will be more than happy to hear from you.
+    <br>If you like TTSReader, please show support by <a rel="nofollow" href="https://chrome.google.com/webstore/detail/ttsreader-unlimited-text/melfcogdhodeocnkdiplgdpkllopbhan/reviews?hl=en" target="_blank" title="Please give us 5 stars, we would really appreciate it :)">rating us</a> on the Chrome store,
+    sharing with friends, or mentioning us on your posts and blogs. Your friends and followers will appreciate it too. You may also contribute by a small donation ("buy me a coffee" style).
+  </p>
+  <br>
+
+  <h3>Meet My Cool Sisters - Other Speech-Text Apps</h3>
+  <br>
+  <ul>
+    <li>
+      <a href="https://speechkeys.io" target="_blank" title="A New Kind of Voice Typing Keyboard"><b>Speechkeys - Dictation Keyboard</b></a>
+      The world's first dictation-keyboard for mobile devices. Try it. You'll be surprised.
+    </li>
+    <li>
+      <a href="https://speechnotes.co" target="_blank" title="Try our online speech-recognition notepad"><b>Speechnotes</b> - </a>
+      Professional Speech-To-Text (Dictation) Notepad for Chrome.
+    </li>
+    <li>
+      <a href="https://speechlogger.appspot.com/en/" target="_blank" title="Free online speech-captioning and instant translation"><b>Speechlogger</b> - </a>
+      Free online speech-captioning and instant translation.
+    </li>
+    <li>
+      <a href="http://speechninja.co" target="_blank" title="Enjoy talking with our fast-type speech-to-text"><b>SpeechNinja AAC</b> - </a>
+      If you are looking for an Augmentative & Alternative Communiacation (AAC) solution (a text to speech synthesizer software intended for fast & short texts), our new <a href="http://speechninja.co" target="_blank">SpeechNinja</a> is the solution you're looking for.
+    </li>
+  </ul>
+
+  <div id="donateButtonCenter">
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_s-xclick">
+      <input type="hidden" name="hosted_button_id" value="BHNBURRFX5KP6">
+      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+      <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
+  </div>
+
+  <!-- <div class="ad_728x90 ad">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-5030295218223297"
+       data-ad-slot="9173644800"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div> -->
+</div>
+
+<div id="footer">
+  <div id="footer_menu">
+    <a id="contact_us" href="mailto:admin@speechlogger.com" target="_blank">Contact Us</a>
+    <a href="https://chrome.google.com/webstore/detail/ttsreader-x-in-page-text/pakknklefcjdhejnffafpeelofiekebg" target="_blank" title="Get TTSReader as a chrome extension to make every website speak"><b>New - TTS Extension - Make Websites Speak!</b></a>
+    <a href="https://play.google.com/store/apps/details?id=com.speechlogger.ttsreader" target="_blank" title="Get the Android app" rel="nofollow"><b>TTSReader for Android</b></a>
+    <a href="https://speechkeys.io" target="_blank" title="A New Kind of Voice Typing Keyboard"><b>Dictation Keyboard</b></a>
+    <a href="http://speechninja.co" target="_blank" title="Enjoy talking with our fast-type speech-to-text">SpeechNinja AAC</a>
+    <a href="https://speechnotes.co" target="_blank" title="Try our online speech-recognition notepad">Speech-To-Text (Voice Typing)</a>
+    <a href="https://speechlogger.appspot.com/en/" target="_blank" title="Free online speech-captioning and instant translation">Voice Translation</a>
+    <a href="https://chrome.google.com/webstore/detail/ttsreader-unlimited-text/melfcogdhodeocnkdiplgdpkllopbhan/reviews?hl=en" target="_blank" title="Please give us 5 stars, we would really appreciate it :)">Rate Us</a>
+    <br>
+    <div id="languageLinks">
+      <a href="http://ttsreader.com/">English</a>
+      <a href="http://ttsreader.com/de/">Deutsch</a>
+      <a href="http://ttsreader.com/es/">español</a>
+      <a href="http://ttsreader.com/fr/">Français</a>
+      <a href="http://ttsreader.com/it/">italiano</a>
+      <a href="http://ttsreader.com/ja/">日本の</a>
+      <a href="http://ttsreader.com/zh/">中國</a>
+    </div>
+  </div>
+  <p style="text-align:center;color:#FFECC7;">All rights reserved worldwide to owner. No permission to copy or use code, style, names, and any content without explicit written permission from owner (admin@speechlogger.com). You may freely demonstrate usage of TTSReader.com, reviews, etc, as long as you link back to http://ttsreader.com. Thank you.
+  </p>
+</div>
+</div>
+
+<div id="refer_box">
+  <div class="x-button" id="refer_box_closeButton" onclick="$('#refer_box').hide();"></div>
+  <p>Bring Text-To-Speech into ANY website. Add our new <a class="link" onclick="window.open('https://chrome.google.com/webstore/detail/ttsreader-x-in-page-text/pakknklefcjdhejnffafpeelofiekebg','_blank');" target="_blank">TTSReader Extension</a> for free.</p>
+  <div style="text-align: right"><button onclick="chrome.webstore.install('https://chrome.google.com/webstore/detail/pakknklefcjdhejnffafpeelofiekebg',openTTSREADERinNewWindow,openTTSREADERXinNewWindow)" class="add-to-chrome-button">Add to Chrome</button></div>
+</div>
+
+<script type="text/javascript" src="jsm/script7.min.js"></script> <!-- TODO: update in all languages-->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-47292499-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fe89bcc181f95ed" async="async"></script>
+
+
+<script type="text/javascript" src="jsm/pdfparser.min.js"></script>
+
+<script>
+  var ALLOWED_EXTENSIONS = ['txt','json','html','pdf','rtf'];
+  var dropbox;
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+  dropbox = document.getElementById("text_box");
+  var DEFAULT_PLACEHOLDER = $('#text_box').attr('placeholder');
+
+  dropbox.addEventListener("dragenter", dragenter, false);
+  dropbox.addEventListener("dragleave", dragleave, false);
+  dropbox.addEventListener("dragover", dragover, false);
+  dropbox.addEventListener("drop", drop, false);
+
+  function dragenter(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    showUiDropboxActivated();
+  }
+
+  function dragover(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  function dragleave(e) {
+    showUiDropboxDeactivated();
+  }
+
+  function drop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    handleFiles(e.dataTransfer.files);
+    showUiDropboxDeactivated();
+  }
+
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+    handleFiles(files);
+  }
+
+  function handleFiles(files) {
+    if (shouldSpeak) {
+      startOrPause();
+    }
+
+    var file = files[0];
+    var extension = file.name.split('.')[file.name.split('.').length-1];
+
+    switch (extension) {
+      case 'txt':
+      case 'json':
+        loadTextFile(file);
+        break;
+      case 'pdf':
+        loadPdfFile(file);
+        break;
+      default:
+        alert('File not supported. Try text and pdf files.');
+    }
+  }
+
+  function loadTextFile(file) {
+    var reader = new FileReader ();
+    reader.onloadend = function (ev) {
+      dropbox.value = this.result;
+      wholeText = document.getElementById("text_box").value;
+      localStorage.setItem("wholeText", wholeText);
+      setCaretPosition(0);
+    };
+    reader.readAsText (file);
+  }
+
+  function loadPdfFile(file) {
+    //Convert PDF file to ArrayBuffer and handle it:
+    var reader = new FileReader();
+
+    // Closure to capture the file information.
+    reader.onload = function (ev) {
+      pdfToText(this.result,
+        function(pagenum, totalpages) {
+          var percentage = Math.round(pagenum/totalpages * 100);
+          dropbox.value = 'Loading file: ' + percentage + '%';
+        },
+        function (fulltext) {
+          dropbox.value = fulltext;
+          wholeText = document.getElementById("text_box").value;
+          localStorage.setItem("wholeText", wholeText);
+          setCaretPosition(0);
+        }
+      );
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
+
+  function showUiDropboxActivated() {
+    $('#text_box').toggleClass('activated',true);
+    $("#text_box").attr("placeholder", "Drop Files Here");
+  }
+
+  function showUiDropboxDeactivated() {
+    $('#text_box').toggleClass('activated',false);
+    $("#text_box").attr("placeholder", DEFAULT_PLACEHOLDER);
+  }
+</script>
+
+<script>
+  if ( localStorage.getItem("counter_refer_to_X") === null) {
+    $("#refer_box").delay(5000).slideDown(300);
+    localStorage.setItem("counter_refer_to_X","1");
+  } else if ( localStorage.getItem("counter_refer_to_X") === "1" ) {
+    $("#refer_box").delay(5000).slideDown(300);
+    localStorage.setItem("counter_refer_to_X","2");
+  }
+</script>
+
+
+<script>
+  var recordedChunks = [];
+  var mediaRecorder;
+
+  captureDesktop();
+
+  function captureTab() {
+    var videoConstraints = {video: true, audio: true,
+      videoConstraints: {
+        mandatory: {
+          // If minWidth/Height have the same aspect ratio (e.g., 16:9) as
+          // maxWidth/Height, the implementation will letterbox/pillarbox as
+          // needed. Otherwise, set minWidth/Height to 0 to allow output video
+          // to be of any arbitrary size.
+          minWidth: 16,
+          minHeight: 9,
+          maxWidth: 854,
+          maxHeight: 480,
+          maxFrameRate: 60,  // Note: Frame rate is variable (0 <= x <= 60).
+        },
+      },
+    };
+
+    var audioConstraints = {audio: true};
+    chrome.tabCapture.capture(audioConstraints, handleStream);
+  }
+
+  function captureDesktop() {
+    var obj = {
+      audio: {
+        mandatory: {
+          chromeMediaSource: 'desktop'
+        }
+      }
+      ,video: {
+        optional: [],
+        mandatory: {
+          chromeMediaSource: 'desktop',
+          maxWidth: 2560,
+          maxHeight: 1440,
+          maxFrameRate:30
+        }
+      }
+    };
+
+    navigator.mediaDevices.getUserMedia(obj).then(function(stream) {
+      console.log(stream);
+      var audioStream = new MediaStream(stream.getAudioTracks());
+      var videoStream = new MediaStream(stream.getVideoTracks());
+      handleStream(audioStream);
+    }).catch(function(err) {
+      console.log(err)
+    });
+  }
+
+
+
+
+  function captureUser() {
+    navigator.mediaDevices.getUserMedia({ audio: {
+        mandatory: {
+          chromeMediaSource: 'desktop'
+        }
+      } })
+      .then(function(stream) {
+        /* use the stream */
+        console.log(stream);
+        handleStream(stream);
+      })
+      .catch(function(err) {
+        /* handle the error */
+      });
+  }
+
+  function handleStream(stream) {
+    if (!stream) {
+      console.error('Error starting tab capture: ' +
+        (chrome.runtime.lastError.message || 'UNKNOWN'));
+      return;
+    }
+
+    //TODO: Record stream here...
+    window.stream = stream;
+
+    var videoOptions = {mimeType: 'video/webm;codecs=vp9'};
+    if (!MediaRecorder.isTypeSupported(videoOptions.mimeType)) {
+      console.log(videoOptions.mimeType + ' is not Supported');
+      videoOptions = {mimeType: 'video/webm;codecs=vp8'};
+      if (!MediaRecorder.isTypeSupported(videoOptions.mimeType)) {
+        console.log(videoOptions.mimeType + ' is not Supported');
+        videoOptions = {mimeType: 'video/webm'};
+        if (!MediaRecorder.isTypeSupported(videoOptions.mimeType)) {
+          console.log(videoOptions.mimeType + ' is not Supported');
+          videoOptions = {mimeType: ''};
+        }
+      }
+    }
+
+    var audioOptions = {mimeType: 'audio/webm;codecs=opus'};
+    if (!MediaRecorder.isTypeSupported(audioOptions.mimeType)) {
+      console.log(audioOptions.mimeType + ' is not Supported');
+      audioOptions = {mimeType: 'audio/webm;codecs=vorbis'};
+      if (!MediaRecorder.isTypeSupported(audioOptions.mimeType)) {
+        console.log(audioOptions.mimeType + ' is not Supported');
+        audioOptions = {mimeType: 'audio/webm'};
+        if (!MediaRecorder.isTypeSupported(audioOptions.mimeType)) {
+          console.log(audioOptions.mimeType + ' is not Supported');
+          audioOptions = {mimeType: ''};
+        }
+      }
+    }
+    mediaRecorder = new MediaRecorder(window.stream,audioOptions);
+    mediaRecorder.start();
+    mediaRecorder.ondataavailable = function(event) {
+      console.log(event.data);
+      if (event.data.size > 0) {
+        recordedChunks.push(event.data);
+      }
+    };
+
+    mediaRecorder.onstop = function(e) {
+      var blob = new Blob(recordedChunks, { 'type' : 'audio/webm;codecs=opus' });
+      console.log(recordedChunks);
+      console.log(blob);
+      recordedChunks = [];
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      document.body.appendChild(a);
+      a.style = 'display: none';
+      a.href = url;
+      a.download = 'test.webm';
+      a.click();
+      window.URL.revokeObjectURL(url);
+      window.stream.getVideoTracks()[0].stop();
+    };
+
+    setTimeout(function(){
+      mediaRecorder.stop();
+    }, 10000);
+
+
+
+  }
+</script>
+</body>
+</html>

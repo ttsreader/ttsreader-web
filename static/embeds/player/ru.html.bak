@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-07-10T20:33:56.612Z",
-      "version": "3.6.8",
+      "dateModified": "2025-07-30T13:17:51.437Z",
+      "version": "3.8.0",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -49,10 +49,10 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.6.8 - Плеер преобразования текста в речь от TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.8.0 - Плеер преобразования текста в речь от TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+  <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -164,6 +164,14 @@
 
   <style>
 
+    .job-download-link a {
+      color: orange;
+    }
+
+    .job-download-link a:hover {
+      color: greenyellow;
+    }
+
     [data-is-signed-out] [data-ws-show-if-state="isSignedIn=true"] {
       display: none;
     }
@@ -257,21 +265,48 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-overlay .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ccc;
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+    }
+
+    .loading-overlay .loading-text {
+      margin-top: 20px;
+      color: white;
+      font-size: 18px;
+      font-family: sans-serif;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
-<script defer src="/static/js/main.1ebfdae1.js"></script><link href="/static/css/main.5d5d3cbf.css" rel="stylesheet"></head>
+<script defer src="/static/js/main.7bd0b2f0.js"></script><link href="/static/css/main.5d5d3cbf.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
-  <div data-ws-show-if-state="isPremium=false">
-    <div class="Go-premium-banner" data-ws-show-if-state="isSignedIn=false" style="text-align: center;text-transform: uppercase;
-      color: white;
-      font-weight: bold;
-      font-size: smaller;
-      background-color: darkgreen;"><a style="cursor: pointer; text-decoration: none;color: white;display: block; padding: 10px;" data-ws-toggle="#upgradeModal">
-      Нажмите здесь, чтобы обновить. 100% гарантия удовлетворения<!-- Click here to upgrade. 100% satisfaction guaranteed -->
-    </a></div>
-    <div class="Go-premium-banner" data-ws-show-if-state="isSignedIn=true" style="text-align: center;text-transform: uppercase;
+  <div id="top-banner" data-ws-show-if-state="serverData=true">
+    <div class="Go-premium-banner" data-ws-show-if-state="isPremium=false" style="text-align: center;text-transform: uppercase;
       color: white;
       font-weight: bold;
       font-size: smaller;
@@ -303,10 +338,7 @@
           </div>
         </div>
         <div data-ws-show-if-state="isPremium=false">
-          <div data-ws-show-if-state="isSignedIn=false">
-            <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;Перейти на Premium<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
-          </div>
-          <div data-ws-show-if-state="isSignedIn=true">
+          <div>
             <a class="Menu-list-element" onclick="openNewUpgradeModal()" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;Перейти на Premium<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
           </div>
         </div>
@@ -396,7 +428,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.6.8</b> Build 2025-07-10T20:33:56.612Z
+          <b>V3.8.0</b> Build 2025-07-30T13:17:51.437Z
           <br/><span style="margin-top: 10px;display: block">ВСЕ ВЕРСИИ <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -488,9 +520,11 @@
           <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
         </button>
         &nbsp;
-        <button data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal" style="position: relative;top:-1px;">🏆</button>
         <span style="flex: 1"></span>
 
+        <button title="My Exports" aria-label="My Exports" style="" onclick="openOrCloseExportsListModal();">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+        </button>
         <button title="Text analytics - word counter & more" aria-label="Text analytics - word counter & more" style="" data-ws-onClick="calculateStats" data-ws-toggle="#statsModal">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>
         </button>
@@ -655,7 +689,7 @@
               <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
               <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
             </button>
-            <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal">
+            <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" onclick="openOrCloseExportsListModal()">
               <svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
             </button>
             <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
@@ -668,7 +702,7 @@
 
           <div data-ws-show-if-state="isSignedIn=false" class="remaining-chars-line" style="text-align: center; cursor: pointer; padding: 2px 10px;" onclick="signIn()">
             <p data-ws-show-if-state="isSignedIn=false">
-              Войдите, чтобы получить неограниченные базовые голоса и 5 тыс. символов бесплатных премиум голосов.
+              Войти / Зарегистрироваться
             </p>
           </div>
           <div data-ws-show-if-state="isSignedIn=true" class="remaining-chars-line hidden" style="text-align: center; cursor: pointer; padding: 2px 10px;" onclick="openNewUpgradeModal()" >
@@ -691,16 +725,16 @@
                   Free plan. Unlimited basic voices. Used <span data-ws-label-state="usageLife"></span> / 5,000 chars for premium voices.&nbsp;Click to get more.
                 </p>
                 <p data-ws-show-if-state="isPremium=true">
-                  Premium. Unlimited Basic voices.&nbsp;
+                  🏆 Premium Voices: &nbsp;
                   <span data-ws-show-if-state="isPremiumPlan=true">
-                    Plan <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> / month.
+                    <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> / month.
                   </span>
                   &nbsp;
                   <span data-ws-show-if-state="isPayAsYouGo=true">
-                    Additional chars: <span data-ws-label-state="remainingCreditsChars"></span>.
+                    Added: <span data-ws-label-state="remainingCreditsChars"></span>.
                   </span>
                   &nbsp;
-                  Click to add.
+                  + ADD MORE
                 </p>
               </div>
 
@@ -739,31 +773,47 @@
         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
       </div>
       <div style="text-align: center">
-        <h2>Список экспортов длинных текстов</h2>
-        <a data-ws-toggle="#exportModal" style="text-decoration: none;cursor: pointer; color: orangered;text-transform: uppercase">Нажмите здесь, чтобы создать новый MP3 из текста</a>
+        <h2>
+          <svg style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg"  width="30"  height="30"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>
+          &nbsp;
+          Список экспортов длинных текстов
+        </h2>
+        <p  style="text-align: center">Listen later, download and share your text & generated audio</p>
+        <div style="text-align: center">
+          <button onclick="openOrCloseExportsListModal(true);" data-ws-toggle="#exportModal" style="text-decoration: none;cursor: pointer; color: white;background-color: darkgreen;text-transform: uppercase" class="Full-width-btn">+ Нажмите здесь, чтобы создать новый MP3 из текста</button>
+        </div>
         <p>Нажмите на файл для скачивания. Обязательно сохраните на своём устройстве как можно скорее, файлы автоматически удаляются с нашего сервера через 30 дней.</p>
       </div>
       <br/>
       <div id="exportsRowsContainer">
         <!-- rows inserted here -->
-        <p style="text-align: center">Здесь пока ничего нет. Экспортируйте ваши тексты в MP3. Если текст длинный, созданный MP3 будет храниться на наших серверах 30 дней для вашего удобства.</p>
+
+
+        <h3 style="text-align: center">Demo Generated Files</h3>
+        <div id="demoExportsRowsContainer"></div>
       </div>
 
       <template id="exportsListItemTemplate">
-        <a class="job-download-link" style="text-decoration: none;"><div class="job-row">
+        <div class="job-download-link" style="text-decoration: none;"><div class="job-row">
           <span class="job-date"></span>
           <span class="job-preview"></span>
           <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
           <span class="voice-name">David</span>&nbsp;X
           <span class="job-rate" style="padding-left: 0"></span>
           <span class="job-state" style="font-weight: bold;border: 1px solid yellow; padding: 0;"></span>
-          <span class="job-download-btn"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></span>
-        </div></a>
+          <a href="somehreftofile" download="ttsreader.mp3">
+            <span class="job-download-btn"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></span>
+          </a>
+        </div></div>
       </template>
     </div>
   </div>
 
   <div id="newUpgradeModal" class="Sliding-In-Modal hidden">
+      <iframe></iframe>
+  </div>
+
+  <div id="renderedModal" class="Sliding-In-Modal hidden">
       <iframe></iframe>
   </div>
 
@@ -1087,40 +1137,6 @@
     </div>
   </div>
 
-  <div class="Modal" id="exportModal" style="display: none;">
-    <div style="height:20px;"></div>
-    <div class="Modal-content" style="padding: 20px; overflow: auto;">
-      <button class="Close-modal" style="z-index: 999">
-        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
-          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-        </svg>
-      </button>
-      <h4>НОВЫЙ экспорт текста в аудио - MP3 / WAV</h4><!-- TODO: replace with:  -->
-      <p><strong>Мгновенное создание MP3 / WAV для премиум пользователей. Вы владеете авторскими правами! Используйте сгенерированное аудио для любых целей.</strong></p>
-      <div style="text-align: justify; font-size: smaller;">
-      <p style="text-align: center">ПОЖАЛУЙСТА, ОБРАТИТЕ ВНИМАНИЕ:</p>
-      <ul style="text-align: justify">
-        <li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false">style="color: red;">✘ Premium.&nbsp;<a href="#" data-ws-toggle="#upgradeModal" style="font-weight: bold">Перейти на Premium</a></span></li>
-        <li><strong>Пожалуйста, проиграйте перед экспортом, чтобы убедиться, что всё звучит именно так, как вам нравится. Отредактируйте до совершенства. Затем экспортируйте, когда будете готовы.</strong></li>
-        <li>Использует символы из вашей квоты так же, как и при воспроизведении.</li>
-        <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
-        <li>Работает только с премиум голосами (отмечены звездой в галерее голосов).</li>
-        <li>Убедитесь, что голос и скорость правильно установлены через элементы управления селектора, так как встроенные коды голосов игнорируются.</li>
-        <li style="color: green">Новое: поддерживаются {{pause}} и {{pause:DURATION_IN_MS}}. Убедитесь, что внутри двойных фигурных скобок {{...}} нет пробелов.</li>
-      </ul>
-      </div>
-      <br/>
-      <div>
-        <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">Создать и скачать MP3</button>
-        <p style="font-weight: bold;color: orangered;cursor: pointer;background-color: lightgoldenrodyellow; padding: 5px; border: 1px solid;" onclick="openOrCloseExportsListModal();" data-ws-toggle="#exportModal">НАЖМИТЕ ЗДЕСЬ ДЛЯ ОБРАБОТКИ / ГОТОВЫХ ДЛИННЫХ ЭКСПОРТОВ</p>
-        <br/>
-        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">Создать и скачать WAV (ТОЛЬКО МЕНЕЕ 2000 СИМВОЛОВ)</button>
-      </div>
-      <br/>
-      <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank">Как мы справляемся? Пожалуйста, дайте нам знать! Ссылка на форму обратной связи</a></p>
-    </div>
-  </div>
-
   <div class="Modal" id="uploadModal" style="z-index: 9999; display: none;">
     <div style="height:20px;"></div>
     <div class="Modal-content" style="padding: 20px; overflow: auto;">
@@ -1205,7 +1221,7 @@
         <h4>Запись синтезированной речи<!-- Recording the Synthesized Speech --></h4>
         <div data-ws-show-if-state="isPremium=false">
           <p style="text-align: justify">
-            Запись требует премиум и включает лицензию на коммерческое использование и публикацию (см. условия публикации<!-- Recording requires premium and includes licensing for commercial use & publishing (see publishing terms --> <a href="https://ttsreader.com/docs/guides/commercial/" target="_blank">здесь<!-- here --></a>).
+            Запись требует премиум и включает лицензию на коммерческое использование и публикацию (см. условия публикации<!-- Recording requires premium and includes licensing for commercial use & publishing (see publishing terms --> <a href="https://ttsreader.com/docs/guides/commercial/" target="_blank">здесь<!-- here --></a>.
           </p>
           <button data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" class="Full-width-btn" style="background-color: darkgreen;color: white">Перейти на Premium<!-- Upgrade to Premium --></button>
           <div data-ws-show-if-state="isSignedIn=false">
@@ -1215,9 +1231,34 @@
         </div>
         <div data-ws-show-if-state="isPremium=true">
           <p style="text-align: center;font-size: larger;">🏆 🍾🥂 Спасибо за обновление!!!<!-- Thank you for upgrading!!! --> 🎉🚀 🏆 </p>
-          <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="background-color: transparent;color: cornflowerblue;border-color: cornflowerblue">Продолжить запись<!-- Continue with recording --></button>
+          <button data-ws-toggle="#recordOrExportModal" class="Full-width-btn" style="background-color: transparent;color: cornflowerblue;border-color: cornflowerblue">Продолжить запись<!-- Continue with recording --></button>
         </div>
         <br/><br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="recordOrExportModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow: auto;padding:10px 30px;">
+        <p style="text-align: center">Select Method</p>
+        <button data-ws-toggle="#exportModal" onClick='window.appMethods.closeModal("recordOrExportModal");' class="Full-width-btn" style="background-color: darkgreen;color: white">EXPORT (RECOMMENDED)</button>
+        <br/>
+        <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="">RECORD STREAM (GOOD FOR NON EXPORTABLE VOICES)</button>
+        <br/>
+        <h3>Did you know? Learn more on:</h3>
+        <ul style="text-align: start; line-height: 1.7em;">
+          <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with a few voices</a></li>
+          <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">Export, download & share your MP3 & text</a></li>
+          <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Recording on-the-fly</a></li>
+        </ul>
       </div>
     </div>
     <div style="height:20px;"></div>
@@ -1247,6 +1288,37 @@
       </div>
     </div>
     <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="exportModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: auto;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4>Мгновенное создание MP3 / WAV для премиум пользователей. Вы владеете авторскими правами! Используйте сгенерированное аудио для любых целей.</h4>
+      <div style="text-align: justify; font-size: smaller;">
+        <p style="text-align: center">ПОЖАЛУЙСТА, ОБРАТИТЕ ВНИМАНИЕ:</p>
+        <ul style="text-align: justify">
+          <li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false">style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">Перейти на Premium</a></span></li>
+          <li><strong>Пожалуйста, проиграйте перед экспортом, чтобы убедиться, что всё звучит именно так, как вам нравится. Отредактируйте до совершенства. Затем экспортируйте, когда будете готовы.</strong></li>
+          <li>Использует символы из вашей квоты так же, как и при воспроизведении.</li>
+          <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
+          <li>Работает только с премиум голосами (отмечены звездой в галерее голосов).</li>
+          <li style="color: green">Новое: поддерживаются {{pause}} и {{pause:DURATION_IN_MS}}. Убедитесь, что внутри двойных фигурных скобок {{...}} нет пробелов.</li>
+        </ul>
+      </div>
+      <br/>
+      <div>
+        <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">Создать и скачать MP3</button>
+        <br/>
+        <button onclick="sendAnalyticsEvent('exportWAV');" class="Full-width-btn" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">Создать и скачать WAV (ТОЛЬКО МЕНЕЕ 2000 СИМВОЛОВ)</button>
+      </div>
+      <br/>
+      <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank">Как мы справляемся? Пожалуйста, дайте нам знать! Ссылка на форму обратной связи</a></p>
+    </div>
   </div>
 
   <div class="Modal" id="upgradeModal" style="display: none">
@@ -1338,10 +1410,9 @@
         <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 0 0 1em 0; text-align: start">
           <li>Без рекламы<!-- No Ads --></li>
           <li>Быстрая загрузка<!-- Faster loading --></li>
-          <li>Неограниченное непрерывное чтение - For the non premium voices<!-- Unlimited continuous reading --></li>
+          <li>Неограниченное непрерывное чтение - with the basic voices<!-- Unlimited continuous reading --></li>
           <li>For premium voices: lift limit to 1+ million chars per month or as many as you like via Pay-As-You-Go</li>
           <li>Export to MP3</li>
-          <li>Запись включена на ПК с Windows<!-- Recording enabled on Windows PC --></li>
           <li>Коммерческая лицензия and Publishing<!-- Commercial license --></li>
           <li>Разблокируйте все функции<!-- Unlock all features --></li>
           <li>Премиум поддержка<!-- Premium support --></li>
@@ -1350,7 +1421,6 @@
     </div>
     <div style="height:20px;"></div>
   </div>
-
 
   <div data-ws-show-if-state="subscriptionId=true" style="position: relative">
   <div class="Modal" id="subscriptionModal" style="display: none">
@@ -1515,6 +1585,10 @@
     <div style="flex: 1"></div>
   </div>
 
+  <div class="loading-overlay hidden" data-ws-show-if-state="isLoading=true">
+    <div class="spinner"></div>
+    <div class="loading-text">Loading...</div>
+  </div>
 </div>
 
 
@@ -1632,6 +1706,7 @@
   let currentAudioInJobs = null;
   let currentPlayButtonInJobs = null;
   const exportsRowsContainer = document.getElementById('exportsRowsContainer');
+  const demoExportsRowsContainer = document.getElementById('demoExportsRowsContainer');
   const rowTemplate = document.getElementById('exportsListItemTemplate');
 
   const voiceToName = {
@@ -1761,7 +1836,7 @@
     const timer = setInterval(updateCountdown, 1000);
   }
 
-  function renderJobRow(job) {
+  function renderJobRow(job, container) {
     const clone = rowTemplate.content.cloneNode(true);
     const row = clone.querySelector('.job-row');
 
@@ -1800,26 +1875,28 @@
 
 
     if (job.mp3Url) {
-      downloadLink.href = job.mp3Url.split('?')[0];
-      downloadLink.setAttribute('download', job.fileName || `ttsreader-${job.id}.mp3`);
+      let mp3Link = job.mp3Url.split('?')[0];
+      let jobLink = mp3Link.split('.mp3')[0];
+      downloadLink.querySelector("a").href = mp3Link;
+      downloadLink.querySelector("a").setAttribute("onclick", "event.stopPropagation();");
+      downloadLink.setAttribute("onclick", "openRenderedModal(" + JSON.stringify({url: jobLink, voice: getNameFromVoiceUri(job.voiceURI), lang: job.lang, rate: job.rate, date: job.createdAt}) + "); return false;");
     } else {
-      downloadLink.href ="javascript:alert('Задача ещё не готова, подождите окончания обработки.');";
-      downloadLink.removeAttribute('target');
+      downloadLink.onclick ="alert('Задача ещё не готова, подождите окончания обработки.');";
     }
 
     // If exportsRowsContainer contains a row with [data-ws-job-id] equal to job.id, replace it with the new row.
     // Otherwise, append the new row.
 
-    if (exportsRowsContainer.querySelector(`[data-ws-job-id="${job.id}"]`)) {
-      const existingRow = exportsRowsContainer.querySelector(`[data-ws-job-id="${job.id}"]`);
-      exportsRowsContainer.replaceChild(clone, existingRow);
+    if (container.querySelector(`[data-ws-job-id="${job.id}"]`)) {
+      const existingRow = container.querySelector(`[data-ws-job-id="${job.id}"]`);
+      container.replaceChild(clone, existingRow);
       if (job.mp3Url && !existingRow.querySelector('.job-download-btn')) {
         // IE newly available link:
         downloadLink.click();
       }
     } else {
       // 'Append' to be the first child:
-      exportsRowsContainer.insertBefore(clone, exportsRowsContainer.firstChild);
+      container.insertBefore(clone, container.firstChild);
     }
   }
 
@@ -1990,6 +2067,34 @@
     window.isWaitingForUploadConfirmation = false;
   }
 
+  (function populateDemoExports() {
+    // This function populates the demo exports with some sample data.
+    const demoJobs = [
+      {
+        id: "demo1",
+        createdAt: Date.now() - 1000 * 60 * 60 * 240, // 10 days ago
+        previewText: "The fascinating 19th Century. Sourced from Wikipedia.",
+        voiceURI: "Nova",
+        lang: "en-US",
+        rate: "1.0",
+        statusCode: "Done",
+        mp3Url: "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/83d9901c-3e5a-4dd8-9f12-88311274d7a9/83d9901c-3e5a-4dd8-9f12-88311274d7a9/0001.mp3"
+      },
+      {
+        id: "demo2",
+        createdAt: Date.now() - 1000 * 60 * 30 * 120, // 5 days ago
+        previewText: "The incredible Benjamin Franklin, a writer, scientist, inventor and statesman.",
+        voiceURI: "John",
+        lang: "en-US",
+        rate: "1.0",
+        statusCode: "Done",
+        mp3Url: "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/demo_benjamin_franklin/demo_benjamin_franklin/0001.mp3" // demo_benjamin_franklin
+      }
+    ];
+
+    demoJobs.forEach(job => renderJobRow(job, demoExportsRowsContainer));
+  })();
+
   async function initDbListeners(uid) {
 
     // Listen to 'users' data: TODO...
@@ -2049,7 +2154,7 @@
       };
 
       // Render the new job row:
-      renderJobRow(job);
+      renderJobRow(job, exportsRowsContainer);
       let createdAt = job.createdAt || 0;
       if (window.isWaitingForUploadConfirmation && job.statusCode === "Processing" && ((Date.now() - createdAt) < (1000*60*5))) {
         // If we are waiting for upload confirmation and the job is done, confirm it:
@@ -2069,7 +2174,7 @@
       };
 
       // Render the updated job row - it will replace the existing one:
-      renderJobRow(job);
+      renderJobRow(job, exportsRowsContainer);
     });
 
 
@@ -2246,7 +2351,7 @@
     firebase.auth().signOut();
   }
 
-  function signIn() {
+  function signIn(optionalOnSuccessCallback) {
     let provider = new firebase.auth.GoogleAuthProvider();
     provider.setCustomParameters({
       prompt: 'select_account'  // 🔑 This forces the account selection UI
@@ -2263,6 +2368,9 @@
         } catch (err) {
           console.error('Error on isNewUser: ', err.message);
         }
+      }
+      if (optionalOnSuccessCallback) {
+        optionalOnSuccessCallback(user);
       }
     }).catch(function(error) {
       // Handle Errors here.
@@ -2396,6 +2504,16 @@
     }
   }
 
+  function closeRenderedModal() {
+    let modalEl = document.getElementById('renderedModal');
+    if (modalEl) {
+      modalEl.classList.remove("show");
+      modalEl.addEventListener("transitionend", () => {
+        //modalEl.classList.add("hidden");
+      }, { once: true });
+    }
+  }
+
   function openOrCloseExportsListModal(isToClose) {
     let modalEl = document.getElementById('exportsListModal');
     if (isToClose) {
@@ -2409,8 +2527,7 @@
   function openNewUpgradeModal() {
     let uid = firebase?.auth()?.currentUser?.uid;
     if (!uid) {
-      alert("Пожалуйста, войдите, чтобы обновить аккаунт.");
-      signIn();
+      signIn(openNewUpgradeModal);
       return;
     }
     
@@ -2433,6 +2550,28 @@
       requestAnimationFrame(() => modalEl.classList.add("show"));
     };
     iframeEl.src = `newUpgradeModal.${lang}.html?uid=${uid}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${window.getAppState().data.isPremiumPlan}`;
+  }
+
+  function openRenderedModal(params) {
+    const {url, voice, rate, date, lang} = params;
+    let modalEl = document.getElementById('renderedModal');
+    if (!modalEl) {
+      console.error("Modal element not found");
+      return;
+    }
+
+    let iframeEl = modalEl.querySelector('iframe');
+    if (!iframeEl) {
+      console.error("Iframe element not found in modal");
+      return;
+    }
+    let theme = document.documentElement.getAttribute('data-dark-mode') ? 'dark' : 'light';
+
+    iframeEl.onload = function () {
+      modalEl.classList.remove("hidden");
+      requestAnimationFrame(() => modalEl.classList.add("show"));
+    };
+    iframeEl.src = `rendered.html?url=${url}&lang=${lang}&voice=${encodeURIComponent(voice)}&rate=${rate}&date=${date}&onClose=closeRenderedModal&theme=${theme}`;
   }
 
 </script>

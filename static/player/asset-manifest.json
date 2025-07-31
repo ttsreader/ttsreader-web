@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.5d5d3cbf.css",
-    "main.js": "/static/js/main.de975743.js",
+    "main.js": "/static/js/main.7bd0b2f0.js",
     "hi.html": "/hi.html",
     "ru.html": "/ru.html",
     "ar.html": "/ar.html",
@@ -34,10 +34,10 @@
     "newUpgradeModal.en.html": "/newUpgradeModal.en.html",
     "newUpgradeModal.zh.html": "/newUpgradeModal.zh.html",
     "main.5d5d3cbf.css.map": "/static/css/main.5d5d3cbf.css.map",
-    "main.de975743.js.map": "/static/js/main.de975743.js.map"
+    "main.7bd0b2f0.js.map": "/static/js/main.7bd0b2f0.js.map"
   },
   "entrypoints": [
     "static/css/main.5d5d3cbf.css",
-    "static/js/main.de975743.js"
+    "static/js/main.7bd0b2f0.js"
   ]
 }
