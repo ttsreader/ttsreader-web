@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" data-dark-mode data-no-ads data-is-signed-out>
+<html lang="ar" data-test-audio-playing="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-dark-mode data-no-ads data-is-signed-out>
 <head>
   <script type="application/ld+json">
     {
@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-07-30T13:17:51.432Z",
-      "version": "3.8.0",
+      "dateModified": "2025-08-05T15:14:58.183Z",
+      "version": "3.8.5",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -49,7 +49,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.8.0 - مشغل النص إلى كلام من TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.8.5 - مشغل النص إلى كلام من TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -99,7 +99,7 @@
     // Drawer open
     let storedDrawerMode = localStorage.getItem('drawer-mode');
     if (!storedDrawerMode) {
-      storedDrawerMode = 'close'; // Default to close if not set
+      storedDrawerMode = 'open'; // Default if not set
     }
 
     if ((storedDrawerMode === 'open' || !storedDrawerMode) && window.matchMedia && window.matchMedia('(min-width: 800px)').matches && window.matchMedia('(min-height: 600px)').matches ) {
@@ -163,6 +163,48 @@
   </script>
 
   <style>
+
+    .TabsContainer .TabTitlesContainer {
+      display: flex;
+      margin-bottom: 0;
+    }
+
+    .TabsContainer .TabTitlesContainer > div {
+      cursor: pointer;
+      padding: 10px 16px;
+      border: 1px solid #ccc;
+      border-bottom: 2px solid gray;
+      border-radius: 8px 8px 0 0;
+      margin-right: -1px;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+      opacity: 0.8;
+      flex: 1;
+    }
+
+    .TabsContainer .TabTitlesContainer > div:hover {
+      opacity: 1;
+      color: #007bff;
+    }
+
+    .TabsContainer .TabTitlesContainer > div.active {
+      opacity: 1;
+      color: #007bff;
+      background-color: white;
+      border: 2px solid gray;
+      border-bottom: 2px solid transparent;
+      z-index: 2;
+      position: relative;
+    }
+
+    .TabsContainer .TabContentsContainer > div {
+      display: none;
+      border-top: none;
+    }
+
+    [data-is-signed-out] #top-banner {
+      display: none;
+    }
 
     .job-download-link a {
       color: orange;
@@ -299,8 +341,58 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    .isPlaying .wave-container {
+      display: flex;
+    }
+
+    .wave-container {
+      display: none;
+      align-items: flex-end;
+      gap: 4px;
+      height: 20px; /* You can change this to any height you want */
+      width: fit-content;
+    }
+
+    .wave-bar {
+      width: 4px;
+      background-color: #3b82f6;
+      animation: waveAnim 1s infinite ease-in-out;
+      animation-delay: calc(var(--i) * 0.1s);
+    }
+
+    /* Assign individual delays using custom properties */
+    .wave-bar:nth-child(1) { --i: 1; }
+    .wave-bar:nth-child(2) { --i: 2; }
+    .wave-bar:nth-child(3) { --i: 3; }
+    .wave-bar:nth-child(4) { --i: 4; }
+    .wave-bar:nth-child(5) { --i: 3; }
+    .wave-bar:nth-child(6) { --i: 2; }
+
+    @keyframes waveAnim {
+      0%, 100% {
+        height: 20%;
+      }
+      50% {
+        height: 100%;
+      }
+    }
+
+    /* Default state: hide 2nd child SVG */
+    .play-test-btn svg:nth-child(2) {
+      display: none;
+    }
+
+    /* When inside an .isPlaying container: */
+    .isPlaying .play-test-btn svg:nth-child(1) {
+      display: none; /* hide the play icon */
+    }
+
+    .isPlaying .play-test-btn svg:nth-child(2) {
+      display: inline; /* show the pause icon */
+    }
   </style>
-<script defer src="/static/js/main.7bd0b2f0.js"></script><link href="/static/css/main.5d5d3cbf.css" rel="stylesheet"></head>
+<script defer src="/static/js/main.2e848216.js"></script><link href="/static/css/main.575f2327.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
@@ -428,7 +520,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.8.0</b> Build 2025-07-30T13:17:51.432Z
+          <b>V3.8.5</b> Build 2025-08-05T15:14:58.183Z
           <br/><span style="margin-top: 10px;display: block">جميع الإصدارات <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -705,7 +797,7 @@
               تسجيل الدخول / التسجيل
             </p>
           </div>
-          <div data-ws-show-if-state="isSignedIn=true" class="remaining-chars-line hidden" style="text-align: center; cursor: pointer; padding: 2px 10px;" onclick="openNewUpgradeModal()" >
+          <div data-ws-show-if-state="isSignedIn=true" class="remaining-chars-line hidden Hide-on-narrow-screens" style="text-align: center; cursor: pointer; padding: 2px 10px;" onclick="openNewUpgradeModal()" >
             <!--Old version:
             <p>
               تم استخدام&lt;!&ndash; Used &ndash;&gt;
@@ -722,7 +814,7 @@
               </div>
               <div data-ws-show-if-state="serverData=true">
                 <p data-ws-show-if-state="isPremium=false">
-                  Free plan. Unlimited basic voices. Used <span data-ws-label-state="usageLife"></span> / 5,000 chars for premium voices.&nbsp;Click to get more.
+                  Used <span data-ws-label-state="usageLife"></span> / 5,000 chars for premium voices.&nbsp;Click to get more.
                 </p>
                 <p data-ws-show-if-state="isPremium=true">
                   🏆 Premium Voices: &nbsp;
@@ -901,13 +993,15 @@
       <div class="modal-content">
         <p>اختر الصوت المفضل. يمكنك تغييرها في أي وقت لاحقًا.<!-- You can always change it later. --></p>
         <div style="flex:1"></div>
-        <div class="Voices-Gallery" style="max-width: 1000px; margin: auto;margin-top: -15px;">
-          <h2>أصوات AI بريميوم (تتطلب تجربة مجانية تسجيل دخول، بدون دفع)</h2>
-          <div class="Gallery-Container Voices-Gallery-Container-Premium"></div>
-          <br/>
-          <h2>أصوات مجانية وغير محدودة – لا حاجة لتسجيل الدخول</h2>
-          <div class="Gallery-Container Voices-Gallery-Container-Free"></div>
-
+        <div class="Voices-Gallery TabsContainer" style="max-width: 1000px; margin: auto;">
+          <div class="TabTitlesContainer">
+            <div class="active">أصوات AI بريميوم (تتطلب تجربة مجانية تسجيل دخول، بدون دفع)</div>
+            <div>أصوات مجانية وغير محدودة – لا حاجة لتسجيل الدخول</div>
+          </div>
+          <div class="TabContentsContainer">
+            <div style="display: block" class="Gallery-Container Voices-Gallery-Container-Premium"></div>
+            <div style="display: none" class="Gallery-Container Voices-Gallery-Container-Free"></div>
+          </div>
         </div>
         <template id="voiceTileTemplate">
           <div class="voice-tile" data-ws-voiceURI="ttsreader.gcp.standard-A" data-ws-audio-src="https://ttsreader.com/player/audio/Christopher.mp3" style="font-size: larger; position: relative;">
@@ -931,21 +1025,31 @@
                 <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
               </svg>
             </div>
+            <div style="position: absolute; bottom: 0; right: 0;">
+              <div class="wave-container">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+              </div>
+            </div>
           </div>
         </template>
         <div style="flex:2"></div>
       </div>
-      <div data-ws-show-if-state="isSignedIn=false">
+      <!--<div data-ws-show-if-state="isSignedIn=false">
         <div class="modal-footer" style="display: flex">
-          <button class="secondary" style="flex: 1" onclick="prevStep(this)">عودة<!-- Back --></button>
+          <button class="secondary" style="flex: 1" onclick="prevStep(this)">عودة&lt;!&ndash; Back &ndash;&gt;</button>
           <button data-ws-show-if-state="isVoicePremium=true" class="primary" style="flex: 2" onclick="signIn()">تسجيل الدخول باستخدام Google</button>
           <button data-ws-show-if-state="isVoicePremium=false" class="primary hidden" style="flex: 2" onclick="closeOnboarding()">هيا بنا</button>
         </div>
-      </div>
-      <div data-ws-show-if-state="isSignedIn=true">
+      </div>-->
+      <div>
         <div class="modal-footer" style="display: flex">
           <button class="secondary" style="flex: 1" onclick="prevStep(this)">عودة<!-- Back --></button>
-          <button class="primary" style="flex: 2" onclick="closeOnboarding()">هيا بنا</button>
+          <button class="primary" style="flex: 2" onclick="closeOnboarding();appMethods.stopAnyTestOrOtherPlay();">هيا بنا</button>
         </div>
       </div>
     </div>
@@ -998,6 +1102,8 @@
       <p style="font-size: larger;">الصوت الذي اخترته <span data-ws-label-state="voiceLabel"></span>&nbsp; هو اختيار ممتاز! نظرًا لأنه صوت مميز، يتطلب تسجيل الدخول. يرجى تسجيل الدخول بأمان باستخدام Google للمتابعة.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
       <br/>
       <button onclick="signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">تسجيل الدخول باستخدام Google<!-- Sign In with Google --></button>
+      <p style="text-align: center">OR</p>
+      <button onclick='appMethods.closeModal("premiumVoiceSignInModal");appMethods.showModal("voicesModal");' class="Full-width-btn">Select a Non Premium Voice</button>
       <div style="flex: 2"></div>
     </div>
     <div style="height:20px;"></div>
@@ -1033,7 +1139,7 @@
             <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
           </svg>
           <a href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds" target="_blank" style="text-decoration: none;">
-            نسخ<!-- Copy -->
+            نسخ&nbsp;to combine voices<!-- Copy -->
             <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path>
@@ -1042,10 +1148,16 @@
             </svg>
           </a>
         </div>
-        <h3 style="text-align: center">Premium AI Voices</h3>
-        <div class="Best-voices"></div>
-        <h3 style="text-align: center">Free Unlimited Voices</h3>
-        <div class="Voices-list"></div>
+        <div class="TabsContainer">
+          <div class="TabTitlesContainer">
+            <div style="text-align: center" class="active">أصوات AI بريميوم (تتطلب تجربة مجانية تسجيل دخول، بدون دفع)</div>
+            <div style="text-align: center">أصوات مجانية وغير محدودة – لا حاجة لتسجيل الدخول</div>
+          </div>
+          <div class="TabContentsContainer" style="padding-top: 16px;">
+            <div style="display: block" class="Best-voices"></div>
+            <div style="display: none" class="Voices-list"></div>
+          </div>
+        </div>
 
         <template id="voiceOptionTemplate">
           <div class="Voice-list-element" data-ws-voiceURI="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-ws-voiceName="David" data-ws-select-if-state="selectedVoiceUri=ttsreaderServer.gcp.en-US-Chirp-HD-D" selected="true">
@@ -1058,15 +1170,19 @@
             <span class="voice-publishing" style="color: green"  title="Allowed for publishing for Premium accounts">✓</span>
             <span class="voice-premium" title="Premium Voice">🌟</span>
             <span title="Copy inline voice-setter" onclick="window.appMethods.copyVoice(this)"><svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path></svg></span>
-            <span title="Click to test voice" onclick="window.appMethods.testVoice(this)"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
+            <span class="play-test-btn" title="Click to test voice" onclick="window.appMethods.testVoice(this)">
+              <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+              <svg style="height: 22px;" xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="currentColor" class="Top-btn-svg icon icon-tabler icons-tabler-filled icon-tabler-player-pause"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" /><path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" /></svg>
+            </span>
           </div>
         </template>
 
       </div>
+      <br/>
       <!--<select class="Voice-selector" data-ws-onChange="handleVoiceChange" data-ws-value-state="selectedVoiceUri"></select>-->
-      <p style="text-align: center">
-        <span style="color: green">✓</span> يشير إلى أن الصوت مسموح بالنشر للمستخدمين المميزين<!-- Indicates voice is allowed for publishing for premium users --> <span data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">كشخصك 🏆<!-- as yourself 🏆 --></span><a data-ws-show-if-state="isPremium=false" data-ws-toggle="#upgradeModal" style="cursor: pointer;">- <u>انقر هنا للترقية<!-- click here to upgrade --></u></a>
-      </p>
+      <!--<p style="text-align: center">
+        <span style="color: green">✓</span> يشير إلى أن الصوت مسموح بالنشر للمستخدمين المميزين&lt;!&ndash; Indicates voice is allowed for publishing for premium users &ndash;&gt; <span data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">كشخصك 🏆&lt;!&ndash; as yourself 🏆 &ndash;&gt;</span><a data-ws-show-if-state="isPremium=false" data-ws-toggle="#upgradeModal" style="cursor: pointer;">- <u>انقر هنا للترقية&lt;!&ndash; click here to upgrade &ndash;&gt;</u></a>
+      </p>-->
     </div>
   </div>
 
@@ -1302,7 +1418,7 @@
       <div style="text-align: justify; font-size: smaller;">
         <p style="text-align: center">يرجى الملاحظة:</p>
         <ul style="text-align: justify">
-          <li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false">style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">الترقية إلى بريميوم</a></span></li>
+          <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">الترقية إلى بريميوم</a></span></li>-->
           <li><strong>يرجى التشغيل قبل التصدير - للتأكد من أن الصوت مطابق لما ترغب به. حرر بدقة ثم صدر عند الاستعداد.</strong></li>
           <li>يستهلك أحرف من رصيدك كما يفعل التشغيل.</li>
           <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
@@ -1593,6 +1709,29 @@
 
 
 <script>
+
+  document.querySelectorAll('.TabsContainer .TabTitlesContainer').forEach(titlesContainer => {
+    const tabTitles = titlesContainer.children;
+
+    Array.from(tabTitles).forEach((tabTitle, index) => {
+      tabTitle.addEventListener('click', () => {
+        const tabsContainer = tabTitle.closest('.TabsContainer');
+        const contents = tabsContainer.querySelector('.TabContentsContainer').children;
+
+        // Remove active class from all
+        Array.from(tabTitles).forEach(el => el.classList.remove('active'));
+        Array.from(contents).forEach(el => el.style.display = 'none');
+
+        // Activate selected tab
+        tabTitle.classList.add('active');
+        contents[index].style.display = 'block';
+      });
+    });
+
+    // Trigger first tab as active by default
+    tabTitles[0].click();
+  });
+
   function copy(text) {
     navigator.clipboard.writeText(text).then(function() {
       console.log('Copied!');
@@ -2133,7 +2272,37 @@
 
       if (!data || Object.keys(data).length===0) {
         data = true; // A simple flag to indicate that the data was fetched, although empty.
+      } else {
+        if (data.currentPremiumPlan && data.usage) {
+          const now = new Date();
+          let clientMonthId = (now.getUTCFullYear() - 1970) * 12 + now.getUTCMonth();
+          console.log("Client monthId:", clientMonthId, "Server monthId:", data.usage.mEpoch);
+          // If we have a current plan, let's set it to the state:
+          window.updateStateWithParentData({
+            isPremium: true,
+            currentPremiumPlan: data.currentPremiumPlan
+          });
+          if (clientMonthId > data.usage.mEpoch) {
+            // The client month is greater than the server month, so we need to update the monthId:
+            // Send an authenticated request to update the monthId to the server endpoint:
+            // curl -X POST "https://us-central1-ttsreader.cloudfunctions.net/functionForwardQuotaMonth" -H "Authorization: Bearer FIREBASE_USER_TOKEN_ID" -H "Content-Type: application/json"
+            const idToken = await window.getIdToken();
+            if (idToken) {
+              fetch("https://us-central1-ttsreader.cloudfunctions.net/functionForwardQuotaMonth", {
+                method: "POST",
+                headers: {
+                  "Authorization": `Bearer ${idToken}`,
+                  "Content-Type": "application/json"
+                },
+                body: ""
+              });
+            } else {
+              console.warn("No ID token available to update monthId.");
+            }
+          }
+        }
       }
+
       updateStateWithParentData({serverData: data || true});
       if (wasLegacyPlanFound) {
         // Sync plans:
@@ -2428,7 +2597,7 @@
 
       // Potentially play something else:
       if (!shouldSimplyStop) {
-        appMethods.testVoice(null, voiceURI);
+        appMethods.testVoice(ev.target.closest("[data-ws-voiceURI]"), voiceURI);
       }
     }
   });
@@ -2574,6 +2743,8 @@
     iframeEl.src = `rendered.html?url=${url}&lang=${lang}&voice=${encodeURIComponent(voice)}&rate=${rate}&date=${date}&onClose=closeRenderedModal&theme=${theme}`;
   }
 
+
+
 </script>
 
 
@@ -2584,6 +2755,7 @@
   <div data-ws-string-key="alert_copied" data-ws-string-value="تم النسخ إلى الحافظة."></div>
   <div data-ws-string-key="alert_missing_credits" data-ws-string-value="لا يوجد رصيد كافٍ لإكمال الطلب"></div>
   <div data-ws-string-key="alert_requires_premium" data-ws-string-value="هذه الميزة الجديدة تتطلب بريميوم. يرجى الترقية أولاً."></div>
+  <div data-ws-string-key="alert_requires_signin" data-ws-string-value=""></div>
   <div data-ws-string-key="alert_export_too_long" data-ws-string-value="النص طويل جداً. قسمه إلى أجزاء أقل من 200,000 حرف."></div>
   <div data-ws-string-key="alert_export_limited" data-ws-string-value="عذراً، الصوت المختار يسمح بتصدير حتى 6000 حرف فقط. اختصر النص أو انتقل لصوت يدعم التصدير الطويل. كل الأصوات المدعومة بريميوم **ما عدا NOAH, LILLY, OLIVIA.**"></div>
   <div data-ws-string-key="alert_export_premium_voice" data-ws-string-value="وظيفة التصدير متاحة فقط لأصوات بريميوم. اختر صوت بريميوم (موسوم بنجمة ⭐) أو استخدم زر 'RECORD ◉'."></div>

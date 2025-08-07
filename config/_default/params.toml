@@ -2,9 +2,9 @@
 
 ## Homepage
 name = "TTSReader Text To Speech"
-title = "Text To Speech Reader & MP3 Generator. AI Voices. Free & Unlimited"
+title = "🔊 TTSReader | AI Text to Speech (TTS) Reader & Exporter"
 titleSeparator = "|"
-description = "#1 Text To Speech online with human-like AI voices. Type or upload any text, file, website & book for listening online, proofreading, or generating mp3 voice-overs. Start free."
+description = "Free text-to-speech for home, education, and businesses since 2015. Now with expressive AI voices — listen online, export, publish & more"
 
 
 ## Documentation
@@ -14,7 +14,7 @@ description = "#1 Text To Speech online with human-like AI voices. Type or uploa
 images = ["assets/images/demo_poster_20250506_900x.webp"]
 ogLocale = "en"
 domainTLD = "ttsreader.com"
-titleHome = "Free AI Text To Speech Reader & MP3 Generator | TTSReader"
+titleHome = "TTSReader - Text To Speech Online & AI Voice-Overs"
 
 ## Twitter Cards
 twitterSite = "@speechlogger"
@@ -22,7 +22,7 @@ twitterCreator = "@speechlogger"
 
 ## JSON-LD
 # schemaType = "Person"
-schemaType = "SoftwareApplication"
+schemaType = "Organization"
 schemaName = "TTSReader"
 schemaAuthor = "Ronen Rabinovici"
 schemaAuthorTwitter = "https://twitter.com/speechlogger"

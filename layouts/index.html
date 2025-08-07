@@ -1,11 +1,157 @@
 {{ define "main" }}
 
-<section class="section container-fluid mt-n3 pb-3" id="hero" style="display: flex; flex-direction: column; min-height: 100vh;">
-  <div class="row text-center">
-    <h1 class="mt-0">AI Text To Speech (TTS) Reader & MP3 Generator</h1>
-    <h2 class="h3" style="margin-bottom: 1em; font-weight: normal">#1 Text To Speech with human-like AI voices. Type or upload any text, file, website & book for listening online, proofreading, or generating mp3 voice-overs.</h2>
-    <p class="caption-top" style="text-align: center;margin: 10px auto 30px"><i>A speech-synthesis powerhouse - trusted by millions of individuals, schools & businesses, since 2015. Private & secure. Proudly partnering with Microsoft for Startups</i></p>
-    <div class="row justify-content-center text-center" style="margin: 20px auto 0;">
+<section class="section container-fluid mt-n3 pb-3">
+  <h1 class="mt-0 text-center">{{ .Title }}</h1>
+
+  <div class="row justify-content-center">
+    <div class="text-center">
+      <h2 class="lead" style="font-size: 1.3em;">{{ .Params.lead | safeHTML }}</h2>
+
+      <div id="avatars_demos_id" class="justify-content-center text-center" style="margin: 40px auto 20;">
+        <div class="avatar-container-tile"  data-ws-avatar-id="john">
+          <div style="position: relative; display: inline-block;">
+            <img src="/images/avatars/anglo_m_200x.webp" alt="TTSReader Voice Avatar Male USA - John" title="Click to listen to John" />
+            <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
+              <div class="play-button-svg-container" style="opacity: 1">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 1">
+                <!-- Stop SVG: -->
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>
+            <audio src="/images/avatars/john.mp3" preload="none"></audio>
+            <!--<div class="play-overlay">
+              <div class="play-button-svg-container" style="opacity: 0.5">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 0.5">
+                &lt;!&ndash; Stop SVG: &ndash;&gt;
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>-->
+          </div>
+          <div class="wave-loader">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="avatar-container-tile"  data-ws-avatar-id="Nova">
+          <div style="position: relative; display: inline-block;">
+            <img src="/images/avatars/anglo_f_200x.webp" alt="TTSReader Voice Avatar Female - Nova" title="Click to listen to Nova" />
+            <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
+              <div class="play-button-svg-container" style="opacity: 1">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 1">
+                <!-- Stop SVG: -->
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>
+            <audio  src="/images/avatars/nova.mp3" preload="none"></audio>
+          </div>
+          <div class="wave-loader">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="avatar-container-tile"  data-ws-avatar-id="adam">
+          <div style="position: relative; display: inline-block;">
+            <img src="/images/avatars/afro_m_200x.webp" alt="TTSReader Voice Avatar Male - Adam" title="Click to listen to Adam" />
+            <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
+              <div class="play-button-svg-container" style="opacity: 1">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 1">
+                <!-- Stop SVG: -->
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>
+            <audio  src="/images/avatars/adam.mp3" preload="none"></audio>
+            <!--<div class="play-overlay">
+              <div class="play-button-svg-container" style="opacity: 0.5">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 0.5">
+                &lt;!&ndash; Stop SVG: &ndash;&gt;
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>-->
+          </div>
+          <div class="wave-loader">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="avatar-container-tile"  data-ws-avatar-id="aria">
+          <div style="position: relative; display: inline-block;">
+            <img src="/images/avatars/indi_f_200x.webp" alt="TTSReader Voice Avatar Female - Aria" title="Click to listen to Aria" />
+            <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
+              <div class="play-button-svg-container" style="opacity: 1">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 1">
+                <!-- Stop SVG: -->
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>
+            <audio  src="/images/avatars/aria.mp3"  preload="none"></audio>
+            <!--<div class="play-overlay">
+              <div class="play-button-svg-container" style="opacity: 0.5">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 0.5">
+                &lt;!&ndash; Stop SVG: &ndash;&gt;
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>-->
+          </div>
+          <div class="wave-loader">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <a id="portfolio"></a>
+
+      <div class="row justify-content-center text-center" style="margin-top: 20px;">
       <div class="col-md-7 col-lg-6 card" role="button" onclick="window.location='/player/';gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});" style="cursor: pointer;box-shadow: 0 0 10px antiquewhite;">
         <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1wmkh38" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="HeadphonesOutlinedIcon" fill="currentColor" stroke-width="0.25px">
           <!-- Original Headphones -->
@@ -20,218 +166,21 @@
           <line x1="10" y1="12" x2="14" y2="12" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
           <line x1="10" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
         </svg></div>
-        <h2 class="h4">Listen to Text, Proofread, etc.</h2>
-        <a style="font-weight: bold;color: white !important; background-color: #a51b14; border-color: #a51b14" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});">Start Text Player</a>
-        <p class="meta" style="text-align: justify">Reads out loud plain text, documents, PDFs, e-books and websites. Remembers text, caret position & prefs, so you can come back to listening later. Supports export to mp3 as well.</p>
+          <h2 class="h4">Listen to Textual Content</h2>
+          <a style="color: white !important; background-color: #a51b14; border-color: #a51b14" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_player_main', {'value': 'home_page_body'});">Start Text Player</a>
+          <p class="meta" style="text-align: justify">Reads out loud plain text, files, PDFs, e-books and websites. Remembers text, caret position & prefs, so you can come back to listening later. Supports export to mp3 as well. Free voices alongside premium AI voices.</p>
       </div>
       <div class="col-md-1"></div>
-      <div class="col-md-7 col-lg-6 card" rel="follow" href="/player/" role="button" onclick="window.location='/player/?goal=mp3';gtag('event', 'ttsreader_click_goal_mp3', {'value': 'home_page_body'});" style="cursor: pointer; box-shadow: 0 0 10px antiquewhite;">
-        <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="MuiSvgIcon-fontSizeMedium icon icon-tabler icons-tabler-outline icon-tabler-file-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M11 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 16l0 -5l2 1" /></svg>
-        </div>
-        <h2 class="h4">Create Audio from Text</h2>
-        <a style="font-weight: bold; color: #ffce00 !important; background-color: #2b3140; border-color: #2b3140" class="btn btn-lg px-4 mb-2" rel="follow" href="/player/?goal=mp3" role="button" onclick="gtag('event', 'ttsreader_click_goal_mp3', {'value': 'home_page_body'});">Create AI Voice-Overs</a>
-        <p class="meta" style="text-align: justify">Expressive AI voices. For personal or commercial use. Supports any text length - instantly generates MP3 with a single click. Create audiobooks, YouTube narrations, and more. Mix voices, pauses. Listen & perfect before export.</p>
-      </div>
-    </div>
-    <!--<h2 class="lead" style="font-size: 1.3em;display: inline-block">{{ .Params.lead | safeHTML }}</h2>-->
-
-    <!--<p style="font-size: larger"><span class="Flag-font">🇺🇸</span> TTSReader Wishes a HAPPY 4th of JULY to All Our American Users <span class="Flag-font">🇺🇸</span></p>-->
-
-    <div id="avatars_demos_id" class="justify-content-center text-center" style="margin: 30px auto;">
-      <div class="avatar-container-tile"  data-ws-avatar-id="john">
-        <div style="position: relative; display: inline-block;">
-          <img src="/images/avatars/anglo_m_200x.webp" alt="TTSReader Voice Avatar Male USA - John" title="Click to listen to John" />
-          <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
-            <div class="play-button-svg-container" style="opacity: 1">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 1">
-              <!-- Stop SVG: -->
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>
-          <audio src="/images/avatars/john.mp3" preload="none"></audio>
-          <!--<div class="play-overlay">
-            <div class="play-button-svg-container" style="opacity: 0.5">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 0.5">
-              &lt;!&ndash; Stop SVG: &ndash;&gt;
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>-->
-        </div>
-        <div class="wave-loader">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
+        <div class="col-md-7 col-lg-6 card" href="{{ .Site.Params.links.player }}" role="button" onclick="window.location='/player/';gtag('event', 'ttsreader_click_export_main', {'value': 'home_page_body'});" style="cursor: pointer; box-shadow: 0 0 10px antiquewhite;">
+          <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;"><svg xmlns="http://www.w3.org/2000/svg" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg></div>
+          <h2 class="h4">Studio Grade Narrations</h2>
+          <a style="color: #ffce00 !important; background-color: #2b3140; border-color: #2b3140" class="btn btn-lg px-4 mb-2"  href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_export_main', {'value': 'home_page_body'});">Export Text to Audio Files</a>
+          <p class="meta" style="text-align: justify">Build professional audio experiences with the world's leading expressive AI voices. Mix voices, languages, speeds, pauses & more. Enterprise quality at affordable pricing. MP3 export to download and share. Try for free.</p>
         </div>
       </div>
-      <div class="avatar-container-tile"  data-ws-avatar-id="Nova">
-        <div style="position: relative; display: inline-block;">
-          <img src="/images/avatars/anglo_f_200x.webp" alt="TTSReader Voice Avatar Female - Nova" title="Click to listen to Nova" />
-          <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
-            <div class="play-button-svg-container" style="opacity: 1">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 1">
-              <!-- Stop SVG: -->
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>
-          <audio  src="/images/avatars/nova.mp3" preload="none"></audio>
-        </div>
-        <div class="wave-loader">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-      <div class="avatar-container-tile"  data-ws-avatar-id="adam">
-        <div style="position: relative; display: inline-block;">
-          <img src="/images/avatars/afro_m_200x.webp" alt="TTSReader Voice Avatar Male - Adam" title="Click to listen to Adam" />
-          <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
-            <div class="play-button-svg-container" style="opacity: 1">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 1">
-              <!-- Stop SVG: -->
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>
-          <audio  src="/images/avatars/adam.mp3" preload="none"></audio>
-          <!--<div class="play-overlay">
-            <div class="play-button-svg-container" style="opacity: 0.5">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 0.5">
-              &lt;!&ndash; Stop SVG: &ndash;&gt;
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>-->
-        </div>
-        <div class="wave-loader">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-      <div class="avatar-container-tile"  data-ws-avatar-id="aria">
-        <div style="position: relative; display: inline-block;">
-          <img src="/images/avatars/indi_f_200x.webp" alt="TTSReader Voice Avatar Female - Aria" title="Click to listen to Aria" />
-          <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
-            <div class="play-button-svg-container" style="opacity: 1">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 1">
-              <!-- Stop SVG: -->
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>
-          <audio  src="/images/avatars/aria.mp3"  preload="none"></audio>
-          <!--<div class="play-overlay">
-            <div class="play-button-svg-container" style="opacity: 0.5">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 0.5">
-              &lt;!&ndash; Stop SVG: &ndash;&gt;
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>-->
-        </div>
-        <div class="wave-loader">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-    </div>
 
-  </div>
-
-  <script>
-    function playVideo(el) {
-      console.log('play', el);
-      let video = el.parentElement.querySelector('video');
-      if (video) {
-        el.parentElement.style.backgroundImage = 'none';
-        let textOverlay = el.parentElement.querySelector('.video-overlay-text');
-        if (textOverlay) {
-          textOverlay.style.display = 'none';
-        }
-        el.style.display = 'none';
-        video.setAttribute('controls', 'controls');
-        video.setAttribute('src', video.getAttribute('data-src'));
-
-        if (video.paused) {
-          video.play();
-        } else {
-          video.pause();
-        }
-      }
-    }
-  </script>
-
-  <div class="row" style="flex: 1; margin-top: 30px;">
-    <div class="col-lg-8" style="">
-      <!--<p style="text-align: center">Let our text-to-speech player read your own text</p>-->
-      <div style="text-align: center">
-        <a class="btn btn-primary btn-lg px-4 mb-2" href="/player/" role="button" onclick="gtag('event', 'ttsreader_click_new', {'value': 'home_page_body'});" style="text-transform: uppercase;font-weight:bold;width: 100%;max-width:600px;">Click to Start &nbsp;<svg style="vertical-align: sub;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-click"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12l3 0" /><path d="M12 3l0 3" /><path d="M7.8 7.8l-2.2 -2.2" /><path d="M16.2 7.8l2.2 -2.2" /><path d="M7.8 16.2l-2.2 2.2" /><path d="M12 12l9 3l-4 2l-2 4l-3 -9" /></svg></a>
-      </div>
-      <p class="h3" style="margin-bottom: 1em; font-weight: normal">Listen to text, proofread, or generate MP3s with our online Text To Speech (TTS) Reader. Plain text, documents, websites & ebooks. Free unlimited voices & premium AI voices with free trial. No ads.</p>
-      <!--<div>
-        <p>📣 New Preview version with FREE & UNLIMITED basic non-premium voices here: <a href="/player@v3.5/">New Player V3.5 Preview</a>.</p>
-      </div>-->
-
-      <!--<p class="text-center" style="font-size: larger">
-        Pay-as-you-go (only $0.1/minute!) no subscription, no commitment.<br/>Whether it's a single one-time recording, or a need for an ongoing speech to text service - we've got you covered.
-      </p>
-      <h2 class="text-center" style="margin: 70px 0 50px;">Supports local & online files & <a href="https://zapier.com/apps/speechnotes/integrations" target="_blank">automatic workflows</a></h2>
-      -->
-    </div>
-    <div class="col-lg-8 text-center">
-      <div style="aspect-ratio: 1.7;background-color: black;border: 6px solid black; border-radius: 20px 20px 0 0;overflow: hidden;position: relative;background-image: url('/assets/images/demo_poster_20250506_900x.webp');background-size: cover;background-position: center;">
-        <video style="width: 100%;aspect-ratio: 1.74" data-src="/assets/videos/ttsreader3_demo_720p_20250506.webm" playsinline></video>
-        <div class="video-overlay-text" style="font-size: larger; background: #eee; border: black 1px solid; padding: 10px; position: absolute; top: 20px; right: 10px; text-align: right">Turn volume on 🔊</div>
-        <div class="video-overlay" onclick='try{gtag("event","ttsreader_click_video",{value:"1"})}catch(err){}playVideo(this);'>
-          <div style="width: 50px;height: 50px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="white" class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"/></svg>
-          </div>
-        </div>
-      </div>
+      <p class="caption-top" style="margin-top:35px"><i>Trusted by millions of users worldwide, including businesses, colleges & schools, students, bloggers, authors and anyone who likes to enjoy a story or learn something new by listening. Microsoft for Startups 2024.</i></p>
+      <br/>
       <img alt="laptop frame for embedded text-to-speech demo" src="/assets/images/laptop_base.png" style="max-width: unset;width:110%;position:relative;left:-5%;"/>
     </div>
   </div>
@@ -304,26 +253,13 @@
   </div>
 </section>
 
+
 <section class="section section-sm">
   <div style="max-width: 95%;padding: 0 20px;margin: auto;">
 
     <h3 style="text-align: center;margin-bottom: 30px;">Additional Text-To-Speech Solutions</h3>
     <div class="row justify-content-center text-center" style="margin-top: -30px;">
 
-      <!-- Used to be a link for AudioRead:
-      <div class="col-md-5 col-sm-8 card">
-        <br/>
-        <a target="_blank" rel="nofollow" style="color: white;background:linear-gradient(119.6deg,#fe40fe 9.06%,#fe25a3 49.04%,#fe5435 93.41%);" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.audioread }}" role="button" onclick="gtag('event', 'ttsreader_click_audioread_body', {'value': 'home_page_body'});">Text To Podcast<sup style="font-size: 11px;
-    color: lightgoldenrodyellow;
-    font-weight: bold;
-    position: relative;
-    top: -9px;"><i>&nbsp;Partner</i></sup>&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
-        <br/>
-        <a target="_blank" href="{{ .Site.Params.links.audioread }}" rel="nofollow" onclick="gtag('event', 'ttsreader_click_audioread_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/audioread.webp');"></div></a>
-        <br/>
-        <p class="meta">Turns your articles, PDFs, emails, etc. into podcasts, so you can listen to it on your own podcast player when convenient, with all the advantages that come with your podcast app.</p>
-      </div>
-      &nbsp;&nbsp;-->
       <div class="col-md-5 col-sm-8 card">
         <br/>
         <a target="_blank" style="color: white;background-color: #5d2f86" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechninja }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">Type to Speak&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
@@ -359,21 +295,21 @@
   <div class="bg-light" style="max-width: 95%;padding: 0 20px;margin: auto;border-radius: 20px;">
     <div class="row justify-content-center text-center" style="max-width: 100%;margin: auto;">
       <div class="col-sm card" style="display: flex;flex-direction: column">
-        <h4 class="h4">Books & Stories</h4>
+        <h3 class="h4">Books & Stories</h3>
         <p>Listen to some of the best stories ever written. We have them right here. Want to upload your own? Use the main player to upload epub files.</p>
         <div style="flex: 1;min-height: 10px;"></div>
         <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.stories }}" role="button" onclick="gtag('event', 'ttsreader_click_stories_body', {'value': 'home_page_body'});">Start Stories{{ i18n "start-dictating" }}</a>
         <br/>
       </div>&nbsp;&nbsp;
       <div class="col-sm card" style="display: flex;flex-direction: column">
-        <h4 class="h4">Web Player</h4>
+        <h3 class="h4">Web Player</h3>
         <p>Simply paste any URL (link to a page) and it will import & read it out loud.</p>
         <div style="flex: 1;min-height: 10px;"></div>
         <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.webPlayer }}" role="button" onclick="gtag('event', 'ttsreader_click_new_body', {'value': 'home_page_body'});">Start listening{{ i18n "start-dictating" }}</a>
         <br/>
       </div>&nbsp;&nbsp;
       <div class="col-sm card" style="display: flex;flex-direction: column">
-        <h4 class="h4">Chrome Extension</h4>
+        <h3 class="h4">Chrome Extension</h3>
         <p>Reads out loud webpages, directly from within the page.</p>
         <div style="flex: 1;min-height: 10px;"></div>
         <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.chromeExtension }}" role="button" onclick="gtag('event', 'ttsreader_click_extension_body', {'value': 'home_page_body'});">Get it on Chrome Store{{ i18n "start-dictating" }}</a>
@@ -382,30 +318,29 @@
     </div>
     <div class="row justify-content-center text-center" style="max-width: 100%;margin: auto;">
       <div class="col-sm card" style="display: flex;flex-direction: column">
-        <h4 class="h4">Mobile app</h4>
+        <h3 class="h4">Mobile app</h3>
         <p>TTSReader for mobile - iOS or Android. Includes exporting audio to mp3 files.</p>
         <div style="flex: 1;min-height: 10px;"></div>
         <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="/mobile/" role="button" onclick="gtag('event', 'ttsreader_click_mobile_body', {'value': 'home_page_body'});">Get it on Google Play{{ i18n "start-dictating" }}</a>
         <br/>
       </div>&nbsp;&nbsp;
       <div class="col-sm card" style="display: flex;flex-direction: column">
-        <h4 class="h4">NEW 🚀 - TTS Plugin</h4>
+        <h3 class="h4">NEW 🚀 - TTS Plugin</h3>
         <p>Make your own website speak your content - with a single line of code. Hassle free.</p>
         <div style="flex: 1;min-height: 10px;"></div>
         <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="/plugin/" role="button" onclick="gtag('event', 'ttsreader_click_iosApp_body', {'value': 'home_page_body'});">Get the TTS-Plugin{{ i18n "start-dictating" }}</a>
         <br/>
       </div>&nbsp;&nbsp;
       <div class="col-sm card" style="display: flex;flex-direction: column">
-        <h4 class="h4">TTSReader Premium</h4>
+        <h3 class="h4">TTSReader Premium</h3>
         <p>Support our development team & enjoy ad-free better experience. Commercial users, publishers are required a premium license.</p>
         <div style="flex: 1;min-height: 10px;"></div>
-        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.upgrade }}" role="button" onclick="gtag('event', 'ttsreader_click_upgrade_body', {'value': 'home_page_body'});">Learn more on Premium{{ i18n "start-dictating" }}</a>
+        <a class="btn btn-outline-primary btn-lg px-4 mb-2" href="https://ttsreader.com/docs/support/pricing/#2-premium-plan" role="button" onclick="gtag('event', 'ttsreader_click_upgrade_body', {'value': 'home_page_body'});">Learn more on Premium{{ i18n "start-dictating" }}</a>
         <br/>
       </div>
     </div>
   </div>
 </section>
-
 
 <section id="about" class="section section-sm bg-light">
   <br/>
@@ -413,28 +348,63 @@
     <div style="max-width: 900px;margin: auto; font-size: larger; text-align: justify">
       <h2 class="h2 text-center" >About</h2>
       <br/>
-      <p>Online text-to-speech is TTSReader. Live read-aloud & export to audio. Supports plain text, documents, ebooks & webpages. Used for proofreading, learning, reading, and generating professional voice-overs, audio files for content and self-produced audiobooks. TTSReader is utilizing the world's leading natural-sounding AI voices. Zero onboarding. Persists your text & position, so you can seamlessly continue listening from where you last left off.
+        <p>TTSReader reads out loud texts, webpages, documents & ebooks with expressive AI voices. Works out of the box. Used by millions for home, education and business, to listen to texts, proofread, create audio content, voice-overs, audiobooks and more. No need to download or install. Simply click 'play' and enjoy listening right in your browser, or 'export' to download speech in MP3 format to take anywhere, offline, and publishing. TTSReader remembers your text and position between sessions, so you can continue listening right where you left. Recording the generated speech is supported as well. Works offline, so you can use it at home, in the office, on the go, driving or taking a walk. Listening to textual content using TTSReader enables multitasking, reading on the go, improved comprehension and more. With support for multiple languages, it can be used for unlimited <a href="/#use_cases">use cases</a>.</p>
+        <br/>
+        <p style="text-align: center"><a class="btn btn-outline-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.player }}" role="button" onclick="gtag('event', 'ttsreader_click_getstarted2_body', {'value': 'home_page_body'});">Get Started for Free{{ i18n "start-dictating" }}</a></p>
         <br/><br/>
-        Designed for multitasking, accessibility, convenience, and professional voice-overs generation. TTSReader empowers users to consume textual content anywhere — whether at home, work, on the road, or during a walk. It even supports offline playback and exporting speech to audio files.
-        With support for multiple languages, it can be used for unlimited <a href="/#use_cases">use cases</a>.</p>
-
-      <p style="margin-top: 2em;"><strong>💡 Perfect For:</strong></p>
-      <ul>
-        <li>Students, educators, bloggers, and authors</li>
-        <li>Multitasking: listen while working</li>
-        <li>Mastering new languages</li>
-        <li>Children enjoying story time or practicing reading</li>
-        <li>Anyone who loves to listen instead of read</li>
-        <li>Enhance reading comprehension by listening while following the text</li>
-        <li>Speed up reading by listening at fast speed</li>
-        <li>Video narrations & dubbing</li>
-        <li>Commercial voiceovers</li>
-      </ul>
-
-      <br/>
+      </div>
     </div>
+  </section>
 
-
+<section id="use_cases" class="section section-sm">
+        <br/><br/>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <h2>Main Use Cases</h2>
+      <div class="col-lg-5">
+        <h3 class="h4">Listen to great content</h3>
+        <p style="text-align: justify;">Most of the world's content is in textual form. Being able to listen to it - is huge! In that sense, TTSReader has a huge advantage over podcasts. You choose your content - out of an infinite variety - that includes humanity's entire knowledge and art richness. Listen to lectures, to PDF files. Paste or upload any text from anywhere, edit it if needed, and listen to it anywhere and anytime.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Proofreading</h3>
+        <p style="text-align: justify;">One of the best ways to catch errors in your writing is to listen to it being read aloud. By using TTSReader for proofreading, you can catch errors that you might have missed while reading silently, allowing you to improve the quality and accuracy of your written content. Errors can be in sentence structure, punctuation, and grammar, but also in your essay's structure, order and content.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Listen to web pages</h3>
+        <p style="text-align: justify;">TTSReader can be used to read out loud webpages in two different ways. 1. Using the <a href="/player/">regular player</a> - paste the URL and click play. The website's content will be imported into the player. (2) Using our <a href="" target="_blank">Chrome extension to listen to pages without leaving the page</a>.<br/>Listening to web pages with TTSReader can provide a more accessible, convenient, and efficient way of consuming online content.</p>
+      </div>
+    </div>
+    <br/>
+    <div class="row justify-content-center text-center">
+      <br/>
+      <div class="col-lg-5">
+        <h3 class="h4">Turn ebooks into audiobooks</h3>
+        <p style="text-align: justify;">Upload any ebook file of epub format - and TTSReader will read it out loud for you, effectively turning it into an audiobook alternative. You can find thousands of epub books for free, available for download on <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg's</a> site, which is an open library for free ebooks.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Read along for speed & comprehension</h3>
+        <p style="text-align: justify;">TTSReader enables read along by highlighting the sentence being read and automatically scrolling to keep it in view. This way you can follow with your own eyes - in parallel to listening to it. This can boost reading speed and improve comprehension.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Generate audio files from text</h3>
+        <p style="text-align: justify;">TTSReader enables exporting the synthesized speech with a single click. This is available currently only on Windows and requires <a href="/upgrade/">TTSReader’s premium</a>. Adhering to the <a href="https://ttsreader.com/blog/2017/05/10/commercial/">commercial terms</a> some of the voices may be used commercially for publishing, such as narrating videos.</p>
+      </div>
+    </div>
+      <br/>
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-5">
+        <h3 class="h4">Accessibility, dyslexia, etc.</h3>
+        <p style="text-align: justify;">For individuals with visual impairments or reading difficulties, listening to textual content, lectures, articles & web pages can be an essential tool for accessing & comprehending information.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Language learning</h3>
+        <p style="text-align: justify;">TTSReader can read out text in multiple languages, providing learners with listening as well as speaking practice. By listening to the text being read aloud, learners can improve their comprehension skills and pronunciation.</p>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="h4">Kids - stories & learning</h3>
+        <p style="text-align: justify;">Kids love stories! And if you can read them stories - it's definitely the best! But, if you can't, let TTSReader read them stories for you. Set the right voice and speed, that is appropriate for their comprehension level. For kids who are at the age of learning to read - this can also be an effective tool to strengthen that skill, as it highlights every sentence being read.</p>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -445,9 +415,10 @@
       <h2>Main Features</h2>
     </div>
 
-    <div class="box-simple" style="max-width: 900px;margin: auto; margin-top: 30px;">
+    <div class="box-simple" style="min-height: auto;max-width: 700px;margin: auto">
+      <h3>TTSReader is a free Text to Speech Reader that supports all modern browsers, including Chrome, Firefox and Safari.</h3>
       <p>
-        Easy to use - just drop the text & click play. Text follow-along & highlighting while reading out loud. Remembers text & caret position between sessions. Set font-size. Dark & light themes. Offline capabilities. And more:
+        Includes multiple languages and accents. If on Chrome - you will get access to Google's voices as well. Super easy to use - no download, no login required. Here are some more features
       </p>
 
       <br>
@@ -465,7 +436,7 @@
             <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
           </div>
           <h3>Fun, Online, Free. Listen to great content</h3>
-          <p>Drag, drop &amp; play (or directly copy text &amp; play). That’s it. No downloads. No onboarding. No fuss. Simply fun to use and listen to great content. Great for listening in the background. Great for proof-reading. Follow along with text-highlighting. Set preferred font-size & theme to make reading as comfortable as it can be. Great for kids and more.
+          <p>Drag, drop &amp; play (or directly copy text &amp; play). That’s it. No installs. Works on any browser & OS. Simply fun to use and listen to great content. Great for listening in the background. Great for proof-reading. Follow along with text-highlighting. Set preferred font-size & theme to make reading as comfortable as it can be. Great for kids and more.
 
           </p>
         </div>
@@ -493,7 +464,7 @@
             <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
           </div>
           <h3>Exit, Come Back &amp; Play from Where You Stopped</h3>
-          <p>TTSReader remembers the article and last position when paused, even if you close the browser. This way, you can come back to listening right where you previously left. Works on your browser and on mobile too. Ideal for listening to articles & stories.
+            <p>TTSReader remembers the article and last position when paused, even if you close the browser. This way, you can come back to listening right where you previously left. Works on Chrome &amp; Safari on mobile too. Ideal for listening to articles.
 
           </p>
         </div>
@@ -525,8 +496,8 @@
           <div class="icon">
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
           </div>
-          <h3>Read PDF Files, Books, Texts &amp; Websites</h3>
-          <p>TTSReader extracts the text from pdf & ebook files, and reads it out loud. Also useful for simply copying text from pdf to anywhere. In addition, it highlights the text currently being read - so you can follow with your eyes. This is great for speed and comprehension. You can also use it to read out loud web pages, by simply pasting the URL into the text area. It will extract the text from the page and read it out loud.
+            <h3>Read PDF Files, Texts &amp; Websites</h3>
+            <p>TTSReader extracts the text from pdf files, and reads it out loud. Also useful for simply copying text from pdf to anywhere. In addition, it highlights the text currently being read - so you can follow with your eyes. If you specifically want to listen to websites - such as blogs, news, wiki - you should get our free <strong><a href="/blog/2017/05/10/ttsreaderx/">extension for Chrome</a></strong>
 
           </p>
         </div>
@@ -540,8 +511,7 @@
             <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
           </div>
           <h3>Export Speech to Audio Files</h3>
-          <p>TTSReader enables exporting the synthesized speech to mp3 audio files. This is currently available only on Windows for premium users. We're working to make mp3 export available on other platforms as well. Great for generating video narrations and commercial voice-overs.
-
+          <p>TTSReader enables exporting the synthesized speech to mp3 audio files. Great for listening later, offline, generating video narrations, creating audiobooks, sharing and commercial voice-overs.
           </p>
         </div>
       </div>
@@ -549,79 +519,6 @@
     </div>
 
 
-  </div>
-</section>
-
-<section id="use_cases" class="section section-sm  section-sm bg-light">
-  <br/><br/>
-  <div class="container" >
-    <h3 style="text-align: center">Use Cases</h3>
-    <br/>
-    <div class="row justify-content-center text-center">
-
-      <div class="col-lg-5">
-        <h4 class="h4">Listen to great content</h4>
-        <p style="text-align: justify;">Most of the world's content is in textual form. Being able to listen to it - is huge! In that sense, TTSReader has a huge advantage over podcasts. You choose your content - out of an infinite variety - that includes humanity's entire knowledge and art richness. Listen to lectures, to PDF files. Paste or upload any text from anywhere, edit it if needed, and listen to it anywhere and anytime.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Proofreading</h4>
-        <p style="text-align: justify;">One of the best ways to catch errors in your writing is to listen to it being read aloud. By using TTSReader for proofreading, you can catch errors that you might have missed while reading silently, allowing you to improve the quality and accuracy of your written content. Errors can be in sentence structure, punctuation, and grammar, but also in your essay's structure, order and content.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Listen to web pages</h4>
-        <p style="text-align: justify;">TTSReader can be used to read out loud webpages in two different ways. 1. Using the <a href="/player/">regular player</a> - paste the URL and click play. The website's content will be imported into the player. (2) Using our <a href="" target="_blank">Chrome extension to listen to pages without leaving the page</a>.<br/>Listening to web pages with TTSReader can provide a more accessible, convenient, and efficient way of consuming online content.</p>
-      </div>
-    </div>
-    <br/>
-    <div class="row justify-content-center text-center">
-      <br/>
-      <div class="col-lg-5">
-        <h4 class="h4">Turn ebooks into audiobooks</h4>
-        <p style="text-align: justify;">Upload any ebook file of epub format - and TTSReader will read it out loud for you, effectively turning it into an audiobook alternative. You can find thousands of epub books for free, available for download on <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg's</a> site, which is an open library for free ebooks.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Read along for speed & comprehension</h4>
-        <p style="text-align: justify;">TTSReader enables read along by highlighting the sentence being read and automatically scrolling to keep it in view. This way you can follow with your own eyes - in parallel to listening to it. This can boost reading speed and improve comprehension.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Generate audio files from text</h4>
-        <p style="text-align: justify;">TTSReader enables exporting the synthesized speech with a single click. This is available currently only on Windows and requires <a href="/upgrade/">TTSReader’s premium</a>. Adhering to the <a href="https://ttsreader.com/blog/2017/05/10/commercial/">commercial terms</a> some of the voices may be used commercially for publishing, such as narrating videos.</p>
-      </div>
-    </div>
-    <br/>
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-5">
-        <h4 class="h4">Accessibility, dyslexia, etc.</h4>
-        <p style="text-align: justify;">For individuals with visual impairments or reading difficulties, listening to textual content, lectures, articles & web pages can be an essential tool for accessing & comprehending information.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Language learning</h4>
-        <p style="text-align: justify;">TTSReader can read out text in multiple languages, providing learners with listening as well as speaking practice. By listening to the text being read aloud, learners can improve their comprehension skills and pronunciation.</p>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="h4">Kids - stories & learning</h4>
-        <p style="text-align: justify;">Kids love stories! And if you can read them stories - it's definitely the best! But, if you can't, let TTSReader read them stories for you. Set the right voice and speed, that is appropriate for their comprehension level. For kids who are at the age of learning to read - this can also be an effective tool to strengthen that skill, as it highlights every sentence being read.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="company" class="section section-sm">
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <h3 class="h2 text-center" >Best Offering On The Market - Guaranteed!</h3>
-      <br/>
-      <p><b>TTSReader</b> Offers the best text-to-speech offering on the market. Best voices & player experience combined with the <strong>best premium-plan price</strong> available.</p>This is due to our text-player offering the best-in-class AI voices free of charge for limited use and a Premium upgrade offered at a fraction of a price
-      <p><b>Best Voices</b> - we bring the best AI voices in the world, by the leading tech giants - such as Microsoft, OpenAI, Google, ElevenLabs.</p>
-      <p><b>Best Price & Plan - by Far</b> -
-        We offer a free plan, including for the premium voices, for limited use.
-      </p>
-
-      <br/>
-
-      <p style="margin-top: 2em;"><strong>Company</strong></p>
-      <p><strong>TTSReader</strong> is developed and maintained by <a target="_blank" href="https://wellsrc.com/">WellSource Ltd.</a> as well as our sister apps  <a target="_blank" href="https://speechnotes.co/">Speechnotes (Speech to Text)</a>,  <a target="_blank" href="https://speechninja.co/">SpeechNinja - Type to Speak</a>,  <a target="_blank" href="https://speechlogger.com/">Speechlogger - Live Captioning</a>, and others.</p>
-    </div>
   </div>
 </section>
 
@@ -647,7 +544,7 @@
           <div class="text-center" style="margin-top: 30px;margin-bottom: -20px;">
             <img src="/images/buttonsLogo.webp" width="100px">
           </div>
-          <p class="h3">Kids Dictionary</p>
+          <p class="h3">Buttons - Kids Dictionary</p>
           <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Site.Params.links.buttons }}" role="button" onclick="gtag('event', 'ttsreader_click_buttons_body', {'value': 'home_page_body'});">Learn more{{ i18n "start-dictating" }}</a>
           <p class="h5">Turns your device into multiple push-buttons interactive games</p>
           <p class="meta">Animals, numbers, colors, counting, letters, objects and more. Different levels. Multilingual. No ads. Made by parents, for our own kids.</p>
@@ -669,64 +566,9 @@
   <br/>
 </section>
 
-
-{{ end }}
-
-
-
-{{ define "sidebar-prefooter" }}
-  {{ if eq $.Site.Language.LanguageName "English" }}
-
-<!--<section id="stories" class="section section-sm">
-  <div style="max-width: 95%;padding: 0 20px;margin: auto;">
-    <div class="row justify-content-center text-center">
-      <h3>Listen to Stories 📚</h3>
-      <p class="lead">This is NEW & EXCITING! Experimental - content library with some of the best stories ever written. Please try, share & tell us what you think! Need something else, like generating mp3 voice overs? Aid with speaking? Keep scrolling, or jump to our <a href="#portfolio">full text-to-speech portfolio</a>.</p>
-      <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" style="width: 600px;max-width: 100%;margin: 30px auto;">
-        <div class="carousel-indicators" style="position: absolute;bottom: -50px;">
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
-        </div>
-        <div class="carousel-inner">
-          {{- range ( where site.RegularPages "Section" "stories" | first 1 ) }}
-          <div class="carousel-item active" data-bs-interval="3000">
-            <a href="{{ .Permalink }}" class="card">
-              <p class="h5">{{ .Title }}</p>
-              <p>{{ .Params.intro }}</p>
-              <img src="{{ .Permalink }}/cover.webp">
-            </a>
-          </div>
-          {{ end }}
-          {{- range first 4 ( where site.RegularPages "Section" "stories" | after 1) }}
-          <div class="carousel-item" data-bs-interval="3000">
-            <a href="{{ .Permalink }}" class="card">
-              <p class="h5">{{ .Title }}</p>
-              <p>{{ .Params.intro }}</p>
-              <img src="{{ .Permalink }}/cover.webp">
-            </a>
-          </div>
-          {{ end }}
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>-->
-
   <br/><br/><br/><br/>
-  {{ end }}
-{{ end }}
 
+{{ end }}
 {{ define "sidebar-footer" }}
 <section class="section section-sm container-fluid">
   <div class="row justify-content-center text-center">
@@ -736,4 +578,3 @@
   </div>
 </section>
 {{ end }}
-

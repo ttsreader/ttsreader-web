@@ -3,7 +3,7 @@ title: "New Single-Click Export Text-to-Audio Feature"
 description: "Today, we launched a single-click export to MP3 / WAV file feature."
 excerpt: "Today, we launched a single-click export to MP3 / WAV file feature."
 date: 2025-05-08T09:19:42+01:00
-lastmod: 2025-05-08T09:19:42+01:00
+lastmod: 2025-08-03T09:19:42+01:00
 draft: false
 weight: 50
 images: []
@@ -16,7 +16,15 @@ homepage: true
 
 Continuing TTSReader's fast development, today we're launching a new feature - we've all been waiting for. Generate MP3 / WAV files from text - super fast with a single click. Available on [TTSReader's new text-to-speech reader](https://ttsreader.com/player/).
 
-Currently it has some limitations - such as up to 5k chars, without the ability to mix voices, but we're working on solving them as well. The vision is to be able to be able to create long, multi-voice narrations with a single click.
+<br/>
+
+Here's the short video showing it all in action:
+
+<div class="videowrapper">
+  <iframe style="display: block" src="https://www.youtube.com/embed/LXZPy8pop78?rel=0" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+
+<br/>
 
 The biggest advantage of the new development over the previous RECORD option is speed. While with RECORD you had to actually play the text in real time in order to record it, with the new export functionality it's generated on our server at a high speed. So generating 6 minutes of audio file, only takes about 20 seconds.
 

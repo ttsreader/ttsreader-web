@@ -1,5 +1,5 @@
 [[main]]
-  name = "Text Player"
+  name = "Player"
   url = "/player/"
   weight = 10
 
@@ -9,7 +9,7 @@
   weight = 12
 
 [[main]]
-  name = "AI Transcriber"
+  name = "Speech to Text"
   url = "https://speechnotes.co/transcribe/"
   weight = 13
 
@@ -19,74 +19,84 @@
   identifier = "tools"
 
   [[main]]
-    name = "Stories (Books)"
-    weight = 41
-    identifier = "stories"
-    url = "/stories/"
-    parent = "tools"
-  [[main]]
-    name = "User Manual"
-    weight = 41
-    identifier = "guide"
-    url = "/docs/guides/quick-start-new-player/"
-    parent = "tools"
-  [[main]]
-    name = "Portfolio"
-    weight = 42
-    identifier = "portfolio"
-    url = "/#portfolio"
-    parent = "tools"
-  [[main]]
     name = "Legacy Player"
-    weight = 42
+    weight = 41
     identifier = "legacy"
     url = "/legacy/"
     parent = "tools"
+
+  [[main]]
+    name = "Quick Start Guide"
+    weight = 42
+    identifier = "guide"
+    url = "/docs/guides/quick-start-new-player/"
+    parent = "tools"
+
   [[main]]
     name = "Mobile Apps"
     weight = 43
     identifier = "mobile"
     url = "/mobile/"
     parent = "tools"
+
   [[main]]
-    name = "Speechnotes - dictation & transcription"
+    name = "Beep Generator"
     weight = 44
-    identifier = "tools-speechnotes"
-    url = "https://speechnotes.co/"
+    identifier = "sounds"
+    url = "/sounds/"
     parent = "tools"
+
+  [[main]]
+    name = "Stories (Books)"
+    weight = 46
+    identifier = "stories"
+    url = "/stories/"
+    parent = "tools"
+
+  [[main]]
+    name = "SpeechNinja (AAC)"
+    weight = 45
+    identifier = "portfolio"
+    url = "/#portfolio"
+    parent = "tools"
+
   [[main]]
     name = "File converters"
-    weight = 45
+    weight = 47
     identifier = "tools-converters"
     url = "/converters/"
     parent = "tools"
+
   [[main]]
     name = "Pricing"
     weight = 49
     identifier = "pricing"
     url = "/docs/support/pricing/"
     parent = "tools"
+
   [[main]]
     name = "Docs"
     weight = 50
     identifier = "docs"
     url = "/docs/"
     parent = "tools"
+
   [[main]]
     name = "Blog, News & Updates"
-    weight = 50
+    weight = 51
     identifier = "blog"
     url = "/blog/"
     parent = "tools"
   [[main]]
     name = "Contact"
-    weight = 51
+    weight = 52
     identifier = "contact"
     url = "/contact/"
     parent = "tools"
   [[main]]
-    name = "Privacy & Terms"
+    name = "Privacy"
     weight = 60
-    identifier = "contact"
-    url = "/docs/legal/"
+    identifier = "privacy"
+    url = "https://ttsreader.com/docs/legal/privacy/"
     parent = "tools"
+

@@ -2,7 +2,7 @@
 title: "Quick Start Guide"
 description: "How to work with the new TTSReader player"
 date: 2023-04-17T13:59:39+01:00
-lastmod: 2025-05-14T13:59:39+01:00
+lastmod: 2025-08-03T13:59:39+01:00
 tags: ["guide", "user-manual", "text to speech", "tts", "player"]
 categories: ["guides"]
 contributors: ["Company"]
@@ -46,6 +46,12 @@ See here: [Generating Professional Voiceovers](/docs/guides/voiceover/)
 ## Download the Synthesized Speech as an mp3 Audio File
 
 ### First option - single click to export
+
+Here's the short video showing it all in action:
+
+<div class="videowrapper">
+  <iframe style="display: block" src="https://www.youtube.com/embed/LXZPy8pop78?rel=0" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
 
 See details here: [How to export to MP3 with a single click on TTSReader](/blog/new-single-click-export-text-to-audio-feature/)
 

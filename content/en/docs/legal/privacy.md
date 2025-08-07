@@ -2,7 +2,7 @@
 title: "Privacy Policy"
 description: "Privacy policy"
 date: 2023-04-17T13:59:39+01:00
-lastmod: 2025-05-14T13:59:39+01:00
+lastmod: 2025-07-30T13:59:39+01:00
 tags: ["terms", "legal", "privacy"]
 categories: ["legal"]
 contributors: ["Company"]
@@ -29,6 +29,12 @@ We at TTSReader value your privacy, and that's why we do not store anything you 
 * Sharing data with law enforcement or other authorities if we are required to do so by law, or if we believe in good faith that such action is necessary to comply with the law, protect our rights or property, or protect the safety of our users or the public.
 <br/>
 
+## Updates to this Privacy Policy
+
+As we keep developing our service, adding new features and adapting it to environment changes, technical changes, legal changes, and other changes, we may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on our website. You are advised to review this Privacy Policy periodically for any changes.
+
+<br/>
+
 ## More generic notes regarding our site, cookies, analytics, ads, etc.</h2>
 
 <ul>
@@ -39,9 +45,10 @@ We at TTSReader value your privacy, and that's why we do not store anything you 
 </ul>
 <br/>
 <br>
-<h3 id="general---your-text-data">General - Your Text Data</h3>
+<h3 id="general---your-text-data">General - Your Text Data & Exported Audio</h3>
 <ul>
 <li>We very much respect your privacy.</li>
+<li>Text sent to long-text-export, and its respective resulting audio file are stored on our server and are publicly accessible to anyone with the link. How are they kept private? The link itself has a coded password, which is visible only to you - unless you decide to share it. To keep your exported text & audio private - simply do not share the link.</li>
 <li>If you sign in, and choose to cloud-sync your text, then it is being stored on Google&rsquo;s Firebase database service, following their best practices to secure your data privately. No other users can access your data.</li>
 </ul>
 <br>

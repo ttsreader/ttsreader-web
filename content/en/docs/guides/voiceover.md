@@ -2,7 +2,7 @@
 title: "Generating Mp3 Files Voice Overs"
 description: "How to generate mp3 audio files, voiceovers, and mix multiple voices with TTSReader"
 date: 2023-08-21T13:59:39+01:00
-lastmod: 2025-05-09T13:59:39+01:00
+lastmod: 2025-08-05T08:59:39+01:00
 tags: ["guide", "user-manual", "text to speech", "tts", "voice over", "mp3", "wav", "voiceovers", "audio", "export", "record"]
 categories: ["guides"]
 contributors: ["Company"]
@@ -12,6 +12,8 @@ menu:
   docs:
     parent: "guides"
 weight: 120
+sitemap:
+  priority: 0.9
 toc: true
 keywords: ["text-to-speech", "mp3", "wav", "export text to mp3",  "export text to audio", "export text to wav", "download audio", "audio", "voiceover", "voice over", "mix voices", "combine voices", "combine languages", "combine speeds"]
 ---
@@ -19,6 +21,12 @@ keywords: ["text-to-speech", "mp3", "wav", "export text to mp3",  "export text t
 <br/>
 
 ## Quick Start
+
+Here's the short video showing it all in action:
+
+<div class="videowrapper">
+  <iframe style="display: block" src="https://www.youtube.com/embed/LXZPy8pop78?rel=0" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
 
 * Go to [ttsreader.com/player/](https://ttsreader.com/player/)
 * Paste your text
