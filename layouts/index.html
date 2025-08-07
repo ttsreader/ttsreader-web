@@ -262,6 +262,15 @@
 
       <div class="col-md-5 col-sm-8 card">
         <br/>
+        <a target="_blank" style="color: white;background-color: black" class="btn btn-lg px-4 mb-2" href="/wiki/" role="button" onclick="gtag('event', 'ttsreader_click_wiki_body', {'value': 'home_page_body'});">WikiTTS</a>
+        <br/>
+        <a target="_blank" href="/wiki/" onclick="gtag('event', 'ttsreader_click_wiki_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/wikitts.jpg');"></div></a>
+        <br/>
+        <p class="meta">Listen to Wikipedia articles with premium AI voices for free. Over 100,000 articles already pre-synthesized to speech. Downloadable audio MP3.</p>
+      </div>
+      &nbsp;&nbsp;
+      <div class="col-md-5 col-sm-8 card">
+        <br/>
         <a target="_blank" style="color: white;background-color: #5d2f86" class="btn btn-lg px-4 mb-2" href="{{ .Site.Params.links.speechninja }}" role="button" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});">Type to Speak&nbsp;&rarr;{{ i18n "start-transcribing" }}</a>
         <br/>
         <a target="_blank" href="{{ .Site.Params.links.speechninja }}" onclick="gtag('event', 'ttsreader_click_speechninja_body', {'value': 'home_page_body'});"><div class="Preview-img" style="background-image: url('/images/screenshots/home/speechninja.webp');"></div></a>

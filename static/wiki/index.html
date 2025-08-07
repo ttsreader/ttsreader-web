@@ -1,0 +1,1548 @@
+<!--This version cleans up the text and prepares it for reading through text-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <meta charset="UTF-8">
+  <title>WikiTTS - Wiki Articles Read by Expressive AI Voices</title>
+  <meta name="description" content="Listen to Wikipedia articles read by expressive AI voices. More than 100,000 articles available. Powered by TTSReader's Text To Speech.">
+
+  <!-- Wikipedia core styles -->
+  <link rel="stylesheet" href="https://en.wikipedia.org/w/load.php?modules=mediawiki.skinning.content.parsoid&only=styles&skin=vector" />
+
+  <style>
+
+    .narrow-screens-only {
+      display: none;
+    }
+
+    html, body {
+      box-sizing: border-box;
+      max-width: 100vw;
+      max-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    audio {
+      position: sticky;
+      top: 0;
+      display: block;
+      margin: auto;
+    }
+
+    body {
+      background: #f8f9fa;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 16px;
+    }
+
+    #homepage p {
+      line-height: 2em;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #a2a9b1;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      color: #202122;
+    }
+
+    header input {
+      padding: 8px;
+      font-size: 14px;
+      width: 300px;
+      border: 1px solid #a2a9b1;
+      border-radius: 4px;
+      margin-top: 0.5em;
+    }
+
+
+
+    #mp-right {
+      background: white;
+      border: 1px solid #aaa;
+      padding: 1em;
+      border-radius: 4px;
+    }
+
+
+    #mp-right {
+      flex: 1 1 60%;
+      border-color: #cedff2;
+    }
+
+    .mp-h2 {
+      border: 1px solid #aaa;
+      background-color: #cef2e0;
+      border-color: #a3bfb1;
+      padding: 0.2em 0.4em;
+      font-size: 120%;
+      font-weight: bold;
+      font-family: inherit;
+      margin: 0.5em 0;
+    }
+
+    strong {
+      display: block;
+      margin: 1em 0 0.5em 0;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    #wiki-container p {
+      margin: 0.5em 0 1em 0;
+      line-height: 1.6;
+    }
+
+
+    #toc ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #toc li {
+      margin-bottom: 5px;
+    }
+
+    #toc a {
+      text-decoration: none;
+      color: #0645ad;
+    }
+
+    #toc a:hover {
+      text-decoration: underline;
+    }
+
+    #wiki-container {
+      padding: 1em;
+    }
+
+    #suggestions-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #ccc;
+      border-top: none;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+      z-index: 10;
+      border-radius: 0 0 4px 4px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    #suggestions-results li {
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    #suggestions-results li:hover {
+      background-color: #f0f0f0;
+    }
+
+    #json-sentences {
+      flex: 1;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+      padding: 1em;
+    }
+
+    #wiki-panel {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1em;
+      border-left: 1px solid #cedff2;
+    }
+
+    .wordSpan:hover {
+      background-color: yellow;
+    }
+
+    #tooltip {
+      position: absolute;
+      background: #222;
+      color: #fff;
+      padding: 4px 8px;
+      font-size: 12px;
+      border-radius: 4px;
+      display: none;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    #mp-upper {
+      display: flex;
+      flex-direction: row;
+      width: 100vw;
+      height: calc(100vh - 100px);
+      overflow: hidden; /* default for desktop */
+    }
+
+    #left-Wiki-panel {
+      max-height: calc(100vh - 100px);
+      overflow-x: hidden;
+      overflow-y: scroll;
+      max-width: 95%;
+      margin: auto;
+      width: 330px;
+      text-align: center;
+      padding: 1em;
+      line-height: 2em;
+    }
+
+    #wiki-panel {
+      width: 700px;
+      max-width: 90%;
+      margin: auto;
+      overflow-y: auto;
+      max-height: calc(100vh - 150px);
+    }
+
+    #wiki-panel span[data-timestamp] {
+      cursor: pointer;
+    }
+
+    @media (max-width: 666px) {
+
+      .narrow-screens-only {
+        display: block;
+      }
+
+      #mp-upper {
+        display: block;
+        height: auto;
+        overflow: auto; /* ✅ allow scroll on mobile */
+      }
+
+      #left-Wiki-panel,
+      #wiki-panel {
+        width: 100%;
+      }
+
+      .audio-wrapper.sticky {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #171a1d;
+        color: #eee;
+      }
+
+      header {
+        background: #1f1f1f;
+        border-color: #555;
+      }
+
+
+      #mp-right {
+        background-color: #0d1a27;
+        border-color: #082849;
+      }
+
+      .mp-h2 {
+        background-color: #104437;
+        border-color: #2f4d41;
+        color: #fff;
+      }
+
+      #suggestions {
+        background-color: #333;
+        color: #fff;
+        border-color: #666;
+      }
+
+      #suggestions li:hover {
+        background-color: #444;
+      }
+    }
+
+    .hover-highlight {
+      background-color: yellow !important;
+    }
+
+
+    .form-button {
+      margin-top: 1em;
+      padding: 0.6em 1.2em;
+      background-color: #8b0000;
+      color: white; !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .form-button:hover {
+      background-color: #a40000;
+    }
+
+    #left-Wiki-panel,
+    #wiki-panel {
+      overflow-y: scroll;
+    }
+
+    .no-audio-msg {
+      margin: 0.5em 0;
+      font-size: 1em;
+    }
+
+    .ttsreader-btn {
+      display: inline-block;
+      background-color: #007bff;
+      color: white;
+      padding: 0.6em 1.2em;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 1em auto; /* centers horizontally */
+      text-align: center; /* centers text inside */
+    }
+
+    #left-Wiki-panel .form-button,
+    #left-Wiki-panel .form-button:visited,
+    #left-Wiki-panel .form-button:hover,
+    #left-Wiki-panel .form-button:active {
+      color: white !important;
+    }
+
+
+  .error {
+      color: red;
+    }
+  </style>
+  <!-- === HOMEPAGE ONLY STYLES === -->
+  <style>
+    #homepage {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .logo {
+      vertical-align: middle;
+      max-width: 50px;
+      margin: 10px;
+    }
+
+    #homepage #search-container {
+      position: relative;
+      width: 500px;
+      max-width: 90%;
+    }
+
+    #search-homepage {
+      width: 500px;
+      max-width: 90%;
+      padding: 12px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    #suggestions-homepage {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #ccc;
+      border-top: none;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 10;
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    #suggestions-homepage li {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    #suggestions-homepage li:hover {
+      background-color: #f0f0f0;
+    }
+
+    .sample-articles-list a {
+      display: inline-block;
+      margin: 0 3px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="homepage" style="display: none;">
+  <h1><img class="logo" src="favicon2.svg" alt="WikiTTS Logo"> WikiTTS</h1>
+  <div id="search-container">
+    <input id="search-homepage" type="text" placeholder="Search articles (e.g. Albert Einstein)" autocomplete="off">
+    <ul id="suggestions-homepage"></ul>
+  </div>
+  <br/>
+  <p style="text-align: center; line-height: 2em;">Listen to Wikipedia articles read by expressive AI voices. More than 100,000 articles available.
+    <br/>Powered by <a href="https://ttsreader.com/" target="_blank">TTSReader's Text To Speech</a>.
+  </p>
+  <br/>
+  <p>Some Popular Articles</p>
+  <p class="sample-articles-list" style="text-align: center">
+    <a href="?article=Albert_Einstein" class="sample-article" data-title="Albert_Einstein">Albert Einstein</a>
+    <a href="?article=United_States" class="sample-article" data-title="USA">USA</a>
+    <a href="?article=Isaac_Newton" class="sample-article" data-title="Isaac_Newton">Isaac Newton</a>
+    <a href="?article=Leonardo_da_Vinci" class="sample-article" data-title="Leonardo_da_Vinci">Leonardo da Vinci</a>
+    <a href="?article=World_War_II" class="sample-article" data-title="WW2">WW2</a>
+    <a href="?article=The_Beatles" class="sample-article" data-title="WW2">The Beatles</a>
+    <a href="?article=Galileo_Galilei" class="Galileo_Galilei" data-title="Galileo_Galilei">Galileo Galilei</a>
+  </p>
+</div>
+
+
+
+<div id="results-view" style="display: none;">
+
+  <header>
+    <h1 onclick="window.location.href='?'" style="cursor: pointer;"><img src="favicon2.svg" alt="TTSReader Wiki Logo" style="vertical-align: middle;width: 50px; height: auto; margin-right: 1em;" />&nbsp;WikiTTS</h1>
+    <div style="position: relative; width: 300px;">
+      <input id="search-results" type="text" placeholder="Enter Wikipedia article (e.g. Albert_Einstein)" />
+      <ul id="suggestions-results"></ul>
+    </div>
+  </header>
+
+  <div id="mp-upper" class="mp-container">
+    <!-- LEFT PANEL -->
+    <div id="left-Wiki-panel">
+      <div id="audio-panel" style="
+        max-width: 90%;
+        margin: auto;
+        background: #ffffff;
+        padding: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      "></div>
+      <template id="no-audio-template">
+        <p class="no-audio-msg">🔇 No audio available for this article. But no worries!</p>
+        <p class="no-audio-msg">You can still listen to this article via TTSReader's web reader:</p>
+        <div style="text-align: center;">
+          <a class="ttsreader-btn" target="_blank">▶️ Open in TTSReader WebPlayer</a>
+        </div>
+      </template>
+      <div id="share-wiki-link" style="width: 100%;">
+        <p style="margin: 0 0 0.25em 0; font-size: 0.9em;">
+          Copy the following link to share.
+        </p>
+        <div style="
+      position: relative;
+      display: inline-block;
+      padding: 3px 8px;
+      border: 1px solid gray;
+      cursor: pointer;
+      overflow: auto;
+      max-width: 100%;
+    ">
+      <span id="share-link" style="
+        white-space: nowrap;
+        display: block;
+        overflow: auto;
+        font-size: 0.9em;
+        line-height: 1.2;
+      " onclick="copyShareLink()"></span>
+        </div>
+      </div>
+      <button id="wiki-button" style="margin-top: 1em; width: 100%;">🔗 Source Wikipedia Article</button>
+      <button id="license-button" style="position: relative; width: 100%;">ℹ️ License</button>
+      <span id="license-tooltip" style=" display: none;  position: absolute;  top: 100%;  left: 0;  background: #5777ba;
+      color: white;  padding: 5px 8px;  border-radius: 4px;  font-size: 0.9em;  white-space: nowrap;  z-index: 999;">
+        License info</span>
+      <br/><br/>
+      <a id="feedback-button" class="form-button" href="https://forms.gle/AsCTP6tDif6CQovG7" target="_blank" style="margin-top: 1em;">
+        Feedback
+      </a>
+      <p>By <a href="https://ttsreader.com/player/" target="_blank">TTSReader's Text To Speech</a> with ❤️</p>
+
+      <br/>
+    </div>
+
+
+
+    <!-- RIGHT PANEL -->
+    <div id="wiki-panel">
+      <div id="tts-output" style="max-width: 750px;margin: auto;padding: 10px;">Checking for Summary...</div>
+      <div id="wiki-container" style="max-width: 750px;margin: auto;padding: 10px;">Loading article...</div>
+    </div>
+  </div>
+
+  <div id="license-overlay" style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  ">
+    <div style="
+      background: white;
+      padding: 2em;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      position: relative;
+    ">
+      <button id="close-license" style="position: absolute; top: 10px; right: 10px;">✖</button>
+      <h3>License</h3>
+      <p style="text-align: center"><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">
+        CC BY-SA 4.0
+      </a></p>
+      <p>
+        Use it for free for any purpose as long as you provide attribution with a link to <a href="https://ttsreader.com/" target="_blank">TTSReader Text To Speech</a>
+      </p>
+      <p>You may copy the following HTML snippet to your website:</p>
+      <pre style="max-width: 80%;margin: auto;overflow: scroll;padding: 15px; padding-top: 0; border: 1px solid gray;"><code>
+Audio generated by &lt;a href="https://ttsreader.com/" target="_blank"&gt;TTSReader Text To Speech&lt;/a&gt; under CC-BY-SA 4.0 license.
+</code></pre>
+    </div>
+  </div>
+
+  <div id="tooltip"></div>
+
+  <div id="sticky-audio-wrapper">
+    <!-- This section is inserted dynamically -->
+  </div>
+
+  <p class="narrow-screens-only" onclick="stopAllAudio();" style="position: fixed;z-index:99;bottom: 0; right: 0; left: 0;text-align: center;background-color: navajowhite;margin: 0;padding: 10px;">⬛ Stop Playback</p>
+</div>
+<script>
+
+  function stopAllAudio() {
+    const audios = document.querySelectorAll("audio");
+    audios.forEach(audio => {
+      audio.pause();
+    });
+    // Scroll to top of the page
+    window.scrollTo(0, 0);
+  }
+
+  async function fetchConsolidatedLog(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Failed to fetch consolidated log: ${res.statusText}`);
+
+    const text = await res.text();
+    const lookup = {};            // Title → { voice: synthesisId }
+    const lowercaselookup = {};   // title.toLowerCase() → Title
+
+    text.trim().split('\n').forEach(line => {
+      const [title, synthesisId, voice] = line.split(':');
+      const normalized = title.toLowerCase();
+
+      // Store in original-case lookup
+      if (!lookup[title]) lookup[title] = {};
+      lookup[title][voice] = synthesisId;
+
+      // Store lowercase → original-title mapping (only first match)
+      if (!lowercaselookup[normalized]) {
+        lowercaselookup[normalized] = title;
+      }
+    });
+
+    return { lookup, lowercaselookup };
+  }
+
+  let consolidatedLog, lowercaseLog;
+
+  let consolidatedLogPromise = (async () => {
+    try {
+      ({lookup: consolidatedLog, lowercaselookup:lowercaseLog} = await fetchConsolidatedLog("https://ttsreaderstorage.blob.core.windows.net/tts-outputs/EN-consolidated-log.txt"));
+    } catch (err) {
+      console.error("❌ Could not load consolidated log", err);
+    }
+  })();
+
+  function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function slugify(text) {
+    return text.toLowerCase().replace(/[^\w]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+
+  function generateTOC(container) {
+    tocContainer.innerHTML = "";
+    const headers = container.querySelectorAll("h2, h3");
+    if (headers.length === 0) {
+      tocContainer.innerHTML = "<p>No contents.</p>";
+      return;
+    }
+
+    const toggleBtn = document.getElementById("toggle-toc");
+    const tocEntries = document.getElementById("toc-entries");
+
+    function updateTOCToggleState() {
+      const isHidden = window.getComputedStyle(tocEntries).display === "none";
+      toggleBtn.textContent = isHidden ? "Show" : "Hide";
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      const isHidden = tocEntries.style.display === "none" || tocEntries.style.display === "";
+      tocEntries.style.display = isHidden ? "block" : "none";
+      updateTOCToggleState();
+    });
+
+    updateTOCToggleState();
+
+    const tocList = document.createElement("ul");
+    let currentSubList = null;
+
+    headers.forEach(header => {
+      const text = header.textContent.trim();
+      const id = slugify(text);
+      header.id = id;
+
+      const link = document.createElement("a");
+      link.href = `#${id}`;
+      link.textContent = text;
+
+      const listItem = document.createElement("li");
+      listItem.appendChild(link);
+
+      if (header.tagName === "H2") {
+        currentSubList = document.createElement("ul");
+        const parentLi = document.createElement("li");
+        parentLi.appendChild(link);
+        parentLi.appendChild(currentSubList);
+        tocList.appendChild(parentLi);
+      } else if (header.tagName === "H3" && currentSubList) {
+        currentSubList.appendChild(listItem);
+      }
+    });
+
+    tocContainer.appendChild(tocList);
+  }
+
+  function normalizeTextNodes(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+
+      node.textContent = node.textContent
+              .replace(/–|—/g, " - ")                     // Normalize dashes
+              .replace(/…/g, "...")                       // Replace ellipsis
+              .replace(/\s([.,!?;:])/g, "$1")             // Remove space before punctuation
+              .replace(/([.,!?;:])(?=\S)/g, "$1 ")        // Add space after punctuation
+              .replace(/(\.)(?=[A-Z])/g, ". ")            // Ensure space after period
+              .replace(/\s{2,}/g, " ");                   // Collapse whitespace
+    }
+  }
+
+  function sanitizeForTTS(container) {
+    // 1. Remove reference links like [1], [a], etc.
+    container.querySelectorAll("sup, .reference, .mw-cite-backlink").forEach(el => el.remove());
+
+    // 2. Remove edit buttons, metadata, hidden or math elements
+    container.querySelectorAll(".mw-editsection, .metadata, .noprint, .mwe-math-element, .hatnote, .ambox").forEach(el => el.remove());
+
+    // 3. Remove tables and layout containers
+    container.querySelectorAll("table, .infobox, .navbox, .reflist, .reference, .sidebar").forEach(el => el.remove());
+
+    // 4. Remove figures and thumbnails
+    container.querySelectorAll("figure, figcaption, .thumb, .gallery, .tright, .tleft").forEach(el => el.remove());
+
+    // 5. Flatten headings into inline text
+    container.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(el => {
+      const span = document.createElement("strong");
+      span.textContent = el.textContent.trim() + ": ";
+      el.replaceWith(span);
+    });
+
+    // 6. Remove script and style tags
+    container.querySelectorAll("script, style").forEach(el => el.remove());
+
+    // 7. Remove parentheses with mostly digits/symbols (e.g., "(1978)", "(†)", "(TV)", etc.)
+    container.innerHTML = container.innerHTML.replace(/\(([^a-zA-Z]{1,10})\)/g, "");
+
+    // 8. Remove extra or repeated whitespace
+    container.innerHTML = container.innerHTML.replace(/\s{2,}/g, " ").trim();
+
+    // 9. Remove role="note" and aria-hidden="true" elements
+    container.querySelectorAll('[role="note"], [aria-hidden="true"]').forEach(el => el.remove());
+
+    // 10. Remove language switches and audio links (if any)
+    container.querySelectorAll('.interlanguage-link, .spoken-wikipedia').forEach(el => el.remove());
+
+    // 11. Normalize punctuation for better speech
+    normalizeTextNodes(container)
+  }
+
+
+  async function getImages(title) {
+    const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'TTSReaderBot/1.0 (https://ttsreader.com/contact)'
+      }
+    });
+    const data = await response.json();
+
+    return {
+      original: data.originalimage?.source || null,
+      thumbnail: data.thumbnail?.source || null
+    };
+  }
+
+
+  function removeTrailingSections(container) {
+    const cutoffTitles = [
+      "see also",
+      "references",
+      "notes",
+      "external links",
+      "citations",
+      "further reading",
+      "bibliography",
+      "other sources",
+      "primary source materials"
+    ];
+
+    const sections = Array.from(container.querySelectorAll("section"));
+
+    for (const section of sections) {
+      const headingText = section.textContent.trim().toLowerCase().split(":")[0];
+
+      if (cutoffTitles.includes(headingText)) {
+        section.remove();
+      }
+    }
+  }
+
+
+  async function fetchTextSummary(title) {
+    const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'TTSReaderBot/1.0 (https://ttsreader.com/contact)'
+      }
+    });
+    if (!response.ok) throw new Error("Summary not available");
+    const data = await response.json();
+    return data.extract; // ✅ clean TTS-friendly text
+  }
+
+  function downloadTextFile(text, filename) {
+    const blob = new Blob([text], {type: "text/plain"});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  async function downloadImage(url, filename) {
+    try {
+      const response = await fetch(url, {mode: "cors"});
+      const blob = await response.blob();
+
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl); // cleanup
+    } catch (err) {
+      console.error("Failed to download image:", err);
+    }
+  }
+
+  async function resolveAndLoadArticle(inputTitle) {
+
+    let lowerCaseInput = inputTitle.trim().replace(/\s+/g, "_").toLowerCase();
+    let normalizedTitle = inputTitle.trim().replace(/\s+/g, "_");
+    let originalTitle = lowercaseLog[lowerCaseInput]
+    if (!originalTitle) {
+      console.warn(`Title '${lowerCaseInput}' not found in lowercaseLog`);
+    }
+
+    if (consolidatedLog[originalTitle]) {
+      loadArticle(originalTitle);
+    }
+    else{
+      // Step 2: Try to resolve redirects from Wikipedia
+      try {
+        const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(normalizedTitle)}`;
+        const res = await fetch(summaryUrl, {
+          headers: {
+            'User-Agent': 'TTSReaderBot/1.0 (https://ttsreader.com/contact)'
+          }
+        });
+        if (!res.ok) throw new Error("No Wikipedia redirect found.");
+        const data = await res.json();
+
+        const convertedTitle = data.title?.replace(/\s+/g, "_");
+        if (!convertedTitle || convertedTitle.toLowerCase() === normalizedTitle.toLowerCase()) {
+          throw new Error("No redirect difference detected.");
+        }
+
+        // Step 3: Re-check the log with the converted title
+        if (consolidatedLog[convertedTitle]) {
+          console.log("2")
+          loadArticle(convertedTitle);
+          return;
+        }
+        const tooltip = document.getElementById("tooltip");
+        if (tooltip) {
+          tooltip.style.display = "none"; // ✅ hide it
+          tooltip.textContent = "";       // optional: clear old content
+        }
+        // Step 4: Fallback to Wikipedia using resolved title
+        console.log("3")
+        loadArticle(convertedTitle);
+      } catch (err) {
+        console.warn("Fallback to Wikipedia with original title due to error:", err.message);
+        console.log("4")
+        loadArticle(normalizedTitle);
+      }}
+  }
+
+  function fixLinksAndImages(container) {
+    container.querySelectorAll('a[href^="/wiki/"]').forEach(a => {
+      const article = a.getAttribute("href").replace("/wiki/", "").split("#")[0];
+      a.removeAttribute("href");
+      a.style.cursor = "pointer";
+      a.style.color = "#0645ad";
+      a.style.textDecoration = "underline";
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        searchInput.value = article;
+        resolveAndLoadArticle(article);
+      });
+    });
+
+    container.querySelectorAll('img').forEach(img => {
+      if (img.src.startsWith("//")) {
+        img.src = "https:" + img.src;
+      }
+    });
+  }
+
+  function createSpanFromJson(entry, jsonIndex, fullText, startSearchIndex, nodeMap) {
+    const targetText = entry.Text.trim();
+    const index = fullText.indexOf(targetText, startSearchIndex);
+
+    if (index === -1) {
+      console.warn("Text not found:", targetText);
+      return null;
+    }
+
+    const endIndex = index + targetText.length;
+
+    const span = document.createElement("span");
+    const start = entry.AudioOffset / 1000;
+    const end = (entry.AudioOffset + entry.Duration) / 1000;
+    const minutes = Math.floor(start / 60);
+    const seconds = Math.floor(start % 60).toString().padStart(2, "0");
+    const timestamp = `${minutes}:${seconds}`;
+
+    span.className = "wordSpan";
+    span.setAttribute("data-s", start.toFixed(3));
+    span.setAttribute("data-e", end.toFixed(3));
+    span.setAttribute("data-j", jsonIndex);
+    span.setAttribute("data-t", entry.Text);
+    span.setAttribute("data-timestamp", timestamp);
+    //span.textContent = entry.Text;
+
+    span.addEventListener("mouseenter", () => {
+      span.style.backgroundColor = "yellow";
+    });
+    span.addEventListener("mouseleave", () => {
+      span.style.backgroundColor = "";
+    });
+
+    // Find the matching nodeMap entry
+    const matchingNode = nodeMap.find(n => n.start === index && n.end === endIndex);
+
+    return {
+      start: index,
+      end: endIndex,
+      text: targetText,
+      span,
+      ...(matchingNode || {})
+    };
+  }
+
+  function normalizeText(text) {
+    return text
+            .replace(/\s+/g, " ")   // Replace all sequences of whitespace (including newlines) with a single space
+            .trim();                // Remove leading and trailing whitespace
+  }
+
+  function findFirstDifference(a, b) {
+    const minLen = Math.min(a.length, b.length);
+    for (let i = 0; i < minLen; i++) {
+      if (a[i] !== b[i]) {
+        return {index: i, aChar: a[i], bChar: b[i]};
+      }
+    }
+    return a.length !== b.length
+            ? {index: minLen, aChar: a[minLen], bChar: b[minLen]}
+            : null;
+  }
+
+
+  function checkTextIsTheSame(htmlText, jsonText) {
+    const normalizedJsonText = normalizeText(jsonText);
+    const normalizedHtmlText = normalizeText(htmlText);
+
+    if (normalizedJsonText === normalizedHtmlText) {
+      return true
+    } else {
+      console.warn("❌ The JSON and HTML texts do NOT match.");
+    }
+  }
+
+
+  function getTagPath(node, stopAt) {
+    const path = [];
+    let current = node.parentElement;
+    while (current && current !== stopAt) {
+      path.unshift(current.tagName.toLowerCase());
+      current = current.parentElement;
+    }
+    return path.join(" > ");
+  }
+
+
+  function buildHtmlTextIndex(container) {
+    const blocks = container.querySelectorAll("p, h1, h2, h3, h4, h5, h6");
+    const nodeMap = [];
+    let fullText = '';
+    let currentOffset = 0;
+
+    function processNodeList(nodeList, parentBlock) {
+      let allText = '';
+      const textNodes = Array.from(nodeList).filter(node => node.nodeType === Node.TEXT_NODE);
+      nodeList.forEach(node => {
+        allText += node.textContent || '';
+      });
+      nodeList.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent;
+          const start = currentOffset;
+          fullText += text;
+          const end = currentOffset + text.length;
+          currentOffset = end;
+          nodeMap.push({
+            start,
+            end,
+            text,
+            node,
+            parentBlock,
+            parentElement: node.parentElement,
+            tagPath: getTagPath(node, container),
+            outerHTML: node.parentElement?.outerHTML || ""
+          });
+
+        } else {//if (node.nodeType === Node.ELEMENT_NODE) {
+          processNodeList(node.childNodes, parentBlock);
+        }
+      });
+    }
+
+    blocks.forEach(block => {
+      processNodeList(block.childNodes, block);
+      // Add a space to match block separation (optional)
+      fullText += ' ';
+      currentOffset += 1;
+    });
+
+    return {fullText, nodeMap};
+  }
+
+  function reconstructHtml(containerElement) {
+    // This clones the DOM subtree to avoid modifying the original
+    const clone = containerElement.cloneNode(true);
+
+    //Optional: remove any debug-only attributes or classes from spans
+    clone.querySelectorAll("span.wordSpan").forEach(span => {
+      span.removeAttribute("data-j");
+      span.removeAttribute("data-t");
+      // span.removeAttribute("data-timestamp");
+      // You can keep or clean class name depending on your needs
+    });
+
+    return clone.innerHTML;
+  }
+
+  function visualizeWhitespace(str) {
+    return str
+            .replace(/\n/g, "\\n⏎")
+            .replace(/\t/g, "\\t⇥")
+            .replace(/ /g, "·"); // Middle dot for spaces
+  }
+
+  function annotateHtmlWithSpans(nodeMap, spanList) {
+    for (const {node, start: nodeStart, end: nodeEnd} of nodeMap) {
+      const parent = node.parentNode;
+      if (!parent) continue;
+
+      const nodeText = node.textContent;
+      const frag = document.createDocumentFragment();
+      let cursor = 0;
+
+      // Get all spans that overlap this node
+      const overlaps = spanList.filter(({start, end}) =>
+              !(end <= nodeStart || start >= nodeEnd)
+      );
+
+      if (overlaps.length === 0) continue;
+
+      for (const span of overlaps) {
+        const spanStart = span.start;
+        const spanEnd = span.end;
+
+        // Compute relative positions within the node text
+        const relStart = Math.max(0, spanStart - nodeStart);
+        const relEnd = Math.min(nodeText.length, spanEnd - nodeStart);
+
+        // Add text before the span
+        if (relStart > cursor) {
+          frag.appendChild(document.createTextNode(nodeText.slice(cursor, relStart)));
+        }
+
+        // Clone and insert the span
+        const spanClone = span.span.cloneNode(true);
+        spanClone.textContent = nodeText.slice(relStart, relEnd);
+        frag.appendChild(spanClone);
+
+        cursor = relEnd;
+      }
+
+      // Add remaining text after last span
+      if (cursor < nodeText.length) {
+        frag.appendChild(document.createTextNode(nodeText.slice(cursor)));
+      }
+
+      // Replace the original node
+      parent.replaceChild(frag, node);
+    }
+  }
+
+  function highlightCurrentSpan(currentTime) {
+    const spans = document.querySelectorAll("#wiki-container .wordSpan");
+
+    // First, remove highlights from all
+    spans.forEach(span => {
+      span.classList.remove("hover-highlight");
+    });
+
+    // Then, add highlight to all matching spans
+    let found = false;
+    spans.forEach(span => {
+      const start = parseFloat(span.getAttribute("data-s"));
+      const end = parseFloat(span.getAttribute("data-e"));
+      if (currentTime >= start && currentTime <= end) {
+        span.classList.add("hover-highlight");
+        if (!found) {
+          span.scrollIntoView({behavior: "smooth", block: "center"});
+          found = true;
+        }
+      }
+    });
+  }
+
+  function updateShareLink() {
+    const shareSpan = document.getElementById("share-link");
+    if (shareSpan) {
+      shareSpan.textContent = window.location.href;
+    }
+  }
+
+
+  function loadArticle(title, pushToHistory = true) {
+    const endpoint = `https://en.wikipedia.org/api/rest_v1/page/html/${encodeURIComponent(title)}`;
+
+    contentContainer.innerHTML = "Loading article...";
+    if (pushToHistory) {
+      history.pushState({title}, "", `?article=${encodeURIComponent(title)}`);
+    }
+    const normalizedTitle = title.trim().replace(/\s+/g, "_");
+
+      if (consolidatedLog[normalizedTitle]) {
+        // Set feedback button for Azure
+        const feedbackBtn = document.getElementById("feedback-button");
+        if (feedbackBtn) {
+          feedbackBtn.href = "https://forms.gle/AsCTP6tDif6CQovG7"; // Azure form
+          feedbackBtn.textContent = "Feedback";
+        }
+        const voices = consolidatedLog[normalizedTitle];
+        const audioSection = document.getElementById("audio-panel");
+
+        audioSection.querySelectorAll("audio").forEach(audio => {
+          try {
+            audio.pause(); // attempt to stop
+            audio.src = ""; // clear source
+            audio.remove(); // remove element
+          } catch (err) {
+            console.warn("Audio pause error:", err);
+          }
+        });
+
+        for (const [voice, synthesisId] of Object.entries(voices)) {
+          const audioUrl = `https://ttsreaderstorage.blob.core.windows.net/tts-outputs/${encodeURIComponent(normalizedTitle)}/${synthesisId}/0001.mp3`;
+
+          // Create the main vertical wrapper
+          const audioWrapper = document.createElement("div");
+          audioWrapper.style.marginBottom = "1em";
+          audioWrapper.classList.add("audio-wrapper");
+          audioWrapper.classList.add("sticky");
+
+// First row: label only
+          const topRow = document.createElement("div");
+          topRow.style.marginBottom = "0.5em";
+          topRow.style.fontWeight = "bold";
+
+          let voiceNames = {
+            "MaleJohn": "John",
+            "FemaleNova": "Nova",
+          }
+
+          topRow.textContent = `${voice.replace("Male", "👨 ").replace("Female", "👩 ")}`;
+
+// Second row: audio and download button side by side
+          const audioRow = document.createElement("div");
+
+          // Audio element
+          const audio = document.createElement("audio");
+          audio.controls = true;
+          audio.src = audioUrl;
+
+          audio.addEventListener("timeupdate", () => {
+            const currentTime = audio.currentTime;
+            highlightCurrentSpan(currentTime);
+          });
+
+
+          audio.addEventListener("play", () => {
+            if (activeAudio && activeAudio !== audio) {
+              activeAudio.pause();
+            }
+            activeAudio = audio;
+          });
+          if (!activeAudio) activeAudio = audio;
+
+// Download link and button
+          const downloadLink = document.createElement("a");
+          downloadLink.href = audioUrl;
+          downloadLink.download = "";
+          downloadLink.target = "_blank";
+          downloadLink.title = "Download this audio file, share it, listen to it on the go";
+          downloadLink.innerText = "Download MP3";
+          downloadLink.style.marginLeft = "10px";
+          downloadLink.style.textDecoration = "none";
+          downloadLink.style.fontWeight = "regular";
+
+// Assemble
+          audioRow.appendChild(audio);         // left
+          audioWrapper.appendChild(topRow);   // label row
+          audioWrapper.appendChild(audioRow); // audio + download row
+          audioSection.appendChild(audioWrapper);
+
+          topRow.appendChild(downloadLink);
+        }
+
+
+        const summaryEl = document.getElementById("tts-output");
+        const azureSummaryTextURL = `https://ttsreaderstorage.blob.core.windows.net/tts-outputs/${encodeURIComponent(normalizedTitle)}/${Object.values(voices)[0]}/${encodeURIComponent(normalizedTitle)}_summary.txt`;
+        fetch(azureSummaryTextURL)
+                .then(res => {
+                  if (!res.ok) throw new Error("No summary on Azure");
+                  return res.text();
+                })
+                .then(text => {
+                  summaryEl.setAttribute("data-role", "summary");
+                  summaryEl.textContent = text;
+                })
+                .catch(() => {
+                  fetchTextSummary(title)
+                          .then(summary => {
+                            summaryEl.setAttribute("data-role", "summary");
+                            summaryEl.textContent = summary;
+                          })
+                          .catch(() => {
+                            summaryEl.textContent = `No TTS summary available for ${normalizedTitle}.`;
+                          });
+                });
+
+        const azurehtmlUrl = `https://ttsreaderstorage.blob.core.windows.net/tts-outputs/${encodeURIComponent(normalizedTitle)}/${Object.values(voices)[0]}/${encodeURIComponent(normalizedTitle)}.html`;
+        const timingJson = `https://ttsreaderstorage.blob.core.windows.net/tts-outputs/${encodeURIComponent(normalizedTitle)}/${Object.values(voices)[0]}/0001.sentence.json`;
+
+        Promise.all([
+          fetch(azurehtmlUrl).then(res => {
+            if (!res.ok) throw new Error("Failed to fetch HTML from Azure.");
+            return res.text();
+          }),
+          fetch(timingJson).then(res => {
+            if (!res.ok) throw new Error("Failed to fetch timing JSON.");
+            return res.json();
+          })
+        ])
+                .then(([html, sentenceTimingsJson]) => {
+                  const container = document.getElementById("wiki-container");
+                  container.innerHTML = html;
+                  let result = buildHtmlTextIndex(container);
+                  const jsonText = sentenceTimingsJson.map(entry => entry.Text.trim()).join(" ");
+                  const spanList = [];
+                  let currentSearchIndex = 0;
+                  for (let i = 0; i < sentenceTimingsJson.length; i++) {
+                    const entry = sentenceTimingsJson[i];
+                    const spanData = createSpanFromJson(entry, i, result.fullText, currentSearchIndex, result.nodeMap);
+                    if (spanData) {
+                      spanList.push(spanData);
+                      currentSearchIndex = spanData.end;
+                    }
+                  }
+                  annotateHtmlWithSpans(result.nodeMap, spanList)
+                  const cleanedHtml =
+                          container.innerHTML = reconstructHtml(container);
+                  const blockMatches = new Map();
+                })
+        updateShareLink()
+        return;
+      } else {
+        const audioPanel = document.getElementById("audio-panel");
+        const template = document.getElementById("no-audio-template");
+        const clone = template.content.cloneNode(true);
+        const link = clone.querySelector("a");
+        link.href = `https://ttsreader.com/webplayer/?url=https://en.wikipedia.org/wiki/${encodeURIComponent(normalizedTitle)}`;
+        audioPanel.innerHTML = "";
+        audioPanel.appendChild(clone);
+
+        const feedbackBtn = document.getElementById("feedback-button");
+        if (feedbackBtn) {
+          feedbackBtn.href = "https://docs.google.com/forms/d/e/1FAIpQLSfA2V9zQwxoWua2KflFRjWdOiunROELhnpcnhvVPFzbm7-ZxA/viewform?usp=header"; // Wikipedia fallback form
+          feedbackBtn.textContent = "🗣️ Want to Contribute? Fill out this form";
+        }
+
+
+      }
+
+      fetch(endpoint)
+              .then(response => {
+                if (!response.ok) throw new Error("Article not found.");
+                return response.text();
+              })
+              .then(html => {
+                contentContainer.innerHTML = html;
+                fixLinksAndImages(contentContainer);
+                sanitizeForTTS(contentContainer);
+                removeTrailingSections(contentContainer);
+              })
+              .catch(err => {
+                contentContainer.innerHTML = `<p class=\"error\">❌ ${err.message}</p>`;
+              });
+
+      fetchTextSummary(title)
+              .then(summary => {
+                const summaryEl = document.getElementById("tts-output");
+                summaryEl.setAttribute("data-role", "summary");
+                summaryEl.textContent = summary;
+              })
+              .catch(() => {
+                document.getElementById("tts-output").textContent = `No TTS summary available for ${title}.`;
+              });
+    updateShareLink()
+  }
+
+
+  // Step 1: Normalize title and check Azure log
+
+  function indicateAudioTime() {
+    const tooltip = document.getElementById("tooltip");
+
+    document.addEventListener("mousemove", (e) => {
+      tooltip.style.left = e.pageX + 10 + "px";
+      tooltip.style.top = e.pageY + 10 + "px";
+    });
+
+    document.addEventListener("mouseover", (e) => {
+      if (e.target.classList.contains("wordSpan")) {
+        const time = e.target.getAttribute("data-timestamp");
+        tooltip.textContent = `⏱️ ${time}`;
+        tooltip.style.display = "block";
+      }
+    });
+
+    document.addEventListener("mouseout", (e) => {
+      if (e.target.classList.contains("wordSpan")) {
+        tooltip.style.display = "none";
+      }
+    });
+
+  }
+
+  function copyShareLink() {
+    const shareSpan = document.getElementById("share-link");
+    const text = shareSpan?.textContent;
+    if (text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert(`Link copied to clipboard! \n\n${text}`);
+      }).catch(err => {
+        alert("Failed to copy link.");
+        console.error(err);
+      });
+    }
+  }
+
+  async function getConsolidatedLogBeforeMovingOn(article) {
+    console.log("initiating event listeners")
+    await consolidatedLogPromise;
+    await resolveAndLoadArticle(article);
+  }
+
+  function setupSearchSuggestions(inputId, suggestionsId, onSelectCallback) {
+    const input = document.getElementById(inputId);
+    const suggestionsBox = document.getElementById(suggestionsId);
+
+    input.addEventListener("input", async () => {
+      const query = input.value.trim();
+      if (!query) {
+        suggestionsBox.style.display = "none";
+        return;
+      }
+
+      const apiUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=${encodeURIComponent(query)}`;
+      const res = await fetch(apiUrl, {
+        headers: {
+          'User-Agent': 'TTSReaderBot/1.0 (https://ttsreader.com/contact)'
+        }
+      });
+      const data = await res.json();
+      const suggestions = data[1];
+
+      suggestionsBox.innerHTML = "";
+      suggestionsBox.style.display = suggestions.length ? "block" : "none";
+
+      suggestions.forEach(title => {
+        const li = document.createElement("li");
+        li.textContent = title;
+        li.addEventListener("click", () => {
+          suggestionsBox.style.display = "none";
+          onSelectCallback(title);
+        });
+        suggestionsBox.appendChild(li);
+      });
+    });
+
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        const query = input.value.trim();
+        if (query) {
+          onSelectCallback(query);
+        }
+      }
+    });
+
+    document.addEventListener("click", e => {
+      if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${suggestionsId}`)) {
+        suggestionsBox.style.display = "none";
+      }
+    });
+  }
+
+
+  function eventListeners(){
+    const searchInput = document.getElementById("search-results");
+
+    searchInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        const title = searchInput.value.trim();
+        if (title) resolveAndLoadArticle(title);
+      }
+    });
+    // searchInput.addEventListener("input", async () => {
+    //   const query = searchInput.value.trim();
+    //   if (!query) {
+    //     suggestionsBox.style.display = "none";
+    //     return;
+    //   }
+    //
+    //   const apiUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=${encodeURIComponent(query)}`;
+    //   const res = await fetch(apiUrl, {
+    //     headers: {
+    //       'User-Agent': 'TTSReaderBot/1.0 (https://ttsreader.com/contact)'
+    //     }
+    //   });
+    //   const data = await res.json();
+    //   const suggestions = data[1];
+    //
+    //   suggestionsBox.innerHTML = "";
+    //   suggestionsBox.style.display = suggestions.length ? "block" : "none";
+    //
+    //   suggestions.forEach(title => {
+    //     const li = document.createElement("li");
+    //     li.textContent = title;
+    //     li.addEventListener("click", () => {
+    //       searchInput.value = title;
+    //       suggestionsBox.style.display = "none";
+    //       resolveAndLoadArticle(title);
+    //     });
+    //     suggestionsBox.appendChild(li);
+    //   });
+    // });
+
+    //Click events
+    // Timer wordSpan clicks
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("wordSpan")) {
+        const seekTime = parseFloat(e.target.getAttribute("data-s"));
+        if (!isNaN(seekTime) && activeAudio) {
+          activeAudio.currentTime = seekTime;
+          activeAudio.play();
+        }
+      }
+    });
+    //Active search suggestions bar
+    // document.addEventListener("click", (e) => {
+    //   if (!e.target.closest("#search") && !e.target.closest("#suggestions")) {
+    //     suggestionsBox.style.display = "none";
+    //   }
+    // });
+
+    document.addEventListener("click", function (e) {
+      const link = e.target.closest('a[rel="mw:WikiLink"]');
+      if (link && contentContainer.contains(link)) {
+        e.preventDefault();
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("./")) {
+          const article = decodeURIComponent(href.replace("./", "").split("#")[0]);
+          searchInput.value = article;
+          resolveAndLoadArticle(article);
+        }
+      }
+    });
+    //Go to Original Wikipedia article
+    document.getElementById("wiki-button").addEventListener("click", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const article = urlParams.get('article');
+      if (article) {
+        const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(article)}`;
+        window.open(wikiUrl, "_blank");
+      } else {
+        alert("No article found in URL.");
+      }
+    });
+
+    // log and follow history
+    window.addEventListener("popstate", (event) => {
+      const title = event.state?.title || "Albert_Einstein";
+      resolveAndLoadArticle(title);
+    });
+
+    //License Handling
+    const licenseBtn = document.getElementById("license-button");
+    const licenseTooltip = document.getElementById("license-tooltip");
+    const overlay = document.getElementById("license-overlay");
+    const closeBtn = document.getElementById("close-license");
+    // Position tooltip under button change visual effects
+    licenseBtn.addEventListener("mouseenter", () => {
+      licenseTooltip.style.display = "block";
+    });
+    licenseBtn.addEventListener("mouseleave", () => {
+      licenseTooltip.style.display = "none";
+    });
+    // Show overlay on click
+    licenseBtn.addEventListener("click", () => {
+      overlay.style.display = "flex";
+    });
+    // Hide overlay on close
+    closeBtn.addEventListener("click", () => {
+      overlay.style.display = "none";
+    });
+    //Dom Finished loading
+    // document.addEventListener("DOMContentLoaded", () => {
+    //   const params = new URLSearchParams(window.location.search);
+    //   const article = params.get("article");
+    //
+    //   if (!article) {
+    //     // No article? Redirect to search interface or load it inline
+    //     window.location.href = "homepage.html"; // Option 1: Redirect to separate page
+    //   } else{
+    //     getConsolidatedLogBeforeMovingOn(article)
+    //   }
+    //   // Otherwise continue to load the article...
+    // });
+
+    //////////////////////////////////////////////
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const article = params.get("article");
+
+      const homepage = document.getElementById("homepage");
+      const resultsView = document.getElementById("results-view");
+      if (article) {
+        homepage.style.display = "none";
+        resultsView.style.display = "block";
+        searchInput.value = article;
+        getConsolidatedLogBeforeMovingOn(article);
+        setupSearchSuggestions("search-results", "suggestions-results", (title) => {
+          window.location.href = `?article=${encodeURIComponent(title)}`;
+        });
+        indicateAudioTime()
+      } else {
+        homepage.style.display = "flex";
+        resultsView.style.display = "none";
+
+        setupSearchSuggestions("search-homepage", "suggestions-homepage", (title) => {
+          window.location.href = `?article=${encodeURIComponent(title)}`;
+        });
+      }
+    });
+  }
+
+
+  let activeAudio = null;
+  const contentContainer = document.getElementById("wiki-container");
+  eventListeners()
+  //indicateAudioTime()
+
+</script>
+
+</body>
+</html>
