@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.5d5d3cbf.css",
-    "main.js": "/static/js/main.84e436d6.js",
+    "main.css": "/static/css/main.575f2327.css",
+    "main.js": "/static/js/main.5793358b.js",
     "hi.html": "/hi.html",
     "ru.html": "/ru.html",
     "ar.html": "/ar.html",
@@ -33,11 +33,11 @@
     "newUpgradeModal.it.html": "/newUpgradeModal.it.html",
     "newUpgradeModal.en.html": "/newUpgradeModal.en.html",
     "newUpgradeModal.zh.html": "/newUpgradeModal.zh.html",
-    "main.5d5d3cbf.css.map": "/static/css/main.5d5d3cbf.css.map",
-    "main.84e436d6.js.map": "/static/js/main.84e436d6.js.map"
+    "main.575f2327.css.map": "/static/css/main.575f2327.css.map",
+    "main.5793358b.js.map": "/static/js/main.5793358b.js.map"
   },
   "entrypoints": [
-    "static/css/main.5d5d3cbf.css",
-    "static/js/main.84e436d6.js"
+    "static/css/main.575f2327.css",
+    "static/js/main.5793358b.js"
   ]
 }

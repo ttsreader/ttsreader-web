@@ -626,6 +626,16 @@
           custom_id
         });
       }
+    } else if (sku === "SKU_TTSREADER_PREMIUM_PLUS_MONTHLY") {
+      paypal = paypalSubs;
+      config.onApprove = onApproveSub;
+      config.createSubscription = function (data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-01654138F1540764BNCKMCSI',
+          custom_id
+        });
+      }
     } else if (sku === "SKU_TTSREADER_PREMIUM_ANNUAL") {
       paypal = paypalSubs;
       config.onApprove = onApproveSub;
