@@ -33,6 +33,13 @@
     parent = "tools"
 
   [[main]]
+    name = "Podcasts"
+    weight = 42
+    identifier = "podcasts"
+    url = "/docs/guides/create-podcasts/"
+    parent = "tools"
+
+  [[main]]
     name = "Mobile Apps"
     weight = 43
     identifier = "mobile"
@@ -56,8 +63,8 @@
   [[main]]
     name = "SpeechNinja (AAC)"
     weight = 45
-    identifier = "portfolio"
-    url = "/#portfolio"
+    identifier = "speechninja"
+    url = "https://speechninja.co/"
     parent = "tools"
 
   [[main]]
@@ -86,6 +93,12 @@
     weight = 51
     identifier = "blog"
     url = "/blog/"
+    parent = "tools"
+  [[main]]
+    name = "Reviews"
+    weight = 51
+    identifier = "reviews"
+    url = "/reviews/"
     parent = "tools"
   [[main]]
     name = "Contact"

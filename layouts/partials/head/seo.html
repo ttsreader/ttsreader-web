@@ -13,7 +13,7 @@
 {{ if .IsHome -}}
   <title>{{ .Site.Params.title }}</title>
 {{ else -}}
-  <title>{{ .Title }} {{ .Site.Params.titleSeparator }} {{ .Site.Params.name }}</title>
+  <title>{{ .Title | strings.FirstUpper }} {{ .Site.Params.titleSeparator }} {{ .Site.Params.name }}</title>
 {{ end -}}
 
 {{ with .Description -}}

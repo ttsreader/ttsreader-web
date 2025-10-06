@@ -68,7 +68,11 @@ The plugin is lightweight, and loads only after the rest of your page is fully l
 ```
 
 2. Test
-3. That's it! Your site now has the TTSReader plugin.
+3. **That's it!** Your site now has the TTSReader plugin.
+4. Optional: Customizations - you can change the position of the widget by adding this code to your ````<head>```` section:
+    ````<style>.TTSPlugin.TTSPlugin-Playback-buttons-bar {bottom: 30%;}</style>````
+You can play with the position in ````%```` or ````px```` as you need.
+5. You can also have completely custom buttons - that you design, and we insert the functionality to them. This is of course more complex. Let us know in the form below if you need this.
 
 <br/>
 

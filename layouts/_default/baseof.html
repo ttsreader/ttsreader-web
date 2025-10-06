@@ -2,6 +2,7 @@
 <html lang="{{ .Site.Params.languageTag | default "en-US" }}">
   {{ if eq .Kind "home" -}}
     {{ partial "head/head-landing-page.html" . }}
+  {{ else if eq .Type "reviews" -}}  {{ partial "head/head-reviews-page.html" . }}
   {{ else -}}
     {{ partial "head/head.html" . }}
   {{ end -}}

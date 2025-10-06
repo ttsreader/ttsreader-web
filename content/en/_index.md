@@ -1,9 +1,9 @@
 ---
-title : "AI Text To Speech (TTS) Reader - Listen Online, Export & More"
-description: "Free text-to-speech for home, education, and businesses since 2015. Now with expressive AI voices — listen online, export, publish & more"
-lead: "Free text-to-speech for home, education, and businesses since 2015. Now with expressive AI voices — listen online, export, publish & more"
+title : "Text To Speech (TTS) Reader. Online. Accurate. Free."
+description: "Free online Text To Speech Reader. Accurate with natural voices, multilingual. Listen online, download speech & publish. Unlimited characters."
+lead: "Instantly turns any text to natural sounding speech for listening online or generating downloadable audio. Reads out loud any document, text, book & webpage."
 date:    2015-01-01T08:47:36+00:00
-lastmod: 2025-08-07T08:47:36+00:00
+lastmod: 2025-09-04T08:47:36+00:00
 draft: false
 images: []
 sitemap:

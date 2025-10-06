@@ -3,7 +3,7 @@ title: "Versions & Change Log"
 description: "Change log of TTSReader versions & links to stable, previous & preview versions"
 lead: "Change log of TTSReader versions & links to stable, previous & preview versions"
 date: 2025-06-04T08:50:23+02:00
-lastmod: 2025-06-17T08:50:23+02:00
+lastmod: 2025-10-06T08:50:23+02:00
 draft: false
 images: []
 sitemap:
@@ -18,23 +18,36 @@ Change log of TTSReader versions & links to stable, previous & preview versions.
 
 ## Latest Preview Version - Nightly Builds
 
-* **Player V3.6.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
+* **Player V3.9.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
 
 <br/>
 
 ## Latest Stable Version
 
-* **Player V3.6.0** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
+* **Player V3.9.0** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
 
   * Link to version: [https://ttsreader.com/player/](https://ttsreader.com/player/)
-  * Description: Export long texts to audio files.
+  * Description: Create personal podcast channel + UI improvements
   * Main Changes:
-    * Export long texts to audio MP3 files.
+    * Create personal podcast channel
+    * Added Christopher voice
+    * UI improvements
+    * Fixes
 
 <br/>
 
 
 ## Previous Versions
+
+
+
+* **Player V3.8.+** - [https://ttsreader.com/player@v3.8/](https://ttsreader.com/player@v3.8/)
+
+  * Link to version: [https://ttsreader.com/player@v3.8/](https://ttsreader.com/player@v3.8/)
+  * Description: Brings setters to one-click MP3 export
+  * Main Changes:
+    * Brings setters to one-click MP3 export
+
 
 * **Player V3.5.4** - [https://ttsreader.com/player@v3.5/](https://ttsreader.com/player@v3.5/)
 

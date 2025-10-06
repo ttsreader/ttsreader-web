@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-08-15T09:42:10.336Z",
-      "version": "3.8.6",
+      "dateModified": "2025-09-08T15:08:41.775Z",
+      "version": "3.8.9",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -49,7 +49,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.8.6 - Lettore di testo in voce di TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.8.9 - Lettore di testo in voce di TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -392,7 +392,7 @@
       display: inline; /* show the pause icon */
     }
   </style>
-<script defer src="/static/js/main.5793358b.js"></script><link href="/static/css/main.575f2327.css" rel="stylesheet"></head>
+<script defer src="/static/js/main.2bb80cde.js"></script><link href="/static/css/main.575f2327.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
@@ -520,7 +520,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.8.6</b> Build 2025-08-15T09:42:10.336Z
+          <b>V3.8.9</b> Build 2025-09-08T15:08:41.775Z
           <br/><span style="margin-top: 10px;display: block">TUTTE LE VERSIONI <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -1432,8 +1432,12 @@
         <br/>
         <button onclick="sendAnalyticsEvent('exportWAV');" class="Full-width-btn" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">Crea e scarica WAV (SOLO MENO DI 2.000 CARATTERI)</button>
       </div>
-      <br/>
-      <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank">Come stiamo andando? Facci sapere! Link al modulo di feedback</a></p>
+      <h3>Did you know? Learn more on:</h3>
+      <ul style="text-align: start; line-height: 1.7em;">
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with a few voices</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">Export, download & share your MP3 & text</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Recording on-the-fly</a></li>
+      </ul>
     </div>
   </div>
 
@@ -2603,6 +2607,8 @@
   });
 
   function openOnboarding() {
+    localStorage.setItem("ttsreader.wasOnboarding3", "true");
+    return;
     document.getElementById('onboardingModal').style.display = 'flex';
     localStorage.removeItem("ttsreader.wasOnboarding3");
   }

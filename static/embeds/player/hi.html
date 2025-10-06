@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi" data-test-audio-playing="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-dark-mode data-no-ads data-is-signed-out>
+<html dir="" lang="hi" data-test-audio-playing="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-dark-mode data-no-ads data-is-signed-out>
 <head>
   <script type="application/ld+json">
     {
@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-08-15T09:42:10.337Z",
-      "version": "3.8.6",
+      "dateModified": "2025-10-06T10:03:19.851Z",
+      "version": "3.9.0",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -41,15 +41,15 @@
   -->
   <link rel="manifest" href="manifest.json" />
   <!--
-    Notice the use of  in the tags above.
+    Notice the use of . in the tags above.
     It will be replaced with the URL of the `public` folder during the build.
     Only files inside the `public` folder can be referenced from the HTML.
 
-    Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+    Unlike "/favicon.ico" or "favicon.ico", "./favicon.ico" will
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.8.6 - TTSReader का टेक्स्ट टू स्पीच प्लेयर</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.9.0 - TTSReader का टेक्स्ट टू स्पीच प्लेयर</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -391,8 +391,33 @@
     .isPlaying .play-test-btn svg:nth-child(2) {
       display: inline; /* show the pause icon */
     }
+
+    /* Podcast description collapse/expand styles */
+    .podcast-description-collapsed {
+      max-height: 1.5em; /* Approximately 2 lines */
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-height: 1.4;
+      transition: max-height 0.3s ease;
+    }
+
+    .podcast-description-container.expanded .podcast-description-collapsed {
+      max-height: none;
+      -webkit-line-clamp: none;
+      display: block;
+    }
+
+    .podcast-description-toggle {
+      transition: color 0.2s ease;
+    }
+
+    .podcast-description-toggle:hover {
+      color: #66BB6A !important;
+    }
   </style>
-<script defer src="static/js/main.5793358b.js"></script><link href="static/css/main.575f2327.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.6f7977f7.js"></script><link href="./static/css/main.6bf3b418.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
@@ -462,7 +487,7 @@
         </div>
         <div>
           <a class="Menu-list-element" onclick="openOrCloseExportsListModal()" style="text-decoration:none;">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;MP3 निर्यात सूची
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;आपका जनित ऑडियो
           </a>
         </div>
         <a class="Menu-list-element" data-ws-toggle="#voicesModal" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
@@ -520,7 +545,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.8.6</b> Build 2025-08-15T09:42:10.337Z
+          <b>V3.9.0</b> Build 2025-10-06T10:03:19.851Z
           <br/><span style="margin-top: 10px;display: block">सभी संस्करण <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -868,13 +893,46 @@
         <h2>
           <svg style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg"  width="30"  height="30"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>
           &nbsp;
-          लंबे टेक्स्ट निर्यात सूची
+          आपका जनित ऑडियो फोल्डर
         </h2>
-        <p  style="text-align: center">Listen later, download and share your text & generated audio</p>
+        <p style="text-align: center">आपके जनित ऑडियो फ़ाइलों<sup>*</sup> की सूची बनाता है, ताकि आप उन्हें डाउनलोड, साझा या बाद में सुन सकें।</p>
+        <p style="font-size: 0.7em;font-weight: bold; opacity: 0.8; margin-top: -10px;"><sup>*</sup>&nbsp;MP3 निर्यात के लिए, जो 2k वर्णों से लंबे हैं। तब तक यहां रखे जाते हैं जब तक आपके पास प्रीमियम खाता है।</p>
         <div style="text-align: center">
           <button onclick="openOrCloseExportsListModal(true);" data-ws-toggle="#exportModal" style="text-decoration: none;cursor: pointer; color: white;background-color: darkgreen;text-transform: uppercase" class="Full-width-btn">+ टेक्स्ट से नया MP3 बनाने के लिए क्लिक करें</button>
         </div>
-        <p>डाउनलोड करने के लिए फ़ाइल आइटम पर क्लिक करें। कृपया इसे जल्द से जल्द अपने डिवाइस पर सहेजें क्योंकि फाइलें 30 दिनों में स्वतः हटाई जाएंगी।</p>
+        <!-- Podcast Channel URL Section -->
+        <div data-ws-show-if-state="podcast_main_channel_url=true" style="margin: 20px 0; padding: 15px; background-color: rgba(255,255,255,0.1); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <h3 style="margin: 0 0 10px 0; color: #fff; font-size: 16px;">
+            <svg style="vertical-align: middle;margin: 0 4px 5px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-building-broadcast-tower"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M16.616 13.924a5 5 0 1 0 -9.23 0" /><path d="M20.307 15.469a9 9 0 1 0 -16.615 0" /><path d="M9 21l3 -9l3 9" /><path d="M10 19h4" /></svg>
+            आपका व्यक्तिगत पॉडकास्ट चैनल
+          </h3>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <span data-ws-label-state="podcast_main_channel_url" style="flex: 1; min-width: 200px; font-family: monospace; background-color: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; word-break: break-all; color: #fff;"></span>
+            <button onclick="copyPodcastUrl(this)" style="background-color: #4CAF50; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 12px; text-transform: uppercase;" title="URL कॉपी करें">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+                <path d="M4 16c-1.1 0 -2 -.9 -2 -2V4c0 -1.1 .9 -2 2 -2h10c1.1 0 2 .9 2 2"></path>
+              </svg>
+              URL कॉपी करें
+            </button>
+          </div>
+        </div>
+
+        <!-- Podcast Channel Info (when no URL) -->
+        <div data-ws-show-if-state="podcast_main_channel_url=false" style="margin: 20px 0; padding: 15px; background-color: rgba(255,255,255,0.1); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <h3 style="margin: 0 0 10px 0; color: #fff; font-size: 16px;">
+            <svg style="vertical-align: middle;margin: 0 4px 5px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-building-broadcast-tower"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M16.616 13.924a5 5 0 1 0 -9.23 0" /><path d="M20.307 15.469a9 9 0 1 0 -16.615 0" /><path d="M9 21l3 -9l3 9" /><path d="M10 19h4" /></svg>
+            आपका व्यक्तिगत पॉडकास्ट चैनल
+          </h3>
+          <div class="podcast-description-container" style="position: relative;">
+            <div class="podcast-description-collapsed" style="overflow: hidden; line-height: 1.4;">
+              <span class="podcast-description-text">TTSReader आपके जनित भाषण को होस्ट करने के लिए एक व्यक्तिगत पॉडकास्ट चैनल बना सकता है, ताकि आप इसे अपनी पसंदीदा पॉडकास्ट ऐप से सीधे सुन सकें। आप इस चैनल को भी साझा कर सकते हैं। अपना ऑडियो जनरेट करने के लिए ऊपर दिए गए बटन पर क्लिक करें - और अपने चैनल को बनाने के लिए पॉडकास्ट चेकबॉक्स का चयन करना सुनिश्चित करें।</span>
+            </div>
+            <button onclick="togglePodcastDescription(this)" class="podcast-description-toggle" style="background: none; border: none; color: #4CAF50; cursor: pointer; text-decoration: underline; font-size: 12px; margin-top: 5px; padding: 0;">
+              <span class="toggle-text">और दिखाएं</span>
+            </button>
+          </div>
+        </div>
       </div>
       <br/>
       <div id="exportsRowsContainer">
@@ -1420,20 +1478,30 @@
         <ul style="text-align: justify">
           <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">प्रीमियम में अपग्रेड करें</a></span></li>-->
           <li><strong>निर्यात से पहले कृपया प्ले करें - यह सुनिश्चित करने के लिए कि यह ठीक वैसा ही सुनाई दे जैसा आप चाहते हैं। पूर्णता तक संपादित करें। फिर तैयार होने पर निर्यात करें।</strong></li>
-          <li>यह आपके कोटा से वर्णों को消耗 करता है जैसे कि प्ले करता है।</li>
+          <li>यह आपके प्रीमियम-वर्ण कोटा या क्रेडिट से वर्णों का उपभोग करता है।</li>
           <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
           <li>यह केवल प्रीमियम आवाज़ों के साथ काम करता है (जो आवाज़ गैलरी में स्टार से चिन्हित हैं)।</li>
-          <li style="color: green">नया: {{pause}} और {{pause:DURATION_IN_MS}} समर्थित हैं। सुनिश्चित करें कि इन्हें {{...}} के अंदर बिना किसी खाली जगह के फॉर्मेट किया गया हो।</li>
+          <li>नया: {{pause}} और {{pause:DURATION_IN_MS}} समर्थित हैं। सुनिश्चित करें कि इन्हें {{...}} के अंदर बिना किसी खाली जगह के फॉर्मेट किया गया हो।</li>
         </ul>
       </div>
       <br/>
+      <div style="margin: 10px auto; text-align: center;" data-ws-show-if-state="isLongerThan2000Chars=true">
+        <label style="align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" id="sendToPodcastCheckbox" />
+          <span>मेरे व्यक्तिगत पॉडकास्ट चैनल में जोड़ें</span>
+        </label>
+      </div>
       <div>
         <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">MP3 बनाएं और डाउनलोड करें</button>
-        <br/>
-        <button onclick="sendAnalyticsEvent('exportWAV');" class="Full-width-btn" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">WAV बनाएं और डाउनलोड करें (केवल 2,000 वर्ण से कम)</button>
+        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button secondary" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">WAV बनाएं और डाउनलोड करें (केवल 2,000 वर्ण से कम)</button>
       </div>
-      <br/>
-      <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank">हम कैसा कर रहे हैं? कृपया हमें बताएं! फीडबैक फॉर्म लिंक</a></p>
+      <p style="margin: 30px auto">अपने पिछले निर्यात की तलाश कर रहे हैं?&nbsp;<a style="cursor: pointer; color: orangered;" onclick="openOrCloseExportsListModal();"><svg style="vertical-align: middle; margin-bottom: 4px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>&nbsp; ऑडियो फोल्डर खोलें</a></p>
+      <h3>Did you know? Learn more on:</h3>
+      <ul style="text-align: start; line-height: 1.7em;">
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with a few voices</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">Export, download & share your MP3 & text</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Recording on-the-fly</a></li>
+      </ul>
     </div>
   </div>
 
@@ -1738,6 +1806,46 @@
     }, function() {
       console.log('Copy error')
     });
+  }
+
+  function copyPodcastUrl(button) {
+    const urlElement = button.parentElement.querySelector('[data-ws-label-state="podcast_main_channel_url"]');
+    const url = urlElement.textContent.trim();
+    
+    if (url) {
+      navigator.clipboard.writeText(url).then(function() {
+        // Show success feedback
+        const originalText = button.innerHTML;
+        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg> URL क्लिपबोर्ड में कॉपी हो गया!';
+        button.style.backgroundColor = '#2E7D32';
+        
+        // Reset after 2 seconds
+        setTimeout(function() {
+          button.innerHTML = originalText;
+          button.style.backgroundColor = '#4CAF50';
+        }, 2000);
+      }, function() {
+        console.log('Copy error');
+        alert('Failed to copy URL to clipboard');
+      });
+    }
+  }
+
+  function togglePodcastDescription(button) {
+    const container = button.closest('.podcast-description-container');
+    const collapsedDiv = container.querySelector('.podcast-description-collapsed');
+    const expandedDiv = container.querySelector('.podcast-description-expanded');
+    const toggleText = button.querySelector('.toggle-text');
+
+    if (collapsedDiv) {
+      collapsedDiv.classList.remove("podcast-description-collapsed");
+      collapsedDiv.classList.add("podcast-description-expanded");
+      toggleText.textContent = 'कम दिखाएं';
+    } else {
+      expandedDiv.classList.add("podcast-description-collapsed");
+      expandedDiv.classList.remove("podcast-description-expanded");
+      toggleText.textContent = 'और दिखाएं';
+    }
   }
 
   function share() {
@@ -2603,6 +2711,8 @@
   });
 
   function openOnboarding() {
+    localStorage.setItem("ttsreader.wasOnboarding3", "true");
+    return;
     document.getElementById('onboardingModal').style.display = 'flex';
     localStorage.removeItem("ttsreader.wasOnboarding3");
   }
@@ -2662,7 +2772,7 @@
   if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn")) {
     openOnboarding();
   }
-  
+
   function closeNewUpgradeModal() {
     let modalEl = document.getElementById('newUpgradeModal');
     if (modalEl) {
@@ -2690,6 +2800,7 @@
     } else {
       modalEl.classList.add("show");
       modalEl.classList.remove("hidden");
+      appMethods.closeModal("exportModal");
     }
   }
 
@@ -2699,13 +2810,13 @@
       signIn(openNewUpgradeModal);
       return;
     }
-    
+
     let modalEl = document.getElementById('newUpgradeModal');
     if (!modalEl) {
       console.error("Modal element not found");
       return;
     }
-    
+
     let iframeEl = modalEl.querySelector('iframe');
     if (!iframeEl) {
       console.error("Iframe element not found in modal");
@@ -2744,6 +2855,18 @@
   }
 
 
+  // Initialize and manage the Podcast checkbox availability and state
+  (function initSendToPodcastCheckbox() {
+    const checkbox = document.getElementById('sendToPodcastCheckbox');
+
+    // Reflect user choice into app state
+    checkbox.addEventListener('change', function () {
+      if (window.updateStateWithParentData) {
+        window.updateStateWithParentData({ shouldPodcast: Boolean(checkbox.checked) });
+      }
+    });
+  })();
+
 
 </script>
 
@@ -2771,3 +2894,4 @@
 
 </body>
 </html>
+

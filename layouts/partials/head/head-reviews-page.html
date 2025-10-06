@@ -1,0 +1,14 @@
+<head>
+  <meta name="custom" content="reviews-page">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {{ partial "head/analytics.html" . }}
+  {{ block "head/resource-hints" . }}{{ partial "head/resource-hints.html" . }}{{ end }}
+  {{ block "head/script-header" . }}{{ partial "head/script-header.html" . }}{{ end }}
+  {{ block "head/stylesheet" . }}{{ partial "head/stylesheet.html" . }}{{ end }}
+  {{ block "head/seo-reviews-page" . }}{{ partial "head/seo-reviews-page.html" . }}{{ end }}
+  {{ block "head/favicons" . }}{{ partial "head/favicons.html" . }}{{ end }}
+  {{ block "head/custom-head" . }}{{ partial "head/custom-head.html" . }}{{ end }}
+  {{ block "head/custom-head-landing-page-only" . }}{{ partial "head/custom-head-landing-page-only.html" . }}{{ end }}
+</head>

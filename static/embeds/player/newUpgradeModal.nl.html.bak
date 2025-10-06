@@ -42,7 +42,7 @@
   <title>TTSReader Purchase Page</title> <!-- TODO: use strings.newUpgradeModal_title... -->
   <!-- TODO: consider &currency=USD as in https://developer.paypal.com/reference/currency-codes/ with a currency selector. -->
   <script
-          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&locale=nl_NL"
+          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&intent=subscription&locale=nl_NL"
           data-namespace="paypalSubs">
   </script>
   <script
@@ -548,25 +548,8 @@
 </template>
 
 <script>
-  const template = document.getElementById('skuStepTemplate');
-  document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
-    const sku = card.getAttribute('data-ws-sku');
-    const clone = template.content.cloneNode(true);
-    const modalStep = clone.querySelector('.modal-step');
+  "use strict";
 
-    // Update the sku ID
-    modalStep.setAttribute('data-ws-sku', sku);
-
-    // Replace pricing-card-clone content
-    const cardClone = modalStep.querySelector('.pricing-card-clone');
-    cardClone.innerHTML = card.innerHTML;
-
-    // Append to body
-    document.body.appendChild(modalStep);
-  });
-</script>
-
-<script>
   function delayAcknowledgeAlertAsync() {
     // Acknowledge alert after a delay to ensure the UI is responsive
     setTimeout(() => {
@@ -576,10 +559,6 @@
   }
 
   function renderPayPalButton(uid, sku, container) {
-    // Get all elements with the class 'Paypal-Button-Container' and by the container.closest('[data-ws-sku]') data-ws-sku attribute fill in:
-    // TODO...
-    console.log('Rendering PayPal button for SKU:', sku, 'in container:', container);
-    // container.innerHTML = "uid: " + uid + ", sku: " + sku;
 
     let style = {
       shape: 'pill',
@@ -588,6 +567,7 @@
       label: 'paypal',
       height: 50             // 🔼 Default is ~35 — make this 45–55 for a larger button
     };
+
     let onApproveSub = function (data, actions) {
       console.log('subscriptionID: ' + data?.subscriptionID); // You can add optional success message for the subscriber here
       delayAcknowledgeAlertAsync();
@@ -601,23 +581,22 @@
       });
     };
 
-    let onApprove;
-
     let onCancel = function (data) {
       console.log('Payment cancelled:', data);
       // Optionally, you can add a message to the user here
       alert('Betaling geannuleerd. Probeer het opnieuw.');
     };
-    custom_id = sku + "__" + uid;
+
+    const custom_id = sku + "__" + uid;
 
     let config = {
       style, onCancel
     }
 
-    let paypal;
+    let paypalScope;
 
     if (sku === "SKU_TTSREADER_PREMIUM_MONTHLY") {
-      paypal = paypalSubs;
+      paypalScope = paypalSubs;
       config.onApprove = onApproveSub;
       config.createSubscription = function (data, actions) {
         return actions.subscription.create({
@@ -627,7 +606,7 @@
         });
       }
     } else if (sku === "SKU_TTSREADER_PREMIUM_PLUS_MONTHLY") {
-      paypal = paypalSubs;
+      paypalScope = paypalSubs;
       config.onApprove = onApproveSub;
       config.createSubscription = function (data, actions) {
         return actions.subscription.create({
@@ -637,17 +616,17 @@
         });
       }
     } else if (sku === "SKU_TTSREADER_PREMIUM_ANNUAL") {
-      paypal = paypalSubs;
+      paypalScope = paypalSubs;
       config.onApprove = onApproveSub;
       config.createSubscription = function(data, actions) {
-          return actions.subscription.create({
-            /* Creates the subscription */
-            plan_id: 'P-72R93922LT130451PNBJ7OCI',
-            custom_id
-          });
-        }
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-72R93922LT130451PNBJ7OCI',
+          custom_id
+        });
+      }
     } else {
-      paypal = paypalOnce; // For one-time purchases
+      paypalScope = paypalOnce; // For one-time purchases
       config.onApprove = onApproveOnce;
       // Default is the minimum 200k:
       let price = 10; // In USD
@@ -676,8 +655,28 @@
       }
     }
 
-    paypal.Buttons(config).render(container); // Renders the PayPal button UI
+    paypalScope.Buttons(config).render(container); // Renders the PayPal button UI
   }
+
+  const template = document.getElementById('skuStepTemplate');
+  document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
+    const sku = card.getAttribute('data-ws-sku');
+    const clone = template.content.cloneNode(true);
+    const modalStep = clone.querySelector('.modal-step');
+
+    // Update the sku ID
+    modalStep.setAttribute('data-ws-sku', sku);
+
+    // Replace pricing-card-clone content
+    const cardClone = modalStep.querySelector('.pricing-card-clone');
+    cardClone.innerHTML = card.innerHTML;
+
+    // Append to body
+    document.body.appendChild(modalStep);
+    //
+    let paypalContainer = modalStep.querySelector('.Paypal-Button-Container');
+    renderPayPalButton(uid, sku, paypalContainer);
+  });
 </script>
 
 <script>
@@ -686,6 +685,7 @@
   document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
     card.addEventListener('click', () => {
       const sku = card.dataset.wsSku;
+      console.log("ronen: ", {sku});
       const targetStep = document.querySelector(`.modal-step[data-ws-sku="${sku}"]`);
       if (!targetStep) return;
 
@@ -701,7 +701,7 @@
       // If paypal buttons are not rendered yet, render them:
       let paypalContainer = targetStep.querySelector('.Paypal-Button-Container');
       if (paypalContainer?.children?.length === 0) {
-        renderPayPalButton(uid, sku, paypalContainer);
+        //renderPayPalButton(uid, sku, paypalContainer);
       }
     });
   });
