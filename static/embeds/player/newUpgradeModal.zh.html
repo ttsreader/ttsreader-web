@@ -12,9 +12,9 @@
     const onCloseParentCallbackName = params.get("onClose") || "closeModals";
     const isPremiumPlanAlready = params.get("isPremiumPlanAlready") === "true";
 
-    const onClose = () => {
+    const onClose = (isPurchase) => {
       console.log('onClose called');
-      parent[onCloseParentCallbackName]();
+      parent[onCloseParentCallbackName](isPurchase);
     }
 
     console.log({ uid, theme, lang, isPremiumPlanAlready });
@@ -554,7 +554,7 @@
     // Acknowledge alert after a delay to ensure the UI is responsive
     setTimeout(() => {
       alert('感谢，订单已收到。如果一切顺利，PayPal会通知我们的服务器，您的购买将在几秒内激活。如有问题，请联系 contact@ttsreader.com。');
-      onClose(); // Close the modal after acknowledging
+      onClose(true); // Close the modal after acknowledging
     }, 100);
   }
 

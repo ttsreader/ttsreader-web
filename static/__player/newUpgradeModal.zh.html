@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html  lang="zh"  data-dark-mode>
+<head>
+  <script>
+    // Get from query params: uid, lang, darkMode - and set them already - so we don't have flickering.
+    // uid=oiu987oiuo&theme=dark&lang=he&onClose=closeModals
+    const params = new URLSearchParams(window.location.search);
+
+    const uid = params.get("uid");
+    const theme = params.get("theme");
+    const lang = params.get("lang");
+    const onCloseParentCallbackName = params.get("onClose") || "closeModals";
+    const isPremiumPlanAlready = params.get("isPremiumPlanAlready") === "true";
+
+    const onClose = (isPurchase) => {
+      console.log('onClose called');
+      parent[onCloseParentCallbackName](isPurchase);
+    }
+
+    console.log({ uid, theme, lang, isPremiumPlanAlready });
+
+    if (theme==="dark") {
+      document.documentElement.setAttribute("data-dark-mode", "");
+    } else {
+      document.documentElement.removeAttribute("data-dark-mode");
+    }
+
+    if (isPremiumPlanAlready) {
+        document.documentElement.setAttribute("data-premium-plan", "true");
+        } else {
+        document.documentElement.removeAttribute("data-premium-plan");
+    }
+
+    if (lang==="ar" || lang==="he" || lang==="fa") {
+      document.documentElement.setAttribute("dir", "rtl");
+    } else {
+      document.documentElement.removeAttribute("dir");
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TTSReader Purchase Page</title> <!-- TODO: use strings.newUpgradeModal_title... -->
+  <!-- TODO: consider &currency=USD as in https://developer.paypal.com/reference/currency-codes/ with a currency selector. -->
+  <script
+          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&intent=subscription&locale=zh_CN"
+          data-namespace="paypalSubs">
+  </script>
+  <script
+          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&locale=zh_CN"
+          data-namespace="paypalOnce">
+  </script>
+
+  <script>
+
+    const _200k = 2*Math.pow(10,5);
+    const _1M = Math.pow(10,6);
+    const _500k = 5*Math.pow(10,5);
+    const _2p5M = 2.5*_1M;
+
+    const SKUS = {
+      FREE_LIFE_LIMIT_CHARS: 6000, // 6k chars free life limit
+      SKU_TTSREADER_PREMIUM_MONTHLY: {
+        name: "TTSReader Premium Monthly",
+        type: "PREMIUM",
+        level: 1,
+        isAutoRenew: true,
+        durationType: "m",
+        quotaCharsD: _200k,
+        quotaCharsM: _1M,
+      },
+      SKU_TTSREADER_PREMIUM_ANNUAL: {
+        name: "TTSReader Premium Annual",
+        type: "PREMIUM",
+        level: 1,
+        isAutoRenew: true,
+        durationType: "y",
+        quotaCharsD: _200k,
+        quotaCharsM: _1M,
+      },
+      SKU_TTSREADER_PREMIUM_1_YEAR: {
+        name: "TTSReader Premium 1 Year",
+        type: "PREMIUM",
+        level: 1,
+        isAutoRenew: false,
+        durationType: "y",
+        quotaCharsD: _200k,
+        quotaCharsM: _1M,
+      },
+
+
+      SKU_TTSREADER_PREMIUM_PLUS_MONTHLY: {
+        name: "TTSReader PremiumPlus Monthly",
+        type: "PREMIUM",
+        level: 2,
+        isAutoRenew: true,
+        durationType: "m",
+        quotaCharsD: _500k,
+        quotaCharsM: _2p5M,
+      },
+      SKU_TTSREADER_PREMIUM_PLUS_1_YEAR: {
+        name: "TTSReader PremiumPlus 1 Year",
+        type: "PREMIUM",
+        level: 2,
+        isAutoRenew: false,
+        durationType: "y",
+        quotaCharsD: _500k,
+        quotaCharsM: _2p5M,
+      },
+
+
+      SKU_TTSREADER_EXTRA_CREDITS_200k: {
+        name: "TTSReader 200k Extra Credits",
+        type: "EXTRA_CREDITS",
+        isAutoRenew: false,
+        durationType: "y_extendable",
+        creditsAmount: _200k
+      },
+      SKU_TTSREADER_EXTRA_CREDITS_1M: {
+        name: "TTSReader 1M Extra Credits",
+        type: "EXTRA_CREDITS",
+        isAutoRenew: false,
+        durationType: "y_extendable",
+        creditsAmount: _1M
+      },
+      SKU_TTSREADER_EXTRA_CREDITS_5M: {
+        name: "TTSReader 5M Extra Credits",
+        type: "EXTRA_CREDITS",
+        isAutoRenew: false,
+        durationType: "y_extendable",
+        creditsAmount: 5*_1M
+      },
+      SKU_TTSREADER_EXTRA_CREDITS_10M: {
+        name: "TTSReader 10M Extra Credits",
+        type: "EXTRA_CREDITS",
+        isAutoRenew: false,
+        durationType: "y_extendable",
+        creditsAmount: 10*_1M
+      },
+    }
+
+  </script>
+  <style>
+    html {
+      height: 100%;
+      width: 100%;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+      margin: 0;
+      background: white url(./images/anima2_transparent_white.webp) no-repeat center;
+      background-size: cover;
+    }
+
+    [data-dark-mode] body {
+      color: white;
+      stroke: white;
+      background: white url('./images/anima2_transparent_black.webp') no-repeat center;
+      background-size: cover;
+    }
+
+    [data-premium-plan] .Hide-If-Premium-Plan-Exists {
+      display: none;
+    }
+
+    [data-premium-plan] .Show-If-Premium-Plan-Exists {
+      display: block;
+    }
+
+    .modal-header {
+      padding: 15px 20px;
+      padding-top: 23px;
+      font-size: 1.6em;
+      border-bottom: 1px solid #eee;
+      flex: 0 0 auto;
+      text-align: center; /* ✅ Title centered */
+    }
+
+    .modal-content {
+      flex: 1 1 auto;
+      padding: 15px 20px;
+      overflow-y: auto;
+      display: flex;               /* ✅ Enables easy centering */
+      flex-direction: column;      /* ✅ Stack vertically */
+      text-align: center;          /* ✅ Center text inside content */
+    }
+
+    .modal-footer {
+      background-color: #ffffff55;
+      padding: 15px 20px;
+      border-top: 1px solid #eee;
+      text-align: center; /* ✅ Buttons centered horizontally */
+      flex: 0 0 auto;
+    }
+
+    [data-dark-mode] .modal-footer {
+      background-color: #00000022;
+    }
+
+    .wideModal button {
+      padding: 10px 20px; margin: 5px; font-size: 1em;
+      cursor: pointer; border: none; border-radius: 5px;
+    }
+
+    .wideModal button.primary { background: #3b82f6; color: #fff; }
+    .wideModal button.secondary { background: #ddd; color: #000; }
+
+    .Gallery-Container {
+      border-radius: 20px;
+      padding: 16px;
+      background-color: #e2e2e2aa;
+    }
+
+    [data-dark-mode] .Gallery-Container {
+      background-color: #000000aa;
+    }
+
+    .wideModal .voice-tile.selected .checkmark {
+      display: block;
+    }
+
+    .wideModal .voice-tile button {
+      margin-top: 10px;              /* Optional spacing */
+    }
+
+    /* Upgrade modal styles */
+
+    .Gallery-Container > h3 {
+      margin: 5px auto;
+    }
+
+    .pricing-card, .pricing-card-clone  {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.5s ease, border-color 0.3s;
+      position: relative;
+      margin-top: 15px;
+    }
+
+    .pricing-card-clone {
+      box-shadow: none;
+      cursor: unset;
+      margin-top: 0;
+    }
+
+    .pricing-card:hover {
+      border-color: orangered;
+      box-shadow: yellow 0 0 10px;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .pricing-left {
+      color: black;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      text-align: start;
+    }
+
+    .pricing-time {
+      font-weight: 700;
+      font-size: 1.5em;
+      margin-bottom: 5px;
+    }
+
+    .pricing-subtext {
+      font-size: 0.95em;
+      color: #444;
+    }
+
+    .pricing-price {
+      padding: 12px 22px;
+      border-radius: 16px;
+      font-weight: bold;
+      font-size: 1.1em;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .pricing-price.dark {
+      background: #25172a;
+      color: white;
+    }
+
+    .pricing-price.popular {
+      background: linear-gradient(135deg, #ff7a18, #fbb034);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pricing-price .pricing-tag {
+      font-size: 0.7em;
+      font-weight: bold;
+      color: #ffe9e1;
+      margin-bottom: 4px;
+    }
+
+    .pricing-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s ease;
+      padding: 0;
+    }
+
+    .pricing-card.active .pricing-details {
+      max-height: 200px;
+      padding: 15px 10px 0;
+    }
+
+
+    .wideModal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-step {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin: auto;
+    }
+    .modal-content {
+      transition: filter 0.3s ease;
+    }
+
+    .modal-content.blurred {
+      filter: blur(5px);
+    }
+
+    .Gallery-Container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-card.selected {
+      border-color: #007BFF;
+      z-index: 10;
+    }
+    .pricing-left {
+      flex: 1;
+    }
+    .pricing-price {
+      font-size: 1.2em;
+    }
+    .paypal-container {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: all 0.4s ease;
+      text-align: center;
+    }
+    .paypal-container.show {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    .modal-header {
+      height: 80px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .modal-header .cloned-card {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      transition: all 0.5s ease;
+    }
+    #backBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background: #eee;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+    .modal-step[data-ws-sku] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #ffffff99;
+      z-index: 10;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+    .modal-step[data-ws-sku]:not(.hidden) {
+      pointer-events: auto;
+      display: flex;
+    }
+    .hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    [data-ws-sku] .modal-content {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    [data-ws-sku] card {
+      position: relative;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+      padding: 20px;
+      color: black;
+      background-color: #fff;
+      border-radius: 20px;
+    }
+
+    .Close-Btn {
+      z-index: 9;
+      box-sizing: content-box;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 29px;
+      height: 30px;
+      padding: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div data-ws-step="0" class="modal-step">
+  <div class="modal-content">
+    <p>选择首选套餐 <a title="关于不同计划和条款的额外详情" style="cursor: pointer; text-decoration: none;color: orangered" href="https://ttsreader.com/docs/support/pricing/" target="_blank"><svg style="position: relative;top: 3px;height: 1em;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg></a>
+      <br/>所有计划解锁所有高级功能，并提供100%满意保证。
+      <br/>我们致力于提供最实惠的文本转语音解决方案。
+      <br/>因此，我们提供业内最便捷的订阅计划，以及唯一的按需付费套餐。
+      <br/><br/>交易由PayPal提供支持，确保最高安全性、隐私和买家保护。
+    </p>
+    </p>
+    <div style="flex:1"></div>
+    <div class="" style="max-width: 1000px; margin: auto;margin-top: -15px;">
+      <div class="Hide-If-Premium-Plan-Exists">
+        <h2>高级订阅</h2>
+        <p>随时取消</p>
+        <div class="Gallery-Container">
+          <h3>无限基础语音和每月100万字符的高级AI语音</h3>
+          <div class="pricing-card" data-ws-sku="SKU_TTSREADER_PREMIUM_MONTHLY">
+            <div class="pricing-left">
+              <div class="pricing-time">按月计费</div>
+              <div class="pricing-subtext"></div>
+            </div>
+            <div class="pricing-price dark">$10.99 / m</div>
+          </div>
+
+          <div class="pricing-card" data-ws-sku="SKU_TTSREADER_PREMIUM_ANNUAL">
+            <div class="pricing-left">
+              <div class="pricing-time">按年计费</div>
+              <div class="pricing-subtext"><span style="text-decoration: line-through;opacity:0.5">$131.88</span> -> $99/y (25% Discount)</div>
+            </div>
+            <div class="pricing-price popular">
+              <span class="pricing-tag">★ 最佳价值</span>
+              $8.25 / m
+            </div>
+          </div>
+        </div>
+        <br/>
+      </div>
+      <h2>按需付费，无附加条件</h2>
+      <p>有效期为一年，每次购买后延长。无限基础语音。</p>
+      <div class="Gallery-Container">
+        <h3>一次性付款，非定期</h3>
+
+        <div class="pricing-card" data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_200k">
+          <div class="pricing-left">
+            <div class="pricing-time">20万字符</div>
+            <div class="pricing-subtext">高级AI语音的</div>
+          </div>
+          <div class="pricing-price dark">$10</div>
+        </div>
+
+        <div class="pricing-card" data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_1M">
+          <div class="pricing-left">
+            <div class="pricing-time">100万字符</div>
+            <div class="pricing-subtext">高级AI语音的</div>
+          </div>
+          <div class="pricing-price dark">$32</div>
+        </div>
+
+        <div class="pricing-card" data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_10M">
+          <div class="pricing-left">
+            <div class="pricing-time">1000万字符</div>
+            <div class="pricing-subtext">高级AI语音的</div>
+          </div>
+          <div class="pricing-price dark">$300</div>
+        </div>
+      </div>
+      <p>* 所有货币以美元 ($) 计算</p>
+      <p>如需帮助、问题或反馈，请联系我们：contact@ttsreader.com</p>
+    </div>
+    <div style="flex:2"></div>
+  </div>
+</div>
+
+<div class="closeIframeButton Close-Btn" onclick="onClose()" >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-xbox-x" style="
+    height: 35px;
+"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z"></path><path d="M9 8l6 8"></path><path d="M15 8l-6 8"></path></svg>
+</div>
+
+<template id="skuStepTemplate">
+  <div data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_10M" class="modal-step hidden">
+    <div class="modal-content">
+      <div style="flex:1"></div>
+      <card>
+        <div class="backBtn Close-Btn" >
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="3"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
+        </div>
+        <br/>
+        <div class="pricing-card-clone"></div>
+        <p style="text-transform: uppercase">所有支付方式均由PayPal提供支持，确保最高安全性、隐私和买家保护。</p>
+        <div class="Paypal-Button-Container"></div>
+        <p><strong>100%满意保证</strong></p>
+        <p>由 <a href="https://wellsrc.com/" target="_blank">WellSource Ltd.</a> 开发，TTSReader、Speechnotes、Speechlogger的开发者</p>
+      </card>
+      <div style="flex:1"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+  "use strict";
+
+  function delayAcknowledgeAlertAsync() {
+    // Acknowledge alert after a delay to ensure the UI is responsive
+    setTimeout(() => {
+      alert('感谢，订单已收到。如果一切顺利，PayPal会通知我们的服务器，您的购买将在几秒内激活。如有问题，请联系 contact@ttsreader.com。');
+      onClose(); // Close the modal after acknowledging
+    }, 100);
+  }
+
+  function renderPayPalButton(uid, sku, container) {
+
+    let style = {
+      shape: 'pill',
+      color: 'gold',
+      layout: 'vertical',
+      label: 'paypal',
+      height: 50             // 🔼 Default is ~35 — make this 45–55 for a larger button
+    };
+
+    let onApproveSub = function (data, actions) {
+      console.log('subscriptionID: ' + data?.subscriptionID); // You can add optional success message for the subscriber here
+      delayAcknowledgeAlertAsync();
+      return Promise.resolve();
+      // onSubscriptionComplete(data.subscriptionID, uid);
+    };
+
+    let onApproveOnce = function (data, actions) {
+      return actions.order.capture().then(function (details) {
+        delayAcknowledgeAlertAsync();
+      });
+    };
+
+    let onCancel = function (data) {
+      console.log('Payment cancelled:', data);
+      // Optionally, you can add a message to the user here
+      alert('支付已取消。请重试。');
+    };
+
+    const custom_id = sku + "__" + uid;
+
+    let config = {
+      style, onCancel
+    }
+
+    let paypalScope;
+
+    if (sku === "SKU_TTSREADER_PREMIUM_MONTHLY") {
+      paypalScope = paypalSubs;
+      config.onApprove = onApproveSub;
+      config.createSubscription = function (data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-82C30553N8925890NMZZWUTA',
+          custom_id
+        });
+      }
+    } else if (sku === "SKU_TTSREADER_PREMIUM_PLUS_MONTHLY") {
+      paypalScope = paypalSubs;
+      config.onApprove = onApproveSub;
+      config.createSubscription = function (data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-01654138F1540764BNCKMCSI',
+          custom_id
+        });
+      }
+    } else if (sku === "SKU_TTSREADER_PREMIUM_ANNUAL") {
+      paypalScope = paypalSubs;
+      config.onApprove = onApproveSub;
+      config.createSubscription = function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-72R93922LT130451PNBJ7OCI',
+          custom_id
+        });
+      }
+    } else {
+      paypalScope = paypalOnce; // For one-time purchases
+      config.onApprove = onApproveOnce;
+      // Default is the minimum 200k:
+      let price = 10; // In USD
+      let credits = "200k"; // As human string
+
+      // For more:
+      if (sku === "SKU_TTSREADER_EXTRA_CREDITS_1M") {
+        price = 32; // In USD
+        credits = "1 Million"; // As human string
+      } else if (sku === "SKU_TTSREADER_EXTRA_CREDITS_10M") {
+        price = 300; // In USD
+        credits = "10 Million"; // As human string
+      }
+
+      let description = "TTSReader " + credits + " Extra Credits";
+      config.createOrder = function (data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            description,
+            custom_id,
+            amount: {
+              value: price
+            }
+          }]
+        });
+      }
+    }
+
+    paypalScope.Buttons(config).render(container); // Renders the PayPal button UI
+  }
+
+  const template = document.getElementById('skuStepTemplate');
+  document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
+    const sku = card.getAttribute('data-ws-sku');
+    const clone = template.content.cloneNode(true);
+    const modalStep = clone.querySelector('.modal-step');
+
+    // Update the sku ID
+    modalStep.setAttribute('data-ws-sku', sku);
+
+    // Replace pricing-card-clone content
+    const cardClone = modalStep.querySelector('.pricing-card-clone');
+    cardClone.innerHTML = card.innerHTML;
+
+    // Append to body
+    document.body.appendChild(modalStep);
+    //
+    let paypalContainer = modalStep.querySelector('.Paypal-Button-Container');
+    renderPayPalButton(uid, sku, paypalContainer);
+  });
+</script>
+
+<script>
+  const baseStep = document.querySelector('[data-ws-step="0"]');
+
+  document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
+    card.addEventListener('click', () => {
+      const sku = card.dataset.wsSku;
+      console.log("ronen: ", {sku});
+      const targetStep = document.querySelector(`.modal-step[data-ws-sku="${sku}"]`);
+      if (!targetStep) return;
+
+      baseStep.style.filter = 'blur(6px)';
+      targetStep.classList.remove('hidden');
+      targetStep.style.opacity = 0;
+      targetStep.style.transition = 'opacity 0.4s ease';
+      requestAnimationFrame(() => {
+        targetStep.style.opacity = 1;
+      });
+      document.querySelector('.closeIframeButton').classList.add('hidden');
+
+      // If paypal buttons are not rendered yet, render them:
+      let paypalContainer = targetStep.querySelector('.Paypal-Button-Container');
+      if (paypalContainer?.children?.length === 0) {
+        //renderPayPalButton(uid, sku, paypalContainer);
+      }
+    });
+  });
+
+  function closeSkuStep(skuStepElement) {
+    skuStepElement.style.transition = 'opacity 0.4s ease';
+    skuStepElement.style.opacity = 0;
+    setTimeout(() => {
+      skuStepElement.classList.add('hidden');
+      baseStep.style.filter = 'none';
+    }, 400);
+    document.querySelector('.closeIframeButton').classList.remove('hidden');
+  }
+
+  document.querySelectorAll('.modal-step[data-ws-sku] .backBtn').forEach(button => {
+    button.addEventListener('click', () => {
+      const skuStep = button.closest('.modal-step');
+      closeSkuStep(skuStep);
+    });
+  });
+
+  document.querySelectorAll('.modal-step[data-ws-sku]').forEach(modalStep => {
+    modalStep.addEventListener('click', function (ev) {
+      const card = modalStep.querySelector('card');
+      if (!card) return;
+
+      if (!card.contains(ev.target)) {
+        onClickOutsideCard(ev, modalStep);
+      }
+    });
+  });
+
+  function onClickOutsideCard(ev, modalStep) {
+    console.log('Clicked outside <card> in:', modalStep.getAttribute('data-ws-sku'));
+    // Your logic here
+    closeSkuStep(modalStep);
+  }
+</script>
+</body>
+</html>

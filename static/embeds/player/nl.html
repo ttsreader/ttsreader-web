@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-10-06T10:03:19.851Z",
-      "version": "3.9.0",
+      "dateModified": "2025-10-10T13:01:22.227Z",
+      "version": "3.9.4",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -49,7 +49,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.9.0 - TTSReader's Tekst-naar-Spraak Speler</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.9.4 - TTSReader's Tekst-naar-Spraak Speler</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -99,7 +99,7 @@
     // Drawer open
     let storedDrawerMode = localStorage.getItem('drawer-mode');
     if (!storedDrawerMode) {
-      storedDrawerMode = 'open'; // Default if not set
+      storedDrawerMode = 'closed'; // Default drawer setting if not set
     }
 
     if ((storedDrawerMode === 'open' || !storedDrawerMode) && window.matchMedia && window.matchMedia('(min-width: 800px)').matches && window.matchMedia('(min-height: 600px)').matches ) {
@@ -163,6 +163,61 @@
   </script>
 
   <style>
+
+    .css-container {
+      container-type: inline-size;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem auto;
+      flex-direction: row; /* default: 3 in a row */
+    }
+
+    .action-card {
+      width: 30%;
+      max-width: 200px;
+      aspect-ratio: 1 / 1;
+      border-color: #60a5fa;
+      border-radius: 16px;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      font-size: 1rem;
+      text-align: center;
+      transition: all 0.2s ease;
+      color: #3b82f6;
+    }
+
+    .action-card .emoji {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .action-card:hover {
+      background: #f5f9ff;
+      border-color: orangered;
+      box-shadow: 0 4px 12px rgba(255,99,0,0.3);
+    }
+
+    /* 👇 When the container (or viewport) is too narrow for all three side by side */
+    @container (max-width: 500px) {
+      .actions {
+        flex-direction: column; /* stack all vertically */
+      }
+      .action-card {
+        width: 90%;
+        margin: auto;
+        max-width: unset;
+        aspect-ratio: unset;
+      }
+    }
 
     .TabsContainer .TabTitlesContainer {
       display: flex;
@@ -417,7 +472,7 @@
       color: #66BB6A !important;
     }
   </style>
-<script defer src="./static/js/main.6f7977f7.js"></script><link href="./static/css/main.6bf3b418.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.84bb4926.js"></script><link href="./static/css/main.6bf3b418.css" rel="stylesheet"></head>
 <body>
 
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
@@ -505,7 +560,7 @@
         <a class="Menu-list-element" data-ws-toggle="#helpModal" onclick="loadImages('#helpImgId');">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-help"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 17l0 .01" /><path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" /></svg>&nbsp;&nbsp;Help overlay<!-- Help overlay -->
         </a>
-        <a class="Menu-list-element" onclick="openOnboarding();">
+        <a class="Menu-list-element" onclick="openOnboarding(true);">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-progress-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" /><path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" /><path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" /><path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" /><path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" /><path d="M9 12l2 2l4 -4" /></svg>&nbsp;&nbsp;Introductie
         </a>
 
@@ -545,7 +600,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.9.0</b> Build 2025-10-06T10:03:19.851Z
+          <b>V3.9.4</b> Build 2025-10-10T13:01:22.227Z
           <br/><span style="margin-top: 10px;display: block">ALLE VERSIES <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -605,7 +660,7 @@
         &nbsp;
         <button class="Clear-btn" data-ws-onClick="clearContent" title="Erase all text from document" aria-label="Erase all text from document">🗑️</button>
         &nbsp;
-        <button title="Select language, voice and speed" aria-label="Select language, voice and speed" style="" data-ws-toggle="#voicesModal">
+        <button title="Select language, voice and speed" aria-label="Select language, voice and speed" style="max-height: 2em;overflow: hidden;" data-ws-toggle="#voicesModal">
           <svg class="Top-btn-svg" style="width:1.5em;height: 1.5em;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg>
           <span class="Hide-on-narrow-screens">
         &nbsp;
@@ -897,14 +952,17 @@
         </h2>
         <p style="text-align: center">Lijst uw gegenereerde audiobestanden<sup>*</sup>, zodat u ze later kunt downloaden, delen of beluisteren.</p>
         <p style="font-size: 0.7em;font-weight: bold; opacity: 0.8; margin-top: -10px;"><sup>*</sup>&nbsp;Voor MP3-exports, die langer zijn dan 2k karakters. Hier bewaard zolang u een premium account heeft.</p>
-        <div style="text-align: center">
+        <div data-ws-show-if-state="isPremium=true" style="text-align: center">
           <button onclick="openOrCloseExportsListModal(true);" data-ws-toggle="#exportModal" style="text-decoration: none;cursor: pointer; color: white;background-color: darkgreen;text-transform: uppercase" class="Full-width-btn">+ Klik hier om een nieuwe MP3 van tekst te maken</button>
+        </div>
+        <div data-ws-show-if-state="isPremium=false" style="text-align: center">
+          <button onclick="openOrCloseExportsListModal(true);" data-ws-toggle="#recordModalNonPremium" style="text-decoration: none;cursor: pointer; color: white;background-color: darkgreen;text-transform: uppercase" class="Full-width-btn">+ Klik hier om een nieuwe MP3 van tekst te maken</button>
         </div>
         <!-- Podcast Channel URL Section -->
         <div data-ws-show-if-state="podcast_main_channel_url=true" style="margin: 20px 0; padding: 15px; background-color: rgba(255,255,255,0.1); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
           <h3 style="margin: 0 0 10px 0; color: #fff; font-size: 16px;">
             <svg style="vertical-align: middle;margin: 0 4px 5px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-building-broadcast-tower"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M16.616 13.924a5 5 0 1 0 -9.23 0" /><path d="M20.307 15.469a9 9 0 1 0 -16.615 0" /><path d="M9 21l3 -9l3 9" /><path d="M10 19h4" /></svg>
-            Uw Persoonlijke Podcast Kanaal
+            Uw Persoonlijke Podcast Kanaal&nbsp;&nbsp;<a style="font-size: smaller; color: lightgoldenrodyellow; text-decoration: none; text-transform: uppercase" href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">Learn more</a>
           </h3>
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
             <span data-ws-label-state="podcast_main_channel_url" style="flex: 1; min-width: 200px; font-family: monospace; background-color: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; word-break: break-all; color: #fff;"></span>
@@ -922,7 +980,7 @@
         <div data-ws-show-if-state="podcast_main_channel_url=false" style="margin: 20px 0; padding: 15px; background-color: rgba(255,255,255,0.1); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
           <h3 style="margin: 0 0 10px 0; color: #fff; font-size: 16px;">
             <svg style="vertical-align: middle;margin: 0 4px 5px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-building-broadcast-tower"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M16.616 13.924a5 5 0 1 0 -9.23 0" /><path d="M20.307 15.469a9 9 0 1 0 -16.615 0" /><path d="M9 21l3 -9l3 9" /><path d="M10 19h4" /></svg>
-            Uw Persoonlijke Podcast Kanaal
+            Uw Persoonlijke Podcast Kanaal&nbsp;<a style="font-size: smaller; color: lightgoldenrodyellow; text-decoration: none; text-transform: uppercase" href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">Learn more</a>
           </h3>
           <div class="podcast-description-container" style="position: relative;">
             <div class="podcast-description-collapsed" style="overflow: hidden; line-height: 1.4;">
@@ -959,7 +1017,7 @@
     </div>
   </div>
 
-  <div id="newUpgradeModal" class="Sliding-In-Modal hidden">
+  <div id="newUpgradeModal" class="Sliding-In-Modal hidden" style="z-index: 9999999">
       <iframe></iframe>
   </div>
 
@@ -1159,13 +1217,50 @@
       <div style="flex: 1"></div>
       <p style="font-size: larger;">De door jou geselecteerde stem <span data-ws-label-state="voiceLabel"></span>&nbsp; is een uitstekende keuze! Aangezien het een premium stem is, is inloggen vereist. Log alstublieft veilig in met Google om door te gaan.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
       <br/>
-      <button onclick="signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Inloggen met Google<!-- Sign In with Google --></button>
+      <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Inloggen met Google<!-- Sign In with Google --></button>
       <p style="text-align: center">OR</p>
-      <button onclick='appMethods.closeModal("premiumVoiceSignInModal");appMethods.showModal("voicesModal");' class="Full-width-btn">Select a Non Premium Voice</button>
+      <button onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.showModal("voicesModal");' class="Full-width-btn">Select a Non Premium Voice</button>
       <div style="flex: 2"></div>
     </div>
     <div style="height:20px;"></div>
   </div>
+  </div>
+
+  <div class="Modal" id="emptyTextModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow: auto;padding:10px;">
+        <h3 class="Modal-title">
+          Selecteer tekstbron
+        </h3>
+        <p class="Modal-p" style="text-align: center">
+          Eenmaal ingesteld - kunt u de tekst bewerken, afspelen om te luisteren, en exporteren als audio. Bezoek de <a style='color: orangered; text-decoration:none;cursor: pointer;' title='Open voice gallery' data-ws-toggle='#voicesModal' href='#'>stemmen galerij</a> om stem en snelheid te testen en te selecteren.
+        </p>
+        <div class="css-container">
+          <div class="actions">
+            <button class="action-card" onclick="quill.focus();" data-ws-toggle="#emptyTextModal">
+              <div class="emoji">✏️</div>
+              <div class="label">Direct bewerken in de teksteditor</div>
+            </button>
+            <button class="action-card" data-ws-toggle="#emptyTextModal" onclick="document.querySelector('input[type=file]').click()" >
+              <div class="emoji">📖</div>
+              <div class="label">Bestand openen (PDF, DOCX, EPUB, TXT, ...)</div>
+            </button>
+            <button class="action-card" data-ws-toggle="#openUrlModal" onclick="closeSelf(event);">
+              <div class="emoji">🌐</div>
+              <div class="label">Webpagina importeren</div>
+            </button>
+          </div>
+        </div>
+        <br/><br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
   </div>
 
   <div class="Modal" id="voicesModal" style="display: none;">
@@ -1392,21 +1487,44 @@
         </svg>
       </button>
       <div style="overflow: auto;padding:10px;">
-        <h4>Opname van gesynthetiseerde spraak<!-- Recording the Synthesized Speech --></h4>
+        <h4>Audio exporteren is een premium functie<!-- Recording the Synthesized Speech --></h4>
         <div data-ws-show-if-state="isPremium=false">
           <p style="text-align: justify">
-            Opname vereist premium en omvat licentie voor commercieel gebruik en publicatie (zie publicatievoorwaarden<!-- Recording requires premium and includes licensing for commercial use & publishing (see publishing terms --> <a href="https://ttsreader.com/docs/guides/commercial/" target="_blank">hier<!-- here --></a>.
+            Premium omvat instant downloadbare MP3 & WAV rendering, later luisteren, commerciële & publicatielicentie (voor de premium stemmen), en meer. Plannen zijn zeer betaalbaar en omvatten zowel abonnementstype als eenmalige aankopen om uw behoeften het beste te voldoen. Tevredenheid gegarandeerd.<!-- Recording requires premium and includes licensing for commercial use & publishing (see publishing terms -->
           </p>
-          <button data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" class="Full-width-btn" style="background-color: darkgreen;color: white">Upgrade naar Premium<!-- Upgrade to Premium --></button>
           <div data-ws-show-if-state="isSignedIn=false">
+            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">Meld u aan met Google om plannen te bekijken<!-- Upgrade to Premium --></button>
             <p style="text-align: center">Al premium? Inloggen<!-- Already premium? Sign in --></p>
             <button onclick="signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Inloggen met Google<!-- Sign In with Google --></button>
+          </div>
+          <div data-ws-show-if-state="isSignedIn=true">
+            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">Bekijk Premium plannen<!-- Upgrade to Premium --></button>
           </div>
         </div>
         <div data-ws-show-if-state="isPremium=true">
           <p style="text-align: center;font-size: larger;">🏆 🍾🥂 Bedankt voor het upgraden!!!<!-- Thank you for upgrading!!! --> 🎉🚀 🏆 </p>
           <button data-ws-toggle="#recordOrExportModal" class="Full-width-btn" style="background-color: transparent;color: cornflowerblue;border-color: cornflowerblue">Doorgaan met opnemen<!-- Continue with recording --></button>
         </div>
+        <br/><br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="notificationModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow: auto;padding:10px;">
+        <h4 class="Modal-title" style="text-transform: capitalize">Some Placeholder</h4>
+          <p class="Modal-p" style="text-align: justify">
+            Some Placeholder 2
+          </p>
+          <button class="styled-btn Modal-OK-button" data-ws-toggle="#notificationModal" onclick="console.log('clicked')" style="background-color: darkgreen;color: white">OK<!-- Upgrade to Premium --></button>
         <br/><br/>
       </div>
     </div>
@@ -1422,14 +1540,14 @@
         </svg>
       </button>
       <div style="overflow: auto;padding:10px 30px;">
-        <p style="text-align: center">Select Method</p>
-        <button data-ws-toggle="#exportModal" onClick='window.appMethods.closeModal("recordOrExportModal");' class="Full-width-btn" style="background-color: darkgreen;color: white">EXPORT (RECOMMENDED)</button>
+        <h3 style="text-align: center">Selecteer instant export of live opname</h3>
+        <button data-ws-toggle="#exportModal" onClick='window.appMethods.closeModal("recordOrExportModal");' class="Full-width-btn" style="background-color: darkgreen;color: white">INSTANT EXPORT (AANBEVOLEN VOOR DE MEERDERHEID)</button>
         <br/>
-        <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="">RECORD STREAM (GOOD FOR NON EXPORTABLE VOICES)</button>
+        <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="">STREAM OPNEMEN (GOED VOOR NIET EXPORTEERBARE STEMMEN)</button>
         <br/>
         <h3>Did you know? Learn more on:</h3>
         <ul style="text-align: start; line-height: 1.7em;">
-          <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with a few voices</a></li>
+          <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with multiple voices</a></li>
           <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">Export, download & share your MP3 & text</a></li>
           <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Recording on-the-fly</a></li>
         </ul>
@@ -1447,7 +1565,7 @@
         </svg>
       </button>
       <div style="overflow: auto;padding:10px 30px;">
-        <p style="text-align: justify">Once you click the following button a popup will show. There select the 'Entire Screen' & 'Also share system audio' options. Finally, click 'Share'.</p>
+        <p style="text-align: justify">Zodra u op de volgende knop klikt, verschijnt er een popup. Selecteer daar de opties 'Volledig scherm' & 'Ook systeem audio delen'. Klik ten slotte op 'Delen'.</p>
         <button data-ws-onClick="startRecording" class="Full-width-btn" style="background-color: darkgreen;color: white">Opname starten<!-- Start Recording --></button>
         <br/>
         <div>
@@ -1476,7 +1594,7 @@
       <div style="text-align: justify; font-size: smaller;">
         <p style="text-align: center">LET OP:</p>
         <ul style="text-align: justify">
-          <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">Upgrade naar Premium</a></span></li>-->
+          <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">Meld u aan met Google om plannen te bekijken</a></span></li>-->
           <li><strong>Speel het af voordat u exporteert om zeker te zijn dat alles precies klinkt zoals u wilt. Bewerk tot perfectie. Exporteer dan wanneer klaar.</strong></li>
           <li>Het verbruikt karakters uit uw premium-karakterquotum of credits.</li>
           <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
@@ -1488,19 +1606,31 @@
       <div style="margin: 10px auto; text-align: center;" data-ws-show-if-state="isLongerThan2000Chars=true">
         <label style="align-items: center; gap: 8px; cursor: pointer;">
           <input type="checkbox" id="sendToPodcastCheckbox" />
-          <span>Toevoegen aan mijn persoonlijke podcastkanaal</span>
+          <span>Toevoegen aan mijn persoonlijke podcastkanaal</span>&nbsp;<span><a href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">Learn more</a></span>
         </label>
       </div>
+      <div data-ws-show-if-state="isSignedIn=false">
+        <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Sign In with Google to Continue<!-- Sign In with Google --></button>
+      </div>
+      <div data-ws-show-if-state="isSignedIn=true">
+        <div data-ws-show-if-state="isPremium=true">
       <div>
         <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">Maak & download MP3</button>
         <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button secondary" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">Maak & download WAV (ALLEEN MINDER DAN 2000 KARAKTERS)</button>
       </div>
+        </div>
+        <div data-ws-show-if-state="isPremium=false">
+          <p>Audio exporteren is een premium functie</p>
+          <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');openNewUpgradeModal();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Bekijk Premium plannen</button>
+        </div>
+      </div>
       <p style="margin: 30px auto">Op zoek naar uw vorige exports?&nbsp;<a style="cursor: pointer; color: orangered;" onclick="openOrCloseExportsListModal();"><svg style="vertical-align: middle; margin-bottom: 4px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>&nbsp; Audiomap openen</a></p>
       <h3>Did you know? Learn more on:</h3>
       <ul style="text-align: start; line-height: 1.7em;">
-        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with a few voices</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with multiple voices</a></li>
         <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">Export, download & share your MP3 & text</a></li>
         <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Recording on-the-fly</a></li>
+        <li><a href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">Create your personal podcast channel</a></li>
       </ul>
     </div>
   </div>
@@ -1883,6 +2013,10 @@
     }));
   });
 
+  function closeSelf(evt) {
+    evt.target.closest('.Modal').style.display = "none";
+  }
+
   document.querySelectorAll('.Close-modal').forEach((el)=>{
     el.addEventListener('click',((evt) => {
       evt.target.closest('.Modal').style.display = "none";
@@ -1923,6 +2057,9 @@
   }
 
   function sendAnalyticsEvent(name) {
+    if (window.AppAnalytics) {
+      window.AppAnalytics.sendEvent(name);
+    }
     let pre = "ttsreader_player_";
     if (gtag) {
       gtag('event', pre + name, {'value': "1"});
@@ -1956,7 +2093,105 @@
   const demoExportsRowsContainer = document.getElementById('demoExportsRowsContainer');
   const rowTemplate = document.getElementById('exportsListItemTemplate');
 
+  function getClientInfo() {
+    try {
+      const ua = navigator.userAgent.toLowerCase();
+
+      // --- Device Type ---
+      let deviceType = 'desktop';
+      if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
+        deviceType = navigator.userAgentData.mobile ? 'mobile' : 'desktop';
+      } else if (/mobile/.test(ua)) {
+        deviceType = 'mobile';
+      } else if (/android|iphone|ipad|ipod/.test(ua)) {
+        deviceType = 'mobile';
+      } else if (window.innerWidth < 768) {
+        deviceType = 'mobile';
+      }
+
+      // --- OS ---
+      let os = 'other';
+      if (ua.indexOf('win') !== -1) os = 'win';
+      else if (ua.indexOf('mac') !== -1) os = 'mac';
+      else if (ua.indexOf('linux') !== -1) os = 'linux';
+      else if (/android/.test(ua)) os = 'android';
+      else if (/iphone|ipad|ipod/.test(ua)) os = 'ios';
+
+      // --- Browser ---
+      let browser = 'other';
+      if (ua.indexOf('edg') !== -1) browser = 'edge';
+      else if (ua.indexOf('chrome') !== -1 && ua.indexOf('edg') === -1) browser = 'chrome';
+      else if (ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1) browser = 'safari';
+      else if (ua.indexOf('firefox') !== -1) browser = 'firefox';
+      else if (ua.indexOf('opr') !== -1 || ua.indexOf('opera') !== -1) browser = 'opera';
+
+      // --- Timezone ---
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown';
+
+      return `${deviceType}:${os}:${browser}:${tz}`;
+    } catch (e) {
+      return "";
+    }
+  }
+
+  window.AppAnalytics = {
+    // --- Generate or Retrieve Local ID ---
+    STORAGE_KEY_ID: 'ttsreader.analytics.id',
+    STORAGE_KEY_START_MS: 'ttsreader.analytics.start_ms',
+    STORAGE_KEY_SENT_EVENT_TYPES: 'ttsreader.analytics.sent_types',
+    id: localStorage.getItem('ttsreader.analytics.id'),
+    clientInfo: getClientInfo(),
+    sendEvent: (eventType) => {
+      if (!firebase || !window.AppAnalytics.id) {
+        return;
+      }
+
+      try {
+        // Send first of type only:
+        let pastEvents = localStorage.getItem(window.AppAnalytics.STORAGE_KEY_SENT_EVENT_TYPES) || "";
+        if (pastEvents.indexOf(eventType) >= 0) {
+          return;
+        }
+
+        localStorage.setItem(window.AppAnalytics.STORAGE_KEY_SENT_EVENT_TYPES, (pastEvents + "," + eventType));
+        const now = Date.now();
+        const secondsSinceStart = Math.floor((now - localStorage.getItem(window.AppAnalytics.STORAGE_KEY_START_MS)) / 1000);
+        const dateKey = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD
+        const path = `analytics/${dateKey}/${eventType}`;
+
+        const data = {
+          id: window.AppAnalytics.id,
+          eventType,
+          secondsSinceStart,
+          timestamp: new Date(now).toISOString(),
+          info: window.AppAnalytics.clientInfo
+        };
+
+        firebase.database().ref(path).push(data)
+                .then(() => {
+                })
+                .catch(err => {
+                });
+      } catch (e) {}
+    }
+  }
+  window.addEventListener('pagehide', (event) => {
+    if (!event.persisted) { // if not from bfcache
+      window.AppAnalytics.sendEvent('user_left');
+    }
+  });
+  document.querySelectorAll(".Playback-buttons-bar button").forEach((el)=>{
+    el.addEventListener('click',(event) => {
+      let buttonName = event.currentTarget.getAttribute('data-ws-onclick');
+      console.log('click_' + buttonName);
+      window.AppAnalytics.sendEvent('click_' + buttonName);
+    });
+  });
+
   const voiceToName = {
+    "gcp.en-GB-Standard-D": "Noah",
+    "gcp.en-GB-Standard-N": "Lilly",
+    "gcp.en-GB-Standard-A": "Olivia",
     "en-US-AndrewMultilingualNeural": "John",
     "it-IT-MarcelloMultilingualNeural": "Marcello",
     "de-DE-SeraphinaMultilingualNeural": "Seraphina",
@@ -2139,7 +2374,8 @@
       container.replaceChild(clone, existingRow);
       if (job.mp3Url && !existingRow.querySelector('.job-download-btn')) {
         // IE newly available link:
-        downloadLink.click();
+        downloadLink.click(); // Effectively opening renderedModal
+        appMethods.closeModal("uploadSuccessModal"); // If priorly opened
       }
     } else {
       // 'Append' to be the first child:
@@ -2197,6 +2433,11 @@
       }
     }
 
+    function isBotUserAgent() {
+      const ua = navigator.userAgent.toLowerCase();
+      return /bot|crawler|spider|crawling|facebookexternalhit|slurp|bingpreview|embedly|pinterest|whatsapp|twitterbot|linkedinbot|telegrambot/.test(ua);
+    }
+
     fetchJsFile(srcs[0], onScriptLoaded);
 
     function runDependentScript() {
@@ -2214,6 +2455,21 @@
       firebase.auth().onAuthStateChanged(function(user) {
         //window.globalMethods.closeModalById("modalSigninVertical");
         console.log(stopper() + 'user signed ' + (user ? "IN" : "OUT"));
+
+        if (!user) {
+          // Set up analytics for new real human users:
+          if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn") && !window.AppAnalytics.id && !isBotUserAgent()) {
+            // This is a first ever visit. Set unique setup here:
+            // A/B test prefix: 50% A / 50% B
+            const prefix = Math.random() < 0.5 ? 'A_' : 'B_'; // 20251009 - A_ = export to premium only, B_ = export open up to 5k chars
+            const randomString = Math.random().toString(36).substring(2, 17); // 15 chars
+            window.AppAnalytics.id = prefix + randomString;
+            localStorage.setItem(window.AppAnalytics.STORAGE_KEY_ID, window.AppAnalytics.id);
+            localStorage.setItem(window.AppAnalytics.STORAGE_KEY_START_MS, Date.now());
+            window.AppAnalytics.sendEvent('firstVisit');
+            openOnboarding();
+          }
+        }
 
         if (user) {
           window.getIdToken = async () => {
@@ -2248,10 +2504,17 @@
             uid:  "",
             email: "",
             ronenMock: {key: true},
+            podcast_main_channel_url: "",
           });
           window.uid = null;
           if (window.getAppState && !getAppState().data.isPremium) {
             // injectAds();
+          }
+          let els = document.querySelectorAll("#exportsRowsContainer>.job-download-link");
+          if (els && els.length>0) {
+            els.forEach((el)=>{
+              el.remove();
+            })
           }
         }
       });
@@ -2642,6 +2905,7 @@
       if (isNewUser) {
         try {
           sendWelcome();
+          window.AppAnalytics.sendEvent('signup');
         } catch (err) {
           console.error('Error on isNewUser: ', err.message);
         }
@@ -2710,9 +2974,14 @@
     }
   });
 
-  function openOnboarding() {
-    localStorage.setItem("ttsreader.wasOnboarding3", "true");
-    return;
+  function openOnboarding(forceOpen) {
+    let shouldOpen = forceOpen; // || window.AppAnalytics.id?.startsWith("A_") - if we want to try some better onboarding...
+    if (!shouldOpen) {
+      appMethods.showModal("emptyTextModal")
+      localStorage.setItem("ttsreader.wasOnboarding3", "true");
+      return;
+    }
+
     document.getElementById('onboardingModal').style.display = 'flex';
     localStorage.removeItem("ttsreader.wasOnboarding3");
   }
@@ -2769,17 +3038,16 @@
     });
   });
 
-  if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn")) {
-    openOnboarding();
-  }
-
-  function closeNewUpgradeModal() {
+  function closeNewUpgradeModal(isPurchase) {
     let modalEl = document.getElementById('newUpgradeModal');
     if (modalEl) {
       modalEl.classList.remove("show");
       modalEl.addEventListener("transitionend", () => {
         //modalEl.classList.add("hidden");
       }, { once: true });
+    }
+    if (isPurchase) {
+      window.AppAnalytics.sendEvent('purchase');
     }
   }
 
@@ -2808,9 +3076,11 @@
     let uid = firebase?.auth()?.currentUser?.uid;
     if (!uid) {
       signIn(openNewUpgradeModal);
+      window.AppAnalytics.sendEvent('upgradeModalPreSignin');
       return;
     }
 
+    window.AppAnalytics.sendEvent('upgradeModalPostSignin');
     let modalEl = document.getElementById('newUpgradeModal');
     if (!modalEl) {
       console.error("Modal element not found");
@@ -2889,6 +3159,8 @@
   <div data-ws-string-key="alert_remove_setters_to_export" data-ws-string-value="Verwijder eventuele stem- / snelheidsinstellingen uit de tekst voordat u exporteert. Deze worden niet ondersteund in het geëxporteerde MP3-bestand. Instellingen zijn in het formaat {{set:...}}."></div>
   <div data-ws-string-key="app_js__processing_finished" data-ws-string-value="Verwerking voltooid. Controleer de exportlijst. Bij problemen neem contact op met contact@ttsreader.com"></div>
   <div data-ws-string-key="app_js__invalid_url" data-ws-string-value="Ongeldige URL"></div>
+  <div data-ws-string-key="notification__no_text_title" data-ws-string-value=""></div>
+  <div data-ws-string-key="notification__no_text_paragraph" data-ws-string-value=""></div>
 </div>
 <!-- end of JS STRINGS -->
 

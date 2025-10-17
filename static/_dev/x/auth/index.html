@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Firebase Auth for Chrome Extension</title>
+  <meta name="robots" content="noindex, follow">
+</head>
+<body>
+<h1>Firebase Auth for TTSReader's Chrome Extension</h1>
+<button>Sign in</button>
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import {
+    onAuthStateChanged,
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAdBWmw443huodq-KKwsbZtRWFy-biilRg",
+    authDomain: "ttsreader.firebaseapp.com",
+    databaseURL: "https://ttsreader.firebaseio.com",
+    projectId: "ttsreader",
+    storageBucket: "ttsreader.appspot.com",
+    messagingSenderId: "656667743185",
+    appId: "1:656667743185:web:85af89b663f07af34246f0"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    console.log("user: ", user);
+  });
+
+  const PROVIDER = new GoogleAuthProvider();
+
+  function sendResponse(result) {
+    console.log(result);
+    window.parent.postMessage(
+      JSON.stringify(result),
+      document.location.ancestorOrigins[0]
+    );
+  }
+
+  function signin() {
+    signInWithPopup(auth, PROVIDER)
+      .then(sendResponse)
+      .catch(sendResponse);
+  }
+
+  document.querySelector('button').addEventListener('click', signin);
+
+  window.addEventListener("message", function ({ data }) {
+    if (data.initAuth) {
+      signin();
+    }
+  });
+</script>
+</body>
+</html>
