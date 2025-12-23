@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-10-17T13:10:19.933Z",
-      "version": "3.9.6",
+      "dateModified": "2025-12-23T15:28:41.494Z",
+      "version": "3.10.1",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -22,9 +22,9 @@
     }
   </script>
   <!-- Include Quill stylesheet -->
-  <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
   <!-- Include the Quill library -->
-  <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
   <meta charset="utf-8" />
   <link rel="icon" href="favicon.ico" />
@@ -49,7 +49,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.9.6 - נגן טקסט לדיבור של TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.10.1 - נגן טקסט לדיבור של TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -64,7 +64,7 @@
   <script>
     // Dark mode toggle:
     let storedTheme = localStorage.getItem('theme-player-only');
-    let DEFAULT_THEME = 'light-bg';
+    let DEFAULT_THEME =  Math.random() < 0.5 ? 'dark-no-bg' : 'light-no-bg';
 
     if (!storedTheme) {
       let storedBlogTheme = localStorage.getItem('theme');
@@ -160,6 +160,159 @@
         setUiToDarkModeAndBgTheme(true, false);
       }
     }
+
+    function getAddContentDropdownParts() {
+      const dropdown = document.getElementById('addContentDropdown');
+      if (!dropdown) return {};
+      const trigger = dropdown.querySelector('.add-content-dropdown-trigger');
+      const menu = dropdown.querySelector('.add-content-dropdown-menu');
+      const items = menu ? Array.from(menu.querySelectorAll('[data-dropdown-item]')) : [];
+      return { dropdown, trigger, menu, items };
+    }
+
+    function toggleAddContentDropdown() {
+      const { menu } = getAddContentDropdownParts();
+      if (!menu) return;
+      const isOpen = menu.classList.contains('show');
+      setAddContentDropdownVisibility(!isOpen);
+    }
+
+    function setAddContentDropdownVisibility(isOpen) {
+      const { trigger, menu } = getAddContentDropdownParts();
+      if (!menu || !trigger) return;
+
+      menu.classList.toggle('show', isOpen);
+      menu.hidden = !isOpen;
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (isOpen) {
+        // Delay to ensure current click does not immediately close.
+        setTimeout(() => {
+          document.addEventListener('click', handleAddContentClickOutside, true);
+          document.addEventListener('focusin', handleAddContentFocusOutside, true);
+          document.addEventListener('keydown', handleAddContentKeydown, true);
+        }, 0);
+        focusFirstAddContentItem();
+      } else {
+        document.removeEventListener('click', handleAddContentClickOutside, true);
+        document.removeEventListener('focusin', handleAddContentFocusOutside, true);
+        document.removeEventListener('keydown', handleAddContentKeydown, true);
+      }
+    }
+
+    function openAddContentDropdown() {
+      closeAllDropdowns();
+      setAddContentDropdownVisibility(true);
+    }
+
+    function closeAddContentDropdown() {
+      setAddContentDropdownVisibility(false);
+    }
+
+    function closeAllDropdowns() {
+      const allDropdownMenus = document.querySelectorAll('.add-content-dropdown-menu');
+      allDropdownMenus.forEach(menu => {
+        menu.classList.remove('show');
+        menu.hidden = true;
+      });
+      document.removeEventListener('click', handleAddContentClickOutside, true);
+      document.removeEventListener('focusin', handleAddContentFocusOutside, true);
+      document.removeEventListener('keydown', handleAddContentKeydown, true);
+
+      const { trigger } = getAddContentDropdownParts();
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function handleAddContentClickOutside(event) {
+      const { dropdown } = getAddContentDropdownParts();
+      if (!dropdown || dropdown.contains(event.target)) return;
+      closeAddContentDropdown();
+    }
+
+    function handleAddContentFocusOutside(event) {
+      const { dropdown } = getAddContentDropdownParts();
+      if (!dropdown || dropdown.contains(event.target)) return;
+      closeAddContentDropdown();
+    }
+
+    function handleAddContentKeydown(event) {
+      if (event.key === 'Escape') {
+        closeAddContentDropdown();
+        const { trigger } = getAddContentDropdownParts();
+        if (trigger) trigger.focus();
+      }
+    }
+
+    function handleDropdownAction(action) {
+      closeAddContentDropdown();
+
+      switch(action) {
+        case 'openFile':
+          // The file input will handle the file selection
+          break;
+        case 'importWebsite':
+          console.log('Import website clicked');
+          break;
+        case 'clearText':
+          console.log('Clear text clicked');
+          if (window.clearTextArea) {
+            window.clearTextArea();
+          }
+          break;
+        default:
+          console.log('Unknown action:', action);
+      }
+    }
+
+    function handleDropdownItemActivation(event) {
+      const targetItem = event.target.closest('[data-dropdown-item]');
+      if (!targetItem) return;
+      closeAddContentDropdown();
+    }
+
+    function handleDropdownItemKeydown(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.target.click();
+      }
+    }
+
+    function focusFirstAddContentItem() {
+      const { items } = getAddContentDropdownParts();
+      if (items && items.length) {
+        items[0].focus();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const { trigger, menu, items } = getAddContentDropdownParts();
+
+      if (menu) {
+        menu.hidden = true;
+        if (!menu.id) {
+          menu.id = 'addContentDropdownMenu';
+        }
+        menu.setAttribute('role', 'menu');
+        menu.addEventListener('click', handleDropdownItemActivation);
+        menu.addEventListener('keydown', handleDropdownItemKeydown);
+      }
+
+      if (trigger) {
+        trigger.setAttribute('type', 'button');
+        trigger.setAttribute('aria-haspopup', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.setAttribute('aria-controls', 'addContentDropdownMenu');
+      }
+
+      if (items && items.length) {
+        items.forEach(item => {
+          item.setAttribute('role', 'menuitem');
+          item.setAttribute('tabindex', '-1');
+        });
+      }
+    });
   </script>
 
   <style>
@@ -433,6 +586,10 @@
       }
     }
 
+    .ql-editor {
+      text-align: start;
+    }
+
     /* Default state: hide 2nd child SVG */
     .play-test-btn svg:nth-child(2) {
       display: none;
@@ -471,13 +628,270 @@
     .podcast-description-toggle:hover {
       color: #66BB6A !important;
     }
-  </style>
-<script defer src="./static/js/main.290d3ace.js"></script><link href="./static/css/main.6bf3b418.css" rel="stylesheet"></head>
-<body>
 
+    .ql-editor {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      overflow-x: hidden;
+    }
+
+    /* ---------- Add Content Dropdown Styles ---------- */
+    .add-content-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .add-content-dropdown-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid gray;
+      background: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #1d1d1f;
+    }
+
+    .add-content-dropdown-trigger:hover {
+      background-color: #454547;
+    }
+
+    .add-content-dropdown-trigger:active {
+      background-color: #e8e8ea;
+      transform: scale(0.95);
+    }
+
+    .add-content-dropdown-menu {
+      max-height: 70vh;
+      overflow-y: auto;
+      position: absolute;
+      display: none;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+      border: 0.5px solid #e5e5e7;
+      z-index: 1000;
+      transition: all 0.2s ease;
+      margin-top: 8px;
+      min-width: 320px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .add-content-dropdown-menu.show {
+      display: block;
+      pointer-events: auto;
+    }
+
+    .add-content-dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      border-bottom: 0.5px solid #f0f0f0;
+      position: relative;
+    }
+
+    .add-content-dropdown-item:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .add-content-dropdown-item:last-child {
+      border-bottom: none;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .add-content-dropdown-item:only-child {
+      border-radius: 12px;
+    }
+
+    .add-content-dropdown-item:hover {
+      background-color: #f9f9fb;
+    }
+
+    .add-content-dropdown-item:active {
+      background-color: #f0f0f2;
+    }
+
+    .add-content-dropdown-item:focus-visible {
+      outline: 2px solid #007aff;
+      outline-offset: -2px;
+      background-color: #f0f6ff;
+    }
+
+    .add-content-dropdown-item-icon {
+      width: 20px;
+      height: 20px;
+      color: #007aff;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .add-content-dropdown-item span {
+      font-size: 16px;
+      font-weight: 500;
+      color: #1d1d1f;
+      flex: 1;
+    }
+
+    .add-content-file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+  </style>
+  <style>
+    /* ---------- Base layout ---------- */
+    .sign-in-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 460px;
+      margin: auto;
+      max-width: 90%;
+    }
+
+    /* ---------- Shared button style ---------- */
+    .styled-sign-in-btn-google,
+    .styled-sign-in-btn-apple {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      transform: translateY(0);
+    }
+
+    .styled-sign-in-btn-google:hover,
+    .styled-sign-in-btn-apple:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .styled-sign-in-btn-google:active,
+    .styled-sign-in-btn-apple:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    }
+
+    /* ---------- Google button ---------- */
+    .styled-sign-in-btn-google {
+      border: 1px solid #dadce0;
+      background: #fff;
+      color: #202124;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .styled-sign-in-btn-google:hover {
+      background: #f8f9fa;
+    }
+
+    /* ---------- Apple button ---------- */
+    .styled-sign-in-btn-apple {
+      background: #000;
+      color: #fff;
+      border: 1px solid #000;
+    }
+
+    .styled-sign-in-btn-apple:hover {
+      background: #333;
+    }
+
+    /* ---------- Dark mode overrides ---------- */
+    [data-dark-mode] body {
+      background: #121212;
+    }
+
+    [data-dark-mode] .styled-sign-in-btn-google {
+      background: #1f1f1f;
+      border-color: #3c4043;
+      color: #e8eaed;
+    }
+
+    [data-dark-mode] .styled-sign-in-btn-google:hover {
+      background: #2b2b2b;
+    }
+
+    [data-dark-mode] .styled-sign-in-btn-apple {
+      background: #e8eaed;
+      color: #111;
+      border-color: #e8eaed;
+    }
+
+    [data-dark-mode] .styled-sign-in-btn-apple:hover {
+      background: #fff;
+    }
+
+    /* ---------- Icon sizing ---------- */
+    .google-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+    }
+    .apple-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-block;
+      position: relative;
+      top: -2px;
+    }
+  </style>
+
+  <template id="sign-in-buttons-template">
+    <div class="sign-in-container">
+      <!-- Google Sign-in Button -->
+      <button class="styled-sign-in-btn-google">
+      <span class="google-icon">
+        <!-- Google G logo SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 533.5 544.3">
+          <path fill="#4285f4" d="M533.5 278.4c0-17.4-1.6-34.1-4.7-50.3H272.1v95.1h147.2c-6.4 34.5-25 63.8-53.3 83.4l85.9 66.8c50.2-46.2 81.6-114.2 81.6-194.9z"/>
+          <path fill="#34a853" d="M272.1 544.3c72.4 0 133.2-23.9 177.5-64.9l-85.9-66.8c-23.9 16.1-54.5 25.6-91.6 25.6-70.4 0-130.1-47.4-151.4-111.1H31.9v69.7c44.3 87.6 134.9 147.5 240.2 147.5z"/>
+          <path fill="#fbbc04" d="M120.7 327.1c-10.9-32.6-10.9-67.9 0-100.5V156.9H31.9c-43.5 86.9-43.5 189.6 0 276.5l88.8-69.6z"/>
+          <path fill="#ea4335" d="M272.1 107.7c39.4 0 74.8 13.6 102.7 40.3l76.6-76.6C405.3 24.4 344.5 0 272.1 0 166.8 0 76.2 59.9 31.9 147.5l88.8 69.7C142 155.1 201.7 107.7 272.1 107.7z"/>
+        </svg>
+      </span>
+        <span>המשך עם Google</span>
+      </button>
+
+      <!-- Apple Sign-in Button -->
+      <button class="styled-sign-in-btn-apple">
+      <span class="apple-icon">
+        <!-- Apple logo SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-brand-apple"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15.079 5.999l.239 .012c1.43 .097 3.434 1.013 4.508 2.586a1 1 0 0 1 -.344 1.44c-.05 .028 -.372 .158 -.497 .217a4.15 4.15 0 0 0 -.722 .431c-.614 .461 -.948 1.009 -.942 1.694c.01 .885 .339 1.454 .907 1.846c.208 .143 .436 .253 .666 .33c.126 .043 .426 .116 .444 .122a1 1 0 0 1 .662 .942c0 2.621 -3.04 6.381 -5.286 6.381c-.79 0 -1.272 -.091 -1.983 -.315l-.098 -.031c-.463 -.146 -.702 -.192 -1.133 -.192c-.52 0 -.863 .06 -1.518 .237l-.197 .053c-.575 .153 -.964 .226 -1.5 .248c-2.749 0 -5.285 -5.093 -5.285 -9.072c0 -3.87 1.786 -6.92 5.286 -6.92c.297 0 .598 .045 .909 .128c.403 .107 .774 .26 1.296 .508c.787 .374 .948 .44 1.009 .44h.016c.03 -.003 .128 -.047 1.056 -.457c1.061 -.467 1.864 -.685 2.746 -.616l-.24 -.012z" /><path d="M14 1a1 1 0 0 1 1 1a3 3 0 0 1 -3 3a1 1 0 0 1 -1 -1a3 3 0 0 1 3 -3z" /></svg>
+      </span>
+        <span>המשך עם Apple</span>
+      </button>
+    </div>
+  </template>
+  <script>
+    class SignInButtons extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = document.getElementById("sign-in-buttons-template").innerHTML;
+      }
+    }
+    customElements.define("sign-in-buttons", SignInButtons);
+  </script>
+
+<script defer src="./static/js/main.1d0c262a.js"></script><link href="./static/css/main.a10dc5d7.css" rel="stylesheet"></head>
+<body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
-    <div class="Go-premium-banner" data-ws-show-if-state="isPremium=false" style="text-align: center;text-transform: uppercase;
+    <div class="Go-premium-banner" style="display: none;text-align: center;text-transform: uppercase;
       color: white;
       font-weight: bold;
       font-size: smaller;
@@ -497,7 +911,7 @@
           </a>
         </div>
         <div data-ws-show-if-state="isSignedIn=false">
-          <a class="Menu-list-element" onclick="toggleSignIn();" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"></path></svg>&nbsp;&nbsp;התחבר / הירשם<!-- Sign in / Sign up --></a>
+          <a class="Menu-list-element" data-ws-toggle="#signinModal" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"></path></svg>&nbsp;&nbsp;התחבר / הירשם<!-- Sign in / Sign up --></a>
         </div>
         <div data-ws-show-if-state="isSignedIn=true" >
           <div style="display: flex;align-items: center;">
@@ -525,7 +939,7 @@
         <div class="Menu-list-element" style="position: relative;">
           <input style="position: absolute;display: block;opacity: 0; right:0;left:0;top:0;bottom:0; cursor: pointer" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
           <a onclick="gtag('event','import_file_click_player_drawer',{value:'1'})"  data-ws-onClick="openFile" style="text-decoration:none;display: flex;align-items: center">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span style="display: block;flex: 1;">ייבא קובץ (DOCX, TXT, PDF, EPUB, ...)</span>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span style="display: block;flex: 1;">ייבא קובץ (DOCX, TXT, PDF, EPUB, etc.)</span>
           </a>
         </div>
         <div>
@@ -543,7 +957,7 @@
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;קבצי השמע שלך
           </a>
         </div>
-        <a class="Menu-list-element" data-ws-toggle="#voicesModal" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
+        <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;צריך עוד קולות<!-- Need more voices -->
         </a>
         <div>
@@ -598,7 +1012,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.9.6</b> Build 2025-10-17T13:10:19.933Z
+          <b>V3.10.1</b> Build 2025-12-23T15:28:41.494Z
           <br/><span style="margin-top: 10px;display: block">כל הגרסאות <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -642,70 +1056,144 @@
       </div>
 
     </drawer>
-    <div style="display: flex; flex-direction: column; flex: 1;max-width: 100%;">
+    <div style="display: flex; flex-direction: column; flex: 1;max-width: 100%;min-width: 38vw">
 
       <div class="Buttons-bar" style="display: flex">
         <button title="Open / close main drawer" aria-label="Open / close main drawer" style="" onclick="toggleDrawerOpen();">
           <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MenuIcon"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
         </button>
         <!--<a class="Hide-on-narrow-screens" href="https://ttsreader.com" alt="TTSReader Home" title="TTSReader Home" style="background-image: url('favicon2.svg');background-size: contain;width: 40px;height: 40px; border-radius: 10px;"></a>-->
+        <!-- Add Content Dropdown -->
+        <div class="add-content-dropdown" id="addContentDropdown" style="">
+          <button class="add-content-dropdown-trigger" type="button" title="Add content" aria-label="Add content" aria-expanded="false" aria-haspopup="true" aria-controls="addContentDropdownMenu" onclick="toggleAddContentDropdown()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+          </button>
+
+          <div class="add-content-dropdown-menu" id="addContentDropdownMenu" role="menu" hidden>
+            <!-- Open File -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item onclick="handleDropdownAction('openFile')" data-action="openFile">
+              <svg class="add-content-dropdown-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                <polyline points="14,2 14,8 20,8"/>
+              </svg>
+              <span>
+                <span>פתח</span>
+                <br/><span style="font-size: small; color: darkgray">DOCX, TXT, PDF, EPUB ebooks, & more</span>
+              </span>
+              <input class="add-content-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
+            </div>
+
+            <!-- Import Website -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-toggle="#openUrlModal" data-action="importWebsite">
+              <svg class="add-content-dropdown-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19.5 7a9 9 0 0 0-7.5-4a8.991 8.991 0 0 0-7.484 4"/>
+                <path d="M11.5 3a16.989 16.989 0 0 0-1.826 4"/>
+                <path d="M12.5 3a16.989 16.989 0 0 1 1.828 4"/>
+                <path d="M19.5 17a9 9 0 0 1-7.5 4a8.991 8.991 0 0 1-7.484-4"/>
+                <path d="M11.5 21a16.989 16.989 0 0 1-1.826-4"/>
+                <path d="M12.5 21a16.989 16.989 0 0 0 1.828-4"/>
+                <path d="M2 10l1 4l1.5-4l1.5 4l1-4"/>
+                <path d="M17 10l1 4l1.5-4l1.5 4l1-4"/>
+                <path d="M9.5 10l1 4l1.5-4l1.5 4l1-4"/>
+              </svg>
+              <span>Import website</span>
+            </div>
+
+            <!-- Clear Text -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-onClick="clearContent" data-action="clearText">
+              <svg class="add-content-dropdown-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3,6 5,6 21,6"/>
+                <path d="m19,6v14c0,1-1,2-2,2H7c-1,0-2-1-2-2V6m3,0V4c0-1,1-2,2-2h4c1,0,2,1,2,2v2"/>
+                <line x1="10" y1="11" x2="10" y2="17"/>
+                <line x1="14" y1="11" x2="14" y2="17"/>
+              </svg>
+              <span>Clear text area</span>
+            </div>
+
+            <!-- Add Pause -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-toggle="#addPauseModal">
+              <svg xmlns="http://www.w3.org/2000/svg" class="add-content-dropdown-item-icon" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M20.942 13.018a9 9 0 1 0 -7.909 7.922"></path>
+                <path d="M12 7v5l2 2"></path>
+                <path d="M17 17v5"></path>
+                <path d="M21 17v5"></path>
+              </svg>
+              <span>Add pause in playback</span>
+            </div>
+
+            <!-- Add Comment -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-toggle="#addCommentModal">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="add-content-dropdown-item-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9h8" /><path d="M8 13h6" /><path d="M12.01 18.594l-4.01 2.406v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
+              <span>
+                <span>Add comment</span>
+                <br/><span style="font-size: small; color: darkgray">Text content ignored by player</span>
+              </span>
+            </div>
+
+            <hr/>
+
+            <!-- Export -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-onclick="calculateStats" data-ws-toggle="#exportModal">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="add-content-dropdown-item-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+              <span>
+                <span>Export text to MP3</span>
+                <br/><span style="font-size: small; color: darkgray">Download / listen offline / share / listen later / podcast / publish, etc.</span>
+              </span>
+            </div>
+
+            <hr data-ws-show-if-state="isPremium=false"/>
+
+            <!-- Upgrade to Premium -->
+            <div  data-ws-show-if-state="isPremium=false" class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item onclick="openNewUpgradeModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="add-content-dropdown-item-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5" /><path d="M6 14m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5" /></svg>
+              <span>
+                <span>👑 Upgrade</span>
+                <br/><span style="font-size: small; color: darkgray">Enjoy AI voices & more. Premium is required for businesses, commercial licenses, publishing and copyrights on your exported audio. <b>View plans.</b></span>
+              </span>
+            </div>
+          </div>
+        </div>
+        &nbsp;
+        <button onclick="openOrCloseExportsListModal()" class="btn btn-link" type="button" aria-label="Open personal long-audio archive" title="Open personal long-audio archive">
+          <svg style="    position: relative;
+    top: 2px;
+    width: 28px;
+    height: 28px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>
+        </button>
+
         <span style="display: inline-block;flex: 1"></span>
-        <button title="Open file" aria-label="Open file" data-ws-onClick="openFile" style="display: inline-block;position: relative;overflow: hidden;"><span>📂<span class="Hide-on-narrow-screens">&nbsp;פתח<!-- Open --></span></span><input style="position: absolute;display: block;opacity: 0; right:0;left:0;top:0;bottom:0; cursor: pointer" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect"></button>
-        &nbsp;
-        <button class="Clear-btn" data-ws-toggle="#openUrlModal" title="Read Web Page" aria-label="Read Web Page">
-          <svg style="position: relative; bottom: -2px" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-world-www"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 7a9 9 0 0 0 -7.5 -4a8.991 8.991 0 0 0 -7.484 4" /><path d="M11.5 3a16.989 16.989 0 0 0 -1.826 4" /><path d="M12.5 3a16.989 16.989 0 0 1 1.828 4" /><path d="M19.5 17a9 9 0 0 1 -7.5 4a8.991 8.991 0 0 1 -7.484 -4" /><path d="M11.5 21a16.989 16.989 0 0 1 -1.826 -4" /><path d="M12.5 21a16.989 16.989 0 0 0 1.828 -4" /><path d="M2 10l1 4l1.5 -4l1.5 4l1 -4" /><path d="M17 10l1 4l1.5 -4l1.5 4l1 -4" /><path d="M9.5 10l1 4l1.5 -4l1.5 4l1 -4" /></svg>
+
+        <button title="Select language, voice and speed" aria-label="Select language, voice and speed" style="overflow: hidden;" data-ws-onclick="handleVoiceLabelClick">
+          <span class="Voice-label Flag-font" data-ws-label-state="voiceLabel"></span>
+          <span data-ws-label-state="selectedRate"></span>X
         </button>
-        &nbsp;
-        <button class="Clear-btn" data-ws-onClick="clearContent" title="Erase all text from document" aria-label="Erase all text from document">🗑️</button>
-        &nbsp;
-        <button title="Select language, voice and speed" aria-label="Select language, voice and speed" style="max-height: 2em;overflow: hidden;" data-ws-toggle="#voicesModal">
-          <svg class="Top-btn-svg" style="width:1.5em;height: 1.5em;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg>
-          <span class="Hide-on-narrow-screens">
-        &nbsp;
-        <span class="Voice-label Flag-font" data-ws-label-state="voiceLabel"></span>
-        &nbsp;
-        <svg class="Top-btn-svg" style="margin-left: -10px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5z"></path></svg>
-      </span>
-        </button>
-        <button title="Reading speed" data-ws-toggle="#voicesModal"><span data-ws-label-state="selectedRate"></span>X</button>
-        &nbsp;
-        <button data-ws-toggle="#addPauseModal" title="Insert pause in reading" aria-label="Insert pause in reading">
-          <svg xmlns="http://www.w3.org/2000/svg" class="Top-btn-svg" style="width: 1.3em; height: 1.3em;" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M20.942 13.018a9 9 0 1 0 -7.909 7.922"></path>
-            <path d="M12 7v5l2 2"></path>
-            <path d="M17 17v5"></path>
-            <path d="M21 17v5"></path>
-          </svg>
-        </button>
-        &nbsp;
-        <div class="Dropdown-header" style="display: inline-block; vertical-align: middle;cursor: pointer;position: relative;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 17v2h14v-2H5zm4.5-4.2h5l.9 2.2h2.1L12.75 4h-1.5L6.5 15h2.1l.9-2.2zM12 5.98 13.87 11h-3.74L12 5.98z"></path></svg>
+
+        <span style="flex: 1"></span>
+
+        <div class="Dropdown-header" style="display: inline-block; vertical-align: middle;cursor: pointer;position: relative;align-content: center;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-text-size"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7v-2h13v2" /><path d="M10 5v14" /><path d="M12 19h-4" /><path d="M15 13v-1h6v1" /><path d="M18 12v7" /><path d="M17 19h2" /></svg>
           <div class="Dropdown-content" style="left:0;width:120px; translate: -40px;">
             <span data-ws-onClick="fontDecrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM23 11v2h-8v-2h8z"></path></svg></span>
             <span data-ws-onClick="fontIncrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM20 11h3v2h-3v3h-2v-3h-3v-2h3V8h2v3z"></path></svg></span>
           </div>
         </div>
-        &nbsp;
         <button onclick="toggleTheme();" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
           <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
         </button>
-        &nbsp;
-        <span style="flex: 1"></span>
-
-        <button title="My Exports" aria-label="My Exports" style="" onclick="openOrCloseExportsListModal();">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
-        </button>
         <button title="Text analytics - word counter & more" aria-label="Text analytics - word counter & more" style="" data-ws-onClick="calculateStats" data-ws-toggle="#statsModal">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-google-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 9m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v9.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" /><path d="M17 3m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v15.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" /><path d="M5 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /></svg>
+        </button>
+        <button title="Player Settings" aria-label="Player Settings" style="" data-ws-onClick="toggleSettingsSidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
         </button>
         <!--<button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-language"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7" /><path d="M9 3v2c0 4.418 -2.239 8 -5 8" /><path d="M5 9c0 2.144 2.952 3.908 6.7 4" /><path d="M12 20l4 -9l4 9" /><path d="M19.1 18h-6.2" /></svg>
         </button>-->
       </div>
 
-      <div style="display: flex;flex: 1;overflow: hidden;">
+      <div class="main-app-container" style="display: flex;flex: 1;overflow: hidden;">
 
-        <div style="flex: 1;display: flex;flex-direction: column;overflow: hidden;">
+        <div class="main-content-area" style="flex: 1;display: flex;flex-direction: column;overflow: hidden;">
           <div class="App"  style="flex: 1;position: relative;display: flex;flex-direction: column">
             <div class="Book-bar" data-ws-show-if-state="isBook=true" style="text-align: center">
               <span data-ws-label-state="bookTitle"></span>&nbsp;-&nbsp;
@@ -774,7 +1262,6 @@
                 });
 
                 window.quill = quill; // Make Quill accessible globally
-
                 const sentenceBreakRegex = /[.?!…]+[\s\n]+|[\n]+/g;
 
                 function getCaretIndexOrHighlightEnd() {
@@ -859,7 +1346,7 @@
               <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
               <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
             </button>
-            <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" onclick="openOrCloseExportsListModal()">
+            <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal">
               <svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
             </button>
             <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
@@ -892,19 +1379,19 @@
               </div>
               <div data-ws-show-if-state="serverData=true">
                 <p data-ws-show-if-state="isPremium=false">
-                  Used <span data-ws-label-state="usageLife"></span> / 5,000 chars for premium voices.&nbsp;Click to get more.
+                  בשימוש<!--Used--> <span data-ws-label-state="usageLife"></span> / 5,000 תווים לקולות פרימיום.&nbsp;לחץ למידע נוסף.<!-- 5,000 chars for premium voices.&nbsp;Click for more.-->
                 </p>
                 <p data-ws-show-if-state="isPremium=true">
-                  🏆 Premium&nbsp;
+                  🏆 פרימיום<!--Premium-->&nbsp;
                   <span data-ws-show-if-state="isPremiumPlan=true">
-                    <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> / month.
+                    <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> / חודש<!--month-->.
                   </span>
                   &nbsp;
                   <span data-ws-show-if-state="isPayAsYouGo=true">
                     + <span data-ws-label-state="remainingCreditsChars"></span>.
                   </span>
                   &nbsp;
-                  + ADD MORE
+                  + הוסף עוד<!--ADD MORE-->
                 </p>
               </div>
 
@@ -929,6 +1416,120 @@
       </div>
 
     </div>
+    <!-- Right Settings Sidebar -->
+    <div id="settingsSidebar" class="settings-sidebar" data-ws-show-if-state="isSettingsSidebarOpen=true">
+      <div class="settings-sidebar-overlay" data-ws-onClick="closeSettingsSidebar"></div>
+      <div class="settings-sidebar-content">
+        <div class="settings-sidebar-header">
+          &nbsp;
+          <button class="settings-sidebar-close-btn" data-ws-onClick="closeSettingsSidebar" aria-label="Close Settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" /><path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" /><path d="M3 3l18 18" /></svg>
+          </button>
+        </div>
+
+        <div class="settings-sidebar-body">
+          <!-- Header Overlays for Stacking -->
+          <div class="settings-headers-top-overlay"></div>
+          <div class="settings-headers-bottom-overlay"></div>
+
+          <div class="settings-sidebar-scrollable">
+            <!-- Language Selection Section -->
+            <div class="settings-section" data-title="">
+                <div class="settings-section-header">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                    <path d="M4 5h7" />
+                    <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+                    <path d="M5 9c0 2.144 2.952 3.908 6.7 4" />
+                    <path d="M12 20l4 -9l4 9" />
+                    <path d="M19.1 18h-6.2" />
+                  </svg>
+                  <span class="settings-section-title"></span>
+                  <span class="settings-section-value" data-ws-label-state="selectedLanguageFlag"></span>
+                </div>
+                <div class="settings-control">
+                  <div class="unified-language-selector" id="unifiedLanguageSelector">
+                    <!-- Closed state: shows selected language -->
+                    <div class="language-selector-closed" data-ws-onClick="openLanguageSelector">
+                      <span class="selected-language-display Flag-font" data-ws-label-state="selectedLanguageDisplay">🇺🇸 English</span>
+                      <svg class="language-selector-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9l6 6l6-6" />
+                      </svg>
+                    </div>
+
+                    <!-- Open state: search input + dropdown -->
+                    <div class="language-selector-open hidden">
+                      <input type="text" class="language-search-input" placeholder="Search languages..." data-ws-onInput="filterUnifiedLanguages" autocomplete="off">
+                      <div class="language-dropdown" id="languageDropdown">
+                        <!-- Language options will be populated here -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Playback Rate Section -->
+              <div class="settings-section" data-title="">
+            <div class="settings-section-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12,6 12,12 16,14" />
+              </svg>
+              <span class="settings-section-title"></span>
+              <span class="settings-section-value" data-ws-label-state="selectedRate">1.0</span>
+            </div>
+            <div class="settings-control">
+              <div class="speed-control">
+                <button class="speed-btn speed-btn-decrease" data-ws-onClick="slower" aria-label="Decrease speed">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                  </svg>
+                </button>
+                <input type="range" class="speed-slider" data-ws-value-state="selectedRateSliderValue" min="1" max="16" data-ws-onInput="onRateChange" aria-label="Playback speed">
+                <button class="speed-btn speed-btn-increase" data-ws-onClick="faster" aria-label="Increase speed">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14" />
+                    <path d="M5 12h14" />
+                  </svg>
+                </button>
+              </div>
+              <div class="speed-labels">
+                <span>0.5x</span>
+                <span>1.0x</span>
+                <span>2.0x</span>
+              </div>
+            </div>
+          </div>
+
+              <!-- Voice Selection Section -->
+              <div class="settings-section" data-title="">
+            <div class="settings-section-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                <circle cx="9" cy="9" r="4" />
+                <path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                <path d="M17.76 5.36l1.68 1.69c2.02 2.02 2.02 5.07 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89z" />
+                <path d="M20.07 2l1.63 1.63c3.91 3.91 3.91 9.95 0 14l-1.63-1.63c2.77-3.02 2.77-7.56 0-10.74z" />
+              </svg>
+              <span class="settings-section-title"></span>
+              <div class="voice-filter-controls">
+                <button class="voice-filter-btn active" data-filter="all" data-ws-onClick="filterVoices">All</button>
+                <button class="voice-filter-btn" data-filter="premium" data-ws-onClick="filterVoices">Premium</button>
+                <button class="voice-filter-btn" data-filter="basic" data-ws-onClick="filterVoices">Basic</button>
+              </div>
+            </div>
+            <div class="settings-control">
+              <div id="sidebarVoicesList" class="sidebar-voices-list">
+                <!-- Voices will be populated here -->
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <!-- Removed: overlay containers moved inside sidebar body -->
+      </div>
+    </div>
+
+
   </div>
 
 
@@ -1045,7 +1646,11 @@
       </div>
       <br/>
       <p style="font-size: smaller"><i>By continuing you agree to our <a href="/docs/legal/terms/" target="_blank">terms</a> & <a href="/docs/legal/privacy/" target="_blank">privacy policy</a></i></p>
-      <p data-ws-show-if-state="isSignedIn=false">כבר יש לך חשבון?&nbsp;<button class="secondary" onclick="signIn()">התחבר עם Google</button></p>
+      <p data-ws-show-if-state="isSignedIn=false">
+        כבר יש לך חשבון?
+        <br/>
+        <sign-in-buttons></sign-in-buttons>
+      </p>
       <div style="flex:1;" ></div>
     </div>
 
@@ -1180,7 +1785,7 @@
           <div class="modal-step-overlay" style="display:flex;position: absolute;top:0;bottom:0;left:0;right:0;flex-direction: column">
             <div style="flex:1.5"></div>
             <p style="max-width: 600px; margin: auto;font-size: larger;">
-              הקול שבחרתם <span data-ws-label-state="voiceLabel"></span>&nbsp; הוא פשוט מעולה! מאחר שזהו קול פרימיום, נדרשת כניסה.<br/><br/>אנא היכנסו בצורה מאובטחת עם Google כדי להמשיך.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. -->
+              הקול שבחרת <span data-ws-label-state="voiceLabel"></span>&nbsp; הוא בחירה מעולה!<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. -->
             </p>
             <br/><br/>
             <button onclick="signIn();" class="primary" style="margin: auto;border: 1px solid;border-radius: 10px;width: 500px;max-width: 90%;">התחבר באמצעות גוגל<!-- Sign In with Google --></button>
@@ -1210,11 +1815,10 @@
         </svg>
       </button>
       <div style="flex: 1"></div>
-      <p style="font-size: larger;">הקול שבחרתם <span data-ws-label-state="voiceLabel"></span>&nbsp; הוא פשוט מעולה! מאחר שזהו קול פרימיום, נדרשת כניסה. אנא היכנסו בצורה מאובטחת עם Google כדי להמשיך.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
+      <p style="font-size: larger;">הקול שבחרת <span data-ws-label-state="voiceLabel"></span>&nbsp; הוא בחירה מעולה!<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
       <br/>
-      <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">התחבר באמצעות גוגל<!-- Sign In with Google --></button>
-      <p style="text-align: center">OR</p>
-      <button onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.showModal("voicesModal");' class="Full-width-btn">Select a Non Premium Voice</button>
+      <sign-in-buttons></sign-in-buttons>
+      <button style="margin:60px auto 30px; width: unset;" onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.showModal("voicesModal");' class="Full-width-btn">או בחרו קול בסיסי<!--Or, Select a Non Premium Voice--></button>
       <div style="flex: 2"></div>
     </div>
     <div style="height:20px;"></div>
@@ -1256,6 +1860,26 @@
       </div>
     </div>
     <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="signinModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;width: fit-content">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow: auto;padding:10px;">
+        <p class="Modal-title">
+          התחבר / הירשם
+        </p>
+        <br/>
+        <sign-in-buttons></sign-in-buttons>
+      </div>
+      <div style="height:40px;"></div>
+    </div>
+
   </div>
 
   <div class="Modal" id="voicesModal" style="display: none;">
@@ -1322,6 +1946,36 @@
               <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
               <svg style="height: 22px;" xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="currentColor" class="Top-btn-svg icon icon-tabler icons-tabler-filled icon-tabler-player-pause"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" /><path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" /></svg>
             </span>
+          </div>
+        </template>
+
+        <template id="sidebarVoiceOptionTemplate">
+          <div class="sidebar-voice-item" data-ws-voiceURI="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-ws-voiceName="David" data-ws-select-if-state="selectedVoiceUri=ttsreaderServer.gcp.en-US-Chirp-HD-D" data-voice-type="premium"  onclick="window.appMethods.selectVoice(this)">
+            <div class="sidebar-voice-avatar" onclick="window.appMethods.selectVoice(this)">
+              <canvas class="voice-avatar-canvas" width="40" height="40"></canvas>
+            </div>
+            <div class="sidebar-voice-info" onclick="window.appMethods.selectVoice(this)">
+              <div class="sidebar-voice-name">David</div>
+              <div class="sidebar-voice-meta">
+                <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
+                <span class="voice-gender-male" title="Male">👨</span>
+                <span class="voice-gender-female" title="Female">👩</span>
+                <span class="voice-type-badge" title="Voice Type"></span>
+              </div>
+            </div>
+            <div class="sidebar-voice-actions">
+              <button class="sidebar-voice-btn" title="Test voice" onclick="window.appMethods.testVoice(this)" aria-label="Test voice">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+              </button>
+              <button class="sidebar-voice-btn" title="Copy voice settings" onclick="window.appMethods.copyVoice(this);event.stopPropagation();" aria-label="Copy voice settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              </button>
+            </div>
           </div>
         </template>
 
@@ -1425,122 +2079,53 @@
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
         </svg>
       </button>
-      <div data-ws-show-if-state="isPremium=true" style="text-align: center;overflow: auto;padding:10px;">
-        <p style="font-size: 70px; padding: 20px;margin-block: 0.3em;">🏆</p>
+      <div data-ws-show-if-state="isPremium=true"  style="text-align: center;overflow: auto;padding:10px;">
+        <p style="font-size: 1.5em; padding: 20px;margin-block: 0.3em;">🏆 סטטוס פרימיום וניהול<!--Premium Status & Management--></p>
         <p data-ws-show-if-state="subscriptionId=true">
           באמצעות<!-- Via --> <a style="cursor: pointer;text-decoration: underline" data-ws-toggle="#subscriptionModal">מנוי<!-- Subscription --> - לחץ כאן לצפייה וניהול<!-- click here to view & manage --></a>
-          <br/>
-          Planned to renew automatically on: <span data-ws-label-state="premiumPlanExpirationDateReadable"></span>
         </p>
-        <div style="text-align: center">
-          <div data-ws-show-if-state="isSignedIn=true">
-            <div data-ws-show-if-state="serverData=false">
-              <p>Fetching server data...</p>
-            </div>
-            <div data-ws-show-if-state="serverData=true">
-              <p data-ws-show-if-state="isPremium=false">
-                Free plan. Unlimited basic voices.
-                <br/>
-                Used <span data-ws-label-state="usageLife"></span> / 5,000 chars of Premium Voices.
-              </p>
-              <div data-ws-show-if-state="isPremium=true">
-                <p data-ws-show-if-state="isPremiumPlan=true" style="font-size: 1.5em;">
-                  Premium Subscription Used <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> chars of Premium Voices for this month.
-                </p>
-                <p data-ws-show-if-state="isPayAsYouGo=true" style="font-size: 1.5em;">
-                  Additional chars in extra-credits package <span data-ws-label-state="remainingCreditsChars"></span>.
-                </p>
-                <p style="text-align: center">Purchase additional 3 MILLION premium characters for one-time payment $39</p>
-                <div data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_3M" class="paypal-btn-container"></div>
-              </div>
-            </div>
-          </div>
+        <p data-ws-show-if-state="isPremiumPlan=true" style="">
+          תווים פרימיום בשימוש חודשי <!--Monthly Premium-Chars used --><span style="font-weight: bold;" data-ws-label-state="usedMonthly"></span> / <span style="font-weight: bold;" data-ws-label-state="monthlyQuotaHuman"></span>
+        </p>
+        <p data-ws-show-if-state="isPayAsYouGo=true" style="">
+          + זיכויים נוספים זמינים<!--Additional Credits available-->: <span style="font-weight: bold;" data-ws-label-state="remainingCreditsChars"></span>
+        </p>
+        <p data-ws-show-if-state="isPremiumPlan=true">
+          <span data-ws-show-if-state="subscriptionId=false">
+              המנוי שלך לא יתחדש אוטומטית, יפוג ב<!--Your subscription will NOT auto renew, expires on-->&nbsp;<span data-ws-label-state="premiumPlanExpirationDateReadable"></span>.
+          </span>
+        </p>
+        <br/>
+        <div>
+          <button class="full-width-button" onclick="openNewUpgradeModal()">רכוש זיכויים נוספים / תוכנית<!--Purchase Additional Credits / Plan--></button>
         </div>
+        <br/>
       </div>
-      <div style="overflow: auto;padding:10px;" data-ws-show-if-state="isPremium=false">
-        <h4>קבל עוד ותמוך בצוות 🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --><br/>Premium AI Voices, Export, Commercial & Publishing</h4>
-        <p style="text-transform: uppercase"><i>Highest quality AI voices, At less than half the price<br/>Trusted by Microsoft, schools and millions of businesses and users</i></p>
+      <div data-ws-show-if-state="isPremium=false" style="overflow: auto;padding:10px;">
+        <h4>קבל עוד ותמוך בצוות 🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --><br/>קולות בינה מלאכותית פרימיום, ייצוא, מסחרי ופרסום <!-- Premium AI Voices, Export, Commercial & Publishing --></h4>
+        <p style="margin-top: 38px;text-transform: uppercase; opacity: 1;font-size: 0.99em;">
+          מנויים נגישים וחבילות תשלום חד פעמי <!-- Affordable Subscriptions and One-Time Payment Packages -->
+        </p>
         <br/>
         <div data-ws-show-if-state="isSignedIn=false">
-          <button class="styled-btn" onclick="toggleSignIn();">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:v="https://vecta.io/nano" width="12" height="12" viewBox="0 0 186.69 190.5">
-              <g transform="translate(1184.583 765.171)">
-                <path clip-path="none" mask="none" d="M-1089.333-687.239v36.888h51.262c-2.251 11.863-9.006 21.908-19.137 28.662l30.913 23.986c18.011-16.625 28.402-41.044 28.402-70.052 0-6.754-.606-13.249-1.732-19.483z" fill="#4285f4"/>
-                <path clip-path="none" mask="none" d="M-1142.714-651.791l-6.972 5.337-24.679 19.223h0c15.673 31.086 47.796 52.561 85.03 52.561 25.717 0 47.278-8.486 63.038-23.033l-30.913-23.986c-8.486 5.715-19.31 9.179-32.125 9.179-24.765 0-45.806-16.712-53.34-39.226z" fill="#34a853"/>
-                <path clip-path="none" mask="none" d="M-1174.365-712.61c-6.494 12.815-10.217 27.276-10.217 42.689s3.723 29.874 10.217 42.689c0 .086 31.693-24.592 31.693-24.592-1.905-5.715-3.031-11.776-3.031-18.098s1.126-12.383 3.031-18.098z" fill="#fbbc05"/>
-                <path d="M-1089.333-727.244c14.028 0 26.497 4.849 36.455 14.201l27.276-27.276c-16.539-15.413-38.013-24.852-63.731-24.852-37.234 0-69.359 21.388-85.032 52.561l31.692 24.592c7.533-22.514 28.575-39.226 53.34-39.226z" fill="#ea4335" clip-path="none" mask="none"/>
-              </g>
-            </svg>
-            &nbsp;&nbsp;התחבר באמצעות גוגל כדי להתחיל<!-- Sign In with Google to Start -->
-          </button>
-          <p style="text-transform: uppercase; opacity: 0.7;font-size: 0.7em;">
-            התחברות מאובטחת באמצעות גוגל<!-- Secure sign in with Google -->
-          </p>
+          <sign-in-buttons></sign-in-buttons>
+          <p style="opacity: 0.8;">היכנס כדי לחקור את התוכניות השונות <!-- Login to explore the different plans --></p>
         </div>
-
-        <div data-ws-show-if-state="isSignedIn=true" style="box-shadow: 0 0 10px lawngreen; padding: 12px; background-color: white; border-radius: 10px;">
-          <h2 style="color: black">בחר את תוכנית הפרימיום שלך</h2>
-          <div id="subscriptionForm" style="color: black;">
-            <div data-ws-sku="SKU_TTSREADER_PREMIUM_MONTHLY" class="option" id="option1" onclick="updateStateWithParentData({recurringTab: true})" style="display: flex;align-items: center;">
-              <div style="flex: 1; display: block;line-height: 1.4em;">
-                <span style="font-size: 1.2em; font-weight: bold">Subscription</span><br/>
-                <span style="display: block; line-height: 1.05em; font-size: 0.95em;text-align: center">1 Million premium chars every month + ALL premium benefits. Cancel any time.</span>
-              </div>
-              <div style="width: 20px;"></div>
-              <div style="font-size: 1.5em; color: darkgreen;font-weight: bold;text-align: center; padding: 5px;">
-                <span>$10.99</span><br/>
-                <span style="font-size: 0.75em;">monthly</span>
-              </div>
-            </div>
-            <div data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_3M" class="option" id="option2" onclick="updateStateWithParentData({recurringTab: false})" style="display: flex;align-items: center;">
-              <div style="flex: 1; display: block;line-height: 1.4em;">
-                <span style="font-size: 1.2em; font-weight: bold">Credits Package - 3 Million</span><br/>
-                <span style="display: block; line-height: 1.05em; font-size: 0.95em;text-align: center">3 Million Premium chars valid for a <u>whole year</u> & extendable + ALL premium benefits.</span>
-              </div>
-              <div style="width: 20px;"></div>
-              <div style="font-size: 1.5em; color: darkgreen;font-weight: bold;text-align: center; padding: 5px;">
-                <span>$39</span><br/>
-                <span style="font-size: 0.75em;">one-time</span>
-              </div>
-            </div>
-          </div>
-          <script>
-            document.querySelectorAll('#upgradeModal .option').forEach(option => {
-              option.addEventListener('click', () => {
-                // Remove selected and paypal from all options:
-                document.querySelectorAll('#upgradeModal .option').forEach(opt => {
-                  opt.classList.remove('selected');
-                  let sku = opt.getAttribute('data-ws-sku');
-                  document.querySelectorAll(`.paypal-btn-container[data-ws-sku=${sku}]`).forEach(el => el.classList.add('hidden'));
-                });
-                // Add selected and paypal to the selected option:
-                option.classList.add('selected');
-                let sku = option.getAttribute('data-ws-sku');
-                document.querySelectorAll(`.paypal-btn-container[data-ws-sku=${sku}]`).forEach(el => el.classList.remove('hidden'));
-                document.getElementById("payment-buttons").scrollIntoView({behavior: "smooth", block: "center"});
-                let eventName = sku === 'SKU_TTSREADER_PREMIUM_MONTHLY' ? 'click_subscription_option' : 'click_credits_option';
-                window.AppAnalytics.sendEvent(eventName);
-              });
-            });
-          </script>
-          <a id="payment-buttons"></a>
-          <div style="height: 10px"></div>
-          <div data-ws-sku="SKU_TTSREADER_PREMIUM_MONTHLY" class="paypal-btn-container hidden" style="color: #0a53be; text-transform: uppercase"><p>מנוי</p></div>
-          <div data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_3M" class="paypal-btn-container hidden" style="color: #0a53be; text-transform: uppercase"><p>תשלום חד פעמי</p></div>
-          <p style="color: #282c34; font-weight: bolder;">רכישה מאובטחת. שביעות רצון מובטחת 100%<!-- Secure purchase. 100% satisfaction guaranteed --></p>
+        <div data-ws-show-if-state="isSignedIn=true">
+          <button class="full-width-button" onclick="openNewUpgradeModal()">צפה בתוכניות פרימיום <!-- View Premium Plans --></button>
         </div>
-        <br/>
-        <h4 style="text-align: start">&nbsp;&nbsp;&nbsp;היתרונות העיקריים<!-- Main Benefits --></h4>
-        <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 0 0 1em 0; text-align: start">
-          <li>Premium voices (1M/month for subscription, or 3M total for the package)</li>
+        <br/><br/>
+        <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 1em 20px; text-align: start">
+          <li>קולות פרימיום <!-- Premium voices --></li>
+          <li><strong>השמעה רציפה ללא הפרעה <!-- Uninterrupted continuous playback --></strong></li>
           <li>קריאה רציפה בלתי מוגבלת<!-- Unlimited continuous reading --></li>
-          <li>Export to MP3 & WAV</li>
-          <li>Your own podcast channel</li>
-          <li><strong>רישיון מסחרי and Publishing<!-- Commercial license --></strong></li>
-          <li><strong>Copyrights free</strong> for Premium AI voices and select basic voices</li>
+          <li><strong>ייצוא ל MP3 ו WAV <!-- Export to MP3 & WAV --></strong></li>
+          <li>ערוץ הפודקאסט שלך <!-- Your own podcast channel --></li>
+          <li><strong>רישיון מסחרי לשימוש ופרסום! <!-- Commercial license for Usage & Publishing! --></strong></li>
+          <li><strong>חופשי מזכויות יוצרים</strong> לקולות בינה מלאכותית פרימיום וקולות בסיסיים נבחרים <!-- <strong>Copyrights free</strong> for Premium AI voices and select basic voices --></li>
           <li>ללא פרסומות<!-- No Ads --></li>
           <li>טעינה מהירה יותר<!-- Faster loading --></li>
-          <li>Premium support, features requests</li>
+          <li>תמיכה פרימיום, בקשות תכונות <!-- Premium support, features requests --></li>
           <li>פתח את כל הפונקציות<!-- Unlock all features --></li>
         </ul>
       </div>
@@ -1669,6 +2254,7 @@
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
         </svg>
       </button>
+      <h4>הטקסט הנוכחי שלך במספרים <!-- Your Current Text in Numbers --></h4>
       <p style="font-weight: bold">
         מספר מילים: <span data-ws-label-state="wordsCount">...</span>
       </p>
@@ -1680,7 +2266,7 @@
       </p>
       <p style="font-weight: bold">
         משך:&nbsp;~<span data-ws-label-state="expectedDuration"></span>&nbsp;<span style="font-weight:normal">(at speed X1)</span>.
-      </span>
+      </p>
 
       <br/>
       <button class="full-width-button" data-ws-onClick="calculateStats">רענן</button>
@@ -1702,9 +2288,9 @@
             הפרמיום כולל עיבוד MP3 ו-WAV להורדה מיידית, האזנה מאוחרת יותר, רישיון מסחרי ופרסום (עבור הקולות הפרמיום), ועוד. התוכניות מאוד משתלמות וכוללות גם סוג מנוי וגם רכישות חד-פעמיות כדי להתאים בצורה הטובה ביותר לצרכים שלך. שביעות רצון מובטחת.<!-- Recording requires premium and includes licensing for commercial use & publishing (see publishing terms -->
           </p>
           <div data-ws-show-if-state="isSignedIn=false">
-            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">היכנס עם Google כדי לצפות בתוכניות<!-- Upgrade to Premium --></button>
+            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">היכנס כדי לצפות בתוכניות<!-- Upgrade to Premium --></button>
             <p style="text-align: center">כבר בפרימיום? התחבר<!-- Already premium? Sign in --></p>
-            <button onclick="signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">התחבר באמצעות גוגל<!-- Sign In with Google --></button>
+            <sign-in-buttons></sign-in-buttons>
           </div>
           <div data-ws-show-if-state="isSignedIn=true">
             <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">צפה בתוכניות פרמיום<!-- Upgrade to Premium --></button>
@@ -1774,7 +2360,7 @@
         </svg>
       </button>
       <div style="overflow: auto;padding:10px 30px;">
-        <p style="text-align: justify">ברגע שתלחץ על הכפתור הבא יופיע חלון קופץ. שם בחר את האפשרויות 'מסך מלא' וגם 'שתף שמע מערכת'. לבסוף, לחץ על 'שתף'.</p>
+        <p style="text-align: justify">ברגע שתלחץ על הכפתור הבא, יופיע חלון קופץ. בחר שם את האפשרויות 'מסך מלא' ו'שתף גם צליל מערכת'. לחץ לבסוף על 'שתף'.</p>
         <button data-ws-onClick="startRecording" class="Full-width-btn" style="background-color: darkgreen;color: white">התחל הקלטה<!-- Start Recording --></button>
         <br/>
         <div>
@@ -1802,11 +2388,11 @@
       <h4>יצירת MP3 / WAV מיידית למשתמשי פרימיום. זכויות היוצרים שייכות לך! השתמש באודיו שנוצר לכל מטרה.</h4>
       <div>
         <div data-ws-show-if-state="isPremium=true">
-          As a Premium user - you own the copyrights to the exported audio files and can use them for commercial purposes and publishing 🚀
+          כמשתמש פרימיום - אתה הבעלים של זכויות היוצרים של קובצי השמע המיוצאים ותוכל להשתמש בהם למטרות מסחריות ופרסום <!-- As a Premium user - you own the copyrights to the exported audio files and can use them for commercial purposes and publishing -->&nbsp;🚀
         </div>
         <div data-ws-show-if-state="isSignedIn=true">
           <div data-ws-show-if-state="isPremium=false">
-            <span style="font-size: 1.3em;color: red;">Commercial use and publishing requires Premium.</span>
+            <span style="font-size: 1.3em;color: red;">שימוש מסחרי ופרסום דורשים פרימיום.<!-- Commercial use and publishing requires Premium.--></span>
             <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');openNewUpgradeModal();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">צפה בתוכניות פרמיום</button>
           </div>
         </div>
@@ -1814,13 +2400,13 @@
       <div style="text-align: justify; font-size: smaller;">
         <p style="text-align: center">נא לשים לב:</p>
         <ul style="text-align: justify">
-          <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">היכנס עם Google כדי לצפות בתוכניות</a></span></li>-->
+          <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">היכנס כדי לצפות בתוכניות</a></span></li>-->
           <li><strong>נא להפעיל לפני הייצוא – כדי לוודא שהכול נשמע בדיוק כפי שברצונך. ערוך עד לשלמות ואז יצא.</strong></li>
           <li>צורך תווים מהמכסה של תווי-פרמיום חודשית או מחבילת קרדיטים פרימיום.</li>
           <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
           <li>פועל רק עם קולות פרימיום (המסומנים בכוכבית בגלריית הקולות).</li>
           <li>חדש: נתמך {{pause}} ו-{{pause:DURATION_IN_MS}}. ודא שהפורמט ללא רווחים בתוך סוגריים מסולסלים {{...}}</li>
-          <li>You can also create your personal podcast channel to listen to your exports on the go with your favorite podcast app.</li>
+          <li>תוכל גם ליצור ערוץ פודקאסט אישי משלך כדי להאזין לייצואים שלך בדרך עם אפליקציית הפודקאסט האהובה עליך. <!-- You can also create your personal podcast channel to listen to your exports on the go with your favorite podcast app. --></li>
         </ul>
       </div>
       <br/>
@@ -1831,21 +2417,21 @@
         </label>
       </div>
       <div data-ws-show-if-state="isSignedIn=false">
-        <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Sign In with Google to Continue<!-- Sign In with Google --></button>
+        <sign-in-buttons></sign-in-buttons>
       </div>
       <div data-ws-show-if-state="isSignedIn=true">
       <div>
         <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">צור והורד MP3</button>
-        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button secondary" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">צור והורד WAV (עד 2000 תווים בלבד)</button>
+        <p style="text-align: center; font-size: smaller;">Need a specific audio format? Use our simple <a href="https://ttsreader.com/convert2wav/" target="_blank" rel="nofollow" style="color: dodgerblue">MP3 to WAV converter</a>.</p>
       </div>
       </div>
       <p style="margin: 30px auto">מחפשים קבצים קודמים?&nbsp;<a style="cursor: pointer; color: orangered;" onclick="openOrCloseExportsListModal();"><svg style="vertical-align: middle; margin-bottom: 4px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>&nbsp; פתח תיקיית שמע</a></p>
       <h3>Did you know? Learn more on:</h3>
       <ul style="text-align: start; line-height: 1.7em;">
-        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with multiple voices</a></li>
-        <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">Export, download & share your MP3 & text</a></li>
-        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Recording on-the-fly</a></li>
-        <li><a href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">Create your personal podcast channel</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">- Create Dialogs with multiple voices</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">- Export, download & share your MP3 & text</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">- Recording on-the-fly</a></li>
+        <li><a href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">- Create your personal podcast channel</a></li>
       </ul>
     </div>
   </div>
@@ -1869,7 +2455,7 @@
           <p style="line-height: 1.8em;margin: 10px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform?usp=sf_link" target="_blank" style="text-decoration: none;">בעיות? שאלות? צור קשר (פותח טופס קשר פרימיום בחלון חדש)<!-- Issues? Questions? Contact us (opens a premium contact form in new window) --></a></p>
           <br/>
           <p style="color: red;line-height: 1.8em;margin: 10px;">אזור סכנה<!-- DANGER ZONE --></p>
-          <p style="color: red; cursor: pointer; padding: 5px 10px; border: red 1px solid; border-radius: 20px; line-height: 1.8em;margin: 10px;" onclick="cancelSubscription();">בטל מנוי. לחיצה על זה תגרום לאובדן הסטטוס הפרימיום שלך - נכנס לתוקף מיד.<!-- Cancel subscription. Clicking this will result in losing your premium status - taking effect immediately. --></p>
+          <p style="color: red; cursor: pointer; padding: 5px 10px; border: red 1px solid; border-radius: 20px; line-height: 1.8em;margin: 10px;" onclick="cancelSubscription();">ביטול מנוי<!-- Cancel subscription. Clicking this will result in losing your premium status - taking effect immediately. --></p>
         </div>
         <div data-ws-show-if-state="isPremium=false">
           <br/>
@@ -1975,7 +2561,34 @@
         <br/>
         <code>{{pause:1000}}</code>
         <br/>
-        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addPauseModal" onclick="navigator.clipboard.writeText('\n{{pause:1000}}\n')">
+        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addPauseModal" onclick="navigator.clipboard.writeText('{{pause:1000}}\n')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+            <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+          </svg>&nbsp;העתק<!-- Copy -->
+        </a>
+        <br/><br/><br/>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+  </div>
+
+  <div class="Modal" id="addCommentModal" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal">
+        <svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow-y: auto;max-height: 90%;text-align: center;">
+        <h3>Add Comments - Text to be Ignored by the Player<!-- Add Pause Reading Timer --></h3>
+        <p>Copy the following line and paste into the text. Edit its inner content to add your own comments in the text.</p>
+        <br/>
+        <code>{{skip: YOUR-COMMENT-HERE}}</code>
+        <br/>
+        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addCommentModal" onclick="navigator.clipboard.writeText('{{skip:   }}\n')">
           <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
@@ -2146,7 +2759,7 @@
       if (!target.closest('.Dropdown-content')) {
         document.querySelectorAll('.Dropdown-content').forEach((el)=>{
           el.style.display = 'none';
-          document.querySelector('.Text-box').setAttribute('contentEditable',true);
+          //document.querySelector('.Text-box').setAttribute('contentEditable',true);
         })
       }
     });
@@ -2161,10 +2774,10 @@
           let textBox = document.querySelector('.Text-box');
           if (getComputedStyle(child).display!=="none") {
             child.style.display = 'none';
-            textBox.setAttribute('contentEditable',true);
+            //textBox.setAttribute('contentEditable',true);
           } else {
             child.style.display = 'block';
-            textBox.removeAttribute('contentEditable');
+            //textBox.removeAttribute('contentEditable');
             ev.preventDefault();
             ev.stopPropagation();
           }
@@ -2661,7 +3274,8 @@
           if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn") && !window.AppAnalytics.id && !isBotUserAgent()) {
             // This is a first ever visit. Set unique setup here:
             // A/B test prefix: 50% A / 50% B
-            const prefix = Math.random() < 0.5 ? 'A1_' : 'N1_'; //
+            const prefix = DEFAULT_THEME.includes("dark") ? 'D3101_' : 'L3101_'; //
+            console.log({prefix});
             const randomString = Math.random().toString(36).substring(2, 17); // 15 chars
             window.AppAnalytics.id = prefix + randomString;
             localStorage.setItem(window.AppAnalytics.STORAGE_KEY_ID, window.AppAnalytics.id);
@@ -2672,6 +3286,8 @@
         }
 
         if (user) {
+          appMethods.closeModal("signinModal");
+
           window.getIdToken = async () => {
             return await user.getIdToken();
           }
@@ -3083,7 +3699,7 @@
           'Authorization': `Bearer ${idToken}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name: 'value' })
+        body: JSON.stringify({ lang: "he" })
       });
 
       if (!response.ok) {
@@ -3104,11 +3720,30 @@
     firebase.auth().signOut();
   }
 
-  function signIn(optionalOnSuccessCallback) {
-    let provider = new firebase.auth.GoogleAuthProvider();
+  document.querySelectorAll(".styled-sign-in-btn-google").forEach(el => {
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      signIn(null, "google");
+    });
+  });
+
+  document.querySelectorAll(".styled-sign-in-btn-apple").forEach(el => {
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      signIn(null, "apple");
+    });
+  });
+
+  function signIn(optionalOnSuccessCallback, providerName) {
+    if (!providerName) {
+      appMethods.showModal("signinModal");
+      return;
+    }
+    let provider = providerName && providerName==="apple" ? (new firebase.auth.OAuthProvider('apple.com')) : (new firebase.auth.GoogleAuthProvider());
     provider.setCustomParameters({
       prompt: 'select_account'  // 🔑 This forces the account selection UI
     });
+    firebase.auth().languageCode = 'he';
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Google Access Token. You can use it to access the Google API.
       let token = result.credential.accessToken;
@@ -3190,7 +3825,7 @@
   function openOnboarding(forceOpen) {
     let shouldOpen = forceOpen; // || window.AppAnalytics.id?.startsWith("A_") - if we want to try some better onboarding...
     if (!shouldOpen) {
-      appMethods.showModal("emptyTextModal")
+      //appMethods.showModal("emptyTextModal")
       localStorage.setItem("ttsreader.wasOnboarding3", "true");
       return;
     }
@@ -3290,19 +3925,21 @@
     let uid = firebase?.auth()?.currentUser?.uid;
     if (!uid) {
       window.AppAnalytics.sendEvent('upgradeModalPreSignin');
+      appMethods.showModal("upgradeModal");
+      return;
     } else {
       window.AppAnalytics.sendEvent('upgradeModalPostSignin');
     }
 
-    if (window.AppAnalytics?.id?.startsWith("N1_")) {
+    /*if (window.AppAnalytics?.id?.startsWith("N1_")) {
       appMethods.showModal("upgradeModal");
       return;
-    }
+    }*/
 
-    if (!uid) {
+    /*if (!uid) {
       signIn(openNewUpgradeModal);
       return;
-    }
+    }*/
 
     let modalEl = document.getElementById('newUpgradeModal');
     if (!modalEl) {
@@ -3322,7 +3959,17 @@
       modalEl.classList.remove("hidden");
       requestAnimationFrame(() => modalEl.classList.add("show"));
     };
-    iframeEl.src = `newUpgradeModal.${lang}.html?uid=${uid}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${window.getAppState().data.isPremiumPlan}`;
+    let shouldHideSubscriptions = Boolean(window.subscriptionId);
+    let src = `newUpgradeModal.${lang}.html?uid=${uid}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
+    if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
+      let obj = {iframe: iframeEl.src, src};
+      console.log("src!==src: ", obj);
+      iframeEl.src = src;
+    } else {
+      console.log("src===src");
+      modalEl.classList.remove("hidden");
+      requestAnimationFrame(() => modalEl.classList.add("show"));
+    }
   }
 
   function openRenderedModal(params) {

@@ -16,23 +16,13 @@ Change log of TTSReader versions & links to stable, previous & preview versions.
 
 <br/>
 
-## Latest Preview Version - Nightly Builds
-
-* **Player V3.9.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
-
-<br/>
 
 ## Latest Stable Version
 
-* **Player V3.9.0** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
+* **Player V3.10.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
 
   * Link to version: [https://ttsreader.com/player/](https://ttsreader.com/player/)
-  * Description: Create personal podcast channel + UI improvements
-  * Main Changes:
-    * Create personal podcast channel
-    * Added Christopher voice
-    * UI improvements
-    * Fixes
+  * Description: Major UX improvements.
 
 <br/>
 
@@ -40,6 +30,16 @@ Change log of TTSReader versions & links to stable, previous & preview versions.
 ## Previous Versions
 
 
+
+* **Player V3.9.+** - [https://ttsreader.com/player@v3.9/](https://ttsreader.com/player@v3.9/)
+
+  * Link to version: [https://ttsreader.com/player@v3.9/](https://ttsreader.com/player@v3.9/)
+  * Description: 3.9 brings export to pesronal podcast channel, published first on 2025-10-06
+  * Main Changes:
+    * Create personal podcast channel
+    * Added Christopher voice
+    * UI improvements
+    * Fixes
 
 * **Player V3.8.+** - [https://ttsreader.com/player@v3.8/](https://ttsreader.com/player@v3.8/)
 

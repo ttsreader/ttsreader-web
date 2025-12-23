@@ -19,9 +19,28 @@
           "functionId": "handlePayPalWebhook",
           "region": "us-central1"
         }
+      },
+      {
+        "source": "/api/ttsSync",
+        "function": {
+          "functionId": "tts",
+          "region": "us-central1"
+        }
+      },
+      {
+        "source": "/api/ttsAsync",
+        "function": {
+          "functionId": "functionTtsLong",
+          "region": "us-central1"
+        }
       }
     ],
     "redirects": [
+      {
+        "source": "/en/",
+        "destination": "/player/",
+        "type": 301
+      },
       {
         "source": "/preview20250325/",
         "destination": "/player/",

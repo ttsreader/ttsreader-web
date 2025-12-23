@@ -41,24 +41,187 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TTSReader Purchase Page</title> <!-- TODO: use strings.newUpgradeModal_title... -->
   <!-- TODO: consider &currency=USD as in https://developer.paypal.com/reference/currency-codes/ with a currency selector. -->
-  <script
-          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&intent=subscription&locale=zh_CN"
-          data-namespace="paypalSubs">
-  </script>
-  <script
-          src="https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&locale=zh_CN"
-          data-namespace="paypalOnce">
+
+  <script>
+    // Helper: map timezone → country code (ISO 3166-1 alpha-2)
+    function getCountryCodeFromTz() {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      const tzToCountry = {
+        // United States
+        "America/New_York": "US",
+        "America/Detroit": "US",
+        "America/Chicago": "US",
+        "America/Denver": "US",
+        "America/Los_Angeles": "US",
+        "America/Phoenix": "US",
+        "America/Anchorage": "US",
+        "Pacific/Honolulu": "US",
+
+        // United Kingdom
+        "Europe/London": "GB",
+
+        // Canada
+        "America/Toronto": "CA",
+        "America/Vancouver": "CA",
+        "America/Edmonton": "CA",
+        "America/Halifax": "CA",
+        "America/St_Johns": "CA",
+
+        // Australia
+        "Australia/Sydney": "AU",
+        "Australia/Melbourne": "AU",
+        "Australia/Brisbane": "AU",
+        "Australia/Perth": "AU",
+        "Australia/Adelaide": "AU",
+
+        // Mexico
+        "America/Mexico_City": "MX",
+        "America/Cancun": "MX",
+        "America/Tijuana": "MX",
+
+        // Spain
+        "Europe/Madrid": "ES",
+        "Atlantic/Canary": "ES",
+
+        // Ireland
+        "Europe/Dublin": "IE",
+
+        // Argentina
+        "America/Argentina/Buenos_Aires": "AR",
+        "America/Argentina/Cordoba": "AR",
+        "America/Argentina/Mendoza": "AR",
+
+        // Portugal
+        "Europe/Lisbon": "PT",
+        "Atlantic/Madeira": "PT",
+        "Atlantic/Azores": "PT",
+
+        // France
+        "Europe/Paris": "FR",
+
+        // Germany
+        "Europe/Berlin": "DE",
+
+        // Italy
+        "Europe/Rome": "IT",
+
+        // Netherlands
+        "Europe/Amsterdam": "NL",
+
+        // Brazil
+        "America/Sao_Paulo": "BR",
+
+        // Israel
+        "Asia/Jerusalem": "IL",
+
+        // Romania
+        "Europe/Bucharest": "RO",
+
+        // Russia
+        "Europe/Moscow": "RU",
+
+        // China
+        "Asia/Shanghai": "CN",
+        "Asia/Chongqing": "CN",
+        "Asia/Harbin": "CN",
+
+        // Japan
+        "Asia/Tokyo": "JP",
+
+        // Korea
+        "Asia/Seoul": "KR",
+
+        // India
+        "Asia/Kolkata": "IN",
+
+        // UAE, Jordan, Egypt (for Arabic)
+        "Asia/Dubai": "AE",
+        "Asia/Amman": "JO",
+        "Africa/Cairo": "EG",
+      };
+
+      return tzToCountry[tz] || "";
+    }
+
+    // --------------------------------------------------------------------
+
+    const language = "zh";
+
+    // Taken from: https://developer.paypal.com/reference/locale-codes/
+    // When adding new locales, always test before production, as documentation is not always up to date.
+    const allowedLocales = new Set([
+      "ar-AE", "ar-JO", "ar-EG", "en-IE",
+      "de-DE", "en-US", "es-ES", "fr-FR", "en-IN",
+      "ko-KR", "pt-PT", "ro-RO", "ru-RU", "zh-CN",
+      "en-CN", "en-RO", "en-RU", "he-IL", "it-IT",
+      "nl-NL", "ja-JP", "en-JP", "de-CH", "en-DE",
+      "en-GB", "en-AU", "en-CA", "en-IL", "en-PT",
+      "en-FR", "en-ES", "en-AR", "en-BR", "en-NL",
+      "fr-US", "fr-CA", "es-US", "es-AR", "es-CL",
+      "zh-US", "pt-BR"
+    ]);
+
+    function getPayPalLocale(language) {
+      const countryCode = getCountryCodeFromTz();
+      const langCountry = `${language}-${countryCode}`;
+
+      if (allowedLocales.has(langCountry)) {
+        return `${language}_${countryCode}`;
+      }
+
+      return null;
+    }
+
+    // --------------------------------------------------------------------
+    const locale = getPayPalLocale(language);
+    console.log("Detected PayPal locale:", locale);
+
+    const PAYPAL_CLIENT_ID = "AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG";
+    let localeQuery = locale ? `&locale=${locale}` : "";
+
+    let scriptElSubs = document.createElement("script");
+    scriptElSubs.setAttribute("data-namespace", "paypalSubs");
+    scriptElSubs.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&vault=true&intent=subscription${localeQuery}`;
+    scriptElSubs.onload = () => {
+      runOnPayPalReady();
+    };
+
+    let scriptElOnce = document.createElement("script");
+    scriptElOnce.setAttribute("data-namespace", "paypalOnce");
+    scriptElOnce.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}${localeQuery}`;
+    scriptElOnce.onload = () => {
+      runOnPayPalReady();
+    };
+
+    window.addEventListener("load", function () {
+      document.head.appendChild(scriptElSubs);
+      document.head.appendChild(scriptElOnce);
+
+        /*
+          // Iterate over all allowedLocales and log them and inject the paypal sdk script for each locale (for testing purposes)
+          allowedLocales.forEach(loc => {
+            console.log("Injecting PayPal SDK for locale:", loc);
+            let scriptElTest = document.createElement("script");
+            scriptElTest.setAttribute("data-namespace", `paypalTest_${loc.replace('-','_')}`);
+            // Remove async and defer explicitly (in case the browser sets them by default)
+            scriptElTest.async = false;
+            scriptElTest.defer = false;
+            scriptElTest.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&locale=${loc.replace('-','_')}`;
+
+            document.head.appendChild(scriptElTest);
+        });*/
+    });
   </script>
 
   <script>
-
     const _200k = 2*Math.pow(10,5);
     const _1M = Math.pow(10,6);
     const _500k = 5*Math.pow(10,5);
     const _2p5M = 2.5*_1M;
 
     const SKUS = {
-      FREE_LIFE_LIMIT_CHARS: 6000, // 6k chars free life limit
+      FREE_LIFE_LIMIT_CHARS: 5000, // 5k chars free life limit
       SKU_TTSREADER_PREMIUM_MONTHLY: {
         name: "TTSReader Premium Monthly",
         type: "PREMIUM",
@@ -107,7 +270,6 @@
         quotaCharsM: _2p5M,
       },
 
-
       SKU_TTSREADER_EXTRA_CREDITS_200k: {
         name: "TTSReader 200k Extra Credits",
         type: "EXTRA_CREDITS",
@@ -121,6 +283,13 @@
         isAutoRenew: false,
         durationType: "y_extendable",
         creditsAmount: _1M
+      },
+      SKU_TTSREADER_EXTRA_CREDITS_3M: {
+        name: "TTSReader 3M Extra Credits",
+        type: "EXTRA_CREDITS",
+        isAutoRenew: false,
+        durationType: "y_extendable",
+        creditsAmount: 3*_1M
       },
       SKU_TTSREADER_EXTRA_CREDITS_5M: {
         name: "TTSReader 5M Extra Credits",
@@ -150,17 +319,24 @@
     body {
       height: 100%;
       overflow: hidden;
-      font-family: sans-serif;
+      font-family: 'Inter','Segoe UI',sans-serif;
       margin: 0;
-      background: white url(./images/anima2_transparent_white.webp) no-repeat center;
-      background-size: cover;
+      background:linear-gradient(180deg,#fff 0%,#aac 100%);
+      color:#333;
+      /* background: white /*url(./images/anima2_transparent_white.webp) no-repeat center*/;
+      /*background-size: cover;*/
     }
+
+    /*html[data-dark-mode] {
+      color: white;
+      stroke: white;
+      background: url(https://ttsreader.com/img/bg1.jpg) repeat;
+    }*/
 
     [data-dark-mode] body {
       color: white;
       stroke: white;
-      background: white url('./images/anima2_transparent_black.webp') no-repeat center;
-      background-size: cover;
+      background: linear-gradient(180deg,#55555588 0%,#aaaacc88 100%);
     }
 
     [data-premium-plan] .Hide-If-Premium-Plan-Exists {
@@ -213,6 +389,8 @@
       border-radius: 20px;
       padding: 16px;
       background-color: #e2e2e2aa;
+      max-width: 600px;
+      margin: auto;
     }
 
     [data-dark-mode] .Gallery-Container {
@@ -450,74 +628,181 @@
 
 <div data-ws-step="0" class="modal-step">
   <div class="modal-content">
-    <p>选择首选套餐 <a title="关于不同计划和条款的额外详情" style="cursor: pointer; text-decoration: none;color: orangered" href="https://ttsreader.com/docs/support/pricing/" target="_blank"><svg style="position: relative;top: 3px;height: 1em;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg></a>
+    <!--<p>选择首选套餐 <a title="关于不同计划和条款的额外详情" style="cursor: pointer; text-decoration: none;color: orangered" href="https://ttsreader.com/docs/support/pricing/" target="_blank"><svg style="position: relative;top: 3px;height: 1em;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg></a>
       <br/>所有计划解锁所有高级功能，并提供100%满意保证。
       <br/>我们致力于提供最实惠的文本转语音解决方案。
       <br/>因此，我们提供业内最便捷的订阅计划，以及唯一的按需付费套餐。
       <br/><br/>交易由PayPal提供支持，确保最高安全性、隐私和买家保护。
-    </p>
-    </p>
-    <div style="flex:1"></div>
+    </p>-->
+
+    <br/>
+    <h2>选择订阅或一次性支付 <!-- Choose Subscription OR One-Time-Payment --></h2>
+    <h3>所有计划均包括 <!-- All plans include --></h3>
+    <p style="font-size: 1.1em;font-weight: normal; padding: 10px 20px;max-width: 900px;margin: 0 auto 50px;">✅ 高级 AI 语音 (每个订阅 1M 字符/月，或按积分购买的数量) ✅ 商业和出版许可证 ✅ 100% 版权所有 ✅ 高级支持 ✅ 个人播客频道 ✅ 即时 MP3 和 WAV 导出 ✅ 等等<!-- ✅ Premium AI Voices (1M characters/mo. per subscription, or as many as you buy per credits) ✅ Commercial & Publishing License ✅ 100% Copyrights Ownership ✅ Premium Support ✅ Personal Podcast Channel ✅ Instant MP3 & WAV Export ✅ & More--></p>
+
     <div class="" style="max-width: 1000px; margin: auto;margin-top: -15px;">
       <div class="Hide-If-Premium-Plan-Exists">
-        <h2>高级订阅</h2>
-        <p>随时取消</p>
         <div class="Gallery-Container">
-          <h3>无限基础语音和每月100万字符的高级AI语音</h3>
+          <h3 style="font-size: 1.5em;">订阅<!-- Subscription--></h3>
+          <!--<p>随时取消</p>-->
+          <p style="margin: 5px;">每月 100 万个高级 AI 字符 + 无限制的基础语音</p>
           <div class="pricing-card" data-ws-sku="SKU_TTSREADER_PREMIUM_MONTHLY">
             <div class="pricing-left">
               <div class="pricing-time">按月计费</div>
               <div class="pricing-subtext"></div>
             </div>
-            <div class="pricing-price dark">$10.99 / m</div>
+            <div class="pricing-price dark">$10.99 / 月<!-- mo.--></div>
           </div>
 
           <div class="pricing-card" data-ws-sku="SKU_TTSREADER_PREMIUM_ANNUAL">
             <div class="pricing-left">
               <div class="pricing-time">按年计费</div>
-              <div class="pricing-subtext"><span style="text-decoration: line-through;opacity:0.5">$131.88</span> -> $99/y (25% Discount)</div>
+              <div class="pricing-subtext"><span style="text-decoration: line-through;opacity:0.5">$131.88</span> -> $99/年 <!-- y -->(25% 折扣)<!-- (25% Discount)--></div>
             </div>
             <div class="pricing-price popular">
               <span class="pricing-tag">★ 最佳价值</span>
-              $8.25 / m
+              $8.25 / 月
             </div>
           </div>
         </div>
         <br/>
       </div>
-      <h2>按需付费，无附加条件</h2>
-      <p>有效期为一年，每次购买后延长。无限基础语音。</p>
-      <div class="Gallery-Container">
-        <h3>一次性付款，非定期</h3>
 
-        <div class="pricing-card" data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_200k">
+      <div style="height: 30px;"></div>
+      <!--<h2>按需付费，无附加条件</h2>
+      <p>有效期为一年，每次购买后延长。无限基础语音。</p>-->
+      <div class="Gallery-Container">
+        <h3 style="font-size: 1.5em;">一次性支付套餐<!-- One-Time Payment Packages--></h3>
+        <p style="margin: 5px;">不会自动续订。在一年内随时使用的积分 (也可以延长)。 <!-- Does NOT auto renew. Buy credits to use whenever you want within one year (which can also be further extended). --></p>
+        <!--<div class="pricing-card" data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_200k">
           <div class="pricing-left">
             <div class="pricing-time">20万字符</div>
             <div class="pricing-subtext">高级AI语音的</div>
           </div>
           <div class="pricing-price dark">$10</div>
-        </div>
+        </div>-->
 
         <div class="pricing-card" data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_1M">
           <div class="pricing-left">
-            <div class="pricing-time">100万字符</div>
-            <div class="pricing-subtext">高级AI语音的</div>
+            <div class="pricing-time">100 万个高级字符<!-- 1 Million Premium Characters--></div>
+            <div class="pricing-subtext">+&nbsp;无限制的基础语音<!--Unlimited basic voices--></div>
           </div>
-          <div class="pricing-price dark">$32</div>
+          <div class="pricing-price dark">$19</div>
+        </div>
+
+        <div class="pricing-card" data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_3M">
+          <div class="pricing-left">
+            <div class="pricing-time">300 万个高级字符<!-- 3 Million Premium Characters--></div>
+            <div class="pricing-subtext">+&nbsp;无限制的基础语音<!--Unlimited basic voices--></div>
+          </div>
+          <div class="pricing-price dark">$39</div>
         </div>
 
         <div class="pricing-card" data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_10M">
           <div class="pricing-left">
-            <div class="pricing-time">1000万字符</div>
-            <div class="pricing-subtext">高级AI语音的</div>
+            <div class="pricing-time">1000 万个高级字符<!-- 10 Million Premium Characters--></div>
+            <div class="pricing-subtext">+&nbsp;无限制的基础语音<!--Unlimited basic voices--></div>
           </div>
-          <div class="pricing-price dark">$300</div>
+          <div class="pricing-price dark">$99</div>
         </div>
       </div>
       <p>* 所有货币以美元 ($) 计算</p>
+
+      <br/>
+      <h2>自 2015 年以来，受到领先公司、顶级大学和数百万用户的信任<!-- Trusted by leading businesses, top colleges & millions of users, since 2015--></h2>
+      <div style="margin-top: -30px;">
+        <div style="position: relative; width: 100%; max-width: 700px; margin: 50px auto; text-align: center; font-family: 'Georgia', serif;">
+
+          <!-- Placeholder for height (the longest slide) -->
+          <div style="opacity: 0; pointer-events: none; visibility: hidden;">
+            <p style="font-size: 1.2rem; color: #333; background: #f9f9f9; border-left: 4px solid #6c63ff; padding: 20px; border-radius: 8px; margin: 0 auto; max-width: 600px;">
+              <em>“What impressed me most was how their support team responded... That kind of respect was almost unimaginable.”</em>
+              <br>
+              <span style="display: block; text-align: right; margin-top: 10px; font-weight: bold; color: #555;">
+        — Ana R., 2025
+      </span>
+            </p>
+          </div>
+
+          <!-- Slides -->
+          <div class="slide" style="opacity: 1; transition: opacity 1s ease-in-out; position: absolute; width: 100%; top: 0; left: 0;">
+            <p style="font-size: 1.2rem; color: #333; background: #f9f9f9; border-left: 4px solid #6c63ff; padding: 20px; border-radius: 8px; margin: 0 auto; max-width: 600px;">
+              <em>“我已经使用 TTSReader 几个月了，现在已经无法想象没有它的生活了！<!-- I’ve been using TTSReader for several months, and I already can’t imagine my life without it!-->”</em>
+              <br>
+              <span style="display: block; text-align: right; margin-top: 10px; font-weight: bold; color: #555;">
+        — KathleenP, USA, 2025
+      </span>
+            </p>
+          </div>
+
+          <div class="slide" style="opacity: 0; transition: opacity 1s ease-in-out; position: absolute; width: 100%; top: 0; left: 0;">
+            <p style="font-size: 1.2rem; color: #333; background: #f9f9f9; border-left: 4px solid #6c63ff; padding: 20px; border-radius: 8px; margin: 0 auto; max-width: 600px;">
+              <em>“最让我印象深刻的是他们的支持团队如何回应... 那种尊重几乎是不可能的。<!-- What impressed me most was how their support team responded... That kind of respect was almost unimaginable.-->”</em>
+              <br>
+              <span style="display: block; text-align: right; margin-top: 10px; font-weight: bold; color: #555;">
+        — Sourabhi, Christian Blogger, 2025
+      </span>
+            </p>
+          </div>
+
+          <div class="slide" style="opacity: 0; transition: opacity 1s ease-in-out; position: absolute; width: 100%; top: 0; left: 0;">
+            <p style="font-size: 1.2rem; color: #333; background: #f9f9f9; border-left: 4px solid #6c63ff; padding: 20px; border-radius: 8px; margin: 0 auto; max-width: 600px;">
+              <em>“我使用这个应用这么多年，已经记不清时间了。我喜欢这个应用！<!-- I've used this app for so many years that I've lost track of how long it's been. I love this app!-->”</em>
+              <br>
+              <span style="display: block; text-align: right; margin-top: 10px; font-weight: bold; color: #555;">
+        — DeLora Lambert, 2024
+      </span>
+            </p>
+          </div>
+        </div>
+        <script>
+          const slides = document.querySelectorAll('.slide');
+          let index = 0;
+
+          setInterval(() => {
+            slides[index].style.opacity = 0;           // fade out current
+            index = (index + 1) % slides.length;       // move forward (always)
+            slides[index].style.opacity = 1;           // fade in next
+          }, 4000); // every 4 seconds
+        </script>
+      </div>
+
+      <br/>
+      <section style="max-width:900px;margin:24px auto;padding:24px;border:1px solid #e6e6e6;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2937;background:#ffffff;">
+        <h2 style="margin:0 0 16px 0;font-size:28px;line-height:1.25;font-weight:700;color:#111827;text-align:center;">
+          我们创始人的个人保证<!-- Personal Guarantee by our Founder-->
+        </h2>
+
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:24px;">
+          <!-- LEFT: Headshot -->
+          <div style="flex:1 1 260px;display:flex;justify-content:center;">
+            <img src="ronen_headshot_400px.png"
+                 alt="Founder headshot"
+                 style="width:260px;height:260px;object-fit:contain;border-radius:50%;border:4px solid #f3f4f6;box-shadow:0 8px 20px rgba(0,0,0,0.08);" />
+          </div>
+
+          <!-- RIGHT: Message + Signature -->
+          <div style="flex:2 1 360px;">
+            <p style="margin:0 0 10px 0;font-size:16px;line-height:1.6;color:#374151;">
+              升级后，我会给您发送一封个人邮件，您可以直接回复 - 我会亲自回复。<!-- Upon upgrade, I will send you a personal email, to which you may reply directly - and I will respond personally.-->
+            </p>
+            <p style="margin:0 0 10px 0;font-size:16px;line-height:1.6;color:#374151;">
+              您的信任和支持非常感激，我个人致力于您的满意度。 —<strong>全额退款</strong> 如果您因为任何原因后悔购买，这不太可能发生。<br/><br/>谢谢！<!-- Your trust and support are much appreciated and I am personally committed to your satisfaction. —<strong>Full refund</strong> in the unlikely case that you regret your purchase for any reason.<br/><br/>Thank you!-->
+            </p>
+
+            <!-- Signature -->
+            <div style="margin-top:18px;">
+              <!-- Optional name/title under signature -->
+              <div style="margin-top:6px;color:#6b7280;font-size: 1.2em;">Ronen Rabinovici, Founder</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <p>如需帮助、问题或反馈，请联系我们：contact@ttsreader.com</p>
     </div>
     <div style="flex:2"></div>
+
   </div>
 </div>
 
@@ -541,6 +826,7 @@
         <div class="Paypal-Button-Container"></div>
         <p><strong>100%满意保证</strong></p>
         <p>由 <a href="https://wellsrc.com/" target="_blank">WellSource Ltd.</a> 开发，TTSReader、Speechnotes、Speechlogger的开发者</p>
+        <p>Unable to pay? Let us know at contact@ttsreader.com</p>
       </card>
       <div style="flex:1"></div>
     </div>
@@ -634,14 +920,17 @@
 
       // For more:
       if (sku === "SKU_TTSREADER_EXTRA_CREDITS_1M") {
-        price = 32; // In USD
+        price = 19; // In USD
         credits = "1 Million"; // As human string
+      } else if (sku === "SKU_TTSREADER_EXTRA_CREDITS_3M") {
+        price = 39; // In USD
+        credits = "3 Million"; // As human string
       } else if (sku === "SKU_TTSREADER_EXTRA_CREDITS_10M") {
-        price = 300; // In USD
+        price = 99; // In USD
         credits = "10 Million"; // As human string
       }
 
-      let description = "TTSReader " + credits + " Extra Credits";
+      let description = "TTSReader " + credits + " Extra Credits, UID: " + uid;
       config.createOrder = function (data, actions) {
         return actions.order.create({
           purchase_units: [{
@@ -659,86 +948,104 @@
   }
 
   const template = document.getElementById('skuStepTemplate');
-  document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
-    const sku = card.getAttribute('data-ws-sku');
-    const clone = template.content.cloneNode(true);
-    const modalStep = clone.querySelector('.modal-step');
+  let wasPayPalReady = false;
+  let attempts = 0;
 
-    // Update the sku ID
-    modalStep.setAttribute('data-ws-sku', sku);
+  function runOnPayPalReady() {
+    if (!window.paypalSubs || !window.paypalOnce) {
+      console.log("PayPal SDK not yet loaded");
+      if (attempts++ > 200) {
+        alert('Failed to load payment processor. Please make sure connection is good and refresh the page.');
+      } else {
+        setTimeout(() => runOnPayPalReady(), 200);
+      }
+      return;
+    }
 
-    // Replace pricing-card-clone content
-    const cardClone = modalStep.querySelector('.pricing-card-clone');
-    cardClone.innerHTML = card.innerHTML;
+    if (wasPayPalReady) return; // Prevent multiple runs
 
-    // Append to body
-    document.body.appendChild(modalStep);
-    //
-    let paypalContainer = modalStep.querySelector('.Paypal-Button-Container');
-    renderPayPalButton(uid, sku, paypalContainer);
-  });
-</script>
+    wasPayPalReady = true;
+    console.log("PayPal SDK loaded on attempt " + attempts);
+    document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
+      const sku = card.getAttribute('data-ws-sku');
+      const clone = template.content.cloneNode(true);
+      const modalStep = clone.querySelector('.modal-step');
 
-<script>
-  const baseStep = document.querySelector('[data-ws-step="0"]');
+      // Update the sku ID
+      modalStep.setAttribute('data-ws-sku', sku);
 
-  document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
-    card.addEventListener('click', () => {
-      const sku = card.dataset.wsSku;
-      console.log("ronen: ", {sku});
-      const targetStep = document.querySelector(`.modal-step[data-ws-sku="${sku}"]`);
-      if (!targetStep) return;
+      // Replace pricing-card-clone content
+      const cardClone = modalStep.querySelector('.pricing-card-clone');
+      cardClone.innerHTML = card.innerHTML;
 
-      baseStep.style.filter = 'blur(6px)';
-      targetStep.classList.remove('hidden');
-      targetStep.style.opacity = 0;
-      targetStep.style.transition = 'opacity 0.4s ease';
-      requestAnimationFrame(() => {
-        targetStep.style.opacity = 1;
+      // Append to body
+      document.body.appendChild(modalStep);
+      //
+      let paypalContainer = modalStep.querySelector('.Paypal-Button-Container');
+      renderPayPalButton(uid, sku, paypalContainer);
+    });
+
+    const baseStep = document.querySelector('[data-ws-step="0"]');
+
+    document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
+      card.addEventListener('click', () => {
+        const sku = card.dataset.wsSku;
+        console.log("ronen: ", {sku});
+        const targetStep = document.querySelector(`.modal-step[data-ws-sku="${sku}"]`);
+        if (!targetStep) return;
+
+        baseStep.style.filter = 'blur(6px)';
+        targetStep.classList.remove('hidden');
+        targetStep.style.opacity = 0;
+        targetStep.style.transition = 'opacity 0.4s ease';
+        requestAnimationFrame(() => {
+          targetStep.style.opacity = 1;
+        });
+        document.querySelector('.closeIframeButton').classList.add('hidden');
+
+        // If paypal buttons are not rendered yet, render them:
+        let paypalContainer = targetStep.querySelector('.Paypal-Button-Container');
+        if (paypalContainer?.children?.length === 0) {
+          //renderPayPalButton(uid, sku, paypalContainer);
+        }
       });
-      document.querySelector('.closeIframeButton').classList.add('hidden');
-
-      // If paypal buttons are not rendered yet, render them:
-      let paypalContainer = targetStep.querySelector('.Paypal-Button-Container');
-      if (paypalContainer?.children?.length === 0) {
-        //renderPayPalButton(uid, sku, paypalContainer);
-      }
     });
-  });
 
-  function closeSkuStep(skuStepElement) {
-    skuStepElement.style.transition = 'opacity 0.4s ease';
-    skuStepElement.style.opacity = 0;
-    setTimeout(() => {
-      skuStepElement.classList.add('hidden');
-      baseStep.style.filter = 'none';
-    }, 400);
-    document.querySelector('.closeIframeButton').classList.remove('hidden');
+    function closeSkuStep(skuStepElement) {
+      skuStepElement.style.transition = 'opacity 0.4s ease';
+      skuStepElement.style.opacity = 0;
+      setTimeout(() => {
+        skuStepElement.classList.add('hidden');
+        baseStep.style.filter = 'none';
+      }, 400);
+      document.querySelector('.closeIframeButton').classList.remove('hidden');
+    }
+
+    document.querySelectorAll('.modal-step[data-ws-sku] .backBtn').forEach(button => {
+      button.addEventListener('click', () => {
+        const skuStep = button.closest('.modal-step');
+        closeSkuStep(skuStep);
+      });
+    });
+
+    document.querySelectorAll('.modal-step[data-ws-sku]').forEach(modalStep => {
+      modalStep.addEventListener('click', function (ev) {
+        const card = modalStep.querySelector('card');
+        if (!card) return;
+
+        if (!card.contains(ev.target)) {
+          onClickOutsideCard(ev, modalStep);
+        }
+      });
+    });
+
+    function onClickOutsideCard(ev, modalStep) {
+      console.log('Clicked outside <card> in:', modalStep.getAttribute('data-ws-sku'));
+      // Your logic here
+      closeSkuStep(modalStep);
+    }
   }
 
-  document.querySelectorAll('.modal-step[data-ws-sku] .backBtn').forEach(button => {
-    button.addEventListener('click', () => {
-      const skuStep = button.closest('.modal-step');
-      closeSkuStep(skuStep);
-    });
-  });
-
-  document.querySelectorAll('.modal-step[data-ws-sku]').forEach(modalStep => {
-    modalStep.addEventListener('click', function (ev) {
-      const card = modalStep.querySelector('card');
-      if (!card) return;
-
-      if (!card.contains(ev.target)) {
-        onClickOutsideCard(ev, modalStep);
-      }
-    });
-  });
-
-  function onClickOutsideCard(ev, modalStep) {
-    console.log('Clicked outside <card> in:', modalStep.getAttribute('data-ws-sku'));
-    // Your logic here
-    closeSkuStep(modalStep);
-  }
 </script>
 </body>
 </html>

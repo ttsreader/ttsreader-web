@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-10-10T13:01:22.222Z",
-      "version": "3.9.4",
+      "dateModified": "2025-11-12T11:34:50.743Z",
+      "version": "3.9.12",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -22,9 +22,9 @@
     }
   </script>
   <!-- Include Quill stylesheet -->
-  <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
   <!-- Include the Quill library -->
-  <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
   <meta charset="utf-8" />
   <link rel="icon" href="favicon.ico" />
@@ -49,7 +49,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.9.4 - Lecteur de texte à parole de TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.9.12 - Lecteur de texte à parole de TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -64,7 +64,7 @@
   <script>
     // Dark mode toggle:
     let storedTheme = localStorage.getItem('theme-player-only');
-    let DEFAULT_THEME = 'light-bg';
+    let DEFAULT_THEME =  Math.random() < 0.5 ? 'dark-bg' : 'light-bg';
 
     if (!storedTheme) {
       let storedBlogTheme = localStorage.getItem('theme');
@@ -257,9 +257,9 @@
       border-top: none;
     }
 
-    [data-is-signed-out] #top-banner {
+/*    [data-is-signed-out] #top-banner {
       display: none;
-    }
+    }*/
 
     .job-download-link a {
       color: orange;
@@ -472,12 +472,148 @@
       color: #66BB6A !important;
     }
   </style>
-<script defer src="./static/js/main.84bb4926.js"></script><link href="./static/css/main.6bf3b418.css" rel="stylesheet"></head>
-<body>
+  <style>
+    /* ---------- Base layout ---------- */
+    .sign-in-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 260px;
+      margin: auto;
+    }
 
+    /* ---------- Shared button style ---------- */
+    .styled-sign-in-btn-google,
+    .styled-sign-in-btn-apple {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      transform: translateY(0);
+    }
+
+    .styled-sign-in-btn-google:hover,
+    .styled-sign-in-btn-apple:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .styled-sign-in-btn-google:active,
+    .styled-sign-in-btn-apple:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    }
+
+    /* ---------- Google button ---------- */
+    .styled-sign-in-btn-google {
+      border: 1px solid #dadce0;
+      background: #fff;
+      color: #202124;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .styled-sign-in-btn-google:hover {
+      background: #f8f9fa;
+    }
+
+    /* ---------- Apple button ---------- */
+    .styled-sign-in-btn-apple {
+      background: #000;
+      color: #fff;
+      border: 1px solid #000;
+    }
+
+    .styled-sign-in-btn-apple:hover {
+      background: #333;
+    }
+
+    /* ---------- Dark mode overrides ---------- */
+    [data-dark-mode] body {
+      background: #121212;
+    }
+
+    [data-dark-mode] .styled-sign-in-btn-google {
+      background: #1f1f1f;
+      border-color: #3c4043;
+      color: #e8eaed;
+    }
+
+    [data-dark-mode] .styled-sign-in-btn-google:hover {
+      background: #2b2b2b;
+    }
+
+    [data-dark-mode] .styled-sign-in-btn-apple {
+      background: #e8eaed;
+      color: #111;
+      border-color: #e8eaed;
+    }
+
+    [data-dark-mode] .styled-sign-in-btn-apple:hover {
+      background: #fff;
+    }
+
+    /* ---------- Icon sizing ---------- */
+    .google-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+    }
+    .apple-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-block;
+      position: relative;
+      top: -2px;
+    }
+  </style>
+
+  <template id="sign-in-buttons-template">
+    <div class="sign-in-container">
+      <!-- Google Sign-in Button -->
+      <button class="styled-sign-in-btn-google">
+      <span class="google-icon">
+        <!-- Google G logo SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 533.5 544.3">
+          <path fill="#4285f4" d="M533.5 278.4c0-17.4-1.6-34.1-4.7-50.3H272.1v95.1h147.2c-6.4 34.5-25 63.8-53.3 83.4l85.9 66.8c50.2-46.2 81.6-114.2 81.6-194.9z"/>
+          <path fill="#34a853" d="M272.1 544.3c72.4 0 133.2-23.9 177.5-64.9l-85.9-66.8c-23.9 16.1-54.5 25.6-91.6 25.6-70.4 0-130.1-47.4-151.4-111.1H31.9v69.7c44.3 87.6 134.9 147.5 240.2 147.5z"/>
+          <path fill="#fbbc04" d="M120.7 327.1c-10.9-32.6-10.9-67.9 0-100.5V156.9H31.9c-43.5 86.9-43.5 189.6 0 276.5l88.8-69.6z"/>
+          <path fill="#ea4335" d="M272.1 107.7c39.4 0 74.8 13.6 102.7 40.3l76.6-76.6C405.3 24.4 344.5 0 272.1 0 166.8 0 76.2 59.9 31.9 147.5l88.8 69.7C142 155.1 201.7 107.7 272.1 107.7z"/>
+        </svg>
+      </span>
+        <span>Continuer avec Google</span>
+      </button>
+
+      <!-- Apple Sign-in Button -->
+      <button class="styled-sign-in-btn-apple">
+      <span class="apple-icon">
+        <!-- Apple logo SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-brand-apple"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15.079 5.999l.239 .012c1.43 .097 3.434 1.013 4.508 2.586a1 1 0 0 1 -.344 1.44c-.05 .028 -.372 .158 -.497 .217a4.15 4.15 0 0 0 -.722 .431c-.614 .461 -.948 1.009 -.942 1.694c.01 .885 .339 1.454 .907 1.846c.208 .143 .436 .253 .666 .33c.126 .043 .426 .116 .444 .122a1 1 0 0 1 .662 .942c0 2.621 -3.04 6.381 -5.286 6.381c-.79 0 -1.272 -.091 -1.983 -.315l-.098 -.031c-.463 -.146 -.702 -.192 -1.133 -.192c-.52 0 -.863 .06 -1.518 .237l-.197 .053c-.575 .153 -.964 .226 -1.5 .248c-2.749 0 -5.285 -5.093 -5.285 -9.072c0 -3.87 1.786 -6.92 5.286 -6.92c.297 0 .598 .045 .909 .128c.403 .107 .774 .26 1.296 .508c.787 .374 .948 .44 1.009 .44h.016c.03 -.003 .128 -.047 1.056 -.457c1.061 -.467 1.864 -.685 2.746 -.616l-.24 -.012z" /><path d="M14 1a1 1 0 0 1 1 1a3 3 0 0 1 -3 3a1 1 0 0 1 -1 -1a3 3 0 0 1 3 -3z" /></svg>
+      </span>
+        <span>Continuer avec Apple</span>
+      </button>
+    </div>
+  </template>
+  <script>
+    class SignInButtons extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = document.getElementById("sign-in-buttons-template").innerHTML;
+      }
+    }
+    customElements.define("sign-in-buttons", SignInButtons);
+  </script>
+
+<script defer src="./static/js/main.04e89f5c.js"></script><link href="./static/css/main.6bf3b418.css" rel="stylesheet"></head>
+<body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
-  <div id="top-banner" data-ws-show-if-state="serverData=true">
     <div class="Go-premium-banner" data-ws-show-if-state="isPremium=false" style="text-align: center;text-transform: uppercase;
       color: white;
       font-weight: bold;
@@ -485,7 +621,6 @@
       background-color: darkgreen;"><a style="cursor: pointer; text-decoration: none;color: white;display: block; padding: 10px;" onclick="openNewUpgradeModal()">
       Cliquez ici pour passer à la version premium. Satisfaction garantie à 100%<!-- Click here to upgrade. 100% satisfaction guaranteed -->
     </a></div>
-  </div>
 
   <div style="flex: 1; display: flex;max-height: 100%;overflow: hidden;">
     <drawer style="overflow: hidden;max-height: 100%;">
@@ -499,7 +634,7 @@
           </a>
         </div>
         <div data-ws-show-if-state="isSignedIn=false">
-          <a class="Menu-list-element" onclick="toggleSignIn();" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"></path></svg>&nbsp;&nbsp;Se connecter / S'inscrire<!-- Sign in / Sign up --></a>
+          <a class="Menu-list-element" data-ws-toggle="#signinModal" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"></path></svg>&nbsp;&nbsp;Se connecter / S'inscrire<!-- Sign in / Sign up --></a>
         </div>
         <div data-ws-show-if-state="isSignedIn=true" >
           <div style="display: flex;align-items: center;">
@@ -600,7 +735,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.9.4</b> Build 2025-10-10T13:01:22.222Z
+          <b>V3.9.12</b> Build 2025-11-12T11:34:50.743Z
           <br/><span style="margin-top: 10px;display: block">TOUTES LES VERSIONS <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -894,19 +1029,19 @@
               </div>
               <div data-ws-show-if-state="serverData=true">
                 <p data-ws-show-if-state="isPremium=false">
-                  Used <span data-ws-label-state="usageLife"></span> / 5,000 chars for premium voices.&nbsp;Click to get more.
+                  Utilisé<!--Used--> <span data-ws-label-state="usageLife"></span> / 5 000 caractères pour les voix premium.&nbsp;Cliquez pour plus.<!-- 5,000 chars for premium voices.&nbsp;Click for more.-->
                 </p>
                 <p data-ws-show-if-state="isPremium=true">
-                  🏆 Premium Voices: &nbsp;
+                  🏆 Premium<!--Premium-->&nbsp;
                   <span data-ws-show-if-state="isPremiumPlan=true">
-                    <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> / month.
+                    <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span> / mois<!--month-->.
                   </span>
                   &nbsp;
                   <span data-ws-show-if-state="isPayAsYouGo=true">
-                    Added: <span data-ws-label-state="remainingCreditsChars"></span>.
+                    + <span data-ws-label-state="remainingCreditsChars"></span>.
                   </span>
                   &nbsp;
-                  + ADD MORE
+                  + AJOUTER PLUS<!--ADD MORE-->
                 </p>
               </div>
 
@@ -952,11 +1087,8 @@
         </h2>
         <p style="text-align: center">Liste vos fichiers audio générés<sup>*</sup>, afin que vous puissiez les télécharger, les partager ou les écouter plus tard.</p>
         <p style="font-size: 0.7em;font-weight: bold; opacity: 0.8; margin-top: -10px;"><sup>*</sup>&nbsp;Pour les exportations MP3, qui sont plus longues que 2k caractères. Conservées ici tant que vous avez un compte premium.</p>
-        <div data-ws-show-if-state="isPremium=true" style="text-align: center">
+        <div style="text-align: center">
           <button onclick="openOrCloseExportsListModal(true);" data-ws-toggle="#exportModal" style="text-decoration: none;cursor: pointer; color: white;background-color: darkgreen;text-transform: uppercase" class="Full-width-btn">+ Cliquez ici pour créer un nouveau MP3 à partir du texte</button>
-        </div>
-        <div data-ws-show-if-state="isPremium=false" style="text-align: center">
-          <button onclick="openOrCloseExportsListModal(true);" data-ws-toggle="#recordModalNonPremium" style="text-decoration: none;cursor: pointer; color: white;background-color: darkgreen;text-transform: uppercase" class="Full-width-btn">+ Cliquez ici pour créer un nouveau MP3 à partir du texte</button>
         </div>
         <!-- Podcast Channel URL Section -->
         <div data-ws-show-if-state="podcast_main_channel_url=true" style="margin: 20px 0; padding: 15px; background-color: rgba(255,255,255,0.1); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
@@ -1050,7 +1182,11 @@
       </div>
       <br/>
       <p style="font-size: smaller"><i>By continuing you agree to our <a href="/docs/legal/terms/" target="_blank">terms</a> & <a href="/docs/legal/privacy/" target="_blank">privacy policy</a></i></p>
-      <p data-ws-show-if-state="isSignedIn=false">Vous avez déjà un compte ?&nbsp;<button class="secondary" onclick="signIn()">Connectez-vous avec Google</button></p>
+      <p data-ws-show-if-state="isSignedIn=false">
+        Vous avez déjà un compte ?
+        <br/>
+        <sign-in-buttons></sign-in-buttons>
+      </p>
       <div style="flex:1;" ></div>
     </div>
 
@@ -1185,7 +1321,7 @@
           <div class="modal-step-overlay" style="display:flex;position: absolute;top:0;bottom:0;left:0;right:0;flex-direction: column">
             <div style="flex:1.5"></div>
             <p style="max-width: 600px; margin: auto;font-size: larger;">
-              La voix que vous avez sélectionnée <span data-ws-label-state="voiceLabel"></span>&nbsp; est un excellent choix ! Comme c'est une voix premium, une connexion est requise.<br/><br/>Veuillez vous connecter en toute sécurité avec Google pour continuer.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. -->
+              La voix que vous avez sélectionnée <span data-ws-label-state="voiceLabel"></span>&nbsp; est un excellent choix !<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. -->
             </p>
             <br/><br/>
             <button onclick="signIn();" class="primary" style="margin: auto;border: 1px solid;border-radius: 10px;width: 500px;max-width: 90%;">Se connecter avec Google<!-- Sign In with Google --></button>
@@ -1215,11 +1351,10 @@
         </svg>
       </button>
       <div style="flex: 1"></div>
-      <p style="font-size: larger;">La voix que vous avez sélectionnée <span data-ws-label-state="voiceLabel"></span>&nbsp; est un excellent choix ! Comme c'est une voix premium, une connexion est requise. Veuillez vous connecter en toute sécurité avec Google pour continuer.<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
+      <p style="font-size: larger;">La voix que vous avez sélectionnée <span data-ws-label-state="voiceLabel"></span>&nbsp; est un excellent choix !<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
       <br/>
-      <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Se connecter avec Google<!-- Sign In with Google --></button>
-      <p style="text-align: center">OR</p>
-      <button onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.showModal("voicesModal");' class="Full-width-btn">Select a Non Premium Voice</button>
+      <sign-in-buttons></sign-in-buttons>
+      <button style="margin:60px auto 30px; width: unset;" onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.showModal("voicesModal");' class="Full-width-btn">Ou passez à une voix basique<!--Or, Select a Non Premium Voice--></button>
       <div style="flex: 2"></div>
     </div>
     <div style="height:20px;"></div>
@@ -1261,6 +1396,26 @@
       </div>
     </div>
     <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="signinModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;width: fit-content">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow: auto;padding:10px;">
+        <p class="Modal-title">
+          Se connecter / S'inscrire
+        </p>
+        <br/>
+        <sign-in-buttons></sign-in-buttons>
+      </div>
+      <div style="height:40px;"></div>
+    </div>
+
   </div>
 
   <div class="Modal" id="voicesModal" style="display: none;">
@@ -1337,6 +1492,151 @@
         <span style="color: green">✓</span> Indique que la voix est autorisée pour la publication pour les utilisateurs premium&lt;!&ndash; Indicates voice is allowed for publishing for premium users &ndash;&gt; <span data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">en tant que vous-même 🏆&lt;!&ndash; as yourself 🏆 &ndash;&gt;</span><a data-ws-show-if-state="isPremium=false" data-ws-toggle="#upgradeModal" style="cursor: pointer;">- <u>cliquez ici pour passer à la version premium&lt;!&ndash; click here to upgrade &ndash;&gt;</u></a>
       </p>-->
     </div>
+  </div>
+
+
+  <div class="Modal" id="simpleUpgradeModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4 style="font-size: 1.2em;">
+        Select Your Subscription or Package
+      </h4>
+      <div style="max-width: 100%; margin: -5px auto 30px; flex: 1;overflow-y: auto;text-align: left">
+        <!-- TTSReader Plans (inline-styled, modern look) -->
+        <div style="font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; max-width: 900px; margin: 32px auto; color: #0f172a;">
+          <h2 style="margin: 0 0 16px 0; font-size: 26px; letter-spacing: .2px;">Choose Your Plan</h2>
+          <div style="font-size:14px; color:#475569; margin-bottom:18px;">
+            Flexible options for creators and power users. Premium characters count toward high-quality voices.
+          </div>
+
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(2,6,23,.08);">
+            <div style="background:linear-gradient(180deg,#f8fafc, #ffffff); border-bottom:1px solid #e2e8f0; padding:14px 18px; display:flex; gap:12px; align-items:center;">
+              <div style="font-weight:700; font-size:13px; width:34%;">Plan</div>
+              <div style="font-weight:700; font-size:13px; width:20%;">Price</div>
+              <div style="font-weight:700; font-size:13px; width:36%;">What you get</div>
+              <div style="font-weight:700; font-size:13px; width:10%; text-align:right;">&nbsp;</div>
+            </div>
+
+            <!-- Row 1 -->
+            <div style="display:flex; gap:12px; align-items:center; padding:18px; border-bottom:1px solid #eef2f7;">
+              <div style="width:34%; display:flex; align-items:center; gap:10px;">
+                <span style="display:inline-block; padding:6px 10px; font-size:11px; font-weight:700; color:#1e293b; background:#e2e8f0; border-radius:999px;">Monthly</span>
+                <span style="color:#334155; font-weight:600;">Subscription</span>
+              </div>
+              <div style="width:20%; font-weight:700; color:#0f172a;">$10.99<span style="font-weight:500; color:#64748b;">/mo</span></div>
+              <div style="width:36%; color:#334155;">Quota: <strong>1,000,000</strong> premium characters <span style="color:#64748b;">every month</span></div>
+              <div style="width:10%; text-align:right;">
+                <a href="#" style="display:inline-block; background:#2563eb; color:#fff; text-decoration:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:13px; box-shadow:0 6px 14px rgba(37,99,235,.25); transition:transform .15s ease, box-shadow .15s ease;"
+                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 18px rgba(37,99,235,.32)';"
+                   onmouseout="this.style.transform=''; this.style.boxShadow='0 6px 14px rgba(37,99,235,.25)';">BUY</a>
+              </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div style="display:flex; gap:12px; align-items:center; padding:18px; border-bottom:1px solid #eef2f7; background:linear-gradient(180deg,#fbfdff,#ffffff);">
+              <div style="width:34%; display:flex; align-items:center; gap:10px;">
+                <span style="display:inline-block; padding:6px 10px; font-size:11px; font-weight:700; color:#065f46; background:#d1fae5; border-radius:999px;">Annual</span>
+                <span style="color:#334155; font-weight:600;">Subscription</span>
+                <span style="margin-left:8px; padding:4px 8px; font-size:10px; font-weight:800; color:#fff; background:#10b981; border-radius:8px;">Save 25%+</span>
+              </div>
+              <div style="width:20%; font-weight:700; color:#0f172a;">$99<span style="font-weight:500; color:#64748b;">/yr</span></div>
+              <div style="width:36%; color:#334155;">Quota: <strong>1,000,000</strong> premium characters <span style="color:#64748b;">every month</span></div>
+              <div style="width:10%; text-align:right;">
+                <a href="#" style="display:inline-block; background:#0ea5e9; color:#fff; text-decoration:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:13px; box-shadow:0 6px 14px rgba(14,165,233,.25); transition:transform .15s ease, box-shadow .15s ease;"
+                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 18px rgba(14,165,233,.32)';"
+                   onmouseout="this.style.transform=''; this.style.boxShadow='0 6px 14px rgba(14,165,233,.25)';">BUY</a>
+              </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div style="display:flex; gap:12px; align-items:center; padding:18px;">
+              <div style="width:34%; display:flex; align-items:center; gap:10px;">
+                <span style="display:inline-block; padding:6px 10px; font-size:11px; font-weight:700; color:#7c2d12; background:#ffedd5; border-radius:999px;">Credits</span>
+                <span style="color:#334155; font-weight:600;">One-time (non-recurring)</span>
+              </div>
+              <div style="width:20%; font-weight:700; color:#0f172a;">$32<span style="font-weight:500; color:#64748b;"> / 1M chars</span></div>
+              <div style="width:36%; color:#334155;">Valid for <strong>1 year</strong> from purchase</div>
+              <div style="width:10%; text-align:right;">
+                <a href="#" style="display:inline-block; background:#ef4444; color:#fff; text-decoration:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:13px; box-shadow:0 6px 14px rgba(239,68,68,.25); transition:transform .15s ease, box-shadow .15s ease;"
+                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 18px rgba(239,68,68,.32)';"
+                   onmouseout="this.style.transform=''; this.style.boxShadow='0 6px 14px rgba(239,68,68,.25)';">BUY</a>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; font-size:12px; color:#64748b;">
+            Prices in USD. “Premium characters” apply to neural/high-quality voices. Taxes may apply in some regions.
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+
+  <div class="Modal" id="upgradeModal" style="display: none">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;width: 600px;max-width: 90%;margin: auto;">
+      <button class="Close-modal">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div data-ws-show-if-state="isPremium=true"  style="text-align: center;overflow: auto;padding:10px;">
+        <p style="font-size: 1.5em; padding: 20px;margin-block: 0.3em;">🏆 Statut Premium et Gestion<!--Premium Status & Management--></p>
+        <p data-ws-show-if-state="subscriptionId=true">
+          Via<!-- Via --> <a style="cursor: pointer;text-decoration: underline" data-ws-toggle="#subscriptionModal">Abonnement<!-- Subscription --> - cliquez ici pour voir et gérer<!-- click here to view & manage --></a>
+        </p>
+        <p data-ws-show-if-state="isPremiumPlan=true" style="">
+          Caractères Premium utilisés mensuellement <!--Monthly Premium-Chars used --><span style="font-weight: bold;" data-ws-label-state="usedMonthly"></span> / <span style="font-weight: bold;" data-ws-label-state="monthlyQuotaHuman"></span>
+        </p>
+        <p data-ws-show-if-state="isPayAsYouGo=true" style="">
+          + Crédits supplémentaires disponibles<!--Additional Credits available-->: <span style="font-weight: bold;" data-ws-label-state="remainingCreditsChars"></span>
+        </p>
+        <p data-ws-show-if-state="isPremiumPlan=true">
+          <span data-ws-show-if-state="subscriptionId=false">
+              Votre abonnement ne se renouvellera PAS automatiquement, expire le<!--Your subscription will NOT auto renew, expires on-->&nbsp;<span data-ws-label-state="premiumPlanExpirationDateReadable"></span>.
+          </span>
+        </p>
+        <br/>
+        <div>
+          <button class="full-width-button" onclick="openNewUpgradeModal()">Acheter des Crédits Supplémentaires / Plan<!--Purchase Additional Credits / Plan--></button>
+        </div>
+        <br/>
+      </div>
+      <div data-ws-show-if-state="isPremium=false" style="overflow: auto;padding:10px;">
+        <h4>Obtenez plus et soutenez l'équipe 🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --><br/>Voix IA Premium, Export, Commercial et Publication <!-- Premium AI Voices, Export, Commercial & Publishing --></h4>
+        <p style="margin-top: 38px;text-transform: uppercase; opacity: 1;font-size: 0.99em;">
+          Abonnements Abordables et Forfaits de Paiement Unique <!-- Affordable Subscriptions and One-Time Payment Packages -->
+        </p>
+        <br/>
+        <div data-ws-show-if-state="isSignedIn=false">
+          <sign-in-buttons></sign-in-buttons>
+          <p style="opacity: 0.8;">Connectez-vous pour explorer les différents plans <!-- Login to explore the different plans --></p>
+        </div>
+        <div data-ws-show-if-state="isSignedIn=true">
+          <button class="full-width-button" onclick="openNewUpgradeModal()">Voir les Plans Premium <!-- View Premium Plans --></button>
+        </div>
+        <br/><br/>
+        <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 0 0 1em 0; text-align: start">
+          <li>Voix premium <!-- Premium voices --></li>
+          <li><strong>Lecture continue ininterrompue <!-- Uninterrupted continuous playback --></strong></li>
+          <li>Lecture continue illimitée<!-- Unlimited continuous reading --></li>
+          <li><strong>Exporter vers MP3 et WAV <!-- Export to MP3 & WAV --></strong></li>
+          <li>Votre propre chaîne de podcast <!-- Your own podcast channel --></li>
+          <li><strong>Licence commerciale pour Usage et Publication ! <!-- Commercial license for Usage & Publishing! --></strong></li>
+          <li><strong>Libre de droits d'auteur</strong> pour les voix IA premium et les voix basiques sélectionnées <!-- <strong>Copyrights free</strong> for Premium AI voices and select basic voices --></li>
+          <li>Pas de publicités<!-- No Ads --></li>
+          <li>Chargement plus rapide<!-- Faster loading --></li>
+          <li>Support premium, demandes de fonctionnalités <!-- Premium support, features requests --></li>
+          <li>Débloquer toutes les fonctionnalités<!-- Unlock all features --></li>
+        </ul>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
   </div>
 
   <div class="Modal" id="interfaceLangModal" style="display: none;">
@@ -1460,6 +1760,7 @@
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
         </svg>
       </button>
+      <h4>Votre Texte Actuel en Chiffres <!-- Your Current Text in Numbers --></h4>
       <p style="font-weight: bold">
         Nombre de mots : <span data-ws-label-state="wordsCount">...</span>
       </p>
@@ -1493,9 +1794,9 @@
             Premium inclut le rendu instantané téléchargeable MP3 et WAV, écouter plus tard, licence commerciale et de publication (pour les voix premium), et plus. Les plans sont très abordables et incluent à la fois le type d'abonnement et les achats uniques pour mieux répondre à vos besoins. Satisfaction garantie.<!-- Recording requires premium and includes licensing for commercial use & publishing (see publishing terms -->
           </p>
           <div data-ws-show-if-state="isSignedIn=false">
-            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">Connectez-vous avec Google pour voir les plans<!-- Upgrade to Premium --></button>
+            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">Connectez-vous pour voir les plans<!-- Upgrade to Premium --></button>
             <p style="text-align: center">Déjà premium? Connectez-vous<!-- Already premium? Sign in --></p>
-            <button onclick="signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Se connecter avec Google<!-- Sign In with Google --></button>
+            <sign-in-buttons></sign-in-buttons>
           </div>
           <div data-ws-show-if-state="isSignedIn=true">
             <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">Voir les plans Premium<!-- Upgrade to Premium --></button>
@@ -1565,7 +1866,7 @@
         </svg>
       </button>
       <div style="overflow: auto;padding:10px 30px;">
-        <p style="text-align: justify">Une fois que vous cliquez sur le bouton suivant, une popup apparaîtra. Là, sélectionnez les options 'Écran entier' et 'Partager aussi l'audio système'. Enfin, cliquez sur 'Partager'.</p>
+        <p style="text-align: justify">Une fois que vous cliquez sur le bouton suivant, une fenêtre contextuelle s'affichera. Là, sélectionnez les options 'Écran Complet' et 'Partager aussi l'audio système'. Enfin, cliquez sur 'Partager'.</p>
         <button data-ws-onClick="startRecording" class="Full-width-btn" style="background-color: darkgreen;color: white">Commencer l'enregistrement<!-- Start Recording --></button>
         <br/>
         <div>
@@ -1591,15 +1892,27 @@
         </svg>
       </button>
       <h4>Génération instantanée de MP3 / WAV pour les utilisateurs premium. Vous détenez les droits d'auteur ! Utilisez l'audio généré pour TOUT usage.</h4>
+      <div>
+        <div data-ws-show-if-state="isPremium=true">
+          En tant qu'utilisateur Premium - vous possédez les droits d'auteur des fichiers audio exportés et pouvez les utiliser à des fins commerciales et de publication <!-- As a Premium user - you own the copyrights to the exported audio files and can use them for commercial purposes and publishing -->&nbsp;🚀
+        </div>
+        <div data-ws-show-if-state="isSignedIn=true">
+          <div data-ws-show-if-state="isPremium=false">
+            <span style="font-size: 1.3em;color: red;">L'utilisation commerciale et la publication nécessitent Premium.<!-- Commercial use and publishing requires Premium.--></span>
+            <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');openNewUpgradeModal();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Voir les plans Premium</button>
+          </div>
+        </div>
+      </div>
       <div style="text-align: justify; font-size: smaller;">
         <p style="text-align: center">VEUILLEZ NOTER :</p>
         <ul style="text-align: justify">
-          <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">Connectez-vous avec Google pour voir les plans</a></span></li>-->
+          <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">Connectez-vous pour voir les plans</a></span></li>-->
           <li><strong>Merci de LIRE avant d'exporter – pour vous assurer que tout sonne exactement comme vous le souhaitez. Éditez à la perfection. Puis exportez quand vous êtes prêt.</strong></li>
           <li>Il consomme des caractères de votre quota de caractères premium ou crédits.</li>
           <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
           <li>Fonctionne uniquement avec les voix premium (marquées d'une étoile dans la galerie).</li>
           <li>Nouveau : {{pause}} et {{pause:DURATION_IN_MS}} sont supportés. Assurez-vous qu'ils sont formatés SANS espaces dans les accolades {{...}}</li>
+          <li>Vous pouvez également créer votre chaîne de podcast personnelle pour écouter vos exportations en déplacement avec votre application de podcast préférée. <!-- You can also create your personal podcast channel to listen to your exports on the go with your favorite podcast app. --></li>
         </ul>
       </div>
       <br/>
@@ -1610,19 +1923,13 @@
         </label>
       </div>
       <div data-ws-show-if-state="isSignedIn=false">
-        <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Sign In with Google to Continue<!-- Sign In with Google --></button>
+        <sign-in-buttons></sign-in-buttons>
       </div>
       <div data-ws-show-if-state="isSignedIn=true">
-        <div data-ws-show-if-state="isPremium=true">
       <div>
         <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">Créer et télécharger MP3</button>
         <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button secondary" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">Créer et télécharger WAV (MOINS DE 2 000 CARACTÈRES UNIQUEMENT)</button>
       </div>
-        </div>
-        <div data-ws-show-if-state="isPremium=false">
-          <p>Exporter l'audio est une fonction premium</p>
-          <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');openNewUpgradeModal();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Voir les plans Premium</button>
-        </div>
       </div>
       <p style="margin: 30px auto">Vous cherchez vos exportations précédentes ?&nbsp;<a style="cursor: pointer; color: orangered;" onclick="openOrCloseExportsListModal();"><svg style="vertical-align: middle; margin-bottom: 4px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>&nbsp; Ouvrir le dossier audio</a></p>
       <h3>Did you know? Learn more on:</h3>
@@ -1635,109 +1942,11 @@
     </div>
   </div>
 
-  <div class="Modal" id="upgradeModal" style="display: none">
-    <div style="height:20px;"></div>
-    <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;width: 800px;max-width: 90%;margin: auto;">
-      <button class="Close-modal">
-        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
-          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-        </svg>
-      </button>
 
 
-      <div data-ws-show-if-state="isPremium=true" style="padding: 20px;text-align: center;">
-        <p style="font-size: larger;">Plan Premium</p>
-        <p style="font-size: 70px; padding: 20px;margin-block: 0.3em;">🏆</p>
-        <p data-ws-show-if-state="subscriptionId=true">
-          Via<!-- Via --> <a style="cursor: pointer;text-decoration: underline" data-ws-toggle="#subscriptionModal">Abonnement<!-- Subscription --> - cliquez ici pour voir et gérer<!-- click here to view & manage --></a>
-          <br/>
-          Automatically renews on: <span data-ws-label-state="premiumPlanExpirationDateReadable"></span>
-        </p>
-        <p data-ws-show-if-state="isPremiumPlan=false">
-          <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Subscription - Cliquez ici pour passer à la version premium. Satisfaction garantie à 100%</a>
-        </p>
-        <p data-ws-show-if-state="subscriptionId=false">
-          <span data-ws-show-if-state="isPremiumPlan=true">
-            Expire le : <span data-ws-label-state="premiumPlanExpirationDateReadable"></span>
-          </span>
-        </p>
-        <hr/>
-        <div style="text-align: center">
-          <div data-ws-show-if-state="isSignedIn=true">
-            <div data-ws-show-if-state="serverData=false">
-              <p>Fetching server data...</p>
-            </div>
-            <div data-ws-show-if-state="serverData=true">
-              <p data-ws-show-if-state="isPremium=false">
-                FREE PLAN. Voix basiques illimitées.
-                <br/>
-                Used <span data-ws-label-state="usageLife"></span> / 5,000 chars of Premium Voices.
-              </p>
-          <p data-ws-show-if-state="isPremium=true">
-                Voix basiques illimitées.
-                <br/>
-                <span data-ws-show-if-state="isPremiumPlan=true">
-                  Caractères utilisés en voix premium ce mois-ci.: <span data-ws-label-state="usedMonthly"></span> / <span data-ws-label-state="monthlyQuotaHuman"></span>
-                </span>
-                <br/>
-                <span data-ws-show-if-state="isPayAsYouGo=true">
-                  Remaining premium chars: <span data-ws-label-state="remainingCreditsChars"></span>.
-                </span>
-                <br/>
-                <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Cliquez pour acheter des caractères premium au paiement à l’utilisation</a>
-                <br/>
-                <hr/>
-                <br/>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform" target="_blank" style="color: orangered;cursor: pointer;text-decoration: none;display: block"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-sos"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" /><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /></svg>&nbsp;&nbsp;Formulaire de support premium</a>
-                <br/>
-                <span>Ou envoyez-nous un mail à contact@ttsreader.com en précisant que vous êtes utilisateur premium</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="overflow: auto;padding:10px 30px;" data-ws-show-if-state="isPremium=false">
-        <h4>Obtenez plus et soutenez l'équipe 🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --></h4>
-        <br/>
-        <div data-ws-show-if-state="isSignedIn=false">
-          <button class="styled-btn" onclick="toggleSignIn();">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:v="https://vecta.io/nano" width="12" height="12" viewBox="0 0 186.69 190.5">
-              <g transform="translate(1184.583 765.171)">
-                <path clip-path="none" mask="none" d="M-1089.333-687.239v36.888h51.262c-2.251 11.863-9.006 21.908-19.137 28.662l30.913 23.986c18.011-16.625 28.402-41.044 28.402-70.052 0-6.754-.606-13.249-1.732-19.483z" fill="#4285f4"/>
-                <path clip-path="none" mask="none" d="M-1142.714-651.791l-6.972 5.337-24.679 19.223h0c15.673 31.086 47.796 52.561 85.03 52.561 25.717 0 47.278-8.486 63.038-23.033l-30.913-23.986c-8.486 5.715-19.31 9.179-32.125 9.179-24.765 0-45.806-16.712-53.34-39.226z" fill="#34a853"/>
-                <path clip-path="none" mask="none" d="M-1174.365-712.61c-6.494 12.815-10.217 27.276-10.217 42.689s3.723 29.874 10.217 42.689c0 .086 31.693-24.592 31.693-24.592-1.905-5.715-3.031-11.776-3.031-18.098s1.126-12.383 3.031-18.098z" fill="#fbbc05"/>
-                <path d="M-1089.333-727.244c14.028 0 26.497 4.849 36.455 14.201l27.276-27.276c-16.539-15.413-38.013-24.852-63.731-24.852-37.234 0-69.359 21.388-85.032 52.561l31.692 24.592c7.533-22.514 28.575-39.226 53.34-39.226z" fill="#ea4335" clip-path="none" mask="none"/>
-              </g>
-            </svg>
-            &nbsp;&nbsp;Se connecter avec Google pour commencer<!-- Sign In with Google to Start -->
-          </button>
-          <p style="text-transform: uppercase; opacity: 0.7;font-size: 0.7em;">
-            Connexion sécurisée avec Google<!-- Secure sign in with Google -->
-          </p>
-        </div>
-
-        <div data-ws-show-if-state="isSignedIn=true" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 12px; background-color: white; border-radius: 10px;">
-          <a data-ws-toggle="#upgradeModal" style="color: orangered;font-weight: bold;cursor: pointer;text-decoration: none;" onclick="openNewUpgradeModal()">Click to select a convenient Premium Subscription, or purchase extra Premium Credits.</a>
-        </div>
-        <br/>
-        <h4 style="text-align: start">&nbsp;&nbsp;&nbsp;Principaux avantages<!-- Main Benefits --></h4>
-        <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 0 0 1em 0; text-align: start">
-          <li>Pas de publicités<!-- No Ads --></li>
-          <li>Chargement plus rapide<!-- Faster loading --></li>
-          <li>Lecture continue illimitée - with the basic voices<!-- Unlimited continuous reading --></li>
-          <li>For premium voices: lift limit to 1+ million chars per month or as many as you like via Pay-As-You-Go</li>
-          <li>Export to MP3</li>
-          <li>Licence commerciale and Publishing<!-- Commercial license --></li>
-          <li>Débloquer toutes les fonctionnalités<!-- Unlock all features --></li>
-          <li>Support premium<!-- Premium support --></li>
-        </ul>
-      </div>
-    </div>
-    <div style="height:20px;"></div>
-  </div>
 
   <div data-ws-show-if-state="subscriptionId=true" style="position: relative">
-  <div class="Modal" id="subscriptionModal" style="display: none">
+    <div class="Modal" id="subscriptionModal" style="display: none">
     <div style="height:20px;"></div>
     <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;">
       <button data-ws-hide-all=".Modal" class="Close-modal">
@@ -1752,7 +1961,7 @@
           <p style="line-height: 1.8em;margin: 10px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform?usp=sf_link" target="_blank" style="text-decoration: none;">Problèmes? Questions? Contactez-nous (ouvre un formulaire de contact premium dans une nouvelle fenêtre)<!-- Issues? Questions? Contact us (opens a premium contact form in new window) --></a></p>
           <br/>
           <p style="color: red;line-height: 1.8em;margin: 10px;">ZONE DE DANGER<!-- DANGER ZONE --></p>
-          <p style="color: red; cursor: pointer; padding: 5px 10px; border: red 1px solid; border-radius: 20px; line-height: 1.8em;margin: 10px;" onclick="cancelSubscription();">Annuler l'abonnement. Cliquer sur ceci entraînera la perte de votre statut premium - prenant effet immédiatement.<!-- Cancel subscription. Clicking this will result in losing your premium status - taking effect immediately. --></p>
+          <p style="color: red; cursor: pointer; padding: 5px 10px; border: red 1px solid; border-radius: 20px; line-height: 1.8em;margin: 10px;" onclick="cancelSubscription();">Annuler l'Abonnement<!-- Cancel subscription. Clicking this will result in losing your premium status - taking effect immediately. --></p>
         </div>
         <div data-ws-show-if-state="isPremium=false">
           <br/>
@@ -2029,7 +2238,7 @@
       if (!target.closest('.Dropdown-content')) {
         document.querySelectorAll('.Dropdown-content').forEach((el)=>{
           el.style.display = 'none';
-          document.querySelector('.Text-box').setAttribute('contentEditable',true);
+          //document.querySelector('.Text-box').setAttribute('contentEditable',true);
         })
       }
     });
@@ -2044,10 +2253,10 @@
           let textBox = document.querySelector('.Text-box');
           if (getComputedStyle(child).display!=="none") {
             child.style.display = 'none';
-            textBox.setAttribute('contentEditable',true);
+            //textBox.setAttribute('contentEditable',true);
           } else {
             child.style.display = 'block';
-            textBox.removeAttribute('contentEditable');
+            //textBox.removeAttribute('contentEditable');
             ev.preventDefault();
             ev.stopPropagation();
           }
@@ -2390,7 +2599,7 @@
     return Math.round((Date.now()-clockStartedOn)/1000) + ": ";
   }
 
-  function fetchJsFile(url, callback) {
+  function fetchJsFile(url, callback, dataNamespace) {
     let newEl = document.createElement('script');
     newEl.src=url;
     newEl.onload = function(){
@@ -2398,6 +2607,9 @@
         callback();
       }
     };
+    if (dataNamespace) {
+      newEl.setAttribute('data-namespace', dataNamespace);
+    }
     document.getElementsByTagName("head")[0].appendChild(newEl);
   }
 
@@ -2440,6 +2652,86 @@
 
     fetchJsFile(srcs[0], onScriptLoaded);
 
+    function renderPayPalButton(uid, container) {
+      const sku = container.getAttribute("data-ws-sku");
+      let style = {
+        shape: 'pill',
+        color: 'gold',
+        layout: 'vertical',
+        label: 'paypal',
+        height: 50             // 🔼 Default is ~35 — make this 45–55 for a larger button
+      };
+
+      function delayAcknowledgeAlertAsync() {
+        // Acknowledge alert after a delay to ensure the UI is responsive
+        setTimeout(() => {
+          alert('Merci – commande reçue. PayPal notifiera notre serveur et votre achat sera activé sous quelques secondes. Sinon, contactez-nous à contact@ttsreader.com');
+          window.window.AppAnalytics.sendEvent('purchase');
+          //appMethods.closeModal("upgradeModal");
+        }, 100);
+      }
+
+      let onApproveSub = function (data, actions) {
+        console.log('subscriptionID: ' + data?.subscriptionID); // You can add optional success message for the subscriber here
+        delayAcknowledgeAlertAsync();
+        return Promise.resolve();
+        // onSubscriptionComplete(data.subscriptionID, uid);
+      };
+
+      let onApproveOnce = function (data, actions) {
+        return actions.order.capture().then(function (details) {
+          console.log('approved: ', details);
+          delayAcknowledgeAlertAsync();
+        });
+      };
+
+      let onCancel = function (data) {
+        console.log('Payment cancelled:', data);
+        // Optionally, you can add a message to the user here
+        alert('Paiement annulé. Veuillez réessayer.');
+      };
+
+      const custom_id = sku + "__" + uid;
+
+      let config = {
+        style, onCancel
+      }
+
+      let paypalScope;
+
+      if (sku === "SKU_TTSREADER_PREMIUM_MONTHLY") {
+        paypalScope = paypalSubs;
+        config.onApprove = onApproveSub;
+        config.createSubscription = function (data, actions) {
+          return actions.subscription.create({
+            /* Creates the subscription */
+            plan_id: 'P-82C30553N8925890NMZZWUTA',
+            custom_id
+          });
+        }
+      } else {
+        paypalScope = paypalOnce; // For one-time purchases
+        config.onApprove = onApproveOnce;
+        // Default is the minimum 200k:
+        let price = 39; // In USD
+        let credits = "3M"; // As human string
+        let description = "TTSReader " + credits + " Extra Credits";
+        config.createOrder = function (data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              description,
+              custom_id,
+              amount: {
+                value: price
+              }
+            }]
+          });
+        }
+      }
+
+      paypalScope.Buttons(config).render(container); // Renders the PayPal button UI
+    }
+
     function runDependentScript() {
       let firebaseConfig = {
         apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
@@ -2461,7 +2753,8 @@
           if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn") && !window.AppAnalytics.id && !isBotUserAgent()) {
             // This is a first ever visit. Set unique setup here:
             // A/B test prefix: 50% A / 50% B
-            const prefix = Math.random() < 0.5 ? 'A_' : 'B_'; // 20251009 - A_ = export to premium only, B_ = export open up to 5k chars
+            const prefix = DEFAULT_THEME === 'dark-bg' ? 'D311_' : 'L311_'; //
+            console.log({prefix});
             const randomString = Math.random().toString(36).substring(2, 17); // 15 chars
             window.AppAnalytics.id = prefix + randomString;
             localStorage.setItem(window.AppAnalytics.STORAGE_KEY_ID, window.AppAnalytics.id);
@@ -2472,6 +2765,8 @@
         }
 
         if (user) {
+          appMethods.closeModal("signinModal");
+
           window.getIdToken = async () => {
             return await user.getIdToken();
           }
@@ -2490,6 +2785,19 @@
           });
           window.uid = user.uid;
           initDbListeners(user.uid);
+
+          // Bring PayPal SDK:
+          fetchJsFile("https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&intent=subscription&locale=fr_FR",
+                  ()=>{
+                    fetchJsFile("https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&locale=fr_FR",
+                            () => {
+                              // Fill in the buttons:
+                              console.log('PayPal SDK loaded: ', paypalOnce, paypalSubs);
+                              document.querySelectorAll(".paypal-btn-container").forEach(container => {
+                                renderPayPalButton(user.uid, container);
+                              })
+                            }, "paypalOnce");
+                  }, "paypalSubs");
         } else {
           // User signed out.
           window.getIdToken = async () => null;
@@ -2870,7 +3178,7 @@
           'Authorization': `Bearer ${idToken}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name: 'value' })
+        body: JSON.stringify({ lang: "fr" })
       });
 
       if (!response.ok) {
@@ -2891,11 +3199,30 @@
     firebase.auth().signOut();
   }
 
-  function signIn(optionalOnSuccessCallback) {
-    let provider = new firebase.auth.GoogleAuthProvider();
+  document.querySelectorAll(".styled-sign-in-btn-google").forEach(el => {
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      signIn(null, "google");
+    });
+  });
+
+  document.querySelectorAll(".styled-sign-in-btn-apple").forEach(el => {
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      signIn(null, "apple");
+    });
+  });
+
+  function signIn(optionalOnSuccessCallback, providerName) {
+    if (!providerName) {
+      appMethods.showModal("signinModal");
+      return;
+    }
+    let provider = providerName && providerName==="apple" ? (new firebase.auth.OAuthProvider('apple.com')) : (new firebase.auth.GoogleAuthProvider());
     provider.setCustomParameters({
       prompt: 'select_account'  // 🔑 This forces the account selection UI
     });
+    firebase.auth().languageCode = 'fr';
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Google Access Token. You can use it to access the Google API.
       let token = result.credential.accessToken;
@@ -3039,6 +3366,7 @@
   });
 
   function closeNewUpgradeModal(isPurchase) {
+    appMethods.closeModal('upgradeModal')
     let modalEl = document.getElementById('newUpgradeModal');
     if (modalEl) {
       modalEl.classList.remove("show");
@@ -3075,12 +3403,23 @@
   function openNewUpgradeModal() {
     let uid = firebase?.auth()?.currentUser?.uid;
     if (!uid) {
-      signIn(openNewUpgradeModal);
       window.AppAnalytics.sendEvent('upgradeModalPreSignin');
+      appMethods.showModal("upgradeModal");
       return;
+    } else {
+      window.AppAnalytics.sendEvent('upgradeModalPostSignin');
     }
 
-    window.AppAnalytics.sendEvent('upgradeModalPostSignin');
+    /*if (window.AppAnalytics?.id?.startsWith("N1_")) {
+      appMethods.showModal("upgradeModal");
+      return;
+    }*/
+
+    /*if (!uid) {
+      signIn(openNewUpgradeModal);
+      return;
+    }*/
+
     let modalEl = document.getElementById('newUpgradeModal');
     if (!modalEl) {
       console.error("Modal element not found");
@@ -3099,7 +3438,17 @@
       modalEl.classList.remove("hidden");
       requestAnimationFrame(() => modalEl.classList.add("show"));
     };
-    iframeEl.src = `newUpgradeModal.${lang}.html?uid=${uid}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${window.getAppState().data.isPremiumPlan}`;
+    let shouldHideSubscriptions = Boolean(window.subscriptionId);
+    let src = `newUpgradeModal.${lang}.html?uid=${uid}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
+    if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
+      let obj = {iframe: iframeEl.src, src};
+      console.log("src!==src: ", obj);
+      iframeEl.src = src;
+    } else {
+      console.log("src===src");
+      modalEl.classList.remove("hidden");
+      requestAnimationFrame(() => modalEl.classList.add("show"));
+    }
   }
 
   function openRenderedModal(params) {

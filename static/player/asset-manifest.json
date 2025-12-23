@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.6bf3b418.css",
-    "main.js": "./static/js/main.290d3ace.js",
+    "main.css": "./static/css/main.a10dc5d7.css",
+    "main.js": "./static/js/main.1d0c262a.js",
     "static/js/857.ac014671.chunk.js": "./static/js/857.ac014671.chunk.js",
     "hi.html": "./hi.html",
     "ru.html": "./ru.html",
@@ -24,22 +24,22 @@
     "newUpgradeModal.ar.html": "./newUpgradeModal.ar.html",
     "newUpgradeModal.he.html": "./newUpgradeModal.he.html",
     "newUpgradeModal.ja.html": "./newUpgradeModal.ja.html",
-    "newUpgradeModal.de.html": "./newUpgradeModal.de.html",
     "newUpgradeModal.fr.html": "./newUpgradeModal.fr.html",
-    "newUpgradeModal.ro.html": "./newUpgradeModal.ro.html",
+    "newUpgradeModal.de.html": "./newUpgradeModal.de.html",
     "newUpgradeModal.ko.html": "./newUpgradeModal.ko.html",
-    "newUpgradeModal.nl.html": "./newUpgradeModal.nl.html",
+    "newUpgradeModal.ro.html": "./newUpgradeModal.ro.html",
     "newUpgradeModal.es.html": "./newUpgradeModal.es.html",
-    "newUpgradeModal.pt.html": "./newUpgradeModal.pt.html",
     "newUpgradeModal.it.html": "./newUpgradeModal.it.html",
+    "newUpgradeModal.nl.html": "./newUpgradeModal.nl.html",
+    "newUpgradeModal.pt.html": "./newUpgradeModal.pt.html",
     "newUpgradeModal.en.html": "./newUpgradeModal.en.html",
     "newUpgradeModal.zh.html": "./newUpgradeModal.zh.html",
-    "main.6bf3b418.css.map": "./static/css/main.6bf3b418.css.map",
-    "main.290d3ace.js.map": "./static/js/main.290d3ace.js.map",
+    "main.a10dc5d7.css.map": "./static/css/main.a10dc5d7.css.map",
+    "main.1d0c262a.js.map": "./static/js/main.1d0c262a.js.map",
     "857.ac014671.chunk.js.map": "./static/js/857.ac014671.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6bf3b418.css",
-    "static/js/main.290d3ace.js"
+    "static/css/main.a10dc5d7.css",
+    "static/js/main.1d0c262a.js"
   ]
 }
