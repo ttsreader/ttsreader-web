@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-12-23T15:28:41.496Z",
-      "version": "3.10.1",
+      "dateModified": "2025-12-25T20:33:21.184Z",
+      "version": "3.10.3",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -49,7 +49,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.10.1 - Плеер преобразования текста в речь от TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.10.3 - Плеер преобразования текста в речь от TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -887,7 +887,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.1d0c262a.js"></script><link href="./static/css/main.a10dc5d7.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.13606bf4.js"></script><link href="./static/css/main.2a0d9aa1.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -957,6 +957,11 @@
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;Ваше сгенерированное аудио
           </a>
         </div>
+        <div>
+          <a class="Menu-list-element" data-ws-toggle="#apiModal" style="text-decoration:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>&nbsp;&nbsp;Доступ к API
+          </a>
+        </div>
         <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;Нужно больше голосов<!-- Need more voices -->
         </a>
@@ -1012,7 +1017,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.10.1</b> Build 2025-12-23T15:28:41.496Z
+          <b>V3.10.3</b> Build 2025-12-25T20:33:21.184Z
           <br/><span style="margin-top: 10px;display: block">ВСЕ ВЕРСИИ <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -2483,6 +2488,144 @@
     </div>
     <div style="height:20px;"></div>
   </div>-->
+
+  <!-- API Modal -->
+  <div class="Modal" id="apiModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: hidden; max-height: 80vh; max-width: 1000px; width: 90%;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+
+      <div style="overflow: auto; margin: 30px 0;max-height: 75vh;">
+        <!-- API Key Section -->
+        <div style="background: var(--card-background); padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            Ваш API ключ
+          </h3>
+
+          <div data-ws-show-if-state="isSignedIn=false" style="text-align: center; padding: 20px; color: var(--text-color-secondary);">
+            <sign-in-buttons></sign-in-buttons>
+          </div>
+
+          <div data-ws-show-if-state="isSignedIn=true">
+            <!-- Premium required message -->
+            <div data-ws-show-if-state="isPremium=false" style="background: #fff3cd; border: 1px solid #ffecb5; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+              <p style="color: #856404; margin-bottom: 10px;">Доступ к API требует Premium подписку</p>
+              <p style="color: #856404; margin-bottom: 15px;">Обновитесь до Premium, чтобы сгенерировать ваш API ключ и начать использовать наш мощный TTS API.</p>
+              <button onclick="openNewUpgradeModal()" class="Full-width-btn" style="background-color: #007bff; color: white; border: none;">
+                Обновиться до Premium
+              </button>
+            </div>
+
+            <!-- API Key Display for Premium Users -->
+            <div data-ws-show-if-state="isPremium=true">
+              <div data-ws-show-if-state="uapi=true" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <p type="password" id="apiSecretDisplay" data-ws-label-state="uapi" readonly style="flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-background);"></p>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button onclick="generateApiSecret()" id="generateSecretBtn" class="Full-width-btn" style="background-color: #28a745; color: white; border: none;">
+                  <span data-ws-show-if-state="uapi=false" style="display: inline;">Сгенерировать новый API ключ</span>
+                  <span data-ws-show-if-state="uapi=true" style="display: none;">Перегенерировать API ключ</span>
+                </button>
+                <button onclick="testApiEndpoint()" data-ws-show-if-state="uapi=true" class="Full-width-btn" style="background-color: #007bff; color: white; border: none;">
+                  Тестировать API и скачать MP3
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of API Key Section -->
+
+        <!-- Code Examples with secret -->
+        <div style="background: var(--card-background); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 20px;">Примеры кода</h3>
+
+          <!-- CURL Example -->
+          <div style="margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h4 style="margin: 0;">Пример CURL</h4>
+              <button onclick="copyToClipboard('curlExample')" style="padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Копировать
+              </button>
+            </div>
+            <pre id="curlExample" style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.4;">curl -X POST "https://ttsreader.com/api/ttsSync" \
+-H "Authorization: Bearer UAPI-<span data-ws-label-state="uapi" style="color: #4fc3f7;">YOUR_SECRET_KEY</span>" \
+-H "Content-Type: application/json" \
+--data '{"text": "Hello world, this is a test from TTSReader API.","lang": "en-US", "voice": "Nova Premium", "rate":1, "quality": "48khz_192kbps" }' \
+--output "hello.mp3"</pre>
+          </div>
+
+          <!-- JavaScript Example -->
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h4 style="margin: 0;">Пример JavaScript</h4>
+              <button onclick="copyToClipboard('jsExample')" style="padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Копировать
+              </button>
+            </div>
+            <pre id="jsExample" style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.4;"><span style="color: #569cd6;">async function</span> <span style="color: #dcdcaa;">generateTTS</span>() {
+    <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">response</span> = <span style="color: #569cd6;">await</span> <span style="color: #dcdcaa;">fetch</span>(<span style="color: #ce9178;">'https://ttsreader.com/api/ttsSync'</span>, {
+        <span style="color: #9cdcfe;">method:</span> <span style="color: #ce9178;">'POST'</span>,
+        <span style="color: #9cdcfe;">headers:</span> {
+            <span style="color: #ce9178;">'Authorization'</span>: <span style="color: #ce9178;">'Bearer UAPI-<span data-ws-label-state="uapi" style="color: #4fc3f7;">YOUR_SECRET_KEY</span>'</span>,
+            <span style="color: #ce9178;">'Content-Type'</span>: <span style="color: #ce9178;">'application/json'</span>
+        },
+        <span style="color: #9cdcfe;">body:</span> <span style="color: #dcdcaa;">JSON.stringify</span>({
+            <span style="color: #9cdcfe;">text:</span> <span style="color: #ce9178;">"Hello world, this is a test from TTSReader API."</span>,
+            <span style="color: #9cdcfe;">lang:</span> <span style="color: #ce9178;">"en-US"</span>,
+            <span style="color: #9cdcfe;">voice:</span> <span style="color: #ce9178;">"Nova Premium"</span>,
+            <span style="color: #9cdcfe;">quality:</span> <span style="color: #ce9178;">"48khz_192kbps"</span>,
+            <span style="color: #9cdcfe;">rate:</span> <span style="color: #b5cea8;">1</span>
+        })
+    });
+
+    <span style="color: #c586c0;">if</span> (<span style="color: #9cdcfe;">response</span>.<span style="color: #9cdcfe;">ok</span>) {
+        <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">audioBlob</span> = <span style="color: #569cd6;">await</span> <span style="color: #9cdcfe;">response</span>.<span style="color: #dcdcaa;">blob</span>();
+        <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">url</span> = <span style="color: #4ec9b0;">URL</span>.<span style="color: #dcdcaa;">createObjectURL</span>(<span style="color: #9cdcfe;">audioBlob</span>);
+        <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">a</span> = <span style="color: #4ec9b0;">document</span>.<span style="color: #dcdcaa;">createElement</span>(<span style="color: #ce9178;">'a'</span>);
+        <span style="color: #9cdcfe;">a</span>.<span style="color: #9cdcfe;">href</span> = <span style="color: #9cdcfe;">url</span>;
+        <span style="color: #9cdcfe;">a</span>.<span style="color: #9cdcfe;">download</span> = <span style="color: #ce9178;">'hello.mp3'</span>;
+        <span style="color: #9cdcfe;">a</span>.<span style="color: #dcdcaa;">click</span>();
+    }
+}</pre>
+          </div>
+
+          <br/>
+          <h3 style="margin-bottom: 15px;">Параметры запроса</h3>
+          <ul style="line-height: 1.8; margin-left: 20px;">
+            <li><strong>text</strong> (обязательно): Текст для преобразования в речь</li>
+            <li><strong>lang</strong> (обязательно): Код языка (например, 'ru-RU', 'en-US')</li>
+            <li><strong>voice</strong> (обязательно): Название голоса - используйте голоса из TTSReader Player или любой голос Azure из <a href="https://speech.azure.cn/portal/voicegallery" target="_blank" style="color: #007bff;">Галерея голосов Azure</a></li>
+            <li><strong>rate</strong> (опционально): Скорость речи (от 0.5 до 2.0, по умолчанию: 1.0)</li>
+            <li><b>quality</b> (optional): "48khz_192kbps" or empty (which defaults to 24kHz)</li>
+          </ul>
+          <br/>
+
+        </div>
+
+        <br/>
+
+        <!-- API Documentation -->
+        <div style="background: var(--card-background); padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 15px;">Important Notes</h3>
+          <ul style="line-height: 1.8; margin-left: 20px;list-style: disc;">
+            <li>Limit charcters to a few thousands (exact limit is unknown, but 5k characters is safe), as this is synchronous API, tjat times out after 5 minutes. So, if it can generate the MP3 within 5 minutes it will - otherwise it will time out before MP3 is ready - but since the AI is started - it will consume credits.</li>
+            <li>Async API is coming soon for long-texts, and for supporting multiple voices in a single file.</li>
+            <li>The ttsSync endpoint does not support voice-setters (ie: {{set: voice, language, rate}}) within the text. So, a single voice - set in the API request.</li>
+            <li>The name of the voice is as shown in the voice-selector UI. In addition ALL Azure's Neural AI voices are supported. So, you're welcome to go to Azure's voice gallery at <a href="https://speech.azure.cn/portal/voicegallery" target="_blank" style="color: #007bff;">https://speech.azure.cn/portal/voicegallery</a> and select a voice from there.</li>
+            <li>If you need anything else, or have feedback, suggestions, please let us know at <span style="color: orangered;">contact@ttsreader.com</span></li>
+          </ul>
+        </div>
+
+        <br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
 
   <div class="Modal" id="helpModal" style="display: none;">
     <div style="flex:1"></div>
