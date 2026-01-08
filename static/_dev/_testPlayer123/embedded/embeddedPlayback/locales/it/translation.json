@@ -1,0 +1,249 @@
+{
+  "ok": "OK",
+  "cancel": "Annulla",
+  "close": "Chiudi",
+  "next": "Avanti",
+  "back": "Indietro",
+  "speechnotes dictation link label": "Blocco note per dettatura di Speechnotes",
+  "minutes": "minuti",
+  "hours": "ore",
+  "duration": "durata",
+  "Language": "Lingua",
+  "pay as you go": "ricaricabile",
+  "no subscription": "nessun abbonamento",
+  "no recurring payments": "nessun pagamento ricorrente",
+  "no tricks": "niente trucchi",
+  "try us": "mettici alla prova",
+  "test us": "valutaci",
+  "best accuracy guaranteed": "massima precisione garantita",
+  "got more accurate results somewhere else?": "hai ottenuto risultati di trascrizione automatica più accurati con qualche altra applicazione?",
+  "we will refund your money": "ti rimborsiamo",
+  "up to $10 per user": "fino a $10 dollari per utente",
+  "accuracy": "precisione",
+  "download": "scarica",
+  "view": "vedi",
+  "results": "risultati",
+
+  "links": {
+    "speechnotes": "https://speechnotes.co/it/"
+  },
+
+  "nav": {
+    "demos": "Demo",
+    "about": "Informazioni e domande frequenti",
+    "dictation": "Dettatura",
+    "title": "Trascrizione automatica",
+    "account": "Account",
+    "signin": "Registrati",
+    "signout": "Esci"
+  },
+
+  "footer": {},
+
+  "signin": {
+    "h1": "Trascrizione automatica di file audio e video",
+    "h2": {
+      "part1": "Trascrivi automaticamente i file audio in inglese e in altre lingue usando l'intelligenza artificiale per ottenere una trascrizione accurata",
+      "part2": "Funzionamento rapido: risultati in tempo reale, marcatura orario e punteggiatura automatica"
+    },
+    "subtitle": "Proteggi la tua privacy: non sono coinvolti esseri umani nella lavorazione e, a differenza di molti altri fornitori, NON conserviamo il tuo audio. Pagamento in base all'utilizzo, nessun versamento ricorrente",
+    "sign in to start": "Accedi con Google per iniziare. Super veloce e semplice: non è necessario ricordare password, scaricare o installare applicazioni",
+    "sign in with google": "Accedi con Google",
+    "promo1": "I prezzi più bassi mai visti! Solo $ 0,1 per minuto di registrazione!",
+    "promo2": "Ottieni il risultato mentre ascolti il file audio",
+    "Want to Know More?": "Vuoi saperne di più?",
+    "GET STARTED": "Inizia",
+    "Back to Speechnotes home for dictation": "Torna a Speechnotes - Blocco note per dettatura"
+  },
+
+  "hero": {
+    "welcome": "Benvenuto",
+    "subtitle": "Per iniziare, aggiungi minuti\/credito ($0.1/minute) e carica il tuo file audio",
+    "remaining credit": "Credito residuo",
+    "Add credit": "Aggiungi credito",
+    "Upload file": "Carica il file",
+    "body1": "Il tempo di elaborazione è circa la durata del file audio. Quando sarà pronto ti invieremo un'email di notifica.",
+    "uploading": "Caricamento del tuo file",
+    "uploaded full": "Caricato al 30% (3 MB di 30 MB)",
+    "uploaded": "Caricato",
+    "out of": "di",
+    "do not close": "Si prega di non chiudere questa scheda",
+    "payment received": "Grazie. Pagamento ricevuto. Il credito verrà aggiornato in pochi secondi.",
+    "upload failed alert": "Caricamento del file non riuscito. Aggiorna la pagina e riprova. Se il problema persiste, contattaci all'indirizzo admin@speechlogger.com"
+  },
+
+  "about": {
+    "title": "Informazioni e domande frequenti",
+    "1": {
+      "title": "Come funziona?",
+      "desc": "Prendiamo i tuoi file audio, li elaboriamo per soddisfare i requisiti dei motori di trascrizione e li inviamo ai motori di trascrizione di Google. Abbiamo scelto Google perché hanno ottenuto i migliori risultati sui nostri test effettuati tra i principali fornitori di trascrizione automatica.\n\nLa tua trascrizione viene quindi salvata sui nostri server in modo che tu possa accedervi in qualsiasi momento. Non appena il documento è pronto, riceverai una notifica via email.",
+      "link": {
+        "url": "https:\/\/cloud.google.com\/speech-to-text\/",
+        "label": "Maggiori informazioni sulla pagina di Google"
+      }
+    },
+    "2": {
+      "title": "Privacy - il servizio di trascrizione più privato sul mercato",
+      "desc": "Proteggiamo la tua privacy, ecco come: \n\n(1) Nessun essere umano gestisce i files, quindi i  tuoi documenti non viaggiano tra computer privati (come accade con il servizio di trascrizione umana). \n(2) Rimuoviamo i file audio non appena il lavoro di trascrizione è terminato.\n(3) Il risultato della trascrizione è disponibile solo per te quando accedi con il tuo account Google.\n(4) Impediamo a Google di registrare i tuoi dati audio o di testo (questo ha un costo maggiore, ma vale la pena assicurarsi che i tuoi dati siano mantenuti privati).\n(5) La nostra connessione è protetta tramite SSL (https).",
+      "link": {
+        "url": "",
+        "label": ""
+      }
+    },
+    "3": {
+      "title": "Il servizio di dettatura di Speechnotes è gratuito. Perché i file Speechnotes non sono gratuiti?",
+      "desc": "Il servizio di dettatura di Speechnotes utilizza gli strumenti di riconoscimento vocale integrati forniti da Google per gli utenti di Chrome e Android. Questi strumenti non sono disponibili per la trascrizione di file, quindi dobbiamo inviare i tuoi file ai servizi a pagamento di Google. Tali servizi vengono addebitati in base ai secondi di utilizzo. Pertanto, dobbiamo addebitare ai nostri utenti l'uso effettivo ed un margine di profitto minimo per i nostri costi di sviluppo e operativi.",
+      "link": {
+        "url": "https:\/\/speechnotes.co",
+        "label": "Speechnotes - Il blocco note gratuito per la dettatura"
+      }
+    },
+    "4": {
+      "title": "Casi d'uso Ti fa risparmiare tempo e denaro. Ecco come fare:",
+      "desc": "Il nostro obiettivo è quello di farti risparmiare tempo e denaro. Ecco i casi più comuni: \n\n\n(1) Chi esegue la trascrizione utilizza questo servizio per preparare la prima bozza. In questo modo, è possibile semplicemente modificare i risultati, in tempo reale. Per digitare tutto il testo senza questo servizio sarebbe stato necessario molto tempo e impegno: in media 5 volte la durata della registrazione. \n\n(2) Indicizza il tuo archivio audio, in modo da poter effettuare una ricerca per testo. Vai alla registrazione ricercata e al momento all'interno della registrazione grazie alla nostra marcatura orario. \n\n(3) Le registrazioni di alta qualità possono raggiungere un'accuratezza molto elevata, pari a quella della trascrizione umana ma ad una frazione del costo, risultati immediati e maggiore protezione della privacy. \n\n(4) Per la massima riservatezza e privacy, quando richiesta, con il nostro servizio nessun umano vede, ascolta o gestisce i tuoi documenti. Con noi i tuoi documenti non circolano tra computer privati. I trascrittori umani potrebbero non mantenere i tuoi file al sicuro come fanno le nostre macchine. I tuoi file audio vengono cancellati dai nostri server non appena sono stati trascritti. La trascrizione è conservata solo nel tuo account sui nostri server, quindi solo tu puoi accedervi.\n\n(4) Risultati rapidi. Ottieni risultati veloci quanto la durata del file.\n\n(5) Trascrivi lezioni e interviste. Studenti e ricercatori utilizzano il nostro servizio per trascrivere lezioni e colloqui nelle loro ricerche. I giornalisti trascrivono le interviste con il nostro servizio per ottenere risultati rapidi senza temere di divulgare il loro materiale professionale. In seguito, possono modificare solo le parti che vogliono citare, reperibili facilmente all'interno del file audio utilizzando la nostra marcatura orario. \n\n(6) Documentare protocolli, riunioni, dove è così o niente. Il prezzo basso consente la trascrizione di materiale che altrimenti sarebbe fuori dalla portata.\n\n(7) Per capire rapidamente il contenuto del file audio e andare al punto desiderato, ovvero cercare leggendo anziché ascoltando.\n\n(8) Traduzione di audio - trascrivendo usando Speechnotes Files e traducendo tramite qualsiasi altro servizio di traduzione come Google Translate",
+      "link": {
+        "url": "",
+        "label": ""
+      }
+    },
+    "5": {
+      "title": "Precisione - cosa aspettarsi?",
+      "desc": "Dipende molto dalla qualità della registrazione. Una registrazione di alta qualità, in cui la voce è chiara e potente, può raggiungere una precisione superiore al 95%. \n\nLa maggior parte delle registrazioni quotidiane può raggiungere una precisione superiore all'80%.",
+      "link": {
+        "url": "",
+        "label": ""
+      }
+    },
+    "6": {
+      "title": "Formato della trascrizione - include la marcatura orario!",
+      "desc": "Si otterrà un file di testo scaricabile con la trascrizione con e senza la marcatura orario all'inizio di ogni frase.",
+      "link": {
+        "url": "",
+        "label": ""
+      }
+    },
+    "7": {
+      "title": "Lingue",
+      "desc": "Gestiremo un numero sempre maggiore di lingue nel tempo. Queste le lingue attualmente supportate:\n\n",
+      "link": {
+        "url": "scrivi a: admin@speechlogger.com",
+        "label": "Ti preghiamo di contattarci all'indirizzo admin@speechlogger.com per informazioni su altre lingue"
+      }
+    },
+    "8": {
+      "title": "Formati di file supportati: audio e video",
+      "desc": "Ti serve un formato non indicato nell'elenco? Scrivi a admin@speechlogger.com",
+      "link": {
+        "url": "scrivi a: admin@speechlogger.com",
+        "label": "Per favore contattaci all'indirizzo admin@speechlogger.com se il tuo formato non è supportato"
+      }
+    },
+    "9": {
+      "title": "I migliori formati di file audio",
+      "desc": "Tutti i formati audio daranno buoni risultati se l'audio è pulito e il parlato è chiaro. Detto questo, è possibile ottenere risultati ancora migliori utilizzando formati di compressione senza perdite come .flac.",
+      "link": {
+        "url": "scrivi a: admin@speechlogger.com",
+        "label": "Ti preghiamo di contattarci all'indirizzo admin@speechlogger.com per avere informazioni su altre lingue"
+      }
+    },
+    "10": {
+      "title": "Protezione del pagamento",
+      "desc": "Tutti i pagamenti sono processati in modo sicuro da PayPal. Non è necessario un account PayPal e ti offre la protezione dell'acquirente di PayPal.",
+      "link": {
+        "url": "",
+        "label": ""
+      }
+    },
+    "11": {
+      "title": "Politica sui rimborsi",
+      "desc": "I rimborsi saranno emessi al più presto in caso di malfunzionamento del nostro sistema. Non saremo in grado di emettere rimborsi per trascrizioni con bassa accuratezza a causa di accenti \/ rumore \/ registrazione di bassa qualità \/ lingua diversa da quella selezionata \/ ecc., poiché i nostri costi sono collegati con i nostri fornitori.",
+      "link": {
+        "url": "scrivi a: admin@speechlogger.com",
+        "label": "In caso di problemi ti preghiamo di contattarci all'indirizzo: admin@speechlogger.com"
+      }
+    },
+    "12": {
+      "title": "Ho bisogno di una trascrizione umana per avere una precisione superiore al 99%",
+      "desc": "Usiamo solo macchine, ma abbiamo sentito ottime opinioni in merito a GoTranscript, una società con sede nel Regno Unito (non affiliata a noi, potremmo essere pagati per il consiglio) - ecco un link:",
+      "link": {
+        "url": "https:\/\/gotranscript.com\/r\/860077",
+        "label": "GoTranscript - per trascrizioni umane"
+      }
+    },
+    "13": {
+      "title": "Sto cercando lavoro come trascrittore",
+      "desc": "Usiamo solo macchine, ma abbiamo sentito ottime opinioni in merito a GoTranscript (non affiliata a noi, potremmo essere pagati per il consiglio) - ecco un link:",
+      "link": {
+        "url": "https:\/\/gotranscript.com\/transcription-jobs\/r\/860077",
+        "label": "GoTranScript - per lavorare come trascrittore"
+      }
+    },
+    "14": {
+      "title": "Contattaci",
+      "desc": "",
+      "link": {
+        "url": "scrivi a: admin@speechlogger.com",
+        "label": "admin@speechlogger.com"
+      }
+    }
+
+  },
+
+  "upload": {
+    "title": "Carica un file audio",
+    "reset": "Reimposta il modulo",
+    "upload": "Carica",
+    "Phone call": "Telefona",
+    "Exceptional Speech Clarity": "Chiarezza eccezionale",
+    "Regular": "Regolare (predefinito)",
+    "Select Audio or Video File": "Seleziona file audio o video",
+    "Selected File": "File selezionato",
+    "Select file": "Seleziona documento",
+    "Click here to change selected file": "Clicca qui per cambiare il file selezionato",
+    "tap next or reselect": "Tocca \"Avanti\" o scegli un altro file",
+    "recording language": "Lingua della registrazione",
+    "recording type": "Tipo di registrazione",
+    "type explanation": "Per la maggior parte delle registrazioni - usa l'impostazione 'Regular (default)'. L'altra opzione è per la registrazione di una telefonata.",
+    "missing credit": "Credito mancante per i minuti richiesti",
+    "please add credit": "Si prega di aggiungere crediti e poi caricare il file."
+  },
+
+  "buy": {
+    "Minutes to add": "Minuti da aggiungere",
+    "45minutes": "45 minuti (solo $ 4,5, per iniziare in sicurezza)",
+    "120minutes": "120 minuti (2 ore per $ 12)",
+    "600minutes": "10 ore per $ 60",
+    "1200minutes": "20 ore per $ 120",
+    "6000minutes": "100 ore per $ 600",
+    "total": "Il tutto al costo di:",
+    "only 01 per minute": "Solo $ 0,1 al minuto"
+  },
+
+  "demos": {
+    "title": "Campioni reali",
+    "subtitle": "I risultati della trascrizione sono reali, frutto della prima lettura e non modificati, generati automaticamente utilizzando questo software.",
+    "1": {
+      "title": "Professionale, musica di sottofondo, formato mp3."
+    },
+    "2": {
+      "title": "Registrazione effettuata in casa tramite QuickTime player, formato mp4"
+    },
+    "3": {
+      "title": "Accento straniero, registrato tramite smartphone, formato m4a"
+    }
+  },
+
+  "new": {
+    "earn": "Guadagna credito",
+    "refer": {
+      "title": "Guadagna credito illimitato",
+      "description": "Invita gli amici a Speechnotes-Transcribe usando il seguente link. Guadagna $ 5 di credito per OGNI amico che paghi porti.  Il tuo amico riceverà anche $ 5 di crediti!"
+    },
+    "copy": "copia collegamento",
+    "generate referrerId": "generate link",
+    "share on fb": "condividi su facebook",
+    "share on twitter": "condividi su twitter",
+    "congrats referredBy": "Congratulazioni! Hai diritto a $ 5 di crediti bonus sul tuo primo acquisto",
+    "copied success": "Copiato con successo"
+  }
+}

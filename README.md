@@ -26,6 +26,9 @@ To publish - not so easy -
 # How to translate:
 - [link](_readme/translate.md)
 
+# Write new blog posts steps:
+- [link](_readme/write_blog.md)
+
 ## TODO:
 
 1. Understand and facilitate Google's 'structured data' for SEO. As explained here:

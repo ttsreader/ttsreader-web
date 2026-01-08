@@ -3,7 +3,7 @@ title: "TTSReader's Text-To-Speech API"
 description: "REST API to Speech Synthesis, Automation"
 lead: "Single endpoint to ALL the best AI Speech Engines: OpenAI, Azure, Google, ElevenLabs, and more. Simplest to set up, fast, and powerful."
 date: 2025-05-16T08:50:23+02:00
-lastmod: 2025-12-25T08:50:23+02:00
+lastmod: 2025-12-28T08:50:23+02:00
 draft: false
 images: []
 sitemap:
@@ -13,11 +13,24 @@ sitemap:
 
 <strong>EXCITING!! Coming 2026 - TTSReader's API is Finally Here!!!</strong>
 
-<h3>Get Started in Less Than a Minute!</h3>
+Happy to let you know that our initial public Text-To-Speech-API is now available for you. It uses the exact same endpoint as our very own TTSReader Player, that serves thousands of users every day. That means zero latency, 100% reliability.
 
-Go to https://ttsreader.com/player/ - open the left sidebar menu - select the "API ACCESS" menu item - click 'Generate API Key' - and you're ready to go! That's ALL there is to it!
+<h2>TTS API - Zero to Hero in Less Than a Minute</h2>
 
-<h3>More Info</h3>
+Go to [https://ttsreader.com/player/](https://ttsreader.com/player/) - open the left sidebar menu - select the "API ACCESS" menu item - click 'Generate API Key' - then - TTSReader will generate the API call using the real TTSReader Endpoint - and your Real generated API Key. All you have to do is copy that code, use your own text and that's it - you're ready to go! That's ALL there is to it - and it all takes less than a minute!
+
+<h2>Why Choose TTSReader's API?</h2>
+<p>There are many APIs out there - why would you choose TTSReader's? Good question! Here's exactly why:</p>
+
+Its main advantages:
+1. Super simple and straightforward. No complex setup. Get going in less than a minute - that includes generating your API key, setting up payment method and actually testing it.
+2. Extremely affordable. For example - you can purchase 3 Miliion characters from TTSReader, for just $39 - whereas buying the same from Azure would cost you $45. Most other vendors would cost even more. Our prices go even lower if you purchase more.
+3. Highest quality AI voices, for multipurpose use cases. You can use ANY Azure Neural AI voice - with our API - simply by specifying the voice's display name. Literally - there are more than 600 available voices. See Azure's voice gallery here - <a href="https://speech.azure.cn/portal/voicegallery" target="_blank" style="color: #007bff;">https://speech.azure.cn/portal/voicegallery</a>
+4. All payments are either prepaid - or based on a monthly subscription with a pre-fixed amount. No surprises, no unexpected bills. Need more? No problem - only you decide AHEAD of time - how much you want to purchase.
+5. *Low Latency* - the API is super fast, it's the exact same endpoint as our TTSReader Player - so - it's super fast.
+6. *Super Reliable* - 100% uptime, just like our TTSReader Player. You enjoy our very own backend infrastructure, that serves thousands of users every day - so - it's rock solid reliable.
+
+<h3>More Info & Example Code</h3>
 
 <style>
 :root {
@@ -91,4 +104,8 @@ Go to https://ttsreader.com/player/ - open the left sidebar menu - select the "A
     <li>The name of the voice is as shown in the voice-selector UI. In addition ALL Azure's Neural AI voices are supported. So, you're welcome to go to Azure's voice gallery at <a href="https://speech.azure.cn/portal/voicegallery" target="_blank" style="color: #007bff;">https://speech.azure.cn/portal/voicegallery</a> and select a voice from there.</li>
     <li>If you need anything else, or have feedback, suggestions, please let us know at <span style="color: orangered;">contact@ttsreader.com</span></li>
   </ul>
+</div>
+
+<div style="text-align: center; margin-bottom: 30px;">
+<button style="padding: 10px 30px; border-radius: 10px; font-size: large;" onclick="window.location.href='/player/'">GET TEXT TO SPEECH API NOW</button>
 </div>

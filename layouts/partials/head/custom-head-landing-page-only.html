@@ -50,4 +50,11 @@
   function playRandomArticle() {
     window.open('webplayer/?url=rand', '_self');
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Import confety.js:
+    let el = document.createElement('script');
+    el.src = 'confety.js';
+    document.head.appendChild(el);
+  });
 </script>

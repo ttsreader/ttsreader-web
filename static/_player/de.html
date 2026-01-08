@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-11-12T11:34:50.746Z",
-      "version": "3.9.12",
+      "dateModified": "2026-01-06T16:03:27.555Z",
+      "version": "3.10.6",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -23,11 +23,13 @@
   </script>
   <!-- Include Quill stylesheet -->
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-  <!-- Include the Quill library -->
-  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <!-- Include the Quill library -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <link href="widget.css" rel="stylesheet">
+    <script src="widget.js"></script>
 
-  <meta charset="utf-8" />
-  <link rel="icon" href="favicon.ico" />
+    <meta charset="utf-8" />
+    <link rel="icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#a51b14" />
   <meta
@@ -49,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.9.12 - TTSReader's Text-zu-Sprache Player</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.10.6 - TTSReader's Text-zu-Sprache Player</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -64,7 +66,7 @@
   <script>
     // Dark mode toggle:
     let storedTheme = localStorage.getItem('theme-player-only');
-    let DEFAULT_THEME =  Math.random() < 0.5 ? 'dark-bg' : 'light-bg';
+    let DEFAULT_THEME =  Math.random() < 0.5 ? 'dark-no-bg' : 'light-no-bg';
 
     if (!storedTheme) {
       let storedBlogTheme = localStorage.getItem('theme');
@@ -160,9 +162,177 @@
         setUiToDarkModeAndBgTheme(true, false);
       }
     }
+
+    function getAddContentDropdownParts() {
+      const dropdown = document.getElementById('addContentDropdown');
+      if (!dropdown) return {};
+      const trigger = dropdown.querySelector('.add-content-dropdown-trigger');
+      const menu = dropdown.querySelector('.add-content-dropdown-menu');
+      const items = menu ? Array.from(menu.querySelectorAll('[data-dropdown-item]')) : [];
+      return { dropdown, trigger, menu, items };
+    }
+
+    function toggleAddContentDropdown() {
+      const { menu } = getAddContentDropdownParts();
+      if (!menu) return;
+      const isOpen = menu.classList.contains('show');
+      setAddContentDropdownVisibility(!isOpen);
+    }
+
+    function setAddContentDropdownVisibility(isOpen) {
+      const { trigger, menu } = getAddContentDropdownParts();
+      if (!menu || !trigger) return;
+
+      menu.classList.toggle('show', isOpen);
+      menu.hidden = !isOpen;
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (isOpen) {
+        // Delay to ensure current click does not immediately close.
+        setTimeout(() => {
+          document.addEventListener('click', handleAddContentClickOutside, true);
+          document.addEventListener('focusin', handleAddContentFocusOutside, true);
+          document.addEventListener('keydown', handleAddContentKeydown, true);
+        }, 0);
+        focusFirstAddContentItem();
+      } else {
+        document.removeEventListener('click', handleAddContentClickOutside, true);
+        document.removeEventListener('focusin', handleAddContentFocusOutside, true);
+        document.removeEventListener('keydown', handleAddContentKeydown, true);
+      }
+    }
+
+    function openAddContentDropdown() {
+      closeAllDropdowns();
+      setAddContentDropdownVisibility(true);
+    }
+
+    function closeAddContentDropdown() {
+      setAddContentDropdownVisibility(false);
+    }
+
+    function closeAllDropdowns() {
+      const allDropdownMenus = document.querySelectorAll('.add-content-dropdown-menu');
+      allDropdownMenus.forEach(menu => {
+        menu.classList.remove('show');
+        menu.hidden = true;
+      });
+      document.removeEventListener('click', handleAddContentClickOutside, true);
+      document.removeEventListener('focusin', handleAddContentFocusOutside, true);
+      document.removeEventListener('keydown', handleAddContentKeydown, true);
+
+      const { trigger } = getAddContentDropdownParts();
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function handleAddContentClickOutside(event) {
+      const { dropdown } = getAddContentDropdownParts();
+      if (!dropdown || dropdown.contains(event.target)) return;
+      closeAddContentDropdown();
+    }
+
+    function handleAddContentFocusOutside(event) {
+      const { dropdown } = getAddContentDropdownParts();
+      if (!dropdown || dropdown.contains(event.target)) return;
+      closeAddContentDropdown();
+    }
+
+    function handleAddContentKeydown(event) {
+      if (event.key === 'Escape') {
+        closeAddContentDropdown();
+        const { trigger } = getAddContentDropdownParts();
+        if (trigger) trigger.focus();
+      }
+    }
+
+    function handleDropdownAction(action) {
+      closeAddContentDropdown();
+
+      switch(action) {
+        case 'openFile':
+          // The file input will handle the file selection
+          break;
+        case 'importWebsite':
+          console.log('Import website clicked');
+          break;
+        case 'clearText':
+          console.log('Clear text clicked');
+          if (window.clearTextArea) {
+            window.clearTextArea();
+          }
+          break;
+        default:
+          console.log('Unknown action:', action);
+      }
+    }
+
+    function handleDropdownItemActivation(event) {
+      const targetItem = event.target.closest('[data-dropdown-item]');
+      if (!targetItem) return;
+      closeAddContentDropdown();
+    }
+
+    function handleDropdownItemKeydown(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.target.click();
+      }
+    }
+
+    function focusFirstAddContentItem() {
+      const { items } = getAddContentDropdownParts();
+      if (items && items.length) {
+        items[0].focus();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const { trigger, menu, items } = getAddContentDropdownParts();
+
+      if (menu) {
+        menu.hidden = true;
+        if (!menu.id) {
+          menu.id = 'addContentDropdownMenu';
+        }
+        menu.setAttribute('role', 'menu');
+        menu.addEventListener('click', handleDropdownItemActivation);
+        menu.addEventListener('keydown', handleDropdownItemKeydown);
+      }
+
+      if (trigger) {
+        trigger.setAttribute('type', 'button');
+        trigger.setAttribute('aria-haspopup', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.setAttribute('aria-controls', 'addContentDropdownMenu');
+      }
+
+      if (items && items.length) {
+        items.forEach(item => {
+          item.setAttribute('role', 'menuitem');
+          item.setAttribute('tabindex', '-1');
+        });
+      }
+    });
   </script>
 
   <style>
+
+    .Toolbar-Button {
+      stroke: black;
+      color: black;
+    }
+
+    [data-dark-mode] .Toolbar-Button {
+      stroke: white;
+      color: white;
+    }
+
+    [data-dark-mode][data-theme-bg] .Toolbar-Button {
+      stroke: black;
+      color: black;
+    }
 
     .css-container {
       container-type: inline-size;
@@ -433,6 +603,10 @@
       }
     }
 
+    .ql-editor {
+      text-align: start;
+    }
+
     /* Default state: hide 2nd child SVG */
     .play-test-btn svg:nth-child(2) {
       display: none;
@@ -471,6 +645,125 @@
     .podcast-description-toggle:hover {
       color: #66BB6A !important;
     }
+
+    .ql-editor {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      overflow-x: hidden;
+    }
+
+    /* ---------- Add Content Dropdown Styles ---------- */
+    .add-content-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .add-content-dropdown-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid gray;
+      background: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #1d1d1f;
+    }
+
+    .add-content-dropdown-trigger:hover {
+      background-color: #454547;
+    }
+
+    .add-content-dropdown-trigger:active {
+      background-color: #e8e8ea;
+      transform: scale(0.95);
+    }
+
+    .add-content-dropdown-menu {
+      max-height: 70vh;
+      overflow-y: auto;
+      position: absolute;
+      display: none;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+      border: 0.5px solid #e5e5e7;
+      z-index: 1000;
+      transition: all 0.2s ease;
+      margin-top: 8px;
+      min-width: 320px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .add-content-dropdown-menu.show {
+      display: block;
+      pointer-events: auto;
+    }
+
+    .add-content-dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      border-bottom: 0.5px solid #f0f0f0;
+      position: relative;
+    }
+
+    .add-content-dropdown-item:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .add-content-dropdown-item:last-child {
+      border-bottom: none;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .add-content-dropdown-item:only-child {
+      border-radius: 12px;
+    }
+
+    .add-content-dropdown-item:hover {
+      background-color: #f9f9fb;
+    }
+
+    .add-content-dropdown-item:active {
+      background-color: #f0f0f2;
+    }
+
+    .add-content-dropdown-item:focus-visible {
+      outline: 2px solid #007aff;
+      outline-offset: -2px;
+      background-color: #f0f6ff;
+    }
+
+    .add-content-dropdown-item-icon {
+      width: 20px;
+      height: 20px;
+      color: #007aff;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .add-content-dropdown-item span {
+      font-size: 16px;
+      font-weight: 500;
+      color: #1d1d1f;
+      flex: 1;
+    }
+
+    .add-content-file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
   </style>
   <style>
     /* ---------- Base layout ---------- */
@@ -478,8 +771,9 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      width: 260px;
+      width: 460px;
       margin: auto;
+      max-width: 90%;
     }
 
     /* ---------- Shared button style ---------- */
@@ -610,11 +904,11 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.04e89f5c.js"></script><link href="./static/css/main.6bf3b418.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.a34f52d0.js"></script><link href="./static/css/main.2a0d9aa1.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
-    <div class="Go-premium-banner" data-ws-show-if-state="isPremium=false" style="text-align: center;text-transform: uppercase;
+    <div class="Go-premium-banner" style="display: none;text-align: center;text-transform: uppercase;
       color: white;
       font-weight: bold;
       font-size: smaller;
@@ -662,7 +956,7 @@
         <div class="Menu-list-element" style="position: relative;">
           <input style="position: absolute;display: block;opacity: 0; right:0;left:0;top:0;bottom:0; cursor: pointer" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
           <a onclick="gtag('event','import_file_click_player_drawer',{value:'1'})"  data-ws-onClick="openFile" style="text-decoration:none;display: flex;align-items: center">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span style="display: block;flex: 1;">Datei importieren (DOCX, TXT, PDF, EPUB, ...)</span>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span style="display: block;flex: 1;">Datei importieren (DOCX, TXT, PDF, EPUB, etc.)</span>
           </a>
         </div>
         <div>
@@ -680,7 +974,12 @@
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;Ihr generiertes Audio
           </a>
         </div>
-        <a class="Menu-list-element" data-ws-toggle="#voicesModal" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
+        <div>
+          <a class="Menu-list-element" data-ws-toggle="#apiModal" style="text-decoration:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>&nbsp;&nbsp;API-Zugang
+          </a>
+        </div>
+        <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;Brauchen Sie mehr Stimmen<!-- Need more voices -->
         </a>
         <div>
@@ -735,7 +1034,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.9.12</b> Build 2025-11-12T11:34:50.746Z
+          <b>V3.10.6</b> Build 2026-01-06T16:03:27.555Z
           <br/><span style="margin-top: 10px;display: block">ALLE VERSIONEN <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -779,71 +1078,163 @@
       </div>
 
     </drawer>
-    <div style="display: flex; flex-direction: column; flex: 1;max-width: 100%;">
+    <div style="display: flex; flex-direction: column; flex: 1;max-width: 100%;min-width: 38vw">
 
       <div class="Buttons-bar" style="display: flex">
         <button title="Open / close main drawer" aria-label="Open / close main drawer" style="" onclick="toggleDrawerOpen();">
           <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MenuIcon"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
         </button>
         <!--<a class="Hide-on-narrow-screens" href="https://ttsreader.com" alt="TTSReader Home" title="TTSReader Home" style="background-image: url('favicon2.svg');background-size: contain;width: 40px;height: 40px; border-radius: 10px;"></a>-->
-        <span style="display: inline-block;flex: 1"></span>
-        <button title="Open file" aria-label="Open file" data-ws-onClick="openFile" style="display: inline-block;position: relative;overflow: hidden;"><span>📂<span class="Hide-on-narrow-screens">&nbsp;Öffnen<!-- Open --></span></span><input style="position: absolute;display: block;opacity: 0; right:0;left:0;top:0;bottom:0; cursor: pointer" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect"></button>
+        <!-- Add Content Dropdown -->
+        <div class="add-content-dropdown" id="addContentDropdown" style="">
+          <button class="add-content-dropdown-trigger" type="button" title="Add content" aria-label="Add content" aria-expanded="false" aria-haspopup="true" aria-controls="addContentDropdownMenu" onclick="toggleAddContentDropdown()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+          </button>
+
+          <div class="add-content-dropdown-menu" id="addContentDropdownMenu" role="menu" hidden>
+            <!-- Open File -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item onclick="handleDropdownAction('openFile')" data-action="openFile">
+              <svg class="add-content-dropdown-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                <polyline points="14,2 14,8 20,8"/>
+              </svg>
+              <span>
+                <span>Öffnen</span>
+                <br/><span style="font-size: small; color: darkgray">DOCX, TXT, PDF, EPUB ebooks, & more</span>
+              </span>
+              <input class="add-content-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
+            </div>
+
+            <!-- Import Website -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-toggle="#openUrlModal" data-action="importWebsite">
+              <svg class="add-content-dropdown-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19.5 7a9 9 0 0 0-7.5-4a8.991 8.991 0 0 0-7.484 4"/>
+                <path d="M11.5 3a16.989 16.989 0 0 0-1.826 4"/>
+                <path d="M12.5 3a16.989 16.989 0 0 1 1.828 4"/>
+                <path d="M19.5 17a9 9 0 0 1-7.5 4a8.991 8.991 0 0 1-7.484-4"/>
+                <path d="M11.5 21a16.989 16.989 0 0 1-1.826-4"/>
+                <path d="M12.5 21a16.989 16.989 0 0 0 1.828-4"/>
+                <path d="M2 10l1 4l1.5-4l1.5 4l1-4"/>
+                <path d="M17 10l1 4l1.5-4l1.5 4l1-4"/>
+                <path d="M9.5 10l1 4l1.5-4l1.5 4l1-4"/>
+              </svg>
+              <span>Import website</span>
+            </div>
+
+            <!-- Clear Text -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-onClick="clearContent" data-action="clearText">
+              <svg class="add-content-dropdown-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3,6 5,6 21,6"/>
+                <path d="m19,6v14c0,1-1,2-2,2H7c-1,0-2-1-2-2V6m3,0V4c0-1,1-2,2-2h4c1,0,2,1,2,2v2"/>
+                <line x1="10" y1="11" x2="10" y2="17"/>
+                <line x1="14" y1="11" x2="14" y2="17"/>
+              </svg>
+              <span>Clear text area</span>
+            </div>
+
+            <!-- Add Pause -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-toggle="#addPauseModal">
+              <svg xmlns="http://www.w3.org/2000/svg" class="add-content-dropdown-item-icon" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M20.942 13.018a9 9 0 1 0 -7.909 7.922"></path>
+                <path d="M12 7v5l2 2"></path>
+                <path d="M17 17v5"></path>
+                <path d="M21 17v5"></path>
+              </svg>
+              <span>Add pause in playback</span>
+            </div>
+
+            <!-- Add Comment -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-toggle="#addCommentModal">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="add-content-dropdown-item-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9h8" /><path d="M8 13h6" /><path d="M12.01 18.594l-4.01 2.406v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
+              <span>
+                <span>Add comment</span>
+                <br/><span style="font-size: small; color: darkgray">Text content ignored by player</span>
+              </span>
+            </div>
+
+            <hr/>
+
+            <!-- Export -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-onclick="calculateStats" data-ws-toggle="#exportModal">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="add-content-dropdown-item-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+              <span>
+                <span>Export text to MP3</span>
+                <br/><span style="font-size: small; color: darkgray">Download / listen offline / share / listen later / podcast / publish, etc.</span>
+              </span>
+            </div>
+
+            <hr data-ws-show-if-state="isPremium=false"/>
+
+            <!-- Upgrade to Premium -->
+            <div  data-ws-show-if-state="isPremium=false" class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item onclick="openNewUpgradeModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="add-content-dropdown-item-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5" /><path d="M6 14m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5" /></svg>
+              <span>
+                <span>👑 Upgrade</span>
+                <br/><span style="font-size: small; color: darkgray">Enjoy AI voices & more. Premium is required for businesses, commercial licenses, publishing and copyrights on your exported audio. <b>View plans.</b></span>
+              </span>
+            </div>
+          </div>
+        </div>
         &nbsp;
-        <button class="Clear-btn" data-ws-toggle="#openUrlModal" title="Read Web Page" aria-label="Read Web Page">
-          <svg style="position: relative; bottom: -2px" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-world-www"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 7a9 9 0 0 0 -7.5 -4a8.991 8.991 0 0 0 -7.484 4" /><path d="M11.5 3a16.989 16.989 0 0 0 -1.826 4" /><path d="M12.5 3a16.989 16.989 0 0 1 1.828 4" /><path d="M19.5 17a9 9 0 0 1 -7.5 4a8.991 8.991 0 0 1 -7.484 -4" /><path d="M11.5 21a16.989 16.989 0 0 1 -1.826 -4" /><path d="M12.5 21a16.989 16.989 0 0 0 1.828 -4" /><path d="M2 10l1 4l1.5 -4l1.5 4l1 -4" /><path d="M17 10l1 4l1.5 -4l1.5 4l1 -4" /><path d="M9.5 10l1 4l1.5 -4l1.5 4l1 -4" /></svg>
-        </button>
-        &nbsp;
-        <button class="Clear-btn" data-ws-onClick="clearContent" title="Erase all text from document" aria-label="Erase all text from document">🗑️</button>
-        &nbsp;
-        <button title="Select language, voice and speed" aria-label="Select language, voice and speed" style="max-height: 2em;overflow: hidden;" data-ws-toggle="#voicesModal">
-          <svg class="Top-btn-svg" style="width:1.5em;height: 1.5em;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg>
-          <span class="Hide-on-narrow-screens">
-        &nbsp;
-        <span class="Voice-label Flag-font" data-ws-label-state="voiceLabel"></span>
-        &nbsp;
-        <svg class="Top-btn-svg" style="margin-left: -10px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5z"></path></svg>
-      </span>
-        </button>
-        <button title="Reading speed" data-ws-toggle="#voicesModal"><span data-ws-label-state="selectedRate"></span>X</button>
-        &nbsp;
-        <button data-ws-toggle="#addPauseModal" title="Insert pause in reading" aria-label="Insert pause in reading">
-          <svg xmlns="http://www.w3.org/2000/svg" class="Top-btn-svg" style="width: 1.3em; height: 1.3em;" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M20.942 13.018a9 9 0 1 0 -7.909 7.922"></path>
-            <path d="M12 7v5l2 2"></path>
-            <path d="M17 17v5"></path>
-            <path d="M21 17v5"></path>
+        <button class="Hide-on-narrow-screens" style="align-content: center; position: relative; cursor: pointer;">
+          <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;">
+            <path d="M14.5 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14,2 14,8 20,8"/>
           </svg>
+          <input class="add-content-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
         </button>
-        &nbsp;
-        <div class="Dropdown-header" style="display: inline-block; vertical-align: middle;cursor: pointer;position: relative;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 17v2h14v-2H5zm4.5-4.2h5l.9 2.2h2.1L12.75 4h-1.5L6.5 15h2.1l.9-2.2zM12 5.98 13.87 11h-3.74L12 5.98z"></path></svg>
+        <span class="Hide-on-narrow-screens">&nbsp;</span>
+        <button onclick="openOrCloseExportsListModal()" class="btn btn-link" type="button" aria-label="Open personal long-audio archive" title="Open personal long-audio archive">
+          <svg style="    position: relative;
+    top: 2px;
+    width: 28px;
+    height: 28px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>
+        </button>
+        <span class="Hide-on-narrow-screens">&nbsp;&nbsp;</span>
+        <button data-ws-onclick="clearContent" class="Hide-on-narrow-screens btn btn-link" type="button" aria-label="Open personal long-audio archive" title="Open personal long-audio archive">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+        </button>
+
+        <span style="display: inline-block;flex: 1"></span>
+
+        <button title="Select language, voice and speed" aria-label="Select language, voice and speed" style="overflow: hidden;" data-ws-onclick="handleVoiceLabelClick">
+          <span class="Voice-label Flag-font" data-ws-label-state="voiceLabel"></span>
+          <span data-ws-label-state="selectedRate"></span>X
+        </button>
+
+        <span style="flex: 1"></span>
+        <button data-ws-show-if-state="isPremium=false" class="Hide-on-narrow-screens" style="text-align: center; text-wrap:nowrap;" onclick="openNewUpgradeModal()">
+          <span style="border-radius: 10px; padding: 7px 16px; background-color: green; font-weight: bold;">👑 Upgrade</span>
+        </button>
+        <span class="Hide-on-narrow-screens">&nbsp;</span>
+        <div class="Dropdown-header" style="display: inline-block; vertical-align: middle;cursor: pointer;position: relative;align-content: center;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-text-size"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7v-2h13v2" /><path d="M10 5v14" /><path d="M12 19h-4" /><path d="M15 13v-1h6v1" /><path d="M18 12v7" /><path d="M17 19h2" /></svg>
           <div class="Dropdown-content" style="left:0;width:120px; translate: -40px;">
             <span data-ws-onClick="fontDecrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM23 11v2h-8v-2h8z"></path></svg></span>
             <span data-ws-onClick="fontIncrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM20 11h3v2h-3v3h-2v-3h-3v-2h3V8h2v3z"></path></svg></span>
           </div>
         </div>
-        &nbsp;
         <button onclick="toggleTheme();" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
           <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
         </button>
-        &nbsp;
-        <span style="flex: 1"></span>
-
-        <button title="My Exports" aria-label="My Exports" style="" onclick="openOrCloseExportsListModal();">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
-        </button>
         <button title="Text analytics - word counter & more" aria-label="Text analytics - word counter & more" style="" data-ws-onClick="calculateStats" data-ws-toggle="#statsModal">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-google-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 9m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v9.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" /><path d="M17 3m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v15.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" /><path d="M5 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /></svg>
+        </button>
+        <button title="Player Settings" aria-label="Player Settings" style="" data-ws-onClick="toggleSettingsSidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
         </button>
         <!--<button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-language"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7" /><path d="M9 3v2c0 4.418 -2.239 8 -5 8" /><path d="M5 9c0 2.144 2.952 3.908 6.7 4" /><path d="M12 20l4 -9l4 9" /><path d="M19.1 18h-6.2" /></svg>
         </button>-->
       </div>
 
-      <div style="display: flex;flex: 1;overflow: hidden;">
+      <div class="main-app-container" style="display: flex;flex: 1;overflow: hidden;">
 
-        <div style="flex: 1;display: flex;flex-direction: column;overflow: hidden;">
+        <div class="main-content-area" style="flex: 1;display: flex;flex-direction: column;overflow: hidden;">
           <div class="App"  style="flex: 1;position: relative;display: flex;flex-direction: column">
+            <button id="fr-icon" class="Toolbar-Button" style="position: absolute; top: 12px; right: 16px; z-index: 9; background: none; border: none; cursor: pointer;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+            </button>
             <div class="Book-bar" data-ws-show-if-state="isBook=true" style="text-align: center">
               <span data-ws-label-state="bookTitle"></span>&nbsp;-&nbsp;
               <button data-ws-onClick="loadPrevChapter" title="Load Previous Chapter" aria-label="Load Previous Chapter"><b>&lArr;</b></button>
@@ -854,6 +1245,9 @@
               <!-- Create the toolbar container -->
               <!--<div id="toolbar"></div>-->
               <!-- Create the editor container -->
+              <div style="width: 95%; max-width: 800px; margin: 0 auto;position: relative;">
+                <!-- if we want to align items to the text box's top -->
+              </div>
               <div id="editor" class="Text-box Text-box-quill" style="font-size: 1em;">
               </div>
 
@@ -898,6 +1292,7 @@
                   },
                   formats: [
                     'highlight',
+                    'background',
                     'blink',        // Custom blink format
                     'link',
                     'header',      // h1, h2, ...
@@ -911,7 +1306,6 @@
                 });
 
                 window.quill = quill; // Make Quill accessible globally
-
                 const sentenceBreakRegex = /[.?!…]+[\s\n]+|[\n]+/g;
 
                 function getCaretIndexOrHighlightEnd() {
@@ -996,7 +1390,7 @@
               <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
               <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
             </button>
-            <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" onclick="openOrCloseExportsListModal()">
+            <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal">
               <svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
             </button>
             <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
@@ -1066,6 +1460,142 @@
       </div>
 
     </div>
+    <!-- Right Settings Sidebar -->
+    <div id="settingsSidebar" class="settings-sidebar" data-ws-show-if-state="isSettingsSidebarOpen=true">
+      <div class="settings-sidebar-overlay" data-ws-onClick="closeSettingsSidebar"></div>
+      <div class="settings-sidebar-content">
+        <div class="settings-sidebar-header">
+          &nbsp;
+          <button class="settings-sidebar-close-btn" data-ws-onClick="closeSettingsSidebar" aria-label="Close Settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" /><path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" /><path d="M3 3l18 18" /></svg>
+          </button>
+        </div>
+
+        <div class="settings-sidebar-body">
+          <!-- Header Overlays for Stacking -->
+          <div class="settings-headers-top-overlay"></div>
+          <div class="settings-headers-bottom-overlay"></div>
+
+          <div class="settings-sidebar-scrollable">
+            <!-- Language Selection Section -->
+            <div class="settings-section" data-title="">
+                <div class="settings-section-header">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                    <path d="M4 5h7" />
+                    <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+                    <path d="M5 9c0 2.144 2.952 3.908 6.7 4" />
+                    <path d="M12 20l4 -9l4 9" />
+                    <path d="M19.1 18h-6.2" />
+                  </svg>
+                  <span class="settings-section-title"></span>
+                  <span class="settings-section-value" data-ws-label-state="selectedLanguageFlag"></span>
+                </div>
+                <div class="settings-control">
+                  <div class="unified-language-selector" id="unifiedLanguageSelector">
+                    <!-- Closed state: shows selected language -->
+                    <div class="language-selector-closed" data-ws-onClick="openLanguageSelector">
+                      <span class="selected-language-display Flag-font" data-ws-label-state="selectedLanguageDisplay">🇺🇸 English</span>
+                      <svg class="language-selector-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9l6 6l6-6" />
+                      </svg>
+                    </div>
+
+                    <!-- Open state: search input + dropdown -->
+                    <div class="language-selector-open hidden">
+                      <input type="text" class="language-search-input" placeholder="Search languages..." data-ws-onInput="filterUnifiedLanguages" autocomplete="off">
+                      <div class="language-dropdown" id="languageDropdown">
+                        <!-- Language options will be populated here -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Playback Rate Section -->
+              <div class="settings-section" data-title="">
+            <div class="settings-section-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12,6 12,12 16,14" />
+              </svg>
+              <span class="settings-section-title"></span>
+              <span class="settings-section-value" data-ws-label-state="selectedRate">1.0</span>
+            </div>
+            <div class="settings-control">
+              <div class="speed-control">
+                <button class="speed-btn speed-btn-decrease" data-ws-onClick="slower" aria-label="Decrease speed">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                  </svg>
+                </button>
+                <input type="range" class="speed-slider" data-ws-value-state="selectedRateSliderValue" min="1" max="16" data-ws-onInput="onRateChange" aria-label="Playback speed">
+                <button class="speed-btn speed-btn-increase" data-ws-onClick="faster" aria-label="Increase speed">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14" />
+                    <path d="M5 12h14" />
+                  </svg>
+                </button>
+              </div>
+              <div class="speed-labels">
+                <span>0.5x</span>
+                <span>1.0x</span>
+                <span>2.0x</span>
+              </div>
+            </div>
+          </div>
+
+              <!-- Voice Selection Section -->
+              <div class="settings-section" data-title="">
+            <div class="settings-section-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                <circle cx="9" cy="9" r="4" />
+                <path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                <path d="M17.76 5.36l1.68 1.69c2.02 2.02 2.02 5.07 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89z" />
+                <path d="M20.07 2l1.63 1.63c3.91 3.91 3.91 9.95 0 14l-1.63-1.63c2.77-3.02 2.77-7.56 0-10.74z" />
+              </svg>
+              <span class="settings-section-title"></span>
+              <div class="voice-filter-controls">
+                <button class="voice-filter-btn active" data-filter="all" data-ws-onClick="filterVoices">All</button>
+                <button class="voice-filter-btn" data-filter="premium" data-ws-onClick="filterVoices">Premium</button>
+                <button class="voice-filter-btn" data-filter="basic" data-ws-onClick="filterVoices">Basic</button>
+              </div>
+            </div>
+            <div class="settings-control">
+              <div id="sidebarVoicesList" class="sidebar-voices-list">
+                <!-- Voices will be populated here -->
+              </div>
+            </div>
+          </div>
+
+
+            <!-- More Voices Section -->
+            <div class="settings-section" data-title="More Voices (+600)">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                  <circle cx="9" cy="9" r="4" />
+                  <path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  <path d="M17.76 5.36l1.68 1.69c2.02 2.02 2.02 5.07 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89z" />
+                  <path d="M20.07 2l1.63 1.63c3.91 3.91 3.91 9.95 0 14l-1.63-1.63c2.77-3.02 2.77-7.56 0-10.74z" />
+                </svg>
+                <span class="settings-section-title">More Voices (+600)</span>
+              </div>
+              <div class="settings-control">
+                <p>You can select ANY neural voice from <a style="color: #0a84ff;text-decoration: underline;" href="https://speech.azure.cn/portal/voicegallery" target="_blank">Azure's Voice Gallery</a> paste its name into the input box - and click 'Use Azure Voice'</p>
+                <div id="" class="">
+                  <input id="azureVoiceInput" type="text" placeholder="Azure Voice Name..." style="width: 100%; margin-bottom: 8px;">
+                  <button onclick="appMethods.setVoiceUriDirectly('azure.' + document.getElementById('azureVoiceInput').value)" style="width: 100%; background-color: #0a84ff; color: white; border: none; border-radius: 6px; padding: 10px 16px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 0.2s ease;">Use Azure Voice</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Removed: overlay containers moved inside sidebar body -->
+      </div>
+    </div>
+
+
   </div>
 
 
@@ -1354,7 +1884,7 @@
       <p style="font-size: larger;">Die Stimme, die Sie ausgewählt haben <span data-ws-label-state="voiceLabel"></span>&nbsp; ist eine hervorragende Wahl!<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
       <br/>
       <sign-in-buttons></sign-in-buttons>
-      <button style="margin:60px auto 30px; width: unset;" onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.showModal("voicesModal");' class="Full-width-btn">Oder wechsle zu einer Basisstimme<!--Or, Select a Non Premium Voice--></button>
+      <button style="margin:60px auto 30px; width: unset;" onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.handleVoiceLabelClick();' class="Full-width-btn">Oder wechseln Sie zu einer Grundstimme<!--Or, Select a Non Premium Voice--></button>
       <div style="flex: 2"></div>
     </div>
     <div style="height:20px;"></div>
@@ -1485,6 +2015,36 @@
           </div>
         </template>
 
+        <template id="sidebarVoiceOptionTemplate">
+          <div class="sidebar-voice-item" data-ws-voiceURI="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-ws-voiceName="David" data-ws-select-if-state="selectedVoiceUri=ttsreaderServer.gcp.en-US-Chirp-HD-D" data-voice-type="premium"  onclick="window.appMethods.selectVoice(this)">
+            <div class="sidebar-voice-avatar" onclick="window.appMethods.selectVoice(this)">
+              <canvas class="voice-avatar-canvas" width="40" height="40"></canvas>
+            </div>
+            <div class="sidebar-voice-info" onclick="window.appMethods.selectVoice(this)">
+              <div class="sidebar-voice-name">David</div>
+              <div class="sidebar-voice-meta">
+                <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
+                <span class="voice-gender-male" title="Male">👨</span>
+                <span class="voice-gender-female" title="Female">👩</span>
+                <span class="voice-type-badge" title="Voice Type"></span>
+              </div>
+            </div>
+            <div class="sidebar-voice-actions">
+              <button class="sidebar-voice-btn" title="Test voice" onclick="window.appMethods.testVoice(this)" aria-label="Test voice">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+              </button>
+              <button class="sidebar-voice-btn" title="Copy voice settings" onclick="window.appMethods.copyVoice(this);event.stopPropagation();" aria-label="Copy voice settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </template>
+
       </div>
       <br/>
       <!--<select class="Voice-selector" data-ws-onChange="handleVoiceChange" data-ws-value-state="selectedVoiceUri"></select>-->
@@ -1609,31 +2169,31 @@
       </div>
       <div data-ws-show-if-state="isPremium=false" style="overflow: auto;padding:10px;">
         <h4>Erhalten Sie mehr und unterstützen Sie das Team 🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --><br/>Premium-KI-Stimmen, Export, Kommerziell & Veröffentlichung <!-- Premium AI Voices, Export, Commercial & Publishing --></h4>
-        <p style="margin-top: 38px;text-transform: uppercase; opacity: 1;font-size: 0.99em;">
-          Erschwingliche Abonnements und Einmalzahlung-Pakete <!-- Affordable Subscriptions and One-Time Payment Packages -->
-        </p>
+        <!--<p style="margin-top: 38px;text-transform: uppercase; opacity: 1;font-size: 0.99em;">
+          Erschwingliche Abonnements und Einmalzahlung-Pakete &lt;!&ndash; Affordable Subscriptions and One-Time Payment Packages &ndash;&gt;
+        </p>-->
         <br/>
         <div data-ws-show-if-state="isSignedIn=false">
-          <sign-in-buttons></sign-in-buttons>
           <p style="opacity: 0.8;">Melden Sie sich an, um die verschiedenen Pläne zu erkunden <!-- Login to explore the different plans --></p>
+          <sign-in-buttons></sign-in-buttons>
         </div>
         <div data-ws-show-if-state="isSignedIn=true">
           <button class="full-width-button" onclick="openNewUpgradeModal()">Premium-Pläne anzeigen <!-- View Premium Plans --></button>
         </div>
         <br/><br/>
-        <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 0 0 1em 0; text-align: start">
-          <li>Premium-Stimmen <!-- Premium voices --></li>
-          <li><strong>Ununterbrochene kontinuierliche Wiedergabe <!-- Uninterrupted continuous playback --></strong></li>
-          <li>Unbegrenztes kontinuierliches Lesen<!-- Unlimited continuous reading --></li>
-          <li><strong>Export zu MP3 & WAV <!-- Export to MP3 & WAV --></strong></li>
-          <li>Ihr eigener Podcast-Kanal <!-- Your own podcast channel --></li>
-          <li><strong>Kommerzielle Lizenz für Nutzung & Veröffentlichung! <!-- Commercial license for Usage & Publishing! --></strong></li>
-          <li><strong>Urheberrechtsfrei</strong> für Premium-KI-Stimmen und ausgewählte Basisstimmen <!-- <strong>Copyrights free</strong> for Premium AI voices and select basic voices --></li>
-          <li>Keine Werbung<!-- No Ads --></li>
-          <li>Schnelleres Laden<!-- Faster loading --></li>
-          <li>Premium-Support, Funktionsanfragen <!-- Premium support, features requests --></li>
-          <li>Alle Funktionen freischalten<!-- Unlock all features --></li>
-        </ul>
+        <!--<ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 1em 20px; text-align: start">
+          <li>Premium-Stimmen &lt;!&ndash; Premium voices &ndash;&gt;</li>
+          <li><strong>Ununterbrochene kontinuierliche Wiedergabe &lt;!&ndash; Uninterrupted continuous playback &ndash;&gt;</strong></li>
+          <li>Unbegrenztes kontinuierliches Lesen&lt;!&ndash; Unlimited continuous reading &ndash;&gt;</li>
+          <li><strong>Export zu MP3 & WAV &lt;!&ndash; Export to MP3 & WAV &ndash;&gt;</strong></li>
+          <li>Ihr eigener Podcast-Kanal &lt;!&ndash; Your own podcast channel &ndash;&gt;</li>
+          <li><strong>Kommerzielle Lizenz für Nutzung & Veröffentlichung! &lt;!&ndash; Commercial license for Usage & Publishing! &ndash;&gt;</strong></li>
+          <li><strong>Urheberrechtsfrei</strong> für Premium-KI-Stimmen und ausgewählte Basisstimmen &lt;!&ndash; <strong>Copyrights free</strong> for Premium AI voices and select basic voices &ndash;&gt;</li>
+          <li>Keine Werbung&lt;!&ndash; No Ads &ndash;&gt;</li>
+          <li>Schnelleres Laden&lt;!&ndash; Faster loading &ndash;&gt;</li>
+          <li>Premium-Support, Funktionsanfragen &lt;!&ndash; Premium support, features requests &ndash;&gt;</li>
+          <li>Alle Funktionen freischalten&lt;!&ndash; Unlock all features &ndash;&gt;</li>
+        </ul>-->
       </div>
     </div>
     <div style="height:20px;"></div>
@@ -1772,7 +2332,7 @@
       </p>
       <p style="font-weight: bold">
         Dauer:&nbsp;~<span data-ws-label-state="expectedDuration"></span>&nbsp;<span style="font-weight:normal">(at speed X1)</span>.
-      </span>
+      </p>
 
       <br/>
       <button class="full-width-button" data-ws-onClick="calculateStats">Aktualisieren</button>
@@ -1928,16 +2488,16 @@
       <div data-ws-show-if-state="isSignedIn=true">
       <div>
         <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">MP3 erstellen & herunterladen</button>
-        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button secondary" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">WAV erstellen & herunterladen (nur unter 2.000 Zeichen)</button>
+        <p style="text-align: center; font-size: smaller;">Need a specific audio format? Use our simple <a href="https://ttsreader.com/convert2wav/" target="_blank" rel="nofollow" style="color: dodgerblue">MP3 to WAV converter</a>.</p>
       </div>
       </div>
       <p style="margin: 30px auto">Suchen Sie Ihre vorherigen Exporte?&nbsp;<a style="cursor: pointer; color: orangered;" onclick="openOrCloseExportsListModal();"><svg style="vertical-align: middle; margin-bottom: 4px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>&nbsp; Audio-Ordner öffnen</a></p>
       <h3>Did you know? Learn more on:</h3>
       <ul style="text-align: start; line-height: 1.7em;">
-        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with multiple voices</a></li>
-        <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">Export, download & share your MP3 & text</a></li>
-        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Recording on-the-fly</a></li>
-        <li><a href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">Create your personal podcast channel</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">- Create Dialogs with multiple voices</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">- Export, download & share your MP3 & text</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">- Recording on-the-fly</a></li>
+        <li><a href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">- Create your personal podcast channel</a></li>
       </ul>
     </div>
   </div>
@@ -1990,6 +2550,144 @@
     <div style="height:20px;"></div>
   </div>-->
 
+  <!-- API Modal -->
+  <div class="Modal" id="apiModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: hidden; max-height: 80vh; max-width: 1000px; width: 90%;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+
+      <div style="overflow: auto; margin: 30px 0;max-height: 75vh;">
+        <!-- API Key Section -->
+        <div style="background: var(--card-background); padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            Ihr API-Schlüssel
+          </h3>
+
+          <div data-ws-show-if-state="isSignedIn=false" style="text-align: center; padding: 20px; color: var(--text-color-secondary);">
+            <sign-in-buttons></sign-in-buttons>
+          </div>
+
+          <div data-ws-show-if-state="isSignedIn=true">
+            <!-- Premium required message -->
+            <div data-ws-show-if-state="isPremium=false" style="background: #fff3cd; border: 1px solid #ffecb5; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+              <p style="color: #856404; margin-bottom: 10px;">API-Zugang erfordert Premium-Abonnement</p>
+              <p style="color: #856404; margin-bottom: 15px;">Upgraden Sie auf Premium, um Ihren API-Schlüssel zu generieren und unsere leistungsstarke TTS-API zu nutzen.</p>
+              <button onclick="openNewUpgradeModal()" class="Full-width-btn" style="background-color: #007bff; color: white; border: none;">
+                Auf Premium upgraden
+              </button>
+            </div>
+
+            <!-- API Key Display for Premium Users -->
+            <div data-ws-show-if-state="isPremium=true">
+              <div data-ws-show-if-state="uapi=true" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <p type="password" id="apiSecretDisplay" data-ws-label-state="uapi" readonly style="flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-background);"></p>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button onclick="generateApiSecret()" id="generateSecretBtn" class="Full-width-btn" style="background-color: #28a745; color: white; border: none;">
+                  <span data-ws-show-if-state="uapi=false" style="display: inline;">Neuen API-Schlüssel generieren</span>
+                  <span data-ws-show-if-state="uapi=true" style="display: none;">API-Schlüssel regenerieren</span>
+                </button>
+                <button onclick="testApiEndpoint()" data-ws-show-if-state="uapi=true" class="Full-width-btn" style="background-color: #007bff; color: white; border: none;">
+                  API testen & MP3 herunterladen
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of API Key Section -->
+
+        <!-- Code Examples with secret -->
+        <div style="background: var(--card-background); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 20px;">Code-Beispiele</h3>
+
+          <!-- CURL Example -->
+          <div style="margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h4 style="margin: 0;">CURL-Beispiel</h4>
+              <button onclick="copyToClipboard('curlExample')" style="padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Kopieren
+              </button>
+            </div>
+            <pre id="curlExample" style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.4;">curl -X POST "https://ttsreader.com/api/ttsSync" \
+-H "Authorization: Bearer UAPI-<span data-ws-label-state="uapi" style="color: #4fc3f7;">YOUR_SECRET_KEY</span>" \
+-H "Content-Type: application/json" \
+--data '{"text": "Hello world, this is a test from TTSReader API.","lang": "en-US", "voice": "Nova Premium", "rate":1, "quality": "48khz_192kbps" }' \
+--output "hello.mp3"</pre>
+          </div>
+
+          <!-- JavaScript Example -->
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h4 style="margin: 0;">JavaScript-Beispiel</h4>
+              <button onclick="copyToClipboard('jsExample')" style="padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Kopieren
+              </button>
+            </div>
+            <pre id="jsExample" style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.4;"><span style="color: #569cd6;">async function</span> <span style="color: #dcdcaa;">generateTTS</span>() {
+    <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">response</span> = <span style="color: #569cd6;">await</span> <span style="color: #dcdcaa;">fetch</span>(<span style="color: #ce9178;">'https://ttsreader.com/api/ttsSync'</span>, {
+        <span style="color: #9cdcfe;">method:</span> <span style="color: #ce9178;">'POST'</span>,
+        <span style="color: #9cdcfe;">headers:</span> {
+            <span style="color: #ce9178;">'Authorization'</span>: <span style="color: #ce9178;">'Bearer UAPI-<span data-ws-label-state="uapi" style="color: #4fc3f7;">YOUR_SECRET_KEY</span>'</span>,
+            <span style="color: #ce9178;">'Content-Type'</span>: <span style="color: #ce9178;">'application/json'</span>
+        },
+        <span style="color: #9cdcfe;">body:</span> <span style="color: #dcdcaa;">JSON.stringify</span>({
+            <span style="color: #9cdcfe;">text:</span> <span style="color: #ce9178;">"Hello world, this is a test from TTSReader API."</span>,
+            <span style="color: #9cdcfe;">lang:</span> <span style="color: #ce9178;">"en-US"</span>,
+            <span style="color: #9cdcfe;">voice:</span> <span style="color: #ce9178;">"Nova Premium"</span>,
+            <span style="color: #9cdcfe;">quality:</span> <span style="color: #ce9178;">"48khz_192kbps"</span>,
+            <span style="color: #9cdcfe;">rate:</span> <span style="color: #b5cea8;">1</span>
+        })
+    });
+
+    <span style="color: #c586c0;">if</span> (<span style="color: #9cdcfe;">response</span>.<span style="color: #9cdcfe;">ok</span>) {
+        <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">audioBlob</span> = <span style="color: #569cd6;">await</span> <span style="color: #9cdcfe;">response</span>.<span style="color: #dcdcaa;">blob</span>();
+        <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">url</span> = <span style="color: #4ec9b0;">URL</span>.<span style="color: #dcdcaa;">createObjectURL</span>(<span style="color: #9cdcfe;">audioBlob</span>);
+        <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">a</span> = <span style="color: #4ec9b0;">document</span>.<span style="color: #dcdcaa;">createElement</span>(<span style="color: #ce9178;">'a'</span>);
+        <span style="color: #9cdcfe;">a</span>.<span style="color: #9cdcfe;">href</span> = <span style="color: #9cdcfe;">url</span>;
+        <span style="color: #9cdcfe;">a</span>.<span style="color: #9cdcfe;">download</span> = <span style="color: #ce9178;">'hello.mp3'</span>;
+        <span style="color: #9cdcfe;">a</span>.<span style="color: #dcdcaa;">click</span>();
+    }
+}</pre>
+          </div>
+
+          <br/>
+          <h3 style="margin-bottom: 15px;">Anfrageparameter</h3>
+          <ul style="line-height: 1.8; margin-left: 20px;">
+            <li><strong>text</strong> (erforderlich): Der zu konvertierende Text</li>
+            <li><strong>lang</strong> (erforderlich): Sprachcode (z.B. 'de-DE', 'en-US')</li>
+            <li><strong>voice</strong> (erforderlich): Stimmenname - verwenden Sie Stimmen vom TTSReader Player oder Azure-Stimmen von <a href="https://speech.azure.cn/portal/voicegallery" target="_blank" style="color: #007bff;">Azure Stimmen-Galerie</a></li>
+            <li><strong>rate</strong> (optional): Sprechgeschwindigkeit (0.5 bis 2.0, Standard: 1.0)</li>
+            <li><b>quality</b> (optional): "48khz_192kbps" or empty (which defaults to 24kHz)</li>
+          </ul>
+          <br/>
+
+        </div>
+
+        <br/>
+
+        <!-- API Documentation -->
+        <div style="background: var(--card-background); padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 15px;">Important Notes</h3>
+          <ul style="line-height: 1.8; margin-left: 20px;list-style: disc;">
+            <li>Limit charcters to a few thousands (exact limit is unknown, but 5k characters is safe), as this is synchronous API, tjat times out after 5 minutes. So, if it can generate the MP3 within 5 minutes it will - otherwise it will time out before MP3 is ready - but since the AI is started - it will consume credits.</li>
+            <li>Async API is coming soon for long-texts, and for supporting multiple voices in a single file.</li>
+            <li>The ttsSync endpoint does not support voice-setters (ie: {{set: voice, language, rate}}) within the text. So, a single voice - set in the API request.</li>
+            <li>The name of the voice is as shown in the voice-selector UI. In addition ALL Azure's Neural AI voices are supported. So, you're welcome to go to Azure's voice gallery at <a href="https://speech.azure.cn/portal/voicegallery" target="_blank" style="color: #007bff;">https://speech.azure.cn/portal/voicegallery</a> and select a voice from there.</li>
+            <li>If you need anything else, or have feedback, suggestions, please let us know at <span style="color: orangered;">contact@ttsreader.com</span></li>
+          </ul>
+        </div>
+
+        <br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
   <div class="Modal" id="helpModal" style="display: none;">
     <div style="flex:1"></div>
     <div class="Modal-content" style="max-width: 100%;max-height: 90vh;">
@@ -2016,7 +2714,7 @@
       <div style="overflow-y: auto;max-height: 90%;text-align: justify;">
         <h3 style="text-align: center">Mehr Stimmen<!-- More Voices --></h3>
 
-        <p style="text-align: center"><a href="#" onclick="appMethods.showModal('voicesModal');">Click here to preview & select a voice available on your browser</a></p>
+        <p style="text-align: center"><a href="#" onclick="appMethods.handleVoiceLabelClick();">Click here to preview & select a voice available on your browser</a></p>
         <br/>
         <!--<p style="text-align: center"><b>Other voices on other browsers</b></p>
         <div data-ws-show-if-state="os=win">
@@ -2067,7 +2765,34 @@
         <br/>
         <code>{{pause:1000}}</code>
         <br/>
-        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addPauseModal" onclick="navigator.clipboard.writeText('\n{{pause:1000}}\n')">
+        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addPauseModal" onclick="navigator.clipboard.writeText('{{pause:1000}}\n')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+            <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+          </svg>&nbsp;Kopieren<!-- Copy -->
+        </a>
+        <br/><br/><br/>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+  </div>
+
+  <div class="Modal" id="addCommentModal" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal">
+        <svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow-y: auto;max-height: 90%;text-align: center;">
+        <h3>Add Comments - Text to be Ignored by the Player<!-- Add Pause Reading Timer --></h3>
+        <p>Copy the following line and paste into the text. Edit its inner content to add your own comments in the text.</p>
+        <br/>
+        <code>{{skip: YOUR-COMMENT-HERE}}</code>
+        <br/>
+        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addCommentModal" onclick="navigator.clipboard.writeText('{{skip:   }}\n')">
           <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
@@ -2753,7 +3478,7 @@
           if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn") && !window.AppAnalytics.id && !isBotUserAgent()) {
             // This is a first ever visit. Set unique setup here:
             // A/B test prefix: 50% A / 50% B
-            const prefix = DEFAULT_THEME === 'dark-bg' ? 'D311_' : 'L311_'; //
+            const prefix = DEFAULT_THEME.includes("dark") ? 'D3101_' : 'L3101_'; //
             console.log({prefix});
             const randomString = Math.random().toString(36).substring(2, 17); // 15 chars
             window.AppAnalytics.id = prefix + randomString;
@@ -3149,6 +3874,28 @@
     }
   }
 
+  function sendLogsToFb(uid, type, message) {
+    if (!firebase) {
+      return;
+    }
+
+    message = {...message, clientInfo: getClientInfo(), createdAt: new Date().toISOString(),};
+
+    try {
+      // Send first of type only:
+      const dateKey = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD
+      const path = `logs/errors/${dateKey}/${type}/${uid}`;
+
+      firebase.database().ref(path).push(message)
+              .then(() => {
+              })
+              .catch(err => {
+              });
+    } catch (e) {}
+  }
+
+  window.sendLogsToFb = sendLogsToFb;
+
   function toggleSignIn() {
     var user = firebase.auth().currentUser;
     //console.log("user " , user);
@@ -3304,7 +4051,7 @@
   function openOnboarding(forceOpen) {
     let shouldOpen = forceOpen; // || window.AppAnalytics.id?.startsWith("A_") - if we want to try some better onboarding...
     if (!shouldOpen) {
-      appMethods.showModal("emptyTextModal")
+      //appMethods.showModal("emptyTextModal")
       localStorage.setItem("ttsreader.wasOnboarding3", "true");
       return;
     }
@@ -3513,6 +4260,30 @@
 </div>
 <!-- end of JS STRINGS -->
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const findReplaceWidget = new FindReplaceWidget();
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+          e.preventDefault();
+          findReplaceWidget.show();
+        }
+      });
+
+      const frIcon = document.getElementById('fr-icon');
+      if (frIcon) {
+        frIcon.addEventListener('click', () => {
+          findReplaceWidget.toggle();
+        });
+      }
+
+      // Import confety.js:
+      /*let el = document.createElement('script');
+      el.src = 'confety.js';
+      document.head.appendChild(el);*/
+    });
+  </script>
 </body>
 </html>
 
