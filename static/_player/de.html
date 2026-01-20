@@ -12,7 +12,7 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-01-06T16:03:27.555Z",
+      "dateModified": "2026-01-06T21:11:59.824Z",
       "version": "3.10.6",
       "publisher": {
         "@type": "Organization",
@@ -1034,7 +1034,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.10.6</b> Build 2026-01-06T16:03:27.555Z
+          <b>V3.10.6</b> Build 2026-01-06T21:11:59.824Z
           <br/><span style="margin-top: 10px;display: block">ALLE VERSIONEN <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -3509,6 +3509,7 @@
             ronenMock: true,
           });
           window.uid = user.uid;
+          window.email = user.email;
           initDbListeners(user.uid);
 
           // Bring PayPal SDK:
@@ -4186,7 +4187,7 @@
       requestAnimationFrame(() => modalEl.classList.add("show"));
     };
     let shouldHideSubscriptions = Boolean(window.subscriptionId);
-    let src = `newUpgradeModal.${lang}.html?uid=${uid}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
+    let src = `newUpgradeModalPaddle.${lang}.html?uid=${uid}&email=${email}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
     if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
       let obj = {iframe: iframeEl.src, src};
       console.log("src!==src: ", obj);

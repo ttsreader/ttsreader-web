@@ -23,7 +23,14 @@
 
     const onClose = (isPurchase) => {
       console.log('onClose called');
-      parent[onCloseParentCallbackName](isPurchase);
+      const isIframed = window.self !== window.top;
+      if (isIframed) {
+        parent[onCloseParentCallbackName](isPurchase);
+      } else {
+        // Not iframed - send the user in this tab to https://ttsreader.com/player/ by changing location href:
+        window.location.href = "https://ttsreader.com/player/";
+      }
+
     }
 
     console.log({ uid, theme, lang, isPremiumPlanAlready });

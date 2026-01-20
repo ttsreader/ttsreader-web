@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-01-06T21:11:59.824Z",
-      "version": "3.10.6",
+      "dateModified": "2026-01-19T16:03:59.857Z",
+      "version": "3.10.10",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -51,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.10.6 - Lettore di testo in voce di TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.10.10 - Lettore di testo in voce di TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -904,7 +904,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.a34f52d0.js"></script><link href="./static/css/main.2a0d9aa1.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.43919c59.js"></script><link href="./static/css/main.2a0d9aa1.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -1034,7 +1034,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.10.6</b> Build 2026-01-06T21:11:59.824Z
+          <b>V3.10.10</b> Build 2026-01-19T16:03:59.857Z
           <br/><span style="margin-top: 10px;display: block">TUTTE LE VERSIONI <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -1580,6 +1580,7 @@
                 <span class="settings-section-title">More Voices (+600)</span>
               </div>
               <div class="settings-control">
+                <button onclick="openVoiceGalleryModal()" style="width: 100%; background-color: #0a84ff; color: white; border: none; border-radius: 6px; padding: 10px 16px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 0.2s ease;margin: 10px auto;">Open Expanded Voice Gallery</button>
                 <p>You can select ANY neural voice from <a style="color: #0a84ff;text-decoration: underline;" href="https://speech.azure.cn/portal/voicegallery" target="_blank">Azure's Voice Gallery</a> paste its name into the input box - and click 'Use Azure Voice'</p>
                 <div id="" class="">
                   <input id="azureVoiceInput" type="text" placeholder="Azure Voice Name..." style="width: 100%; margin-bottom: 8px;">
@@ -1680,11 +1681,15 @@
   </div>
 
   <div id="newUpgradeModal" class="Sliding-In-Modal hidden" style="z-index: 9999999">
-      <iframe></iframe>
+    <iframe allow="autoplay"></iframe>
+  </div>
+
+  <div id="voiceGalleryModal" class="Sliding-In-Modal hidden" style="z-index: 9999999">
+      <iframe allow="autoplay"></iframe>
   </div>
 
   <div id="renderedModal" class="Sliding-In-Modal hidden">
-      <iframe></iframe>
+    <iframe allow="autoplay"></iframe>
   </div>
 
 
@@ -4137,6 +4142,18 @@
     }
   }
 
+  function closeVoiceGalleryModal() {
+    let modalEl = document.getElementById('voiceGalleryModal');
+    if (modalEl) {
+      modalEl.classList.remove("show");
+      modalEl.addEventListener("transitionend", () => {
+        //modalEl.classList.add("hidden");
+      }, { once: true });
+    }
+  }
+
+
+
   function openOrCloseExportsListModal(isToClose) {
     let modalEl = document.getElementById('exportsListModal');
     if (isToClose) {
@@ -4188,6 +4205,37 @@
     };
     let shouldHideSubscriptions = Boolean(window.subscriptionId);
     let src = `newUpgradeModalPaddle.${lang}.html?uid=${uid}&email=${email}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
+    if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
+      let obj = {iframe: iframeEl.src, src};
+      console.log("src!==src: ", obj);
+      iframeEl.src = src;
+    } else {
+      console.log("src===src");
+      modalEl.classList.remove("hidden");
+      requestAnimationFrame(() => modalEl.classList.add("show"));
+    }
+  }
+
+  function openVoiceGalleryModal() {
+    let modalEl = document.getElementById('voiceGalleryModal');
+    if (!modalEl) {
+      console.error("Modal element not found");
+      return;
+    }
+
+    let iframeEl = modalEl.querySelector('iframe');
+    if (!iframeEl) {
+      console.error("Iframe element not found in modal");
+      return;
+    }
+    let lang = document.documentElement.getAttribute('lang') || 'en';
+    let theme = document.documentElement.getAttribute('data-dark-mode') ? 'dark' : 'light';
+
+    iframeEl.onload = function () {
+      modalEl.classList.remove("hidden");
+      requestAnimationFrame(() => modalEl.classList.add("show"));
+    };
+    let src = `voiceGalleryModal.${lang}.html?theme=${theme}&lang=${lang}&onClose=closeVoiceGalleryModal`;
     if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
       let obj = {iframe: iframeEl.src, src};
       console.log("src!==src: ", obj);

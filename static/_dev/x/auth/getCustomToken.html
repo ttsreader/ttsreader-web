@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Firebase Auth for Chrome Extension</title>
+  <meta name="robots" content="noindex, follow">
+</head>
+<body>
+<h1>Firebase Auth for TTSReader's Chrome Extension</h1>
+<button>Sign in</button>
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import {
+    onAuthStateChanged,
+    getAuth,
+    GoogleAuthProvider,
+    OAuthProvider,
+    signInWithPopup,
+  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAdBWmw443huodq-KKwsbZtRWFy-biilRg",
+    authDomain: "ttsreader.firebaseapp.com",
+    databaseURL: "https://ttsreader.firebaseio.com",
+    projectId: "ttsreader",
+    storageBucket: "ttsreader.appspot.com",
+    messagingSenderId: "656667743185",
+    appId: "1:656667743185:web:85af89b663f07af34246f0"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, async (user) => {
+    console.log("user: ", user);
+    window.user = user;
+    if (user) {
+      document.querySelector('button').innerText = "Sign out";
+      let customToken = await getCustomTokenFromServer();
+    } else {
+      document.querySelector('button').innerText = "Sign in";
+    }
+  });
+
+  const query = new URLSearchParams(window.location.search);
+  const provider = query.get('provider') || 'google';
+  const PROVIDER = provider === 'apple' ? new OAuthProvider('apple.com') : new GoogleAuthProvider();
+
+  // curl "https://us-central1-ttsreader.cloudfunctions.net/functionCreateCustomToken?forClientUid=5CAk8lbnIBa4qphryWt397A2r9s1" \
+  // -H "Authorization: Bearer (await user.getIdToken())"
+  async function getCustomTokenFromServer() {
+    if (!window.user) throw new Error("Not signed in");
+    const idToken = await window.user.getIdToken();
+    const url = `https://us-central1-ttsreader.cloudfunctions.net/functionCreateCustomToken?forClientUid=${encodeURIComponent(window.user.uid)}`;
+    const res = await fetch(url, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${idToken}` },
+    });
+    if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+    const text = await res.text();
+    console.log("custom token: ", text);
+    sendResponse(text);
+    return text;
+  }
+
+
+  // result should be a string with the received custom token, send it back as: {result: "..."}
+  function sendResponse(text) {
+    console.log(text);
+    window.parent.postMessage(
+      text,
+      document.location.ancestorOrigins[0]
+    );
+  }
+
+  async function signin() {
+    if (!window.user) {
+      signInWithPopup(auth, PROVIDER)
+        .then(async (result)=>{
+          let customToken = await getCustomTokenFromServer();
+        })
+        .catch();
+    } else {
+      let customToken = await getCustomTokenFromServer();
+    }
+  }
+
+  document.querySelector('button').addEventListener('click', (ev)=>{
+    if (window.user) {
+      auth.signOut();
+    } else {
+      signin();
+    }
+  });
+
+  window.addEventListener("message", function ({ data }) {
+    if (data.initAuth) {
+      signin();
+    }
+  });
+</script>
+</body>
+</html>

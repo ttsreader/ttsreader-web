@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html  lang="ko"  data-dark-mode>
 <head>
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <script>
+    Paddle.Environment.set("production"); // Use "production" for live environment
+    Paddle.Initialize({
+      token: "live_e52f015f98dbce460791b4b9fe7"
+    });
+  </script>
   <script>
     // Get from query params: uid, lang, darkMode - and set them already - so we don't have flickering.
     // uid=oiu987oiuo&theme=dark&lang=he&onClose=closeModals
     const params = new URLSearchParams(window.location.search);
 
     const uid = params.get("uid");
+    const email = params.get("email");
     const theme = params.get("theme");
     const lang = params.get("lang");
     const onCloseParentCallbackName = params.get("onClose") || "closeModals";
