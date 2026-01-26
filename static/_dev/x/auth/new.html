@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TTSReader Extension Bridge (Auth + RTDB)</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; padding: 16px; }
+    button { padding: 10px 12px; margin: 6px 6px 6px 0; cursor: pointer; }
+    pre { background:#f3f4f6; padding: 12px; border-radius: 10px; overflow:auto; }
+  </style>
+</head>
+<body>
+<h2>Bridge (Standalone Test)</h2>
+<div>
+  <button id="googleBtn">Sign in with Google</button>
+  <button id="appleBtn">Sign in with Apple</button>
+  <button id="signoutBtn">Sign out</button>
+  <button id="tokenBtn">Get ID token</button>
+  <button id="stateBtn">Post state</button>
+</div>
+<pre id="out">Ready.</pre>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signInWithPopup,
+    signOut,
+    GoogleAuthProvider,
+    OAuthProvider,
+  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+  // LOCK: only your extension is allowed to RPC with this page when iframed
+  const EXT_ORIGIN = "chrome-extension://pakknklefcjdhejnffafpeelofiekebg";
+
+  const out = document.getElementById("out");
+  const log = (x) => out.textContent = typeof x === "string" ? x : JSON.stringify(x, null, 2);
+
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAdBWmw443huodq-KKwsbZtRWFy-biilRg",
+    authDomain: "ttsreader.firebaseapp.com",
+    databaseURL: "https://ttsreader.firebaseio.com",
+    projectId: "ttsreader",
+    storageBucket: "ttsreader.appspot.com",
+    messagingSenderId: "656667743185",
+    appId: "1:656667743185:web:85af89b663f07af34246f0"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  let stopUserListener = null;
+  let latestUserServerData = null;
+
+  function userPublic(u) {
+    if (!u) return null;
+    return {
+      uid: u.uid,
+      email: u.email ?? null,
+      displayName: u.displayName ?? null,
+      photoURL: u.photoURL ?? null,
+    };
+  }
+
+  function safePostToExtension(payload) {
+    // When opened standalone, window.parent is itself; postMessage is harmless but pointless.
+    // When embedded, CSP frame-ancestors should ensure parent is the extension.
+    try {
+      window.parent?.postMessage?.(payload, EXT_ORIGIN);
+    } catch {}
+  }
+
+  function startRTDB(uid) {
+    if (stopUserListener) stopUserListener();
+    const r = ref(db, `/users_server_data/${uid}`);
+    stopUserListener = onValue(r, (snap) => {
+      latestUserServerData = snap.val();
+
+      safePostToExtension({
+        type: "PUSH_RTDB",
+        uid,
+        value: latestUserServerData,
+      });
+    });
+  }
+
+  function stopRTDB() {
+    if (typeof stopUserListener === "function") stopUserListener();
+    stopUserListener = null;
+  }
+
+  async function pushAuthState() {
+    const u = auth.currentUser;
+    const user = userPublic(u);
+    const providerId = u?.providerData?.[0]?.providerId ?? null;
+    // Token retrieval can refresh; keep it optional for state push
+    let idToken = null;
+    try { if (u) idToken = await u.getIdToken(false); } catch {}
+    let msg = {
+      type: "PUSH_AUTH_STATE",
+      user,
+      providerId,
+      idToken,
+      usersServerData: latestUserServerData,
+    };
+    safePostToExtension(msg);
+    return msg;
+  }
+
+  onAuthStateChanged(auth, async (u) => {
+    log({ authState: u ? userPublic(u) : null });
+
+    if (u?.uid) startRTDB(u.uid);
+    else stopRTDB();
+
+    await pushAuthState();
+  });
+
+  // ---- Standalone buttons ----
+  async function doGoogle() {
+    console.log("doGoogle");
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    return { ok: true, user: userPublic(result.user) };
+  }
+
+  async function doApple() {
+    const provider = new OAuthProvider("apple.com");
+    provider.addScope("email");
+    provider.addScope("name");
+    const result = await signInWithPopup(auth, provider);
+    return { ok: true, user: userPublic(result.user) };
+  }
+
+  document.getElementById("googleBtn").addEventListener("click", async () => {
+    try { log(await doGoogle()); } catch (e) { log({ ok:false, name:e?.name, code:e?.code, message:e?.message }); }
+  });
+  document.getElementById("appleBtn").addEventListener("click", async () => {
+    try { log(await doApple()); } catch (e) { log({ ok:false, name:e?.name, code:e?.code, message:e?.message }); }
+  });
+  document.getElementById("signoutBtn").addEventListener("click", async () => {
+    await signOut(auth);
+    log({ ok:true, signedOut:true });
+  });
+  document.getElementById("tokenBtn").addEventListener("click", async () => {
+    const u = auth.currentUser;
+    const idToken = u ? await u.getIdToken(false) : null;
+    log({ ok: !!idToken, idToken: idToken ? idToken.slice(0, 20) + "…" : null });
+  });
+  document.getElementById("stateBtn").addEventListener("click", async () => {
+    const s = await pushAuthState();
+    log({ ok:true, posted:true, ...s });
+  });
+
+  // ---- RPC from offscreen (extension) ----
+  // Request:  { type:"RPC", op:"SIGNIN_GOOGLE"|"SIGNIN_APPLE"|"SIGNOUT"|"GET_ID_TOKEN"|"GET_STATE", requestId }
+  // Response: { type:"RPC_RESULT", requestId, ok:true, ...payload } or ok:false error
+  window.addEventListener("message", async (event) => {
+
+    console.log("message: ", event);
+
+    if (event.origin !== EXT_ORIGIN) return;
+    const msg = event.data;
+    if (!msg || typeof msg !== "object") return;
+    if (msg.type !== "RPC") return;
+
+    const requestId = msg.requestId || null;
+    const respond = (payload) => safePostToExtension({ type: "RPC_RESULT", requestId, ...payload });
+
+    try {
+      if (msg.op === "GET_STATE") {
+        const s = await pushAuthState();
+        respond({ ok:true, ...s });
+        return;
+      }
+
+      if (msg.op === "SIGNIN_GOOGLE") {
+        await doGoogle();
+        const s = await pushAuthState();
+        respond({ ok:true, ...s });
+        return;
+      }
+
+      if (msg.op === "SIGNIN_APPLE") {
+        await doApple();
+        const s = await pushAuthState();
+        respond({ ok:true, ...s });
+        return;
+      }
+
+      if (msg.op === "SIGNOUT") {
+        await signOut(auth);
+        const s = await pushAuthState();
+        respond({ ok:true, ...s });
+        return;
+      }
+
+      if (msg.op === "GET_ID_TOKEN") {
+        const u = auth.currentUser;
+        if (!u) {
+          respond({ ok:false, code:"auth/signed-out", message:"User signed out" });
+          return;
+        }
+        const idToken = await u.getIdToken(false);
+        respond({ ok:true, idToken, user: userPublic(u) });
+        return;
+      }
+
+      respond({ ok:false, code:"rpc/unknown-op", message:"Unknown op" });
+    } catch (e) {
+      respond({ ok:false, name:e?.name, code:e?.code, message:e?.message || String(e) });
+    }
+  });
+
+  window.doGoogle = doGoogle;
+</script>
+</body>
+</html>
