@@ -97,14 +97,34 @@ window.hideLoader = function() {
     </div>
 
     <main class="app">
+        <div class="scroll-area">
         <div class="controls">
             <div class="controls-left">
+                <div class="first-row">
                 <div class="control control-language">
                     <label class="control-label" for="languageSelect">Language</label>
                     <select id="languageSelect" class="control-select">
-                        <option value="">All languages</option>
+                        <option value="">en</option>
                     </select>
                 </div>
+
+                <div class="control control-accent">
+                <label class="control-label" for="accentSelect">Accent</label>
+                <select id="accentSelect" class="control-select">
+                    <option value="">US</option>
+                </select>
+                </div>
+
+                <div class="control control-speed">
+                    <label class="control-label">Speed</label>
+                    <div class="speed-control">
+                        <button type="icon-button" class="gender-btn" id="speedMinus">−</button>
+                        <span id="speedValue" class="control-label">1.1</span>
+                        <button type="button" class="gender-btn" id="speedPlus">+</button>
+                    </div>
+                    </div>
+</div>
+                <div class="second-row">
 
                 <div class="searchbox">
                     <span class="searchbox-icon">🔎</span>
@@ -131,6 +151,7 @@ window.hideLoader = function() {
                 <div class="control">
                     <label class="control-label" for="sortSelect">Sort by</label>
                     <select id="sortSelect" class="control-select">
+                        <option value="recommended">Recommended</option>
                         <option value="az">A to Z</option>
                         <option value="za">Z to A</option>
                     </select>
@@ -140,12 +161,35 @@ window.hideLoader = function() {
                     <input id="pinnedOnly" type="checkbox" />
                     <span>Show only pinned</span>
                 </label>
-                <span>|</span>
-                <span id="resultsMeta" class="results-meta">0 voices</span>
+                <div class="results-inline">
+                    <span class="divider">|</span>
+                    <span id="resultsMeta" class="results-meta">0 voices</span>
+                </div>
             </div>
         </div>
-
+        </div>
         <div id="voicesGrid" class="voices-grid"></div>
+        </div>
+        <button id="scrollTopBtn" aria-label="Back to filters">
+        <svg class="scroll-top-icon" viewBox="-0.5 0 25 25" xmlns="http://www.w3.org/2000/svg">
+            <path
+            d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            />
+            <path
+            d="M8 13.8599L10.87 10.8C11.0125 10.6416 11.1868 10.5149 11.3815 10.4282C11.5761 10.3415 11.7869 10.2966 12 10.2966C12.2131 10.2966 12.4239 10.3415 12.6185 10.4282C12.8132 10.5149 12.9875 10.6416 13.13 10.8L16 13.8599"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            />
+        </svg>
+        </button>
 
         <div class="save-bar">
             <button id="saveBtn" disabled>

@@ -75,12 +75,12 @@ class FindReplaceWidget {
     this.replaceAllBtn.addEventListener('click', () => this.replaceAll());
 
     // Keyboard shortcut to show widget (e.g., Ctrl+F)
-    document.addEventListener('keydown', (e) => {
+    /*document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.key === 'f') {
         e.preventDefault();
         this.show();
       }
-    })
+    })*/
 
     this.quill.on('text-change', (delta, oldDelta, source) => {
       if (source === 'user') {

@@ -1,6 +1,9 @@
 const state = {
     allVoices: [],
-    language: "",
+    language: "en",
+    accent: "US",
+    speed: 1.0, 
+    selectedVoiceId: "en-US-AndrewMultilingualNeural",
     search: "",
     gender: "",
     sort: "az",
@@ -8,9 +11,101 @@ const state = {
     pinned: new Set(
         JSON.parse(localStorage.getItem("pinnedVoices") || "[]")
     ),
-    selectedVoiceId: localStorage.getItem("selectedVoiceId") || null
 };
 
+const showLanguage = false;
+let showCopyButton = true;
+
+let popularityMap = {};
+
+async function loadPopularity() {
+  const res = await fetch("voiceGalleryModal/popularity.json", { cache: "no-store" });
+  if (res.ok) {
+    popularityMap = await res.json();
+  }
+}
+
+// Approximate population (millions) by country code, for sorting accents
+const countryPopulation = {
+    "CN": 1425, "IN": 1428, "US": 335, "ID": 277, "PK": 230, "NG": 224, "BR": 216,
+    "BD": 173, "RU": 144, "MX": 128, "ET": 126, "JP": 125, "PH": 117, "EG": 105,
+    "VN": 99, "IR": 87, "TR": 85, "DE": 84, "TH": 72, "GB": 67, "TZ": 65,
+    "ZA": 60, "IT": 59, "MM": 54, "KE": 55, "KR": 52, "CO": 52, "ES": 48,
+    "AR": 46, "DZ": 45, "IQ": 44, "AF": 42, "CA": 40, "PL": 38, "SA": 37,
+    "UA": 37, "MA": 37, "UZ": 36, "MY": 34, "GH": 34, "PE": 34, "NP": 30,
+    "VE": 29, "AU": 26, "TW": 24, "LK": 22, "RO": 19, "CL": 19, "KZ": 19,
+    "NL": 18, "EC": 18, "GT": 18, "SO": 18, "KH": 17, "BE": 12, "TN": 12,
+    "BO": 12, "CZ": 11, "DO": 11, "JO": 11, "GR": 10, "PT": 10, "AZ": 10,
+    "SE": 10, "HU": 10, "AE": 10, "HN": 10, "IL": 10, "AT": 9, "CH": 9,
+    "LA": 8, "RS": 7, "BG": 7, "HK": 7, "PY": 7, "NI": 7, "SG": 6, "DK": 6,
+    "FI": 6, "SV": 6, "NO": 5, "CR": 5, "IE": 5, "NZ": 5, "SK": 5, "OM": 5,
+    "PS": 5, "LB": 5, "KW": 4, "PA": 4, "GE": 4, "HR": 4, "UY": 4,
+    "BA": 3, "AM": 3, "LT": 3, "PR": 3, "QA": 3, "AL": 3, "MN": 3,
+    "LV": 2, "SI": 2, "MK": 2, "BH": 2, "EE": 1, "MT": 1, "IS": 1
+};
+
+// Called by parent (App.js) when pinnedVoices changes externally
+function refreshPinnedVoices() {
+    state.pinned = new Set(JSON.parse(localStorage.getItem("pinnedVoices") || "[]"));
+    if (voicesLoaded) applyFiltersAndRender();
+}
+
+let voicesLoaded = false;
+let accentFromUrl = false;
+function getCurrentLocale() {
+    if (!state.language || !state.accent) return "";
+    return `${state.language}-${state.accent}`;
+}
+function parseLocaleName(localeName) {
+    if (!localeName) return { language: "", accent: "" };
+
+    const match = localeName.match(/^(.+?)\s*\((.+?)\)$/);
+
+    if (!match) {
+        return { language: localeName, accent: "" };
+    }
+
+    return {
+        language: match[1], // English
+        accent: match[2]    // United States
+    };
+}
+
+function isNativeVoice(voice, selectedLocale) {
+    return voice.Locale === selectedLocale;
+}
+
+function resolveAccentForLanguage(language) {
+    if (accentFromUrl) return;
+
+    if (language === "en") {
+        state.accent = localStorage.getItem("accent_en") || "US";
+        return;
+    }
+
+    const savedAccent = localStorage.getItem(`accent_${language}`);
+    if (savedAccent) {
+        state.accent = savedAccent;
+        return;
+    }
+
+    const voice = state.allVoices.find(v =>
+        typeof v.Locale === "string" &&
+        v.Locale.startsWith(language + "-")
+    );
+
+    if (voice) {
+        state.accent = voice.Locale.split("-")[1];
+    }
+}
+
+function updateUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    params.set("locale", getCurrentLocale());
+    params.set("rate", state.speed);
+
+    history.replaceState(null, "", "?" + params.toString());
+}
 
 async function loadVoices() {
     const res = await fetch("voiceGalleryModal/azure_voices_list_20251225.json", { cache: "no-store" });
@@ -21,51 +116,201 @@ async function loadVoices() {
 
     // Build language dropdown from the data
     populateLanguageSelect(voices);
-
+    resolveAccentForLanguage(state.language);
+    populateAccentSelect();
     // Initial render
     applyFiltersAndRender();
+    voicesLoaded = true;
 }
 
 function populateLanguageSelect(voices) {
     const select = document.getElementById("languageSelect");
     if (!select) return;
 
-    // Build unique list by Locale (more precise) with label LocaleName
-    const map = new Map(); // key: Locale, value: LocaleName
+    const map = new Map();
+
     for (const v of voices) {
-        if (!v.Locale) continue;
-        if (!map.has(v.Locale)) map.set(v.Locale, v.LocaleName || v.Locale);
+        if (!v.Locale || !v.LocaleName) continue;
+
+        const [langCode] = v.Locale.split("-");
+        const { language: label } = parseLocaleName(v.LocaleName);
+
+        if (!map.has(langCode)) {
+            map.set(langCode, label);
+        }
     }
 
-    // Sort options by displayed name
-    const options = Array.from(map.entries())
-        .sort((a, b) => a[1].localeCompare(b[1]));
+    select.innerHTML = [...map.entries()]
+        .sort((a, b) => a[1].localeCompare(b[1]))
+        .map(([code, label]) =>
+            `<option value="${escapeHtml(code)}">${escapeHtml(label)}</option>`
+        )
+        .join("");
 
-    // Reset and insert options
-    select.innerHTML = `<option value="">All languages</option>` +
-        options.map(([locale, label]) => `<option value="${escapeHtml(locale)}">${escapeHtml(label)}</option>`).join("");
+    if (!map.has(state.language)) {
+        state.language = map.keys().next().value || "";
+    }
 
-    select.onchange = (e) => {
-        console.log("languageSelect changed ✅", e.target.value);
+    select.value = state.language;
+
+    select.onchange = e => {
         state.language = e.target.value;
+        state.accent = state.language === "en" ? "US" : "";
+        populateAccentSelect();
         applyFiltersAndRender();
+        updateUrlParams();
+        notifyParentLocaleChange();
+    };
+}
+function populateAccentSelect() {
+    const select = document.getElementById("accentSelect");
+    if (!select) return;
+
+    const accents = [];
+    const seen = new Set();
+
+    state.allVoices.forEach(v => {
+        if (!v.Locale) return;
+
+        const [lang, accentCode] = v.Locale.split("-");
+        if (lang !== state.language) return;
+        if (seen.has(accentCode)) return;
+
+        let label = accentCode;
+
+        // Extract accent name from LocaleName: text inside parentheses
+        if (v.LocaleName) {
+            const match = v.LocaleName.match(/\(([^)]+)\)/);
+            if (match) {
+                label = match[1]; // e.g. "Germany"
+            }
+        }
+
+        seen.add(accentCode);
+        accents.push({ code: accentCode, label });
+    });
+
+    // Priority overrides for specific accents
+    const accentPriority = {
+        "en-US": 9999, "en-GB": 9998,
+        "es-ES": 9999, "es-MX": 9998,
+        "pt-BR": 9999, "pt-PT": 9998
+    };
+    const getScore = (code) => {
+        const fullLocale = state.language + "-" + code;
+        if (accentPriority[fullLocale] !== undefined) return accentPriority[fullLocale];
+        return countryPopulation[code] || 0;
     };
 
+    // Sort accents by priority/population descending
+    accents.sort((a, b) => getScore(b.code) - getScore(a.code));
+
+    // Default accent logic (skip if accent was provided via URL param)
+    if (accentFromUrl) {
+        accentFromUrl = false;
+    } else if (state.language === "en") {
+        state.accent = "US";
+    } else if (!state.accent && accents.length) {
+        state.accent = accents[0].code;
+    }
+
+    select.innerHTML = accents
+        .map(a =>
+            `<option value="${escapeHtml(a.code)}">${escapeHtml(a.label)}</option>`
+        )
+        .join("");
+
+    select.value = state.accent;
+    select.onchange = e => onAccentChange(e.target.value);
+}
+
+function onAccentChange(newAccent) {
+    state.accent = newAccent;
+
+    // Persist user choice per language
+    localStorage.setItem(
+        `accent_${state.language}`,
+        newAccent
+    );
+
+    applyFiltersAndRender();
+    updateUrlParams();
+    notifyParentLocaleChange();
+}
+
+function notifyParentLocaleChange() {
+    const locale = getCurrentLocale();
+    if (!locale) return;
+    try { window.parent?.appMethods?.handleLanguageChange?.({ currentTarget: { value: locale } }); } catch(e) {}
+}
+
+let currentTestingVoiceId = null;
+
+function handleTestVoiceClick(btn) {
+    const card = btn.closest('.voice-card');
+    const voiceId = card.getAttribute('data-voice-id');
+    const fullUri = 'azure.' + voiceId;
+
+    // If same voice is already playing, stop it
+    if (currentTestingVoiceId === voiceId && card.classList.contains('isPlaying')) {
+        card.classList.remove('isPlaying');
+        currentTestingVoiceId = null;
+        try { window.parent?.appMethods?.stopAnyTestOrOtherPlay?.(); } catch(e) {}
+        return;
+    }
+
+    // Clear previous isPlaying from all cards
+    document.querySelectorAll('.voice-card.isPlaying').forEach(el => el.classList.remove('isPlaying'));
+
+    // Set attributes needed by parent's testVoice
+    card.setAttribute('data-ws-voiceuri', fullUri);
+    card.setAttribute('data-ws-voiceURI', fullUri);
+    card.dataset.wsVoiceuri = fullUri;
+    card.setAttribute('data-ws-audio-src', 'server');
+
+    // Mark this card as playing
+    card.classList.add('isPlaying');
+    currentTestingVoiceId = voiceId;
+
+    // Call parent testVoice
+    try {
+        if (window.parent?.appMethods?.testVoice) {
+            window.parent.appMethods.testVoice(card, fullUri);
+        }
+    } catch(e) {}
+
+    window.parent.postMessage({
+        type: 'TEST_VOICE',
+        voiceURI: fullUri,
+        locale: getCurrentLocale(),
+        rate: state.speed
+    }, '*');
+}
+
+// Called by parent when test audio finishes
+function clearTestingState() {
+    document.querySelectorAll('.voice-card.isPlaying').forEach(el => el.classList.remove('isPlaying'));
+    currentTestingVoiceId = null;
 }
 
 function applyFiltersAndRender() {
+    console.log("language:", state.language);
+    console.log("voices total:", state.allVoices.length);
+    const selectedLocale = `${state.language}-${state.accent}`;
+
     let filtered = state.allVoices;
     filtered = filtered.filter(v => v.VoiceType === "Neural");
 
-    // Language filter: match primary Locale OR SecondaryLocaleList
-    if (state.language) {
-        filtered = filtered.filter(v => {
-            const primaryMatch = v.Locale === state.language;
-            const secondary = Array.isArray(v.SecondaryLocaleList) ? v.SecondaryLocaleList : [];
-            const secondaryMatch = secondary.includes(state.language);
-            return primaryMatch || secondaryMatch;
-        });
+filtered = filtered.filter(v => {
+    if (v.Locale === selectedLocale) return true;
+
+    if (Array.isArray(v.SecondaryLocaleList)) {
+        return v.SecondaryLocaleList.includes(selectedLocale);
     }
+
+    return false;
+});
+
 
     // Gender filter
     if (state.gender) {
@@ -93,6 +338,23 @@ function applyFiltersAndRender() {
         filtered = [...filtered].sort((a, b) =>
             (b.DisplayName || "").localeCompare(a.DisplayName || "", undefined, { sensitivity: "base" })
         );
+    } else if (state.sort === "recommended") {
+        const selectedLocale = `${state.language}-${state.accent}`;
+
+        filtered = [...filtered].sort((a, b) => {
+            const aIsNative = isNativeVoice(a, selectedLocale);
+            const bIsNative = isNativeVoice(b, selectedLocale);
+            // Native before Multilingual
+            if (aIsNative !== bIsNative) {
+                return aIsNative ? -1 : 1;
+            }
+
+            // Popularity (high → low)
+            const aPopularity = popularityMap[a.ShortName] || 0;
+            const bPopularity = popularityMap[b.ShortName] || 0;
+
+            return bPopularity - aPopularity;
+        });
     }
     //pinned only filter
     if (state.pinnedOnly) {
@@ -112,6 +374,8 @@ function applyFiltersAndRender() {
                 : mainLanguage;
     }
     renderVoices(filtered);
+    console.log("voices after filter:", filtered.length);
+
 }
 
 function renderVoices(voices) {
@@ -135,7 +399,7 @@ function renderVoices(voices) {
         const { c1, c2 } = stringToGradient(v.ShortName || name);
         const primaryLabel = v.LocaleName || v.Locale || "";
         const secondary = Array.isArray(v.SecondaryLocaleList) ? v.SecondaryLocaleList : [];
-        const extra = secondary.filter(l => l && l !== v.Locale).length; // כמה נוספים מעבר ל-primary
+        const extra = secondary.filter(l => l && l !== v.Locale).length; 
         const pillText = extra > 0 ? `${primaryLabel} +${extra}` : primaryLabel;
         const scenarios = v.VoiceTag?.TailoredScenarios ?? [];
         const personalities = v.VoiceTag?.VoicePersonalities ?? [];
@@ -170,48 +434,42 @@ function renderVoices(voices) {
             />
             </svg>
             </button>
-            <button id="testBtn" class="sidebar-voice-btn" title="Test voice"
-                onclick="
-                        event.stopPropagation();
-                        const card = this.closest('.voice-card');
-                        const voiceId = card.getAttribute('data-voice-id'); 
-                        const fullUri = 'azure.' + voiceId;
-                        card.setAttribute('data-ws-voiceuri', fullUri);
-                        card.setAttribute('data-ws-voiceURI', fullUri);
-                        card.dataset.wsVoiceuri = fullUri;
-                        card.setAttribute('data-ws-audio-src', 'server'); 
-                        if (window.parent && window.parent.appMethods) {
-                            if (typeof window.parent.appMethods.testVoice === 'function') {
-                                window.parent.appMethods.testVoice(card, fullUri);
-                            }
-                        }
-                    "
+            <button id="testBtn" class="sidebar-voice-btn voice-test-btn" title="Test voice"
+                onclick="event.stopPropagation(); handleTestVoiceClick(this);"
                 aria-label="Test voice">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="voice-test-play" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polygon points="5,3 19,12 5,21" />
                             </svg>
+                            <svg class="voice-test-stop" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                <rect x="4" y="4" width="16" height="16" rx="2" />
+                            </svg>
             </button>
-            <button
-            class="sidebar-voice-btn"
-            title="Copy voice settings"
-            aria-label="Copy voice settings"
-            data-ws-voiceURI=${escapeHtml(id)}
-            onclick="window.parent.appMethods.copyVoice(this); event.stopPropagation();">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                style="pointer-events:none">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-            </svg>
-            </button>
+            ${showCopyButton ? `
+                <button
+                class="sidebar-voice-btn"
+                title="Copy voice settings"
+                aria-label="Copy voice settings"
+                data-ws-voiceURI=${escapeHtml(id)}
+                onclick="window.parent.appMethods.copyVoice(this); event.stopPropagation();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="pointer-events:none">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                </button>
+            ` : ""}
+
     </div>
     </header>
             <div class="tags-container">
 
+            ${showLanguage ? `
             <div class="tags-row">
                 <span class="tag tag-voice">${escapeHtml(pillText)}</span>
             </div>
+            ` : ""}
 
             ${scenarios.length ? `
                 <div class="tags-row">
@@ -242,19 +500,19 @@ function renderVoices(voices) {
 
 
 function getLanguageBadgeData(voices) {
-    const localesMap = new Map();
+    const accents = new Set();
 
     voices.forEach(v => {
-        if (!localesMap.has(v.Locale)) {
-            localesMap.set(v.Locale, v.LocaleName || v.Locale);
-        }
+        if (!v.Locale) return;
+        const [, accent] = v.Locale.split("-");
+        if (accent) accents.add(accent);
     });
 
-    const locales = Array.from(localesMap.values());
+    const accentsArr = Array.from(accents);
 
     return {
-        mainLanguage: locales[0],
-        extraCount: Math.max(0, locales.length - 1)
+        mainLanguage: state.language.toUpperCase(),
+        extraCount: Math.max(0, accentsArr.length - 1)
     };
 }
 
@@ -299,7 +557,105 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.classList.remove('theme-light', 'theme-dark');
     document.body.classList.add(`theme-${theme}`);
+    // Show copy button param
+    const showCopyParam = params.get("showCopy");
+    showCopyButton = showCopyParam !== "false";
+if (!localStorage.getItem("language") && !params.get("locale")) {
+    state.language = "en";
+    state.accent = "US";
+}
 
+// localStorage overrides
+const savedLanguage = localStorage.getItem("language");
+if (savedLanguage) {
+    state.language = savedLanguage;
+}
+
+const savedRate = parseFloat(localStorage.getItem("rate"));
+if (!isNaN(savedRate)) {
+    state.speed = savedRate;
+}
+
+// URL params override everything
+const localeFromUrl = params.get("locale");
+if (localeFromUrl) {
+    if (localeFromUrl.includes("-")) {
+        const [lang, accent] = localeFromUrl.split("-");
+        state.language = lang;
+        state.accent = accent;
+        accentFromUrl = true;
+    } else {
+        state.language = localeFromUrl;
+    }
+}
+
+const rateFromUrl = parseFloat(params.get("rate"));
+if (!isNaN(rateFromUrl)) {
+    state.speed = rateFromUrl;
+}
+
+const voiceFromUrl = params.get("voice");
+if (voiceFromUrl) {
+    state.selectedVoiceId = voiceFromUrl;
+}
+// Load popularity FIRST, then voices
+loadPopularity()
+    .then(() => {
+        console.log("Popularity loaded:", popularityMap);
+        return loadVoices();
+    })
+    .then(() => {
+        const sortSelect = document.getElementById("sortSelect");
+        state.sort = sortSelect?.value || "rec";
+
+        applyFiltersAndRender();
+        // Update speed UI AFTER voices & DOM are ready
+        const speedValueEl = document.getElementById("speedValue");
+        if (speedValueEl) {
+            speedValueEl.textContent = state.speed.toFixed(1);
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        const grid = document.getElementById("voicesGrid");
+        if (grid) grid.textContent = "Failed to load voices.";
+    });
+
+
+const speedMinus = document.getElementById("speedMinus");
+const speedPlus = document.getElementById("speedPlus");
+const speedValue = document.getElementById("speedValue");
+
+function updateSpeedUI() {
+    const el = document.getElementById("speedValue");
+    if (el && Number.isFinite(state.speed)) {
+        el.textContent = state.speed.toFixed(1);
+    }
+}
+
+
+if (speedMinus && speedPlus && speedValue) {
+
+    updateSpeedUI(); // initial render
+
+    speedMinus.addEventListener("click", () => {
+        state.speed = Math.max(0.5, state.speed - 0.1);
+        state.speed = Number(state.speed.toFixed(1));
+        localStorage.setItem("rate", state.speed);
+        updateSpeedUI();
+        updateUrlParams();
+        try { window.parent?.appMethods?.setRateDirectly?.(state.speed); } catch(e) {}
+    });
+
+    speedPlus.addEventListener("click", () => {
+        state.speed = Math.min(2.0, state.speed + 0.1);
+        state.speed = Number(state.speed.toFixed(1));
+        localStorage.setItem("rate", state.speed);
+        updateSpeedUI();
+        updateUrlParams();
+        try { window.parent?.appMethods?.setRateDirectly?.(state.speed); } catch(e) {}
+    });
+}
 
     // Search listener
     const searchInput = document.getElementById("searchInput");
@@ -329,7 +685,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ✅ pinnedOnly checkbox listener
+    // pinnedOnly checkbox listener
     const pinnedOnlyEl = document.getElementById("pinnedOnly");
     if (pinnedOnlyEl) {
         pinnedOnlyEl.addEventListener("change", (e) => {
@@ -361,6 +717,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     "pinnedVoices",
                     JSON.stringify([...state.pinned])
                 );
+
+                // Notify parent to update sidebar pin state
+                try {
+                    if (state.pinned.has(id)) {
+                        window.parent?.appMethods?.pinVoice?.(id);
+                    } else {
+                        window.parent?.appMethods?.unpinVoice?.(null, id);
+                    }
+                } catch(e) {}
 
                 applyFiltersAndRender();
                 return;
@@ -425,6 +790,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Direct update of engine and player label
                 console.log("Setting voice URI directly via parent method:", voiceURI);
                 parentMethods.setVoiceUriDirectly(voiceURI);
+                window.parent.postMessage(
+                    {
+                        type: "VOICE_SETTINGS",
+                        voiceURI,
+                        rate: state.speed,
+                        locale: getCurrentLocale()
+                    },
+                    "*"
+                );
+
 
             // Close modal via app method
                 if (typeof window.parent.closeVoiceGalleryModal === "function") {
@@ -438,13 +813,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    // --- Initialize ---
-    loadVoices().catch(err => {
-        console.error(err);
-        const grid = document.getElementById("voicesGrid");
-        if (grid) grid.textContent = "Failed to load voices. Check Console.";
-    });
 });
 
 // --- UI Helpers ---
@@ -452,3 +820,21 @@ function pulseButton(btn, ms = 350) {
     btn.classList.add("is-active");
     setTimeout(() => btn.classList.remove("is-active"), ms);
 }
+
+const scrollBtn = document.getElementById('scrollTopBtn');
+const scrollArea = document.querySelector('.scroll-area');
+
+scrollArea.addEventListener('scroll', () => {
+  if (scrollArea.scrollTop > 200) {
+    scrollBtn.classList.add('is-visible');
+  } else {
+    scrollBtn.classList.remove('is-visible');
+  }
+});
+
+scrollBtn.addEventListener('click', () => {
+  scrollArea.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});

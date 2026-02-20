@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-01-19T16:03:59.861Z",
-      "version": "3.10.10",
+      "dateModified": "2026-02-19T15:32:52.476Z",
+      "version": "3.11.03",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -51,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.10.10 - TTSReader का टेक्स्ट टू स्पीच प्लेयर</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.11.03 - TTSReader का टेक्स्ट टू स्पीच प्लेयर</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -868,6 +868,7 @@
       top: -2px;
     }
   </style>
+  <link rel="stylesheet" href="static/css/pronounciation.css">
 
   <template id="sign-in-buttons-template">
     <div class="sign-in-container">
@@ -904,7 +905,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.43919c59.js"></script><link href="./static/css/main.2a0d9aa1.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.d643700b.js"></script><link href="./static/css/main.fb2a0aa7.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -1034,7 +1035,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.10.10</b> Build 2026-01-19T16:03:59.861Z
+          <b>V3.11.03</b> Build 2026-02-19T15:32:52.476Z
           <br/><span style="margin-top: 10px;display: block">सभी संस्करण <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -1282,6 +1283,21 @@
                 BlinkBlot.className = 'Blink';
                 Quill.register(BlinkBlot);
 
+                // Define pronunciation highlight blot
+                class PronunciationHighlightBlot extends Inline {
+                  static create(value) {
+                    return super.create();
+                  }
+                  static formats(node) {
+                    return true;
+                  }
+                }
+                PronunciationHighlightBlot.blotName = 'pronunciation-highlight';
+                PronunciationHighlightBlot.tagName = 'span';
+                PronunciationHighlightBlot.className = 'pronunciation-highlight';
+                Quill.register(PronunciationHighlightBlot);
+
+
                 const quill = new Quill('#editor', {
                   modules: {
                     toolbar: [
@@ -1294,6 +1310,7 @@
                     'highlight',
                     'background',
                     'blink',        // Custom blink format
+                    'pronunciation-highlight', // Custom pronunciation highlight format
                     'link',
                     'header',      // h1, h2, ...
                     'bold',        // <strong>
@@ -1379,25 +1396,25 @@
               <!--<div class="Text-box" contentEditable="plaintext-only" data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="इस बॉक्स में टेक्स्ट टाइप या पेस्ट करें, प्ले बटन पर क्लिक करें, और मैं इसे आपके लिए ज़ोर से पढ़ूंगा। वेबपेज पढ़ने के लिए - बस इसका URL पेस्ट करें और प्ले पर क्लिक करें। आप फ़ाइलें अपलोड कर सकते हैं, आवाज़ें बदल सकते हैं, थीम, फ़ॉन्ट आकार और अधिक भी कर सकते हैं।" placeholder2="यह प्लेयर सक्रिय विकास में है, हम इसे हर दिन बेहतर बनाने के लिए काम कर रहे हैं। ❤️ सुनने का आनंद लें! 🎧"></div>-->
             </div>
             <div class="Playback-buttons-bar" style="direction: ltr;">
-          <span>
-            <button data-ws-show-if-state="isRepeatMode=false" title="Loop" aria-label="Loop"                              data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
-            <button data-ws-show-if-state="isRepeatMode=true" title="Loop" aria-label="Loop" style="color: cornflowerblue" data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
-            <button class="Hide-on-narrow-screens" data-ws-show-if-state="isRecordingSupported=true" title="Go to beginning" aria-label="Go to beginning" data-ws-onClick="goToStart"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"></path></svg></button>
-            <button title="Jump backwards" aria-label="Jump backwards" data-ws-onClick="rewind"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6 8.5 6V6l-8.5 6z"></path></svg></button>
-            <span style="display: inline-block; width: 80px;"></span>
-            <button title="Jump forward" aria-label="Jump forward" data-ws-onClick="forward"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 18 8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path></svg></button>
-            <button class="Hide-on-narrow-screens" title="Toggle recording" aria-label="Toggle recording" data-ws-show-if-state="isRecordingSupported=true" data-ws-onClick="toggleRecord">
-              <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
-              <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
-            </button>
-            <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal">
-              <svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
-            </button>
-            <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
-              <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg></span>
-              <span data-ws-show-if-state="isPlayingOn=false"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
-            </button>
-          </span>
+              <span>
+                <button data-ws-show-if-state="isRepeatMode=false" title="Loop" aria-label="Loop"                              data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
+                <button data-ws-show-if-state="isRepeatMode=true" title="Loop" aria-label="Loop" style="color: cornflowerblue" data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
+                <button class="Hide-on-narrow-screens" data-ws-show-if-state="isRecordingSupported=true" title="Go to beginning" aria-label="Go to beginning" data-ws-onClick="goToStart"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"></path></svg></button>
+                <button title="Jump backwards" aria-label="Jump backwards" data-ws-onClick="rewind"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6 8.5 6V6l-8.5 6z"></path></svg></button>
+                <span style="display: inline-block; width: 80px;"></span>
+                <button title="Jump forward" aria-label="Jump forward" data-ws-onClick="forward"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 18 8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path></svg></button>
+                <button class="Hide-on-narrow-screens" title="Toggle recording" aria-label="Toggle recording" data-ws-show-if-state="isRecordingSupported=true" data-ws-onClick="toggleRecord">
+                  <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
+                  <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
+                </button>
+                <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal">
+                  <svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+                </button>
+                <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
+                  <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg></span>
+                  <span data-ws-show-if-state="isPlayingOn=false"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
+                </button>
+              </span>
             </div>
           </div>
 
@@ -1465,13 +1482,17 @@
       <div class="settings-sidebar-overlay" data-ws-onClick="closeSettingsSidebar"></div>
       <div class="settings-sidebar-content">
         <div class="settings-sidebar-header">
-          &nbsp;
+          <div class="settings-sidebar-tabs">
+            <button class="settings-sidebar-tab active" data-tab="playback" data-ws-onClick="switchSettingsTab">Playback</button>
+            <button class="settings-sidebar-tab" data-tab="pronunciation" data-ws-onClick="switchSettingsTab">Pronunciation</button>
+            <button class="settings-sidebar-tab" data-tab="prefs" data-ws-onClick="switchSettingsTab">Prefs</button>
+          </div>
           <button class="settings-sidebar-close-btn" data-ws-onClick="closeSettingsSidebar" aria-label="Close Settings">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" /><path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" /><path d="M3 3l18 18" /></svg>
           </button>
         </div>
 
-        <div class="settings-sidebar-body">
+        <div class="settings-sidebar-body" data-tab-content="playback">
           <!-- Header Overlays for Stacking -->
           <div class="settings-headers-top-overlay"></div>
           <div class="settings-headers-bottom-overlay"></div>
@@ -1507,6 +1528,12 @@
                         <!-- Language options will be populated here -->
                       </div>
                     </div>
+                  </div>
+
+                  <!-- Accent selector: native <select>, hidden when only one accent -->
+                  <div class="accent-selector-wrapper" id="accentSelectorWrapper" style="display:none">
+                    <label class="accent-label">Region / Accent</label>
+                    <select class="accent-select Flag-font" id="accentSelect" data-ws-onChange="onAccentSelected"></select>
                   </div>
                 </div>
               </div>
@@ -1585,6 +1612,147 @@
                 <div id="" class="">
                   <input id="azureVoiceInput" type="text" placeholder="Azure Voice Name..." style="width: 100%; margin-bottom: 8px;">
                   <button onclick="appMethods.setVoiceUriDirectly('azure.' + document.getElementById('azureVoiceInput').value)" style="width: 100%; background-color: #0a84ff; color: white; border: none; border-radius: 6px; padding: 10px 16px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 0.2s ease;">Use Azure Voice</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="settings-sidebar-body hidden" data-tab-content="pronunciation">
+          <div class="settings-headers-top-overlay"></div>
+          <div class="settings-headers-bottom-overlay"></div>
+          <div class="settings-sidebar-scrollable">
+            <div class="settings-section" data-title="Add New Pronunciation">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                  <path d="M12 5v14" />
+                  <path d="M5 12h14" />
+                </svg>
+                <span class="settings-section-title">Add New Pronunciation</span>
+                <!-- Info tooltip icon -->
+                <span class="info-tooltip" aria-label="Dictionary info">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </svg>
+
+      <span class="info-tooltip-text">
+        Dictionary saved to device, not synced to the cloud.
+      </span>
+    </span>
+              </div>
+              <div class="settings-control">
+                <div class="pronunciation-inputs">
+                  <input type="text" id="originalWord" placeholder="Find this in the text" class="pronunciation-input" />
+                  <div class="pronunciation-input-wrapper">
+                    <input type="text" id="pronunciationWord" placeholder="Read it as..." class="pronunciation-input" />
+                    <button class="pronunciation-test-btn" title="Test pronunciation" onclick="window.appMethods.pronounceTestVoice(document.getElementById('pronunciationWord').value)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5,3 19,12 5,21"></polygon>
+                      </svg>
+                    </button>
+                  </div>
+
+                  <button class="pronunciation-add-btn" onclick="addPronunciation()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pronunciation List Section -->
+            <div class="settings-section" data-title="Dictionary">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="settings-section-icon">
+                  <path d="M3 6h18" />
+                  <path d="M7 12h10" />
+                  <path d="M10 18h4" />
+                </svg>
+
+                <span class="settings-section-title">
+                  Dictionary (<span id="dictCount">0</span>)
+                </span>
+
+                <!-- Update Highlight Button -->
+                <button id="updateHighlightBtn" class="update-highlight-btn" title="Update Highlight">
+                  Find & Highlight
+                </button>
+              </div>
+
+              <div class="settings-control">
+                <input type="text" class="pronunciation-search" placeholder="Word filter..." />
+                <div id="pronunciationList" class="pronunciation-list">
+                  <!-- Pronunciation entries will be populated here -->
+                  <div class="pronunciation-empty">
+                    <p>No pronunciations defined yet.</p>
+                    <p>Add words above to build your dictionary.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Explanation Section -->
+            <div class="settings-section" data-title="How Pronunciation Works">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9h.01" /><path d="M11 12h1v4h1" /><path d="M12 3c7.2 0 9 1.8 9 9c0 7.2 -1.8 9 -9 9c-7.2 0 -9 -1.8 -9 -9c0 -7.2 1.8 -9 9 -9" /></svg>
+                <span class="settings-section-title">
+                  How Pronunciation Works
+                </span>
+              </div>
+
+              <div class="settings-control">
+                <div class="pronunciation-info-card">
+                <h4 class="pronunciation-info-title">Learn how the pronunciation dictionary works</h4>
+                <p class="pronunciation-info-badge"><i>** Experimental, use with caution</i></p>
+                <p class="pronunciation-info-desc">The pronunciation function replaces your <em>original terms in the text</em> with their respective <em>pronunciation (read as...) terms</em>, right before the text is sent to the speech synthesis engine. It follows these rules:</p>
+                <ul class="pronunciation-info-rules">
+                  <li>Finds <strong>whole words</strong> only</li>
+                  <li><strong>Case sensitive</strong> &mdash; 'Hi' ≠ 'hi'</li>
+                  <li><strong>Selective replacements</strong> &mdash; to replace only some appearances of a term simply use a different case for appearances that should be replaced</li>
+                  <li><strong>Test pronunciation</strong> with the small play button in the text-input field before adding</li>
+                  <li>The <strong>'Find & Highlight'</strong> button will mark the words found in the main text area</li>
+                  <li>Use the <strong>checkbox</strong> for each item in the dictionary to disable it but still keep it in the dictionary</li>
+                  <li>You can use <strong>phonetic</strong> forms for pronunciation, it doesn't have to be a real words - as long as it is read the way you need it to</li>
+                </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-sidebar-body hidden" data-tab-content="prefs">
+          <div class="settings-headers-top-overlay"></div>
+          <div class="settings-headers-bottom-overlay"></div>
+          <div class="settings-sidebar-scrollable">
+
+            <!-- Export Settings Section -->
+            <div class="settings-section" data-title="Export Settings">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                  <path d="M12 11v6" />
+                  <path d="M9.5 13.5l2.5 -2.5l2.5 2.5" />
+                </svg>
+                <span class="settings-section-title">Export Settings</span>
+              </div>
+              <div class="settings-control">
+                <div class="export-freq-control">
+                  <label class="export-freq-label">Export Sample Rate for Long-Form<sup>*</sup> Exports</label>
+                  <div class="export-freq-options">
+                    <button class="export-freq-btn" data-freq="24" data-ws-onClick="setExportFreq">24 kHz</button>
+                    <button class="export-freq-btn" data-freq="48" data-ws-onClick="setExportFreq">48 kHz</button>
+                  </div>
+                  <p class="export-freq-hint"><sup>*</sup> Short exports without setters are always exported at 48kHz. For long-form export the default is 24kHz, as it's the right choice for most users, that gives high quality audio with a reasonable file size. 48kHz increases the file size notably, but if you need it (for publishing or other needs) we will be happy to produce it for you.</p>
                 </div>
               </div>
             </div>
@@ -1683,6 +1851,10 @@
   <div id="newUpgradeModal" class="Sliding-In-Modal hidden" style="z-index: 9999999">
     <iframe allow="autoplay"></iframe>
   </div>
+
+  <span id="stateSelectedVoiceUri" data-ws-label-state="selectedVoiceUri" style="display:none"></span>
+  <span id="stateSelectedRate" data-ws-label-state="selectedRate" style="display:none"></span>
+  <span id="stateSelectedLanguageCode" data-ws-label-state="selectedLanguageCode" style="display:none"></span>
 
   <div id="voiceGalleryModal" class="Sliding-In-Modal hidden" style="z-index: 9999999">
       <iframe allow="autoplay"></iframe>
@@ -2035,9 +2207,17 @@
               </div>
             </div>
             <div class="sidebar-voice-actions">
-              <button class="sidebar-voice-btn" title="Test voice" onclick="window.appMethods.testVoice(this)" aria-label="Test voice">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <button class="sidebar-voice-btn voice-pin-btn" title="Unpin voice" onclick="window.appMethods.unpinVoice(this);event.stopPropagation();" aria-label="Unpin voice" style="display:none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2C12 2 9 6 9 9V13L7 15H11V22H13V15H17L15 13V9C15 6 12 2 12 2Z" />
+                </svg>
+              </button>
+              <button class="sidebar-voice-btn voice-test-btn" title="Test voice" onclick="window.appMethods.testVoice(this)" aria-label="Test voice">
+                <svg class="voice-test-play" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <polygon points="5,3 19,12 5,21" />
+                </svg>
+                <svg class="voice-test-stop" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                  <rect x="4" y="4" width="16" height="16" rx="2" />
                 </svg>
               </button>
               <button class="sidebar-voice-btn" title="Copy voice settings" onclick="window.appMethods.copyVoice(this);event.stopPropagation();" aria-label="Copy voice settings">
@@ -2265,9 +2445,20 @@
       <br/>
       <p style="text-space: 1.2">URL उदाहरण<!-- Examples of valid URLs: --></p>
       <div style="text-align: left; color: orangered; line-height: 1.3em; font-style: italic">
-        <p>https://en.wikipedia.org/wiki/The_Beatles</i></p>
-        <p>https://www.bbc.com/sport/football/articles/c97dllq4gg1o</p>
+        <p><a href="#" class="url-example-link" style="color: orangered" data-url="https://en.wikipedia.org/wiki/The_Beatles"><i>https://en.wikipedia.org/wiki/The_Beatles</i></a></p>
+        <p><a href="#" class="url-example-link" style="color: orangered" data-url="https://ttsreader.com/"><i>https://ttsreader.com/</i></a></p>
+        <p><a href="#" class="url-example-link" style="color: orangered" data-url="https://www.bbc.com/sport/football/articles/c97dllq4gg1o"><i>https://www.bbc.com/sport/football/articles/c97dllq4gg1o</i></a></p>
       </div>
+      <script>
+        document.querySelectorAll('.url-example-link').forEach(function(link) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var url = this.getAttribute('data-url');
+            document.getElementById('urlInput').value = url;
+            document.getElementById('urlSubmitButton').click();
+          });
+        });
+      </script>
     </div>
   </div>
 
@@ -4218,24 +4409,36 @@
 
   function openVoiceGalleryModal() {
     let modalEl = document.getElementById('voiceGalleryModal');
-    if (!modalEl) {
-      console.error("Modal element not found");
-      return;
-    }
-
+    if (!modalEl) { console.error("Modal element not found"); return; }
     let iframeEl = modalEl.querySelector('iframe');
-    if (!iframeEl) {
-      console.error("Iframe element not found in modal");
-      return;
-    }
+    if (!iframeEl) { console.error("Iframe element not found in modal"); return; }
+
     let lang = document.documentElement.getAttribute('lang') || 'en';
     let theme = document.documentElement.getAttribute('data-dark-mode') ? 'dark' : 'light';
+
+    // Read current TTS state from DomHooks-bound hidden elements
+    let storedVoiceUri = (document.getElementById('stateSelectedVoiceUri')?.textContent || '').trim();
+    let storedRate = (document.getElementById('stateSelectedRate')?.textContent || '').trim();
+    let selectedLang = (document.getElementById('stateSelectedLanguageCode')?.textContent || '').trim();
+
+    // Extract bare Azure voice ID (strip server/azure prefix)
+    let voiceId = '';
+    if (storedVoiceUri.startsWith('ttsreaderServer.azure.')) {
+      voiceId = storedVoiceUri.replace('ttsreaderServer.azure.', '');
+    } else if (storedVoiceUri.startsWith('azure.')) {
+      voiceId = storedVoiceUri.replace('azure.', '');
+    }
 
     iframeEl.onload = function () {
       modalEl.classList.remove("hidden");
       requestAnimationFrame(() => modalEl.classList.add("show"));
     };
+
     let src = `voiceGalleryModal.${lang}.html?theme=${theme}&lang=${lang}&onClose=closeVoiceGalleryModal`;
+    if (selectedLang) src += `&locale=${encodeURIComponent(selectedLang)}`;
+    if (storedRate) src += `&rate=${encodeURIComponent(storedRate)}`;
+    if (voiceId) src += `&voice=${encodeURIComponent(voiceId)}`;
+
     if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
       let obj = {iframe: iframeEl.src, src};
       console.log("src!==src: ", obj);
@@ -4285,6 +4488,38 @@
 
 </script>
 
+<!-- Pronunciation Edit Widget -->
+<div id="pronunciationEditWidget" class="pronunciation-edit-widget" style="display: none;">
+  <div class="pronunciation-edit-widget-overlay" onclick="closePronunciationEditWidget()"></div>
+  <div class="pronunciation-edit-widget-content">
+    <div class="pronunciation-edit-widget-header">
+      <h3>Edit Pronunciation</h3>
+      <button class="pronunciation-edit-widget-close" onclick="closePronunciationEditWidget()" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18"></path>
+          <path d="M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="pronunciation-edit-widget-body">
+      <div class="pronunciation-edit-inputs">
+        <input type="text" id="editOriginalWord" placeholder="Original word" class="pronunciation-input" />
+        <div class="pronunciation-input-wrapper">
+          <input type="text" id="editPronunciationWord" placeholder="Pronunciation" class="pronunciation-input" />
+          <button class="pronunciation-test-btn" title="Test pronunciation" onclick="window.appMethods.pronounceTestVoice(document.getElementById('editPronunciationWord').value)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5,3 19,12 5,21"></polygon>
+            </svg>
+          </button>
+        </div>
+        <div class="pronunciation-edit-actions">
+          <button class="pronunciation-cancel-btn" onclick="closePronunciationEditWidget()">Cancel</button>
+          <button class="pronunciation-save-btn" onclick="savePronunciationEdit()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- JS STRINGS -->
 <div id="JS_STRINGS" style="display: none">
@@ -4313,12 +4548,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       const findReplaceWidget = new FindReplaceWidget();
 
-      document.addEventListener('keydown', (e) => {
+      /*document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
           e.preventDefault();
           findReplaceWidget.show();
         }
-      });
+      });*/
 
       const frIcon = document.getElementById('fr-icon');
       if (frIcon) {
@@ -4333,6 +4568,10 @@
       document.head.appendChild(el);*/
     });
   </script>
+
+  <script src="static/js/pronounciation.js"></script>
+
+
 </body>
 </html>
 

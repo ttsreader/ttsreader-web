@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.2a0d9aa1.css",
-    "main.js": "./static/js/main.43919c59.js",
+    "main.css": "./static/css/main.fb2a0aa7.css",
+    "main.js": "./static/js/main.d643700b.js",
     "static/js/857.bf56afd1.chunk.js": "./static/js/857.bf56afd1.chunk.js",
     "hi.html": "./hi.html",
     "ru.html": "./ru.html",
@@ -64,12 +64,12 @@
     "voiceGalleryModal.ro.html": "./voiceGalleryModal.ro.html",
     "voiceGalleryModal.ru.html": "./voiceGalleryModal.ru.html",
     "voiceGalleryModal.zh.html": "./voiceGalleryModal.zh.html",
-    "main.2a0d9aa1.css.map": "./static/css/main.2a0d9aa1.css.map",
-    "main.43919c59.js.map": "./static/js/main.43919c59.js.map",
+    "main.fb2a0aa7.css.map": "./static/css/main.fb2a0aa7.css.map",
+    "main.d643700b.js.map": "./static/js/main.d643700b.js.map",
     "857.bf56afd1.chunk.js.map": "./static/js/857.bf56afd1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2a0d9aa1.css",
-    "static/js/main.43919c59.js"
+    "static/css/main.fb2a0aa7.css",
+    "static/js/main.d643700b.js"
   ]
 }

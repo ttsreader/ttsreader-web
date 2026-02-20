@@ -1,50 +1,66 @@
 ---
-title: "Teach Once, Pronounce Forever: The Pronunciation Dictionary Story"
-description: "How we built a 'memory' for the TTS engine, allowing you to permanently teach it how to pronounce unique names, brands, and jargon."
-excerpt: "It's frustrating to fix the same pronunciation error every time. This is the story of the Pronunciation Dictionary, our solution for creating a persistent, custom language model for your account."
-date: 2026-01-08T11:20:00+02:00
-lastmod: 2026-01-11T10:20:00+02:00
-draft: true
+title: "TTSReader Pronunciation Dictionary: Custom Pronunciation Control for Text-to-Speech"
+description: "TTSReader's Pronunciation Dictionary enables precise, user-defined pronunciation overrides for names, acronyms, and domain-specific terms — available now at ttsreader.com/player/."
+excerpt: "TTSReader introduces the Pronunciation Dictionary — a feature that gives users full control over how specific words are spoken, without modifying the original text. Define replacements once, and TTSReader applies them automatically at synthesis time."
+date: 2026-02-17T10:00:00+02:00
+lastmod: 2026-02-17T10:00:00+02:00
+draft: false
 weight: 50
 images: []
-categories: ["Features", "Story"]
-tags: ["pronunciation", "dictionary", "customization", "workflow", "accuracy"]
-contributors: ["Amiel"]
+categories: ["Features"]
+tags: ["pronunciation", "dictionary", "text-to-speech", "customization", "accessibility", "ttsreader"]
+contributors: ["TTSReader"]
 pinned: false
 homepage: false
 ---
 
-*By Amiel | Jan 11, 2026*
 
-![An icon of a book with a speech bubble, representing a pronunciation dictionary.](img.webp)
 
-There's a specific kind of frustration that comes from hearing a computer mispronounce a word you use every day. It could be your company's name, a technical acronym, or your own last name.
+![TTSReader's Pronunciation Dictionary — defining custom pronunciations in the player settings.](img.webp)
 
-This led us to develop the **Pronunciation Dictionary**: a tool that lets you teach our engine how to speak *your* language, and have it remember forever.
+## The Problem
 
-### The Goal: A Smarter, More Personal Engine
+Text-to-speech engines may mispronounce proper nouns, brand names, acronyms, foreign-language terms, and industry-specific jargon. They may also read something correctly - but not EXACTLY how you want it. So - we developed a simple tool for our users to define custom word-to-pronunciation mappings, so the generated speech sounds PRECISELY as they want it.
 
-The idea was to move from temporary fixes to permanent solutions. You shouldn't have to tell the engine how to pronounce "TTSReader" every time you write about it. You should be able to instruct it once and trust that it will be applied from then on.
+## The Solution - TTSReader's Pronunciation Dictionary
 
-This meant building a persistent, browser level 'memory' for the TTS engine.
+[TTSReader](https://ttsreader.com/player/) now includes a **Pronunciation Dictionary** — a built-in feature that lets users define custom word-to-pronunciation mappings. Each entry specifies an original term and its desired spoken form. At synthesis time, TTSReader performs the replacements automatically, leaving the original text completely intact.
 
-### How It Works: Your Personal Language Layer
+This is a capability that most competing TTS platforms do not offer at the user level. TTSReader puts pronunciation control directly in the hands of the end user — no API calls, no SSML markup, no workarounds.
 
-The Pronunciation Dictionary is a powerful, server-side feature that modifies the TTS process itself.
+**Try it now at [ttsreader.com/player/](https://ttsreader.com/player/)**
 
-1.  **A Rule-Based System:** At its core, the dictionary is a simple key-value store saved to your user profile. The 'key' is the word as it's written (e.g., "gnocchi"), and the 'value' is a phonetic or simplified spelling that the engine can pronounce correctly (e.g., "nyoh-kee").
-2.  **Server-Side Pre-processing:** When you ask TTSReader to synthesize text, our backend doesn't immediately send it to the neural TTS engine. First, it scans the text and compares it against your personal dictionary.
-3.  **Applying the Rules:** If any of your keys are found, they are replaced with your custom values. This corrected text is then sent to the synthesis engine.
+## Key Capabilities
 
-It's a permanent upgrade to your personal TTS experience.
+- **Whole-word matching** — replacing `read` will not affect `reading` or `already`. Replacements are precise and predictable.
+- **Case-sensitive matching** — `Hi` and `hi` are distinct entries, enabling selective replacement of specific word forms within the same text.
+- **Inline audio preview** — test how a replacement sounds using the built-in play button before committing the entry to your dictionary.
+- **Find & Highlight** — visually identify all matching words in the main text area before synthesis, so you can verify coverage.
+- **Per-entry toggle** — enable or disable individual dictionary entries via checkbox without deleting them, allowing rapid iteration.
+- **Phonetic input support** — the replacement term does not need to be a real word. Any string that produces the correct spoken output is valid (e.g., `Zhuh-NEHV` for "Geneve").
 
-### Real-World Scenarios: Consistency and Respect
+## Use Cases
 
-This feature is a game-changer for professionals and individuals who value accuracy.
+**Content Production** — Publishers and content creators working with branded terminology can define pronunciations once and apply them across all future documents. A single dictionary entry for a brand name like `Kaelo` (read as `Kai-lo`) eliminates mispronunciation across every text processed in TTSReader.
 
-*   **The Corporation and Brand Identity:** A company's marketing team adds their company name ("AcmeCorp"), product names ("Chrono-Widget"), and CEO's name ("Siobhan Smith") to the dictionary. Now, every audio file they generate—from global ad campaigns to internal training videos—has perfect, consistent, on-brand pronunciation. It's a matter of professionalism.
-*   **The Medical Professional and Precision:** A doctor who creates audio summaries for patients uses the dictionary to add complex drug names and medical terminology. This ensures the information their patients hear is always clear and accurate, which is critical for safety and understanding.
-*   **The User with a Unique Name:** For someone whose name is constantly mispronounced by automated systems, this feature is about respect. They can teach the engine how to say their name correctly once. From then on, the audio they create feels truly personal and customized.
+**Education & Research** — Academic content contains specialized vocabulary that standard TTS engines routinely mispronounce. Educators can pre-configure correct pronunciations for scientific terms, historical names, and foreign-language references, ensuring audio materials are accurate and reliable.
 
-The Pronunciation Dictionary transforms our engine from a generic tool into your personal narrator, one that learns from you and speaks your language.
+**Enterprise & Business** — Corporate documents reference internal project names, partner organizations, and industry acronyms. The Pronunciation Dictionary ensures that generated audio for reports, presentations, and internal communications sounds professional and correct.
 
+**Multilingual Documents** — Text that mixes languages presents a well-known challenge for TTS. Foreign names and terms embedded in English text are nearly always mispronounced. The dictionary allows users to specify phonetic approximations that guide the engine to the correct output.
+
+**Accessibility** — For users who depend on TTS for daily information consumption, mispronounced words are not merely an annoyance — they obscure meaning. Consistent, correct pronunciation directly improves comprehension and usability.
+
+## How to Use It
+
+1. Open [TTSReader Player](https://ttsreader.com/player/) and navigate to **Settings**.
+2. Locate the **Pronunciation Dictionary** section.
+3. Enter the original term and the desired pronunciation ("read as") value.
+4. Use the **play button** to preview the result.
+5. Save the entry. TTSReader will apply it automatically on every subsequent synthesis.
+
+The dictionary persists across sessions. Entries can be toggled on or off individually, edited, or removed at any time.
+
+## Availability
+
+The Pronunciation Dictionary is available now in [TTSReader Player](https://ttsreader.com/player/). As always — feedback and suggestions are welcome as we continue to refine it.

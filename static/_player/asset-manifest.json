@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "./static/css/main.2a0d9aa1.css",
-    "main.js": "./static/js/main.a34f52d0.js",
-    "static/js/857.ac014671.chunk.js": "./static/js/857.ac014671.chunk.js",
+    "main.css": "./static/css/main.85267b15.css",
+    "main.js": "./static/js/main.715689ab.js",
+    "static/js/857.bf56afd1.chunk.js": "./static/js/857.bf56afd1.chunk.js",
     "hi.html": "./hi.html",
     "ru.html": "./ru.html",
     "ar.html": "./ar.html",
@@ -31,14 +31,14 @@
     "newUpgradeModal.ko.html": "./newUpgradeModal.ko.html",
     "newUpgradeModal.ro.html": "./newUpgradeModal.ro.html",
     "newUpgradeModal.es.html": "./newUpgradeModal.es.html",
+    "newUpgradeModalPaddle.ar.html": "./newUpgradeModalPaddle.ar.html",
     "newUpgradeModal.it.html": "./newUpgradeModal.it.html",
     "newUpgradeModal.nl.html": "./newUpgradeModal.nl.html",
     "newUpgradeModal.pt.html": "./newUpgradeModal.pt.html",
-    "newUpgradeModal.en.html": "./newUpgradeModal.en.html",
-    "newUpgradeModalPaddle.ar.html": "./newUpgradeModalPaddle.ar.html",
     "newUpgradeModalPaddle.he.html": "./newUpgradeModalPaddle.he.html",
-    "newUpgradeModal.zh.html": "./newUpgradeModal.zh.html",
+    "newUpgradeModal.en.html": "./newUpgradeModal.en.html",
     "newUpgradeModalPaddle.ja.html": "./newUpgradeModalPaddle.ja.html",
+    "newUpgradeModal.zh.html": "./newUpgradeModal.zh.html",
     "newUpgradeModalPaddle.fr.html": "./newUpgradeModalPaddle.fr.html",
     "newUpgradeModalPaddle.de.html": "./newUpgradeModalPaddle.de.html",
     "newUpgradeModalPaddle.ko.html": "./newUpgradeModalPaddle.ko.html",
@@ -49,12 +49,27 @@
     "newUpgradeModalPaddle.pt.html": "./newUpgradeModalPaddle.pt.html",
     "newUpgradeModalPaddle.en.html": "./newUpgradeModalPaddle.en.html",
     "newUpgradeModalPaddle.zh.html": "./newUpgradeModalPaddle.zh.html",
-    "main.2a0d9aa1.css.map": "./static/css/main.2a0d9aa1.css.map",
-    "main.a34f52d0.js.map": "./static/js/main.a34f52d0.js.map",
-    "857.ac014671.chunk.js.map": "./static/js/857.ac014671.chunk.js.map"
+    "voiceGalleryModal.ar.html": "./voiceGalleryModal.ar.html",
+    "voiceGalleryModal.de.html": "./voiceGalleryModal.de.html",
+    "voiceGalleryModal.en.html": "./voiceGalleryModal.en.html",
+    "voiceGalleryModal.es.html": "./voiceGalleryModal.es.html",
+    "voiceGalleryModal.fr.html": "./voiceGalleryModal.fr.html",
+    "voiceGalleryModal.he.html": "./voiceGalleryModal.he.html",
+    "voiceGalleryModal.hi.html": "./voiceGalleryModal.hi.html",
+    "voiceGalleryModal.it.html": "./voiceGalleryModal.it.html",
+    "voiceGalleryModal.ja.html": "./voiceGalleryModal.ja.html",
+    "voiceGalleryModal.ko.html": "./voiceGalleryModal.ko.html",
+    "voiceGalleryModal.nl.html": "./voiceGalleryModal.nl.html",
+    "voiceGalleryModal.pt.html": "./voiceGalleryModal.pt.html",
+    "voiceGalleryModal.ro.html": "./voiceGalleryModal.ro.html",
+    "voiceGalleryModal.ru.html": "./voiceGalleryModal.ru.html",
+    "voiceGalleryModal.zh.html": "./voiceGalleryModal.zh.html",
+    "main.85267b15.css.map": "./static/css/main.85267b15.css.map",
+    "main.715689ab.js.map": "./static/js/main.715689ab.js.map",
+    "857.bf56afd1.chunk.js.map": "./static/js/857.bf56afd1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2a0d9aa1.css",
-    "static/js/main.a34f52d0.js"
+    "static/css/main.85267b15.css",
+    "static/js/main.715689ab.js"
   ]
 }
