@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html  lang="es"  data-dark-mode>
 <head>
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <script>
+    Paddle.Environment.set("production"); // Use "production" for live environment
+    Paddle.Initialize({
+      token: "live_e52f015f98dbce460791b4b9fe7"
+    });
+  </script>
   <script>
     // Get from query params: uid, lang, darkMode - and set them already - so we don't have flickering.
     // uid=oiu987oiuo&theme=dark&lang=he&onClose=closeModals
     const params = new URLSearchParams(window.location.search);
 
     const uid = params.get("uid");
+    const email = params.get("email");
     const theme = params.get("theme");
     const lang = params.get("lang");
     const onCloseParentCallbackName = params.get("onClose") || "closeModals";
@@ -793,7 +801,7 @@
             <!-- Signature -->
             <div style="margin-top:18px;">
               <!-- Optional name/title under signature -->
-              <div style="margin-top:6px;color:#6b7280;font-size: 1.2em;">Ronen Rabinovici, Founder</div>
+              <div style="margin-top:6px;color:#6b7280;font-size: 1.2em;">Ronen Rabinovici, Fundador</div>
             </div>
           </div>
         </div>
@@ -826,7 +834,7 @@
         <div class="Paypal-Button-Container"></div>
         <p><strong>100% de satisfacción garantizada</strong></p>
         <p>Por <a href="https://wellsrc.com/" target="_blank">WellSource Ltd.</a> desarrollador de TTSReader, Speechnotes, Speechlogger</p>
-        <p>Unable to pay? Let us know at contact@ttsreader.com</p>
+        <p>¿No puedes pagar? Escríbenos a contact@ttsreader.com</p>
       </card>
       <div style="flex:1"></div>
     </div>

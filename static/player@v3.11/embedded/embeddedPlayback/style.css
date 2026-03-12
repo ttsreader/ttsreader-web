@@ -1,0 +1,37 @@
+.feedback-link {
+    position: absolute;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: #f7fda5;
+    margin: 20px auto;
+    max-width: 95%;
+    font-weight: 500;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    letter-spacing: 0.08em;
+    padding: 12px 30px;
+    font-size: 16px;
+    text-align: center;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    margin-bottom: -20px;
+    /* float: right; */
+    /* margin-right: 20px; */
+    /* bottom: 40px; */
+    right: 10px;
+    top: -10px;
+}
+
+.MuiButtonBase-root {
+    margin: 0 5px;
+}
+
+.MuiGrid-item {
+    padding: 10px;
+}

@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2025-11-12T11:34:50.745Z",
-      "version": "3.9.12",
+      "dateModified": "2026-03-12T12:23:33.534Z",
+      "version": "3.12.00",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -23,11 +23,13 @@
   </script>
   <!-- Include Quill stylesheet -->
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-  <!-- Include the Quill library -->
-  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <!-- Include the Quill library -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <link href="widget.css" rel="stylesheet">
+    <script src="widget.js"></script>
 
-  <meta charset="utf-8" />
-  <link rel="icon" href="favicon.ico" />
+    <meta charset="utf-8" />
+    <link rel="icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#a51b14" />
   <meta
@@ -49,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.9.12 - נגן טקסט לדיבור של TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.12.00 - נגן טקסט לדיבור של TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -64,7 +66,7 @@
   <script>
     // Dark mode toggle:
     let storedTheme = localStorage.getItem('theme-player-only');
-    let DEFAULT_THEME =  Math.random() < 0.5 ? 'dark-bg' : 'light-bg';
+    let DEFAULT_THEME =  Math.random() < 0.5 ? 'dark-no-bg' : 'light-no-bg';
 
     if (!storedTheme) {
       let storedBlogTheme = localStorage.getItem('theme');
@@ -160,9 +162,177 @@
         setUiToDarkModeAndBgTheme(true, false);
       }
     }
+
+    function getAddContentDropdownParts() {
+      const dropdown = document.getElementById('addContentDropdown');
+      if (!dropdown) return {};
+      const trigger = dropdown.querySelector('.add-content-dropdown-trigger');
+      const menu = dropdown.querySelector('.add-content-dropdown-menu');
+      const items = menu ? Array.from(menu.querySelectorAll('[data-dropdown-item]')) : [];
+      return { dropdown, trigger, menu, items };
+    }
+
+    function toggleAddContentDropdown() {
+      const { menu } = getAddContentDropdownParts();
+      if (!menu) return;
+      const isOpen = menu.classList.contains('show');
+      setAddContentDropdownVisibility(!isOpen);
+    }
+
+    function setAddContentDropdownVisibility(isOpen) {
+      const { trigger, menu } = getAddContentDropdownParts();
+      if (!menu || !trigger) return;
+
+      menu.classList.toggle('show', isOpen);
+      menu.hidden = !isOpen;
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (isOpen) {
+        // Delay to ensure current click does not immediately close.
+        setTimeout(() => {
+          document.addEventListener('click', handleAddContentClickOutside, true);
+          document.addEventListener('focusin', handleAddContentFocusOutside, true);
+          document.addEventListener('keydown', handleAddContentKeydown, true);
+        }, 0);
+        focusFirstAddContentItem();
+      } else {
+        document.removeEventListener('click', handleAddContentClickOutside, true);
+        document.removeEventListener('focusin', handleAddContentFocusOutside, true);
+        document.removeEventListener('keydown', handleAddContentKeydown, true);
+      }
+    }
+
+    function openAddContentDropdown() {
+      closeAllDropdowns();
+      setAddContentDropdownVisibility(true);
+    }
+
+    function closeAddContentDropdown() {
+      setAddContentDropdownVisibility(false);
+    }
+
+    function closeAllDropdowns() {
+      const allDropdownMenus = document.querySelectorAll('.add-content-dropdown-menu');
+      allDropdownMenus.forEach(menu => {
+        menu.classList.remove('show');
+        menu.hidden = true;
+      });
+      document.removeEventListener('click', handleAddContentClickOutside, true);
+      document.removeEventListener('focusin', handleAddContentFocusOutside, true);
+      document.removeEventListener('keydown', handleAddContentKeydown, true);
+
+      const { trigger } = getAddContentDropdownParts();
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function handleAddContentClickOutside(event) {
+      const { dropdown } = getAddContentDropdownParts();
+      if (!dropdown || dropdown.contains(event.target)) return;
+      closeAddContentDropdown();
+    }
+
+    function handleAddContentFocusOutside(event) {
+      const { dropdown } = getAddContentDropdownParts();
+      if (!dropdown || dropdown.contains(event.target)) return;
+      closeAddContentDropdown();
+    }
+
+    function handleAddContentKeydown(event) {
+      if (event.key === 'Escape') {
+        closeAddContentDropdown();
+        const { trigger } = getAddContentDropdownParts();
+        if (trigger) trigger.focus();
+      }
+    }
+
+    function handleDropdownAction(action) {
+      closeAddContentDropdown();
+
+      switch(action) {
+        case 'openFile':
+          // The file input will handle the file selection
+          break;
+        case 'importWebsite':
+          console.log('Import website clicked');
+          break;
+        case 'clearText':
+          console.log('Clear text clicked');
+          if (window.clearTextArea) {
+            window.clearTextArea();
+          }
+          break;
+        default:
+          console.log('Unknown action:', action);
+      }
+    }
+
+    function handleDropdownItemActivation(event) {
+      const targetItem = event.target.closest('[data-dropdown-item]');
+      if (!targetItem) return;
+      closeAddContentDropdown();
+    }
+
+    function handleDropdownItemKeydown(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.target.click();
+      }
+    }
+
+    function focusFirstAddContentItem() {
+      const { items } = getAddContentDropdownParts();
+      if (items && items.length) {
+        items[0].focus();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const { trigger, menu, items } = getAddContentDropdownParts();
+
+      if (menu) {
+        menu.hidden = true;
+        if (!menu.id) {
+          menu.id = 'addContentDropdownMenu';
+        }
+        menu.setAttribute('role', 'menu');
+        menu.addEventListener('click', handleDropdownItemActivation);
+        menu.addEventListener('keydown', handleDropdownItemKeydown);
+      }
+
+      if (trigger) {
+        trigger.setAttribute('type', 'button');
+        trigger.setAttribute('aria-haspopup', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.setAttribute('aria-controls', 'addContentDropdownMenu');
+      }
+
+      if (items && items.length) {
+        items.forEach(item => {
+          item.setAttribute('role', 'menuitem');
+          item.setAttribute('tabindex', '-1');
+        });
+      }
+    });
   </script>
 
   <style>
+
+    .Toolbar-Button {
+      stroke: black;
+      color: black;
+    }
+
+    [data-dark-mode] .Toolbar-Button {
+      stroke: white;
+      color: white;
+    }
+
+    [data-dark-mode][data-theme-bg] .Toolbar-Button {
+      stroke: black;
+      color: black;
+    }
 
     .css-container {
       container-type: inline-size;
@@ -433,6 +603,10 @@
       }
     }
 
+    .ql-editor {
+      text-align: start;
+    }
+
     /* Default state: hide 2nd child SVG */
     .play-test-btn svg:nth-child(2) {
       display: none;
@@ -471,6 +645,125 @@
     .podcast-description-toggle:hover {
       color: #66BB6A !important;
     }
+
+    .ql-editor {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      overflow-x: hidden;
+    }
+
+    /* ---------- Add Content Dropdown Styles ---------- */
+    .add-content-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .add-content-dropdown-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid gray;
+      background: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #1d1d1f;
+    }
+
+    .add-content-dropdown-trigger:hover {
+      background-color: #454547;
+    }
+
+    .add-content-dropdown-trigger:active {
+      background-color: #e8e8ea;
+      transform: scale(0.95);
+    }
+
+    .add-content-dropdown-menu {
+      max-height: 70vh;
+      overflow-y: auto;
+      position: absolute;
+      display: none;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+      border: 0.5px solid #e5e5e7;
+      z-index: 1000;
+      transition: all 0.2s ease;
+      margin-top: 8px;
+      min-width: 320px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .add-content-dropdown-menu.show {
+      display: block;
+      pointer-events: auto;
+    }
+
+    .add-content-dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      border-bottom: 0.5px solid #f0f0f0;
+      position: relative;
+    }
+
+    .add-content-dropdown-item:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .add-content-dropdown-item:last-child {
+      border-bottom: none;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .add-content-dropdown-item:only-child {
+      border-radius: 12px;
+    }
+
+    .add-content-dropdown-item:hover {
+      background-color: #f9f9fb;
+    }
+
+    .add-content-dropdown-item:active {
+      background-color: #f0f0f2;
+    }
+
+    .add-content-dropdown-item:focus-visible {
+      outline: 2px solid #007aff;
+      outline-offset: -2px;
+      background-color: #f0f6ff;
+    }
+
+    .add-content-dropdown-item-icon {
+      width: 20px;
+      height: 20px;
+      color: #007aff;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .add-content-dropdown-item span {
+      font-size: 16px;
+      font-weight: 500;
+      color: #1d1d1f;
+      flex: 1;
+    }
+
+    .add-content-file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
   </style>
   <style>
     /* ---------- Base layout ---------- */
@@ -478,8 +771,9 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      width: 260px;
+      width: 460px;
       margin: auto;
+      max-width: 90%;
     }
 
     /* ---------- Shared button style ---------- */
@@ -574,6 +868,7 @@
       top: -2px;
     }
   </style>
+  <link rel="stylesheet" href="static/css/pronounciation.css">
 
   <template id="sign-in-buttons-template">
     <div class="sign-in-container">
@@ -610,11 +905,11 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.04e89f5c.js"></script><link href="./static/css/main.6bf3b418.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.4723d7bf.js"></script><link href="./static/css/main.95f1c34e.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
-    <div class="Go-premium-banner" data-ws-show-if-state="isPremium=false" style="text-align: center;text-transform: uppercase;
+    <div class="Go-premium-banner" style="display: none;text-align: center;text-transform: uppercase;
       color: white;
       font-weight: bold;
       font-size: smaller;
@@ -662,7 +957,7 @@
         <div class="Menu-list-element" style="position: relative;">
           <input style="position: absolute;display: block;opacity: 0; right:0;left:0;top:0;bottom:0; cursor: pointer" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
           <a onclick="gtag('event','import_file_click_player_drawer',{value:'1'})"  data-ws-onClick="openFile" style="text-decoration:none;display: flex;align-items: center">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span style="display: block;flex: 1;">ייבא קובץ (DOCX, TXT, PDF, EPUB, ...)</span>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span style="display: block;flex: 1;">ייבא קובץ (DOCX, TXT, PDF, EPUB, etc.)</span>
           </a>
         </div>
         <div>
@@ -680,7 +975,12 @@
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;קבצי השמע שלך
           </a>
         </div>
-        <a class="Menu-list-element" data-ws-toggle="#voicesModal" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">
+        <div>
+          <a class="Menu-list-element" data-ws-toggle="#apiModal" style="text-decoration:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>&nbsp;&nbsp;גישה ל-API
+          </a>
+        </div>
+        <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;צריך עוד קולות<!-- Need more voices -->
         </a>
         <div>
@@ -735,7 +1035,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.9.12</b> Build 2025-11-12T11:34:50.745Z
+          <b>V3.12.00</b> Build 2026-03-12T12:23:33.534Z
           <br/><span style="margin-top: 10px;display: block">כל הגרסאות <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -779,71 +1079,163 @@
       </div>
 
     </drawer>
-    <div style="display: flex; flex-direction: column; flex: 1;max-width: 100%;">
+    <div style="display: flex; flex-direction: column; flex: 1;max-width: 100%;min-width: 38vw">
 
       <div class="Buttons-bar" style="display: flex">
         <button title="Open / close main drawer" aria-label="Open / close main drawer" style="" onclick="toggleDrawerOpen();">
           <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MenuIcon"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
         </button>
         <!--<a class="Hide-on-narrow-screens" href="https://ttsreader.com" alt="TTSReader Home" title="TTSReader Home" style="background-image: url('favicon2.svg');background-size: contain;width: 40px;height: 40px; border-radius: 10px;"></a>-->
-        <span style="display: inline-block;flex: 1"></span>
-        <button title="Open file" aria-label="Open file" data-ws-onClick="openFile" style="display: inline-block;position: relative;overflow: hidden;"><span>📂<span class="Hide-on-narrow-screens">&nbsp;פתח<!-- Open --></span></span><input style="position: absolute;display: block;opacity: 0; right:0;left:0;top:0;bottom:0; cursor: pointer" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect"></button>
+        <!-- Add Content Dropdown -->
+        <div class="add-content-dropdown" id="addContentDropdown" style="">
+          <button class="add-content-dropdown-trigger" type="button" title="Add content" aria-label="Add content" aria-expanded="false" aria-haspopup="true" aria-controls="addContentDropdownMenu" onclick="toggleAddContentDropdown()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+          </button>
+
+          <div class="add-content-dropdown-menu" id="addContentDropdownMenu" role="menu" hidden>
+            <!-- Open File -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item onclick="handleDropdownAction('openFile')" data-action="openFile">
+              <svg class="add-content-dropdown-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                <polyline points="14,2 14,8 20,8"/>
+              </svg>
+              <span>
+                <span>פתח</span>
+                <br/><span style="font-size: small; color: darkgray">DOCX, TXT, PDF, ספרי EPUB אלקטרוניים ועוד</span>
+              </span>
+              <input class="add-content-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
+            </div>
+
+            <!-- Import Website -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-toggle="#openUrlModal" data-action="importWebsite">
+              <svg class="add-content-dropdown-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19.5 7a9 9 0 0 0-7.5-4a8.991 8.991 0 0 0-7.484 4"/>
+                <path d="M11.5 3a16.989 16.989 0 0 0-1.826 4"/>
+                <path d="M12.5 3a16.989 16.989 0 0 1 1.828 4"/>
+                <path d="M19.5 17a9 9 0 0 1-7.5 4a8.991 8.991 0 0 1-7.484-4"/>
+                <path d="M11.5 21a16.989 16.989 0 0 1-1.826-4"/>
+                <path d="M12.5 21a16.989 16.989 0 0 0 1.828-4"/>
+                <path d="M2 10l1 4l1.5-4l1.5 4l1-4"/>
+                <path d="M17 10l1 4l1.5-4l1.5 4l1-4"/>
+                <path d="M9.5 10l1 4l1.5-4l1.5 4l1-4"/>
+              </svg>
+              <span>ייבוא אתר אינטרנט</span>
+            </div>
+
+            <!-- Clear Text -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-onClick="clearContent" data-action="clearText">
+              <svg class="add-content-dropdown-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3,6 5,6 21,6"/>
+                <path d="m19,6v14c0,1-1,2-2,2H7c-1,0-2-1-2-2V6m3,0V4c0-1,1-2,2-2h4c1,0,2,1,2,2v2"/>
+                <line x1="10" y1="11" x2="10" y2="17"/>
+                <line x1="14" y1="11" x2="14" y2="17"/>
+              </svg>
+              <span>ניקוי אזור הטקסט</span>
+            </div>
+
+            <!-- Add Pause -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-toggle="#addPauseModal">
+              <svg xmlns="http://www.w3.org/2000/svg" class="add-content-dropdown-item-icon" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M20.942 13.018a9 9 0 1 0 -7.909 7.922"></path>
+                <path d="M12 7v5l2 2"></path>
+                <path d="M17 17v5"></path>
+                <path d="M21 17v5"></path>
+              </svg>
+              <span>הוספת השהייה בהשמעה</span>
+            </div>
+
+            <!-- Add Comment -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-toggle="#addCommentModal">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="add-content-dropdown-item-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9h8" /><path d="M8 13h6" /><path d="M12.01 18.594l-4.01 2.406v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
+              <span>
+                <span>הוספת הערה</span>
+                <br/><span style="font-size: small; color: darkgray">תוכן טקסט שהנגן מתעלם ממנו</span>
+              </span>
+            </div>
+
+            <hr/>
+
+            <!-- Export -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-onclick="calculateStats" data-ws-toggle="#exportModal">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="add-content-dropdown-item-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+              <span>
+                <span>ייצוא טקסט ל-MP3</span>
+                <br/><span style="font-size: small; color: darkgray">הורדה / האזנה אופליין / שיתוף / האזנה מאוחרת / פודקאסט / פרסום וכו'.</span>
+              </span>
+            </div>
+
+            <hr data-ws-show-if-state="isPremium=false"/>
+
+            <!-- Upgrade to Premium -->
+            <div  data-ws-show-if-state="isPremium=false" class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item onclick="openNewUpgradeModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="add-content-dropdown-item-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5" /><path d="M6 14m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5" /></svg>
+              <span>
+                <span>👑 שדרוג</span>
+                <br/><span style="font-size: small; color: darkgray">ליהנות מקולות AI ועוד. מנוי פרימיום נדרש לעסקים, רישיונות מסחריים, פרסום וזכויות יוצרים על השמע המיוצא. <b>צפייה בתוכניות.</b></span>
+              </span>
+            </div>
+          </div>
+        </div>
         &nbsp;
-        <button class="Clear-btn" data-ws-toggle="#openUrlModal" title="Read Web Page" aria-label="Read Web Page">
-          <svg style="position: relative; bottom: -2px" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-world-www"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 7a9 9 0 0 0 -7.5 -4a8.991 8.991 0 0 0 -7.484 4" /><path d="M11.5 3a16.989 16.989 0 0 0 -1.826 4" /><path d="M12.5 3a16.989 16.989 0 0 1 1.828 4" /><path d="M19.5 17a9 9 0 0 1 -7.5 4a8.991 8.991 0 0 1 -7.484 -4" /><path d="M11.5 21a16.989 16.989 0 0 1 -1.826 -4" /><path d="M12.5 21a16.989 16.989 0 0 0 1.828 -4" /><path d="M2 10l1 4l1.5 -4l1.5 4l1 -4" /><path d="M17 10l1 4l1.5 -4l1.5 4l1 -4" /><path d="M9.5 10l1 4l1.5 -4l1.5 4l1 -4" /></svg>
-        </button>
-        &nbsp;
-        <button class="Clear-btn" data-ws-onClick="clearContent" title="Erase all text from document" aria-label="Erase all text from document">🗑️</button>
-        &nbsp;
-        <button title="Select language, voice and speed" aria-label="Select language, voice and speed" style="max-height: 2em;overflow: hidden;" data-ws-toggle="#voicesModal">
-          <svg class="Top-btn-svg" style="width:1.5em;height: 1.5em;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"></circle><path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm7.76-9.64-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"></path></svg>
-          <span class="Hide-on-narrow-screens">
-        &nbsp;
-        <span class="Voice-label Flag-font" data-ws-label-state="voiceLabel"></span>
-        &nbsp;
-        <svg class="Top-btn-svg" style="margin-left: -10px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5z"></path></svg>
-      </span>
-        </button>
-        <button title="Reading speed" data-ws-toggle="#voicesModal"><span data-ws-label-state="selectedRate"></span>X</button>
-        &nbsp;
-        <button data-ws-toggle="#addPauseModal" title="Insert pause in reading" aria-label="Insert pause in reading">
-          <svg xmlns="http://www.w3.org/2000/svg" class="Top-btn-svg" style="width: 1.3em; height: 1.3em;" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M20.942 13.018a9 9 0 1 0 -7.909 7.922"></path>
-            <path d="M12 7v5l2 2"></path>
-            <path d="M17 17v5"></path>
-            <path d="M21 17v5"></path>
+        <button class="Hide-on-narrow-screens" style="align-content: center; position: relative; cursor: pointer;">
+          <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;">
+            <path d="M14.5 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14,2 14,8 20,8"/>
           </svg>
+          <input class="add-content-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
         </button>
-        &nbsp;
-        <div class="Dropdown-header" style="display: inline-block; vertical-align: middle;cursor: pointer;position: relative;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 17v2h14v-2H5zm4.5-4.2h5l.9 2.2h2.1L12.75 4h-1.5L6.5 15h2.1l.9-2.2zM12 5.98 13.87 11h-3.74L12 5.98z"></path></svg>
+        <span class="Hide-on-narrow-screens">&nbsp;</span>
+        <button onclick="openOrCloseExportsListModal()" class="btn btn-link" type="button" aria-label="Open personal long-audio archive" title="Open personal long-audio archive">
+          <svg style="    position: relative;
+    top: 2px;
+    width: 28px;
+    height: 28px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>
+        </button>
+        <span class="Hide-on-narrow-screens">&nbsp;&nbsp;</span>
+        <button data-ws-onclick="clearContent" class="Hide-on-narrow-screens btn btn-link" type="button" aria-label="Open personal long-audio archive" title="Open personal long-audio archive">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+        </button>
+
+        <span style="display: inline-block;flex: 1"></span>
+
+        <button title="Select language, voice and speed" aria-label="Select language, voice and speed" style="overflow: hidden;" data-ws-onclick="handleVoiceLabelClick">
+          <span class="Voice-label Flag-font" data-ws-label-state="voiceLabel"></span>
+          <span data-ws-label-state="selectedRate"></span>X
+        </button>
+
+        <span style="flex: 1"></span>
+        <button data-ws-show-if-state="isPremium=false" class="Hide-on-narrow-screens" style="text-align: center; text-wrap:nowrap;" onclick="openNewUpgradeModal()">
+          <span style="border-radius: 10px; padding: 7px 16px; background-color: green; font-weight: bold;">👑 Upgrade</span>
+        </button>
+        <span class="Hide-on-narrow-screens">&nbsp;</span>
+        <div class="Dropdown-header" style="display: inline-block; vertical-align: middle;cursor: pointer;position: relative;align-content: center;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-text-size"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7v-2h13v2" /><path d="M10 5v14" /><path d="M12 19h-4" /><path d="M15 13v-1h6v1" /><path d="M18 12v7" /><path d="M17 19h2" /></svg>
           <div class="Dropdown-content" style="left:0;width:120px; translate: -40px;">
             <span data-ws-onClick="fontDecrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM23 11v2h-8v-2h8z"></path></svg></span>
             <span data-ws-onClick="fontIncrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM20 11h3v2h-3v3h-2v-3h-3v-2h3V8h2v3z"></path></svg></span>
           </div>
         </div>
-        &nbsp;
         <button onclick="toggleTheme();" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
           <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
         </button>
-        &nbsp;
-        <span style="flex: 1"></span>
-
-        <button title="My Exports" aria-label="My Exports" style="" onclick="openOrCloseExportsListModal();">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
-        </button>
         <button title="Text analytics - word counter & more" aria-label="Text analytics - word counter & more" style="" data-ws-onClick="calculateStats" data-ws-toggle="#statsModal">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-google-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 9m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v9.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" /><path d="M17 3m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v15.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" /><path d="M5 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /></svg>
+        </button>
+        <button title="Player Settings" aria-label="Player Settings" style="" data-ws-onClick="toggleSettingsSidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
         </button>
         <!--<button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-language"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7" /><path d="M9 3v2c0 4.418 -2.239 8 -5 8" /><path d="M5 9c0 2.144 2.952 3.908 6.7 4" /><path d="M12 20l4 -9l4 9" /><path d="M19.1 18h-6.2" /></svg>
         </button>-->
       </div>
 
-      <div style="display: flex;flex: 1;overflow: hidden;">
+      <div class="main-app-container" style="display: flex;flex: 1;overflow: hidden;">
 
-        <div style="flex: 1;display: flex;flex-direction: column;overflow: hidden;">
+        <div class="main-content-area" style="flex: 1;display: flex;flex-direction: column;overflow: hidden;">
           <div class="App"  style="flex: 1;position: relative;display: flex;flex-direction: column">
+            <button id="fr-icon" class="Toolbar-Button" style="position: absolute; top: 12px; right: 16px; z-index: 9; background: none; border: none; cursor: pointer;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+            </button>
             <div class="Book-bar" data-ws-show-if-state="isBook=true" style="text-align: center">
               <span data-ws-label-state="bookTitle"></span>&nbsp;-&nbsp;
               <button data-ws-onClick="loadPrevChapter" title="Load Previous Chapter" aria-label="Load Previous Chapter"><b>&lArr;</b></button>
@@ -854,6 +1246,9 @@
               <!-- Create the toolbar container -->
               <!--<div id="toolbar"></div>-->
               <!-- Create the editor container -->
+              <div style="width: 95%; max-width: 800px; margin: 0 auto;position: relative;">
+                <!-- if we want to align items to the text box's top -->
+              </div>
               <div id="editor" class="Text-box Text-box-quill" style="font-size: 1em;">
               </div>
 
@@ -888,6 +1283,21 @@
                 BlinkBlot.className = 'Blink';
                 Quill.register(BlinkBlot);
 
+                // Define pronunciation highlight blot
+                class PronunciationHighlightBlot extends Inline {
+                  static create(value) {
+                    return super.create();
+                  }
+                  static formats(node) {
+                    return true;
+                  }
+                }
+                PronunciationHighlightBlot.blotName = 'pronunciation-highlight';
+                PronunciationHighlightBlot.tagName = 'span';
+                PronunciationHighlightBlot.className = 'pronunciation-highlight';
+                Quill.register(PronunciationHighlightBlot);
+
+
                 const quill = new Quill('#editor', {
                   modules: {
                     toolbar: [
@@ -898,7 +1308,9 @@
                   },
                   formats: [
                     'highlight',
+                    'background',
                     'blink',        // Custom blink format
+                    'pronunciation-highlight', // Custom pronunciation highlight format
                     'link',
                     'header',      // h1, h2, ...
                     'bold',        // <strong>
@@ -911,7 +1323,6 @@
                 });
 
                 window.quill = quill; // Make Quill accessible globally
-
                 const sentenceBreakRegex = /[.?!…]+[\s\n]+|[\n]+/g;
 
                 function getCaretIndexOrHighlightEnd() {
@@ -985,25 +1396,25 @@
               <!--<div class="Text-box" contentEditable="plaintext-only" data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="הקלידו טקסט כלשהו, לחץ על כפתור הניגון ואני אקריא אותו עבורכם בכל שפה שתבחרו. כדי לקרוא דף אינטרנט - פשוט העתיקו לכאן את כתובת העמוד ולחצו על ניגון. ניתן גם להעלות קבצים, לשנות קולות, קצב דיבור, גודל גופן ועוד." placeholder2="נגן זה נמצא בפיתוח פעיל, אנחנו עובדים לשפר אותו כל יום. ❤️ תהנו מההאזנה! 🎧"></div>-->
             </div>
             <div class="Playback-buttons-bar" style="direction: ltr;">
-          <span>
-            <button data-ws-show-if-state="isRepeatMode=false" title="Loop" aria-label="Loop"                              data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
-            <button data-ws-show-if-state="isRepeatMode=true" title="Loop" aria-label="Loop" style="color: cornflowerblue" data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
-            <button class="Hide-on-narrow-screens" data-ws-show-if-state="isRecordingSupported=true" title="Go to beginning" aria-label="Go to beginning" data-ws-onClick="goToStart"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"></path></svg></button>
-            <button title="Jump backwards" aria-label="Jump backwards" data-ws-onClick="rewind"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6 8.5 6V6l-8.5 6z"></path></svg></button>
-            <span style="display: inline-block; width: 80px;"></span>
-            <button title="Jump forward" aria-label="Jump forward" data-ws-onClick="forward"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 18 8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path></svg></button>
-            <button class="Hide-on-narrow-screens" title="Toggle recording" aria-label="Toggle recording" data-ws-show-if-state="isRecordingSupported=true" data-ws-onClick="toggleRecord">
-              <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
-              <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
-            </button>
-            <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" onclick="openOrCloseExportsListModal()">
-              <svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
-            </button>
-            <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
-              <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg></span>
-              <span data-ws-show-if-state="isPlayingOn=false"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
-            </button>
-          </span>
+              <span>
+                <button data-ws-show-if-state="isRepeatMode=false" title="Loop" aria-label="Loop"                              data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
+                <button data-ws-show-if-state="isRepeatMode=true" title="Loop" aria-label="Loop" style="color: cornflowerblue" data-ws-onClick="toggleRepeatMode"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
+                <button class="Hide-on-narrow-screens" data-ws-show-if-state="isRecordingSupported=true" title="Go to beginning" aria-label="Go to beginning" data-ws-onClick="goToStart"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"></path></svg></button>
+                <button title="Jump backwards" aria-label="Jump backwards" data-ws-onClick="rewind"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6 8.5 6V6l-8.5 6z"></path></svg></button>
+                <span style="display: inline-block; width: 80px;"></span>
+                <button title="Jump forward" aria-label="Jump forward" data-ws-onClick="forward"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 18 8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path></svg></button>
+                <button class="Hide-on-narrow-screens" title="Toggle recording" aria-label="Toggle recording" data-ws-show-if-state="isRecordingSupported=true" data-ws-onClick="toggleRecord">
+                  <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
+                  <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
+                </button>
+                <button title="Export to audio file" aria-label="Click to generate downloadable audio file" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal">
+                  <svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+                </button>
+                <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
+                  <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg></span>
+                  <span data-ws-show-if-state="isPlayingOn=false"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
+                </button>
+              </span>
             </div>
           </div>
 
@@ -1066,6 +1477,294 @@
       </div>
 
     </div>
+    <!-- Right Settings Sidebar -->
+    <div id="settingsSidebar" class="settings-sidebar" data-ws-show-if-state="isSettingsSidebarOpen=true">
+      <div class="settings-sidebar-overlay" data-ws-onClick="closeSettingsSidebar"></div>
+      <div class="settings-sidebar-content">
+        <div class="settings-sidebar-header">
+          <div class="settings-sidebar-tabs">
+            <button class="settings-sidebar-tab active" data-tab="playback" data-ws-onClick="switchSettingsTab">השמעה</button>
+            <button class="settings-sidebar-tab" data-tab="pronunciation" data-ws-onClick="switchSettingsTab">הגייה</button>
+            <button class="settings-sidebar-tab" data-tab="prefs" data-ws-onClick="switchSettingsTab">העדפות</button>
+          </div>
+          <button class="settings-sidebar-close-btn" data-ws-onClick="closeSettingsSidebar" aria-label="Close Settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" /><path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" /><path d="M3 3l18 18" /></svg>
+          </button>
+        </div>
+
+        <div class="settings-sidebar-body" data-tab-content="playback">
+          <!-- Header Overlays for Stacking -->
+          <div class="settings-headers-top-overlay"></div>
+          <div class="settings-headers-bottom-overlay"></div>
+
+          <div class="settings-sidebar-scrollable">
+            <!-- Language Selection Section -->
+            <div class="settings-section" data-title="">
+                <div class="settings-section-header">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                    <path d="M4 5h7" />
+                    <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+                    <path d="M5 9c0 2.144 2.952 3.908 6.7 4" />
+                    <path d="M12 20l4 -9l4 9" />
+                    <path d="M19.1 18h-6.2" />
+                  </svg>
+                  <span class="settings-section-title"></span>
+                  <span class="settings-section-value" data-ws-label-state="selectedLanguageFlag"></span>
+                </div>
+                <div class="settings-control">
+                  <div class="unified-language-selector" id="unifiedLanguageSelector">
+                    <!-- Closed state: shows selected language -->
+                    <div class="language-selector-closed" data-ws-onClick="openLanguageSelector">
+                      <span class="selected-language-display Flag-font" data-ws-label-state="selectedLanguageDisplay">🇺🇸 English</span>
+                      <svg class="language-selector-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9l6 6l6-6" />
+                      </svg>
+                    </div>
+
+                    <!-- Open state: search input + dropdown -->
+                    <div class="language-selector-open hidden">
+                      <input type="text" class="language-search-input" placeholder="חיפוש שפות..." data-ws-onInput="filterUnifiedLanguages" autocomplete="off">
+                      <div class="language-dropdown" id="languageDropdown">
+                        <!-- Language options will be populated here -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Accent selector: native <select>, hidden when only one accent -->
+                  <div class="accent-selector-wrapper" id="accentSelectorWrapper" style="display:none">
+                    <label class="accent-label">אזור / מבטא</label>
+                    <select class="accent-select Flag-font" id="accentSelect" data-ws-onChange="onAccentSelected"></select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Playback Rate Section -->
+              <div class="settings-section" data-title="">
+            <div class="settings-section-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12,6 12,12 16,14" />
+              </svg>
+              <span class="settings-section-title"></span>
+              <span class="settings-section-value" data-ws-label-state="selectedRate">1.0</span>
+            </div>
+            <div class="settings-control">
+              <div class="speed-control">
+                <button class="speed-btn speed-btn-decrease" data-ws-onClick="slower" aria-label="Decrease speed">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                  </svg>
+                </button>
+                <input type="range" class="speed-slider" data-ws-value-state="selectedRateSliderValue" min="1" max="16" data-ws-onInput="onRateChange" aria-label="Playback speed">
+                <button class="speed-btn speed-btn-increase" data-ws-onClick="faster" aria-label="Increase speed">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14" />
+                    <path d="M5 12h14" />
+                  </svg>
+                </button>
+              </div>
+              <div class="speed-labels">
+                <span>0.5x</span>
+                <span>1.0x</span>
+                <span>2.0x</span>
+              </div>
+            </div>
+          </div>
+
+              <!-- Voice Selection Section -->
+              <div class="settings-section" data-title="">
+            <div class="settings-section-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                <circle cx="9" cy="9" r="4" />
+                <path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                <path d="M17.76 5.36l1.68 1.69c2.02 2.02 2.02 5.07 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89z" />
+                <path d="M20.07 2l1.63 1.63c3.91 3.91 3.91 9.95 0 14l-1.63-1.63c2.77-3.02 2.77-7.56 0-10.74z" />
+              </svg>
+              <span class="settings-section-title"></span>
+              <div class="voice-filter-controls">
+                <button class="voice-filter-btn active" data-filter="all" data-ws-onClick="filterVoices">הכל</button>
+                <button class="voice-filter-btn" data-filter="premium" data-ws-onClick="filterVoices">פרימיום</button>
+                <button class="voice-filter-btn" data-filter="basic" data-ws-onClick="filterVoices">בסיסי</button>
+              </div>
+            </div>
+            <div class="settings-control">
+              <div id="sidebarVoicesList" class="sidebar-voices-list">
+                <!-- Voices will be populated here -->
+              </div>
+            </div>
+          </div>
+
+
+            <!-- More Voices Section -->
+            <div class="settings-section" data-title="קולות נוספים (+600)">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                  <circle cx="9" cy="9" r="4" />
+                  <path d="M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  <path d="M17.76 5.36l1.68 1.69c2.02 2.02 2.02 5.07 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89z" />
+                  <path d="M20.07 2l1.63 1.63c3.91 3.91 3.91 9.95 0 14l-1.63-1.63c2.77-3.02 2.77-7.56 0-10.74z" />
+                </svg>
+                <span class="settings-section-title">קולות נוספים (+600)</span>
+              </div>
+              <div class="settings-control">
+                <button onclick="openVoiceGalleryModal()" style="width: 100%; background-color: #0a84ff; color: white; border: none; border-radius: 6px; padding: 10px 16px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 0.2s ease;margin: 10px auto;">פתיחת גלריית הקולות המורחבת</button>
+                <p>ניתן לבחור כל קול עצבי מ<a style="color: #0a84ff;text-decoration: underline;" href="https://speech.azure.cn/portal/voicegallery" target="_blank">גלריית הקולות של Azure</a> להדביק את שמו בתיבת הקלט - וללחוץ על 'השתמש בקול Azure'</p>
+                <div id="" class="">
+                  <input id="azureVoiceInput" type="text" placeholder="שם קול Azure..." style="width: 100%; margin-bottom: 8px;">
+                  <button onclick="appMethods.setVoiceUriDirectly('azure.' + document.getElementById('azureVoiceInput').value)" style="width: 100%; background-color: #0a84ff; color: white; border: none; border-radius: 6px; padding: 10px 16px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 0.2s ease;">השתמש בקול Azure</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="settings-sidebar-body hidden" data-tab-content="pronunciation">
+          <div class="settings-headers-top-overlay"></div>
+          <div class="settings-headers-bottom-overlay"></div>
+          <div class="settings-sidebar-scrollable">
+            <div class="settings-section" data-title="הוספת הגייה חדשה">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                  <path d="M12 5v14" />
+                  <path d="M5 12h14" />
+                </svg>
+                <span class="settings-section-title">הוספת הגייה חדשה</span>
+                <!-- Info tooltip icon -->
+                <span class="info-tooltip" aria-label="Dictionary info">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </svg>
+
+      <span class="info-tooltip-text">
+        המילון שמור במכשיר, לא מסונכרן לענן.
+      </span>
+    </span>
+              </div>
+              <div class="settings-control">
+                <div class="pronunciation-inputs">
+                  <input type="text" id="originalWord" placeholder="מצא זאת בטקסט" class="pronunciation-input" />
+                  <div class="pronunciation-input-wrapper">
+                    <input type="text" id="pronunciationWord" placeholder="קרא את זה כ..." class="pronunciation-input" />
+                    <button class="pronunciation-test-btn" title="Test pronunciation" onclick="window.appMethods.pronounceTestVoice(document.getElementById('pronunciationWord').value)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5,3 19,12 5,21"></polygon>
+                      </svg>
+                    </button>
+                  </div>
+
+                  <button class="pronunciation-add-btn" onclick="addPronunciation()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                    הוסף
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pronunciation List Section -->
+            <div class="settings-section" data-title="מילון">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="settings-section-icon">
+                  <path d="M3 6h18" />
+                  <path d="M7 12h10" />
+                  <path d="M10 18h4" />
+                </svg>
+
+                <span class="settings-section-title">
+                  מילון (<span id="dictCount">0</span>)
+                </span>
+
+                <!-- Update Highlight Button -->
+                <button id="updateHighlightBtn" class="update-highlight-btn" title="Update Highlight">
+                  חיפוש והדגשה
+                </button>
+              </div>
+
+              <div class="settings-control">
+                <input type="text" class="pronunciation-search" placeholder="סינון מילים..." />
+                <div id="pronunciationList" class="pronunciation-list">
+                  <!-- Pronunciation entries will be populated here -->
+                  <div class="pronunciation-empty">
+                    <p>טרם הוגדרו הגיות.</p>
+                    <p>הוסף מילים למעלה כדי לבנות את המילון שלך.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Explanation Section -->
+            <div class="settings-section" data-title="כיצד ההגייה עובדת">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9h.01" /><path d="M11 12h1v4h1" /><path d="M12 3c7.2 0 9 1.8 9 9c0 7.2 -1.8 9 -9 9c-7.2 0 -9 -1.8 -9 -9c0 -7.2 1.8 -9 9 -9" /></svg>
+                <span class="settings-section-title">
+                  כיצד ההגייה עובדת
+                </span>
+              </div>
+
+              <div class="settings-control">
+                <div class="pronunciation-info-card">
+                <h4 class="pronunciation-info-title">למד כיצד מילון ההגייה עובד</h4>
+                <p class="pronunciation-info-badge"><i>** ניסיוני, יש להשתמש בזהירות</i></p>
+                <p class="pronunciation-info-desc">פונקציית ההגייה מחליפה את המונחים המקוריים בטקסט במונחי ההגייה המתאימים (קרא את זה כ...), ממש לפני שהטקסט נשלח למנוע סינתזת הדיבור. היא פועלת לפי הכללים הבאים:</p>
+                <ul class="pronunciation-info-rules">
+                  <li>מוצא <strong>מילים שלמות</strong> בלבד</li>
+                  <li><strong>רגיש לאותיות גדולות/קטנות</strong> &mdash; 'Hi' ≠ 'hi'</li>
+                  <li><strong>החלפות סלקטיביות</strong> &mdash; כדי להחליף רק חלק מהופעות המונח, פשוט השתמש באותיות שונות (גדולות/קטנות) עבור ההופעות שצריך להחליף</li>
+                  <li><strong>בדוק הגייה</strong> עם כפתור ההשמעה הקטן בשדה הקלט לפני ההוספה</li>
+                  <li>כפתור <strong>'חיפוש והדגשה'</strong> יסמן את המילים שנמצאו באזור הטקסט הראשי</li>
+                  <li>השתמש ב<strong>תיבת הסימון</strong> עבור כל פריט במילון כדי להשבית אותו אך לשמור אותו במילון</li>
+                  <li>ניתן להשתמש בצורות <strong>פונטיות</strong> להגייה, לא חייבות להיות מילים אמיתיות - כל עוד הן נקראות בצורה שאתה צריך</li>
+                </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-sidebar-body hidden" data-tab-content="prefs">
+          <div class="settings-headers-top-overlay"></div>
+          <div class="settings-headers-bottom-overlay"></div>
+          <div class="settings-sidebar-scrollable">
+
+            <!-- Export Settings Section -->
+            <div class="settings-section" data-title="הגדרות ייצוא">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                  <path d="M12 11v6" />
+                  <path d="M9.5 13.5l2.5 -2.5l2.5 2.5" />
+                </svg>
+                <span class="settings-section-title">הגדרות ייצוא</span>
+              </div>
+              <div class="settings-control">
+                <div class="export-freq-control">
+                  <label class="export-freq-label">קצב דגימה לייצוא ארוך<sup>*</sup></label>
+                  <div class="export-freq-options">
+                    <button class="export-freq-btn" data-freq="24" data-ws-onClick="setExportFreq">24 kHz</button>
+                    <button class="export-freq-btn" data-freq="48" data-ws-onClick="setExportFreq">48 kHz</button>
+                  </div>
+                  <p class="export-freq-hint"><sup>*</sup> ייצואים קצרים ללא הגדרות מיוצאים תמיד ב-48kHz. לייצוא ארוך ברירת המחדל היא 24kHz, שהוא הבחירה הנכונה לרוב המשתמשים ומספק שמע באיכות גבוהה בגודל קובץ סביר. 48kHz מגדיל את גודל הקובץ באופן ניכר, אבל אם אתה צריך את זה (לפרסום או צרכים אחרים) נשמח לייצר עבורך.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Removed: overlay containers moved inside sidebar body -->
+      </div>
+    </div>
+
+
   </div>
 
 
@@ -1129,7 +1828,7 @@
         <!-- rows inserted here -->
 
 
-        <h3 style="text-align: center">Demo Generated Files</h3>
+        <h3 style="text-align: center">קבצים לדוגמה שנוצרו</h3>
         <div id="demoExportsRowsContainer"></div>
       </div>
 
@@ -1150,11 +1849,19 @@
   </div>
 
   <div id="newUpgradeModal" class="Sliding-In-Modal hidden" style="z-index: 9999999">
-      <iframe></iframe>
+    <iframe allow="autoplay"></iframe>
+  </div>
+
+  <span id="stateSelectedVoiceUri" data-ws-label-state="selectedVoiceUri" style="display:none"></span>
+  <span id="stateSelectedRate" data-ws-label-state="selectedRate" style="display:none"></span>
+  <span id="stateSelectedLanguageCode" data-ws-label-state="selectedLanguageCode" style="display:none"></span>
+
+  <div id="voiceGalleryModal" class="Sliding-In-Modal hidden" style="z-index: 9999999">
+      <iframe allow="autoplay"></iframe>
   </div>
 
   <div id="renderedModal" class="Sliding-In-Modal hidden">
-      <iframe></iframe>
+    <iframe allow="autoplay"></iframe>
   </div>
 
 
@@ -1181,7 +1888,7 @@
         <span class="label">🌙 כהה<!-- 🌙 Dark --></span>
       </div>
       <br/>
-      <p style="font-size: smaller"><i>By continuing you agree to our <a href="/docs/legal/terms/" target="_blank">terms</a> & <a href="/docs/legal/privacy/" target="_blank">privacy policy</a></i></p>
+      <p style="font-size: smaller"><i>בהמשך אתה מסכים ל<a href="/docs/legal/terms/" target="_blank">תנאים</a> ול<a href="/docs/legal/privacy/" target="_blank">מדיניות הפרטיות</a> שלנו</i></p>
       <p data-ws-show-if-state="isSignedIn=false">
         כבר יש לך חשבון?
         <br/>
@@ -1329,7 +2036,7 @@
             לא נדרשת סיסמה או אמצעי תשלום.
             <br/>
             <div style="flex:1"></div>
-            <p>Or, if you prefer, you may <a style="text-decoration: underline; cursor: pointer" onclick="prevStep(this)">go back and select a free & unlimited voice.</a></p>
+            <p>או, אם אתה מעדיף, אתה יכול <a style="text-decoration: underline; cursor: pointer" onclick="prevStep(this)">לחזור ולבחור קול חינמי וללא הגבלה.</a></p>
             <div>
               <button class="secondary" onclick="prevStep(this)">חזור<!-- Back --></button>
             </div>
@@ -1354,7 +2061,7 @@
       <p style="font-size: larger;">הקול שבחרת <span data-ws-label-state="voiceLabel"></span>&nbsp; הוא בחירה מעולה!<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. Please securely sign in with Google to continue. --></p>
       <br/>
       <sign-in-buttons></sign-in-buttons>
-      <button style="margin:60px auto 30px; width: unset;" onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.showModal("voicesModal");' class="Full-width-btn">או בחרו קול בסיסי<!--Or, Select a Non Premium Voice--></button>
+      <button style="margin:60px auto 30px; width: unset;" onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.handleVoiceLabelClick();' class="Full-width-btn">או עברו לקול בסיסי<!--Or, Select a Non Premium Voice--></button>
       <div style="flex: 2"></div>
     </div>
     <div style="height:20px;"></div>
@@ -1485,6 +2192,44 @@
           </div>
         </template>
 
+        <template id="sidebarVoiceOptionTemplate">
+          <div class="sidebar-voice-item" data-ws-voiceURI="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-ws-voiceName="David" data-ws-select-if-state="selectedVoiceUri=ttsreaderServer.gcp.en-US-Chirp-HD-D" data-voice-type="premium"  onclick="window.appMethods.selectVoice(this)">
+            <div class="sidebar-voice-avatar" onclick="window.appMethods.selectVoice(this)">
+              <canvas class="voice-avatar-canvas" width="40" height="40"></canvas>
+            </div>
+            <div class="sidebar-voice-info" onclick="window.appMethods.selectVoice(this)">
+              <div class="sidebar-voice-name">David</div>
+              <div class="sidebar-voice-meta">
+                <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
+                <span class="voice-gender-male" title="Male">👨</span>
+                <span class="voice-gender-female" title="Female">👩</span>
+                <span class="voice-type-badge" title="Voice Type"></span>
+              </div>
+            </div>
+            <div class="sidebar-voice-actions">
+              <button class="sidebar-voice-btn voice-pin-btn" title="Unpin voice" onclick="window.appMethods.unpinVoice(this);event.stopPropagation();" aria-label="Unpin voice" style="display:none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2C12 2 9 6 9 9V13L7 15H11V22H13V15H17L15 13V9C15 6 12 2 12 2Z" />
+                </svg>
+              </button>
+              <button class="sidebar-voice-btn voice-test-btn" title="Test voice" onclick="window.appMethods.testVoice(this)" aria-label="Test voice">
+                <svg class="voice-test-play" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+                <svg class="voice-test-stop" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                  <rect x="4" y="4" width="16" height="16" rx="2" />
+                </svg>
+              </button>
+              <button class="sidebar-voice-btn" title="Copy voice settings" onclick="window.appMethods.copyVoice(this);event.stopPropagation();" aria-label="Copy voice settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </template>
+
       </div>
       <br/>
       <!--<select class="Voice-selector" data-ws-onChange="handleVoiceChange" data-ws-value-state="selectedVoiceUri"></select>-->
@@ -1504,73 +2249,73 @@
         </svg>
       </button>
       <h4 style="font-size: 1.2em;">
-        Select Your Subscription or Package
+        בחר את המנוי או החבילה שלך
       </h4>
       <div style="max-width: 100%; margin: -5px auto 30px; flex: 1;overflow-y: auto;text-align: left">
         <!-- TTSReader Plans (inline-styled, modern look) -->
         <div style="font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; max-width: 900px; margin: 32px auto; color: #0f172a;">
-          <h2 style="margin: 0 0 16px 0; font-size: 26px; letter-spacing: .2px;">Choose Your Plan</h2>
+          <h2 style="margin: 0 0 16px 0; font-size: 26px; letter-spacing: .2px;">בחר את התוכנית שלך</h2>
           <div style="font-size:14px; color:#475569; margin-bottom:18px;">
-            Flexible options for creators and power users. Premium characters count toward high-quality voices.
+            אפשרויות גמישות ליוצרים ומשתמשים מתקדמים. תווים פרימיום נספרים עבור קולות באיכות גבוהה.
           </div>
 
           <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(2,6,23,.08);">
             <div style="background:linear-gradient(180deg,#f8fafc, #ffffff); border-bottom:1px solid #e2e8f0; padding:14px 18px; display:flex; gap:12px; align-items:center;">
-              <div style="font-weight:700; font-size:13px; width:34%;">Plan</div>
-              <div style="font-weight:700; font-size:13px; width:20%;">Price</div>
-              <div style="font-weight:700; font-size:13px; width:36%;">What you get</div>
+              <div style="font-weight:700; font-size:13px; width:34%;">תוכנית</div>
+              <div style="font-weight:700; font-size:13px; width:20%;">מחיר</div>
+              <div style="font-weight:700; font-size:13px; width:36%;">מה מקבלים</div>
               <div style="font-weight:700; font-size:13px; width:10%; text-align:right;">&nbsp;</div>
             </div>
 
             <!-- Row 1 -->
             <div style="display:flex; gap:12px; align-items:center; padding:18px; border-bottom:1px solid #eef2f7;">
               <div style="width:34%; display:flex; align-items:center; gap:10px;">
-                <span style="display:inline-block; padding:6px 10px; font-size:11px; font-weight:700; color:#1e293b; background:#e2e8f0; border-radius:999px;">Monthly</span>
-                <span style="color:#334155; font-weight:600;">Subscription</span>
+                <span style="display:inline-block; padding:6px 10px; font-size:11px; font-weight:700; color:#1e293b; background:#e2e8f0; border-radius:999px;">חודשי</span>
+                <span style="color:#334155; font-weight:600;">מנוי</span>
               </div>
               <div style="width:20%; font-weight:700; color:#0f172a;">$10.99<span style="font-weight:500; color:#64748b;">/mo</span></div>
-              <div style="width:36%; color:#334155;">Quota: <strong>1,000,000</strong> premium characters <span style="color:#64748b;">every month</span></div>
+              <div style="width:36%; color:#334155;">מכסה: <strong>1,000,000</strong> תווים פרימיום <span style="color:#64748b;">בכל חודש</span></div>
               <div style="width:10%; text-align:right;">
                 <a href="#" style="display:inline-block; background:#2563eb; color:#fff; text-decoration:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:13px; box-shadow:0 6px 14px rgba(37,99,235,.25); transition:transform .15s ease, box-shadow .15s ease;"
                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 18px rgba(37,99,235,.32)';"
-                   onmouseout="this.style.transform=''; this.style.boxShadow='0 6px 14px rgba(37,99,235,.25)';">BUY</a>
+                   onmouseout="this.style.transform=''; this.style.boxShadow='0 6px 14px rgba(37,99,235,.25)';">קנה</a>
               </div>
             </div>
 
             <!-- Row 2 -->
             <div style="display:flex; gap:12px; align-items:center; padding:18px; border-bottom:1px solid #eef2f7; background:linear-gradient(180deg,#fbfdff,#ffffff);">
               <div style="width:34%; display:flex; align-items:center; gap:10px;">
-                <span style="display:inline-block; padding:6px 10px; font-size:11px; font-weight:700; color:#065f46; background:#d1fae5; border-radius:999px;">Annual</span>
-                <span style="color:#334155; font-weight:600;">Subscription</span>
-                <span style="margin-left:8px; padding:4px 8px; font-size:10px; font-weight:800; color:#fff; background:#10b981; border-radius:8px;">Save 25%+</span>
+                <span style="display:inline-block; padding:6px 10px; font-size:11px; font-weight:700; color:#065f46; background:#d1fae5; border-radius:999px;">שנתי</span>
+                <span style="color:#334155; font-weight:600;">מנוי</span>
+                <span style="margin-left:8px; padding:4px 8px; font-size:10px; font-weight:800; color:#fff; background:#10b981; border-radius:8px;">חסכו 25%+</span>
               </div>
               <div style="width:20%; font-weight:700; color:#0f172a;">$99<span style="font-weight:500; color:#64748b;">/yr</span></div>
-              <div style="width:36%; color:#334155;">Quota: <strong>1,000,000</strong> premium characters <span style="color:#64748b;">every month</span></div>
+              <div style="width:36%; color:#334155;">מכסה: <strong>1,000,000</strong> תווים פרימיום <span style="color:#64748b;">בכל חודש</span></div>
               <div style="width:10%; text-align:right;">
                 <a href="#" style="display:inline-block; background:#0ea5e9; color:#fff; text-decoration:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:13px; box-shadow:0 6px 14px rgba(14,165,233,.25); transition:transform .15s ease, box-shadow .15s ease;"
                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 18px rgba(14,165,233,.32)';"
-                   onmouseout="this.style.transform=''; this.style.boxShadow='0 6px 14px rgba(14,165,233,.25)';">BUY</a>
+                   onmouseout="this.style.transform=''; this.style.boxShadow='0 6px 14px rgba(14,165,233,.25)';">קנה</a>
               </div>
             </div>
 
             <!-- Row 3 -->
             <div style="display:flex; gap:12px; align-items:center; padding:18px;">
               <div style="width:34%; display:flex; align-items:center; gap:10px;">
-                <span style="display:inline-block; padding:6px 10px; font-size:11px; font-weight:700; color:#7c2d12; background:#ffedd5; border-radius:999px;">Credits</span>
-                <span style="color:#334155; font-weight:600;">One-time (non-recurring)</span>
+                <span style="display:inline-block; padding:6px 10px; font-size:11px; font-weight:700; color:#7c2d12; background:#ffedd5; border-radius:999px;">קרדיטים</span>
+                <span style="color:#334155; font-weight:600;">חד-פעמי (ללא חידוש)</span>
               </div>
               <div style="width:20%; font-weight:700; color:#0f172a;">$32<span style="font-weight:500; color:#64748b;"> / 1M chars</span></div>
-              <div style="width:36%; color:#334155;">Valid for <strong>1 year</strong> from purchase</div>
+              <div style="width:36%; color:#334155;">בתוקף ל<strong>שנה אחת</strong> מרגע הרכישה</div>
               <div style="width:10%; text-align:right;">
                 <a href="#" style="display:inline-block; background:#ef4444; color:#fff; text-decoration:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:13px; box-shadow:0 6px 14px rgba(239,68,68,.25); transition:transform .15s ease, box-shadow .15s ease;"
                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 18px rgba(239,68,68,.32)';"
-                   onmouseout="this.style.transform=''; this.style.boxShadow='0 6px 14px rgba(239,68,68,.25)';">BUY</a>
+                   onmouseout="this.style.transform=''; this.style.boxShadow='0 6px 14px rgba(239,68,68,.25)';">קנה</a>
               </div>
             </div>
           </div>
 
-          <div style="margin-top:12px; font-size:12px; color:#64748b;">
-            Prices in USD. “Premium characters” apply to neural/high-quality voices. Taxes may apply in some regions.
+          <div style=”margin-top:12px; font-size:12px; color:#64748b;”>
+            המחירים בדולר אמריקאי. "תווים פרימיום" חלים על קולות עצביים/באיכות גבוהה. ייתכן שיחולו מסים באזורים מסוימים.
           </div>
         </div>
       </div>
@@ -1609,31 +2354,31 @@
       </div>
       <div data-ws-show-if-state="isPremium=false" style="overflow: auto;padding:10px;">
         <h4>קבל עוד ותמוך בצוות 🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --><br/>קולות בינה מלאכותית פרימיום, ייצוא, מסחרי ופרסום <!-- Premium AI Voices, Export, Commercial & Publishing --></h4>
-        <p style="margin-top: 38px;text-transform: uppercase; opacity: 1;font-size: 0.99em;">
-          מנויים נגישים וחבילות תשלום חד פעמי <!-- Affordable Subscriptions and One-Time Payment Packages -->
-        </p>
+        <!--<p style="margin-top: 38px;text-transform: uppercase; opacity: 1;font-size: 0.99em;">
+          מנויים נגישים וחבילות תשלום חד פעמי &lt;!&ndash; Affordable Subscriptions and One-Time Payment Packages &ndash;&gt;
+        </p>-->
         <br/>
         <div data-ws-show-if-state="isSignedIn=false">
-          <sign-in-buttons></sign-in-buttons>
           <p style="opacity: 0.8;">היכנס כדי לחקור את התוכניות השונות <!-- Login to explore the different plans --></p>
+          <sign-in-buttons></sign-in-buttons>
         </div>
         <div data-ws-show-if-state="isSignedIn=true">
           <button class="full-width-button" onclick="openNewUpgradeModal()">צפה בתוכניות פרימיום <!-- View Premium Plans --></button>
         </div>
         <br/><br/>
-        <ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 0 0 1em 0; text-align: start">
-          <li>קולות פרימיום <!-- Premium voices --></li>
-          <li><strong>השמעה רציפה ללא הפרעה <!-- Uninterrupted continuous playback --></strong></li>
-          <li>קריאה רציפה בלתי מוגבלת<!-- Unlimited continuous reading --></li>
-          <li><strong>ייצוא ל MP3 ו WAV <!-- Export to MP3 & WAV --></strong></li>
-          <li>ערוץ הפודקאסט שלך <!-- Your own podcast channel --></li>
-          <li><strong>רישיון מסחרי לשימוש ופרסום! <!-- Commercial license for Usage & Publishing! --></strong></li>
-          <li><strong>חופשי מזכויות יוצרים</strong> לקולות בינה מלאכותית פרימיום וקולות בסיסיים נבחרים <!-- <strong>Copyrights free</strong> for Premium AI voices and select basic voices --></li>
-          <li>ללא פרסומות<!-- No Ads --></li>
-          <li>טעינה מהירה יותר<!-- Faster loading --></li>
-          <li>תמיכה פרימיום, בקשות תכונות <!-- Premium support, features requests --></li>
-          <li>פתח את כל הפונקציות<!-- Unlock all features --></li>
-        </ul>
+        <!--<ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 1em 20px; text-align: start">
+          <li>קולות פרימיום &lt;!&ndash; Premium voices &ndash;&gt;</li>
+          <li><strong>השמעה רציפה ללא הפרעה &lt;!&ndash; Uninterrupted continuous playback &ndash;&gt;</strong></li>
+          <li>קריאה רציפה בלתי מוגבלת&lt;!&ndash; Unlimited continuous reading &ndash;&gt;</li>
+          <li><strong>ייצוא ל MP3 ו WAV &lt;!&ndash; Export to MP3 & WAV &ndash;&gt;</strong></li>
+          <li>ערוץ הפודקאסט שלך &lt;!&ndash; Your own podcast channel &ndash;&gt;</li>
+          <li><strong>רישיון מסחרי לשימוש ופרסום! &lt;!&ndash; Commercial license for Usage & Publishing! &ndash;&gt;</strong></li>
+          <li><strong>חופשי מזכויות יוצרים</strong> לקולות בינה מלאכותית פרימיום וקולות בסיסיים נבחרים &lt;!&ndash; <strong>Copyrights free</strong> for Premium AI voices and select basic voices &ndash;&gt;</li>
+          <li>ללא פרסומות&lt;!&ndash; No Ads &ndash;&gt;</li>
+          <li>טעינה מהירה יותר&lt;!&ndash; Faster loading &ndash;&gt;</li>
+          <li>תמיכה פרימיום, בקשות תכונות &lt;!&ndash; Premium support, features requests &ndash;&gt;</li>
+          <li>פתח את כל הפונקציות&lt;!&ndash; Unlock all features &ndash;&gt;</li>
+        </ul>-->
       </div>
     </div>
     <div style="height:20px;"></div>
@@ -1700,9 +2445,20 @@
       <br/>
       <p style="text-space: 1.2">דוגמאות ל-URL<!-- Examples of valid URLs: --></p>
       <div style="text-align: left; color: orangered; line-height: 1.3em; font-style: italic">
-        <p>https://en.wikipedia.org/wiki/The_Beatles</i></p>
-        <p>https://www.bbc.com/sport/football/articles/c97dllq4gg1o</p>
+        <p><a href="#" class="url-example-link" style="color: orangered" data-url="https://en.wikipedia.org/wiki/The_Beatles"><i>https://en.wikipedia.org/wiki/The_Beatles</i></a></p>
+        <p><a href="#" class="url-example-link" style="color: orangered" data-url="https://ttsreader.com/"><i>https://ttsreader.com/</i></a></p>
+        <p><a href="#" class="url-example-link" style="color: orangered" data-url="https://www.bbc.com/sport/football/articles/c97dllq4gg1o"><i>https://www.bbc.com/sport/football/articles/c97dllq4gg1o</i></a></p>
       </div>
+      <script>
+        document.querySelectorAll('.url-example-link').forEach(function(link) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var url = this.getAttribute('data-url');
+            document.getElementById('urlInput').value = url;
+            document.getElementById('urlSubmitButton').click();
+          });
+        });
+      </script>
     </div>
   </div>
 
@@ -1772,7 +2528,7 @@
       </p>
       <p style="font-weight: bold">
         משך:&nbsp;~<span data-ws-label-state="expectedDuration"></span>&nbsp;<span style="font-weight:normal">(at speed X1)</span>.
-      </span>
+      </p>
 
       <br/>
       <button class="full-width-button" data-ws-onClick="calculateStats">רענן</button>
@@ -1846,11 +2602,11 @@
         <br/>
         <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="">הקלט זרם (טוב לקולות שאינם ניתנים לייצוא)</button>
         <br/>
-        <h3>Did you know? Learn more on:</h3>
+        <h3>הידעת? למד עוד על:</h3>
         <ul style="text-align: start; line-height: 1.7em;">
-          <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with multiple voices</a></li>
-          <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">Export, download & share your MP3 & text</a></li>
-          <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Recording on-the-fly</a></li>
+          <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">יצירת דיאלוגים עם קולות מרובים</a></li>
+          <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">ייצוא, הורדה ושיתוף קבצי MP3 וטקסט</a></li>
+          <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">הקלטה תוך כדי השמעה</a></li>
         </ul>
       </div>
     </div>
@@ -1872,7 +2628,7 @@
         <div>
           <img src="images/share_audio.png" style="max-width: 90%; margin: auto;"/>
         </div>
-        <p><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Learn on generating mp3 files and the different options here.</a></p>
+        <p><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">למד על יצירת קבצי MP3 והאפשרויות השונות כאן.</a></p>
         <!--<p style="text-align: justify">צפה בסרטון הקצר הזה להבנת השלבים. כאשר אתה מוכן - לחץ על כפתור 'התחל הקלטה'.&lt;!&ndash; Watch this short video for understanding the steps. When ready - click the 'Start Recording' button. &ndash;&gt;</p>
         <div class="videowrapper">
           <iframe style="display:block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
@@ -1909,7 +2665,7 @@
           <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">היכנס כדי לצפות בתוכניות</a></span></li>-->
           <li><strong>נא להפעיל לפני הייצוא – כדי לוודא שהכול נשמע בדיוק כפי שברצונך. ערוך עד לשלמות ואז יצא.</strong></li>
           <li>צורך תווים מהמכסה של תווי-פרמיום חודשית או מחבילת קרדיטים פרימיום.</li>
-          <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> Limited to 200k chars per file. Your current text is too long with <span data-ws-label-state="charsCount"></span> chars.&nbsp;<span style="color:red;">Please split it to smaller chunks, or talk to us at contact@ttsreader.com</span></li>
+          <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> מוגבל ל-200 אלף תווים לקובץ. הטקסט הנוכחי שלך ארוך מדי עם <span data-ws-label-state="charsCount"></span> תווים.&nbsp;<span style="color:red;">אנא פצל אותו לחלקים קטנים יותר, או דבר איתנו ב-contact@ttsreader.com</span></li>
           <li>פועל רק עם קולות פרימיום (המסומנים בכוכבית בגלריית הקולות).</li>
           <li>חדש: נתמך {{pause}} ו-{{pause:DURATION_IN_MS}}. ודא שהפורמט ללא רווחים בתוך סוגריים מסולסלים {{...}}</li>
           <li>תוכל גם ליצור ערוץ פודקאסט אישי משלך כדי להאזין לייצואים שלך בדרך עם אפליקציית הפודקאסט האהובה עליך. <!-- You can also create your personal podcast channel to listen to your exports on the go with your favorite podcast app. --></li>
@@ -1928,16 +2684,16 @@
       <div data-ws-show-if-state="isSignedIn=true">
       <div>
         <button onclick="sendAnalyticsEvent('exportMP3');" class="full-width-button" data-ws-params="mp3" data-ws-onClick="exportToMp3">צור והורד MP3</button>
-        <button onclick="sendAnalyticsEvent('exportWAV');" class="full-width-button secondary" data-ws-params="wav" data-ws-onClick="exportToMp3" style="">צור והורד WAV (עד 2000 תווים בלבד)</button>
+        <p style="text-align: center; font-size: smaller;">צריך פורמט שמע ספציפי? השתמש ב<a href="https://ttsreader.com/convert2wav/" target="_blank" rel="nofollow" style="color: dodgerblue">ממיר MP3 ל-WAV</a> הפשוט שלנו.</p>
       </div>
       </div>
       <p style="margin: 30px auto">מחפשים קבצים קודמים?&nbsp;<a style="cursor: pointer; color: orangered;" onclick="openOrCloseExportsListModal();"><svg style="vertical-align: middle; margin-bottom: 4px;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-music"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg>&nbsp; פתח תיקיית שמע</a></p>
-      <h3>Did you know? Learn more on:</h3>
+      <h3>הידעת? למד עוד על:</h3>
       <ul style="text-align: start; line-height: 1.7em;">
-        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">Create Dialogs with multiple voices</a></li>
-        <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">Export, download & share your MP3 & text</a></li>
-        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Recording on-the-fly</a></li>
-        <li><a href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">Create your personal podcast channel</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds">- יצירת דיאלוגים עם קולות מרובים</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/">- ייצוא, הורדה ושיתוף קבצי MP3 וטקסט</a></li>
+        <li><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">- הקלטה תוך כדי השמעה</a></li>
+        <li><a href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank">- צור את ערוץ הפודקאסט האישי שלך</a></li>
       </ul>
     </div>
   </div>
@@ -1990,6 +2746,144 @@
     <div style="height:20px;"></div>
   </div>-->
 
+  <!-- API Modal -->
+  <div class="Modal" id="apiModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow: hidden; max-height: 80vh; max-width: 1000px; width: 90%;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+
+      <div style="overflow: auto; margin: 30px 0;max-height: 75vh;">
+        <!-- API Key Section -->
+        <div style="background: var(--card-background); padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            מפתח ה-API שלכם
+          </h3>
+
+          <div data-ws-show-if-state="isSignedIn=false" style="text-align: center; padding: 20px; color: var(--text-color-secondary);">
+            <sign-in-buttons></sign-in-buttons>
+          </div>
+
+          <div data-ws-show-if-state="isSignedIn=true">
+            <!-- Premium required message -->
+            <div data-ws-show-if-state="isPremium=false" style="background: #fff3cd; border: 1px solid #ffecb5; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+              <p style="color: #856404; margin-bottom: 10px;">גישה ל-API דורשת מנוי Premium</p>
+              <p style="color: #856404; margin-bottom: 15px;">שדרגו ל-Premium כדי ליצור את מפתח ה-API שלכם ולהתחיל להשתמש ב-TTS API החזק שלנו.</p>
+              <button onclick="openNewUpgradeModal()" class="Full-width-btn" style="background-color: #007bff; color: white; border: none;">
+                שדרגו ל-Premium
+              </button>
+            </div>
+
+            <!-- API Key Display for Premium Users -->
+            <div data-ws-show-if-state="isPremium=true">
+              <div data-ws-show-if-state="uapi=true" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <p type="password" id="apiSecretDisplay" data-ws-label-state="uapi" readonly style="flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-background);"></p>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button onclick="generateApiSecret()" id="generateSecretBtn" class="Full-width-btn" style="background-color: #28a745; color: white; border: none;">
+                  <span data-ws-show-if-state="uapi=false" style="display: inline;">צרו מפתח API חדש</span>
+                  <span data-ws-show-if-state="uapi=true" style="display: none;">צרו מחדש מפתח API</span>
+                </button>
+                <button onclick="testApiEndpoint()" data-ws-show-if-state="uapi=true" class="Full-width-btn" style="background-color: #007bff; color: white; border: none;">
+                  בדקו API והורידו MP3
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of API Key Section -->
+
+        <!-- Code Examples with secret -->
+        <div style="background: var(--card-background); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 20px;">דוגמאות קוד</h3>
+
+          <!-- CURL Example -->
+          <div style="margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h4 style="margin: 0;">דוגמת CURL</h4>
+              <button onclick="copyToClipboard('curlExample')" style="padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                העתקה
+              </button>
+            </div>
+            <pre id="curlExample" style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.4;">curl -X POST "https://ttsreader.com/api/ttsSync" \
+-H "Authorization: Bearer UAPI-<span data-ws-label-state="uapi" style="color: #4fc3f7;">YOUR_SECRET_KEY</span>" \
+-H "Content-Type: application/json" \
+--data '{"text": "Hello world, this is a test from TTSReader API.","lang": "en-US", "voice": "Nova Premium", "rate":1, "quality": "48khz_192kbps" }' \
+--output "hello.mp3"</pre>
+          </div>
+
+          <!-- JavaScript Example -->
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h4 style="margin: 0;">דוגמת JavaScript</h4>
+              <button onclick="copyToClipboard('jsExample')" style="padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                העתקה
+              </button>
+            </div>
+            <pre id="jsExample" style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.4;"><span style="color: #569cd6;">async function</span> <span style="color: #dcdcaa;">generateTTS</span>() {
+    <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">response</span> = <span style="color: #569cd6;">await</span> <span style="color: #dcdcaa;">fetch</span>(<span style="color: #ce9178;">'https://ttsreader.com/api/ttsSync'</span>, {
+        <span style="color: #9cdcfe;">method:</span> <span style="color: #ce9178;">'POST'</span>,
+        <span style="color: #9cdcfe;">headers:</span> {
+            <span style="color: #ce9178;">'Authorization'</span>: <span style="color: #ce9178;">'Bearer UAPI-<span data-ws-label-state="uapi" style="color: #4fc3f7;">YOUR_SECRET_KEY</span>'</span>,
+            <span style="color: #ce9178;">'Content-Type'</span>: <span style="color: #ce9178;">'application/json'</span>
+        },
+        <span style="color: #9cdcfe;">body:</span> <span style="color: #dcdcaa;">JSON.stringify</span>({
+            <span style="color: #9cdcfe;">text:</span> <span style="color: #ce9178;">"Hello world, this is a test from TTSReader API."</span>,
+            <span style="color: #9cdcfe;">lang:</span> <span style="color: #ce9178;">"en-US"</span>,
+            <span style="color: #9cdcfe;">voice:</span> <span style="color: #ce9178;">"Nova Premium"</span>,
+            <span style="color: #9cdcfe;">quality:</span> <span style="color: #ce9178;">"48khz_192kbps"</span>,
+            <span style="color: #9cdcfe;">rate:</span> <span style="color: #b5cea8;">1</span>
+        })
+    });
+
+    <span style="color: #c586c0;">if</span> (<span style="color: #9cdcfe;">response</span>.<span style="color: #9cdcfe;">ok</span>) {
+        <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">audioBlob</span> = <span style="color: #569cd6;">await</span> <span style="color: #9cdcfe;">response</span>.<span style="color: #dcdcaa;">blob</span>();
+        <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">url</span> = <span style="color: #4ec9b0;">URL</span>.<span style="color: #dcdcaa;">createObjectURL</span>(<span style="color: #9cdcfe;">audioBlob</span>);
+        <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">a</span> = <span style="color: #4ec9b0;">document</span>.<span style="color: #dcdcaa;">createElement</span>(<span style="color: #ce9178;">'a'</span>);
+        <span style="color: #9cdcfe;">a</span>.<span style="color: #9cdcfe;">href</span> = <span style="color: #9cdcfe;">url</span>;
+        <span style="color: #9cdcfe;">a</span>.<span style="color: #9cdcfe;">download</span> = <span style="color: #ce9178;">'hello.mp3'</span>;
+        <span style="color: #9cdcfe;">a</span>.<span style="color: #dcdcaa;">click</span>();
+    }
+}</pre>
+          </div>
+
+          <br/>
+          <h3 style="margin-bottom: 15px;">פרמטרי בקשה</h3>
+          <ul style="line-height: 1.8; margin-left: 20px;">
+            <li><strong>text</strong> (נדרש): הטקסט להמרה לדיבור</li>
+            <li><strong>lang</strong> (נדרש): קוד שפה (למשל 'he-IL', 'en-US')</li>
+            <li><strong>voice</strong> (נדרש): שם קול - השתמשו בקולות מנגן TTSReader או בכל קול Azure מ <a href="https://speech.azure.cn/portal/voicegallery" target="_blank" style="color: #007bff;">גלריית קולות Azure</a></li>
+            <li><strong>rate</strong> (אופציונלי): מהירות דיבור (0.5 עד 2.0, ברירת מחדל: 1.0)</li>
+            <li><b>quality</b> (אופציונלי): "48khz_192kbps" או ריק (ברירת מחדל 24kHz)</li>
+          </ul>
+          <br/>
+
+        </div>
+
+        <br/>
+
+        <!-- API Documentation -->
+        <div style="background: var(--card-background); padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 15px;">הערות חשובות</h3>
+          <ul style="line-height: 1.8; margin-left: 20px;list-style: disc;">
+            <li>הגבל את התווים לכמה אלפים (הגבול המדויק לא ידוע, אבל 5 אלף תווים זה בטוח), מכיוון שזה API סינכרוני שפג תוקפו אחרי 5 דקות. אם הוא יכול ליצור את ה-MP3 תוך 5 דקות הוא יעשה זאת - אחרת יפוג הזמן לפני שה-MP3 מוכן - אבל מכיוון שה-AI התחיל - הוא יצרוך קרדיטים.</li>
+            <li>API אסינכרוני מגיע בקרוב לטקסטים ארוכים ולתמיכה בקולות מרובים בקובץ אחד.</li>
+            <li>נקודת הקצה ttsSync אינה תומכת בהגדרות קול (כלומר: {{set: voice, language, rate}}) בתוך הטקסט. לכן, קול אחד - מוגדר בבקשת ה-API.</li>
+            <li>שם הקול הוא כפי שמוצג בממשק בחירת הקול. בנוסף, כל קולות Azure העצביים נתמכים. לכן, מוזמנים לגלוש לגלריית הקולות של Azure ב-<a href="https://speech.azure.cn/portal/voicegallery" target="_blank" style="color: #007bff;">https://speech.azure.cn/portal/voicegallery</a> ולבחור קול משם.</li>
+            <li>אם אתה צריך משהו נוסף, או יש לך משוב, הצעות, אנא ספר לנו ב-<span style="color: orangered;">contact@ttsreader.com</span></li>
+          </ul>
+        </div>
+
+        <br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
   <div class="Modal" id="helpModal" style="display: none;">
     <div style="flex:1"></div>
     <div class="Modal-content" style="max-width: 100%;max-height: 90vh;">
@@ -2016,7 +2910,7 @@
       <div style="overflow-y: auto;max-height: 90%;text-align: justify;">
         <h3 style="text-align: center">עוד קולות<!-- More Voices --></h3>
 
-        <p style="text-align: center"><a href="#" onclick="appMethods.showModal('voicesModal');">Click here to preview & select a voice available on your browser</a></p>
+        <p style="text-align: center"><a href="#" onclick="appMethods.handleVoiceLabelClick();">Click here to preview & select a voice available on your browser</a></p>
         <br/>
         <!--<p style="text-align: center"><b>Other voices on other browsers</b></p>
         <div data-ws-show-if-state="os=win">
@@ -2067,7 +2961,34 @@
         <br/>
         <code>{{pause:1000}}</code>
         <br/>
-        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addPauseModal" onclick="navigator.clipboard.writeText('\n{{pause:1000}}\n')">
+        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addPauseModal" onclick="navigator.clipboard.writeText('{{pause:1000}}\n')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+            <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+          </svg>&nbsp;העתק<!-- Copy -->
+        </a>
+        <br/><br/><br/>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+  </div>
+
+  <div class="Modal" id="addCommentModal" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal">
+        <svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow-y: auto;max-height: 90%;text-align: center;">
+        <h3>הוספת הערות - טקסט שהנגן מתעלם ממנו</h3>
+        <p>העתק את השורה הבאה והדבק בטקסט. ערוך את התוכן הפנימי כדי להוסיף הערות משלך בטקסט.</p>
+        <br/>
+        <code>{{skip: YOUR-COMMENT-HERE}}</code>
+        <br/>
+        <a style="text-decoration: none;" class="Link-btn" data-ws-toggle="#addCommentModal" onclick="navigator.clipboard.writeText('{{skip:   }}\n')">
           <svg xmlns="http://www.w3.org/2000/svg" class="Middle-vertical-align" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
@@ -2110,7 +3031,7 @@
 
   <div class="loading-overlay hidden" data-ws-show-if-state="isLoading=true">
     <div class="spinner"></div>
-    <div class="loading-text">Loading...</div>
+    <div class="loading-text">טוען...</div>
   </div>
 </div>
 
@@ -2631,14 +3552,13 @@
     let srcs = [
       "https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js",
       "https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js",
-      "https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js",
-      "https://unpkg.com/mammoth/mammoth.browser.min.js"
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"
     ]
 
     let loadedScripts = 0;
     function onScriptLoaded() {
       loadedScripts++;
-      if (loadedScripts==srcs.length) {
+      if (loadedScripts>=srcs.length) {
         runDependentScript();
       } else {
         fetchJsFile(srcs[loadedScripts], onScriptLoaded);
@@ -2753,7 +3673,7 @@
           if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn") && !window.AppAnalytics.id && !isBotUserAgent()) {
             // This is a first ever visit. Set unique setup here:
             // A/B test prefix: 50% A / 50% B
-            const prefix = DEFAULT_THEME === 'dark-bg' ? 'D311_' : 'L311_'; //
+            const prefix = DEFAULT_THEME.includes("dark") ? 'D3101_' : 'L3101_'; //
             console.log({prefix});
             const randomString = Math.random().toString(36).substring(2, 17); // 15 chars
             window.AppAnalytics.id = prefix + randomString;
@@ -2784,10 +3704,11 @@
             ronenMock: true,
           });
           window.uid = user.uid;
+          window.email = user.email;
           initDbListeners(user.uid);
 
           // Bring PayPal SDK:
-          fetchJsFile("https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&intent=subscription&locale=he_IL",
+          /*fetchJsFile("https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&intent=subscription&locale=he_IL",
                   ()=>{
                     fetchJsFile("https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&locale=he_IL",
                             () => {
@@ -2797,7 +3718,7 @@
                                 renderPayPalButton(user.uid, container);
                               })
                             }, "paypalOnce");
-                  }, "paypalSubs");
+                  }, "paypalSubs");*/
         } else {
           // User signed out.
           window.getIdToken = async () => null;
@@ -2825,6 +3746,10 @@
             })
           }
         }
+      });
+
+      fetchJsFile("https://unpkg.com/mammoth/mammoth.browser.min.js",()=>{
+        console.log(stopper() + 'Mammoth loaded');
       });
     }
   }
@@ -3149,6 +4074,28 @@
     }
   }
 
+  function sendLogsToFb(uid, type, message) {
+    if (!firebase) {
+      return;
+    }
+
+    message = {...message, clientInfo: getClientInfo(), createdAt: new Date().toISOString(),};
+
+    try {
+      // Send first of type only:
+      const dateKey = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD
+      const path = `logs/errors/${dateKey}/${type}/${uid}`;
+
+      firebase.database().ref(path).push(message)
+              .then(() => {
+              })
+              .catch(err => {
+              });
+    } catch (e) {}
+  }
+
+  window.sendLogsToFb = sendLogsToFb;
+
   function toggleSignIn() {
     var user = firebase.auth().currentUser;
     //console.log("user " , user);
@@ -3304,7 +4251,7 @@
   function openOnboarding(forceOpen) {
     let shouldOpen = forceOpen; // || window.AppAnalytics.id?.startsWith("A_") - if we want to try some better onboarding...
     if (!shouldOpen) {
-      appMethods.showModal("emptyTextModal")
+      //appMethods.showModal("emptyTextModal")
       localStorage.setItem("ttsreader.wasOnboarding3", "true");
       return;
     }
@@ -3389,6 +4336,18 @@
     }
   }
 
+  function closeVoiceGalleryModal() {
+    let modalEl = document.getElementById('voiceGalleryModal');
+    if (modalEl) {
+      modalEl.classList.remove("show");
+      modalEl.addEventListener("transitionend", () => {
+        //modalEl.classList.add("hidden");
+      }, { once: true });
+    }
+  }
+
+
+
   function openOrCloseExportsListModal(isToClose) {
     let modalEl = document.getElementById('exportsListModal');
     if (isToClose) {
@@ -3439,7 +4398,50 @@
       requestAnimationFrame(() => modalEl.classList.add("show"));
     };
     let shouldHideSubscriptions = Boolean(window.subscriptionId);
-    let src = `newUpgradeModal.${lang}.html?uid=${uid}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
+    let src = `newUpgradeModalPaddle.${lang}.html?uid=${uid}&email=${email}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
+    if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
+      let obj = {iframe: iframeEl.src, src};
+      console.log("src!==src: ", obj);
+      iframeEl.src = src;
+    } else {
+      console.log("src===src");
+      modalEl.classList.remove("hidden");
+      requestAnimationFrame(() => modalEl.classList.add("show"));
+    }
+  }
+
+  function openVoiceGalleryModal() {
+    let modalEl = document.getElementById('voiceGalleryModal');
+    if (!modalEl) { console.error("Modal element not found"); return; }
+    let iframeEl = modalEl.querySelector('iframe');
+    if (!iframeEl) { console.error("Iframe element not found in modal"); return; }
+
+    let lang = document.documentElement.getAttribute('lang') || 'en';
+    let theme = document.documentElement.getAttribute('data-dark-mode') ? 'dark' : 'light';
+
+    // Read current TTS state from DomHooks-bound hidden elements
+    let storedVoiceUri = (document.getElementById('stateSelectedVoiceUri')?.textContent || '').trim();
+    let storedRate = (document.getElementById('stateSelectedRate')?.textContent || '').trim();
+    let selectedLang = (document.getElementById('stateSelectedLanguageCode')?.textContent || '').trim();
+
+    // Extract bare Azure voice ID (strip server/azure prefix)
+    let voiceId = '';
+    if (storedVoiceUri.startsWith('ttsreaderServer.azure.')) {
+      voiceId = storedVoiceUri.replace('ttsreaderServer.azure.', '');
+    } else if (storedVoiceUri.startsWith('azure.')) {
+      voiceId = storedVoiceUri.replace('azure.', '');
+    }
+
+    iframeEl.onload = function () {
+      modalEl.classList.remove("hidden");
+      requestAnimationFrame(() => modalEl.classList.add("show"));
+    };
+
+    let src = `voiceGalleryModal.${lang}.html?theme=${theme}&lang=${lang}&onClose=closeVoiceGalleryModal`;
+    if (selectedLang) src += `&locale=${encodeURIComponent(selectedLang)}`;
+    if (storedRate) src += `&rate=${encodeURIComponent(storedRate)}`;
+    if (voiceId) src += `&voice=${encodeURIComponent(voiceId)}`;
+
     if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
       let obj = {iframe: iframeEl.src, src};
       console.log("src!==src: ", obj);
@@ -3489,6 +4491,38 @@
 
 </script>
 
+<!-- Pronunciation Edit Widget -->
+<div id="pronunciationEditWidget" class="pronunciation-edit-widget" style="display: none;">
+  <div class="pronunciation-edit-widget-overlay" onclick="closePronunciationEditWidget()"></div>
+  <div class="pronunciation-edit-widget-content">
+    <div class="pronunciation-edit-widget-header">
+      <h3>עריכת הגייה</h3>
+      <button class="pronunciation-edit-widget-close" onclick="closePronunciationEditWidget()" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18"></path>
+          <path d="M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="pronunciation-edit-widget-body">
+      <div class="pronunciation-edit-inputs">
+        <input type="text" id="editOriginalWord" placeholder="מילה מקורית" class="pronunciation-input" />
+        <div class="pronunciation-input-wrapper">
+          <input type="text" id="editPronunciationWord" placeholder="הגייה" class="pronunciation-input" />
+          <button class="pronunciation-test-btn" title="Test pronunciation" onclick="window.appMethods.pronounceTestVoice(document.getElementById('editPronunciationWord').value)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5,3 19,12 5,21"></polygon>
+            </svg>
+          </button>
+        </div>
+        <div class="pronunciation-edit-actions">
+          <button class="pronunciation-cancel-btn" onclick="closePronunciationEditWidget()">ביטול</button>
+          <button class="pronunciation-save-btn" onclick="savePronunciationEdit()">שמור שינויים</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- JS STRINGS -->
 <div id="JS_STRINGS" style="display: none">
@@ -3512,6 +4546,34 @@
   <div data-ws-string-key="notification__no_text_paragraph" data-ws-string-value=""></div>
 </div>
 <!-- end of JS STRINGS -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const findReplaceWidget = new FindReplaceWidget();
+
+      /*document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+          e.preventDefault();
+          findReplaceWidget.show();
+        }
+      });*/
+
+      const frIcon = document.getElementById('fr-icon');
+      if (frIcon) {
+        frIcon.addEventListener('click', () => {
+          findReplaceWidget.toggle();
+        });
+      }
+
+      // Import confety.js:
+      /*let el = document.createElement('script');
+      el.src = 'confety.js';
+      document.head.appendChild(el);*/
+    });
+  </script>
+
+  <script src="static/js/pronounciation.js"></script>
+
 
 </body>
 </html>

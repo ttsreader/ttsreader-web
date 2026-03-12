@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html  lang="<%= htmlWebpackPlugin.options.strings.lang %>"  data-dark-mode>
 <head>
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <script>
+    Paddle.Environment.set("production"); // Use "production" for live environment
+    Paddle.Initialize({
+      token: "live_e52f015f98dbce460791b4b9fe7"
+    });
+  </script>
   <script>
     // Get from query params: uid, lang, darkMode - and set them already - so we don't have flickering.
     // uid=oiu987oiuo&theme=dark&lang=he&onClose=closeModals
     const params = new URLSearchParams(window.location.search);
 
     const uid = params.get("uid");
+    const email = params.get("email");
     const theme = params.get("theme");
     const lang = params.get("lang");
     const onCloseParentCallbackName = params.get("onClose") || "closeModals";
@@ -793,7 +801,7 @@
             <!-- Signature -->
             <div style="margin-top:18px;">
               <!-- Optional name/title under signature -->
-              <div style="margin-top:6px;color:#6b7280;font-size: 1.2em;">Ronen Rabinovici, Founder</div>
+              <div style="margin-top:6px;color:#6b7280;font-size: 1.2em;"><%= htmlWebpackPlugin.options.strings.d20260220_newUpgradeModal_founder_name %></div>
             </div>
           </div>
         </div>
@@ -826,7 +834,7 @@
         <div class="Paypal-Button-Container"></div>
         <p><strong><%= htmlWebpackPlugin.options.strings.newUpgradeModal_satisfactionGuaranteed %></strong></p>
         <p><%= htmlWebpackPlugin.options.strings.newUpgradeModal_byWellSource %></p>
-        <p>Unable to pay? Let us know at contact@ttsreader.com</p>
+        <p><%= htmlWebpackPlugin.options.strings.d20260220_newUpgradeModal_unable_to_pay %></p>
       </card>
       <div style="flex:1"></div>
     </div>

@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-02-19T15:32:52.468Z",
-      "version": "3.11.03",
+      "dateModified": "2026-03-12T12:23:33.529Z",
+      "version": "3.12.00",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -51,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.11.03 - TTSReader's Text to Speech Player</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.12.00 - TTSReader's Text to Speech Player</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -905,7 +905,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.d643700b.js"></script><link href="./static/css/main.fb2a0aa7.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.4723d7bf.js"></script><link href="./static/css/main.95f1c34e.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -1035,7 +1035,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.11.03</b> Build 2026-02-19T15:32:52.468Z
+          <b>V3.12.00</b> Build 2026-03-12T12:23:33.529Z
           <br/><span style="margin-top: 10px;display: block">ALL VERSIONS <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -1713,7 +1713,7 @@
                 <div class="pronunciation-info-card">
                 <h4 class="pronunciation-info-title">Learn how the pronunciation dictionary works</h4>
                 <p class="pronunciation-info-badge"><i>** Experimental, use with caution</i></p>
-                <p class="pronunciation-info-desc">The pronunciation function replaces your <em>original terms in the text</em> with their respective <em>pronunciation (read as...) terms</em>, right before the text is sent to the speech synthesis engine. It follows these rules:</p>
+                <p class="pronunciation-info-desc">The pronunciation function replaces your original terms in the text with their respective pronunciation (read as...) terms, right before the text is sent to the speech synthesis engine. It follows these rules:</p>
                 <ul class="pronunciation-info-rules">
                   <li>Finds <strong>whole words</strong> only</li>
                   <li><strong>Case sensitive</strong> &mdash; 'Hi' ≠ 'hi'</li>
@@ -2314,8 +2314,8 @@
             </div>
           </div>
 
-          <div style="margin-top:12px; font-size:12px; color:#64748b;">
-            Prices in USD. “Premium characters” apply to neural/high-quality voices. Taxes may apply in some regions.
+          <div style=”margin-top:12px; font-size:12px; color:#64748b;”>
+            Prices in USD. "Premium characters" apply to neural/high-quality voices. Taxes may apply in some regions.
           </div>
         </div>
       </div>
@@ -2983,7 +2983,7 @@
         </svg>
       </button>
       <div style="overflow-y: auto;max-height: 90%;text-align: center;">
-        <h3>Add Comments - Text to be Ignored by the Player<!-- Add Pause Reading Timer --></h3>
+        <h3>Add Comments - Text to be Ignored by the Player</h3>
         <p>Copy the following line and paste into the text. Edit its inner content to add your own comments in the text.</p>
         <br/>
         <code>{{skip: YOUR-COMMENT-HERE}}</code>
@@ -3552,14 +3552,13 @@
     let srcs = [
       "https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js",
       "https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js",
-      "https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js",
-      "https://unpkg.com/mammoth/mammoth.browser.min.js"
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"
     ]
 
     let loadedScripts = 0;
     function onScriptLoaded() {
       loadedScripts++;
-      if (loadedScripts==srcs.length) {
+      if (loadedScripts>=srcs.length) {
         runDependentScript();
       } else {
         fetchJsFile(srcs[loadedScripts], onScriptLoaded);
@@ -3709,7 +3708,7 @@
           initDbListeners(user.uid);
 
           // Bring PayPal SDK:
-          fetchJsFile("https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&intent=subscription&locale=en_US",
+          /*fetchJsFile("https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&vault=true&intent=subscription&locale=en_US",
                   ()=>{
                     fetchJsFile("https://www.paypal.com/sdk/js?client-id=AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG&locale=en_US",
                             () => {
@@ -3719,7 +3718,7 @@
                                 renderPayPalButton(user.uid, container);
                               })
                             }, "paypalOnce");
-                  }, "paypalSubs");
+                  }, "paypalSubs");*/
         } else {
           // User signed out.
           window.getIdToken = async () => null;
@@ -3747,6 +3746,10 @@
             })
           }
         }
+      });
+
+      fetchJsFile("https://unpkg.com/mammoth/mammoth.browser.min.js",()=>{
+        console.log(stopper() + 'Mammoth loaded');
       });
     }
   }

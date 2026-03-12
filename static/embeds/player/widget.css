@@ -1,0 +1,124 @@
+/* src/findreplace/widget.css */
+.fr-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  background-color: #2c2c2c;
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-family: sans-serif;
+  color: #f0f0f0;
+  width: 280px;
+  border: 1px solid #444;
+}
+
+.fr-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  padding-right: 24px; /* Make space for the close button */
+}
+
+.fr-widget-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.fr-widget-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  background: none;
+  border: none;
+  color: #ff4d4d; /* Red 'X' */
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+.fr-widget-close:hover {
+  transform: scale(1.1); /* Embolden on hover */
+}
+
+.fr-input-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fr-widget input[type="text"] {
+  flex-grow: 1;
+  background-color: #3a3a3a;
+  border: 1px solid #555;
+  color: #f0f0f0;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.fr-widget input[type="text"]:focus {
+  outline: none;
+  border-color: #007acc;
+}
+
+.fr-match-count {
+  font-size: 12px;
+  color: #aaa;
+  white-space: nowrap;
+  padding: 0 5px;
+}
+
+.fr-button-group {
+  display: flex;
+  gap: 5px;
+}
+
+.fr-widget button {
+  flex-grow: 1;
+  background-color: #4a4a4a;
+  border: 1px solid #666;
+  color: #f0f0f0;
+  padding: 6px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.fr-widget button:hover {
+  background-color: #5a5a5a;
+}
+.fr-widget button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fr-options-group {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  font-size: 12px;
+  margin-top: 5px;
+  padding-top: 8px;
+  border-top: 1px solid #444;
+}
+
+.fr-options-group label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.fr-options-group input[type="checkbox"] {
+  margin: 0;
+}
