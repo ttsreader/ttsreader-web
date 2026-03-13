@@ -17,6 +17,15 @@ toc: true
 
 <br/>
 
+## Bottom Lines:
+1) We very much respect your privacy, and all our services are developed to keep your data private and secure BY DESIGN.
+2) We do not sell your data to 3rd parties.
+3) We do not train on your texts or generated speech, and we do not allow our subcontractors to train on it either.
+4) We only share your data with 3rd parties when it is necessary for the operation of the service, to the limit necesary for the operation.
+5) We do our best to use the industry's standards to protect our servers, databases and storage. We use leading providers to do so - Google & Microsoft's Azure.
+6) Everything written on this page is how our system is actually designed - and everything here is to our best knowledge. HOWEVER - WE CANNOT GUARANTEE THAT THERE WON’T BE ANY TECHNICAL MISTAKES, UNKOWNS UNKOWNS OR MALICIOUS ATTACKS THAT MAY CAUSE DATA LEAKS OR THEFT - SO USE AT YOUR OWN RISK - WE WON'T BE HELD ACCOUNTABLE FOR SUCH CASES. To minimize the risk in all cases - we design our system in the manners as detailed on this page.
+7) We do operate transparently and without any issues since 2015, we have a great reputation, our parent company is [WellSource Ltd.](https://wellsrc.com) (that is owned by Ronen Rabinovici, and is the developer of additional brands such as [Speechnotes](https://speechnotes.co/) and [Speechlogger](https://speechlogger.com/)) - and we're committed to keep it that way. WellSource Ltd. is serving millions of users, is a Microsoft for Startups Graduate, serves governments, colleges, businesses, schools and consumers worldwide. If you have any questions or concerns - please do not hesitate to contact us at [Contact us](https://ttsreader.com/contact/).
+
 ## General
 
 We at TTSReader value your privacy, and that's why we do not store anything you say or type or in fact any other data about you - unless it is solely needed for the purpose of your operation. We don't share it with 3rd parties, other than what is minimally necessary in order for the service to work. That includes:
