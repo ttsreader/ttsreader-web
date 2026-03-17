@@ -3,12 +3,28 @@ title: "Websites Reader | TTSReaderX Chrome Extension"
 description: "Read out loud any web-page, directly from within that page"
 lead: "Read out loud any web-page, directly from within that page"
 date: "2017-05-10T13:47:08+02:00"
-lastmod: 2025-05-18T15:22:20+01:00
+lastmod: 2026-03-16T15:22:20+01:00
 tags: ["chrome-extension"]
 categories: ["products"]
 banner: "images/screenshots/x/screenshot-ttsreaderx.png"
 contributors: ["Editorial Team"]
 ---
+
+## 2026-March-16 Update
+
+This is a MAJOR UPDATE!! We're rolling out a new extension, built from the ground up, with a new architecture, new design, and new features. We're slowly adding users to its preview version - more details here: [TTSReader's New Chrome Extension](https://ttsreader.com/x/).
+
+
+<br/>
+
+See short demo of the new extension here:
+
+<br/>
+<div class="videowrapper">
+  <iframe style="display: block" src="https://www.youtube.com/embed/Rq2JuTOM1PY?rel=0"  title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+<br/>
+
 
 ## 2025-May-18 Update
 

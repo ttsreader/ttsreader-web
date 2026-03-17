@@ -1,9 +1,9 @@
 ---
-title: "TTSReader Plugin - Make Your Own Website Speak"
-description: "Add the TTSReader Plugin - with a single line of code - to make your website speak - so users can listen to your content."
+title: "TTSReader Plugin - Make ANY Own Website Speak"
+description: "Add the TTSReader Chrome Extension to Listen to Any Website. Web Developer? Add Our Plugin so users can listen to your own content."
 lead: ""
 date: 2023-08-02T08:50:23+02:00
-lastmod: 2023-08-02T08:50:23+02:00
+lastmod: 2026-03-16T08:50:23+02:00
 draft: false
 images: []
 sitemap:
@@ -11,54 +11,77 @@ sitemap:
 ---
 <br/>
 
+## User or Developer?
+* **USER**: [Chrome Extension - Listen to Any Website, Blog, Social Feed - SECURELY!](https://www.ttsreader.com/x/)
+* **DEVELOPER**: [Plugin for Web Developers - Add Text To Speech to Your Own Site with a Single Line of Code](https://www.ttsreader.com/plugin/#pluginForDevelopers)
 
+
+<a id="extension"></a>
+<br/>
+
+## Chrome Extension - Listen to Any Website
+
+We're rolling out a new extension, built from the ground up, with a new architecture, new design, and new features. We're slowly adding users to its preview version - more details here: [TTSReader's New Chrome Extension](https://ttsreader.com/x/).
+
+See short demo of the new extension here:
+
+<div class="videowrapper">
+  <iframe style="display: block" src="https://www.youtube.com/embed/Rq2JuTOM1PY?rel=0"  title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+
+<br/><br/>
+<a id="pluginForDevelopers"></a>
+
+<br/>
+
+## Plugin for Web Developers - Add Text To Speech to Your Own Site with a Single Line of Code
 
 The TTSReader Plugin - One Line of Code That Reads Out Loud Your Site's Text
 - [See a professional discussion on the different possibilities here.](#additional-methods-for-adding-text-to-speech-to-a-site)
 - [Straight to the point - see how to add it to your site with a single line of code.](#how-to-add-the-plugin-to-your-site)
 - [Want us to get back to you on this? Fill out the form here.](#need-something-else-let-us-know-in-the-form-below)
 
-## Demo
+### Demo
 
 <div style="position: relative; padding-bottom: 91.60305343511452%; height: 0;"><iframe src="https://www.loom.com/embed/d215f87613654ba7a49455de62002849?sid=67ffadec-79cb-4cce-b393-da784a608454" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 ## Advantages of the TTSReader Plugin
 
-### Engage users - have your content spoken out
+#### Engage users - have your content spoken out
 
 Enable users to listen to your content.
 
-### Accessibility
+#### Accessibility
 
 For users with sight, reading or concentration difficulties, or users who prefer to listen to content, rather than read it.
 
-### A Single line of code
+#### A Single line of code
 
 A single line of code is ALL that needs to be added to your site in order to make it speak with TTSReader's plugin.
 
-### Customizable UI - per request
+#### Customizable UI - per request
 
 The plugin can look like your site, and can be customized to fit your site's look and feel. It can be placed anywhere on the page, and can be hidden or shown at will. If you need it customized please fill in the form below.
 
-### Easy to use
+#### Easy to use
 
 The plugin is easy to use, requires no configuration, and works out of the box - both for you and for your users.
 
-### Completely free
+#### Completely free
 
 The general version of the plugin is completely free. If you need a customized version - please fill in the form below. Even then -
 we commit to beat any other offer you have for a Text To Speech plugin / solution for your site. Moreover - we commit to cutting your TTS costs by at least 50%. Don't believe us? Try us.
 
-### No ads, no tracking, no cookies
+#### No ads, no tracking, no cookies
 
 The plugin does not track users, does not use cookies, and does not show ads.
 
-### Does not slow down your site!
+#### Does not slow down your site!
 The plugin is lightweight, and loads only after the rest of your page is fully loaded. So it is not slowing down your site, nor is it heavy on users' data.
 
 <br/>
 
-## How to add the plugin to your site?
+### How to add the plugin to your site?
 
 1. Simply place the following code into your webpage's `<head>` tag:
 
@@ -76,7 +99,7 @@ You can play with the position in ````%```` or ````px```` as you need.
 
 <br/>
 
-## Main Features
+### Main Features
 
 - Play / Pause
 - Jump to next / previous paragraph
@@ -88,13 +111,13 @@ You can play with the position in ````%```` or ````px```` as you need.
 
 <br/>
 
-## LICENSE & TERMS OF USE
+### LICENSE & TERMS OF USE
 
-### AS-IS & NO WARRANTY
+#### AS-IS & NO WARRANTY
 
 We intend the plugin to be the best, and do exactly what it should - no more - no less. In fact, in its core - it's identical to the plugin we use on our own site. So, we put our money where our mouth is. Having said that, please note that the plugin is licensed to be used AS-IS and we do not provide any warranty. We do not and cannot take any responsibility for any damage or loss caused by the plugin, direct or indirect.
 
-### LICENSE
+#### LICENSE
 
 *General*
 
@@ -114,7 +137,7 @@ We intend the plugin to be the best, and do exactly what it should - no more - n
 
 <br/><br/>
 
-# Additional methods for adding text-to-speech to a site:
+## Additional methods for adding text-to-speech to a site:
 
 In order to add text-to-speech to a site, one has 2 options, which then split to more options themselves.
 
@@ -141,7 +164,7 @@ Ronen
 
 
 
-## Need something else? Let us know in the form below.
+### Need something else? Let us know in the form below.
 
 
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScImCjWqMexJvIzHga6_7MvjHWm7_9brvCAhz-dquw9kTUhoA/viewform?embedded=true" width="640" height="1217" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
