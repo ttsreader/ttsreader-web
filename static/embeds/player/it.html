@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-03-12T12:23:33.537Z",
-      "version": "3.12.00",
+      "dateModified": "2026-03-23T21:15:52.875Z",
+      "version": "3.12.03",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -51,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.12.00 - Lettore di testo in voce di TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.12.03 - Lettore di testo in voce di TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -905,7 +905,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.4723d7bf.js"></script><link href="./static/css/main.95f1c34e.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.44221fb3.js"></script><link href="./static/css/main.54f636e5.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -952,6 +952,10 @@
         </div>
         <div data-ws-show-if-state="isSignedIn=true">
           <a href="https://ttsreader.com/account/" rel="nofollow" target="_blank" class="Menu-list-element" style="text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>&nbsp;&nbsp;Gestisci account</a>
+        </div>
+
+        <div class="Menu-list-element" data-ws-toggle="#getExtensionModal">
+          NEW: Get Our Chrome Extension
         </div>
 
         <div class="Menu-list-element" style="position: relative;">
@@ -1035,7 +1039,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.12.00</b> Build 2026-03-12T12:23:33.537Z
+          <b>V3.12.03</b> Build 2026-03-23T21:15:52.875Z
           <br/><span style="margin-top: 10px;display: block">TUTTE LE VERSIONI <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -1499,7 +1503,7 @@
 
           <div class="settings-sidebar-scrollable">
             <!-- Language Selection Section -->
-            <div class="settings-section" data-title="">
+            <div class="settings-section" data-title="Lingua di Lettura">
                 <div class="settings-section-header">
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
                     <path d="M4 5h7" />
@@ -1508,7 +1512,7 @@
                     <path d="M12 20l4 -9l4 9" />
                     <path d="M19.1 18h-6.2" />
                   </svg>
-                  <span class="settings-section-title"></span>
+                  <span class="settings-section-title">Lingua di Lettura</span>
                   <span class="settings-section-value" data-ws-label-state="selectedLanguageFlag"></span>
                 </div>
                 <div class="settings-control">
@@ -1539,13 +1543,13 @@
               </div>
 
               <!-- Playback Rate Section -->
-              <div class="settings-section" data-title="">
+              <div class="settings-section" data-title="Velocità di Riproduzione">
             <div class="settings-section-header">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="12,6 12,12 16,14" />
               </svg>
-              <span class="settings-section-title"></span>
+              <span class="settings-section-title">Velocità di Riproduzione</span>
               <span class="settings-section-value" data-ws-label-state="selectedRate">1.0</span>
             </div>
             <div class="settings-control">
@@ -1572,7 +1576,7 @@
           </div>
 
               <!-- Voice Selection Section -->
-              <div class="settings-section" data-title="">
+              <div class="settings-section" data-title="Selezione Voce">
             <div class="settings-section-header">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
                 <circle cx="9" cy="9" r="4" />
@@ -1580,7 +1584,7 @@
                 <path d="M17.76 5.36l1.68 1.69c2.02 2.02 2.02 5.07 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89z" />
                 <path d="M20.07 2l1.63 1.63c3.91 3.91 3.91 9.95 0 14l-1.63-1.63c2.77-3.02 2.77-7.56 0-10.74z" />
               </svg>
-              <span class="settings-section-title"></span>
+              <span class="settings-section-title">Selezione Voce</span>
               <div class="voice-filter-controls">
                 <button class="voice-filter-btn active" data-filter="all" data-ws-onClick="filterVoices">Tutti</button>
                 <button class="voice-filter-btn" data-filter="premium" data-ws-onClick="filterVoices">Premium</button>
@@ -1767,12 +1771,6 @@
 
   </div>
 
-
-
-
-
-
-
   <div id="exportsListModal" class="Sliding-In-Modal hidden">
     <div class="Sliding-In-Modal-Content" style="background-color: darkred; color: white; overflow-y: auto;position: relative;">
       <div onclick="openOrCloseExportsListModal(true);" style="position: absolute; right: 10px; top: 10px; cursor: pointer;width: 32px;height: 32px;display: flex;align-items: center;justify-content: center;border-radius: 50%;border: 2px solid white;color:white;stroke:white;">
@@ -1824,7 +1822,31 @@
         </div>
       </div>
       <br/>
+      <div id="exportsToolbar">
+        <input type="text" id="exportsSearchInput" placeholder="Cerca..." />
+        <div id="exportsDateGroup">
+          <select id="exportsDatePreset">
+            <option value="">Tutto il Periodo</option>
+            <option value="7">Ultimi 7 Giorni</option>
+            <option value="30">Ultimi 30 Giorni</option>
+            <option value="90">Ultimi 90 Giorni</option>
+            <option value="year">Quest'Anno</option>
+          </select>
+          <input type="date" id="exportsDateFrom" title="Da" />
+          <span class="exports-date-separator">–</span>
+          <input type="date" id="exportsDateTo" title="A" />
+        </div>
+      </div>
       <div id="exportsRowsContainer">
+        <div id="exportsHeaderRow" class="job-row exports-header-row">
+          <span data-sort-key="date">Data<span class="sort-arrow">&#9660;</span></span>
+          <span class="job-preview" data-sort-key="title">Titolo<span class="sort-arrow">&#9660;</span></span>
+          <span data-sort-key="voice">Voce<span class="sort-arrow">&#9660;</span></span>
+          <span class="job-rate" data-sort-key="rate">Velocità<span class="sort-arrow">&#9660;</span></span>
+          <span class="job-duration" data-sort-key="duration">Durata<span class="sort-arrow">&#9660;</span></span>
+          <span title="Scarica"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></span>
+          <span class="job-delete-btn" title="Elimina permanentemente questa esportazione"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg></span>
+        </div>
         <!-- rows inserted here -->
 
 
@@ -1836,16 +1858,45 @@
         <div class="job-download-link" style="text-decoration: none;"><div class="job-row">
           <span class="job-date"></span>
           <span class="job-preview"></span>
-          <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
-          <span class="voice-name">David</span>&nbsp;X
-          <span class="job-rate" style="padding-left: 0"></span>
-          <span class="job-state" style="font-weight: bold;border: 1px solid yellow; padding: 0;"></span>
-          <a href="somehreftofile" download="ttsreader.mp3">
-            <span class="job-download-btn"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></span>
+          <span class="job-voice"><span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span> <span class="voice-name">David</span></span>
+          <span class="job-rate"></span>
+          <span class="job-duration" data-duration-seconds="">-</span>
+          <a style="cursor: pointer; display: inline-block" title="Scarica file MP3">
+            <span class="job-download-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+              <span class="Hide-on-narrow-screens">&nbsp;
+              Scarica
+              </span>
+            </span>
           </a>
+          <span class="job-delete-btn Hide-on-narrow-screens" title="Elimina permanentemente questa esportazione"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg></span>
         </div></div>
       </template>
     </div>
+  </div>
+
+  <div class="Modal" id="confirmDeleteExportModal" style="display: none; z-index: 99999;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column; border: #ff4444 2px solid; max-width: 420px;">
+      <div style="padding: 24px 16px; text-align: center;">
+        <div style="margin-bottom: 16px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z"/><path d="M12 16h.01"/></svg>
+        </div>
+        <h3 style="margin: 0 0 12px; color: #ff4444;">Eliminazione Permanente</h3>
+        <p style="margin: 0 0 16px; font-size: 14px; line-height: 1.5; opacity: 0.85;">Questo eliminerà permanentemente questa esportazione e rimuoverà tutti i file associati dai nostri server. Questa azione non può essere annullata.</p>
+        <div id="confirmDeleteExportDetails" style="text-align: left; background: rgba(255,255,255,0.07); border-radius: 6px; padding: 10px 14px; margin-bottom: 20px; font-size: 13px; line-height: 1.7;">
+          <div><strong>Titolo:</strong> <span id="confirmDeleteJobTitle"></span></div>
+          <div><strong>Data:</strong> <span id="confirmDeleteJobDate"></span></div>
+          <div><strong>Voce:</strong> <span id="confirmDeleteJobVoice"></span></div>
+          <div><strong>Velocità:</strong> <span id="confirmDeleteJobRate"></span></div>
+          <div><strong>Durata:</strong> <span id="confirmDeleteJobDuration"></span></div>
+        </div>
+        <div style="display: flex; gap: 12px; justify-content: center;">
+          <button id="confirmDeleteExportCancel" class="styled-btn" style="padding: 10px 24px; border-radius: 6px; border: 1px solid #888; background: transparent; color: inherit; cursor: pointer; font-size: 14px;">Annulla</button>
+          <button id="confirmDeleteExportOk" class="styled-btn" style="padding: 10px 24px; border-radius: 6px; border: none; background: #ff4444; color: white; cursor: pointer; font-size: 14px; font-weight: 600;">Elimina Permanentemente</button>
+        </div>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
   </div>
 
   <div id="newUpgradeModal" class="Sliding-In-Modal hidden" style="z-index: 9999999">
@@ -2535,6 +2586,36 @@
     </div>
   </div>
 
+  <div class="Modal" id="getExtensionModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="padding: 20px; overflow-y: auto;overflow-x: hidden;">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4>Get Our New Premium Chrome Extension<!-- Your Current Text in Numbers --></h4>
+      <p style="text-align: start;">
+        Listen to any webpage with the best AI Voices - in a SAFE WAY.
+        <br/>
+        TTSReader's Premium Chrome Extension is designed for our premium users, and the goal is to provide a unique service at the highest standard. No ads. No privacy concerns. No slowing down your browser. No small print. Does exactly what it says.
+        <br/><br/>
+        Listen to news, blogs, articles, wiki, your social feed and more.
+        <br/><br/>
+        Want to try it? Here's how:
+      </p>
+      <ol style="text-align: start;">
+        <li data-ws-show-if-state="isPremium=false">Purchase any <a style="color:orangered" onclick="openNewUpgradeModal();" href="#">premium subscription or credits here</a></li>
+        <li data-ws-show-if-state="isPremium=true">Be Premium - which you are already! 🏆</li>
+        <li>Join our <a style="color:orangered" href="https://groups.google.com/g/ttsreader/" target="_blank">TTSReader Google Group here</a> (mandatory for getting access to the extensions's page on the store)</li>
+        <li>Install on Chrome or Edge from the Chrome store - here's the link: <a style="color:orangered" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi">https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi</a></li>
+      </ol>
+
+      <img style="max-width: 90%; margin: auto;" src="extension_screenshot.png"  alt="extension screenshot"/>
+
+    </div>
+  </div>
+
   <div class="Modal" id="recordModalNonPremium" style="display: none;">
     <div style="height:20px;"></div>
     <div class="Modal-content" style="display: flex; flex-direction: column;border: orangered 1px solid;">
@@ -2583,6 +2664,44 @@
           </p>
           <button class="styled-btn Modal-OK-button" data-ws-toggle="#notificationModal" onclick="console.log('clicked')" style="background-color: darkgreen;color: white">OK<!-- Upgrade to Premium --></button>
         <br/><br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="downloadProgressModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column; min-width: 400px;">
+      <button class="Close-modal" id="downloadModalCloseBtn" style="display: none;">
+        <svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <div style="overflow: auto; padding: 20px; text-align: center;">
+        <div id="downloadProgressIcon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 2s linear infinite;">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div id="downloadSuccessIcon" style="display: none; color: green;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22,4 12,14.01 9,11.01"/>
+          </svg>
+        </div>
+        <div id="downloadErrorIcon" style="display: none; color: red;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="15" y1="9" x2="9" y2="15"/>
+            <line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+        </div>
+        <h4 id="downloadModalTitle">Download in Corso</h4>
+        <p id="downloadModalMessage">Download del tuo file audio in corso...</p>
+        <div id="downloadModalButtons" style="margin-top: 20px; display: none;">
+          <button class="styled-btn" data-ws-toggle="#downloadProgressModal" style="background-color: #28a745; color: white;">OK</button>
+        </div>
       </div>
     </div>
     <div style="height:20px;"></div>
@@ -3071,14 +3190,14 @@
   function copyPodcastUrl(button) {
     const urlElement = button.parentElement.querySelector('[data-ws-label-state="podcast_main_channel_url"]');
     const url = urlElement.textContent.trim();
-    
+
     if (url) {
       navigator.clipboard.writeText(url).then(function() {
         // Show success feedback
         const originalText = button.innerHTML;
         button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg> URL copiato negli appunti!';
         button.style.backgroundColor = '#2E7D32';
-        
+
         // Reset after 2 seconds
         setTimeout(function() {
           button.innerHTML = originalText;
@@ -3222,6 +3341,22 @@
   const exportsRowsContainer = document.getElementById('exportsRowsContainer');
   const demoExportsRowsContainer = document.getElementById('demoExportsRowsContainer');
   const rowTemplate = document.getElementById('exportsListItemTemplate');
+
+  // Exports modal: search, filter, sort & duration state
+  const allJobsMap = new Map();
+  const durationCache = new Map();
+  let currentSortKey = 'date';
+  let currentSortAsc = false; // newest first by default
+  let currentSearchTerm = '';
+  let currentLangFilter = '';
+  let currentVoiceFilter = '';
+  let currentDatePreset = '';
+  let currentDateFrom = '';
+  let currentDateTo = '';
+  const knownLanguages = new Set();
+  const knownVoices = new Set();
+  const durationQueue = [];
+  let durationQueueProcessing = false;
 
   function getClientInfo() {
     try {
@@ -3426,7 +3561,7 @@
     const startTime = job.createdAt;
     const endTime = startTime + etaSeconds * 1000;
 
-    const stateEl = row.querySelector('.job-state');
+    const durationEl = row.querySelector('.job-duration');
 
     function updateCountdown() {
       const now = Date.now();
@@ -3435,83 +3570,591 @@
       const minutes = String(Math.floor(remaining / 60)).padStart(2, '0');
       const seconds = String(remaining % 60).padStart(2, '0');
 
-      stateEl.textContent = `Elaborazione. ETA: ${minutes}:${seconds}`;
+      durationEl.textContent = `Elaborazione. ETA: ${minutes}:${seconds}`;
+      durationEl.style.fontWeight = 'bold';
+      durationEl.style.border = '1px solid yellow';
+      durationEl.style.fontSize = '11px';
 
       if (remaining <= 0) {
         if (timer) {
         clearInterval(timer);
         }
-        stateEl.textContent = 'Finalizzazione...'; // or "Done", depending on your app logic
+        durationEl.textContent = 'Finalizzazione...'; // or "Done", depending on your app logic
       }
     }
 
     const timer = setInterval(updateCountdown, 1000);
   }
 
+  async function downloadMp3(url, filename = "file.mp3") {
+    console.log("Downloading from URL: ", url);
+
+    // Show progress modal
+    showDownloadProgress();
+
+    let fileHandle = null;
+
+    try {
+      // Fetch the file
+      const res = await fetch(url, { mode: "cors" });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+
+      // Get file handle
+      fileHandle = await window.showSaveFilePicker({
+        suggestedName: filename,
+        types: [{
+          description: 'Audio files',
+          accept: {
+            'audio/mpeg': ['.mp3'],
+            'audio/wav': ['.wav']
+          }
+        }]
+      });
+
+      // Stream the data to the file
+      const writable = await fileHandle.createWritable();
+      await res.body.pipeTo(writable);
+
+      // Show success
+      showDownloadSuccess(fileHandle);
+
+    } catch (error) {
+      console.error("Download failed:", error);
+
+      // Check if user cancelled the file picker
+      if (error.name === 'AbortError') {
+        hideDownloadModal();
+        return;
+      }
+
+      // Show error
+      showDownloadError(error.message || "Download failed");
+    }
+  }
+
+  function showDownloadProgress() {
+    const modal = document.getElementById('downloadProgressModal');
+    const closeBtn = document.getElementById('downloadModalCloseBtn');
+    const progressIcon = document.getElementById('downloadProgressIcon');
+    const successIcon = document.getElementById('downloadSuccessIcon');
+    const errorIcon = document.getElementById('downloadErrorIcon');
+    const title = document.getElementById('downloadModalTitle');
+    const message = document.getElementById('downloadModalMessage');
+    const buttons = document.getElementById('downloadModalButtons');
+
+    // Reset modal state
+    closeBtn.style.display = 'none';
+    progressIcon.style.display = 'block';
+    successIcon.style.display = 'none';
+    errorIcon.style.display = 'none';
+    buttons.style.display = 'none';
+
+    title.textContent = 'Processing Download';
+    message.textContent = 'Please wait, then select where to save your file. Please REMEMBER the location where you save it, as for privacy reasons we cannot access the file system to save it or open it for you.';
+
+    modal.style.display = 'flex';
+  }
+
+  function showDownloadSuccess(fileHandle) {
+    const closeBtn = document.getElementById('downloadModalCloseBtn');
+    const progressIcon = document.getElementById('downloadProgressIcon');
+    const successIcon = document.getElementById('downloadSuccessIcon');
+    const errorIcon = document.getElementById('downloadErrorIcon');
+    const title = document.getElementById('downloadModalTitle');
+    const message = document.getElementById('downloadModalMessage');
+    const buttons = document.getElementById('downloadModalButtons');
+
+    closeBtn.style.display = 'block';
+    progressIcon.style.display = 'none';
+    successIcon.style.display = 'block';
+    errorIcon.style.display = 'none';
+    buttons.style.display = 'block';
+
+    title.textContent = 'Download Successful';
+    message.textContent = 'Your file has been downloaded successfully and it is located in the folder where you saved it.';
+  }
+
+  function showDownloadError(errorMessage) {
+    const closeBtn = document.getElementById('downloadModalCloseBtn');
+    const progressIcon = document.getElementById('downloadProgressIcon');
+    const successIcon = document.getElementById('downloadSuccessIcon');
+    const errorIcon = document.getElementById('downloadErrorIcon');
+    const title = document.getElementById('downloadModalTitle');
+    const message = document.getElementById('downloadModalMessage');
+    const buttons = document.getElementById('downloadModalButtons');
+    const openFolderBtn = document.getElementById('openFolderBtn');
+
+    closeBtn.style.display = 'block';
+    progressIcon.style.display = 'none';
+    successIcon.style.display = 'none';
+    errorIcon.style.display = 'block';
+    buttons.style.display = 'block';
+
+    openFolderBtn.style.display = 'none';
+
+    title.textContent = 'Failed to Download';
+    message.textContent = 'Let us know at contact@ttsreader.com, the error is: ' + ' ' + errorMessage;
+  }
+
+  function hideDownloadModal() {
+    const modal = document.getElementById('downloadProgressModal');
+    modal.style.display = 'none';
+  }
+
+  function getSafeFilenameFromText(text) {
+    let defaultName = "ttsreader_file";
+
+    // Take first 10 chars
+    let prefix = text.slice(0, 20);
+
+    // Remove all non-alphanumeric characters (except single hyphen)
+    prefix = prefix
+            .replace(/[^a-zA-Z0-9]+/g, "-")   // Replace non-alphanumerics with dashes
+            .replace(/-+/g, "-")              // Collapse multiple dashes
+            .replace(/^-|-$/g, "")            // Trim starting/ending dash
+            .toLowerCase();
+
+    // Fallback if it's empty
+    if (!prefix) prefix = defaultName;
+
+    prefix = prefix.slice(0, 15);
+
+    return `${prefix}`;
+  }
+
   function renderJobRow(job, container) {
     const clone = rowTemplate.content.cloneNode(true);
     const row = clone.querySelector('.job-row');
 
-    /*
-      <div class="job-row">
-          <span class="job-date"></span>
-          <div class="job-preview flex-fill"></div>
-          <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
-          <span class="voice-name">David</span>
-          <div class="job-rate"></div>
-          <span class="job-state"></span>
-          <span class="job-download-btn"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></span>
-      </div>
-     */
     const downloadLink = clone.querySelector('.job-download-link');
     downloadLink.setAttribute("data-ws-job-id", job.id);
+
+    // Set data attributes for sort/filter
+    downloadLink.setAttribute("data-job-created", job.createdAt || 0);
+    downloadLink.setAttribute("data-job-lang", job.lang || '');
+    downloadLink.setAttribute("data-job-voice", (job.voiceURI || '').toLowerCase());
+    downloadLink.setAttribute("data-job-rate", job.rate || 1);
+    const jobTitle = job.previewText;
+
     row.querySelector('.job-date').textContent = new Date(job.createdAt).toLocaleDateString();
-    row.querySelector('.job-preview').textContent = job.previewText || '';
+    row.querySelector('.job-preview').textContent = jobTitle;
+    row.querySelector('.job-preview').title = jobTitle;
     row.querySelector('.voice-lang').textContent = getFlagForLocaleCode(job.lang, job.voiceURI);
-    row.querySelector('.voice-name').textContent = getNameFromVoiceUri(job.voiceURI);
+    row.querySelector('.voice-name').textContent = getNameFromVoiceUri(job.voiceURI || '');
     row.querySelector('.job-rate').textContent = job.rate;
 
+    const durationEl = row.querySelector('.job-duration');
+
     if (job.statusCode==="Done") {
-      row.querySelector('.job-state').remove();
+      durationEl.textContent = "✅";
     } else {
-      row.querySelector('.job-download-btn').remove();
+      const dlBtn = row.querySelector('a');
+      if (dlBtn) dlBtn.style.display = 'none';
       if (job.statusCode==="Processing") {
         let estimatedTimeInSecs = 10 + Math.floor(job.requestedChars * 70/15000);
-        //row.querySelector('.job-state').textContent = "Processing. ETA: " + new Date(job.createdAt + estimatedTimeInSecs * 1000).toLocaleTimeString();
         job.estimatedTimeInSecs = estimatedTimeInSecs;
         startCountdown(row, job);
       } else {
-        row.querySelector('.job-state').textContent = job.statusCode;
+        durationEl.textContent = job.statusCode;
+        durationEl.style.fontWeight = 'bold';
+        durationEl.style.border = '1px solid yellow';
+        durationEl.style.fontSize = '11px';
       }
     }
-
 
     if (job.mp3Url) {
       let mp3Link = job.mp3Url.split('?')[0];
       let jobLink = mp3Link.split('.mp3')[0];
-      downloadLink.querySelector("a").href = mp3Link;
-      downloadLink.querySelector("a").setAttribute("onclick", "event.stopPropagation();");
+      let downloadButton = downloadLink.querySelector("a");
+      if (downloadButton) {
+
+        downloadButton.setAttribute("href", mp3Link);
+        downloadButton.setAttribute("download", `ttsreader.mp3`);
+        downloadButton.removeAttribute("target");
+
+        downloadButton.addEventListener('click',(ev) => {
+          ev.stopPropagation();
+        });
+
+        /*
+        // For custom download flow using File System Access API:
+        downloadButton.addEventListener('click',(ev) => {
+          downloadMp3(mp3Link, `ttsreader_${getSafeFilenameFromText(job.previewText)}.mp3`);
+          ev.stopPropagation();
+        });*/
+      }
+
       downloadLink.setAttribute("onclick", "openRenderedModal(" + JSON.stringify({url: jobLink, voice: getNameFromVoiceUri(job.voiceURI), lang: job.lang, rate: job.rate, date: job.createdAt}) + "); return false;");
+
+      // Duration: use stored durationInSeconds if available
+      if (job.statusCode === "Done" && job.durationInSeconds && job.durationInSeconds > 0) {
+        durationEl.innerHTML += ("&nbsp;&nbsp;" + secondsToHHMMSS(job.durationInSeconds));
+      }
     } else {
       downloadLink.onclick ="alert('Il lavoro non è ancora pronto, attendi il completamento.');";
     }
 
-    // If exportsRowsContainer contains a row with [data-ws-job-id] equal to job.id, replace it with the new row.
-    // Otherwise, append the new row.
+    // Wire delete button
+    const deleteBtn = row.querySelector('.job-delete-btn');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', async function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        const confirmed = await showDeleteExportConfirm(job, durationEl.innerText);
+        if (!confirmed) return;
+        const authToken = await window.getIdToken();
+        if (!authToken) return;
+        try {
+          const resp = await fetch('https://us-central1-ttsreader.cloudfunctions.net/functionRemoveTtsTask', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + authToken,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ taskId: job.id })
+          });
+          if (resp.ok) {
+            const rowEl = container.querySelector(`[data-ws-job-id="${job.id}"]`);
+            if (rowEl) rowEl.remove();
+            allJobsMap.delete(job.id);
+            rebuildFiltersFromMap();
+          }
+        } catch (err) { /* silently fail */ }
+      });
+    }
 
+    // Store job in allJobsMap
+    allJobsMap.set(job.id, job);
+
+    // Track language for filter dropdown
+    if (job.lang && !knownLanguages.has(job.lang)) {
+      knownLanguages.add(job.lang);
+      updateLangFilterDropdown();
+    }
+
+    // Track voice for filter dropdown
+    const voice = job.voiceURI || '';
+    if (voice && !knownVoices.has(voice)) {
+      knownVoices.add(voice);
+      updateVoiceFilterDropdown();
+    }
+
+    // If container already has a row with this job.id, replace it. Otherwise insert at top.
     if (container.querySelector(`[data-ws-job-id="${job.id}"]`)) {
       const existingRow = container.querySelector(`[data-ws-job-id="${job.id}"]`);
       container.replaceChild(clone, existingRow);
-      if (job.mp3Url && !existingRow.querySelector('.job-download-btn')) {
+      const existingDlLink = existingRow.querySelector('a');
+      if (job.mp3Url && existingDlLink && existingDlLink.style.display === 'none') {
         // IE newly available link:
         downloadLink.click(); // Effectively opening renderedModal
         appMethods.closeModal("uploadSuccessModal"); // If priorly opened
       }
     } else {
-      // 'Append' to be the first child:
-      container.insertBefore(clone, container.firstChild);
+      // Insert after header row if it exists, otherwise at top
+      const headerRow = container.querySelector('#exportsHeaderRow');
+      if (headerRow && headerRow.nextSibling) {
+        container.insertBefore(clone, headerRow.nextSibling);
+      } else if (headerRow) {
+        container.appendChild(clone);
+      } else {
+        container.insertBefore(clone, container.firstChild);
+      }
+    }
+
+    // Apply current filters to the newly added/replaced row
+    const insertedRow = container.querySelector(`[data-ws-job-id="${job.id}"]`);
+    if (insertedRow) {
+      applyFiltersToRow(insertedRow);
     }
   }
+
+  // --- Filter / Search ---
+  function getDateCutoff() {
+    if (currentDateFrom || currentDateTo) {
+      return { from: currentDateFrom ? new Date(currentDateFrom).getTime() : 0, to: currentDateTo ? new Date(currentDateTo + 'T23:59:59').getTime() : Infinity };
+    }
+    if (!currentDatePreset) return null;
+    const now = Date.now();
+    if (currentDatePreset === 'year') {
+      return { from: new Date(new Date().getFullYear(), 0, 1).getTime(), to: Infinity };
+    }
+    const days = parseInt(currentDatePreset, 10);
+    return { from: now - days * 24 * 60 * 60 * 1000, to: Infinity };
+  }
+
+  function applyFiltersToRow(rowEl) {
+    let hidden = false;
+    if (currentSearchTerm) {
+      currentSearchTerm = currentSearchTerm.toLowerCase().trim();
+      let preview = (rowEl.querySelector(".job-preview").innerText + " " + rowEl.querySelector(".job-voice").innerText || '');
+      preview = preview.toLowerCase().trim();
+      if (!preview.includes(currentSearchTerm)) {
+        hidden = true;
+      }
+    }
+    /*if (currentLangFilter) {
+      const lang = (rowEl.getAttribute('data-job-lang') || '');
+      if (lang !== currentLangFilter) {
+        hidden = true;
+      }
+    }*/
+    /*if (currentVoiceFilter) {
+      const voice = (rowEl.querySelector(".job-voice").innerText || '');
+      if (voice !== currentVoiceFilter) {
+        hidden = true;
+      }
+    }*/
+    const dateCutoff = getDateCutoff();
+    if (dateCutoff) {
+      const created = parseInt(rowEl.getAttribute('data-job-created') || '0', 10);
+      if (created < dateCutoff.from || created > dateCutoff.to) {
+        hidden = true;
+      }
+    }
+    rowEl.classList.toggle('filtered-out', hidden);
+  }
+
+  function applyAllFilters() {
+    const rows = exportsRowsContainer.querySelectorAll('.job-download-link');
+    rows.forEach(row => applyFiltersToRow(row));
+  }
+
+  function rebuildFiltersFromMap() {
+    knownLanguages.clear();
+    knownVoices.clear();
+    allJobsMap.forEach(function(j) {
+      if (j.lang) knownLanguages.add(j.lang);
+      if (j.voiceURI) knownVoices.add(j.voiceURI);
+    });
+    updateLangFilterDropdown();
+    updateVoiceFilterDropdown();
+  }
+
+  function updateLangFilterDropdown() {
+    const select = document.getElementById('exportsLangFilter');
+    if (!select) return;
+    const currentVal = select.value;
+    // Keep first "All Languages" option, remove the rest
+    while (select.options.length > 1) {
+      select.remove(1);
+    }
+    const sorted = Array.from(knownLanguages).sort();
+    sorted.forEach(lang => {
+      const opt = document.createElement('option');
+      opt.value = lang;
+      opt.textContent = lang;
+      select.appendChild(opt);
+    });
+    // Restore selection if still valid
+    if (currentVal && knownLanguages.has(currentVal)) {
+      select.value = currentVal;
+    }
+  }
+
+  function updateVoiceFilterDropdown() {
+    const select = document.getElementById('exportsVoiceFilter');
+    if (!select) return;
+    const currentVal = select.value;
+    while (select.options.length > 1) {
+      select.remove(1);
+    }
+    const sorted = Array.from(knownVoices).sort();
+    sorted.forEach(voice => {
+      const opt = document.createElement('option');
+      opt.value = voice.toLowerCase();
+      opt.textContent = voice;
+      select.appendChild(opt);
+    });
+    if (currentVal && knownVoices.has(currentVal)) {
+      select.value = currentVal;
+    }
+  }
+
+  function secondsToHHMMSS(totalSeconds) {
+    const hours = Math.floor(totalSeconds / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+    return (hours > 0 ? String(hours).padStart(2, '0') + ':' : '') + String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+  }
+
+  function setDurationDisplay(durationEl, rowEl, totalSeconds) {
+    if (!durationEl) return;
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+    durationEl.textContent = mins + ':' + String(secs).padStart(2, '0');
+    durationEl.setAttribute('data-duration-seconds', totalSeconds);
+    if (rowEl) {
+      rowEl.setAttribute('data-job-duration', totalSeconds);
+    }
+  }
+
+  // --- Sort ---
+  function sortExportsRows() {
+    const rows = Array.from(exportsRowsContainer.querySelectorAll('.job-download-link'));
+    if (rows.length === 0) return;
+
+    rows.sort((a, b) => {
+      let valA, valB;
+      switch (currentSortKey) {
+        case 'date':
+          valA = parseFloat(a.getAttribute('data-job-created')) || 0;
+          valB = parseFloat(b.getAttribute('data-job-created')) || 0;
+          break;
+        case 'title':
+          valA = (a.querySelector(".job-preview").innerText || '');
+          valB = (b.querySelector(".job-preview").innerText || '');
+          return currentSortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        case 'voice':
+          valA = (a.querySelector(".job-voice").innerText || '').toLowerCase();
+          valB = (b.querySelector(".job-voice").innerText || '').toLowerCase();
+          return currentSortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        case 'rate':
+          valA = parseFloat(a.getAttribute('data-job-rate')) || 1;
+          valB = parseFloat(b.getAttribute('data-job-rate')) || 1;
+          break;
+        case 'duration':
+          valA = (a.querySelector(".job-duration").innerText || '').toLowerCase();
+          valB = (b.querySelector(".job-duration").innerText || '').toLowerCase();
+          return currentSortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+          break;
+        default:
+          valA = parseFloat(a.getAttribute('data-job-created')) || 0;
+          valB = parseFloat(b.getAttribute('data-job-created')) || 0;
+      }
+      return currentSortAsc ? valA - valB : valB - valA;
+    });
+
+    // Reorder DOM using insertBefore (preserves attached listeners/timers)
+    rows.forEach(row => exportsRowsContainer.appendChild(row));
+    updateSortArrows();
+  }
+
+  function updateSortArrows() {
+    const headerRow = document.getElementById('exportsHeaderRow');
+    if (!headerRow) return;
+    headerRow.querySelectorAll('[data-sort-key]').forEach(col => {
+      const arrow = col.querySelector('.sort-arrow');
+      if (!arrow) return;
+      if (col.getAttribute('data-sort-key') === currentSortKey) {
+        col.classList.add('sort-active');
+        arrow.innerHTML = currentSortAsc ? '&#9650;' : '&#9660;';
+      } else {
+        col.classList.remove('sort-active');
+        arrow.innerHTML = '&#9660;';
+      }
+    });
+  }
+
+  function showDeleteExportConfirm(job, statusDurationText) {
+    return new Promise(function(resolve) {
+      const modal = document.getElementById('confirmDeleteExportModal');
+      const okBtn = document.getElementById('confirmDeleteExportOk');
+      const cancelBtn = document.getElementById('confirmDeleteExportCancel');
+      // Populate job details
+      document.getElementById('confirmDeleteJobTitle').textContent = job.previewText || '';
+      document.getElementById('confirmDeleteJobDate').textContent = job.createdAt ? new Date(job.createdAt).toLocaleDateString() : '-';
+      document.getElementById('confirmDeleteJobVoice').textContent = job.voiceURI || '-';
+      document.getElementById('confirmDeleteJobRate').textContent = job.rate || '-';
+      document.getElementById('confirmDeleteJobDuration').textContent = statusDurationText || "";
+      modal.style.display = 'flex';
+      function cleanup(result) {
+        modal.style.display = 'none';
+        okBtn.removeEventListener('click', onOk);
+        cancelBtn.removeEventListener('click', onCancel);
+        modal.removeEventListener('click', onBackdrop);
+        resolve(result);
+      }
+      function onOk() { cleanup(true); }
+      function onCancel() { cleanup(false); }
+      function onBackdrop(e) { if (e.target === modal) cleanup(false); }
+      okBtn.addEventListener('click', onOk);
+      cancelBtn.addEventListener('click', onCancel);
+      modal.addEventListener('click', onBackdrop);
+    });
+  }
+
+  // --- Event wiring for search/filter/sort ---
+  (function wireExportsEvents() {
+    const searchInput = document.getElementById('exportsSearchInput');
+    const langFilter = document.getElementById('exportsLangFilter');
+    const headerRow = document.getElementById('exportsHeaderRow');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        currentSearchTerm = this.value.toLowerCase().trim();
+        applyAllFilters();
+      });
+    }
+
+    if (langFilter) {
+      langFilter.addEventListener('change', function() {
+        currentLangFilter = this.value;
+        applyAllFilters();
+      });
+    }
+
+    const voiceFilter = document.getElementById('exportsVoiceFilter');
+    if (voiceFilter) {
+      voiceFilter.addEventListener('change', function() {
+        currentVoiceFilter = this.value;
+        applyAllFilters();
+      });
+    }
+
+    const datePreset = document.getElementById('exportsDatePreset');
+    const dateFrom = document.getElementById('exportsDateFrom');
+    const dateTo = document.getElementById('exportsDateTo');
+
+    if (datePreset) {
+      datePreset.addEventListener('change', function() {
+        currentDatePreset = this.value;
+        currentDateFrom = '';
+        currentDateTo = '';
+        if (dateFrom) dateFrom.value = '';
+        if (dateTo) dateTo.value = '';
+        applyAllFilters();
+      });
+    }
+
+    if (dateFrom) {
+      dateFrom.addEventListener('input', function() {
+        currentDateFrom = this.value;
+        currentDatePreset = '';
+        if (datePreset) datePreset.value = '';
+        applyAllFilters();
+      });
+    }
+
+    if (dateTo) {
+      dateTo.addEventListener('input', function() {
+        currentDateTo = this.value;
+        currentDatePreset = '';
+        if (datePreset) datePreset.value = '';
+        applyAllFilters();
+      });
+    }
+
+    if (headerRow) {
+      headerRow.querySelectorAll('[data-sort-key]').forEach(col => {
+        col.addEventListener('click', function() {
+          const key = this.getAttribute('data-sort-key');
+          if (currentSortKey === key) {
+            currentSortAsc = !currentSortAsc;
+          } else {
+            currentSortKey = key;
+            currentSortAsc = (key === 'title' || key === 'voice'); // text cols default ascending
+          }
+          sortExportsRows();
+        });
+      });
+    }
+
+    // Initialize sort arrows
+    updateSortArrows();
+
+  })();
 
   window.getIdToken = async () => null;
 
@@ -3745,6 +4388,12 @@
               el.remove();
             })
           }
+          allJobsMap.clear();
+          durationCache.clear();
+          knownLanguages.clear();
+          updateLangFilterDropdown();
+          knownVoices.clear();
+          updateVoiceFilterDropdown();
         }
       });
 
@@ -4398,7 +5047,7 @@
       requestAnimationFrame(() => modalEl.classList.add("show"));
     };
     let shouldHideSubscriptions = Boolean(window.subscriptionId);
-    let src = `newUpgradeModalPaddle.${lang}.html?uid=${uid}&email=${email}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
+    let src = `newUpgradeModalPaddle.${lang}.html?uid=${uid}&email=${email}&theme=dark&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
     if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
       let obj = {iframe: iframeEl.src, src};
       console.log("src!==src: ", obj);
@@ -4531,7 +5180,7 @@
   <div data-ws-string-key="alert_copied" data-ws-string-value="Copiato negli appunti."></div>
   <div data-ws-string-key="alert_missing_credits" data-ws-string-value="Crediti insufficienti per completare la richiesta"></div>
   <div data-ws-string-key="alert_requires_premium" data-ws-string-value="Questa nuova funzione richiede il premium. Aggiorna prima. Puoi cancellare in qualsiasi momento, con garanzia soddisfatti o rimborsati al 100%."></div>
-  <div data-ws-string-key="alert_requires_signin" data-ws-string-value=""></div>
+  <div data-ws-string-key="alert_requires_signin" data-ws-string-value="Questa funzione richiede l'accesso. Non è richiesta alcuna password o metodo di pagamento. Solo un accesso sicuro con un clic tramite Google."></div>
   <div data-ws-string-key="alert_export_too_long" data-ws-string-value="Testo troppo lungo. Dividi in parti da meno di 200k caratteri per dimensioni audio ragionevoli."></div>
   <div data-ws-string-key="alert_export_limited" data-ws-string-value="Spiacente, la voce selezionata può essere esportata fino a 6k caratteri. Riduci il testo o cambia voce con supporto esportazioni lunghe. Queste sono tutte premium **ESCLUSI: NOAH, LILLY, OLIVIA.**"></div>
   <div data-ws-string-key="alert_export_premium_voice" data-ws-string-value="La funzione di esportazione è disponibile solo per voci premium. Seleziona una voce premium (contrassegnata con una stella ⭐) o usa il pulsante 'RECORD ◉'."></div>
@@ -4544,6 +5193,12 @@
   <div data-ws-string-key="app_js__invalid_url" data-ws-string-value="URL non valido"></div>
   <div data-ws-string-key="notification__no_text_title" data-ws-string-value=""></div>
   <div data-ws-string-key="notification__no_text_paragraph" data-ws-string-value=""></div>
+  <div data-ws-string-key="download_modal__progress_title" data-ws-string-value="Download in Corso"></div>
+  <div data-ws-string-key="download_modal__progress_message" data-ws-string-value="Download del tuo file audio in corso..."></div>
+  <div data-ws-string-key="download_modal__success_title" data-ws-string-value="Download Completato!"></div>
+  <div data-ws-string-key="download_modal__success_message" data-ws-string-value="Il tuo file audio è stato salvato con successo."></div>
+  <div data-ws-string-key="download_modal__error_title" data-ws-string-value="Download Fallito"></div>
+  <div data-ws-string-key="download_modal__error_message" data-ws-string-value="Spiacente, il download è fallito:"></div>
 </div>
 <!-- end of JS STRINGS -->
 

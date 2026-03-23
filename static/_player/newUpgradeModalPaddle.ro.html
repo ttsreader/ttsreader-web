@@ -3,9 +3,23 @@
 <head>
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
   <script>
+    let paddleLocale = document.documentElement.lang;
+    if (paddleLocale === "he") paddleLocale = "en";
+    if (paddleLocale === "hi") paddleLocale = "en";
+    if (paddleLocale === "ro") paddleLocale = "en";
+    if (paddleLocale === "zh") paddleLocale = "zh-Hans";
+    if (paddleLocale === "pt") paddleLocale = "pt-BR";
+
+    console.log("paddleLocale: ", paddleLocale);
+
     Paddle.Environment.set("production"); // Use "production" for live environment
     Paddle.Initialize({
-      token: "live_e52f015f98dbce460791b4b9fe7"
+      token: "live_e52f015f98dbce460791b4b9fe7",
+      checkout: {
+        settings: {
+          locale: paddleLocale
+        }
+      }
     });
   </script>
   <script>
@@ -771,7 +785,7 @@
             <!-- Signature -->
             <div style="margin-top:18px;">
               <!-- Optional name/title under signature -->
-              <div style="margin-top:6px;color:#6b7280;font-size: 1.2em;">Ronen Rabinovici, Founder</div>
+              <div style="margin-top:6px;color:#6b7280;font-size: 1.2em;">Ronen Rabinovici, Fondator</div>
             </div>
           </div>
         </div>
@@ -804,7 +818,7 @@
         <div class="Paypal-Button-Container"></div>
         <p><strong>100% satisfacție garantată</strong></p>
         <p>De <a href="https://wellsrc.com/" target="_blank">WellSource Ltd.</a> dezvoltatorul TTSReader, Speechnotes, Speechlogger</p>
-        <p>Unable to pay? Let us know at contact@ttsreader.com</p>
+        <p>Nu poți plăti? Contactează-ne la contact@ttsreader.com</p>
       </card>
       <div style="flex:1"></div>
     </div>

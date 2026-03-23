@@ -3,9 +3,23 @@
 <head>
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
   <script>
+    let paddleLocale = document.documentElement.lang;
+    if (paddleLocale === "he") paddleLocale = "en";
+    if (paddleLocale === "hi") paddleLocale = "en";
+    if (paddleLocale === "ro") paddleLocale = "en";
+    if (paddleLocale === "zh") paddleLocale = "zh-Hans";
+    if (paddleLocale === "pt") paddleLocale = "pt-BR";
+
+    console.log("paddleLocale: ", paddleLocale);
+
     Paddle.Environment.set("production"); // Use "production" for live environment
     Paddle.Initialize({
-      token: "live_e52f015f98dbce460791b4b9fe7"
+      token: "live_e52f015f98dbce460791b4b9fe7",
+      checkout: {
+        settings: {
+          locale: paddleLocale
+        }
+      }
     });
   </script>
   <script>
