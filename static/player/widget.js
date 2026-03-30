@@ -1,10 +1,14 @@
-// src/findreplace/widget.js
+// public/widget.js
 class FindReplaceWidget {
   constructor() {
     this.quill = window.quill;
-    this.matches = [];
+    this.matches = []; // unified: each entry has { index, length, range }
     this.currentIndex = -1;
+    this.visible = false;
+    this._findTimer = null;
+    this._replacing = false; // suppresses text-change re-search during replace ops
     this.container = document.querySelector('.main-app-container');
+    this._highlightSupported = typeof CSS !== 'undefined' && CSS.highlights != null;
     this._createUI();
     this._addEventListeners();
     this.hide();
@@ -39,7 +43,7 @@ class FindReplaceWidget {
         <button class="fr-replace-all-btn">Replace All</button>
       </div>
     `;
-    this.container.style.position = 'relative'; // Needed for absolute positioning of widget
+    this.container.style.position = 'relative';
     this.container.appendChild(this.widget);
 
     // Cache UI elements
@@ -59,8 +63,8 @@ class FindReplaceWidget {
   }
 
   _addEventListeners() {
-    // Use a single listener for find input changes
-    this.findInput.addEventListener('input', () => this.find());
+    // Debounced find on input changes
+    this.findInput.addEventListener('input', () => this._debouncedFind());
 
     // Listen for changes on checkboxes
     this.regexCb.addEventListener('change', () => this.find());
@@ -74,29 +78,52 @@ class FindReplaceWidget {
     this.replaceBtn.addEventListener('click', () => this.replace());
     this.replaceAllBtn.addEventListener('click', () => this.replaceAll());
 
-    // Keyboard shortcut to show widget (e.g., Ctrl+F)
-    /*document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.key === 'f') {
+    // Keyboard handling — Enter/Shift+Enter in find, Enter in replace, Escape
+    this.findInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
         e.preventDefault();
-        this.show();
+        if (e.shiftKey) {
+          this.focusPrev();
+        } else {
+          this.focusNext();
+        }
       }
-    })*/
+    });
 
-    this.quill.on('text-change', (delta, oldDelta, source) => {
-      if (source === 'user') {
-        this.find();
+    this.replaceInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        this.replace();
+      }
+    });
+
+    // Prevent all widget keydown events from leaking to the app
+    this.widget.addEventListener('keydown', (e) => {
+      e.stopPropagation();
+      if (e.key === 'Escape') {
+        this.hide();
       }
     });
   }
 
+  _debouncedFind() {
+    clearTimeout(this._findTimer);
+    this._findTimer = setTimeout(() => this.find(), 150);
+  }
+
   show() {
+    this.visible = true;
     this.widget.style.display = 'flex';
     this.findInput.focus();
     this.findInput.select();
+    // Re-run find if there's an existing query so highlights reappear on toggle
+    if (this.findInput.value) {
+      this.find();
+    }
   }
 
   toggle() {
-    if (this.widget.style.display === 'none') {
+    if (!this.visible) {
       this.show();
     } else {
       this.hide();
@@ -104,11 +131,14 @@ class FindReplaceWidget {
   }
 
   hide() {
+    this.visible = false;
     this.widget.style.display = 'none';
     this._clearHighlights();
+    this.quill.focus();
   }
 
   find() {
+    if (!this.visible) return;
     this._clearHighlights();
     const query = this.findInput.value;
     if (query.length < 1) {
@@ -125,17 +155,41 @@ class FindReplaceWidget {
       searchString = `\\b${searchString}\\b`;
     }
 
-    const regex = new RegExp(searchString, flags);
+    let regex;
+    try {
+      regex = new RegExp(searchString, flags);
+    } catch (e) {
+      this.matches = [];
+      this.currentIndex = -1;
+      this._updateUI();
+      return;
+    }
+
+    // Build unified matches array — only keep entries where DOM range succeeds
     this.matches = [];
     let match;
     while ((match = regex.exec(text)) !== null) {
-      this.matches.push({ index: match.index, length: match[0].length });
+      if (match[0].length === 0) { regex.lastIndex++; continue; }
+      const entry = { index: match.index, length: match[0].length, range: null };
+      try {
+        const start = this._quillIndexToNode(entry.index);
+        const end = this._quillIndexToNode(entry.index + entry.length);
+        if (start && end) {
+          const range = document.createRange();
+          range.setStart(start.node, start.offset);
+          range.setEnd(end.node, end.offset);
+          entry.range = range;
+        }
+      } catch (e) {
+        // DOM range failed — entry.range stays null
+      }
+      this.matches.push(entry);
     }
 
     if (this.matches.length > 0) {
       this.currentIndex = 0;
       this._highlightAll();
-      // Do not focus on the first match automatically, just highlight
+      this._focusCurrent();
     } else {
       this.currentIndex = -1;
     }
@@ -163,15 +217,28 @@ class FindReplaceWidget {
     const replaceText = this.replaceInput.value;
     const originalIndex = match.index;
 
-    this.quill.deleteText(match.index, match.length);
-    this.quill.insertText(match.index, replaceText);
+    // Atomic replace via single Delta for clean undo history
+    this._replacing = true;
+    const Delta = Quill.import('delta');
+    let delta = new Delta();
+    if (match.index > 0) {
+      delta = delta.retain(match.index);
+    }
+    delta = delta.delete(match.length);
+    delta = delta.insert(replaceText);
+    this.quill.updateContents(delta, 'user');
+    this._replacing = false;
 
-    // After replacing, re-run find to update matches
+    // Re-run find directly to update matches
     this.find();
 
     // Find the next match after the replacement position
-    const nextMatchIndex = this.matches.findIndex(m => m.index > originalIndex);
-    this.currentIndex = (nextMatchIndex !== -1) ? nextMatchIndex : 0;
+    const nextMatchIndex = this.matches.findIndex(m => m.index >= originalIndex + replaceText.length);
+    if (nextMatchIndex !== -1) {
+      this.currentIndex = nextMatchIndex;
+    } else if (this.matches.length > 0) {
+      this.currentIndex = 0;
+    }
 
     if (this.matches.length > 0) {
       this._focusCurrent();
@@ -180,36 +247,75 @@ class FindReplaceWidget {
   }
 
   replaceAll() {
+    if (this.matches.length === 0) return;
     const replaceText = this.replaceInput.value;
-    // Go backwards to avoid index shifting issues
-    [...this.matches].reverse().forEach(match => {
-      this.quill.deleteText(match.index, match.length);
-      this.quill.insertText(match.index, replaceText);
-    });
-    this._clearHighlights();
-    this.matches = [];
-    this.currentIndex = -1;
-    this._updateUI();
+
+    // Build a single batched Delta for undo-as-one-operation
+    this._replacing = true;
+    const Delta = Quill.import('delta');
+    let delta = new Delta();
+    let pos = 0;
+    for (const match of this.matches) {
+      if (match.index > pos) {
+        delta = delta.retain(match.index - pos);
+      }
+      delta = delta.delete(match.length);
+      delta = delta.insert(replaceText);
+      pos = match.index + match.length;
+    }
+    this.quill.updateContents(delta, 'user');
+    this._replacing = false;
+
+    // Re-run find so self-matching replacements show up
+    this.find();
+  }
+
+  _quillIndexToNode(index) {
+    const [leaf, offset] = this.quill.getLeaf(index);
+    if (!leaf || !leaf.domNode) return null;
+    const node = leaf.domNode;
+    if (node.nodeType === Node.TEXT_NODE) {
+      return { node, offset };
+    }
+    // Element node — try to use its first text child
+    if (node.firstChild && node.firstChild.nodeType === Node.TEXT_NODE) {
+      return { node: node.firstChild, offset };
+    }
+    return null;
   }
 
   _highlightAll() {
-    this.matches.forEach(match => {
-      this.quill.formatText(match.index, match.length, 'highlight', true, 'silent');
-    });
+    if (!this._highlightSupported) return;
+    const ranges = this.matches.map(m => m.range).filter(Boolean);
+    if (ranges.length === 0) return;
+    CSS.highlights.set('fr-search', new Highlight(...ranges));
   }
 
   _focusCurrent() {
-    if (this.currentIndex === -1) return;
-    this._highlightAll(); // Re-apply base highlight to all
-    const match = this.matches[this.currentIndex];
-    this.quill.formatText(match.index, match.length, 'background', '#ffb100', 'silent'); // Active highlight
-    this.quill.setSelection(match.index, match.length, 'user');
-    this.findInput.focus(); // Return focus to the find input
+    if (this.currentIndex === -1 || !this._highlightSupported) return;
+    const range = this.matches[this.currentIndex]?.range;
+    if (!range) return;
+
+    // Set active highlight on current match only (priority 1 so it paints over fr-search)
+    const activeHighlight = new Highlight(range);
+    activeHighlight.priority = 1;
+    CSS.highlights.set('fr-active', activeHighlight);
+
+    // Scroll the match into view
+    const rect = range.getBoundingClientRect();
+    const editorRect = this.quill.root.getBoundingClientRect();
+    if (rect.top < editorRect.top || rect.bottom > editorRect.bottom) {
+      const scrollContainer = this.quill.root;
+      scrollContainer.scrollTop += rect.top - editorRect.top - editorRect.height / 3;
+    }
+
+    this.findInput.focus();
   }
 
   _clearHighlights() {
-    this.quill.formatText(0, this.quill.getLength(), 'highlight', false, 'silent');
-    this.quill.formatText(0, this.quill.getLength(), 'background', false, 'silent');
+    if (!this._highlightSupported) return;
+    CSS.highlights.delete('fr-search');
+    CSS.highlights.delete('fr-active');
   }
 
   _updateUI() {

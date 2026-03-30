@@ -19,15 +19,20 @@ Change log of TTSReader versions & links to stable, previous & preview versions.
 
 ## Latest Stable Version
 
-* **Player V3.10.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
+* **Player V3.12.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
 
   * Link to version: [https://ttsreader.com/player/](https://ttsreader.com/player/)
-  * Description: Major UX improvements.
+  * Description: 3.12 brings long export to support also non-azure voices as 1st class including in setters. Probably the only one in the world to allow exports of up to 200,000 characters in a single export, and to support multiple voice sources in a single file. Published first March 2026
 
 <br/>
 
 
 ## Previous Versions
+
+* **Player V3.11.+** - [https://ttsreader.com/player@v3.11/](https://ttsreader.com/player@v3.11/)
+
+
+* **Player V3.10.+** - [https://ttsreader.com/player@v3.10/](https://ttsreader.com/player@v3.10/)
 
 
 

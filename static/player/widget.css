@@ -122,3 +122,6 @@
 .fr-options-group input[type="checkbox"] {
   margin: 0;
 }
+
+::highlight(fr-search) { background-color: yellow; color: black; }
+::highlight(fr-active) { background-color: #ffb100; color: black; }

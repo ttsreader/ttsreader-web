@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-03-30T13:21:24.509Z",
-      "version": "3.12.07",
+      "dateModified": "2026-03-30T15:25:11.042Z",
+      "version": "3.12.08",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -51,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.12.07 - TTSReader's Text to Speech Player</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.12.08 - TTSReader's Text to Speech Player</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -869,7 +869,7 @@
       top: -2px;
     }
   </style>
-  <link rel="stylesheet" href="static/css/pronounciation.css">
+  <link rel="stylesheet" href="static/css/pronunciation.css">
 
   <template id="sign-in-buttons-template">
     <div class="sign-in-container">
@@ -906,7 +906,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.502a9274.js"></script><link href="./static/css/main.801fd87b.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.3bdb8ba1.js"></script><link href="./static/css/main.801fd87b.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -1040,7 +1040,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.12.07</b> Build 2026-03-30T13:21:24.509Z
+          <b>V3.12.08</b> Build 2026-03-30T15:25:11.042Z
           <br/><span style="margin-top: 10px;display: block">ALL VERSIONS <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -1637,7 +1637,7 @@
                 <span class="settings-section-title">Add New Pronunciation</span>
                 <!-- Info tooltip icon -->
                 <span class="info-tooltip" aria-label="Dictionary info">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="12" y1="16" x2="12" y2="12"></line>
@@ -1645,7 +1645,7 @@
       </svg>
 
       <span class="info-tooltip-text">
-        Dictionary saved to device, not synced to the cloud.
+        Saved locally to your device
       </span>
     </span>
               </div>
@@ -2431,7 +2431,7 @@
           <sign-in-buttons></sign-in-buttons>
         </div>
         <div data-ws-show-if-state="isSignedIn=true">
-          <button class="full-width-button" onclick="openNewUpgradeModal()">View Premium Plans <!-- View Premium Plans --></button>
+          <button class="full-width-button" onclick="openNewUpgradeModal()">Explore Benefits <!-- View Premium Plans --></button>
         </div>
         <br/><br/>
         <!--<ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 1em 20px; text-align: start">
@@ -2653,7 +2653,7 @@
             <sign-in-buttons></sign-in-buttons>
           </div>
           <div data-ws-show-if-state="isSignedIn=true">
-            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">View Premium plans<!-- Upgrade to Premium --></button>
+            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white;font-size:larger;">Explore Benefits<!-- Upgrade to Premium --></button>
           </div>
         </div>
         <div data-ws-show-if-state="isPremium=true">
@@ -2791,7 +2791,7 @@
         <div data-ws-show-if-state="isSignedIn=true">
           <div data-ws-show-if-state="isPremium=false">
             <span style="font-size: 1.3em;color: red;">Commercial use and publishing requires Premium.<!-- Commercial use and publishing requires Premium.--></span>
-            <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');openNewUpgradeModal();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">View Premium plans</button>
+            <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');openNewUpgradeModal();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Explore Benefits</button>
           </div>
         </div>
       </div>
@@ -3207,14 +3207,14 @@
   function copyPodcastUrl(button) {
     const urlElement = button.parentElement.querySelector('[data-ws-label-state="podcast_main_channel_url"]');
     const url = urlElement.textContent.trim();
-    
+
     if (url) {
       navigator.clipboard.writeText(url).then(function() {
         // Show success feedback
         const originalText = button.innerHTML;
         button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg> URL copied to clipboard!';
         button.style.backgroundColor = '#2E7D32';
-        
+
         // Reset after 2 seconds
         setTimeout(function() {
           button.innerHTML = originalText;
