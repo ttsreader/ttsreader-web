@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-03-23T21:15:52.872Z",
-      "version": "3.12.03",
+      "dateModified": "2026-03-30T13:21:24.515Z",
+      "version": "3.12.07",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -51,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.12.03 - נגן טקסט לדיבור של TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.12.07 - נגן טקסט לדיבור של TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -350,7 +350,7 @@
       width: 30%;
       max-width: 200px;
       aspect-ratio: 1 / 1;
-      border-color: #60a5fa;
+      border: 1px solid rgba(255, 165, 0, 0.54);
       border-radius: 16px;
       background: white;
       cursor: pointer;
@@ -363,6 +363,7 @@
       text-align: center;
       transition: all 0.2s ease;
       color: #3b82f6;
+      background: #f5f9ff;
     }
 
     .action-card .emoji {
@@ -905,7 +906,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.44221fb3.js"></script><link href="./static/css/main.54f636e5.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.502a9274.js"></script><link href="./static/css/main.801fd87b.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -914,7 +915,7 @@
       font-weight: bold;
       font-size: smaller;
       background-color: darkgreen;"><a style="cursor: pointer; text-decoration: none;color: white;display: block; padding: 10px;" onclick="openNewUpgradeModal()">
-      לחץ כאן לשדרוג. שביעות רצון מובטחת 100%<!-- Click here to upgrade. 100% satisfaction guaranteed -->
+      לחצו כאן לשדרוג. שביעות רצון מובטחת 100%<!-- Click here to upgrade. 100% satisfaction guaranteed -->
     </a></div>
 
   <div style="flex: 1; display: flex;max-height: 100%;overflow: hidden;">
@@ -941,7 +942,7 @@
         </div>
         <div data-ws-show-if-state="isPremium=false">
           <div>
-            <a class="Menu-list-element" onclick="openNewUpgradeModal()" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;עבור לפרימיום<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
+            <a class="Menu-list-element" onclick="openNewUpgradeModal()" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;שדרגו<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
           </div>
         </div>
         <div data-ws-show-if-state="isPremium=true">
@@ -971,7 +972,7 @@
         </div>
         <div>
           <a class="Menu-list-element" onclick="gtag('event','mp3_export_click_player_drawer',{value:'1'})" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal" style="text-decoration:none;">
-            <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M11 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 16l0 -5l2 1" /></svg>&nbsp;&nbsp;הורד קובץ אודיו mp3<!-- Download mp3 audio file -->
+            <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M11 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 16l0 -5l2 1" /></svg>&nbsp;&nbsp;הורדת קובץ אודיו mp3<!-- Download mp3 audio file -->
           </a>
         </div>
         <div>
@@ -985,7 +986,7 @@
           </a>
         </div>
         <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;צריך עוד קולות<!-- Need more voices -->
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;קולות נוספים<!-- Need more voices -->
         </a>
         <div>
           <a href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds" target="_blank" class="Menu-list-element" onclick="gtag('event','drawer_click_multivoices',{value:'1'})" style="text-decoration:none;">
@@ -1039,7 +1040,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.12.03</b> Build 2026-03-23T21:15:52.872Z
+          <b>V3.12.07</b> Build 2026-03-30T13:21:24.515Z
           <br/><span style="margin-top: 10px;display: block">כל הגרסאות <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -1210,7 +1211,7 @@
 
         <span style="flex: 1"></span>
         <button data-ws-show-if-state="isPremium=false" class="Hide-on-narrow-screens" style="text-align: center; text-wrap:nowrap;" onclick="openNewUpgradeModal()">
-          <span style="border-radius: 10px; padding: 7px 16px; background-color: green; font-weight: bold;">👑 Upgrade</span>
+          <span style="border-radius: 10px; padding: 7px 16px; background-color: green; font-weight: bold;">👑 שדרגו</span>
         </button>
         <span class="Hide-on-narrow-screens">&nbsp;</span>
         <div class="Dropdown-header" style="display: inline-block; vertical-align: middle;cursor: pointer;position: relative;align-content: center;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-text-size"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7v-2h13v2" /><path d="M10 5v14" /><path d="M12 19h-4" /><path d="M15 13v-1h6v1" /><path d="M18 12v7" /><path d="M17 19h2" /></svg>
@@ -1492,7 +1493,7 @@
             <button class="settings-sidebar-tab" data-tab="prefs" data-ws-onClick="switchSettingsTab">העדפות</button>
           </div>
           <button class="settings-sidebar-close-btn" data-ws-onClick="closeSettingsSidebar" aria-label="Close Settings">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" /><path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" /><path d="M3 3l18 18" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-xbox-x"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg>
           </button>
         </div>
 
@@ -2052,7 +2053,7 @@
       <!--<div data-ws-show-if-state="isSignedIn=false">
         <div class="modal-footer" style="display: flex">
           <button class="secondary" style="flex: 1" onclick="prevStep(this)">חזור&lt;!&ndash; Back &ndash;&gt;</button>
-          <button data-ws-show-if-state="isVoicePremium=true" class="primary" style="flex: 2" onclick="signIn()">התחבר באמצעות גוגל</button>
+          <button data-ws-show-if-state="isVoicePremium=true" class="primary" style="flex: 2" onclick="signIn()">התחברו באמצעות גוגל</button>
           <button data-ws-show-if-state="isVoicePremium=false" class="primary hidden" style="flex: 2" onclick="closeOnboarding()">נתחיל</button>
         </div>
       </div>-->
@@ -2082,7 +2083,7 @@
               הקול שבחרת <span data-ws-label-state="voiceLabel"></span>&nbsp; הוא בחירה מעולה!<!-- The voice you selected <span data-ws-label-state="voiceLabel"></span>&nbsp; is an excellent choice! As it is a premium voice, sign-in is required. -->
             </p>
             <br/><br/>
-            <button onclick="signIn();" class="primary" style="margin: auto;border: 1px solid;border-radius: 10px;width: 500px;max-width: 90%;">התחבר באמצעות גוגל<!-- Sign In with Google --></button>
+            <button onclick="signIn();" class="primary" style="margin: auto;border: 1px solid;border-radius: 10px;width: 500px;max-width: 90%;">התחברו באמצעות גוגל<!-- Sign In with Google --></button>
             <br/>
             לא נדרשת סיסמה או אמצעי תשלום.
             <br/>
@@ -2128,11 +2129,12 @@
         </svg>
       </button>
       <div style="overflow: auto;padding:10px;">
-        <h3 class="Modal-title">
+        <h3 class="Modal-title" data-ws-show-if-state="isFirstVisit=true">Welcome to <span style="color:darkred">TTS</span>Reader!</h3>
+        <h4 class="Modal-title">
           בחר מקור טקסט
-        </h3>
+        </h4>
         <p class="Modal-p" style="text-align: center">
-          ברגע שהוגדר - אתה יכול לערוך את הטקסט, לנגן כדי להאזין, ולייצא כשמע. בקר ב<a style='color: orangered; text-decoration:none;cursor: pointer;' title='Open voice gallery' data-ws-toggle='#voicesModal' href='#'>גלריית הקולות</a> כדי לבדוק ולבחור קול ומהירות.
+          בכל שלב ניתן לערוך את הטקסט, לנגן כדי להאזין, ולהוריד כקובץ שמע. לחצו על שם הקול או על כפתור המאפיינים על מנת לבחור שפה, קול ומהירות. ניתן גם לשלב מספר קולות, הפסקות ועוד.
         </p>
         <div class="css-container">
           <div class="actions">
@@ -2151,6 +2153,21 @@
           </div>
         </div>
         <br/><br/>
+
+        <div style="margin: auto; display: inline-block">
+        <div data-nosnippet class="theme-toggle" style="text-align: center">
+          <span class="label">🌞 בהיר<!-- 🌞 Light --></span>
+          <label class="switch">
+            <input type="checkbox" class="themeSwitch">
+            <span class="slider"></span>
+          </label>
+          <span class="label">🌙 כהה<!-- 🌙 Dark --></span>
+        </div>
+        </div>
+        <br/><br/>
+        <p style="font-size: smaller" data-ws-show-if-state="isFirstVisit=true"><i>בהמשך אתה מסכים ל<a href="/docs/legal/terms/" target="_blank">תנאים</a> ול<a href="/docs/legal/privacy/" target="_blank">מדיניות הפרטיות</a> שלנו</i></p>
+        <br/>
+        <br/>
       </div>
     </div>
     <div style="height:20px;"></div>
@@ -2285,7 +2302,7 @@
       <br/>
       <!--<select class="Voice-selector" data-ws-onChange="handleVoiceChange" data-ws-value-state="selectedVoiceUri"></select>-->
       <!--<p style="text-align: center">
-        <span style="color: green">✓</span> מציין כי הקול מאושר לפרסום עבור משתמשי פרימיום&lt;!&ndash; Indicates voice is allowed for publishing for premium users &ndash;&gt; <span data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">כמוך 🏆&lt;!&ndash; as yourself 🏆 &ndash;&gt;</span><a data-ws-show-if-state="isPremium=false" data-ws-toggle="#upgradeModal" style="cursor: pointer;">- <u>לחץ כאן לשדרוג&lt;!&ndash; click here to upgrade &ndash;&gt;</u></a>
+        <span style="color: green">✓</span> מציין כי הקול מאושר לפרסום עבור משתמשי פרימיום&lt;!&ndash; Indicates voice is allowed for publishing for premium users &ndash;&gt; <span data-ws-show-if-state="isPremium=true" data-ws-toggle="#upgradeModal">כמוך 🏆&lt;!&ndash; as yourself 🏆 &ndash;&gt;</span><a data-ws-show-if-state="isPremium=false" data-ws-toggle="#upgradeModal" style="cursor: pointer;">- <u>לחצו כאן לשדרוג&lt;!&ndash; click here to upgrade &ndash;&gt;</u></a>
       </p>-->
     </div>
   </div>
@@ -2384,7 +2401,7 @@
       <div data-ws-show-if-state="isPremium=true"  style="text-align: center;overflow: auto;padding:10px;">
         <p style="font-size: 1.5em; padding: 20px;margin-block: 0.3em;">🏆 סטטוס פרימיום וניהול<!--Premium Status & Management--></p>
         <p data-ws-show-if-state="subscriptionId=true">
-          באמצעות<!-- Via --> <a style="cursor: pointer;text-decoration: underline" data-ws-toggle="#subscriptionModal">מנוי<!-- Subscription --> - לחץ כאן לצפייה וניהול<!-- click here to view & manage --></a>
+          באמצעות<!-- Via --> <a style="cursor: pointer;text-decoration: underline" data-ws-toggle="#subscriptionModal">מנוי<!-- Subscription --> - לחצו כאן לצפייה וניהול<!-- click here to view & manage --></a>
         </p>
         <p data-ws-show-if-state="isPremiumPlan=true" style="">
           תווים פרימיום בשימוש חודשי <!--Monthly Premium-Chars used --><span style="font-weight: bold;" data-ws-label-state="usedMonthly"></span> / <span style="font-weight: bold;" data-ws-label-state="monthlyQuotaHuman"></span>
@@ -2404,17 +2421,17 @@
         <br/>
       </div>
       <div data-ws-show-if-state="isPremium=false" style="overflow: auto;padding:10px;">
-        <h4>קבל עוד ותמוך בצוות 🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --><br/>קולות בינה מלאכותית פרימיום, ייצוא, מסחרי ופרסום <!-- Premium AI Voices, Export, Commercial & Publishing --></h4>
+        <h4> שדרגו🔥🔥🔥<!-- Get More & Support the Team 🔥🔥🔥 --><br/>קולות פרימיום, אפשרויות ייצוא בלתי מוגבלות, רשיון לשימוש מסחרי, אישור שימוש חופשי באודיו לטובת פרסום, דיבוב ועוד.<!-- Premium AI Voices, Export, Commercial & Publishing --></h4>
         <!--<p style="margin-top: 38px;text-transform: uppercase; opacity: 1;font-size: 0.99em;">
           מנויים נגישים וחבילות תשלום חד פעמי &lt;!&ndash; Affordable Subscriptions and One-Time Payment Packages &ndash;&gt;
         </p>-->
         <br/>
         <div data-ws-show-if-state="isSignedIn=false">
-          <p style="opacity: 0.8;">היכנס כדי לחקור את התוכניות השונות <!-- Login to explore the different plans --></p>
+          <p style="opacity: 0.8;">המשיכו עם חשבון גוגל או אפל על מנת לבדוק איזו תכנית מתאימה עבורכם. התכניות מתחילות ב$10.99 והינן התכניות המשתלמות ביותר בשוק.<!-- Login to explore the different plans --></p>
           <sign-in-buttons></sign-in-buttons>
         </div>
         <div data-ws-show-if-state="isSignedIn=true">
-          <button class="full-width-button" onclick="openNewUpgradeModal()">צפה בתוכניות פרימיום <!-- View Premium Plans --></button>
+          <button class="full-width-button" onclick="openNewUpgradeModal()">צפו בתוכניות פרימיום <!-- View Premium Plans --></button>
         </div>
         <br/><br/>
         <!--<ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 1em 20px; text-align: start">
@@ -2631,8 +2648,8 @@
             הפרמיום כולל עיבוד MP3 ו-WAV להורדה מיידית, האזנה מאוחרת יותר, רישיון מסחרי ופרסום (עבור הקולות הפרמיום), ועוד. התוכניות מאוד משתלמות וכוללות גם סוג מנוי וגם רכישות חד-פעמיות כדי להתאים בצורה הטובה ביותר לצרכים שלך. שביעות רצון מובטחת.<!-- Recording requires premium and includes licensing for commercial use & publishing (see publishing terms -->
           </p>
           <div data-ws-show-if-state="isSignedIn=false">
-            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">היכנס כדי לצפות בתוכניות<!-- Upgrade to Premium --></button>
-            <p style="text-align: center">כבר בפרימיום? התחבר<!-- Already premium? Sign in --></p>
+            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">היכנסו עם חשבון גוגל או אפל על מנת לצפות בתוכניות<!-- Upgrade to Premium --></button>
+            <p style="text-align: center">כבר בפרימיום? התחברו<!-- Already premium? Sign in --></p>
             <sign-in-buttons></sign-in-buttons>
           </div>
           <div data-ws-show-if-state="isSignedIn=true">
@@ -2781,7 +2798,7 @@
       <div style="text-align: justify; font-size: smaller;">
         <p style="text-align: center">נא לשים לב:</p>
         <ul style="text-align: justify">
-          <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">היכנס כדי לצפות בתוכניות</a></span></li>-->
+          <!--<li><span data-ws-show-if-state="isPremium=true">✅ Premium Account</span><span data-ws-show-if-state="isPremium=false" style="color: red;">✘ Premium.&nbsp;<a href="#" onclick="openNewUpgradeModal()" style="font-weight: bold">היכנסו עם חשבון גוגל או אפל על מנת לצפות בתוכניות</a></span></li>-->
           <li><strong>נא להפעיל לפני הייצוא – כדי לוודא שהכול נשמע בדיוק כפי שברצונך. ערוך עד לשלמות ואז יצא.</strong></li>
           <li>צורך תווים מהמכסה של תווי-פרמיום חודשית או מחבילת קרדיטים פרימיום.</li>
           <li data-ws-show-if-state="isLongerThan200000Chars=true"><span style="color: red;">✘</span> מוגבל ל-200 אלף תווים לקובץ. הטקסט הנוכחי שלך ארוך מדי עם <span data-ws-label-state="charsCount"></span> תווים.&nbsp;<span style="color:red;">אנא פצל אותו לחלקים קטנים יותר, או דבר איתנו ב-contact@ttsreader.com</span></li>
@@ -3190,14 +3207,14 @@
   function copyPodcastUrl(button) {
     const urlElement = button.parentElement.querySelector('[data-ws-label-state="podcast_main_channel_url"]');
     const url = urlElement.textContent.trim();
-
+    
     if (url) {
       navigator.clipboard.writeText(url).then(function() {
         // Show success feedback
         const originalText = button.innerHTML;
         button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg> הכתובת הועתקה ללוח!';
         button.style.backgroundColor = '#2E7D32';
-
+        
         // Reset after 2 seconds
         setTimeout(function() {
           button.innerHTML = originalText;
@@ -5040,14 +5057,14 @@
       return;
     }
     let lang = document.documentElement.getAttribute('lang') || 'en';
-    let theme = document.documentElement.getAttribute('data-dark-mode') ? 'dark' : 'light';
+    let theme = 'dark'; //document.documentElement.getAttribute('data-dark-mode') ? 'dark' : 'light';
 
     iframeEl.onload = function () {
       modalEl.classList.remove("hidden");
       requestAnimationFrame(() => modalEl.classList.add("show"));
     };
     let shouldHideSubscriptions = Boolean(window.subscriptionId);
-    let src = `newUpgradeModalPaddle.${lang}.html?uid=${uid}&email=${email}&theme=dark&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
+    let src = `newUpgradeModalPaddle.${lang}.html?uid=${uid}&email=${email}&theme=${theme}&lang=${lang}&onClose=closeNewUpgradeModal&isPremiumPlanAlready=${shouldHideSubscriptions}`;
     if (!iframeEl.src || !iframeEl.src.endsWith(src)) {
       let obj = {iframe: iframeEl.src, src};
       console.log("src!==src: ", obj);

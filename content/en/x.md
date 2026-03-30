@@ -27,7 +27,7 @@ TTSReader's New V3 Extension sets a NEW STANDARD FOR CHROME EXTENSIONS. It's sec
 
 ## Want to try it out?
 
-Rolling out preview version to select premium users. Want to be one of the first to try it out? Fill out the form below and we'll get back to you as soon as we can with access to the preview version.
+Rolling out preview version to select premium users. Want to be one of the first to try it out? First - sign in on <a href="https://ttsreader.com/player/" target="_blank">TTSReader's Player</a> - so you have an account. Then, fill out the form below and we'll get back to you as soon as we can with access to the preview version.
 
 <br/>
 

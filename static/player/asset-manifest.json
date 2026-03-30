@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "./static/css/main.54f636e5.css",
-    "main.js": "./static/js/main.44221fb3.js",
+    "main.css": "./static/css/main.801fd87b.css",
+    "main.js": "./static/js/main.502a9274.js",
     "static/js/857.b1c4c7ed.chunk.js": "./static/js/857.b1c4c7ed.chunk.js",
     "hi.html": "./hi.html",
     "ru.html": "./ru.html",
     "ar.html": "./ar.html",
-    "ja.html": "./ja.html",
     "he.html": "./he.html",
+    "ja.html": "./ja.html",
     "ro.html": "./ro.html",
     "fr.html": "./fr.html",
     "ko.html": "./ko.html",
     "de.html": "./de.html",
     "pt.html": "./pt.html",
-    "es.html": "./es.html",
     "it.html": "./it.html",
+    "es.html": "./es.html",
     "nl.html": "./nl.html",
     "en.html": "./en.html",
     "zh.html": "./zh.html",
@@ -79,12 +79,12 @@
     "sidebar.ro.html": "./sidebar.ro.html",
     "sidebar.ru.html": "./sidebar.ru.html",
     "sidebar.zh.html": "./sidebar.zh.html",
-    "main.54f636e5.css.map": "./static/css/main.54f636e5.css.map",
-    "main.44221fb3.js.map": "./static/js/main.44221fb3.js.map",
+    "main.801fd87b.css.map": "./static/css/main.801fd87b.css.map",
+    "main.502a9274.js.map": "./static/js/main.502a9274.js.map",
     "857.b1c4c7ed.chunk.js.map": "./static/js/857.b1c4c7ed.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.54f636e5.css",
-    "static/js/main.44221fb3.js"
+    "static/css/main.801fd87b.css",
+    "static/js/main.502a9274.js"
   ]
 }
