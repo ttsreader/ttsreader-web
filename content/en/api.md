@@ -5,22 +5,25 @@ lead: "Single endpoint to ALL the best AI Speech Engines: OpenAI, Azure, Google,
 date: 2025-05-16T08:50:23+02:00
 lastmod: 2025-12-28T08:50:23+02:00
 draft: false
+toc: true
 images: []
 sitemap:
   priority: 0.9
 ---
+
 <br/>
 
 <strong>EXCITING!! Coming 2026 - TTSReader's API is Finally Here!!!</strong>
 
 Happy to let you know that our initial public Text-To-Speech-API is now available for you. It uses the exact same endpoint as our very own TTSReader Player, that serves thousands of users every day. That means zero latency, 100% reliability.
 
-<h2>TTS API - Zero to Hero in Less Than a Minute</h2>
+## TTS API - Zero to Hero in Less Than a Minute
 
 Go to [https://ttsreader.com/player/](https://ttsreader.com/player/) - open the left sidebar menu - select the "API ACCESS" menu item - click 'Generate API Key' - then - TTSReader will generate the API call using the real TTSReader Endpoint - and your Real generated API Key. All you have to do is copy that code, use your own text and that's it - you're ready to go! That's ALL there is to it - and it all takes less than a minute!
 
-<h2>Why Choose TTSReader's API?</h2>
-<p>There are many APIs out there - why would you choose TTSReader's? Good question! Here's exactly why:</p>
+## Why Choose TTSReader's API?
+
+There are many APIs out there - why would you choose TTSReader's? Good question! Here's exactly why:
 
 Its main advantages:
 1. Super simple and straightforward. No complex setup. Get going in less than a minute - that includes generating your API key, setting up payment method and actually testing it.
@@ -30,7 +33,7 @@ Its main advantages:
 5. *Low Latency* - the API is super fast, it's the exact same endpoint as our TTSReader Player - so - it's super fast.
 6. *Super Reliable* - 100% uptime, just like our TTSReader Player. You enjoy our very own backend infrastructure, that serves thousands of users every day - so - it's rock solid reliable.
 
-<h3>More Info & Example Code</h3>
+## More Info & Example Code
 
 <style>
 :root {
@@ -95,8 +98,9 @@ Its main advantages:
 <br/>
 
 <!-- API Documentation -->
-<div style="padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--border-color);">
-  <h3 style="margin-bottom: 15px;">Important Notes</h3>
+
+## Additional Notes & Tips
+
   <ul style="line-height: 1.8; margin-left: 20px;list-style: disc;">
     <li>Limit characters to a few thousands (exact limit is unknown, but 5k characters is safe), as this is synchronous API, that times out after 5 minutes. So, if it can generate the MP3 within 5 minutes it will - otherwise it will time out before MP3 is ready - but since the AI is started - it will consume credits.</li>
     <li>Async API is coming soon for long-texts, and for supporting multiple voices in a single file.</li>
@@ -104,7 +108,6 @@ Its main advantages:
     <li>The name of the voice is as shown in the voice-selector UI. In addition ALL Azure's Neural AI voices are supported. So, you're welcome to go to Azure's voice gallery at <a href="https://speech.azure.cn/portal/voicegallery" target="_blank" style="color: #007bff;">https://speech.azure.cn/portal/voicegallery</a> and select a voice from there.</li>
     <li>If you need anything else, or have feedback, suggestions, please let us know at <span style="color: orangered;">contact@ttsreader.com</span></li>
   </ul>
-</div>
 
 <div style="text-align: center; margin-bottom: 30px;">
 <button style="padding: 10px 30px; border-radius: 10px; font-size: large;" onclick="window.location.href='/player/'">GET TEXT TO SPEECH API NOW</button>

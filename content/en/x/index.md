@@ -10,6 +10,9 @@ weight: 50
 categories: ["Features", "News", "Products"]
 tags: ["ttsreader", "extension", "chrome extension", "plugin"]
 images: []
+menu:
+  docs:
+    parent: "guides"
 contributors: ["TTSReader"]
 toc: true
 sitemap:
@@ -20,8 +23,6 @@ sitemap:
 
 We are excited to launch the new **TTSReader browser extension**. Compatible with **Chrome** and **Edge**. Still working on a **Firefox** version.
 
-
-## Get It Now
 
 <div style="padding: 30px; border: orangered 1px solid; border-radius: 15px; margin: 30px auto; text-align: center; font-size: larger; font-weight: bold;">
 Install it directly from the Chrome Web Store:
@@ -48,6 +49,10 @@ TTSReader is built to set a **new gold standard** for browser text-to-speech ext
 - TTSReader does NOT have access to any website unless you EXPLICITLY turn it on for that specific tab. So you can be SURE we do NOT have access to content you don't want us to.
 - TTSReader does NOT PERSIST your content on our cloud, NOR TRAIN on your content. Once the audio is generated it is sent to your device and stays only there.
 
+![TTSReader Extension Privacy First Design](privacy.jpeg)
+
+<br/>
+
 ### Does Not Bloat or Slow Your Browsing Experience
 
 - Off by default, so pages load normally by definition. No default injection, no default UI, no default access to any page.
@@ -57,24 +62,28 @@ TTSReader is built to set a **new gold standard** for browser text-to-speech ext
   - Lightweight by design.
 
 
-## Features
+## Main Features
+
+![reads_anything.jpeg](reads_anything.jpeg)
+
 
 1. Does not inject itself unless explicitly triggered by the user.
 2. New/latest natural-sounding AI voices.
-3. 600+ voices, multilingual (any supported language).
+3. 600+ voices, multilingual (any supported language). ![TTSReader Voice Selection](voices.jpeg)
 4. Adjustable reading speeds.
-5. Skips irrelevant content.
-6. Built-in editor so you can edit on-page text and create custom TTS playback.
+5. Skips irrelevant content. ![TTSReader Smart Filtering](smart_filtering.jpeg)
+6. Built-in editor so you can edit on-page text and create custom TTS playback. ![In-page editor](editor.jpeg)
 7. Play selected text.
 8. Play an entire page.
 9. Play text inside a textarea.
-10. Context menu support.
+10. Context menu support for playing selection and more ![TTSReader's Context Menu](context_menu.jpeg)
 11. Play from a specific paragraph onward.
 12. Read-along highlighting that follows the section currently being read.
 13. Test a voice with a single click.
 14. Favorite voices.
 15. Unlimited playback with browser/OS-supplied voices.
 16. Sends only the text needed for the next section (with a small buffer), not the whole text, to save credits and generate only what is necessary.
+17. **DYNAMICALLY LOADS CONTENT** - so if the page is updated with new content while you are listening, it will automatically read the new content as well. Especially useful for social media feeds, where it can serve as an indefinite audio feed of the content being generated in the feed, without you having to do anything. **Turn your socail feed into a live radio station!**
 
 ## Quick Start Guide
 
