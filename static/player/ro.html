@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-03-30T15:25:11.055Z",
-      "version": "3.12.08",
+      "dateModified": "2026-04-21T20:08:23.387Z",
+      "version": "3.12.09",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -51,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.12.08 - Playerul Text-to-Speech al TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.12.09 - Playerul Text-to-Speech al TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -906,7 +906,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.3bdb8ba1.js"></script><link href="./static/css/main.801fd87b.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.3960b9ab.js"></script><link href="./static/css/main.80821a79.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -957,6 +957,10 @@
 
         <div class="Menu-list-element" data-ws-toggle="#getExtensionModal">
           NEW: Get Our Chrome Extension
+        </div>
+
+        <div data-ws-show-if-state="isPremium=false">
+          <a style="text-decoration: none;" class="Menu-list-element" href="https://amzn.to/3ORZcQd" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="Top-btn-svg icon icon-tabler icons-tabler-filled icon-tabler-headphones"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M21 18a3 3 0 0 1 -2.824 2.995l-.176 .005h-1a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-3a3 3 0 0 1 2.824 -2.995l.176 -.005h1c.351 0 .688 .06 1 .171v-.171a7 7 0 0 0 -13.996 -.24l-.004 .24v.17c.25 -.088 .516 -.144 .791 -.163l.209 -.007h1a3 3 0 0 1 2.995 2.824l.005 .176v3a3 3 0 0 1 -2.824 2.995l-.176 .005h-1a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-6a9 9 0 0 1 17.996 -.265l.004 .265v6z" /></svg>&nbsp;&nbsp;Get Noise-Cancellation</a>
         </div>
 
         <div class="Menu-list-element" style="position: relative;">
@@ -1040,7 +1044,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.12.08</b> Build 2026-03-30T15:25:11.055Z
+          <b>V3.12.09</b> Build 2026-04-21T20:08:23.387Z
           <br/><span style="margin-top: 10px;display: block">TOATE VERSIUNILE <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -1921,6 +1925,23 @@
 
 
 
+  <!-- Extension Promo Notification -->
+  <div id="extensionPromoNotification" style="display:none;">
+    <button id="extensionPromoClose" aria-label="Close">&times;</button>
+    <p>
+      🎉 NEW!! TTSReader browser extension! LISTEN to ANY webpage securely, without leaving the page! <a href="https://ttsreader.com/x/" target="_blank" style="color: blue;">Learn more here</a>
+      &nbsp;
+      <a id="extensionPromoLink" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi" target="_blank" rel="noopener">
+        <span data-ws-show-if-state="isPremium=false">Try now for free</span>
+        <span data-ws-show-if-state="isPremium=true">Compatible with your Premium. Try it now</span>
+      </a>
+    </p>
+    <label id="extensionPromoDontShow">
+      <input type="checkbox" id="extensionPromoDontShowCheckbox" />
+      Do not show again
+    </label>
+  </div>
+
   <div id="onboardingModal" class="wideModal" style="display: none;" dir="">
     <!-- Step 1: Welcome Message -->
     <div data-ws-step="1" class="modal-step" style="background: url('/images/anima2.webp') no-repeat center;background-size: cover;">
@@ -2266,7 +2287,10 @@
               <canvas class="voice-avatar-canvas" width="40" height="40"></canvas>
             </div>
             <div class="sidebar-voice-info" onclick="window.appMethods.selectVoice(this)">
-              <div class="sidebar-voice-name">David</div>
+              <div class="sidebar-voice-name">
+                <span class="sidebar-voice-name-text">David</span>
+                <span class="sidebar-voice-name-badges"></span>
+              </div>
               <div class="sidebar-voice-meta">
                 <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
                 <span class="voice-gender-male" title="Male">👨</span>
@@ -2619,16 +2643,10 @@
         <br/><br/>
         Listen to news, blogs, articles, wiki, your social feed and more.
         <br/><br/>
-        Want to try it? Here's how:
+        Try it now: <a style="color:orangered" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi">Install on Chrome or Edge from the Chrome store</a>
       </p>
-      <ol style="text-align: start;">
-        <li data-ws-show-if-state="isPremium=false">Purchase any <a style="color:orangered" onclick="openNewUpgradeModal();" href="#">premium subscription or credits here</a></li>
-        <li data-ws-show-if-state="isPremium=true">Be Premium - which you are already! 🏆</li>
-        <li>Join our <a style="color:orangered" href="https://groups.google.com/g/ttsreader/" target="_blank">TTSReader Google Group here</a> (mandatory for getting access to the extensions's page on the store)</li>
-        <li>Install on Chrome or Edge from the Chrome store - here's the link: <a style="color:orangered" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi">https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi</a></li>
-      </ol>
 
-      <img style="max-width: 90%; margin: auto;" src="extension_screenshot.png"  alt="extension screenshot"/>
+      <a style="display: block;" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi"><img style="max-width: 90%; margin: auto;" src="extension_screenshot.png"  alt="extension screenshot"/></a>
 
     </div>
   </div>
@@ -5216,6 +5234,10 @@
   <div data-ws-string-key="download_modal__success_message" data-ws-string-value="Fișierul audio a fost salvat cu succes."></div>
   <div data-ws-string-key="download_modal__error_title" data-ws-string-value="Descărcare Eșuată"></div>
   <div data-ws-string-key="download_modal__error_message" data-ws-string-value="Ne pare rău, descărcarea a eșuat:"></div>
+  <div data-ws-string-key="d20260421_voice_badge_new" data-ws-string-value="NEW"></div>
+  <div data-ws-string-key="d20260421_voice_badge_new_tooltip" data-ws-string-value="Voci foarte expresive, multilingve (detectare automată)."></div>
+  <div data-ws-string-key="d20260421_voice_badge_experimental" data-ws-string-value="EXPERIMENTAL"></div>
+  <div data-ws-string-key="d20260421_voice_badge_experimental_tooltip" data-ws-string-value="Este posibil ca unele lucruri să nu funcționeze conform așteptărilor."></div>
 </div>
 <!-- end of JS STRINGS -->
 
@@ -5249,4 +5271,3 @@
 
 </body>
 </html>
-

@@ -1,3 +1,7 @@
+# TODOs:
+1) Support xAI inline & wrapping tags: https://docs.x.ai/developers/model-capabilities/audio/text-to-speech#inline-tags
+2)
+
 To publish - not so easy -
 1. 1st build the player...
 2. Then - copy whatever needed to static - in 4 places: /player/, /embeds/player/, /images/, /audio/ ...

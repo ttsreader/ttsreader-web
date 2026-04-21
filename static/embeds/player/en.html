@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-03-30T15:25:11.042Z",
-      "version": "3.12.08",
+      "dateModified": "2026-04-19T11:49:52.156Z",
+      "version": "3.12.09",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -51,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.12.08 - TTSReader's Text to Speech Player</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.12.09 - TTSReader's Text to Speech Player</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -906,7 +906,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.3bdb8ba1.js"></script><link href="./static/css/main.801fd87b.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.4692da81.js"></script><link href="./static/css/main.2a31366f.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -1040,7 +1040,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.12.08</b> Build 2026-03-30T15:25:11.042Z
+          <b>V3.12.09</b> Build 2026-04-19T11:49:52.156Z
           <br/><span style="margin-top: 10px;display: block">ALL VERSIONS <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -1921,6 +1921,23 @@
 
 
 
+  <!-- Extension Promo Notification -->
+  <div id="extensionPromoNotification" style="display:none;">
+    <button id="extensionPromoClose" aria-label="Close">&times;</button>
+    <p>
+      🎉 NEW!! TTSReader browser extension! LISTEN to ANY webpage securely, without leaving the page! <a href="https://ttsreader.com/x/" target="_blank" style="color: blue;">Learn more here</a>
+      &nbsp;
+      <a id="extensionPromoLink" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi" target="_blank" rel="noopener">
+        <span data-ws-show-if-state="isPremium=false">Try now for free</span>
+        <span data-ws-show-if-state="isPremium=true">Compatible with your Premium. Try it now</span>
+      </a>
+    </p>
+    <label id="extensionPromoDontShow">
+      <input type="checkbox" id="extensionPromoDontShowCheckbox" />
+      Do not show again
+    </label>
+  </div>
+
   <div id="onboardingModal" class="wideModal" style="display: none;" dir="ltr">
     <!-- Step 1: Welcome Message -->
     <div data-ws-step="1" class="modal-step" style="background: url('/images/anima2.webp') no-repeat center;background-size: cover;">
@@ -2431,7 +2448,7 @@
           <sign-in-buttons></sign-in-buttons>
         </div>
         <div data-ws-show-if-state="isSignedIn=true">
-          <button class="full-width-button" onclick="openNewUpgradeModal()">Explore Benefits <!-- View Premium Plans --></button>
+          <button class="full-width-button" onclick="openNewUpgradeModal()">View Premium Plans <!-- View Premium Plans --></button>
         </div>
         <br/><br/>
         <!--<ul style="list-style-type: '\2705   '; list-style-position: outside; margin: 1em 20px; text-align: start">
@@ -2619,16 +2636,10 @@
         <br/><br/>
         Listen to news, blogs, articles, wiki, your social feed and more.
         <br/><br/>
-        Want to try it? Here's how:
+        Try it now: <a style="color:orangered" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi">Install on Chrome or Edge from the Chrome store</a>
       </p>
-      <ol style="text-align: start;">
-        <li data-ws-show-if-state="isPremium=false">Purchase any <a style="color:orangered" onclick="openNewUpgradeModal();" href="#">premium subscription or credits here</a></li>
-        <li data-ws-show-if-state="isPremium=true">Be Premium - which you are already! 🏆</li>
-        <li>Join our <a style="color:orangered" href="https://groups.google.com/g/ttsreader/" target="_blank">TTSReader Google Group here</a> (mandatory for getting access to the extensions's page on the store)</li>
-        <li>Install on Chrome or Edge from the Chrome store - here's the link: <a style="color:orangered" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi">https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi</a></li>
-      </ol>
 
-      <img style="max-width: 90%; margin: auto;" src="extension_screenshot.png"  alt="extension screenshot"/>
+      <a style="display: block;" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi"><img style="max-width: 90%; margin: auto;" src="extension_screenshot.png"  alt="extension screenshot"/></a>
 
     </div>
   </div>
@@ -2653,7 +2664,7 @@
             <sign-in-buttons></sign-in-buttons>
           </div>
           <div data-ws-show-if-state="isSignedIn=true">
-            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white;font-size:larger;">Explore Benefits<!-- Upgrade to Premium --></button>
+            <button onclick="openNewUpgradeModal();" class="Full-width-btn" style="background-color: darkgreen;color: white">View Premium plans<!-- Upgrade to Premium --></button>
           </div>
         </div>
         <div data-ws-show-if-state="isPremium=true">
@@ -2791,7 +2802,7 @@
         <div data-ws-show-if-state="isSignedIn=true">
           <div data-ws-show-if-state="isPremium=false">
             <span style="font-size: 1.3em;color: red;">Commercial use and publishing requires Premium.<!-- Commercial use and publishing requires Premium.--></span>
-            <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');openNewUpgradeModal();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Explore Benefits</button>
+            <button onclick="window.AppAnalytics.sendEvent('premiumVoiceSignInModal_sign_in');openNewUpgradeModal();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">View Premium plans</button>
           </div>
         </div>
       </div>
@@ -3207,14 +3218,14 @@
   function copyPodcastUrl(button) {
     const urlElement = button.parentElement.querySelector('[data-ws-label-state="podcast_main_channel_url"]');
     const url = urlElement.textContent.trim();
-
+    
     if (url) {
       navigator.clipboard.writeText(url).then(function() {
         // Show success feedback
         const originalText = button.innerHTML;
         button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg> URL copied to clipboard!';
         button.style.backgroundColor = '#2E7D32';
-
+        
         // Reset after 2 seconds
         setTimeout(function() {
           button.innerHTML = originalText;
