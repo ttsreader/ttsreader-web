@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-04-19T11:49:52.167Z",
-      "version": "3.12.09",
+      "dateModified": "2026-04-23T07:56:31.093Z",
+      "version": "3.12.11",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -51,7 +51,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.12.09 - Leitor de Texto para Fala do TTSReader</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.12.11 - Leitor de Texto para Fala do TTSReader</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -906,7 +906,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.4692da81.js"></script><link href="./static/css/main.2a31366f.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.3960b9ab.js"></script><link href="./static/css/main.80821a79.css" rel="stylesheet"></head>
 <body>
 <div id="root" style="display: flex;flex-direction: column; flex: 1;">
 
@@ -957,6 +957,10 @@
 
         <div class="Menu-list-element" data-ws-toggle="#getExtensionModal">
           NEW: Get Our Chrome Extension
+        </div>
+
+        <div data-ws-show-if-state="isPremium=false">
+          <a style="text-decoration: none;" class="Menu-list-element" href="https://amzn.to/3ORZcQd" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="Top-btn-svg icon icon-tabler icons-tabler-filled icon-tabler-headphones"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M21 18a3 3 0 0 1 -2.824 2.995l-.176 .005h-1a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-3a3 3 0 0 1 2.824 -2.995l.176 -.005h1c.351 0 .688 .06 1 .171v-.171a7 7 0 0 0 -13.996 -.24l-.004 .24v.17c.25 -.088 .516 -.144 .791 -.163l.209 -.007h1a3 3 0 0 1 2.995 2.824l.005 .176v3a3 3 0 0 1 -2.824 2.995l-.176 .005h-1a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-6a9 9 0 0 1 17.996 -.265l.004 .265v6z" /></svg>&nbsp;&nbsp;Get Noise-Cancellation</a>
         </div>
 
         <div class="Menu-list-element" style="position: relative;">
@@ -1040,7 +1044,7 @@
         </div>
         <div class="Menu-list-element" >
           <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.12.09</b> Build 2026-04-19T11:49:52.167Z
+          <b>V3.12.11</b> Build 2026-04-23T07:56:31.093Z
           <br/><span style="margin-top: 10px;display: block">TODAS AS VERSÕES <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
         </div>
         <div style="margin: 20px auto; text-align: center;">
@@ -2283,7 +2287,10 @@
               <canvas class="voice-avatar-canvas" width="40" height="40"></canvas>
             </div>
             <div class="sidebar-voice-info" onclick="window.appMethods.selectVoice(this)">
-              <div class="sidebar-voice-name">David</div>
+              <div class="sidebar-voice-name">
+                <span class="sidebar-voice-name-text">David</span>
+                <span class="sidebar-voice-name-badges"></span>
+              </div>
               <div class="sidebar-voice-meta">
                 <span class="voice-lang Flag-font" title="Language & accent">🇬🇧</span>
                 <span class="voice-gender-male" title="Male">👨</span>
@@ -5227,6 +5234,10 @@
   <div data-ws-string-key="download_modal__success_message" data-ws-string-value="Seu arquivo de áudio foi salvo com sucesso."></div>
   <div data-ws-string-key="download_modal__error_title" data-ws-string-value="Falha no Download"></div>
   <div data-ws-string-key="download_modal__error_message" data-ws-string-value="Desculpe, o download falhou:"></div>
+  <div data-ws-string-key="d20260421_voice_badge_new" data-ws-string-value="NEW"></div>
+  <div data-ws-string-key="d20260421_voice_badge_new_tooltip" data-ws-string-value="Vozes super expressivas e multilíngues (detecção automática)."></div>
+  <div data-ws-string-key="d20260421_voice_badge_experimental" data-ws-string-value="EXPERIMENTAL"></div>
+  <div data-ws-string-key="d20260421_voice_badge_experimental_tooltip" data-ws-string-value="Algumas coisas podem não funcionar como esperado."></div>
 </div>
 <!-- end of JS STRINGS -->
 
@@ -5260,4 +5271,3 @@
 
 </body>
 </html>
-
