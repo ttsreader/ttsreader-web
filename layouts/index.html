@@ -6,13 +6,157 @@
   <div class="row justify-content-center">
     <div class="text-center">
       <h2 class="lead" style="font-size: 1.3em;">{{ .Params.lead | safeHTML }}</h2>
-      <h4>** Now Supports ALL of Azure's Neural AI (+600) Voices **
-        <br/><a style="margin-top: 10px;display: inline-block;" href="/player/?modal=voiceGallery">&rarr; Explore & test the full voices gallery here</a></h4>
+      <h4><a href="/player/" target="_blank" style="text-decoration: none; outline: none; display: inline-block; background-color: #bff0ff; padding: 6px 16px; border-radius: 20px; border: 1px solid white; color: black;margin: 10px;">👉 Start Text To Speech</a><br/>with 600+ Natural sounding AI voices</h4>
+
+      <div id="avatars_demos_id" class="justify-content-center text-center" style="margin: 40px auto 20px;">
+        <div class="avatar-container-tile"  data-ws-avatar-id="john">
+          <div style="position: relative; display: inline-block;">
+            <img src="/images/avatars/anglo_m_200x.webp" alt="TTSReader Voice Avatar Male USA - John" title="Click to listen to John" />
+            <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
+              <div class="play-button-svg-container" style="opacity: 1">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 1">
+                <!-- Stop SVG: -->
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>
+            <audio src="/images/avatars/john.mp3" preload="none" aria-label="Text-to-Speech demo by TTSReader using male AI voice named John"></audio>
+            <!--<div class="play-overlay">
+              <div class="play-button-svg-container" style="opacity: 0.5">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 0.5">
+                &lt;!&ndash; Stop SVG: &ndash;&gt;
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>-->
+          </div>
+          <div class="wave-loader">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="avatar-container-tile"  data-ws-avatar-id="Nova">
+          <div style="position: relative; display: inline-block;">
+            <img src="/images/avatars/anglo_f_200x.webp" alt="TTSReader Voice Avatar Female - Nova" title="Click to listen to Nova" />
+            <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
+              <div class="play-button-svg-container" style="opacity: 1">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 1">
+                <!-- Stop SVG: -->
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>
+            <audio  src="/images/avatars/nova.mp3" preload="none"  aria-label="Text-to-Speech demo by TTSReader using female AI voice named Nova"></audio>
+          </div>
+          <div class="wave-loader">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="avatar-container-tile"  data-ws-avatar-id="adam">
+          <div style="position: relative; display: inline-block;">
+            <img src="/images/avatars/afro_m_200x.webp" alt="TTSReader Voice Avatar Male - Adam" title="Click to listen to Adam" />
+            <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
+              <div class="play-button-svg-container" style="opacity: 1">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 1">
+                <!-- Stop SVG: -->
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>
+            <audio  src="/images/avatars/adam.mp3" preload="none" aria-label="Text-to-Speech demo by TTSReader using male AI voice named Adam"></audio>
+            <!--<div class="play-overlay">
+              <div class="play-button-svg-container" style="opacity: 0.5">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 0.5">
+                &lt;!&ndash; Stop SVG: &ndash;&gt;
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>-->
+          </div>
+          <div class="wave-loader">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="avatar-container-tile"  data-ws-avatar-id="aria">
+          <div style="position: relative; display: inline-block;">
+            <img src="/images/avatars/indi_f_200x.webp" alt="TTSReader Voice Avatar Female - Aria" title="Click to listen to Aria" />
+            <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
+              <div class="play-button-svg-container" style="opacity: 1">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 1">
+                <!-- Stop SVG: -->
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>
+            <audio  src="/images/avatars/aria.mp3"  preload="none" aria-label="Text-to-Speech demo by TTSReader using female AI voice named Aria"></audio>
+            <!--<div class="play-overlay">
+              <div class="play-button-svg-container" style="opacity: 0.5">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+              </div>
+              <div class="stop-button-svg-container" style="opacity: 0.5">
+                &lt;!&ndash; Stop SVG: &ndash;&gt;
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
+              </div>
+            </div>-->
+          </div>
+          <div class="wave-loader">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--<br/><a style="margin-top: 10px;display: inline-block;" href="/player/?modal=voiceGallery">&rarr; Explore & test the full voices gallery here</a></h4>
       <p style="text-align: center;margin-top: 40px;margin-bottom: 30px;">
         <a rel="nofollow" target="_blank" href="https://ttsreader.com/rendered/?c=83d9901c-3e5a-4dd8-9f12-88311274d7a9&lang=undefined&voice=Nova&rate=1&date=1754387217522" style="color: #ffce00;padding: 5px 20px;border-radius: 20px;background-color: #2b3140;position: relative; box-decoration-break: clone; -webkit-box-decoration-break: clone;">
           View & listen text-to-speech demo: real-life text-audio sync created by TTSReader<span style="content: '';border: 1px solid orangered;background-color: white;position: absolute;top: -3px;left: -35px;color: orangered;font-size: 12px;font-weight: bold;padding: 5px 10px;transform: rotate(-25deg);transform-origin: 0 0;">NEW</span>
         </a>
-      </p>
+      </p>-->
 
       <a id="portfolio"></a>
       <div class="row justify-content-center text-center" style="margin-top: 20px;">
@@ -54,148 +198,7 @@
   <!--<h1 class="mt-0 text-center">AI Text To Speech (TTS) Reader Online</h1>-->
   <div class="row justify-content-center" style="text-align: center">
 
-    <p>Here are a few samples of real text-to-speech generated by our system. Click on an avatar to listen.</p>
-    <div id="avatars_demos_id" class="justify-content-center text-center" style="margin: 40px auto 20px;">
-      <div class="avatar-container-tile"  data-ws-avatar-id="john">
-        <div style="position: relative; display: inline-block;">
-          <img src="/images/avatars/anglo_m_200x.webp" alt="TTSReader Voice Avatar Male USA - John" title="Click to listen to John" />
-          <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
-            <div class="play-button-svg-container" style="opacity: 1">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 1">
-              <!-- Stop SVG: -->
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>
-          <audio src="/images/avatars/john.mp3" preload="none" aria-label="Text-to-Speech demo by TTSReader using male AI voice named John"></audio>
-          <!--<div class="play-overlay">
-            <div class="play-button-svg-container" style="opacity: 0.5">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 0.5">
-              &lt;!&ndash; Stop SVG: &ndash;&gt;
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>-->
-        </div>
-        <div class="wave-loader">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-      <div class="avatar-container-tile"  data-ws-avatar-id="Nova">
-        <div style="position: relative; display: inline-block;">
-          <img src="/images/avatars/anglo_f_200x.webp" alt="TTSReader Voice Avatar Female - Nova" title="Click to listen to Nova" />
-          <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
-            <div class="play-button-svg-container" style="opacity: 1">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 1">
-              <!-- Stop SVG: -->
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>
-          <audio  src="/images/avatars/nova.mp3" preload="none"  aria-label="Text-to-Speech demo by TTSReader using female AI voice named Nova"></audio>
-        </div>
-        <div class="wave-loader">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-      <div class="avatar-container-tile"  data-ws-avatar-id="adam">
-        <div style="position: relative; display: inline-block;">
-          <img src="/images/avatars/afro_m_200x.webp" alt="TTSReader Voice Avatar Male - Adam" title="Click to listen to Adam" />
-          <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
-            <div class="play-button-svg-container" style="opacity: 1">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 1">
-              <!-- Stop SVG: -->
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>
-          <audio  src="/images/avatars/adam.mp3" preload="none" aria-label="Text-to-Speech demo by TTSReader using male AI voice named Adam"></audio>
-          <!--<div class="play-overlay">
-            <div class="play-button-svg-container" style="opacity: 0.5">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 0.5">
-              &lt;!&ndash; Stop SVG: &ndash;&gt;
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>-->
-        </div>
-        <div class="wave-loader">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-      <div class="avatar-container-tile"  data-ws-avatar-id="aria">
-        <div style="position: relative; display: inline-block;">
-          <img src="/images/avatars/indi_f_200x.webp" alt="TTSReader Voice Avatar Female - Aria" title="Click to listen to Aria" />
-          <div class="play-overlay" style="left: unset; top: unset; opacity: 1; right: -15px; bottom: -5px; transform: none; width: 50px; height: 50px;">
-            <div class="play-button-svg-container" style="opacity: 1">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 1">
-              <!-- Stop SVG: -->
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="34"  height="34"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>
-          <audio  src="/images/avatars/aria.mp3"  preload="none" aria-label="Text-to-Speech demo by TTSReader using female AI voice named Aria"></audio>
-          <!--<div class="play-overlay">
-            <div class="play-button-svg-container" style="opacity: 0.5">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-            </div>
-            <div class="stop-button-svg-container" style="opacity: 0.5">
-              &lt;!&ndash; Stop SVG: &ndash;&gt;
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="44"  height="44"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" /></svg>
-            </div>
-          </div>-->
-        </div>
-        <div class="wave-loader">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-    </div>
+<!--    <p>Here are a few samples of real text-to-speech generated by our system. Click on an avatar to listen.</p>-->
 
 
     <div class="text-center">
