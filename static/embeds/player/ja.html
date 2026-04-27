@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-04-26T13:03:46.071Z",
-      "version": "3.12.13",
+      "dateModified": "2026-04-27T13:05:26.007Z",
+      "version": "3.12.14",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -37,6 +37,9 @@
           content="TTSReader's Player - Free Online Text to Speech Reader"
   />
   <link rel="apple-touch-icon" href="/favicon2.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!--
     manifest.json provides metadata used when your web app is installed on a
     user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -51,7 +54,7 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>TTSReader V3.12.13 - TTSReaderのテキスト音声変換プレーヤー</title><!-- TTSReader's Text to Speech Player -->
+  <title>TTSReader V3.12.14 - TTSReaderのテキスト音声変換プレーヤー</title><!-- TTSReader's Text to Speech Player -->
 
   <!-- Google Analytics: -->
   <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>-->
@@ -769,6 +772,54 @@
       opacity: 0;
       cursor: pointer;
     }
+
+    .badge-new-sup {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 1px 6px;
+      border-radius: 999px;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.45;
+      color: #ffffff;
+      background: linear-gradient(135deg, #ff5f6d 0%, #ff9f43 46%, #5f7cff 100%);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: 0 2px 6px rgba(53, 28, 102, 0.35);
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+      user-select: none;
+    }
+
+    .badge-new-sup--inline {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      position: static;
+      top: auto;
+      margin-left: 8px;
+    }
+
+    .toolbar-books-btn {
+      position: relative;
+    }
+
+    .badge-new-sup--toolbar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin-left: 0;
+      transform: translate(64%, 7%);
+      pointer-events: none;
+    }
+
+    [data-dark-mode] .badge-new-sup {
+      color: #ffffff;
+      background: linear-gradient(135deg, #ff6b7a 0%, #ffb347 46%, #6f88ff 100%);
+      border-color: rgba(255, 255, 255, 0.42);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.38);
+    }
   </style>
   <style>
     /* ---------- Base layout ---------- */
@@ -910,7 +961,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.39ba7467.js"></script><link href="./static/css/main.48eef069.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.51b8577e.js"></script><link href="./static/css/main.1b190fd2.css" rel="stylesheet"></head>
 <body>
 
 <!-- hidden templates -->
@@ -955,174 +1006,10 @@
     </a></div>
 
   <div style="flex: 1; display: flex;max-height: 100%;overflow: hidden;">
-    <drawer style="overflow: hidden;max-height: 100%;">
-      <div style="position: absolute;top:10px;right:10px;padding: 10px;cursor: pointer;" onclick="toggleDrawerOpen();">
-        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
-      </div>
-      <div style="padding: 10px;margin-top: 50px;overflow-x: hidden;overflow-y: auto;padding-bottom: 100px;">
-        <div>
-          <a title="Text To Speech Solutions"  aria-label="Text To Speech Solutions" class="Menu-list-element" href="https://ttsreader.com" target="_blank" style="text-decoration:none;display: flex;align-items: center">
-            <svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>&nbsp;&nbsp;<strong style="display: block"><span style="color: darkred">TTS</span>Reader Text To Speech</strong>
-          </a>
-        </div>
-        <div data-ws-show-if-state="isSignedIn=false">
-          <a class="Menu-list-element" data-ws-toggle="#signinModal" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"></path></svg>&nbsp;&nbsp;サインイン / サインアップ<!-- Sign in / Sign up --></a>
-        </div>
-        <div data-ws-show-if-state="isSignedIn=true" >
-          <div style="display: flex;align-items: center;">
-            <p data-ws-show-if-state="isSignedIn=true" style="text-decoration: none;padding-left:10px; display: block;flex:1"><i><span data-ws-label-state="email"></span></i></p>
-            <a class="Menu-list-element" onclick="toggleSignIn();" style="padding: 10px;" title="サインアウト" aria-label="サインアウト">
-              <svg class="Top-btn-svg"><path d="m17 7-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg>
-            </a>
-          </div>
-        </div>
-        <div data-ws-show-if-state="isPremium=false">
-          <div>
-            <a class="Menu-list-element" onclick="openNewUpgradeModal()" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;プレミアムにアップグレード<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
-          </div>
-        </div>
-        <div data-ws-show-if-state="isPremium=true">
-          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>&nbsp;&nbsp;プレミアム🏆ステータス<!-- Premium 🏆 Status --></a>
-        </div>
-        <div data-ws-show-if-state="isPremium=true">
-          <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform" target="_blank" style="cursor: pointer;text-decoration: none;display: block">-&nbsp;&nbsp;<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-sos"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" /><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /></svg>&nbsp;&nbsp;プレミアムサポートフォーム</a>
-        </div>
-        <div data-ws-show-if-state="isSignedIn=true">
-          <a href="https://ttsreader.com/account/" rel="nofollow" target="_blank" class="Menu-list-element" style="text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>&nbsp;&nbsp;アカウント管理</a>
-        </div>
-
-        <div class="Menu-list-element" data-ws-toggle="#getExtensionModal">
-          NEW: Browser Extension
-        </div>
-
-        <div class="Menu-list-element" style="position: relative;">
-          <input style="position: absolute;display: block;opacity: 0; right:0;left:0;top:0;bottom:0; cursor: pointer" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
-          <a onclick="gtag('event','import_file_click_player_drawer',{value:'1'})"  data-ws-onClick="openFile" style="text-decoration:none;display: flex;align-items: center">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span style="display: block;flex: 1;">ファイルをインポート (DOCX, TXT, PDF, EPUB, etc.)</span>
-          </a>
-        </div>
-        <div>
-          <a class="Menu-list-element" onclick="gtag('event','stats_click_player_drawer',{value:'1'})" data-ws-onClick="calculateStats" data-ws-toggle="#statsModal" style="text-decoration:none;">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>&nbsp;&nbsp;ドキュメント統計 <!-- Document Stats -->
-          </a>
-        </div>
-        <div>
-          <a class="Menu-list-element" onclick="gtag('event','mp3_export_click_player_drawer',{value:'1'})" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal" style="text-decoration:none;">
-            <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M11 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 16l0 -5l2 1" /></svg>&nbsp;&nbsp;mp3音声ファイルをダウンロード<!-- Download mp3 audio file -->
-          </a>
-        </div>
-        <div>
-          <a class="Menu-list-element" onclick="openOrCloseExportsListModal()" style="text-decoration:none;">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;あなたの生成されたオーディオ
-          </a>
-        </div>
-        <div>
-          <a class="Menu-list-element" data-ws-toggle="#apiModal" style="text-decoration:none;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>&nbsp;&nbsp;APIアクセス
-          </a>
-        </div>
-        <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;もっと多くの音声が必要です<!-- Need more voices -->
-        </a>
-        <div>
-          <a href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds" target="_blank" class="Menu-list-element" onclick="gtag('event','drawer_click_multivoices',{value:'1'})" style="text-decoration:none;">
-            <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4c.96 0 1.84 .338 2.53 .901" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>&nbsp;&nbsp;マルチボイスダイアログ
-          </a>
-        </div>
-
-        <a class="Menu-list-element" href="/docs/guides/quick-start-new-player/" target="_blank" style="text-decoration: none;display: block">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-info"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M11 14h1v4h1" /><path d="M12 11h.01" /></svg>&nbsp;&nbsp;ユーザーマニュアル<!-- User manual -->
-        </a>
-        <a class="Menu-list-element" data-ws-toggle="#helpModal" onclick="loadImages('#helpImgId');">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-help"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 17l0 .01" /><path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" /></svg>&nbsp;&nbsp;ヘルプオーバーレイ<!-- Help overlay -->
-        </a>
-        <a class="Menu-list-element" onclick="openOnboarding(true);">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-progress-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" /><path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" /><path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" /><path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" /><path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" /><path d="M9 12l2 2l4 -4" /></svg>&nbsp;&nbsp;オンボーディング
-        </a>
-
-
-        <a class="Menu-list-element" href="/docs/guides/commercial/" target="_blank" style="text-decoration: none;display: block">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-video"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" /><path d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" /></svg>&nbsp;&nbsp;商業出版<!-- Commercial & publishing -->
-        </a>
-        <!--<a class="Menu-list-element" href="https://speechnotes.co/files/webm_to_mp3/" target="_blank" style="text-decoration: none;display: block">Convert webm to mp3</a>-->
-        <!--<a class="Menu-list-element" href="/mobile/" target="_blank" style="text-decoration: none;display: block">
-          モバイルバージョン&lt;!&ndash; Mobile versions &ndash;&gt;
-        </a>-->
-        <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank" style="text-decoration: none;display: block">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-message-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" /></svg>&nbsp;&nbsp;フィードバックフォーム<!-- Feedback form -->
-        </a>
-        <a class="Menu-list-element" href="https://ttsreader.com/contact/" target="_blank" style="text-decoration: none;display: block">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>&nbsp;&nbsp;お問い合わせ<!-- Contact us -->
-        </a>
-        <div data-ws-show-if-state="isShareSupported=true">
-          <a class="Menu-list-element" onclick="share();"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-            <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-            <path d="M8.7 10.7l6.6 -3.4"></path>
-            <path d="M8.7 13.3l6.6 3.4"></path>
-          </svg>&nbsp;&nbsp;共有</a>
-        </div>
-        <div data-ws-show-if-state="isShareSupported=false">
-          <a class="Menu-list-element" data-ws-toggle="#shareModal"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-            <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-            <path d="M8.7 10.7l6.6 -3.4"></path>
-            <path d="M8.7 13.3l6.6 3.4"></path>
-          </svg>&nbsp;&nbsp;共有</a>
-        </div>
-        <div class="Menu-list-element" >
-          <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-          <b>V3.12.13</b> Build 2026-04-26T13:03:46.071Z
-          <br/><span style="margin-top: 10px;display: block">すべてのバージョン <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
-        </div>
-        <div style="margin: 20px auto; text-align: center;">
-          <b>補助ツール</b>
-        </div>
-        <div>
-          <a class="Menu-list-element" href="https://speechnotes.co/dictate/" target="_blank" style="text-decoration: none;display: block">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-microphone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" /><path d="M5 10a7 7 0 0 0 14 0" /><path d="M8 21l8 0" /><path d="M12 17l0 4" /></svg>&nbsp;&nbsp;音声認識
-          </a>
-        </div>
-        <div>
-          <a class="Menu-list-element" href="https://speechnotes.co/transcribe/" target="_blank" style="text-decoration: none;display: block">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-device-audio-tape"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 17l4 -3h10l4 3" /><circle cx="7.5" cy="9.5" r=".5" fill="currentColor" /><circle cx="16.5" cy="9.5" r=".5" fill="currentColor" /></svg>&nbsp;&nbsp;自動AI文字起こし
-          </a>
-        </div>
-        <div>
-          <a class="Menu-list-element" href="/sounds/" target="_blank" style="text-decoration: none;display: block">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-bell-ringing"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727" /><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727" /></svg>&nbsp;&nbsp;ビープ音ジェネレーター
-          </a>
-        </div>
-        <div style="margin: 20px auto; text-align: center;">
-          インターフェース対応言語：
-        </div>
-        <div>
-          <a class="interface-lang-link" target="_parent" href="/en/">English</a>
-          <a class="interface-lang-link" target="_parent" href="/es/">Español</a>
-          <a class="interface-lang-link" target="_parent" href="/fr/">Français</a>
-          <a class="interface-lang-link" target="_parent" href="/ar/">العربية</a>
-          <a class="interface-lang-link" target="_parent" href="/he/">עברית</a>
-          <a class="interface-lang-link" target="_parent" href="/ja/">日本語</a>
-          <a class="interface-lang-link" target="_parent" href="/de/">Deutsch</a>
-          <a class="interface-lang-link" target="_parent" href="/it/">Italiano</a>
-          <a class="interface-lang-link" target="_parent" href="/zh/">中文</a>
-          <a class="interface-lang-link" target="_parent" href="/ko/">한국어</a>
-          <a class="interface-lang-link" target="_parent" href="/pt/">Português</a>
-          <a class="interface-lang-link" target="_parent" href="/ru/">Русский</a>
-          <a class="interface-lang-link" target="_parent" href="/ro/">Română</a>
-          <a class="interface-lang-link" target="_parent" href="/hi/">हिन्दी</a>
-          <a class="interface-lang-link" target="_parent" href="/nl/">Nederlands</a>
-        </div>
-      </div>
-
-    </drawer>
     <div style="container-type: inline-size; display: flex; flex-direction: column; flex: 1;max-width: 100%;min-width: 38vw">
 
       <div class="Buttons-bar" style="display: flex">
+
         <button title="Open / close main drawer" aria-label="Open / close main drawer" style="" onclick="toggleDrawerOpen();">
           <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MenuIcon"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
         </button>
@@ -1161,6 +1048,19 @@
                 <path d="M9.5 10l1 4l1.5-4l1.5 4l1-4"/>
               </svg>
               <span>ウェブサイトをインポート</span>
+            </div>
+
+            <!-- Import eBooks -->
+            <div class="add-content-dropdown-item" role="menuitem" tabindex="-1" data-dropdown-item data-ws-onClick="openBooksModal" data-action="importEbooks">
+              <svg xmlns="http://www.w3.org/2000/svg" class="add-content-dropdown-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                <path d="M3 6l0 13" />
+                <path d="M12 6l0 13" />
+                <path d="M21 6l0 13" />
+              </svg>
+              <span>eBookをインポート - 無制限リソース<sup class="badge-new-sup badge-new-sup--inline">NEW</sup></span>
             </div>
 
             <!-- Clear Text -->
@@ -1243,6 +1143,10 @@
           </svg>
         </button>
 
+        <button style="margin: 0 8px;" data-ws-onClick="openBooksModal" class="Hide-on-narrow-screens btn btn-link toolbar-books-btn" type="button" aria-label="eBookをインポート - 無制限リソース" title="eBookをインポート - 無制限リソース">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-book"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" /><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" /><path d="M3 6l0 13" /><path d="M12 6l0 13" /><path d="M21 6l0 13" /></svg>
+          <sup class="badge-new-sup badge-new-sup--toolbar">NEW</sup>
+        </button>
 
         <span style="display: inline-block;flex: 1"></span>
 
@@ -1273,9 +1177,182 @@
         </button>-->
       </div>
 
-      <div class="main-app-container" style="display: flex;flex: 1;overflow: hidden;">
+      <div class="main-app-container" style="container-type: inline-size; display: flex;flex: 1;overflow: hidden;">
 
-        <div class="main-content-area" style="flex: 1;display: flex;flex-direction: column;overflow: hidden;">
+        <drawer class="player-drawer">
+          <div style="position: relative;font-size: 1.3em;font-family: sans-serif;">
+            <div style="display: flex; position: relative;top: 18px; left: 16px;">
+              <img src="/favicon2.svg" width="30px" height="30px"/>
+              <span title="Text To Speech"  aria-label="Text To Speech" href="https://ttsreader.com" target="_blank" style="text-decoration:none;display: flex;align-items: center">
+                &nbsp;&nbsp;<strong style="display: block"><span style="color: darkred">TTS</span>Reader</strong>
+              </span>
+            </div>
+            <div class="drawer-collapse-btn" onclick="toggleDrawerOpen();">
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
+            </div>
+          </div>
+
+          <div class="drawer-scroll">
+            <!--<div>
+
+            </div>-->
+            <div data-ws-show-if-state="isSignedIn=false">
+              <a class="Menu-list-element" data-ws-toggle="#signinModal" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"></path></svg>&nbsp;&nbsp;サインイン / サインアップ<!-- Sign in / Sign up --></a>
+            </div>
+            <div data-ws-show-if-state="isSignedIn=true" >
+              <div class="drawer-account-row">
+                <p data-ws-show-if-state="isSignedIn=true" class="drawer-account-email"><i><span data-ws-label-state="email"></span></i></p>
+                <a class="Menu-list-element drawer-signout-btn" onclick="toggleSignIn();" title="サインアウト" aria-label="サインアウト">
+                  <svg class="Top-btn-svg"><path d="m17 7-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg>
+                </a>
+              </div>
+            </div>
+            <div data-ws-show-if-state="isPremium=false">
+              <div>
+                <a class="Menu-list-element" onclick="openNewUpgradeModal()" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;プレミアムにアップグレード<!-- Go Premium -->&nbsp;&nbsp;&nbsp;</a>
+              </div>
+            </div>
+            <div data-ws-show-if-state="isPremium=true">
+              <a class="Menu-list-element" data-ws-toggle="#upgradeModal" style="cursor: pointer;text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>&nbsp;&nbsp;プレミアム🏆ステータス<!-- Premium 🏆 Status --></a>
+            </div>
+            <div data-ws-show-if-state="isPremium=true">
+              <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSc-gAEGNiCixhSjTjkJXu3cYSqDJYEMa9vPzRPKnY6Pei_yrQ/viewform" target="_blank" style="cursor: pointer;text-decoration: none;display: block">-&nbsp;&nbsp;<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-sos"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" /><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1" /></svg>&nbsp;&nbsp;プレミアムサポートフォーム</a>
+            </div>
+            <div data-ws-show-if-state="isSignedIn=true">
+              <a href="https://ttsreader.com/account/" rel="nofollow" target="_blank" class="Menu-list-element" style="text-decoration: none;display: block">-&nbsp;&nbsp;<svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>&nbsp;&nbsp;アカウント管理</a>
+            </div>
+
+            <div class="Menu-list-element" data-ws-toggle="#getExtensionModal">
+              NEW: Browser Extension
+            </div>
+
+            <div class="Menu-list-element Menu-list-element--file">
+              <input class="drawer-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
+              <a class="drawer-file-trigger" onclick="gtag('event','import_file_click_player_drawer',{value:'1'})" data-ws-onClick="openFile">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>&nbsp;&nbsp;<span class="drawer-file-trigger-label">ファイルをインポート (DOCX, TXT, PDF, EPUB, etc.)</span>
+              </a>
+            </div>
+            <div>
+              <a class="Menu-list-element" onclick="gtag('event','stats_click_player_drawer',{value:'1'})" data-ws-onClick="calculateStats" data-ws-toggle="#statsModal" style="text-decoration:none;">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>&nbsp;&nbsp;ドキュメント統計 <!-- Document Stats -->
+              </a>
+            </div>
+            <div>
+              <a class="Menu-list-element" onclick="gtag('event','mp3_export_click_player_drawer',{value:'1'})" data-ws-onClick="calculateStats" data-ws-toggle="#exportModal" style="text-decoration:none;">
+                <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M11 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 16l0 -5l2 1" /></svg>&nbsp;&nbsp;mp3音声ファイルをダウンロード<!-- Download mp3 audio file -->
+              </a>
+            </div>
+            <div>
+              <a class="Menu-list-element" onclick="openOrCloseExportsListModal()" style="text-decoration:none;">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;あなたの生成されたオーディオ
+              </a>
+            </div>
+            <div>
+              <a class="Menu-list-element" data-ws-toggle="#apiModal" style="text-decoration:none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>&nbsp;&nbsp;APIアクセス
+              </a>
+            </div>
+            <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;もっと多くの音声が必要です<!-- Need more voices -->
+            </a>
+            <div>
+              <a href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds" target="_blank" class="Menu-list-element" onclick="gtag('event','drawer_click_multivoices',{value:'1'})" style="text-decoration:none;">
+                <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4c.96 0 1.84 .338 2.53 .901" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>&nbsp;&nbsp;マルチボイスダイアログ
+              </a>
+            </div>
+
+            <a class="Menu-list-element" href="/docs/guides/quick-start-new-player/" target="_blank" style="text-decoration: none;display: block">
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-info"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M11 14h1v4h1" /><path d="M12 11h.01" /></svg>&nbsp;&nbsp;ユーザーマニュアル<!-- User manual -->
+            </a>
+            <a class="Menu-list-element" data-ws-toggle="#helpModal" onclick="loadImages('#helpImgId');">
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-help"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 17l0 .01" /><path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" /></svg>&nbsp;&nbsp;ヘルプオーバーレイ<!-- Help overlay -->
+            </a>
+            <a class="Menu-list-element" onclick="openOnboarding(true);">
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-progress-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" /><path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" /><path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" /><path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" /><path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" /><path d="M9 12l2 2l4 -4" /></svg>&nbsp;&nbsp;オンボーディング
+            </a>
+
+
+            <a class="Menu-list-element" href="/docs/guides/commercial/" target="_blank" style="text-decoration: none;display: block">
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-video"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" /><path d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" /></svg>&nbsp;&nbsp;商業出版<!-- Commercial & publishing -->
+            </a>
+            <!--<a class="Menu-list-element" href="https://speechnotes.co/files/webm_to_mp3/" target="_blank" style="text-decoration: none;display: block">Convert webm to mp3</a>-->
+            <!--<a class="Menu-list-element" href="/mobile/" target="_blank" style="text-decoration: none;display: block">
+              モバイルバージョン&lt;!&ndash; Mobile versions &ndash;&gt;
+            </a>-->
+            <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank" style="text-decoration: none;display: block">
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-message-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" /></svg>&nbsp;&nbsp;フィードバックフォーム<!-- Feedback form -->
+            </a>
+            <a class="Menu-list-element" href="https://ttsreader.com/contact/" target="_blank" style="text-decoration: none;display: block">
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>&nbsp;&nbsp;お問い合わせ<!-- Contact us -->
+            </a>
+            <div data-ws-show-if-state="isShareSupported=true">
+              <a class="Menu-list-element" onclick="share();"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M8.7 10.7l6.6 -3.4"></path>
+                <path d="M8.7 13.3l6.6 3.4"></path>
+              </svg>&nbsp;&nbsp;共有</a>
+            </div>
+            <div data-ws-show-if-state="isShareSupported=false">
+              <a class="Menu-list-element" data-ws-toggle="#shareModal"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M8.7 10.7l6.6 -3.4"></path>
+                <path d="M8.7 13.3l6.6 3.4"></path>
+              </svg>&nbsp;&nbsp;共有</a>
+            </div>
+            <div class="drawer-version-wrap">
+              <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
+                <b>V3.12.14</b> Build 2026-04-27T13:05:26.007Z
+                <br/><span style="margin-top: 10px;display: block">すべてのバージョン <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
+            </div>
+            <div class="drawer-section-heading">
+              <b>補助ツール</b>
+            </div>
+            <div>
+              <a class="Menu-list-element" href="https://speechnotes.co/dictate/" target="_blank" style="text-decoration: none;display: block">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-microphone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" /><path d="M5 10a7 7 0 0 0 14 0" /><path d="M8 21l8 0" /><path d="M12 17l0 4" /></svg>&nbsp;&nbsp;音声認識
+              </a>
+            </div>
+            <div>
+              <a class="Menu-list-element" href="https://speechnotes.co/transcribe/" target="_blank" style="text-decoration: none;display: block">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-device-audio-tape"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 17l4 -3h10l4 3" /><circle cx="7.5" cy="9.5" r=".5" fill="currentColor" /><circle cx="16.5" cy="9.5" r=".5" fill="currentColor" /></svg>&nbsp;&nbsp;自動AI文字起こし
+              </a>
+            </div>
+            <div>
+              <a class="Menu-list-element" href="/sounds/" target="_blank" style="text-decoration: none;display: block">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-bell-ringing"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727" /><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727" /></svg>&nbsp;&nbsp;ビープ音ジェネレーター
+              </a>
+            </div>
+            <div class="drawer-section-heading">
+              インターフェース対応言語：
+            </div>
+            <div class="drawer-lang-list">
+              <a class="interface-lang-link" target="_parent" href="/en/">English</a>
+              <a class="interface-lang-link" target="_parent" href="/es/">Español</a>
+              <a class="interface-lang-link" target="_parent" href="/fr/">Français</a>
+              <a class="interface-lang-link" target="_parent" href="/ar/">العربية</a>
+              <a class="interface-lang-link" target="_parent" href="/he/">עברית</a>
+              <a class="interface-lang-link" target="_parent" href="/ja/">日本語</a>
+              <a class="interface-lang-link" target="_parent" href="/de/">Deutsch</a>
+              <a class="interface-lang-link" target="_parent" href="/it/">Italiano</a>
+              <a class="interface-lang-link" target="_parent" href="/zh/">中文</a>
+              <a class="interface-lang-link" target="_parent" href="/ko/">한국어</a>
+              <a class="interface-lang-link" target="_parent" href="/pt/">Português</a>
+              <a class="interface-lang-link" target="_parent" href="/ru/">Русский</a>
+              <a class="interface-lang-link" target="_parent" href="/ro/">Română</a>
+              <a class="interface-lang-link" target="_parent" href="/hi/">हिन्दी</a>
+              <a class="interface-lang-link" target="_parent" href="/nl/">Nederlands</a>
+            </div>
+          </div>
+
+        </drawer>
+
+        <div class="main-content-area" style="container-type: inline-size; flex: 1;display: flex;flex-direction: column;overflow: hidden;">
           <div class="App"  style="flex: 1;position: relative;display: flex;flex-direction: column">
             <button id="fr-icon" class="Toolbar-Button" style="position: absolute; top: 12px; right: 16px; z-index: 9; background: none; border: none; cursor: pointer;">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
@@ -2598,6 +2675,48 @@
           });
         });
       </script>
+    </div>
+  </div>
+
+  <div class="Modal" id="openBooksModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content books-modal-content">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h4 class="books-modal-title">eBookをインポート - 無制限リソース</h4>
+
+      <div class="books-modal-grid">
+        <section class="books-modal-card">
+          <h5>ローカルのeBookファイルをインポート</h5>
+          <p>ローカルファイルを選んでリーダーに取り込みます（EPUB、PDF、DOCX、TXT など）。</p>
+          <label class="books-modal-file-btn">
+            <span>ファイルを選択</span>
+            <input class="books-local-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
+          </label>
+        </section>
+
+        <section class="books-modal-card">
+          <h5>人気作品</h5>
+          <p>人気の名作から選んで、すぐにインポートできます。</p>
+          <div id="mostPopularBooksList" class="books-modal-popular-list"></div>
+        </section>
+
+        <section class="books-modal-card">
+          <h5>Project Gutenberg からインポート</h5>
+          <p>Project Gutenberg は、パブリックドメイン電子書籍の優れた無料ライブラリです。</p>
+          <a class="books-modal-gutenberg-link" href="https://www.gutenberg.org/" target="_blank" rel="noopener noreferrer">
+            Project Gutenberg で本を探す
+          </a>
+          <p class="books-modal-gutenberg-tip">そこで本を見つけ、URL（例: https://www.gutenberg.org/ebooks/2701）をコピーしてここに貼り付け、GO を押してください。</p>
+          <div class="input-container">
+            <input type="text" id="gutenbergUrlInput" class="styled-input" placeholder="https://www.gutenberg.org/ebooks/2701">
+            <button class="styled-button" data-ws-onClick="onProjectGutenbergImportClick">開始</button>
+          </div>
+        </section>
+      </div>
     </div>
   </div>
 

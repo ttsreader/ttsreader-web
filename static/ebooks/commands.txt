@@ -1,0 +1,5 @@
+for id in 84 45304 2701 1342 1513 2554 52106 11 2641 43; do
+  mkdir -p "$id"
+  curl -L "https://www.gutenberg.org/ebooks/${id}.html.images" -o "${id}/index.html"
+done
+
