@@ -1,0 +1,15 @@
+{
+  "short_name": "Speechnotes Files",
+  "name": "Speechnotes Files - AI Transcriptions for Audio & Video Files",
+  "icons": [
+    {
+      "src": "favicon2.ico",
+      "sizes": "64x64 48x48 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
