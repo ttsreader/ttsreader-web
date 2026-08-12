@@ -26,6 +26,11 @@ Your Library holds everything in one place — documents, ebooks, and rendered a
 
 ![The Library tab with add shortcuts and recent documents, books, and audio.](02-library.jpg)
 
+And the best part? It plays on CarPlay!!! And supports 100% OFFLINE playing!!
+
+![TTSReader on CarPlay](carplay.jpg)
+
+
 Adding something new takes one tap: a blank page, your clipboard, a web page, a file — or let AI teach you about any topic or recap today's news.
 
 ![The New Document sheet: blank page, clipboard, web page, file import, AI lesson, and news recap.](03-new-document.jpg)
