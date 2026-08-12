@@ -1,0 +1,27 @@
+{
+  "en-US-JennyNeural": 1000,
+  "en-US-GuyNeural": 950,
+  "en-US-AriaNeural": 920,
+  "en-US-DavisNeural": 900,
+
+  "en-US-AmberNeural": 850,
+  "en-US-BrandonNeural": 820,
+  "en-US-AnaNeural": 800,
+  "en-US-ChristopherNeural": 780,
+
+  "en-US-JennyMultilingualNeural": 880,
+  "en-US-GuyMultilingualNeural": 860,
+  "en-US-AndrewMultilingualNeural": 840,
+
+  "en-GB-LibbyNeural": 1000,
+  "en-GB-RyanNeural": 950,
+  "en-GB-SoniaNeural": 880,
+  "en-GB-ThomasNeural": 820,
+  "en-GB-MaisieNeural": 780,
+
+  "de-DE-KatjaNeural": 1000,
+  "de-DE-ConradNeural": 950,
+  "de-DE-AmalaNeural": 880,
+  "de-DE-BerndNeural": 820,
+  "de-DE-ElkeNeural": 780
+}

@@ -30,7 +30,7 @@ toc: true
 
 We at TTSReader value your privacy, and that's why we do not store anything you say or type or in fact any other data about you - unless it is solely needed for the purpose of your operation. We don't share it with 3rd parties, other than what is minimally necessary in order for the service to work. That includes:
 
-* Sending text to generate speech to world-leading voice providers, such as: Google / Microsoft / OpenAI / ElevenLabs. In any such case, the text is sent in a secure manner, without any information about the user, and in under the condition / terms that the voice provider caanot use the text for any other purpose than generating the speech and returning it to us. We do not use the text for training or improving our models, and we do not allow the voice providers to use it for training or improving their models. View the specific terms of our leading subcontractors in the section below: [Privacy Policies of Third-Party Providers](#privacy-policies-of-third-party-providers).
+* Sending text to generate speech to world-leading voice providers, such as: Google / Microsoft / OpenAI / ElevenLabs / xAI / TogetherAI. In any such case, the text is sent in a secure manner, without any information about the user, and in under the condition / terms that the voice provider caanot use the text for any other purpose than generating the speech and returning it to us. We do not use the text for training or improving our models, and we do not allow the voice providers to use it for training or improving their models. View the specific terms of our leading subcontractors in the section below: [Privacy Policies of Third-Party Providers](#privacy-policies-of-third-party-providers).
 * Sending text to your own browser's text-to-speech API - via the Web Speech API - which is a standard API implemented by modern browsers. This API is used to generate speech for the non-premium voices. When using these non-premium voices (basic voices), privacy terms by your browser and operating system apply, as the speech is generated through the browser and operating system's built-in text-to-speech capabilities.
 * Retaining Data - we only retain your text or generated speech to serve you:
   * Local retention - data is stored in your browser's local storage, so you can access it later from the point you left off.
@@ -148,7 +148,7 @@ For commercial terms and copyright information please see our legal pages. <a hr
 
 <br/>
 
-Sending text to generate speech to world-leading voice providers, such as: Google / Microsoft / OpenAI / ElevenLabs. In any such case, the text is sent in a secure manner, without any information about the user, and in under the condition / terms that the voice provider caanot use the text for any other purpose than generating the speech and returning it to us. We do not use the text for training or improving our models, and we do not allow the voice providers to use it for training or improving their models. View the specific terms of our leading subcontractors in the section below:
+Sending text to generate speech to world-leading voice providers, such as: Google / Microsoft / OpenAI / ElevenLabs / xAI / TogetherAI. In any such case, the text is sent in a secure manner, without any information about the user, and in under the condition / terms that the voice provider caanot use the text for any other purpose than generating the speech and returning it to us. We do not use the text for training or improving our models, and we do not allow the voice providers to use it for training or improving their models. View the specific terms of our leading subcontractors in the section below:
 
 <br/>
 
@@ -188,9 +188,17 @@ We of course use OpenAI's API - which is governed in their business category of 
 <br/>
 
 
+* ### xAI
+
+
+
+* ### TogetherAI
+
+
+
 ## Contact us
 
 [Contact us]({{< relref "contact/index.md" >}}) if you have any questions.
 
 Effective Date: _1st March 2023_
-Updated on: _12 March 2026_
+Updated on: _7 June 2026_

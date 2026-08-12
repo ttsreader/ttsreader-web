@@ -42,6 +42,10 @@ This automated pipeline has opened up podcasting to a whole new group of creator
 *   **The Small Business:** A marketing team can produce a weekly "industry news" podcast. They gather interesting articles, write a short script, and generate a professional-sounding podcast in under an hour, establishing their brand as an authority in their field.
 *   **The Educator:** A history teacher can turn their lesson plans for each week into a podcast series. Students can subscribe and listen to the material before class, during their commute, or as a review tool for exams, making learning more accessible and flexible.
 
+### Clone Your Own Voice
+
+Some creators also want their podcast to sound specifically like them — not just any AI voice, but their own. <a href='https://fish.audio/tts' rel="noopener noreferrer" target="_blank">Fish Audio</a> can clone a voice from a 15-second audio sample across 80+ languages, making it a useful complement to TTSReader's publishing pipeline if that personal touch matters to your audience. We're working to test and bring Fish Audio's voice-cloning tech to TTSReader soon as well. Let us know at contact@ttsreader.com if that's important to you.
+
 We believe that great ideas deserve to be heard. By removing the technical hurdles, we've turned TTSReader into more than just a text-to-speech tool; it's a publishing platform.
 
 For a detailed walkthrough on setting up your channel, check out our **[Official Guide to Creating a Podcast](https://ttsreader.com/docs/guides/create-podcasts/)**.

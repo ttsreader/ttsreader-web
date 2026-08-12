@@ -155,7 +155,8 @@
         // Get enabled pronunciation words
         const enabledWords = pronunciationDict
             .filter(entry => entry.enabled)
-            .map(entry => entry.original);
+            .map(entry => String(entry.original || '').trim())
+            .filter(Boolean);
 
         if (enabledWords.length === 0) return;
 
@@ -167,15 +168,21 @@
         });
     }
 
+    function getPronunciationDictionaryApi() {
+        return window.__ttsreaderPronunciationDictionary || null;
+    }
+
     function highlightWordInEditor(word) {
         if (!window.quill) return;
 
         const text = window.quill.getText();
 
-        // Create regex pattern for whole-word, case-sensitive matching
-        // \b ensures word boundaries (whole word matching)
-        // No 'i' flag means case-sensitive matching
-        const wordRegex = new RegExp(`\\b${escapeRegex(word)}\\b`, 'g');
+        const pronunciationDictionaryApi = getPronunciationDictionaryApi();
+        const wordRegex = pronunciationDictionaryApi?.buildPronunciationRegex?.(word) || null;
+        if (!wordRegex) {
+            return;
+        }
+
         let match;
 
         while ((match = wordRegex.exec(text)) !== null) {
@@ -205,10 +212,6 @@
             // Ignore clearing errors
             console.warn('Could not clear pronunciation highlights:', e);
         }
-    }
-
-    function escapeRegex(string) {
-        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
     // Update dictionary display

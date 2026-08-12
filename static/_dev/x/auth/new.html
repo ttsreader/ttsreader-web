@@ -34,8 +34,12 @@
   } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
-  // LOCK: only your extension is allowed to RPC with this page when iframed
-  const EXT_ORIGIN = "chrome-extension://kimpjeeihakmgdlnkjaapkdikpjccabi";
+  // LOCK: only TTSReader extension variants are allowed to RPC with this page when iframed
+  const EXT_ORIGINS = [
+    "chrome-extension://kimpjeeihakmgdlnkjaapkdikpjccabi",
+    "chrome-extension://pakknklefcjdhejnffafpeelofiekebg",
+  ];
+  const EXT_ORIGIN_SET = new Set(EXT_ORIGINS);
 
   const out = document.getElementById("out");
   const log = (x) => out.textContent = typeof x === "string" ? x : JSON.stringify(x, null, 2);
@@ -68,55 +72,27 @@
     };
   }
 
-  function safePostToExtension(payload) {
+  function safePostToExtension(payload, targetOrigin) {
     // When opened standalone, window.parent is itself; postMessage is harmless but pointless.
     // When embedded, CSP frame-ancestors should ensure parent is the extension.
     try {
-      window.parent?.postMessage?.(payload, EXT_ORIGIN);
+      window.parent?.postMessage?.(payload, targetOrigin);
     } catch {}
   }
 
-  async function sendWelcome() {
-    try {
-      let idToken = await auth.currentUser.getIdToken();
-      const response = await fetch('https://us-central1-ttsreader.cloudfunctions.net/welcome', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${idToken}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ lang: "<%= htmlWebpackPlugin.options.strings.lang %>" })
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP ${response.status} – ${errorText}`);
-      }
-
-      const data = await response.json();
-      console.log('Success:', data);
-      return data;
-    } catch (err) {
-      console.error('Error:', err.message);
-      return null;
+  function broadcastToExtensions(payload) {
+    for (const origin of EXT_ORIGINS) {
+      safePostToExtension(payload, origin);
     }
   }
-
 
   function startRTDB(uid) {
     if (stopUserListener) stopUserListener();
     const r = ref(db, `/users_server_data/${uid}`);
     stopUserListener = onValue(r, (snap) => {
-      const hasUserData = snap.exists();
-
-      if (!hasUserData) {
-        sendWelcome();
-        return;
-      }
-
       latestUserServerData = snap.val();
 
-      safePostToExtension({
+      broadcastToExtensions({
         type: "PUSH_RTDB",
         uid,
         value: latestUserServerData,
@@ -143,7 +119,7 @@
       idToken,
       usersServerData: latestUserServerData,
     };
-    safePostToExtension(msg);
+    broadcastToExtensions(msg);
     return msg;
   }
 
@@ -199,13 +175,13 @@
 
     console.log("message: ", event);
 
-    if (event.origin !== EXT_ORIGIN) return;
+    if (!EXT_ORIGIN_SET.has(event.origin)) return;
     const msg = event.data;
     if (!msg || typeof msg !== "object") return;
     if (msg.type !== "RPC") return;
 
     const requestId = msg.requestId || null;
-    const respond = (payload) => safePostToExtension({ type: "RPC_RESULT", requestId, ...payload });
+    const respond = (payload) => safePostToExtension({ type: "RPC_RESULT", requestId, ...payload }, event.origin);
 
     try {
       if (msg.op === "GET_STATE") {

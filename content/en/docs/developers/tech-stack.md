@@ -18,6 +18,14 @@ toc: true
 
 ## Speech Synthesis Engines
 
+
+### Exciting Update - 2026-06-07
+
+We just added support for:
+1. Kokoro AI voices, running on our own servers, with backup to TogetherAI servers.
+2. Amazing xAI voices, by xAI (soon IPO via SpaceX- we wish them good luck!!)
+
+
 ### New AI Voices - 2025-05
 
 As of May 2025, TTSReader has added support for new AI voices. These voices are powered by leading AI text-to-speech engines by [Microsoft's Azure](https://azure.microsoft.com/en-us/products/ai-services/ai-speech), [OpenAI](https://platform.openai.com/docs/guides/text-to-speech), [ElevenLabs](https://elevenlabs.io/) and [Google Cloud](https://cloud.google.com/text-to-speech).
