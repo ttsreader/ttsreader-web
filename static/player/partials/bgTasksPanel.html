@@ -1,0 +1,47 @@
+<!-- The background-task board — the web reading of iOS's BackgroundTasksView.
+     Two sections (in progress / recent), rows grouped per document, and a book
+     collapsed to one row that counts its chapters. Rendered by BgTasksUi.
+
+     The shell is the LEGACY .Modal, whose rules paint .Modal-content a hardcoded
+     white/#333 and centre every line. The panel is re-grounded on the design
+     tokens in modern.css (`#bgTasksModal .bg-tasks-content`), so nothing here
+     carries inline styling that would sit above those rules. -->
+<div class="Modal" id="bgTasksModal" style="display: none;">
+  <div class="Modal-content bg-tasks-content">
+    <button class="Close-modal">
+      <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+      </svg>
+    </button>
+    <h4 class="bg-tasks-title"><%= htmlWebpackPlugin.options.strings.d20260818_tasks_title %></h4>
+
+    <!-- Hidden with the board itself: an empty board has nothing to clear, and
+         two live buttons over an empty state read as a broken list. -->
+    <div class="bg-tasks-actions hidden" id="bgTasksActions">
+      <button class="bg-tasks-clear" data-ws-onclick="bgTasksRemoveCompleted">
+        <%= htmlWebpackPlugin.options.strings.d20260818_tasks_remove_completed %>
+      </button>
+      <button class="bg-tasks-clear" data-ws-onclick="bgTasksRemoveAll">
+        <%= htmlWebpackPlugin.options.strings.d20260818_tasks_remove_all %>
+      </button>
+    </div>
+
+    <!-- Both sections are emitted by the renderer and hidden when empty, so an
+         idle board shows the empty state and nothing else. -->
+    <div id="bgTasksActiveWrap" class="bg-tasks-section hidden">
+      <div class="doc-menu-heading"><%= htmlWebpackPlugin.options.strings.d20260818_tasks_active %></div>
+      <div id="bgTasksActive" class="bg-tasks-list"></div>
+    </div>
+    <div id="bgTasksRecentWrap" class="bg-tasks-section hidden">
+      <div class="doc-menu-heading"><%= htmlWebpackPlugin.options.strings.d20260818_tasks_recent %></div>
+      <div id="bgTasksRecent" class="bg-tasks-list"></div>
+    </div>
+
+    <div id="bgTasksEmpty" class="bg-tasks-empty">
+      <span class="bg-tasks-empty-disc">
+        <svg class="ws-icon bg-tasks-empty-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v6"/><path d="M14 19l2 2l4 -4"/><path d="M9 8h4"/><path d="M9 12h2"/></svg>
+      </span>
+      <p><%= htmlWebpackPlugin.options.strings.d20260818_tasks_empty %></p>
+    </div>
+  </div>
+</div>

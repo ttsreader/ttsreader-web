@@ -1,0 +1,60 @@
+<div class="tab-page">
+    <h2 class="tab-page-title"><%= htmlWebpackPlugin.options.strings.d20260826_tab_prefs %></h2>
+  
+    <!-- About card: version + the way into the About tab. Also the ONLY route to
+         About on narrow screens, where the bottom bar drops that item. -->
+    <button class="prefs-about-card" data-ws-onclick="switchTab" data-tab="about">
+      <img class="prefs-about-logo" src="/favicon2.svg" width="38" height="38" alt=""/>
+      <span class="prefs-about-text">
+        <span class="prefs-about-name"><span style="color: darkred">TTS</span>Reader</span>
+        <span class="prefs-about-version">V<%= htmlWebpackPlugin.options.version %></span>
+      </span>
+      <span class="prefs-about-link">
+        <%= htmlWebpackPlugin.options.strings.d20260826_about_guides_heading %>
+        <svg class="ws-icon prefs-about-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+      </span>
+    </button>
+    <a class="Menu-list-element prefs-pronunciation-row" data-ws-onclick="prefsOpenPronunciation">
+      <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8a5 5 0 0 1 0 8"/><path d="M17.7 5a9 9 0 0 1 0 14"/><path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5z"/></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.d20260220_index_tab_pronunciation %>
+      <svg class="ws-icon prefs-row-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+    </a>
+  
+  
+    <div class="drawer-section-heading"><b><%= htmlWebpackPlugin.options.strings.d20260220_index_export_settings %></b></div>
+    <div class="settings-control">
+      <div class="export-freq-control">
+        <label class="export-freq-label"><%= htmlWebpackPlugin.options.strings.d20260220_index_export_sample_rate %></label>
+        <div class="export-freq-options">
+          <button class="export-freq-btn" data-freq="24" data-ws-onClick="setExportFreq">24 kHz</button>
+          <button class="export-freq-btn" data-freq="48" data-ws-onClick="setExportFreq">48 kHz</button>
+        </div>
+        <p class="export-freq-hint"><%= htmlWebpackPlugin.options.strings.d20260220_index_export_freq_hint %></p>
+      </div>
+    </div>
+  
+    <div class="drawer-section-heading"><b><%= htmlWebpackPlugin.options.strings.d20260220_index_tab_playback %></b></div>
+    <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
+      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.need_more_voices %>
+    </a>
+  
+    <div class="drawer-section-heading"><%= htmlWebpackPlugin.options.strings.drawer__interface_languages_info %></div>
+    <div class="drawer-lang-list">
+      <a class="interface-lang-link" target="_parent" href="/en/">English</a>
+      <a class="interface-lang-link" target="_parent" href="/es/">Español</a>
+      <a class="interface-lang-link" target="_parent" href="/fr/">Français</a>
+      <a class="interface-lang-link" target="_parent" href="/ar/">العربية</a>
+      <a class="interface-lang-link" target="_parent" href="/he/">עברית</a>
+      <a class="interface-lang-link" target="_parent" href="/ja/">日本語</a>
+      <a class="interface-lang-link" target="_parent" href="/de/">Deutsch</a>
+      <a class="interface-lang-link" target="_parent" href="/it/">Italiano</a>
+      <a class="interface-lang-link" target="_parent" href="/zh/">中文</a>
+      <a class="interface-lang-link" target="_parent" href="/ko/">한국어</a>
+      <a class="interface-lang-link" target="_parent" href="/pt/">Português</a>
+      <a class="interface-lang-link" target="_parent" href="/ru/">Русский</a>
+      <a class="interface-lang-link" target="_parent" href="/ro/">Română</a>
+      <a class="interface-lang-link" target="_parent" href="/hi/">हिन्दी</a>
+      <a class="interface-lang-link" target="_parent" href="/nl/">Nederlands</a>
+    </div>
+  
+
+</div>

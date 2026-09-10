@@ -3,7 +3,7 @@ title: "TTSReader for iPhone: A First Look at Our New Mobile App"
 description: "A visual tour of the new TTSReader iOS app — Discover great content, import anything, listen with natural voices, clip, share, and more."
 excerpt: "The most interesting content in the world is written. Now, you can listen to all of it, clip, share, and more. Here's a first look at the new TTSReader app for iPhone."
 date: 2026-08-13T01:00:00+03:00
-lastmod: 2026-08-13T01:00:00+03:00
+lastmod: 2026-08-28T01:00:00+03:00
 draft: false
 weight: 50
 images: ["01-discover.jpg"]
@@ -16,7 +16,14 @@ homepage: false
 
 The most interesting content in the world is written. Now, you can listen to all of it, clip, share, and more — with the brand-new TTSReader app for iPhone.
 
-**Send us an email to [contact@ttsreader.com](mailto:contact@ttsreader.com) if you would like to be amongst the first to try it out.**
+## Exciting Launch of TTSReader for iPhone!! The BEST Text-to-Speech App for iPhone ever built!
+
+
+<p style="margin:auto;text-align: center;background-color: darkred;color: white;display: block; padding: 10px 20px; border-radius: 10px; font-size: larger;">
+<a style="color:white;font-weight: bold" href="https://apps.apple.com/us/app/ttsreader-text-to-speech/id6790834349" target="_blank">👉 &nbsp; GET TTSREADER ON THE APP STORE</a>
+</p>
+
+<br/>
 
 Open the app and land on Discover — founding documents, famous speeches, classic books and stories, curated and ready to play.
 
@@ -95,6 +102,8 @@ And for the perfectionists: a pronunciation dictionary lets you teach your voice
 
 ![The pronunciation dictionary with a custom rule and a test button.](18-pronunciation.jpg)
 
-That's the new TTSReader for iPhone — the content you always meant to read, finally in your ears.
+That's the new TTSReader for iPhone — the content you always meant to read, finally accessible right on your phone - anywhere you go.
 
-**Send us an email to [contact@ttsreader.com](mailto:contact@ttsreader.com) if you would like to be amongst the first to try it out.**
+<p style="margin:auto;text-align: center;background-color: darkred;color: white;display: block; padding: 10px 20px; border-radius: 10px; font-size: larger;">
+<a style="color:white;font-weight: bold" href="https://apps.apple.com/us/app/ttsreader-text-to-speech/id6790834349" target="_blank">👉 &nbsp; GET TTSREADER ON THE APP STORE</a>
+</p>

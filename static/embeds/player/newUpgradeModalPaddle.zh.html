@@ -34,6 +34,9 @@
     const lang = params.get("lang");
     const onCloseParentCallbackName = params.get("onClose") || "closeModals";
     const isPremiumPlanAlready = params.get("isPremiumPlanAlready") === "true";
+    // The plan a signed-out visitor picked before being sent through sign-in: the parent passes it
+    // back so they land on the checkout they chose, not on the price list again.
+    const resumeSku = params.get("resumeSku") || "";
 
     const onClose = (isPurchase) => {
       console.log('onClose called');
@@ -216,12 +219,19 @@
     scriptElSubs.onload = () => {
       runOnPayPalReady();
     };
+    // A blocked or failed PayPal SDK must never be fatal: Paddle is already wired.
+    scriptElSubs.onerror = () => {
+      console.warn("PayPal subs SDK failed to load; Paddle checkout is unaffected.");
+    };
 
     let scriptElOnce = document.createElement("script");
     scriptElOnce.setAttribute("data-namespace", "paypalOnce");
     scriptElOnce.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}${localeQuery}`;
     scriptElOnce.onload = () => {
       runOnPayPalReady();
+    };
+    scriptElOnce.onerror = () => {
+      console.warn("PayPal one-time SDK failed to load; Paddle checkout is unaffected.");
     };
 
     window.addEventListener("load", function () {
@@ -523,6 +533,12 @@
       flex-direction: column;
     }
 
+    .pricing-card.is-opening {
+      opacity: 0.75;
+      transform: scale(0.995);
+      transition: opacity 120ms ease, transform 120ms ease;
+    }
+
     .pricing-card.selected {
       border-color: #007BFF;
       z-index: 10;
@@ -613,6 +629,361 @@
       padding: 5px;
       cursor: pointer;
     }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       PRESTIGE LAYER (2026-09-07)
+       This page asks for $99. It used to look like a forum post: a run-on wall
+       of green ✅ emoji, an all-caps "** NEW ... AS WELL!!" over an ASCII
+       divider, a lavender gradient ground, an orange gradient badge and a
+       yellow glow on hover. Everything below is the visual language instead —
+       editorial restraint, one accent, hairlines over fills, real type scale.
+       Structure and every logic hook (.pricing-card[data-ws-sku]) are untouched.
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    :root {
+      --ground:      #faf9f7;   /* warm ivory, not blue-grey */
+      --ground-2:    #f2efea;
+      --surface:     #ffffff;
+      --ink:         #16151a;
+      --ink-soft:    #55504a;
+      --ink-muted:   #857f76;
+      --hairline:    rgba(22, 21, 26, 0.11);
+      --hairline-2:  rgba(22, 21, 26, 0.06);
+      --accent:      #0e7c4a;   /* the logo's red/orangered family — never pink */
+      --accent-ink:  #0a6f42;
+      --accent-wash: rgba(14, 124, 74, 0.08);
+      --shadow-sm:   0 1px 2px rgba(22,21,26,.05), 0 4px 14px rgba(22,21,26,.05);
+      --shadow-md:   0 2px 6px rgba(22,21,26,.07), 0 14px 40px rgba(22,21,26,.10);
+      --radius:      15px;
+    }
+
+    [data-dark-mode] {
+      --ground:      #100f13;
+      --ground-2:    #17161c;
+      --surface:     #1a1922;
+      --ink:         #f6f4f0;
+      --ink-soft:    #c8c2b9;
+      --ink-muted:   #948d84;
+      --hairline:    rgba(255, 255, 255, 0.13);
+      --hairline-2:  rgba(255, 255, 255, 0.07);
+      --accent:      #3ecf8e;
+      --accent-ink:  #63dda5;
+      --accent-wash: rgba(255, 106, 69, 0.12);
+      --shadow-sm:   0 1px 2px rgba(0,0,0,.4);
+      --shadow-md:   0 2px 8px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.5);
+    }
+
+    body,
+    [data-dark-mode] body {
+      background: var(--ground);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      stroke: currentColor;
+    }
+
+    .modal-content { padding: 0 22px 64px; }
+
+    /* ── masthead ─────────────────────────────────────────────────────────── */
+    .modal-content > h2 {
+      font-size: clamp(1.75rem, 3.4vw, 2.45rem);
+      line-height: 1.14;
+      font-weight: 600;
+      letter-spacing: -0.023em;
+      color: var(--ink);
+      max-width: 19ch;
+      margin: 52px auto 0;
+    }
+
+    .modal-content > h3 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ink-muted);
+      margin: 26px auto 0;
+    }
+
+    /* ── the included-with-every-plan list ────────────────────────────────── */
+    .plan-features { max-width: 760px; margin: 20px auto 0 !important; padding: 0 !important; }
+
+    .plan-features.as-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+      gap: 11px 30px;
+      text-align: start;
+      font-size: 0.95rem !important;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+
+    .plan-features.as-grid .feat {
+      display: grid;
+      grid-template-columns: 17px 1fr;
+      gap: 11px;
+      align-items: start;
+    }
+
+    .plan-features.as-grid .feat svg {
+      width: 17px; height: 17px;
+      margin-top: 2px;
+      color: var(--accent);
+      flex: none;
+    }
+
+    .plan-note {
+      margin: 30px auto 0;
+      font-size: 0.855rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.005em;
+    }
+    .plan-note a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid var(--accent-wash); }
+    .plan-note a:hover { border-bottom-color: currentColor; }
+
+    /* ── plan groups ──────────────────────────────────────────────────────── */
+    .Gallery-Container,
+    [data-dark-mode] .Gallery-Container {
+      background: transparent;
+      border: none;
+      padding: 0;
+      max-width: 640px;
+      margin: 46px auto 0;
+    }
+
+    /* NB: .Gallery-Container is a flex column. `margin-inline: auto` on a flex item both
+       centres it AND shrink-wraps it — which is why these headings sat centred while the
+       cards (no auto margin) stretched. Zero the inline margins, don't fight text-align. */
+    .Gallery-Container > h3 {
+      font-size: 1.16rem !important;
+      font-weight: 600;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+      margin: 0 0 5px !important;
+      text-align: start;
+      align-self: stretch;
+    }
+
+    .Gallery-Container > p {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      margin: 0 0 15px !important;
+      text-align: start;
+      line-height: 1.5;
+      align-self: stretch;
+      max-width: 52ch;
+    }
+
+    /* ── the cards ────────────────────────────────────────────────────────── */
+    .pricing-card, .pricing-card-clone {
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 19px 21px;
+      margin-top: 11px;
+      gap: 18px;
+      transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+      will-change: transform;
+    }
+
+    .pricing-card:hover {
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--hairline));
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .pricing-card:active { transform: translateY(0); }
+
+    .pricing-card.selected {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md), 0 0 0 3px var(--accent-wash);
+    }
+
+    .pricing-left { color: var(--ink); gap: 3px; }
+
+    .pricing-time {
+      font-size: 1.06rem !important;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0 !important;
+      color: var(--ink);
+    }
+
+    .pricing-subtext {
+      font-size: 0.855rem !important;
+      color: var(--ink-muted) !important;
+      letter-spacing: 0.002em;
+    }
+    .pricing-subtext .was { text-decoration: line-through; opacity: .55; }
+    .pricing-subtext .arrow { opacity: .5; padding: 0 2px; }
+
+    .pricing-price,
+    .pricing-price.dark,
+    .pricing-price.popular {
+      background: var(--ground-2) !important;
+      color: var(--ink) !important;
+      border: 1px solid var(--hairline-2);
+      border-radius: 11px;
+      padding: 10px 17px;
+      font-size: 1.02rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      font-variant-numeric: tabular-nums;
+      box-shadow: none;
+    }
+
+    .pricing-card:hover .pricing-price,
+    .pricing-card.selected .pricing-price {
+      background: var(--accent-wash) !important;
+      border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+      color: var(--accent-ink) !important;
+    }
+
+    /* the "best value" flag: a quiet label, not a gradient blob */
+    .pricing-price .pricing-tag {
+      position: absolute;
+      top: -10px;
+      inset-inline-end: 16px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.605rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3.5px 9px;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px var(--accent-wash);
+      white-space: nowrap;
+    }
+
+    /* ── trust: testimonials + the founder's guarantee ────────────────────── */
+
+
+    /* the one-time packages are a genuine alternative, not a second act — close the dead air */
+    .Gallery-Container + br { display: none; }
+    .Hide-If-Premium-Plan-Exists + div[style*="height: 30px"] { height: 8px !important; }
+
+    /* the plan we recommend should read as the recommended one */
+    .pricing-card[data-ws-sku$="ANNUAL"] { border-color: color-mix(in srgb, var(--accent) 34%, var(--hairline)); }
+    .pricing-card[data-ws-sku$="ANNUAL"] .pricing-price {
+      background: var(--accent) !important;
+      border-color: var(--accent);
+      color: #fff !important;
+    }
+    .pricing-card[data-ws-sku$="ANNUAL"]:hover .pricing-price,
+    .pricing-card[data-ws-sku$="ANNUAL"].selected .pricing-price {
+      background: var(--accent-ink) !important;
+      color: #fff !important;
+    }
+    .pricing-card[data-ws-sku$="ANNUAL"] .pricing-tag {
+      background: var(--ink);
+      color: var(--ground);
+    }
+
+
+    /* ── testimonials ─────────────────────────────────────────────────────── */
+    .quotes {
+      position: relative;
+      width: 100%;
+      max-width: 660px;
+      margin: 46px auto 0;
+      text-align: center;
+    }
+
+    /* Was a violet (#6c63ff) bar on a hardcoded #f9f9f9 card with #333 ink — off-brand, and
+       invisible-on-invisible in dark mode. A quote should read as a quote: the mark does the
+       work, not a box. */
+    .quote {
+      font-size: 1.06rem !important;
+      line-height: 1.6;
+      color: var(--ink-soft) !important;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 26px !important;
+      margin: 0 auto !important;
+      max-width: 560px;
+      font-style: normal;
+      position: relative;
+    }
+    .quote em { font-style: normal; }
+    /* No decorative quote glyph: the copy already ships with typographic “ ” around it, and a
+       second mark on top of those reads as a mistake rather than as typography. */
+    .quotes p + p,
+    .quotes .attribution,
+    .quotes b {
+      display: block;
+      margin-top: 14px;
+      font-size: 0.85rem !important;
+      font-weight: 500;
+      font-style: normal;
+      letter-spacing: 0.04em;
+      color: var(--ink-muted) !important;
+    }
+
+    /* the trust line is a caption, not a billboard */
+    .trust-line {
+      font-size: 0.72rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ink-muted) !important;
+      max-width: none !important;
+      margin: 70px auto 0 !important;
+    }
+
+    /* ── close ────────────────────────────────────────────────────────────── */
+    .Close-Btn {
+      top: 14px;
+      /* Neutralise both physical sides BEFORE the logical one: a later `right: auto` cancels
+         inset-inline-end in LTR, and a leftover physical `right` wins in RTL. */
+      right: auto;
+      left: auto;
+      inset-inline-end: 14px;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--ink-muted);
+      background: color-mix(in srgb, var(--surface) 82%, transparent);
+      border: 1px solid var(--hairline-2);
+      backdrop-filter: saturate(1.4) blur(8px);
+      transition: color .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .Close-Btn:hover { color: var(--ink); border-color: var(--hairline); background: var(--surface); }
+    .Close-Btn svg { width: 17px; height: 17px; }
+
+
+    /* the attribution ships with inline color:#555 / text-align:right — unreadable in dark mode */
+    .quote span {
+      display: block !important;
+      text-align: center !important;
+      margin-top: 15px !important;
+      font-weight: 500 !important;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      color: var(--ink-muted) !important;
+    }
+    .quote br { display: none; }
+
+
+    /* What a purchase does and does not include, said where the choice is made. Credits are
+       metered access (premium voices, mp3 export); cloud sync and AI documents need an active
+       plan — AccountLogic.featureVerdicts is the authority, and this is its own wording. */
+    .credits-limits, .plan-only {
+      font-size: 0.83rem !important;
+      line-height: 1.5;
+      color: var(--ink-muted) !important;
+      text-align: start;
+      margin: 8px 0 0 !important;
+      align-self: stretch;
+      max-width: 52ch;
+      padding-inline-start: 11px;
+      border-inline-start: 2px solid var(--accent-wash);
+    }
+
   </style>
 </head>
 
@@ -630,12 +1001,12 @@
     <br/>
     <h2>选择订阅或一次性支付 <!-- Choose Subscription OR One-Time-Payment --></h2>
     <h3>所有计划均包括 <!-- All plans include --></h3>
-    <p style="font-size: 1.1em;font-weight: normal; padding: 10px 20px;max-width: 900px;margin: 0 auto 50px;">✅ 高级 AI 语音 (每个订阅 1M 字符/月，或按积分购买的数量) ✅ 商业和出版许可证 ✅ 100% 版权所有 ✅ 高级支持 ✅ 个人播客频道 ✅ 即时 MP3 和 WAV 导出 ✅ 等等<!-- ✅ Premium AI Voices (1M characters/mo. per subscription, or as many as you buy per credits) ✅ Commercial & Publishing License ✅ 100% Copyrights Ownership ✅ Premium Support ✅ Personal Podcast Channel ✅ Instant MP3 & WAV Export ✅ & More--></p>
+    <p id="planFeatures" class="plan-features" style="font-size: 1.1em;font-weight: normal; padding: 10px 20px;max-width: 900px;margin: 0 auto 50px;">✅ 高级 AI 语音 (每个订阅 1M 字符/月，或按积分购买的数量) ✅ 商业和出版许可证 ✅ 100% 版权所有 ✅ 高级支持 ✅ 个人播客频道 ✅ 即时 MP3 和 WAV 导出 ✅ 等等<!-- ✅ Premium AI Voices (1M characters/mo. per subscription, or as many as you buy per credits) ✅ Commercial & Publishing License ✅ 100% Copyrights Ownership ✅ Premium Support ✅ Personal Podcast Channel ✅ Instant MP3 & WAV Export ✅ & More--></p>
 
-    <p style="font-size: 1.1em;font-weight: normal; padding: 10px 20px;max-width: 900px;margin: 0 auto 50px;">
-      <b>** NEW: <a style="color: orange" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi?authuser=0&hl=en">TEXT TO SPEECH CHROME EXTENSION</a> **</b>
-      <br/><span>PREMIUM IS VALID FOR OUR CHROME EXTENSION AS WELL!!</span>
-      <br/><span style="margin-top: 5px; display: inline-block">~·~·~·~·~</span>
+    <p class="plan-note">
+      One Premium, everywhere: it also covers the
+      <a target="_blank" rel="noopener" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi?authuser=0&hl=en">Chrome&nbsp;extension</a>
+      and the <a target="_blank" rel="noopener" href="https://apps.apple.com/us/app/ttsreader-text-to-speech/id6790834349">iPhone&nbsp;app</a> &mdash; so you can keep listening on the go.
     </p>
 
 
@@ -646,6 +1017,7 @@
           <h3 style="font-size: 1.5em;">订阅<!-- Subscription--></h3>
           <!--<p>随时取消</p>-->
           <p style="margin: 5px;">每月 100 万个高级 AI 字符 + 无限制的基础语音</p>
+          <p class="plan-only">额外点数用于补充订阅。订阅可获得月度配额，随时都能再加点数。<!-- Extra credits top up a subscription. Subscribe for a monthly quota — then add credits any time. --></p>
           <div class="pricing-card" data-ws-sku="SKU_TTSREADER_PREMIUM_MONTHLY">
             <div class="pricing-left">
               <div class="pricing-time">按月计费</div>
@@ -657,7 +1029,7 @@
           <div class="pricing-card" data-ws-sku="SKU_TTSREADER_PREMIUM_ANNUAL">
             <div class="pricing-left">
               <div class="pricing-time">按年计费</div>
-              <div class="pricing-subtext"><span style="text-decoration: line-through;opacity:0.5">$131.88</span> -> $99/年 <!-- y -->(25% 折扣)<!-- (25% Discount)--></div>
+              <div class="pricing-subtext"><span class="was">$131.88</span> <span class="arrow">&rarr;</span> $99/年 <!-- y -->(25% 折扣)<!-- (25% Discount)--></div>
             </div>
             <div class="pricing-price popular">
               <span class="pricing-tag">★ 最佳价值</span>
@@ -674,6 +1046,7 @@
       <div class="Gallery-Container">
         <h3 style="font-size: 1.5em;">一次性支付套餐<!-- One-Time Payment Packages--></h3>
         <p style="margin: 5px;">不会自动续订。在一年内随时使用的积分 (也可以延长)。 <!-- Does NOT auto renew. Buy credits to use whenever you want within one year (which can also be further extended). --></p>
+        <p class="credits-limits">您的点数可用于高级语音和 mp3 导出。云同步和 AI 文档需要有效订阅。<!-- Your credits pay for premium voices and mp3 export. Cloud sync and AI documents need an active subscription. --></p>
         <!--<div class="pricing-card" data-ws-sku="SKU_TTSREADER_EXTRA_CREDITS_200k">
           <div class="pricing-left">
             <div class="pricing-time">20万字符</div>
@@ -709,13 +1082,13 @@
       <p>* 所有货币以美元 ($) 计算</p>
 
       <br/>
-      <h2>自 2015 年以来，受到领先公司、顶级大学和数百万用户的信任<!-- Trusted by leading businesses, top colleges & millions of users, since 2015--></h2>
+      <h2 class="trust-line">自 2015 年以来，受到领先公司、顶级大学和数百万用户的信任<!-- Trusted by leading businesses, top colleges & millions of users, since 2015--></h2>
       <div style="margin-top: -30px;">
-        <div style="position: relative; width: 100%; max-width: 700px; margin: 50px auto; text-align: center; font-family: 'Georgia', serif;">
+        <div class="quotes">
 
           <!-- Placeholder for height (the longest slide) -->
           <div style="opacity: 0; pointer-events: none; visibility: hidden;">
-            <p style="font-size: 1.2rem; color: #333; background: #f9f9f9; border-left: 4px solid #6c63ff; padding: 20px; border-radius: 8px; margin: 0 auto; max-width: 600px;">
+            <p class="quote">
               <em>“What impressed me most was how their support team responded... That kind of respect was almost unimaginable.”</em>
               <br>
               <span style="display: block; text-align: right; margin-top: 10px; font-weight: bold; color: #555;">
@@ -726,7 +1099,7 @@
 
           <!-- Slides -->
           <div class="slide" style="opacity: 1; transition: opacity 1s ease-in-out; position: absolute; width: 100%; top: 0; left: 0;">
-            <p style="font-size: 1.2rem; color: #333; background: #f9f9f9; border-left: 4px solid #6c63ff; padding: 20px; border-radius: 8px; margin: 0 auto; max-width: 600px;">
+            <p class="quote">
               <em>“我已经使用 TTSReader 几个月了，现在已经无法想象没有它的生活了！<!-- I’ve been using TTSReader for several months, and I already can’t imagine my life without it!-->”</em>
               <br>
               <span style="display: block; text-align: right; margin-top: 10px; font-weight: bold; color: #555;">
@@ -736,7 +1109,7 @@
           </div>
 
           <div class="slide" style="opacity: 0; transition: opacity 1s ease-in-out; position: absolute; width: 100%; top: 0; left: 0;">
-            <p style="font-size: 1.2rem; color: #333; background: #f9f9f9; border-left: 4px solid #6c63ff; padding: 20px; border-radius: 8px; margin: 0 auto; max-width: 600px;">
+            <p class="quote">
               <em>“最让我印象深刻的是他们的支持团队如何回应... 那种尊重几乎是不可能的。<!-- What impressed me most was how their support team responded... That kind of respect was almost unimaginable.-->”</em>
               <br>
               <span style="display: block; text-align: right; margin-top: 10px; font-weight: bold; color: #555;">
@@ -746,7 +1119,7 @@
           </div>
 
           <div class="slide" style="opacity: 0; transition: opacity 1s ease-in-out; position: absolute; width: 100%; top: 0; left: 0;">
-            <p style="font-size: 1.2rem; color: #333; background: #f9f9f9; border-left: 4px solid #6c63ff; padding: 20px; border-radius: 8px; margin: 0 auto; max-width: 600px;">
+            <p class="quote">
               <em>“我使用这个应用这么多年，已经记不清时间了。我喜欢这个应用！<!-- I've used this app for so many years that I've lost track of how long it's been. I love this app!-->”</em>
               <br>
               <span style="display: block; text-align: right; margin-top: 10px; font-weight: bold; color: #555;">
@@ -947,15 +1320,126 @@
     paypalScope.Buttons(config).render(container); // Renders the PayPal button UI
   }
 
+  /**
+   * The "all plans include" line ships as one run-on string delimited by ✅ — that is how it is
+   * translated in all 15 languages, so the delimiter, not the markup, is the contract. Split it
+   * into a real list with drawn checkmarks: same words, same translations, none of the emoji wall.
+   */
+  (function renderPlanFeatures() {
+    const el = document.getElementById('planFeatures');
+    if (!el) return;
+    const items = el.textContent.split('\u2705').map(t => t.trim()).filter(Boolean);
+    if (items.length < 2) return;               // unexpected shape: leave the original alone
+    const check = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.1" ' +
+                  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+                  '<path d="M4 10.5l4 4 8-9"/></svg>';
+    el.innerHTML = items.map(t => '<span class="feat">' + check + '<span></span></span>').join('');
+    // textContent per item, so a translation can never inject markup
+    el.querySelectorAll('.feat > span').forEach((slot, i) => { slot.textContent = items[i]; });
+    el.classList.add('as-grid');
+  })();
+
   const template = document.getElementById('skuStepTemplate');
   let wasPayPalReady = false;
   let attempts = 0;
+
+  // Paddle is the live checkout and needs NOTHING from PayPal. Until 2026-09-07 the price
+  // cards' click handlers were registered inside runOnPayPalReady(), which only ever runs from
+  // the PayPal SDK's onload — so with paypal.com blocked (ad blocker, privacy extension,
+  // corporate proxy, PayPal outage) onload never fired, the handlers were never attached, and
+  // clicking a price did nothing at all, silently. Paddle is wired first and unconditionally
+  // now; PayPal's own buttons stay a progressive enhancement below.
+  function openPaddleCheckout(sku) {
+    // The account is asked for HERE — at the moment of purchase — and nowhere earlier. Browsing
+    // the plans needs no uid; Paddle's customData does. The parent holds the chosen plan across
+    // the sign-in and reopens this page with resumeSku, so the choice survives the detour.
+    if (!uid) {
+      try {
+        if (window.parent && typeof window.parent.requestSignInForCheckout === "function") {
+          window.parent.requestSignInForCheckout(sku);
+          return;
+        }
+      } catch (e) {
+        console.error("requestSignInForCheckout unavailable", e);
+      }
+      return; // never open a checkout that cannot be attributed to an account
+    }
+
+    let itemsList = [
+      {
+        priceId: SKUS[sku].paddlePriceId,
+        quantity: 1
+      }
+    ];
+
+    let customerData = {
+      email,
+      business: {
+        name: businessName,
+      }}
+
+    let custom_data = {
+      uid
+    };
+
+    Paddle.Checkout.open({
+      items: itemsList,
+      customer: customerData,
+      customData:custom_data,
+    });
+  }
+
+  /** The card the user picked, marked so the choice survives a sign-in detour and is never
+   *  silently lost. `selected` is the styling this page already ships. */
+  function markPicked(sku) {
+    document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(c => {
+      c.classList.toggle('selected', c.dataset.wsSku === sku);
+      c.classList.remove('is-opening');
+    });
+  }
+
+  function wirePaddleCheckout() {
+    document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
+      card.addEventListener('click', () => {
+        // Acknowledge the tap BEFORE anything slow happens. Opening a checkout or raising a
+        // sign-in prompt can take a beat, and a card that looks inert for that beat is the same
+        // silent nothing this page used to give everyone with an ad blocker.
+        markPicked(card.dataset.wsSku);
+        card.classList.add('is-opening');
+        openPaddleCheckout(card.dataset.wsSku);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wirePaddleCheckout);
+  } else {
+    wirePaddleCheckout();
+  }
+
+  // Came back from the sign-in the plan choice was interrupted by: finish what they asked for.
+  // Guarded on uid so this can only ever fire for an account that exists.
+  if (resumeSku && uid && SKUS[resumeSku]) {
+    // ONE SHOT. Strip it from the URL as it is consumed, so a refresh — or any later reopen of
+    // this same src — cannot ambush the user with a checkout they did not just ask for.
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("resumeSku");
+      window.history.replaceState(null, "", url.toString());
+    } catch (e) { /* URL unavailable: the guards below still hold */ }
+    setTimeout(() => {
+      markPicked(resumeSku);           // their choice, still visibly theirs
+      openPaddleCheckout(resumeSku);
+    }, 0);
+  }
 
   function runOnPayPalReady() {
     if (!window.paypalSubs || !window.paypalOnce) {
       console.log("PayPal SDK not yet loaded");
       if (attempts++ > 200) {
-        alert('Failed to load payment processor. Please make sure connection is good and refresh the page.');
+        // Paddle already took the click handlers, so the user CAN pay. Only PayPal's own
+        // buttons are missing — not worth interrupting a working checkout with an alert.
+        console.warn("PayPal SDK unavailable; Paddle checkout is unaffected.");
       } else {
         setTimeout(() => runOnPayPalReady(), 200);
       }
@@ -986,37 +1470,8 @@
     });
 
     const baseStep = document.querySelector('[data-ws-step="0"]');
-    document.querySelectorAll('.pricing-card[data-ws-sku]').forEach(card => {
-      card.addEventListener('click', () => {
-        const sku = card.dataset.wsSku;
-        openPaddleCheckout(sku);
-      });
-    });
-
-    function openPaddleCheckout(sku) {
-      let itemsList = [
-        {
-          priceId: SKUS[sku].paddlePriceId,
-          quantity: 1
-        }
-      ];
-
-      let customerData = {
-        email,
-        business: {
-          name: businessName,
-        }}
-
-      let custom_data = {
-        uid
-      };
-
-      Paddle.Checkout.open({
-        items: itemsList,
-        customer: customerData,
-        customData:custom_data,
-      });
-    }
+    // (The price-card click handlers and openPaddleCheckout now live above, outside this
+    // PayPal-gated function — see the note there.)
 
     function closeSkuStep(skuStepElement) {
       skuStepElement.style.transition = 'opacity 0.4s ease';

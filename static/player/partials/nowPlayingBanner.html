@@ -1,0 +1,28 @@
+<!-- The now-playing banner: what the Reader's toolbar slot becomes on every OTHER
+     tab while audio is playing, so "something is reading" is never invisible.
+     Hidden outright when nothing plays — the strip does not linger empty.
+
+     This partial is emitted once per non-Reader tab-root, so it carries NO id
+     attributes: classes only, and every binding is a state key that updates all
+     copies at once. Both handlers already exist (togglePlay, returnToReader). -->
+<div class="now-playing-banner hidden" data-ws-show-if-state="showNowPlayingBanner=true">
+  <button class="now-playing-open" data-ws-onclick="returnToReader"
+          title="<%= htmlWebpackPlugin.options.strings.d20260826_now_playing_chip %>"
+          aria-label="<%= htmlWebpackPlugin.options.strings.d20260826_now_playing_chip %>">
+    <!-- A speaker, NOT a play triangle: this side is "what's sounding", the
+         triangle on the right is the control — two triangles read as two
+         play buttons. -->
+    <svg class="now-playing-glyph now-playing-glyph--stroke" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 8a5 5 0 0 1 0 8"/><path d="M17.7 5a9 9 0 0 1 0 14"/><path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5"/></svg>
+    <span class="now-playing-title" data-ws-label-state="activeDocTitleLabel"></span>
+  </button>
+  <button class="now-playing-toggle" data-ws-onclick="togglePlay"
+          title="<%= htmlWebpackPlugin.options.strings.d20260828_play_pause %>"
+          aria-label="<%= htmlWebpackPlugin.options.strings.d20260828_play_pause %>">
+    <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+    <span data-ws-show-if-state="isPlayingOn=false"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+  </button>
+  <!-- The same fraction the Reader's scrubber publishes — one position, two views. -->
+  <div class="now-playing-progress" aria-hidden="true">
+    <span class="now-playing-progress-fill" data-ws-style-state="width=playbackPercent"></span>
+  </div>
+</div>

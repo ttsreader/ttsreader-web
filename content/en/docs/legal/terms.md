@@ -2,7 +2,7 @@
 title: "EULA & Terms of Service"
 description: "EULA & Terms of Service"
 date: 2025-05-14T13:59:39+01:00
-lastmod: 2025-05-15T13:59:39+01:00
+lastmod: 2026-08-25T00:00:39+01:00
 tags: ["terms", "legal"]
 categories: ["legal"]
 contributors: ["Company"]
@@ -19,7 +19,7 @@ toc: true
 
 ## TL&DR (In Short)
 
-While we do our best to develop & maintain the best [text-to-speech service](/) in the world and keep it as such forever and ever, we make no commitment, no liability, no warranty, and we will not be held accountable for anything as much as permitted by law. All products & services are AS-IS, use at your own risk, can change any time without notice. We also hold the right to stop the service for all or specific accounts without notice. Our relationship is based on continuous win-win without legal bindings or potential lawsuits - you agree not to sue us for anything. If you do not agree with our terms, please do not use our service.
+While we do our best to develop & maintain the best [text-to-speech service](/) in the world and keep it as such forever and ever, we make no commitment, no liability, no warranty, and we will not be held accountable for anything as much as permitted by law. All products & services are AS-IS, use at your own risk, can change any time without notice. We also hold the right to stop the service for all or specific accounts without notice. Our relationship is based on continuous win-win without legal bindings or potential lawsuits - you agree not to sue us for anything. If you do not agree with our terms, please do not use our service. EULA to our app is [Apple's standard EULA](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/).
 
 <br/>
 

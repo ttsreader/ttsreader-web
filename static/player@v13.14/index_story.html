@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en"
+      data-dark-mode data-no-ads
+      data-ws-prefixed-content="true"
+      data-ws-doc-id="aaaa" >
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta
+          name="description"
+          content="TTSReader's Player - Online Text to Speech for Free"
+  />
+  <link rel="apple-touch-icon" href="logo192.png" />
+  <!--
+    manifest.json provides metadata used when your web app is installed on a
+    user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+  -->
+  <link rel="manifest" href="manifest.json" />
+  <!--
+    Notice the use of %PUBLIC_URL% in the tags above.
+    It will be replaced with the URL of the `public` folder during the build.
+    Only files inside the `public` folder can be referenced from the HTML.
+
+    Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+    work correctly both with client-side routing and a non-root public URL.
+    Learn how to configure a non-root public URL by running `npm run build`.
+  -->
+  <title>TTSReader's Text to Speech Player</title>
+
+  <!-- Google Analytics: -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47292499-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-47292499-3');
+  </script>
+  <!-- End of Google Analytics: -->
+
+  <script>
+    // Dark mode toggle:
+    let storedTheme = localStorage.getItem('theme-player-only');
+
+    if (!storedTheme) {
+      let storedBlogTheme = localStorage.getItem('theme');
+
+      if (!storedBlogTheme) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          storedTheme = 'dark-no-bg';
+        } else {
+          storedTheme = 'light-no-bg';
+        }
+      } else {
+        if (storedBlogTheme === 'dark') {
+          storedTheme = 'dark-no-bg';
+        } else {
+          storedTheme = 'light-no-bg';
+        }
+      }
+    }
+
+    if (storedTheme === 'dark-no-bg') {
+      window.setUiToDarkModeAndBgTheme(true, false);
+    } else if (storedTheme === 'dark-bg') {
+      window.setUiToDarkModeAndBgTheme(true, true);
+    } else if (storedTheme === 'light-no-bg') {
+      window.setUiToDarkModeAndBgTheme(false, false);
+    } else if (storedTheme === 'light-bg') {
+      window.setUiToDarkModeAndBgTheme(false, true);
+    } else {
+      window.setUiToDarkModeAndBgTheme(true, false);
+    }
+
+    // Drawer open
+    let storedDrawerMode = localStorage.getItem('drawer-mode');
+
+    if ((storedDrawerMode === 'open' || !storedDrawerMode) && window.matchMedia && window.matchMedia('(min-width: 800px)').matches && window.matchMedia('(min-height: 600px)').matches ) {
+      toggleDrawerOpen();
+    }
+
+    function setUiToDarkModeAndBgTheme(isDark, isBg) {
+      if (isDark && isBg) {
+        document.documentElement.setAttribute('data-dark-mode','true');
+        document.documentElement.setAttribute('data-theme-bg','true');
+        localStorage.setItem('theme-player-only','dark-bg');
+      } else if (isDark && !isBg) {
+        document.documentElement.setAttribute('data-dark-mode','true');
+        document.documentElement.removeAttribute('data-theme-bg');
+        localStorage.setItem('theme-player-only','dark-no-bg');
+      } else if (!isDark && isBg) {
+        document.documentElement.removeAttribute('data-dark-mode');
+        document.documentElement.setAttribute('data-theme-bg','true');
+        localStorage.setItem('theme-player-only','light-bg');
+      } else {
+        document.documentElement.removeAttribute('data-dark-mode');
+        document.documentElement.removeAttribute('data-theme-bg');
+        localStorage.setItem('theme-player-only','light-no-bg');
+      }
+    }
+
+    function toggleDrawerOpen() {
+      let isOpen = document.documentElement.getAttribute('data-drawer-open')==='true';
+      if (isOpen) {
+        document.documentElement.removeAttribute('data-drawer-open');
+        localStorage.setItem('drawer-mode','closed');
+      } else {
+        document.documentElement.setAttribute('data-drawer-open','true');
+        localStorage.setItem('drawer-mode','open');
+      }
+    }
+
+    function toggleTheme() {
+      if (!window.setUiToDarkModeAndBgTheme) {
+        console.log('no window.setUiToDarkModeAndBgTheme');
+        return;
+      }
+
+      // dark -> dark+bg -> light -> light+bg -> dark
+      let isDark = document.documentElement.getAttribute('data-dark-mode')==='true';
+      let isBgImage = document.documentElement.getAttribute('data-theme-bg')==='true';
+
+      if (isDark && isBgImage) {
+        setUiToDarkModeAndBgTheme(false, false);
+      } else if (isDark && !isBgImage) {
+        setUiToDarkModeAndBgTheme(true, true);
+      } else if (!isDark && !isBgImage) {
+        setUiToDarkModeAndBgTheme(false, true);
+      } else {
+        setUiToDarkModeAndBgTheme(true, false);
+      }
+    }
+  </script>
+</head>
+<body>
+
+<div id="root" style="display: flex;flex-direction: column">
+  <div class="Buttons-bar" style="display: flex">
+    <button title="Open / close main drawer" aria-label="Open / close main drawer" style="" onclick="toggleDrawerOpen();">
+      <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MenuIcon"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+    </button>
+    <span style="display: inline-block;flex: 1"></span>
+
+    <button data-ws-show-if-state="isRepeatMode=false" title="Turn repeat mode on" aria-label="Turn repeat mode on"  role="button" style="position: relative; top: 2px;" class="Drawer-list-element" data-ws-onClick="toggleRepeatMode"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-repeat" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
+    <button data-ws-show-if-state="isRepeatMode=true" title="Turn repeat mode off" aria-label="Turn repeat mode off" role="button" style="position: relative; top: 2px; color: cornflowerblue" class="Drawer-list-element" data-ws-onClick="toggleRepeatMode"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-repeat" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path></svg></button>
+    &nbsp;
+
+    <div class="Dropdown-header" style="display: inline-block; vertical-align: middle;cursor: pointer;position: relative;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 17v2h14v-2H5zm4.5-4.2h5l.9 2.2h2.1L12.75 4h-1.5L6.5 15h2.1l.9-2.2zM12 5.98 13.87 11h-3.74L12 5.98z"></path></svg>
+      <div class="Dropdown-content" style="left:0;width:120px; translate: -40px;">
+        <span data-ws-onClick="fontDecrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM23 11v2h-8v-2h8z"></path></svg></span>
+        <span data-ws-onClick="fontIncrease" style="display: inline-block; line-height: 20px; font-size: 18px; margin: 5px; padding: 5px; border-radius: 50%;background-color: white; color: blue;fill:blue;"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM20 11h3v2h-3v3h-2v-3h-3v-2h3V8h2v3z"></path></svg></span>
+      </div>
+    </div>
+    <button onclick="toggleTheme();" id="mode" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
+      <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+    </button>
+    <button data-ws-show-if-state="isPremium=true" onclick="alert('You are premium!');">🏆</button>
+    <span style="display: inline-block;flex: 1"></span>
+  </div>
+
+  <div class="Go-premium-banner" data-ws-show-if-state="isPremium=false" style="text-align: center;text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    font-size: smaller;
+    background-color: black;"><a style="cursor: pointer; text-decoration: none;color: orange;display: block; padding: 10px;" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();">Click here to upgrade. 100% satisfaction guaranteed</a></div>
+
+  <div style="display: flex;flex: 1;overflow: hidden;">
+    <drawer style="overflow: hidden;">
+      <div style="position: absolute;top:10px;right:10px;padding: 10px;cursor: pointer;" onclick="toggleDrawerOpen();">
+        <svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CloseIcon"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+      </div>
+      <a href="/" target="_blank" style="padding: 5px 20px;text-decoration: none;color:inherit;font-weight: bold;display: block;text-align: center;position: absolute;top: 20px;left:5px">
+        <span style="color: #a51b14">TTS</span>Reader
+      </a>
+      <div style="padding: 10px;margin-top: 50px;overflow-x: hidden;overflow-y: auto;padding-bottom: 100px;">
+        <div data-ws-show-if-state="isSignedIn=false">
+          <a class="Menu-list-element" onclick="toggleSignIn();" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"></path></svg>&nbsp;&nbsp;Sign in / Sign up</a>
+        </div>
+        <div data-ws-show-if-state="isSignedIn=true">
+          <a data-ws-show-if-state="isSignedIn=true" class="Menu-list-element" onclick="toggleSignIn();" style="text-decoration: none;display: block"><svg class="Top-btn-svg"><path d="m17 7-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg>&nbsp;&nbsp;Sign out</a>
+        </div>
+        <div data-ws-show-if-state="isPremium=false">
+          <a class="Menu-list-element" data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" style="cursor: pointer;text-decoration: none;display: block">🏆&nbsp;&nbsp;&nbsp;Go Premium&nbsp;&nbsp;&nbsp;</a>
+        </div>
+        <a class="Menu-list-element" onclick="gtag('event','mp3_guide_click_player_drawer',{value:'1'})" data-ws-toggle="#mp3GuideModal" style="text-decoration:none;">Download mp3 audio file</a>
+        <a class="Menu-list-element" data-ws-toggle="#moreVoices" onclick="gtag('event','more_voices_click_player_drawer',{value:'1'});">Need more voices ❓</a>
+        <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank" style="text-decoration: none;display: block"><svg class="Top-btn-svg MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MessageIcon"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"></path></svg>&nbsp;&nbsp;Feedback form</a>
+
+        <div data-ws-show-if-state="isShareSupported=true">
+          <a class="Menu-list-element" onclick="share();"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M8.7 10.7l6.6 -3.4"></path>
+            <path d="M8.7 13.3l6.6 3.4"></path>
+          </svg>&nbsp;&nbsp;Share</a>
+        </div>
+        <div data-ws-show-if-state="isShareSupported=false">
+          <a class="Menu-list-element" data-ws-toggle="#shareModal"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M8.7 10.7l6.6 -3.4"></path>
+            <path d="M8.7 13.3l6.6 3.4"></path>
+          </svg>&nbsp;&nbsp;Share</a>
+        </div>
+
+      </div>
+
+    </drawer>
+
+    <div style="flex: 1;display: flex;flex-direction: column;overflow: hidden;">
+      <div class="App"  style="flex: 1;position: relative;display: flex;flex-direction: column">
+        <div class="Book-bar" data-ws-show-if-state="isBook=true" style="text-align: center">
+          <span data-ws-label-state="bookTitle"></span>&nbsp;-&nbsp;
+          <button data-ws-onClick="loadPrevChapter" title="Load Previous Chapter" aria-label="Load Previous Chapter"><b>&lArr;</b></button>
+          <span data-ws-label-state="currentChapterLabel"></span> / <span data-ws-label-state="totalChapters"></span>
+          <button data-ws-onClick="loadNextChapter" title="Load Next Chapter" aria-label="Load Next Chapter"><b>&rArr;</b></button>
+        </div>
+        <div class="Text-box-container">
+          <div class="Text-box" style="padding-bottom: 20px" data-ws-prefixed-content="true" data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Type or paste text into this box, click the play button, and I will read it out loud for you. To read a webpage - paste its URL - and click play. You may also upload files, change voices, theme, font size and more." placeholder2="This player is under active development, we're working on making it better every day.">
+            <div data-ws-do-not-read="true" style="min-height: 100%;background-color: wheat;color:black;display: flex;flex-direction: column;text-align: center;">
+              <div style="flex: 1"></div>
+              <h1>Three men in a boat</h1>
+              <p>By <a href="#" style="color: blue;">Ronen Rabinovici</a></p>
+              <img src="logo_512.png" style="max-width: 90%;margin: auto;width: 600px;aspect-ratio: 1.5">
+              <div style="flex: 1"></div>
+            </div>
+            <h1 style="text-align: center">Test. How are you?</h1>
+            <p>dhdkjh</p>
+            <h2>Headline2</h2>
+          </div>
+        </div>
+        <div class="Playback-buttons-bar">
+          <span>
+            <button title="Set narration language, voice & speed" aria-label="Set narration language, voice & speed" data-ws-toggle="#voicesModal"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"></path></svg></button>
+            <button title="Jump backwards" aria-label="Jump backwards" data-ws-onClick="rewind"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6 8.5 6V6l-8.5 6z"></path></svg></button>
+            <span style="display: inline-block; width: 80px;"></span>
+            <button title="Jump forward" aria-label="Jump forward" data-ws-onClick="forward"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 18 8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path></svg></button>
+            <button title="Toggle recording" aria-label="Toggle recording" data-ws-show-if-state="isRecordingSupported=true" data-ws-onClick="toggleRecord">
+              <svg data-ws-show-if-state="isRecordingOn=false" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
+              <svg data-ws-show-if-state="isRecordingOn=true"  class="hidden Blinking-record-btn Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
+            </button>
+            <button data-ws-show-if-state="isRecordingSupported=false" title="Go to beginning" aria-label="Go to beginning" data-ws-onClick="goToStart"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"></path></svg></button>
+            <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
+              <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg></span>
+              <span data-ws-show-if-state="isPlayingOn=false"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626"
+              crossorigin="anonymous"></script>-->
+      <!-- ResponsiveHorizontal20230518 -->
+      <ins class="adsbygoogle Ad Ad-bottom-banner"
+           data-ad-client="ca-pub-5434274073094626"
+           data-ad-slot="8622089184"></ins>
+
+      <div class="Bottom-lift-up" style="height: 0;width: 100%;"></div>
+    </div>
+
+    <!-- ResponsiveVertical20230518 -->
+    <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626"
+            crossorigin="anonymous"></script>-->
+    <ins class="adsbygoogle Ad Ad-right-banner"
+         data-ad-client="ca-pub-5434274073094626"
+         data-ad-slot="1642597928"></ins>
+
+  </div>
+
+  <div class="Modal" id="voicesModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;">
+      <button class="Close-modal" style="z-index: 999"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
+      <h4 style="font-size: 1.2em;">
+        <span data-ws-show-if-state="isToWelcome=true">Welcome! Start by choosing your preferred voice & speed<br/></span>
+        <span data-ws-show-if-state="isToWelcome=false">Choose your voice & speed</span>
+        <select class="Language-selector Flag-font" data-ws-onChange="handleLanguageChange" data-ws-value-state="selectedLanguageCode" style="font-size: 1.1em;background-color:transparent;width: 230px;outline: none;border:none;"></select>
+      </h4>
+      <div style="max-width: 100%; width: 350px; margin: -5px auto 30px; flex: 1;overflow-y: auto;text-align: left">
+
+        <div>
+              <span style="font-size: 1.1em;user-select: none;">Speed:&nbsp;
+                <span data-ws-onClick="slower" style="user-select: none;vertical-align: baseline;border: 1px solid blue;text-align: center;cursor: pointer;display: inline-block; line-height: 16px; font-size: 18px; margin: 5px; width: 20px;height: 20px; border-radius: 10px;background-color: white; color: blue;">-</span>
+                X<span data-ws-label-state="selectedRate" style="width: 2em;display:inline-block;text-align: center">1</span></span>
+          <span data-ws-onClick="faster" style="user-select: none;vertical-align: baseline;border: 1px solid blue;text-align: center;cursor: pointer;display: inline-block; line-height: 16px; font-size: 18px; margin: 5px; width: 20px;height: 20px; border-radius: 10px;background-color: white; color: blue;">+</span>
+          <input type="range" data-ws-value-state="selectedRateSliderValue" style="width: 300px;max-width:90%; margin: auto;display: block;height: 50px;" min="1" max="20" data-ws-onInput="onRateChange">
+        </div>
+        <div style="text-align: right;opacity: 0.7;margin-bottom: 15px;margin-right: 10px;">
+
+          <svg style="fill: lightseagreen;position: relative;top:-2px;right:-20px;
+    vertical-align: middle;" class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+          <svg style="position: relative;top:15px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hand-click" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5"></path>
+            <path d="M11 11.5v-2a1.5 1.5 0 0 1 3 0v2.5"></path>
+            <path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5"></path>
+            <path d="M17 11.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7l-.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47"></path>
+            <path d="M5 3l-1 -1"></path>
+            <path d="M4 7h-1"></path>
+            <path d="M14 3l1 -1"></path>
+            <path d="M15 6h1"></path>
+          </svg>
+          to test voice
+          <svg style="transform: rotate(90deg);position: relative;top:10px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-ramp-right-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M16 14l4 -4l-4 -4"></path>
+            <path d="M6 21c0 -6.075 4.925 -11 11 -11h3"></path>
+          </svg>
+        </div>
+        <div class="Best-voices">
+
+        </div>
+
+        <div class="Voices-list"></div>
+      </div>
+      <!--<select class="Voice-selector" data-ws-onChange="handleVoiceChange" data-ws-value-state="selectedVoiceUri"></select>-->
+      <p style="text-align: center">
+        <span style="color: green">✓</span> Indicates voice is allowed for publishing, given a <a href="https://ttsreader.com/upgrade/" target="_blank" style="color: orangered">license</a>.</p>
+    </div>
+  </div>
+
+  <div class="Modal" id="recordModalNonPremium" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal"><svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
+      <div style="overflow: auto;padding:10px;">
+        <h4>Recording the Synthesized Speech</h4>
+        <div data-ws-show-if-state="isPremium=false">
+          <p style="text-align: justify">Recording requires premium and includes licensing for commercial use & publishing (see publishing terms <a href="https://ttsreader.com/docs/guides/commercial/" target="_blank">here</a>).</p>
+          <button data-ws-toggle="#upgradeModal" onclick="signInIfNeeded();" class="Full-width-btn" style="background-color: darkgreen;color: white">Upgrade to Premium</button>
+          <div data-ws-show-if-state="isSignedIn=false">
+            <p style="text-align: center">Already premium? Sign in</p>
+            <button onclick="signIn();" class="Full-width-btn" style="background-color: transparent;color: red;border-color: red">Sign In with Google</button>
+          </div>
+          <!--<p style="text-align: center">Just want to check it out?</p>
+          <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="background-color: transparent;color: cornflowerblue;border-color: cornflowerblue">Record 10 seconds</button>-->
+        </div>
+        <div data-ws-show-if-state="isPremium=true">
+          <p style="text-align: center;font-size: larger;">🏆 🍾🥂 Thank you for upgrading!!! 🎉🚀 🏆 </p>
+          <button data-ws-toggle="#recordStartModal" class="Full-width-btn" style="background-color: transparent;color: cornflowerblue;border-color: cornflowerblue">Continue with recording</button>
+        </div>
+        <br/><br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="recordStartModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal"><svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
+      <div style="overflow: auto;padding:10px 30px;">
+        <h4>Recording the Synthesized Speech</h4>
+        <p style="text-align: justify">Watch this short video for understanding the steps. When ready - click the 'Start Recording' button.</p>
+        <div class="videowrapper"><iframe style="display:block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+        <button data-ws-onClick="startRecording" class="Full-width-btn" style="background-color: darkgreen;color: white">Start Recording</button>
+        <!--<p style="text-align: justify">A popup will open (as shown in the screenshot below). Within it: 1. Select ‘Entire Screen’ tab 2. Select the screen itself 3. Check ‘Share system audio’ 4. Click ‘Share’ button.</p>
+        <p style="text-align: justify">TTSReader will play the text and capture it at the same time. Once done, click 'Stop Sharing' or the record button to finish and download the generated audio file.</p>
+        <img src="images/recording-steps.webp"  id="recordingImgId" data-src="images/recording-steps.webp" style="max-width: 95%;
+margin: auto;
+max-height: 90vh;
+border: orangered 2px solid;
+border-radius: 10px;" alt="Recording steps screenshot" title="Recording steps screenshot" >
+        &lt;!&ndash;<p style="text-align: justify">The file is in webm format. Need it as an mp3? Use <a href="https://ttsreader.com/converters/" target="_blank">our audio converter tool</a>.</p>&ndash;&gt;
+        <br/>
+        <button data-ws-onClick="startRecording" class="Full-width-btn" style="background-color: darkgreen;color: white">Start Recording</button>-->
+        <br/>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="upgradeModal" style="display: none">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal"><svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
+      <div style="overflow: auto;padding:10px 30px;">
+        <h4>Get More & Support the Team 🔥🔥🔥</h4>
+
+        <p style="font-size: 1em;">Single payment. No commitment. No recurring payments.</p>
+        <br/>
+
+        <div data-ws-show-if-state="isSignedIn=false">
+          <button class="styled-btn" onclick="toggleSignIn();">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:v="https://vecta.io/nano" width="12" height="12" viewBox="0 0 186.69 190.5"><g transform="translate(1184.583 765.171)"><path clip-path="none" mask="none" d="M-1089.333-687.239v36.888h51.262c-2.251 11.863-9.006 21.908-19.137 28.662l30.913 23.986c18.011-16.625 28.402-41.044 28.402-70.052 0-6.754-.606-13.249-1.732-19.483z" fill="#4285f4"/><path clip-path="none" mask="none" d="M-1142.714-651.791l-6.972 5.337-24.679 19.223h0c15.673 31.086 47.796 52.561 85.03 52.561 25.717 0 47.278-8.486 63.038-23.033l-30.913-23.986c-8.486 5.715-19.31 9.179-32.125 9.179-24.765 0-45.806-16.712-53.34-39.226z" fill="#34a853"/><path clip-path="none" mask="none" d="M-1174.365-712.61c-6.494 12.815-10.217 27.276-10.217 42.689s3.723 29.874 10.217 42.689c0 .086 31.693-24.592 31.693-24.592-1.905-5.715-3.031-11.776-3.031-18.098s1.126-12.383 3.031-18.098z" fill="#fbbc05"/><path d="M-1089.333-727.244c14.028 0 26.497 4.849 36.455 14.201l27.276-27.276c-16.539-15.413-38.013-24.852-63.731-24.852-37.234 0-69.359 21.388-85.032 52.561l31.692 24.592c7.533-22.514 28.575-39.226 53.34-39.226z" fill="#ea4335" clip-path="none" mask="none"/></g></svg>
+            &nbsp;&nbsp;Sign In with Google to Start
+          </button>
+          <p style="text-transform: uppercase; opacity: 0.7;font-size: 0.7em;" >Secure sign in with Google</p>
+        </div>
+
+        <div data-ws-show-if-state="isSignedIn=true" style="overflow: hidden;
+    padding: 12px;
+    background-color: whitesmoke;
+    border-radius: 10px;">
+          <p style="font-size: 1em;color:#333333;">Only $2/mo billed once for the whole year. No recurring payments. Does not auto renew.</p>
+          <div id="paypal-button-container"></div>
+        </div>
+        <br/>
+        <h4>Main Benefits</h4>
+        <ul style="list-style-type: '\2705   ';
+    list-style-position: outside;
+    margin: 0 0 1em 0; text-align: start">
+          <li>No Ads</li>
+          <li>Faster loading</li>
+          <li>Unlimited continuous reading</li>
+          <li>Recording enabled on Windows PC</li>
+          <li>Commercial license</li>
+          <li>Unlock all features</li>
+          <li>Premium support</li>
+        </ul>
+        <p>100% satisfaction guaranteed! <a href="/upgrade/" target="_blank">Learn more</a></p>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="mp3GuideModal" style="display: none">
+    <div style="height:20px;"></div>
+    <div class="Modal-content" style="display: flex; line-height: 1.5em; flex-direction: column;border: orangered 1px solid;">
+      <button class="Close-modal"><svg style="width: 26px;height: 26px;position: relative;top: 2px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
+      <h3>How to generate mp3 files from text with TTSReader?</h3>
+      <div class="videowrapper"><iframe style="display:block" src="https://www.youtube.com/embed/Xq09r01GetQ" title="YouTube video player - Generate audio mp3 files from synthesized speech with TTSReader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+      <br/>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="Modal" id="helpModal" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal"><svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
+      <div>
+        <img id="helpImgId" data-src="images/help.png" style="max-width: 95%;
+    margin: auto;
+    max-height: 90vh;
+    border: orangered 2px solid;
+    border-radius: 10px;">
+      </div>
+    </div>
+  </div>
+
+  <div class="Modal" id="moreVoices" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal"><svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
+      <div style="overflow-y: auto;max-height: 90%;text-align: justify;">
+        <h3 style="text-align: center">More Voices</h3>
+
+        <div data-ws-show-if-state="os=win">
+          <div data-ws-show-if-state="isChrome=true">
+            <p>- More voices are available when using TTSReader on the Edge browser. Specifically - Christopher & Michelle are both exceptional!</p>
+          </div>
+          <div data-ws-show-if-state="isChrome=false">
+            <p>- More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher & Michelle are both exceptional!</p>
+          </div>
+        </div>
+        <div data-ws-show-if-state="os=mac">
+          <p>- More voices are available when using TTSReader on Chrome / Edge browsers. Specifically - on Chrome - Noah is our recommendation. On Edge - Christopher & Michelle are both exceptional!</p>
+        </div>
+        <div>
+          <p style="font-weight: bold">Here are some of the available voices:</p>
+          <p><u>On Edge:</u></p>
+          <div>Christopher: <audio style="vertical-align: middle" controls src="audio/Christopher.mp3" preload="metadata"/></div>
+          <div>Michelle: <audio controls src="audio/Michelle.mp3" preload="metadata"/></div>
+          <br/>
+          <p><u>On Chrome:</u></p>
+          <div>Noah: <audio controls src="audio/Noah.mp3" preload="metadata"></audio></div>
+          <div>Lily: <audio controls src="audio/Lily.mp3" preload="metadata"></audio></div>
+          <br/>
+
+        </div>
+        <p>- Using custom SAPI5 voices is possible on Windows using Firefox browser.</p>
+        <p>- On mobile, you will find more voices using our <a href="/mobile/" target="_blank">text-to-speech mobile apps</a></p>
+        <p>- We're working on making even more voices available for <a href="/upgrade/" target="_blank">Premium users</a>.</p>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+  </div>
+
+  <div class="Modal" id="shareModal" style="display: none;">
+    <div style="flex:1"></div>
+    <div class="Modal-content" style="max-width: 100%;max-height: 100vh;">
+      <button class="Close-modal"><svg style="" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
+      <div>
+        <p><a style="cursor: pointer;" onclick="share('facebook')" target="_blank">Share on Facebook</a></p>
+        <p><a style="cursor: pointer;" onclick="share('twitter')" target="_blank">Share on Twitter</a></p>
+        <p><a style="cursor: pointer;" onclick="share('whatsapp')" target="_blank">Share on WhatsApp</a></p>
+        <p><a style="cursor: pointer;" onclick="share('linkedin')" target="_blank">Share on LinkedIn</a></p>
+        <p><a style="cursor: pointer;" onclick="copy(window.location.href);">Copy link</a></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--<div class="Chat-bubble" style="position: fixed;right: 5px;bottom: 20%;z-index: 2;background-color: lightblue;padding: 16px;border-radius: 20px 0 20px 20px;">
+  <button style="position: absolute;top:0;right:0;background-color: transparent;border: none;padding:10px;">X</button>
+</div>-->
+<!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
+
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
+
+  To begin the development, run `npm start` or `yarn start`.
+  To create a production bundle, use `npm run build` or `yarn build`.
+-->
+
+<script>
+
+  function copy(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      console.log('Copied!');
+    }, function() {
+      console.log('Copy error')
+    });
+  }
+
+  function share(destination) {
+    let url = window.location.href;
+    switch (destination) {
+      case 'facebook':
+        window.open('https://www.facebook.com/sharer.php?u=' + url, '_blank');
+        break;
+      case 'twitter':
+        window.open('https://twitter.com/intent/tweet?url=' + url, '_blank');
+        break;
+      case 'whatsapp':
+        window.open('https://api.whatsapp.com/send?text=' + url, '_blank');
+        break;
+      case 'linkedin':
+        window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + url, '_blank');
+        break;
+      default:
+        const shareData = {
+          title: "TTSReader",
+          text: "Listen to any text with TTSReader. AI powered natural sounding voices.",
+          url: url,
+        };
+
+        navigator.share(shareData)
+                .then(() => console.log('Share was successful.'))
+                .catch((error) => console.log('Sharing failed', error));
+    }
+  }
+
+  function loadImages(selector) {
+    document.querySelectorAll(selector).forEach((el)=>{
+      if (!el.getAttribute('src')) {
+        el.setAttribute('src', el.getAttribute('data-src'));
+      }
+    });
+  }
+
+  let ce = document.querySelector('[contenteditable]')
+  if (ce) {
+    ce.addEventListener('paste', function (e) {
+      e.preventDefault()
+      var text = e.clipboardData.getData('text/plain')
+      document.execCommand('insertText', false, text)
+    })
+  }
+
+  document.querySelectorAll('.Modal').forEach((el)=>{
+    el.addEventListener('click',((evt) => {
+      if (!evt.target.closest('.Modal-content')) {
+        evt.target.closest('.Modal').style.display = "none";
+      }
+    }));
+  });
+
+  document.querySelectorAll('.Close-modal').forEach((el)=>{
+    el.addEventListener('click',((evt) => {
+      evt.target.closest('.Modal').style.display = "none";
+    }));
+  });
+
+  if (window.matchMedia( "(hover: none)" ).matches) {
+    // hover unavailable
+    document.addEventListener('click', ({ target }) => {
+      if (!target.closest('.Dropdown-content')) {
+        document.querySelectorAll('.Dropdown-content').forEach((el)=>{
+          el.style.display = 'none';
+          document.querySelector('.Text-box').setAttribute('contentEditable',true);
+        })
+      }
+    });
+
+    document.querySelectorAll('.Dropdown-header').forEach((el)=>{
+      if (el instanceof Element) {
+        el.addEventListener('click',(ev)=>{
+          if (ev.target.closest('.Dropdown-content')) {
+            return;
+          }
+          let child = el.querySelector('.Dropdown-content');
+          let textBox = document.querySelector('.Text-box');
+          if (getComputedStyle(child).display!=="none") {
+            child.style.display = 'none';
+            textBox.setAttribute('contentEditable',true);
+          } else {
+            child.style.display = 'block';
+            textBox.removeAttribute('contentEditable');
+            ev.preventDefault();
+            ev.stopPropagation();
+          }
+        });
+      }
+    })
+  }
+
+  function feedback(value) {
+    if (gtag) {
+      gtag('event', value>0 ? "feedback_good" : "feedback_bad", {
+        'value': value>0 ? "good" : "bad"
+      });
+    }
+
+    if (value<0) {
+      window.open("https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link","_blank");
+    } else {
+      alert('Thank you for your feedback ❤️');
+    }
+  }
+</script>
+
+<div id="area" style="height: 0;width: 0; visibility: hidden"></div>
+
+<script>
+  /*
+  This script is for sign-in and for premium status.
+   */
+
+  let clockStartedOn = Date.now();
+  function stopper() {
+    return Math.round((Date.now()-clockStartedOn)/1000) + ": ";
+  }
+
+  function fetchJsFile(url, callback) {
+    let newEl = document.createElement('script');
+    newEl.src=url;
+    newEl.onload = function(){
+      if (callback) {
+        callback();
+      }
+    };
+    document.getElementsByTagName("head")[0].appendChild(newEl);
+  }
+
+  if (document.readyState == "loading") {
+    // Still loading, no need for optional added scripts. Wait.
+    console.log(stopper() + 'Script awaiting to load all DOM');
+    addEventListener('DOMContentLoaded', (event) => {
+      runPostLoadScript();
+    });
+  } else {
+    console.log(stopper() + 'Loading script right away');
+    runPostLoadScript();
+  }
+
+  function runPostLoadScript() {
+
+    console.log(stopper() + 'Loading script post DOM');
+
+    let srcs = [
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js",
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js",
+      "https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js",
+      "https://www.paypal.com/sdk/js?client-id=AbvUIH2jxOuBf_TbnAj8p5PgIuISCm8VRvfb6xcVR5S48p7o3jsKn9iOC8yJ5ross5_Q5RmP5L5hn0W-",
+      "static/js/paypal-utils3.js",
+    ]
+
+    let loadedScripts = 0;
+    function onScriptLoaded() {
+      loadedScripts++;
+      if (loadedScripts==srcs.length) {
+        runDependentScript();
+      } else {
+        fetchJsFile(srcs[loadedScripts], onScriptLoaded);
+      }
+    }
+
+    fetchJsFile(srcs[0], onScriptLoaded);
+
+    function runDependentScript() {
+      let firebaseConfig = {
+        apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
+        authDomain: "ttsreader.firebaseapp.com",
+        databaseURL: "https://ttsreader.firebaseio.com",
+        projectId: "ttsreader",
+        messagingSenderId: "656667743185"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        //window.globalMethods.closeModalById("modalSigninVertical");
+        console.log(stopper() + 'user signed ' + (user ? "IN" : "OUT"));
+
+        if (user) {
+          // User is signed in.
+          window.updateStateWithParentData({
+            wasAuthReceived: true,
+            uid: user.uid,
+            email: user.email
+          });
+          listenToDatabaseData(user.uid);
+          resetPayPalButton(24, user.uid, "paypal-button-container");
+        } else {
+          window.updateStateWithParentData({
+            wasAuthReceived: false,
+            uid:  "",
+            email: ""
+          });
+          if (getAppState && !getAppState().data.isPremium) {
+            injectAds();
+          }
+        }
+      });
+    }
+  }
+
+  function listenToDatabaseData(uid) {
+    firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log(stopper() + 'got user data from db: ', data);
+      if (!data) {
+        window.updateStateWithParentData({
+          wasUserDataReceived: true,
+          isPremiumByLegacy: false,
+        })
+        return;
+      }
+
+      if (data.isPremium) {
+        window.updateStateWithParentData({
+          wasUserDataReceived: true,
+          isPremiumByLegacy: true,
+          isPremium: true,
+          //epochLicenseExpirationDateInSecs: doc.data() ? (doc.data().hasOwnProperty("epochLicenseExpirationDateInSecs") ? doc.data().epochLicenseExpirationDateInSecs : 0) : 0
+        });
+      } else {
+        window.updateStateWithParentData({
+          wasUserDataReceived: true,
+          isPremiumByLegacy: false,
+          isPremium: false,
+          //epochLicenseExpirationDateInSecs: doc.data() ? (doc.data().hasOwnProperty("epochLicenseExpirationDateInSecs") ? doc.data().epochLicenseExpirationDateInSecs : 0) : 0
+        });
+      }
+    });
+
+    firebase.database().ref('/purchases/' + uid).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log(stopper() + 'got purchases data from db: ', data);
+      if (data) {
+        window.updateStateWithParentData({
+          werePurchasesReceived: true,
+          purchases: data,
+        });
+      } else {
+        window.updateStateWithParentData({
+          werePurchasesReceived: true,
+          purchases: [],
+        });
+      }
+
+      setTimeout(() => {
+        if (getAppState && !getAppState().data.isPremium) {
+          injectAds();
+        }
+      }, 1000);
+    });
+  }
+
+  function getOs() {
+    if (!window.navigator) {
+      return "unknown";
+    }
+
+    let userAgentLowerCaseString = ("" + navigator.userAgent + " " + navigator.platform + " " + navigator.userAgentData).toLowerCase();
+
+    if (/android/i.test(userAgentLowerCaseString)) {
+      return "android";
+    }
+
+    if (/mac/i.test(userAgentLowerCaseString) && "ontouchend" in document) {
+      return "ios";
+    }
+
+    if (/ipad|iphone|ipod|ios/i.test(userAgentLowerCaseString)) {
+      return "ios";
+    }
+
+    if (/mac/i.test(userAgentLowerCaseString)) {
+      return "mac";
+    }
+
+    if (/win/i.test(userAgentLowerCaseString)) {
+      return "win";
+    }
+
+    return "unknown"
+  }
+
+  function injectAds() {
+    let isSafari = window.safari !== undefined;
+    let isIos = getOs() === 'ios';
+
+    if (isSafari || isIos) {
+      // TODO: Inject static images links to amazon, or write about premium advantages with a call to action button...
+      return;
+    } else {
+      document.documentElement.removeAttribute('data-no-ads');
+      // Inject Adsense:
+      let newScriptEl = document.createElement('script');
+      newScriptEl.setAttribute("src", "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5434274073094626");
+      newScriptEl.setAttribute("async", "true");
+      newScriptEl.setAttribute("crossorigin", "anonymous");
+      document.getElementsByTagName("head")[0].appendChild(newScriptEl);
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  }
+
+  function toggleSignIn() {
+    var user = firebase.auth().currentUser;
+    //console.log("user " , user);
+
+    if (user) {
+      // User is signed in.
+      signOut();
+    } else {
+      // No user is signed in.
+      signIn();
+    }
+  }
+
+  function signInIfNeeded() {
+    /*let uid = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
+    if (!uid) {
+      signIn();
+    }*/
+  }
+
+  function signOut() {
+    firebase.auth().signOut();
+  }
+
+  function signIn() {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      let token = result.credential.accessToken;
+      // The signed-in user info.
+      let user = result.user;
+      let isNewUser = result.additionalUserInfo.isNewUser;
+      if (isNewUser) {
+        // Api.sendWelcomeEmail();
+      }
+    }).catch(function(error) {
+      // Handle Errors here.
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      // The email of the user's account used.
+      let email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      let credential = error.credential;
+      // ...
+    });
+  }
+</script>
+</body>
+</html>

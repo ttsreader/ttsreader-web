@@ -1,0 +1,219 @@
+<div class="tab-page">
+  <h2 class="tab-page-title"><%= htmlWebpackPlugin.options.strings.d20260826_tab_account %></h2>
+
+  <!-- Identity -->
+  <div data-ws-show-if-state="isSignedIn=false">
+    <button class="account-card account-signin-card" data-ws-toggle="#signinModal">
+      <span class="account-tile account-tile-user"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg></span>
+      <span class="account-card-main">
+        <span class="account-card-title"><%= htmlWebpackPlugin.options.strings.sign_in_up %></span>
+      </span>
+    </button>
+  </div>
+  <div class="account-card" data-ws-show-if-state="isSignedIn=true">
+    <span class="account-tile account-tile-user"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg></span>
+    <span class="account-card-main">
+      <span class="account-card-label"><%= htmlWebpackPlugin.options.strings.d20260827_account_signed_in_as %></span>
+      <span class="account-card-title" data-ws-label-state="email"></span>
+    </span>
+    <button class="account-ghost-btn" data-ws-onclick="toggleSignInMethod" title="<%= htmlWebpackPlugin.options.strings.d20260827_sign_out %>"><%= htmlWebpackPlugin.options.strings.d20260827_sign_out %></button>
+  </div>
+
+  <!-- Plan not confirmed yet: never draw a padlock from an unknown plan -->
+  <div data-ws-show-if-state="accountStatus=checking">
+    <div class="account-section-head"><%= htmlWebpackPlugin.options.strings.d20260827_account_subscription_credits %></div>
+    <div class="account-card account-card-block">
+      <span class="account-checking-row">
+        <span class="account-spinner"></span>
+        <span><%= htmlWebpackPlugin.options.strings.d20260827_account_status_checking %></span>
+      </span>
+      <p class="account-note"><%= htmlWebpackPlugin.options.strings.d20260827_account_checking_note %></p>
+    </div>
+  </div>
+
+  <!-- Subscription & credits -->
+  <div data-ws-show-if-state="accountLoaded=true">
+    <div class="account-section-head"><%= htmlWebpackPlugin.options.strings.d20260827_account_subscription_credits %></div>
+    <div class="account-card account-card-block">
+
+      <div class="account-row">
+        <span class="account-row-label"><%= htmlWebpackPlugin.options.strings.d20260827_account_status %></span>
+        <span class="account-row-value">
+          <span id="accountStatusBadge" class="account-status-badge" data-ws-label-state="accountStatusLabel"></span>
+          <span class="account-plan-name" data-ws-label-state="accountPlanName"></span>
+        </span>
+      </div>
+
+      <div data-ws-show-if-state="accountShowUsageBar=true">
+        <div class="account-row account-row-tight">
+          <span class="account-row-label"><%= htmlWebpackPlugin.options.strings.d20260827_account_monthly_usage %></span>
+          <span class="account-row-value account-mono" data-ws-label-state="accountUsageText"></span>
+        </div>
+        <div class="account-bar"><div id="accountUsageFill" class="account-bar-fill" data-ws-style-state="width=accountUsageBarWidth"></div></div>
+      </div>
+
+      <div class="account-row" data-ws-show-if-state="accountShowFreeUsage=true">
+        <span class="account-row-label"><%= htmlWebpackPlugin.options.strings.d20260827_account_free_usage %></span>
+        <span class="account-row-value account-mono" data-ws-label-state="accountFreeUsageText"></span>
+      </div>
+
+      <!-- Credits are a purchase path, not a statistic: the panel states the
+           balance and offers the top-up in the same breath. Shown whenever the
+           plan is known — a subscriber near their quota wants this as much as
+           a free account does. -->
+      <div class="account-credits">
+        <span class="account-credits-icon">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.3l5.6 .2l-4.4 3.4l1.6 5.4l-4.7 -3.1l-4.7 3.1l1.6 -5.4l-4.4 -3.4l5.6 -.2z"/></svg>
+        </span>
+        <span class="account-credits-body">
+          <span class="account-credits-label"><%= htmlWebpackPlugin.options.strings.d20260827_account_extra_credits %></span>
+          <span class="account-credits-value account-mono" data-ws-label-state="accountCreditsText"></span>
+          <span class="account-credits-note" data-ws-label-state="accountCreditsNote"></span>
+        </span>
+        <!-- Says "Add credits" to a subscriber and "Upgrade to Premium" to everyone else: top-ups
+             are sold only to active plans now, and this button has no visibility condition. -->
+        <button class="account-credits-btn" data-ws-onclick="accountAddCredits">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l0 14"/><path d="M5 12l14 0"/></svg>
+          <span data-ws-label-state="accountCreditsBtnLabel"></span>
+        </button>
+      </div>
+
+      <div class="account-row" data-ws-show-if-state="accountShowAiGenerations=true">
+        <span class="account-row-label"><%= htmlWebpackPlugin.options.strings.d20260827_account_ai_generations %></span>
+        <span class="account-row-value account-mono" data-ws-label-state="accountAiGenerations"></span>
+      </div>
+
+      <p class="account-note account-note-warn" data-ws-show-if-state="accountShowNoRenew=true">
+        <%= htmlWebpackPlugin.options.strings.d20260827_account_expires_no_renew.replace('%s','') %>
+        <span data-ws-label-state="accountExpiryText"></span>
+      </p>
+      <p class="account-note" data-ws-show-if-state="accountShowTierNote=true" data-ws-label-state="accountTierNoteText"></p>
+
+      <button class="library-new-doc-btn ws-btn-primary account-cta" data-ws-onclick="accountUpgrade"
+              data-ws-show-if-state="accountShowCta=true" data-ws-label-state="accountCtaLabel"></button>
+    </div>
+
+  </div><!-- /accountLoaded: the plan panel above needs serverData; the matrix below does not -->
+
+  <!-- What Premium includes is the same table whether or not you have an account, and
+       AccountLogic.featureVerdicts already answers it for a signed-out visitor (everything
+       locked except device voices). Keeping it behind accountLoaded meant the one screen that
+       lists the features was invisible to exactly the people who have not bought yet. -->
+  <div>
+    <!-- What's included -->
+    <div class="account-section-head"><%= htmlWebpackPlugin.options.strings.d20260827_whats_included %></div>
+    <div class="account-card account-card-block account-features">
+      <div class="account-feature">
+        <span class="account-feature-text">
+          <span class="account-feature-title"><%= htmlWebpackPlugin.options.strings.d20260827_feature_device_voices %></span>
+          <span class="account-feature-note"><%= htmlWebpackPlugin.options.strings.d20260827_feature_device_voices_note %></span>
+        </span>
+        <span class="account-included" data-ws-show-if-state="featureDeviceVoicesAllowed=true"></span>
+        <span class="account-pro" data-ws-show-if-state="featureDeviceVoicesLocked=true">PRO</span>
+      </div>
+      <div class="account-feature">
+        <span class="account-feature-text">
+          <span class="account-feature-title"><%= htmlWebpackPlugin.options.strings.d20260827_feature_premium_voices %></span>
+          <span class="account-feature-note"><%= htmlWebpackPlugin.options.strings.d20260827_feature_premium_voices_note %></span>
+        </span>
+        <span class="account-included" data-ws-show-if-state="featurePremiumVoiceAllowed=true"></span>
+        <span class="account-pro" data-ws-show-if-state="featurePremiumVoiceLocked=true">PRO</span>
+      </div>
+      <div class="account-feature">
+        <span class="account-feature-text">
+          <span class="account-feature-title"><%= htmlWebpackPlugin.options.strings.d20260827_feature_ai %></span>
+          <span class="account-feature-note"><%= htmlWebpackPlugin.options.strings.d20260827_feature_ai_note %></span>
+        </span>
+        <span class="account-included" data-ws-show-if-state="featureAiAllowed=true"></span>
+        <span class="account-pro" data-ws-show-if-state="featureAiLocked=true">PRO</span>
+      </div>
+      <div class="account-feature">
+        <span class="account-feature-text">
+          <span class="account-feature-title"><%= htmlWebpackPlugin.options.strings.d20260827_feature_mp3 %></span>
+          <span class="account-feature-note"><%= htmlWebpackPlugin.options.strings.d20260827_feature_mp3_note %></span>
+        </span>
+        <span class="account-included" data-ws-show-if-state="featureMp3Allowed=true"></span>
+        <span class="account-pro" data-ws-show-if-state="featureMp3Locked=true">PRO</span>
+      </div>
+      <div class="account-feature">
+        <span class="account-feature-text">
+          <span class="account-feature-title"><%= htmlWebpackPlugin.options.strings.d20260827_feature_cloud_sync %></span>
+          <span class="account-feature-note"><%= htmlWebpackPlugin.options.strings.d20260827_feature_cloud_sync_note %></span>
+        </span>
+        <span class="account-included" data-ws-show-if-state="featureCloudSyncAllowed=true"></span>
+        <span class="account-pro" data-ws-show-if-state="featureCloudSyncLocked=true">PRO</span>
+      </div>
+
+      <button class="library-new-doc-btn ws-btn-primary account-cta" data-ws-onclick="accountUpgrade"
+              data-ws-show-if-state="accountShowCta=true"><%= htmlWebpackPlugin.options.strings.d20260827_upgrade_unlock %></button>
+
+      <div class="account-row account-next-payment" data-ws-show-if-state="accountShowNextPayment=true">
+        <span class="account-row-label">
+          <%= htmlWebpackPlugin.options.strings.d20260827_next_payment.replace('%s','') %>
+          <span data-ws-label-state="accountExpiryText"></span>
+        </span>
+        <button class="account-ghost-btn account-danger-text" data-ws-onclick="accountCancelSubscription"
+                data-ws-disable-if-state="subscriptionId=false"><%= htmlWebpackPlugin.options.strings.d20260827_cancel_subscription %></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email updates -->
+  <div data-ws-show-if-state="isSignedIn=true">
+    <div class="account-section-head"><%= htmlWebpackPlugin.options.strings.d20260827_email_updates %></div>
+    <div class="account-card">
+      <span class="account-tile account-tile-mail"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/><path d="M3 7l9 6l9 -6"/></svg></span>
+      <span class="account-card-main">
+        <span class="account-card-title" data-ws-label-state="emailStateLabel"></span>
+      </span>
+      <button class="account-ghost-btn" data-ws-onclick="accountToggleEmails"
+              data-ws-label-state="emailToggleLabel" data-ws-disable-if-state="emailPrefsBusy=true"></button>
+    </div>
+  </div>
+
+  <!-- Tasks board — the rail hides its item in bottom-bar mode, so this is
+       the guaranteed entry point on narrow screens. -->
+  <button class="account-card account-card-btn" data-ws-onclick="openBgTasks">
+    <span class="account-tile account-tile-tasks"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v6"/><path d="M14 19l2 2l4 -4"/><path d="M9 8h4"/><path d="M9 12h2"/></svg></span>
+    <span class="account-card-main">
+      <span class="account-card-title"><%= htmlWebpackPlugin.options.strings.d20260828_tasks_rail_label %></span>
+    </span>
+    <span class="account-chevron"></span>
+  </button>
+
+  <!-- Support & tools -->
+  <div class="account-section-head"><%= htmlWebpackPlugin.options.strings.d20260827_contact_row %></div>
+  <button class="account-card account-card-btn" data-ws-onclick="contactOpen">
+    <span class="account-tile account-tile-contact"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20l1.3 -3.9a9 8 0 1 1 3.4 2.9l-4.7 1"/></svg></span>
+    <span class="account-card-main">
+      <span class="account-card-title"><%= htmlWebpackPlugin.options.strings.d20260827_contact_row %></span>
+    </span>
+    <span class="account-chevron"></span>
+  </button>
+  <button class="account-card account-card-btn" data-ws-onclick="accountRunOnboarding">
+    <span class="account-tile account-tile-onboarding"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M16 6a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M9 18a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z"/></svg></span>
+    <span class="account-card-main">
+      <span class="account-card-title"><%= htmlWebpackPlugin.options.strings.d20260907_run_onboarding %></span>
+    </span>
+    <span class="account-chevron"></span>
+  </button>
+  <button class="account-card account-card-btn" data-ws-toggle="#apiModal">
+    <span class="account-tile account-tile-api"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8l-4 4l4 4"/><path d="M17 8l4 4l-4 4"/><path d="M14 4l-4 16"/></svg></span>
+    <span class="account-card-main">
+      <span class="account-card-title"><%= htmlWebpackPlugin.options.strings.d20251225_drawer_api %></span>
+    </span>
+    <span class="account-chevron"></span>
+  </button>
+
+  <!-- Danger zone -->
+  <div data-ws-show-if-state="isSignedIn=true">
+    <div class="account-section-head account-danger-head"><%= htmlWebpackPlugin.options.strings.danger_zone %></div>
+    <button class="account-card account-card-btn" data-ws-onclick="accountDeleteOpen">
+      <span class="account-tile account-tile-danger"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l16 0"/><path d="M10 11l0 6"/><path d="M14 11l0 6"/><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/></svg></span>
+      <span class="account-card-main">
+        <span class="account-card-title account-danger-text"><%= htmlWebpackPlugin.options.strings.d20260827_delete_account %></span>
+        <span class="account-card-label"><%= htmlWebpackPlugin.options.strings.d20260827_delete_account_footer %></span>
+      </span>
+    </button>
+  </div>
+</div>

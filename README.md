@@ -33,6 +33,10 @@ To publish - not so easy -
 # Write new blog posts steps:
 - [link](_readme/write_blog.md)
 
+# Export a post to PDF (shareable / printable):
+- [link](_readme/md_to_pdf.md) — any post + its images → a branded PDF on the Desktop.
+  `python3 ~/.claude/skills/md-to-pdf/scripts/md2pdf.py content/en/blog/<post>/index.md --logo static/player@v3.13/logo_512.png`
+
 ## TODO:
 
 1. Understand and facilitate Google's 'structured data' for SEO. As explained here:

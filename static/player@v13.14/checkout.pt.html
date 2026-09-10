@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt" dir="" data-dark-mode>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TTSReader</title>
+
+  <!--
+    THE OFFER, and then the checkout — the only place the webapp sells anything.
+    Two faces of one shape:
+
+      kind=subscribe   not subscribed  →  Premium Subscription, $10.99/mo
+      kind=topup       subscribed      →  1 Million Premium Characters, $19
+
+    There is nothing to choose. Since 2026-09-07 the web sells one plan and one pack, and which of
+    the two you see is decided by whether you already have a plan — so this page never asks the
+    user a question it can answer itself.
+
+    It renders INSIDE the app's bottom sheet, which owns the scrim, the grabber and the dismiss.
+    So this document draws content on the sheet's own surface colour and no chrome of its own.
+
+    It is an iframe for exactly one reason: a payment SDK must never load in the webapp, so the
+    ~99% of sessions that never buy anything never fetch one.
+
+    PAYMENT (2026-09-07): PayPal's buttons are ON this sheet — a decided user pays in one click,
+    with PayPal or a card, and is never asked to click through to a checkout first. Paddle stays
+    reachable two ways: a small-print link under the buttons, always there for someone whose PayPal
+    is failing for a reason we cannot see; and automatically, promoted to the CTA when the PayPal
+    SDK errors or times out.
+
+    NOTHING here is gated behind a payment SDK loading. That is the 2026-09-07 outage in reverse:
+    the old page registered its price-card click handlers INSIDE runOnPayPalReady(), so a blocked
+    paypal.com silently killed checkout for everyone (newUpgradeModalPaddle.html:1346-1351). The
+    offer renders first; the buttons are progressive enhancement.
+  -->
+
+  <style>
+    :root {
+      --surface:   #ffffff;
+      --ink:       #16151a;
+      --ink-soft:  #55504a;
+      --ink-mute:  #857f76;
+      --hairline:  rgba(22, 21, 26, 0.10);
+      --accent:    #d93a12;
+      --accent-ink:#b52f0c;
+      --accent-wash: rgba(217, 58, 18, 0.07);
+    }
+    [data-dark-mode] {
+      --surface:   #1a1922;
+      --ink:       #f6f4f0;
+      --ink-soft:  #c8c2b9;
+      --ink-mute:  #948d84;
+      --hairline:  rgba(255, 255, 255, 0.12);
+      --accent:    #ff6a45;
+      --accent-ink:#ff8a68;
+      --accent-wash: rgba(255, 106, 69, 0.13);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: var(--surface);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding: 4px 30px 30px;
+    }
+
+    /* ── what you were stopped by (only when a gate sent you) ─────────────── */
+    /* One column since the icon went: a shield next to the words read as a warning, and this row
+       is the opposite — it names what they came for and what happens next. The wash stays: it is
+       7% of the logo's own accent, brand tinting rather than an alert colour. */
+    .context {
+      padding: 13px 15px;
+      margin-bottom: 22px;
+      border: 1px solid var(--hairline);
+      border-radius: 13px;
+      background: var(--accent-wash);
+      text-align: start;
+    }
+    .context-title { font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; }
+    .context-note  { font-size: 0.82rem; color: var(--ink-mute); line-height: 1.45; margin-top: 2px; }
+    .context.hidden { display: none; }
+
+    /* ── the offer ────────────────────────────────────────────────────────── */
+    .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ink-mute);
+    }
+    .price {
+      margin-top: 6px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+    }
+    .price .per { font-size: 1rem; font-weight: 500; color: var(--ink-mute); letter-spacing: -0.01em; }
+
+    .gets { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .gets li {
+      display: grid;
+      grid-template-columns: 17px 1fr;
+      gap: 11px;
+      align-items: start;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: var(--ink-soft);
+      text-align: start;
+    }
+    .gets svg { width: 17px; height: 17px; color: var(--accent); margin-top: 2px; }
+
+    .cta {
+      display: block;
+      width: 100%;
+      margin-top: 24px;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 13px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+      box-shadow: 0 2px 10px var(--accent-wash);
+    }
+    [data-dark-mode] .cta { color: #16151a; }
+    .cta:hover { background: var(--accent-ink); transform: translateY(-1px); box-shadow: 0 5px 18px var(--accent-wash); }
+    .cta:active { transform: translateY(0); }
+    .cta[disabled] { opacity: .6; cursor: default; transform: none; }
+
+    .reassure {
+      margin: 13px 0 0;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--ink-mute);
+    }
+
+    /* ── Ronen, in the first person, at sheet scale ──────────────────────────── */
+    .guarantee {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--hairline);
+      text-align: start;
+    }
+    .guarantee img {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex: none;
+      filter: saturate(.9);
+    }
+    .guarantee-text { font-size: 0.78rem; line-height: 1.5; color: var(--ink-soft); }
+    /* His name in his own hand. The value is Latin in all 15 language files (checked), so a
+       cursive face applies everywhere; the generic `cursive` keyword catches platforms that
+       have neither named font, and nothing is fetched over the network for it. */
+    .signature {
+      display: block;
+      margin-top: 3px;
+      font-family: "Snell Roundhand", "Segoe Script", "Bradley Hand", "Brush Script MT", cursive;
+      font-size: 1.15rem;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    /* PayPal draws its own buttons; we only own the space around them. */
+    .paypal { margin-top: 18px; min-height: 0; }
+    .paypal.is-waiting { min-height: 112px; }   /* hold the room so the sheet does not jump */
+
+    /* The other door, deliberately quiet: available, never competing with the buttons above it. */
+    .link-quiet {
+      display: block;
+      margin: 10px auto 0;
+      padding: 4px 2px;
+      background: none;
+      border: 0;
+      font: inherit;
+      font-size: 0.76rem;
+      color: var(--ink-mute);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+    }
+    .link-quiet:hover { color: var(--ink-soft); }
+
+    .spinner {
+      width: 26px; height: 26px; margin: 26px auto 0;
+      border-radius: 50%;
+      border: 2.5px solid var(--hairline);
+      border-top-color: var(--accent);
+      animation: spin 780ms linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hidden { display: none !important; }
+    @media (prefers-reduced-motion: reduce) {
+      .cta, .spinner { transition: none; animation-duration: 2.4s; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- What they came here FOR. Populated from `reason`; absent for a general offer.
+     No icon: a shield beside the words read as a warning, and this row is not a warning. -->
+<div class="context hidden" id="context">
+  <div>
+    <div class="context-title" id="contextTitle"></div>
+    <div class="context-note" id="contextNote"></div>
+  </div>
+</div>
+
+<div id="offer">
+  <div class="eyebrow" id="eyebrow"></div>
+  <div class="price"><span id="priceAmount"></span><span class="per" id="pricePer"></span></div>
+
+  <ul class="gets" id="gets"></ul>
+
+  <!-- PayPal renders here. Empty until the SDK answers; the CTA below covers every other case. -->
+  <div id="paypal" class="paypal hidden"></div>
+  <p id="paypalNote" class="reassure hidden">Todos os métodos são processados pelo PayPal para máxima segurança, privacidade e proteção ao comprador.</p>
+
+  <!-- Signed out, or PayPal unavailable. Promoted to the only path in both cases. -->
+  <button type="button" class="cta hidden" id="cta"></button>
+
+  <!-- Always there once PayPal is up: the other door, taken by the user rather than offered by a
+       failure we managed to detect. It also keeps the Paddle path exercised instead of rotting. -->
+  <button type="button" class="link-quiet hidden" id="moreOptions">Problemas para pagar? Mais opções de pagamento</button>
+
+  <p class="reassure" id="reassure"></p>
+
+  <div class="guarantee">
+    <img src="ronen_headshot_400px.png" alt=""/>
+    <div class="guarantee-text">
+      Sou pessoalmente responsável e estou disponível se precisar de qualquer coisa,
+      <span class="signature">Ronen Rabinovici</span>
+    </div>
+  </div>
+</div>
+
+<div id="working" class="hidden"><div class="spinner" role="status"></div></div>
+<p id="fallback" class="reassure hidden">Não consegue pagar? Fale conosco em contact@ttsreader.com</p>
+
+<script>
+  "use strict";
+
+  // Mirrors SKU_TTSREADER_PREMIUM_MONTHLY / SKU_TTSREADER_EXTRA_CREDITS_1M in
+  // newUpgradeModalPaddle.html. Annual and the 3M/10M packs still exist there for customers who
+  // already bought them; they are simply never offered.
+  var FACES = {
+    subscribe: {
+      sku: "SKU_TTSREADER_PREMIUM_MONTHLY",
+      priceId: "pri_01ke6jck25vm0hc1p0ya0wf6sx",
+      // PayPal: a subscription is a billing PLAN created on PayPal's side, so the price shown here
+      // is not what charges — plan P-82C3… is. Verify the two agree before changing either.
+      paypalPlanId: "P-82C30553N8925890NMZZWUTA",
+      paypalIntent: "subscription",
+      amount: "$10.99",
+      per: " / mês",
+      eyebrow: "Assinatura Premium",
+      cta: "Mudar para Premium",
+      gets: [
+        "1 Milhão de Caracteres IA Premium por Mês + Vozes Básicas Ilimitadas",
+        "Exportar para MP3 e WAV ",
+        "Licença comercial para Uso e Publicação! ",
+        "Suporte premium, solicitações de recursos "
+      ],
+      reassure: "Cancele a qualquer momento · Compra segura. 100% de satisfação garantida"
+    },
+    topup: {
+      sku: "SKU_TTSREADER_EXTRA_CREDITS_1M",
+      priceId: "pri_01kabacg9281qsv502zexm1805",
+      // PayPal: a one-off order with a free-text amount — there is no product id. The server keys
+      // entirely off custom_id and refuses anything under SKUS[...].minPrice, which is 19.
+      paypalPrice: 19,
+      paypalCredits: "1 Million",
+      paypalIntent: "capture",
+      amount: "$19",
+      per: "",
+      eyebrow: "1 Milhão de Caracteres Premium",
+      cta: "Adicionar créditos",
+      // NOT "1M characters per month" — that is the SUBSCRIPTION's line and it was plainly wrong
+      // here (Ronen). A pack is a one-off balance that sits ON TOP of the monthly quota, is only
+      // spent once the quota runs out, and does not evaporate at the month boundary.
+      gets: [
+        "Além da tua quota mensal — usados apenas quando a quota acabar.",
+        "Válido por um ano inteiro e estendido a cada compra. Vozes básicas ilimitadas."
+      ],
+      reassure: "Compra segura. 100% de satisfação garantida"
+    }
+  };
+
+  // The same rows the Account tab's "What's included" table shows — same words, so a user
+  // recognises them instead of meeting new language at the moment of being asked for money.
+  // Token vocabulary is src/premium/PurchaseReason.js; PurchaseReason.test.js pins the two together.
+  var REASONS = {
+    cloudSync:    {t: "Sincronização e cópia na nuvem",     n: "A tua biblioteca em todos os dispositivos"},
+    ai:           {t: "Documentos com IA",             n: "Aprender um tema, resumo de notícias, resumo, tradução, podcast"},
+    premiumVoice: {t: "Vozes premium com IA", n: "Vozes naturais com som humano"},
+    mp3Export:    {t: "Exportação mp3 offline",            n: "Salve um documento como áudio"},
+    // Says what to do next, not what ran out. Face-aware: the same moment reaches a subscriber
+    // (who tops up) and a non-subscriber (who subscribes), so `n` is chosen in renderReason().
+    outOfCredits: {t: "Vozes premium com IA", n: ""}
+  };
+
+  var params = new URLSearchParams(window.location.search);
+  var kind = FACES[params.get("kind")] ? params.get("kind") : "subscribe";
+  var face = FACES[kind];
+  var uid = params.get("uid") || "";
+  var email = params.get("email") || "";
+  var reason = params.get("reason") || "";
+  var onCloseParentCallbackName = params.get("onClose") || "closeCheckoutSheet";
+  var autostart = params.get("autostart") === "1";
+
+  if (params.get("theme") === "dark") {
+    document.documentElement.setAttribute("data-dark-mode", "");
+  } else {
+    document.documentElement.removeAttribute("data-dark-mode");
+  }
+
+  var CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.1" ' +
+              'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>';
+
+  function render() {
+    document.getElementById("eyebrow").textContent = face.eyebrow;
+    document.getElementById("priceAmount").textContent = face.amount;
+    document.getElementById("pricePer").innerHTML = face.per;
+    document.getElementById("cta").textContent = face.cta;
+    document.getElementById("reassure").textContent = face.reassure;
+
+    var list = document.getElementById("gets");
+    list.innerHTML = face.gets.map(function () { return "<li>" + CHECK + "<span></span></li>"; }).join("");
+    // textContent per item, so a translation can never inject markup
+    list.querySelectorAll("li > span").forEach(function (slot, i) { slot.textContent = face.gets[i]; });
+
+    renderReason();
+  }
+
+  /** The "what stopped you" row. Separate because a WARMED sheet is built before the gate is known:
+   *  the parent posts the reason in when it finally opens, and re-rendering must not reload the
+   *  page and throw away the PayPal buttons we loaded early precisely so they would be there. */
+  // The one line that changes with the face: subscribe vs top up. Positive either way — it names
+  // the next step, where "Not enough credits to finish your request" named a shortfall.
+  var CONTINUE = {
+    subscribe: "Assine para continuar",
+    topup: "Adicione créditos para continuar"
+  };
+
+  function renderReason() {
+    var r = REASONS[reason];
+    var box = document.getElementById("context");
+    if (!r) { box.classList.add("hidden"); return; }
+    document.getElementById("contextTitle").textContent = r.t;
+    document.getElementById("contextNote").textContent = r.n || CONTINUE[kind];
+    box.classList.remove("hidden");
+  }
+
+  var notified = false;
+  function notifyParent(isPurchase) {
+    if (notified) return;
+    notified = true;
+    try {
+      if (window.self !== window.top && typeof parent[onCloseParentCallbackName] === "function") {
+        parent[onCloseParentCallbackName](isPurchase);
+      }
+    } catch (e) { /* cross-origin or gone */ }
+  }
+
+  // ── loading a payment SDK without paying for it up front ────────────────────────────────────
+  //
+  // Ronen's own loader, from public/index.html:3429 — same shape, same `data-namespace` argument
+  // (it was written for exactly this PayPal case). The one thing it never had is `onerror`, and
+  // that gap is the whole reason the 2026-09-07 outage was silent, so it is added here.
+  function fetchJsFile(url, callback, dataNamespace, onError) {
+    var el = document.createElement("script");
+    el.src = url;
+    el.onload = function () { if (callback) callback(); };
+    el.onerror = function () { if (onError) onError(); };
+    if (dataNamespace) el.setAttribute("data-namespace", dataNamespace);
+    document.getElementsByTagName("head")[0].appendChild(el);
+  }
+
+  // Paddle is now the SECOND door, so it is fetched only when someone actually reaches for it.
+  var paddleLoading = false;
+  function ensurePaddle(then) {
+    if (typeof Paddle !== "undefined") { then(true); return; }
+    if (paddleLoading) return;                       // a second tap while it loads is not a second load
+    paddleLoading = true;
+    fetchJsFile("https://cdn.paddle.com/paddle/v2/paddle.js", function () {
+      paddleLoading = false;
+      initPaddle();
+      then(typeof Paddle !== "undefined");
+    }, null, function () {
+      paddleLoading = false;
+      console.warn("paddle.js failed to load");
+      then(false);
+    });
+  }
+
+  // ── PayPal ──────────────────────────────────────────────────────────────────────────────────
+  //
+  // One script per page load, not two. The legacy page loaded BOTH the subscription and the
+  // one-time SDKs and waited for both, because it showed every plan at once; this sheet shows
+  // exactly one face, and a script tag carries exactly one `intent`.
+  var PAYPAL_CLIENT_ID = "AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG";
+  var PAYPAL_TIMEOUT_MS = 12000;
+  var paypalSettled = false;
+
+  /** PayPal is not coming (blocked, offline, slow, or it threw). Fall back to the Paddle CTA. */
+  function payPalUnavailable(why) {
+    if (paypalSettled) return;
+    paypalSettled = true;
+    console.warn("PayPal unavailable:", why);
+    document.getElementById("paypal").classList.remove("is-waiting");
+    document.getElementById("paypal").classList.add("hidden");
+    document.getElementById("paypalNote").classList.add("hidden");
+    document.getElementById("moreOptions").classList.add("hidden");   // it IS the CTA now
+    document.getElementById("cta").classList.remove("hidden");
+    reportHeight();
+  }
+
+  function loadPayPal() {
+    // Signed out: the buttons cannot exist. custom_id carries "<SKU>__<uid>" and it is the ONLY
+    // channel to the server — a button rendered without a uid would take money nothing can grant.
+    // So the signed-out sheet keeps its single CTA, which asks for the account first.
+    if (!uid) { document.getElementById("cta").classList.remove("hidden"); return; }
+
+    var isSub = face.paypalIntent === "subscription";
+    var ns = isSub ? "paypalSubs" : "paypalOnce";
+    var url = "https://www.paypal.com/sdk/js?client-id=" + PAYPAL_CLIENT_ID
+            + (isSub ? "&vault=true&intent=subscription" : "");
+
+    // Reserve the buttons' room up front so their arrival does not shove the sheet around.
+    document.getElementById("paypal").classList.remove("hidden");
+    document.getElementById("paypal").classList.add("is-waiting");
+    setTimeout(function () { if (!paypalSettled) payPalUnavailable("timed out"); }, PAYPAL_TIMEOUT_MS);
+
+    fetchJsFile(url, function () {
+      var scope = window[ns];
+      if (!scope || typeof scope.Buttons !== "function") { payPalUnavailable("no " + ns); return; }
+      // Straight through — the sheet is on screen whenever this document is loaded, and the script
+      // it needs is served from the browser cache (PayPal sends `max-age=3600`), primed on idle by
+      // the app. Deferring the render behind a "you are visible now" signal is what produced an
+      // unbuyable sheet when that signal was missed.
+      renderPayPalButtons(scope);
+    }, ns, function () { payPalUnavailable("script error"); });
+  }
+
+  /**
+   * The buttons, one-to-one with newUpgradeModal.html:855-956 — same style object, same plan id,
+   * same `custom_id = sku + "__" + uid`, same order shape. The additions are an `onError` (there
+   * was none anywhere in the legacy code) and routing success through `notifyParent`.
+   */
+  function renderPayPalButtons(scope) {
+    var container = document.getElementById("paypal");
+    var custom_id = face.sku + "__" + uid;
+
+    var config = {
+      style: {shape: "pill", color: "gold", layout: "vertical", label: "paypal", height: 50},
+      onCancel: function () { /* they closed PayPal; the sheet is still here, unchanged */ },
+      onError: function (err) { payPalUnavailable(err && err.message ? err.message : "onError"); }
+    };
+
+    if (face.paypalIntent === "subscription") {
+      config.createSubscription = function (data, actions) {
+        return actions.subscription.create({plan_id: face.paypalPlanId, custom_id: custom_id});
+      };
+      // The entitlement is granted SERVER-side by the PayPal webhook off custom_id — there is no
+      // endpoint to post to. Hand off to the parent, which toasts and then waits for the grant to
+      // land over RTDB before resuming what the user was doing.
+      config.onApprove = function () { purchased(); return Promise.resolve(); };
+    } else {
+      config.createOrder = function (data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            description: "TTSReader " + face.paypalCredits + " Extra Credits, UID: " + uid,
+            custom_id: custom_id,
+            amount: {value: face.paypalPrice}
+          }]
+        });
+      };
+      config.onApprove = function (data, actions) {
+        return actions.order.capture().then(function () { purchased(); });
+      };
+    }
+
+    try {
+      scope.Buttons(config).render(container);
+      paypalSettled = true;
+      document.getElementById("paypalNote").classList.remove("hidden");
+      document.getElementById("moreOptions").classList.remove("hidden");
+      document.getElementById("cta").classList.add("hidden");
+      container.classList.remove("is-waiting");
+    } catch (e) {
+      payPalUnavailable(e && e.message);
+    }
+  }
+
+  /** Paid. The sheet has nothing left to say — the app confirms and waits for the grant. */
+  function purchased() {
+    document.getElementById("working").classList.remove("hidden");
+    notifyParent(true);
+  }
+
+  function buy() {
+    // No account yet? Ask for one HERE, at the moment of purchase, and hand the chosen plan back
+    // so signing in resumes straight into checkout rather than dropping them at the start.
+    if (!uid) {
+      try {
+        if (window.parent && typeof window.parent.requestSignInForCheckout === "function") {
+          window.parent.requestSignInForCheckout(face.sku, reason);
+          return;
+        }
+      } catch (e) { /* fall through to the fallback */ }
+      document.getElementById("fallback").classList.remove("hidden");
+      return;
+    }
+
+    var btn = document.getElementById("cta");
+    btn.disabled = true;                                  // acknowledge the tap before anything slow
+    document.getElementById("working").classList.remove("hidden");
+    reportHeight("max");                                  // Paddle's overlay renders in this frame
+
+    // Paddle is lazy now, so the FIRST tap may have to fetch it. Everything below runs once it is
+    // here (or once we know it is not coming).
+    ensurePaddle(function (ok) {
+      if (!ok) {
+        btn.disabled = false;
+        document.getElementById("working").classList.add("hidden");
+        document.getElementById("fallback").classList.remove("hidden");
+        reportHeight();
+        return;
+      }
+      openPaddle(btn);
+    });
+  }
+
+  function openPaddle(btn) {
+    try {
+      Paddle.Checkout.open({
+        items: [{priceId: face.priceId, quantity: 1}],
+        customer: email ? {email: email} : undefined,
+        customData: {uid: uid}
+      });
+    } catch (e) {
+      console.error("checkout failed to open", e);
+      btn.disabled = false;
+      document.getElementById("working").classList.add("hidden");
+      document.getElementById("fallback").classList.remove("hidden");
+    }
+  }
+
+  function initPaddle() {
+    if (typeof Paddle === "undefined") return;            // blocked; buy() shows the fallback
+    var locale = document.documentElement.lang;
+    if (locale === "he" || locale === "hi" || locale === "ro") locale = "en";
+    if (locale === "zh") locale = "zh-Hans";
+    if (locale === "pt") locale = "pt-BR";
+    try {
+      Paddle.Environment.set("production");
+      Paddle.Initialize({
+        token: "live_e52f015f98dbce460791b4b9fe7",
+        checkout: {settings: {locale: locale}},
+        // The original integration had NO eventCallback, so a completed Paddle purchase was
+        // invisible to the client and `sendEvent('purchase')` only ever fired on the legacy PayPal
+        // path. Without this we cannot close, confirm, or resume what the user was doing.
+        eventCallback: function (ev) {
+          var name = (ev && ev.name) || "";
+          if (name === "checkout.completed") notifyParent(true);
+          else if (name === "checkout.closed") {
+            document.getElementById("cta").disabled = false;
+            document.getElementById("working").classList.add("hidden");
+          }
+        }
+      });
+    } catch (e) { console.error("Paddle init failed", e); }
+  }
+
+  /**
+   * Tell the sheet how tall to be.
+   *
+   * The sheet should fit its content, not stand at a fixed height with dead space under the
+   * founder's line. When checkout starts we ask for the maximum instead, because Paddle renders
+   * its own overlay inside THIS viewport and needs the room.
+   */
+  function reportHeight(mode) {
+    try {
+      if (window.self === window.top || typeof parent.setCheckoutHeight !== "function") return;
+      // NOT documentElement.scrollHeight: <html> fills the iframe, so that just reports the height
+      // we were already given and the sheet can never shrink to its content. Measure the content.
+      var last = document.getElementById("fallback");
+      var visible = last && !last.classList.contains("hidden") ? last : document.getElementById("offer");
+      var padBottom = parseFloat(getComputedStyle(document.body).paddingBottom) || 0;
+      var contentH = Math.ceil(visible.getBoundingClientRect().bottom + padBottom);
+      parent.setCheckoutHeight(mode === "max" ? "max" : contentH);
+    } catch (e) { /* nothing to report to */ }
+  }
+
+  render();
+  loadPayPal();
+
+  document.getElementById("cta").addEventListener("click", buy);
+  document.getElementById("moreOptions").addEventListener("click", buy);
+
+  // After layout, and again if fonts/images settle the height.
+  requestAnimationFrame(function () { reportHeight(); });
+  window.addEventListener("load", function () { reportHeight(); });
+
+  // PayPal inserts its buttons in their own iframes, asynchronously, long after `load` — nothing
+  // else would ever re-measure, and the sheet would clip them.
+  if (typeof ResizeObserver === "function") {
+    var pending = 0;
+    new ResizeObserver(function () {
+      cancelAnimationFrame(pending);                    // one report per frame, not per mutation
+      pending = requestAnimationFrame(function () { reportHeight(); });
+    }).observe(document.getElementById("offer"));
+  }
+
+  // Came back from the sign-in the purchase was interrupted by: finish it, with no second click.
+  // Guarded on `uid` so this can never bounce straight back into sign-in.
+  if (autostart && uid) {
+    reportHeight("max");
+    setTimeout(buy, 0);
+  }
+</script>
+
+</body>
+</html>

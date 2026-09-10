@@ -1,0 +1,61 @@
+<!-- "+ New" sheet (mobile NewDocumentSheet parity, desktop-native layout): a
+     card grid instead of iOS's list. Every card is a plain action; the two AI
+     cards carry a PRO badge bound to `newDocAiLocked` — state-derived, never
+     toggled by hand. Opening any downstream modal closes this one, because
+     DomHooks.showModal() closes all modals first. -->
+
+<div id="newDocModal" class="Modal" style="display: none">
+  <div class="Modal-content ai-sheet new-doc-sheet">
+    <div class="ai-sheet-head">
+      <button class="ai-sheet-close" data-ws-onclick="newDocClose" aria-label="Close"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6l-12 12"/><path d="M6 6l12 12"/></svg></button>
+      <h3 class="ai-sheet-title"><%= htmlWebpackPlugin.options.strings.d20260827_new_title %></h3>
+    </div>
+
+    <div class="new-doc-grid">
+      <div class="new-doc-section"><%= htmlWebpackPlugin.options.strings.d20260827_new_section_start %></div>
+
+      <button class="new-doc-card" data-ws-onclick="newDocBlank">
+        <span class="new-doc-tile new-doc-tile--blank"><svg class="new-doc-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"/><path d="M12 11l0 6"/><path d="M9 14l6 0"/></svg></span>
+        <span class="new-doc-card-title"><%= htmlWebpackPlugin.options.strings.d20260827_new_empty %></span>
+        <span class="new-doc-card-sub"><%= htmlWebpackPlugin.options.strings.d20260827_new_empty_sub %></span>
+      </button>
+
+      <button class="new-doc-card" data-ws-onclick="newDocClipboard">
+        <span class="new-doc-tile new-doc-tile--clip"><svg class="new-doc-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></span>
+        <span class="new-doc-card-title"><%= htmlWebpackPlugin.options.strings.d20260827_new_clipboard %></span>
+        <span class="new-doc-card-sub"><%= htmlWebpackPlugin.options.strings.d20260827_new_clipboard_sub %></span>
+      </button>
+
+      <div class="new-doc-section"><%= htmlWebpackPlugin.options.strings.d20260827_new_section_import %></div>
+
+      <button class="new-doc-card" data-ws-onclick="newDocWeb">
+        <span class="new-doc-tile new-doc-tile--web"><svg class="new-doc-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/><path d="M3.6 9h16.8"/><path d="M3.6 15h16.8"/><path d="M11.5 3a17 17 0 0 0 0 18"/><path d="M12.5 3a17 17 0 0 1 0 18"/></svg></span>
+        <span class="new-doc-card-title"><%= htmlWebpackPlugin.options.strings.d20260827_new_web %></span>
+        <span class="new-doc-card-sub"><%= htmlWebpackPlugin.options.strings.d20260827_new_web_sub %></span>
+      </button>
+
+      <label class="new-doc-card new-doc-card--file">
+        <span class="new-doc-tile new-doc-tile--file"><svg class="new-doc-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5"/><path d="M13.5 19h6.5"/><path d="M17 16l3 3l-3 3"/></svg></span>
+        <span class="new-doc-card-title"><%= htmlWebpackPlugin.options.strings.d20260827_new_file %></span>
+        <span class="new-doc-card-sub"><%= htmlWebpackPlugin.options.strings.d20260827_new_file_sub %></span>
+        <input class="new-doc-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onchange="newDocFileChosen">
+      </label>
+
+      <div class="new-doc-section"><%= htmlWebpackPlugin.options.strings.d20260827_new_section_ai %></div>
+
+      <button class="new-doc-card new-doc-card--ai" data-ws-onclick="newDocLearn">
+        <span class="new-doc-pro hidden" data-ws-show-if-state="newDocAiLocked=true">PRO</span>
+        <span class="new-doc-tile new-doc-tile--learn"><svg class="new-doc-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M16 6a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M9 18a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z"/></svg></span>
+        <span class="new-doc-card-title"><%= htmlWebpackPlugin.options.strings.d20260827_new_learn %></span>
+        <span class="new-doc-card-sub"><%= htmlWebpackPlugin.options.strings.d20260827_new_learn_sub %></span>
+      </button>
+
+      <button class="new-doc-card new-doc-card--ai" data-ws-onclick="newDocNews">
+        <span class="new-doc-pro hidden" data-ws-show-if-state="newDocAiLocked=true">PRO</span>
+        <span class="new-doc-tile new-doc-tile--news"><svg class="new-doc-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11"/><path d="M8 8h4"/><path d="M8 12h4"/><path d="M8 16h4"/></svg></span>
+        <span class="new-doc-card-title"><%= htmlWebpackPlugin.options.strings.d20260827_new_news %></span>
+        <span class="new-doc-card-sub"><%= htmlWebpackPlugin.options.strings.d20260827_new_news_sub %></span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+<div class="tab-page">
+  <!-- No page title here: the rail already says Library, and the two chips ARE
+       the page's heading — which shelf you are looking at. Centred, because with
+       nothing beside them there is no left edge for them to align to. -->
+  <div class="library-head">
+    <div class="library-chips">
+      <button class="library-chip" data-filter="docs" data-ws-onclick="librarySetFilter"><%= htmlWebpackPlugin.options.strings.d20260826_library_chip_docs %></button>
+      &nbsp;
+      |
+      &nbsp;
+      <button class="library-chip" onclick="openOrCloseExportsListModal()" >
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__mp3_exports_list %>
+      </button>
+    </div>
+  </div>
+
+  <div data-ws-show-if-state="showLibraryDocs=true">
+
+    <!-- Same pill as Discover's, and sticky for the same reason: a long shelf
+         scrolls under it and the way to filter it stays reachable. -->
+    <input class="library-search-input search-pill" type="search"
+           placeholder="<%= htmlWebpackPlugin.options.strings.d20260826_library_search %>"
+           data-ws-oninput="librarySearchInput">
+
+    <!-- The web reading of iOS's LibraryQuickAdd: the fastest ways to add
+         something, as equal shares of one row — a glyph in a circle over its
+         label, rather than a stack of differently-shaped buttons. It SCROLLS
+         AWAY with the library (only the search pill above is chrome), exactly
+         as on the phone. -->
+    <div class="library-quick-add">
+      <button class="quick-add-cell" data-ws-onclick="libraryNewDoc"
+              title="<%= htmlWebpackPlugin.options.strings.d20260827_new_empty %>">
+        <span class="quick-add-face">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l0 14"/><path d="M5 12l14 0"/></svg>
+        </span>
+        <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20260827_new_empty %></span>
+      </button>
+
+      <!-- The picker is opened by the invisible file input laid over the whole
+           cell (the drawer's own pattern) — no click handler to keep in sync. -->
+      <div class="quick-add-cell quick-add-cell--file"
+           title="<%= htmlWebpackPlugin.options.strings.drawer__import_file %> (DOCX, TXT, PDF, EPUB, etc.)">
+        <input class="drawer-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm"
+               onclick="gtag('event','import_file_click_library_tab',{value:'1'})"
+               aria-label="<%= htmlWebpackPlugin.options.strings.drawer__import_file %>"
+               data-ws-onChange="handleFileSelect">
+        <span class="quick-add-face">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"/><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5"/></svg>
+        </span>
+        <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20260827_new_file %></span>
+      </div>
+
+      <button class="quick-add-cell" data-ws-toggle="#openUrlModal"
+              title="<%= htmlWebpackPlugin.options.strings.d20260220_index_import_website %>">
+        <span class="quick-add-face">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M3.6 9h16.8"/><path d="M3.6 15h16.8"/><path d="M11.5 3a17 17 0 0 0 0 18"/><path d="M12.5 3a17 17 0 0 1 0 18"/></svg>
+        </span>
+        <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20260827_new_web %></span>
+      </button>
+
+      <button class="quick-add-cell" data-ws-onclick="openBooksModal"
+              title="<%= htmlWebpackPlugin.options.strings.d20260427_books_modal_title %>">
+        <span class="quick-add-face">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6l0 13"/><path d="M12 6l0 13"/><path d="M21 6l0 13"/></svg>
+        </span>
+        <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20260826_library_book_badge %></span>
+      </button>
+
+      <!-- The two AI actions get a cell each while the row can hold six. Below
+           that they collapse into the single "AI" cell after them — the phone's
+           answer to the same problem (LibraryQuickAdd's Menu), reached here by a
+           width query rather than by always hiding them. Exactly one of the two
+           groups is ever displayed. -->
+      <button class="quick-add-cell quick-add-cell--ai-pair" data-ws-onclick="aiLearnTopic"
+              title="<%= htmlWebpackPlugin.options.strings.d20260826_ai_learn_topic %>">
+        <span class="quick-add-face">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M16 6a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M9 18a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z"/></svg>
+        </span>
+        <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20260827_new_learn %></span>
+      </button>
+
+      <button class="quick-add-cell quick-add-cell--ai-pair" data-ws-onclick="aiNewsRecap"
+              title="<%= htmlWebpackPlugin.options.strings.d20260826_ai_news_recap %>">
+        <span class="quick-add-face">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
+        </span>
+        <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20260827_new_news %></span>
+      </button>
+
+      <div class="quick-add-cell quick-add-cell--ai-menu">
+        <button class="quick-add-trigger" data-ws-onclick="libraryAiMenuToggle" aria-haspopup="menu"
+                title="<%= htmlWebpackPlugin.options.strings.d20260827_new_section_ai %>">
+          <span class="quick-add-face">
+            <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M16 6a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M9 18a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z"/></svg>
+          </span>
+          <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20260722_ai_menu %></span>
+        </button>
+        <div id="libraryAiMenu" class="doc-title-menu quick-add-menu hidden" role="menu"
+             data-ws-show-if-state="libraryAiMenuOpen=true">
+          <button class="doc-menu-item" data-ws-onclick="libraryAiLearn">
+            <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M16 6a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M9 18a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z"/></svg>
+            <span class="doc-menu-item-title"><%= htmlWebpackPlugin.options.strings.d20260826_ai_learn_topic %></span>
+          </button>
+          <button class="doc-menu-item" data-ws-onclick="libraryAiNews">
+            <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
+            <span class="doc-menu-item-title"><%= htmlWebpackPlugin.options.strings.d20260826_ai_news_recap %></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The list's own heading, and the warning that belongs with it: these
+         documents live in the browser's storage, which the browser is free to
+         clear. Sorting sits on the heading's line — it is this list's control,
+         at this list's trailing edge. -->
+    <div class="library-toolbar">
+      <h2 class="tab-page-title library-recents-title"><%= htmlWebpackPlugin.options.strings.d20260828_library_recents_title %></h2>
+      <select class="library-sort-select" data-ws-onchange="librarySortChange"
+              aria-label="<%= htmlWebpackPlugin.options.strings.d20260826_library_sort_recent %>">
+        <option value="recentlyViewed"><%= htmlWebpackPlugin.options.strings.d20260826_library_sort_recent %></option>
+        <option value="dateNewest"><%= htmlWebpackPlugin.options.strings.d20260826_library_sort_created %></option>
+        <option value="titleAZ"><%= htmlWebpackPlugin.options.strings.d20260826_library_sort_title %></option>
+      </select>
+    </div>
+
+    <p class="library-recents-note"><%= htmlWebpackPlugin.options.strings.d20260828_library_recents_note %></p>
+
+    <div id="libraryDocsList" class="library-docs-list"></div>
+    <p id="libraryEmptyState" class="tab-page-placeholder"><%= htmlWebpackPlugin.options.strings.d20260826_library_placeholder %></p>
+  </div>
+</div>

@@ -1,0 +1,964 @@
+{
+  "_comment": "Bundled Discover catalog. Every URL is a verified live asset: audio is pre-rendered TTSReader output in Azure storage, artwork is Wikimedia / Project Gutenberg / bundled (bundle:<file> in this folder), and the books are public-domain editions. There is no hero entry: the app spotlights the first not-yet-imported card as the hero. Content under /tts-outputs/discover/ is mp3+srt+jpg siblings sharing a basename; durations for it come from the srt's last cue. Attribution is baked in at build time; public-domain works carry a statement instead, and name no source.",
+  "shelves": [
+    {
+      "id": "inspiration",
+      "title": "Inspiration",
+      "items": [
+        {
+          "id": "doc-declaration-1776",
+          "kind": "doc",
+          "title": "The Declaration of Independence",
+          "author": "United States, 1776",
+          "blurb": "\"We hold these truths to be self-evident\" — the 1776 declaration that argued a nation into being.",
+          "imageUrl": "bundle:declaration_of_independence.jpg",
+          "fileResource": "declaration.txt",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "doc-constitution",
+          "kind": "doc",
+          "title": "The Constitution of the United States",
+          "author": "United States, 1787",
+          "blurb": "\"We the People\" — the articles and amendments that turned thirteen states into one republic.",
+          "imageUrl": "bundle:constitution.jpg",
+          "fileResource": "constitution.html",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "audio-jfk-inaugural",
+          "kind": "audio",
+          "title": "JFK: Inaugural Address",
+          "author": "John F. Kennedy",
+          "blurb": "\"Ask not what your country can do for you\" — the 1961 inaugural address, in the president's own voice.",
+          "imageUrl": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/discover/public_domain/John_F_Kennedy_Inauguration_Speech.jpg",
+          "durationSeconds": 912,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/discover/public_domain/John_F_Kennedy_Inauguration_Speech.mp3",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "audio-reagan-acceptance-1980",
+          "kind": "audio",
+          "title": "Reagan: 1980 Acceptance Speech",
+          "author": "Ronald Reagan",
+          "blurb": "The Detroit convention speech that accepted the 1980 nomination and set the course for a landslide.",
+          "imageUrl": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/discover/public_domain/reagan_acceptance.jpg",
+          "durationSeconds": 2723,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/discover/public_domain/reagan_acceptance.mp3",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "audio-reagan-farewell",
+          "kind": "audio",
+          "title": "Reagan: Farewell Address",
+          "author": "Ronald Reagan",
+          "blurb": "Eight years distilled into one goodbye from the Oval Office — the shining city on a hill included.",
+          "imageUrl": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/discover/public_domain/reagan_farewell.jpg",
+          "durationSeconds": 1240,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/discover/public_domain/reagan_farewell.mp3",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "doc-oppenheimer",
+          "kind": "doc",
+          "title": "Oppenheimer - Father of The Bomb",
+          "author": "Ronen Rabinovici",
+          "blurb": "A short essay giving you some less-known insights into the life of this American legend.",
+          "imageUrl": "bundle:oppenheimer.webp",
+          "fileResource": "oppenheimer.html",
+          "attribution": {
+            "articles": [
+              {
+                "title": "J. Robert Oppenheimer",
+                "source": "wikipedia",
+                "url": "https://en.wikipedia.org/wiki/J._Robert_Oppenheimer"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "books",
+      "title": "Books",
+      "items": [
+        {
+          "id": "doc-how-much-land",
+          "kind": "doc",
+          "title": "How Much Land Does a Man Need?",
+          "author": "Leo Tolstoy",
+          "blurb": "A genius short story by Leo Tolstoy, translated by Louise and Aylmer Maude.",
+          "imageUrl": "bundle:how_much_land.webp",
+          "fileResource": "how_much_land.html",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "doc-three-questions",
+          "kind": "doc",
+          "title": "Three Questions",
+          "author": "Leo Tolstoy",
+          "blurb": "A meaningful short story by Leo Tolstoy, translated by Louise and Aylmer Maude.",
+          "imageUrl": "bundle:three_questions.webp",
+          "fileResource": "three_questions.html",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "doc-esarhaddon",
+          "kind": "doc",
+          "title": "Esarhaddon, King of Assyria",
+          "author": "Leo Tolstoy",
+          "blurb": "A short story teaching us how our life is connected to the lives of others.",
+          "imageUrl": "bundle:esarhaddon.webp",
+          "fileResource": "esarhaddon.html",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "epub-moby-dick",
+          "kind": "epub",
+          "title": "Moby Dick; Or, The Whale",
+          "author": "Herman Melville",
+          "blurb": "One of the greatest American novels ever written. Spectacularly dealing with life choices, human nature and tough consequences.",
+          "imageUrl": "bundle:moby_dick.webp",
+          "fileResource": "moby_dick.epub",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "epub-frankenstein",
+          "kind": "epub",
+          "title": "Frankenstein",
+          "author": "Mary Shelley",
+          "blurb": "Written at eighteen, on a wager, during a summer without a sun.",
+          "imageUrl": "https://www.gutenberg.org/cache/epub/84/pg84.cover.medium.jpg",
+          "url": "https://www.gutenberg.org/ebooks/84",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "epub-sherlock",
+          "kind": "epub",
+          "title": "The Adventures of Sherlock Holmes",
+          "author": "Arthur Conan Doyle",
+          "blurb": "Twelve cases, and the detective who made deduction a spectator sport.",
+          "imageUrl": "https://www.gutenberg.org/cache/epub/1661/pg1661.cover.medium.jpg",
+          "url": "https://www.gutenberg.org/ebooks/1661",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "epub-pride-prejudice",
+          "kind": "epub",
+          "title": "Pride and Prejudice",
+          "author": "Jane Austen",
+          "blurb": "It is a truth universally acknowledged — Austen's sharpest and most beloved comedy of manners.",
+          "imageUrl": "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
+          "url": "https://www.gutenberg.org/ebooks/1342",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "epub-tom-sawyer",
+          "kind": "epub",
+          "title": "The Adventures of Tom Sawyer",
+          "author": "Mark Twain",
+          "blurb": "Whitewashed fences, buried treasure, and boyhood on the Mississippi.",
+          "imageUrl": "https://www.gutenberg.org/cache/epub/74/pg74.cover.medium.jpg",
+          "url": "https://www.gutenberg.org/ebooks/74",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "epub-anna-karenina",
+          "kind": "epub",
+          "title": "Anna Karenina",
+          "author": "Leo Tolstoy",
+          "blurb": "\"All happy families are alike\" — Tolstoy's sweeping portrait of love against society.",
+          "imageUrl": "https://www.gutenberg.org/cache/epub/1399/pg1399.cover.medium.jpg",
+          "url": "https://www.gutenberg.org/ebooks/1399",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "guide-gutenberg",
+          "kind": "guide",
+          "title": "Find more books on Project Gutenberg",
+          "author": "Project Gutenberg",
+          "blurb": "Over 70,000 free public-domain ebooks — open any book page and share it with TTSReader to start reading."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia",
+      "title": "Interesting from Wikipedia",
+      "items": [
+        {
+          "id": "album-ancient-world",
+          "kind": "audiobook",
+          "title": "The Ancient World",
+          "author": "Narrated by John",
+          "blurb": "Six chapters across three thousand years — from the first written laws in Babylon to the empire that ruled the Mediterranean.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Alexander_Mosaic_detail_of_Alexander_the_Great_%283x4_cropped%29.jpg/1280px-Alexander_Mosaic_detail_of_Alexander_the_Great_%283x4_cropped%29.jpg",
+          "tracks": [
+            {
+              "id": "wiki-Hammurabi-dcacf04f-12c4-4637-af01-a3b780a649f3",
+              "title": "Hammurabi",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Hammurabi/dcacf04f-12c4-4637-af01-a3b780a649f3/0001.mp3",
+              "durationSeconds": 1015
+            },
+            {
+              "id": "wiki-Ancient_Egypt-8e9d7c3c-e030-4479-a95c-b17b1e90152c",
+              "title": "Ancient Egypt",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Ancient_Egypt/8e9d7c3c-e030-4479-a95c-b17b1e90152c/0001.mp3",
+              "durationSeconds": 4525
+            },
+            {
+              "id": "wiki-Alexander_the_Great-5730d06f-0e06-435c-ba47-2095b34ce6ff",
+              "title": "Alexander the Great",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Alexander_the_Great/5730d06f-0e06-435c-ba47-2095b34ce6ff/0001.mp3",
+              "durationSeconds": 5529
+            },
+            {
+              "id": "wiki-Cleopatra-63cda6d4-91eb-4a23-bec6-1b152add379f",
+              "title": "Cleopatra",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Cleopatra/63cda6d4-91eb-4a23-bec6-1b152add379f/0001.mp3",
+              "durationSeconds": 5316
+            },
+            {
+              "id": "wiki-Julius_Caesar-6b7d62ca-974a-4493-812e-9ebbb2306262",
+              "title": "Julius Caesar",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Julius_Caesar/6b7d62ca-974a-4493-812e-9ebbb2306262/0001.mp3",
+              "durationSeconds": 3877
+            },
+            {
+              "id": "wiki-Roman_Empire-449ef49b-f5c5-41df-b384-52734f0e93aa",
+              "title": "Roman Empire",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Roman_Empire/449ef49b-f5c5-41df-b384-52734f0e93aa/0001.mp3",
+              "durationSeconds": 6192
+            }
+          ],
+          "attribution": {
+            "articles": [
+              {
+                "title": "Hammurabi",
+                "url": "https://en.wikipedia.org/wiki/Hammurabi",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Ancient Egypt",
+                "url": "https://en.wikipedia.org/wiki/Ancient_Egypt",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Alexander the Great",
+                "url": "https://en.wikipedia.org/wiki/Alexander_the_Great",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Cleopatra",
+                "url": "https://en.wikipedia.org/wiki/Cleopatra",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Julius Caesar",
+                "url": "https://en.wikipedia.org/wiki/Julius_Caesar",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Roman Empire",
+                "url": "https://en.wikipedia.org/wiki/Roman_Empire",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Alexander Mosaic detail of Alexander the Great (3x4 cropped)",
+              "url": "https://commons.wikimedia.org/wiki/File:Alexander_Mosaic_detail_of_Alexander_the_Great_(3x4_cropped).jpg",
+              "author": "Unknown author",
+              "license": "Public domain",
+              "licenseUrl": "",
+              "required": false,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "album-great-minds",
+          "kind": "audiobook",
+          "title": "Great Minds",
+          "author": "Narrated by John",
+          "blurb": "Five people who changed what we know, and how we came to know it.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Marie_Curie_c._1920s.jpg/960px-Marie_Curie_c._1920s.jpg",
+          "tracks": [
+            {
+              "id": "wiki-Isaac_Newton-579c8271-c3bf-4fbc-b64e-ed86cbaac55a",
+              "title": "Isaac Newton",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Isaac_Newton/579c8271-c3bf-4fbc-b64e-ed86cbaac55a/0001.mp3",
+              "durationSeconds": 4161
+            },
+            {
+              "id": "wiki-Charles_Darwin-ca3c0320-bba0-4eb1-ad17-71206dc8a041",
+              "title": "Charles Darwin",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Charles_Darwin/ca3c0320-bba0-4eb1-ad17-71206dc8a041/0001.mp3",
+              "durationSeconds": 3743
+            },
+            {
+              "id": "wiki-Marie_Curie-d8d35478-c21c-43ba-a9d5-4dc6c6b2617e",
+              "title": "Marie Curie",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Marie_Curie/d8d35478-c21c-43ba-a9d5-4dc6c6b2617e/0001.mp3",
+              "durationSeconds": 2271
+            },
+            {
+              "id": "wiki-Albert_Einstein-8beb46a7-6074-49e5-b965-009ff0e36754",
+              "title": "Albert Einstein",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Albert_Einstein/8beb46a7-6074-49e5-b965-009ff0e36754/0001.mp3",
+              "durationSeconds": 5163
+            },
+            {
+              "id": "wiki-Ada_Lovelace-c46177c1-9099-4970-a6ed-51b99f15b620",
+              "title": "Ada Lovelace",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Ada_Lovelace/c46177c1-9099-4970-a6ed-51b99f15b620/0001.mp3",
+              "durationSeconds": 2129
+            }
+          ],
+          "attribution": {
+            "articles": [
+              {
+                "title": "Isaac Newton",
+                "url": "https://en.wikipedia.org/wiki/Isaac_Newton",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Charles Darwin",
+                "url": "https://en.wikipedia.org/wiki/Charles_Darwin",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Marie Curie",
+                "url": "https://en.wikipedia.org/wiki/Marie_Curie",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Albert Einstein",
+                "url": "https://en.wikipedia.org/wiki/Albert_Einstein",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Ada Lovelace",
+                "url": "https://en.wikipedia.org/wiki/Ada_Lovelace",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Marie Curie c. 1920s",
+              "url": "https://commons.wikimedia.org/wiki/File:Marie_Curie_c._1920s.jpg",
+              "author": "Henri Manuel",
+              "license": "Public domain",
+              "licenseUrl": "",
+              "required": false,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "album-wonders",
+          "kind": "audiobook",
+          "title": "Wonders of the World",
+          "author": "Narrated by Nova",
+          "blurb": "Five places worth the journey, and the histories that built them.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Machu_Picchu%2C_2023_%28012%29.jpg/960px-Machu_Picchu%2C_2023_%28012%29.jpg",
+          "tracks": [
+            {
+              "id": "wiki-Great_Wall_of_China-814752ea-22a3-47b7-b0e3-ca289ae3994a",
+              "title": "Great Wall of China",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Great_Wall_of_China/814752ea-22a3-47b7-b0e3-ca289ae3994a/0001.mp3",
+              "durationSeconds": 1489
+            },
+            {
+              "id": "wiki-Machu_Picchu-89e8edbb-dbf9-4b95-9dbe-1981b23c7a27",
+              "title": "Machu Picchu",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Machu_Picchu/89e8edbb-dbf9-4b95-9dbe-1981b23c7a27/0001.mp3",
+              "durationSeconds": 2401
+            },
+            {
+              "id": "wiki-Colosseum-edd9bb36-9b85-4683-9426-4f4e6b4f1b30",
+              "title": "Colosseum",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Colosseum/edd9bb36-9b85-4683-9426-4f4e6b4f1b30/0001.mp3",
+              "durationSeconds": 2165
+            },
+            {
+              "id": "wiki-Taj_Mahal-9cbeadd9-d556-43c3-a915-8bf93c6878fb",
+              "title": "Taj Mahal",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Taj_Mahal/9cbeadd9-d556-43c3-a915-8bf93c6878fb/0001.mp3",
+              "durationSeconds": 2052
+            },
+            {
+              "id": "wiki-Petra-8e99edb5-7f97-4fdf-9709-1f9eb35d1ecb",
+              "title": "Petra",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Petra/8e99edb5-7f97-4fdf-9709-1f9eb35d1ecb/0001.mp3",
+              "durationSeconds": 2009
+            }
+          ],
+          "attribution": {
+            "articles": [
+              {
+                "title": "Great Wall of China",
+                "url": "https://en.wikipedia.org/wiki/Great_Wall_of_China",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Machu Picchu",
+                "url": "https://en.wikipedia.org/wiki/Machu_Picchu",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Colosseum",
+                "url": "https://en.wikipedia.org/wiki/Colosseum",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Taj Mahal",
+                "url": "https://en.wikipedia.org/wiki/Taj_Mahal",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Petra",
+                "url": "https://en.wikipedia.org/wiki/Petra",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Machu Picchu, 2023 (012)",
+              "url": "https://commons.wikimedia.org/wiki/File:Machu_Picchu,_2023_(012).jpg",
+              "author": "Draceane",
+              "license": "CC BY-SA 4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "required": true,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "album-painters",
+          "kind": "audiobook",
+          "title": "The Painters",
+          "author": "Narrated by Nova",
+          "blurb": "Four lives in paint — from a Dutchman who sold almost nothing to a Mexican who painted herself.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/960px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg",
+          "tracks": [
+            {
+              "id": "wiki-Leonardo_da_Vinci-0d6e1b25-0f6a-40b7-978d-29d470bce040",
+              "title": "Leonardo da Vinci",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Leonardo_da_Vinci/0d6e1b25-0f6a-40b7-978d-29d470bce040/0001.mp3",
+              "durationSeconds": 3628
+            },
+            {
+              "id": "wiki-Michelangelo-be216e84-08f2-46dc-b50a-63fec8b21a37",
+              "title": "Michelangelo",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Michelangelo/be216e84-08f2-46dc-b50a-63fec8b21a37/0001.mp3",
+              "durationSeconds": 2736
+            },
+            {
+              "id": "wiki-Claude_Monet-87ae94a8-b34b-4e43-abe6-6c8dde48510d",
+              "title": "Claude Monet",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Claude_Monet/87ae94a8-b34b-4e43-abe6-6c8dde48510d/0001.mp3",
+              "durationSeconds": 2808
+            },
+            {
+              "id": "wiki-Vincent_van_Gogh-bebc4b13-28ae-49bf-9d51-94a6817cf487",
+              "title": "Vincent van Gogh",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Vincent_van_Gogh/bebc4b13-28ae-49bf-9d51-94a6817cf487/0001.mp3",
+              "durationSeconds": 4041
+            },
+            {
+              "id": "wiki-Frida_Kahlo-eb2291ff-1275-4bbb-bcc8-e25a50505c14",
+              "title": "Frida Kahlo",
+              "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Frida_Kahlo/eb2291ff-1275-4bbb-bcc8-e25a50505c14/0001.mp3",
+              "durationSeconds": 3989
+            }
+          ],
+          "attribution": {
+            "articles": [
+              {
+                "title": "Leonardo da Vinci",
+                "url": "https://en.wikipedia.org/wiki/Leonardo_da_Vinci",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Michelangelo",
+                "url": "https://en.wikipedia.org/wiki/Michelangelo",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Claude Monet",
+                "url": "https://en.wikipedia.org/wiki/Claude_Monet",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Vincent van Gogh",
+                "url": "https://en.wikipedia.org/wiki/Vincent_van_Gogh",
+                "source": "wikipedia"
+              },
+              {
+                "title": "Frida Kahlo",
+                "url": "https://en.wikipedia.org/wiki/Frida_Kahlo",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Vincent van Gogh - Self-Portrait - Google Art Project (454045)",
+              "url": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg",
+              "author": "Vincent van Gogh",
+              "license": "Public domain",
+              "licenseUrl": "",
+              "required": false,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "wiki-Black_hole",
+          "kind": "wiki",
+          "title": "Black hole",
+          "author": "Wikipedia",
+          "blurb": "A black hole is an astronomical body so compact that its gravity prevents anything, including light, from escaping.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Black_hole_-_Messier_87_crop_max_res.jpg/960px-Black_hole_-_Messier_87_crop_max_res.jpg",
+          "durationSeconds": 3870,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Black_hole/835725ad-f102-448e-bc10-997b6374f6f8/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Black hole",
+                "url": "https://en.wikipedia.org/wiki/Black_hole",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Black hole - Messier 87 crop max res",
+              "url": "https://commons.wikimedia.org/wiki/File:Black_hole_-_Messier_87_crop_max_res.jpg",
+              "author": "Event Horizon Telescope, uploader cropped and converted TIF to JPG",
+              "license": "CC BY 4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+              "required": true,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "wiki-Antarctica",
+          "kind": "wiki",
+          "title": "Antarctica",
+          "author": "Wikipedia",
+          "blurb": "Antarctica is Earth's southernmost and least-populated continent.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Antarctica_%28orthographic_projection%29.svg/960px-Antarctica_%28orthographic_projection%29.svg.png",
+          "durationSeconds": 3143,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Antarctica/7bdde6b1-d37d-4636-98a6-b104bf6987d7/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Antarctica",
+                "url": "https://en.wikipedia.org/wiki/Antarctica",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Antarctica (orthographic projection)",
+              "url": "https://commons.wikimedia.org/wiki/File:Antarctica_(orthographic_projection).svg",
+              "author": "Heraldry",
+              "license": "CC BY-SA 3.0",
+              "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+              "required": true,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "wiki-Coral_reef",
+          "kind": "wiki",
+          "title": "Coral reef",
+          "author": "Wikipedia",
+          "blurb": "A coral reef is an underwater ecosystem characterized by reef-building corals.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Blue_Linckia_Starfish.JPG/960px-Blue_Linckia_Starfish.JPG",
+          "durationSeconds": 4150,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Coral_reef/d88c45a2-a42d-4b97-831d-6a3e2a5d3553/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Coral reef",
+                "url": "https://en.wikipedia.org/wiki/Coral_reef",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Blue Linckia Starfish",
+              "url": "https://commons.wikimedia.org/wiki/File:Blue_Linckia_Starfish.JPG",
+              "author": "Copyright (c) 2004 Richard Ling",
+              "license": "CC BY-SA 3.0",
+              "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+              "required": true,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "wiki-Stonehenge",
+          "kind": "wiki",
+          "title": "Stonehenge",
+          "author": "Wikipedia",
+          "blurb": "Stonehenge is a prehistoric megalithic structure on Salisbury Plain in Wiltshire, England, two miles (3 km) west of Amesbury.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Stonehenge2007_07_30.jpg/960px-Stonehenge2007_07_30.jpg",
+          "durationSeconds": 3864,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Stonehenge/f826e878-1cf5-4d2f-97e2-48361b02f3bb/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Stonehenge",
+                "url": "https://en.wikipedia.org/wiki/Stonehenge",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Stonehenge2007 07 30",
+              "url": "https://commons.wikimedia.org/wiki/File:Stonehenge2007_07_30.jpg",
+              "author": "garethwiscombe",
+              "license": "CC BY 2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+              "required": true,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "wiki-Volcano",
+          "kind": "wiki",
+          "title": "Volcano",
+          "author": "Wikipedia",
+          "blurb": "A volcano is a vent or fissure in the crust of a planetary-mass object that allows hot lava, volcanic ash, and gases to escape from a magma chamber be.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Augustine_volcano_Jan_24_2006_-_Cyrus_Read.jpg/960px-Augustine_volcano_Jan_24_2006_-_Cyrus_Read.jpg",
+          "durationSeconds": 2634,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Volcano/58601ab6-d0e1-48f1-a8c9-63b2ce83cb74/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Volcano",
+                "url": "https://en.wikipedia.org/wiki/Volcano",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Augustine volcano Jan 24 2006 - Cyrus Read",
+              "url": "https://commons.wikimedia.org/wiki/File:Augustine_volcano_Jan_24_2006_-_Cyrus_Read.jpg",
+              "author": "Cyrus Read Geophysicist USGS, Alaska Volcano Observatory cread@usgs.gov",
+              "license": "Public domain",
+              "licenseUrl": "",
+              "required": false,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "wiki-Photosynthesis",
+          "kind": "wiki",
+          "title": "Photosynthesis",
+          "author": "Wikipedia",
+          "blurb": "Photosynthesis is a system of biological processes by which photopigment-bearing autotrophic organisms, such as most plants, algae and cyanobacteria, .",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Photosynthesis_en.svg/960px-Photosynthesis_en.svg.png",
+          "durationSeconds": 2973,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Photosynthesis/de03afea-41ed-4b0b-aee7-1786e326f90e/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Photosynthesis",
+                "url": "https://en.wikipedia.org/wiki/Photosynthesis",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Photosynthesis en",
+              "url": "https://commons.wikimedia.org/wiki/File:Photosynthesis_en.svg",
+              "author": "At09kg, Wattcle, Nefronus At09kg: original Wattcle: vector graphics Nefronus: redoing the vector graphics",
+              "license": "CC BY-SA 4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "required": true,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "wiki-Nikola_Tesla",
+          "kind": "wiki",
+          "title": "Nikola Tesla",
+          "author": "Wikipedia",
+          "blurb": "Nikola Tesla was a Serbian-American engineer, futurist, and inventor.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Tesla_circa_1890.jpeg",
+          "durationSeconds": 3928,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Nikola_Tesla/b12aeb86-351b-40bb-ba4f-0ded7e91b466/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Nikola Tesla",
+                "url": "https://en.wikipedia.org/wiki/Nikola_Tesla",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Tesla circa 1890",
+              "url": "https://commons.wikimedia.org/wiki/File:Tesla_circa_1890.jpeg",
+              "author": "Napoleon Sarony",
+              "license": "Public domain",
+              "licenseUrl": "",
+              "required": false,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "wiki-Plate_tectonics",
+          "kind": "wiki",
+          "title": "Plate tectonics",
+          "author": "Wikipedia",
+          "blurb": "Plate tectonics is the scientific theory that Earth's lithosphere comprises a number of large tectonic plates, which have been slowly moving since 3–4.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Tectonic_plates_%282022%29.svg/960px-Tectonic_plates_%282022%29.svg.png",
+          "durationSeconds": 3143,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Plate_tectonics/297e4c75-08df-4960-8939-086b6b9af671/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Plate tectonics",
+                "url": "https://en.wikipedia.org/wiki/Plate_tectonics",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Tectonic plates (2022)",
+              "url": "https://commons.wikimedia.org/wiki/File:Tectonic_plates_(2022).svg",
+              "author": "M.Bitton",
+              "license": "CC BY-SA 3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+              "required": true,
+              "source": "commons"
+            }
+          }
+        },
+        {
+          "id": "audio-marie-curie",
+          "kind": "audio",
+          "title": "Marie Curie",
+          "author": "Wikipedia",
+          "blurb": "The only person to win a Nobel Prize in two different sciences, and the first woman to win one at all.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Marie_Curie_c._1920s.jpg/960px-Marie_Curie_c._1920s.jpg",
+          "durationSeconds": 2271,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Marie_Curie/d8d35478-c21c-43ba-a9d5-4dc6c6b2617e/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Marie Curie",
+                "source": "wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Marie_Curie"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Marie Curie c. 1920s",
+              "url": "https://commons.wikimedia.org/wiki/File:Marie_Curie_c._1920s.jpg",
+              "source": "commons",
+              "author": "Henri Manuel",
+              "license": "Public domain",
+              "licenseUrl": "",
+              "required": false
+            }
+          }
+        },
+        {
+          "id": "audio-hammurabi",
+          "kind": "audio",
+          "title": "Hammurabi",
+          "author": "Wikipedia",
+          "blurb": "The sixth king of Babylon, and the code of law that carries his name.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/F0182_Louvre_Code_Hammourabi_Bas-relief_Sb8_rwk.jpg/960px-F0182_Louvre_Code_Hammourabi_Bas-relief_Sb8_rwk.jpg",
+          "durationSeconds": 1015,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/Hammurabi/dcacf04f-12c4-4637-af01-a3b780a649f3/0001.mp3",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Hammurabi",
+                "source": "wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Hammurabi"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "F0182 Louvre Code Hammourabi Bas-relief Sb8 rwk",
+              "url": "https://commons.wikimedia.org/wiki/File:F0182_Louvre_Code_Hammourabi_Bas-relief_Sb8_rwk.jpg",
+              "source": "commons",
+              "author": "Mbzt",
+              "license": "CC BY 3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+              "required": true
+            }
+          }
+        },
+        {
+          "id": "doc-bioluminescence",
+          "kind": "doc",
+          "title": "Bioluminescence",
+          "author": "Wikipedia",
+          "blurb": "Why fireflies glow, and why so much of the deep ocean does too.",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/76/Photinus_pyralis_Firefly_glowing.jpg",
+          "url": "https://en.wikipedia.org/wiki/Bioluminescence",
+          "attribution": {
+            "articles": [
+              {
+                "title": "Bioluminescence",
+                "url": "https://en.wikipedia.org/wiki/Bioluminescence",
+                "source": "wikipedia"
+              }
+            ],
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            },
+            "image": {
+              "title": "Photinus pyralis Firefly glowing",
+              "url": "https://commons.wikimedia.org/wiki/File:Photinus_pyralis_Firefly_glowing.jpg",
+              "author": "art farmer from evansville indiana, usa",
+              "license": "CC BY-SA 2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+              "required": true,
+              "source": "commons"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "children",
+      "title": "Children",
+      "items": [
+        {
+          "id": "audio-little-engine",
+          "kind": "audio",
+          "title": "The Little Engine That Could",
+          "author": "Watty Piper",
+          "blurb": "\"I think I can, I think I can\" — the little blue engine that took the toys over the mountain.",
+          "imageUrl": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/discover/public_domain/the_little_engine_that_could.jpg",
+          "durationSeconds": 486,
+          "url": "https://ttsreaderstorage.blob.core.windows.net/tts-outputs/discover/public_domain/the_little_engine_that_could.mp3",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "epub-alice",
+          "kind": "epub",
+          "title": "Alice's Adventures in Wonderland",
+          "author": "Lewis Carroll",
+          "blurb": "Down the rabbit hole with Lewis Carroll's endlessly quotable dream logic.",
+          "imageUrl": "https://www.gutenberg.org/cache/epub/11/pg11.cover.medium.jpg",
+          "url": "https://www.gutenberg.org/ebooks/11",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "epub-peter-pan",
+          "kind": "epub",
+          "title": "Peter Pan",
+          "author": "J. M. Barrie",
+          "blurb": "The boy who wouldn't grow up, and the flight to Neverland.",
+          "imageUrl": "https://www.gutenberg.org/cache/epub/16/pg16.cover.medium.jpg",
+          "url": "https://www.gutenberg.org/ebooks/16",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        },
+        {
+          "id": "epub-wizard-of-oz",
+          "kind": "epub",
+          "title": "The Wonderful Wizard of Oz",
+          "author": "L. Frank Baum",
+          "blurb": "Dorothy, Toto, and the road of yellow brick.",
+          "imageUrl": "https://www.gutenberg.org/cache/epub/55/pg55.cover.medium.jpg",
+          "url": "https://www.gutenberg.org/ebooks/55",
+          "attribution": {
+            "noteKey": "d20260810_attribution_public_domain_note"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<div class="tab-page tab-page--wide">
+  <!-- Outside #discoverTabContent: rerender() replaces that innerHTML per keystroke,
+       and the field must keep focus. -->
+  <input class="library-search-input discover-search-input" type="search"
+         placeholder="<%= htmlWebpackPlugin.options.strings.d20260810_discover_search_prompt %>"
+         data-ws-oninput="discoverSearchInput">
+  <div id="discoverTabContent">
+    <p class="tab-page-placeholder"><%= htmlWebpackPlugin.options.strings.d20260826_discover_placeholder %></p>
+  </div>
+</div>

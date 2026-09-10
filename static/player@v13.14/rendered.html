@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="https://ttsreader.com/favicon.ico" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>TTSReader Playback</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        #loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        iframe {
+            display: none;
+            border: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="loader"></div>
+<iframe id="exportFrame"></iframe>
+<div onclick="onClose()" style="background-color: whitesmoke; cursor: pointer; position: fixed;padding: 10px;top: 10px;right: 10px;border-radius: 50%; border: 2px solid gray; color: darkslategrey"><svg style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="3"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg></div>
+
+<script>
+    function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            onClose: params.get('onClose'),
+            url: params.get('url'),
+            voice: params.get('voice'),
+            rate: parseFloat(params.get('rate')),
+            date: parseInt(params.get('date')),
+            itemId: params.get('itemId') || '',
+            startAtMs: parseInt(params.get('startAtMs') || '0', 10) || 0
+        };
+    }
+
+    // --- Discover resume -----------------------------------------------------
+    // The embedded player is a built bundle we do not edit, but it is served
+    // from this same origin, so its media element is reachable. We seek it once
+    // on open and sample its position while it plays; the parent window owns
+    // the actual RTDB write. Everything is best-effort — a player that changes
+    // shape must degrade to "no resume", never to "no playback".
+    function findMediaElement(iframe) {
+        try {
+            const doc = iframe.contentDocument;
+            return doc ? doc.querySelector('audio, video') : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function trackListenPosition(iframe, itemId, startAtMs) {
+        if (!itemId) return;
+        let bound = false;
+        let seeked = startAtMs <= 0;
+
+        const report = (media) => {
+            try {
+                if (window.parent && window.parent.noteListenPosition) {
+                    window.parent.noteListenPosition(
+                        itemId, Math.round((media.currentTime || 0) * 1000), media.duration || 0);
+                }
+            } catch (e) {
+            }
+        };
+
+        // The bookmark is pushed when playback STOPS — pause, end, or the
+        // player closing. Never on a timer: a moving playhead is not news, and
+        // a per-few-seconds writer is pure chatter on a shared node.
+        const bind = (media) => {
+            bound = true;
+            media.addEventListener('pause', () => report(media));
+            media.addEventListener('ended', () => report(media));
+            const flush = () => report(media);
+            window.addEventListener('pagehide', flush);
+            window.addEventListener('beforeunload', flush);
+            const priorOnClose = window.onClose;
+            window.onClose = function () {
+                flush();
+                if (priorOnClose) priorOnClose();
+            };
+        };
+
+        // The only polling is the short wait for the built player to mount its
+        // media element; it stops as soon as we are bound and seeked.
+        const wait = setInterval(() => {
+            const media = findMediaElement(iframe);
+            if (!media) return;
+            if (!bound) bind(media);
+            if (!seeked && media.readyState >= 1 && media.duration > 0) {
+                // One seek only: after this the user owns the playhead.
+                seeked = true;
+                try {
+                    media.currentTime = Math.min(startAtMs / 1000, Math.max(0, media.duration - 1));
+                } catch (e) {
+                }
+            }
+            if (bound && seeked) clearInterval(wait);
+        }, 500);
+        setTimeout(() => clearInterval(wait), 30000);
+    }
+
+    // Discover content ships mp3 + srt + jpg siblings and has NO .sentence.json
+    // (the contract lives in core/discover/DiscoverContent.kt). Without this
+    // parser every Discover item played with a single placeholder caption
+    // instead of its transcript. Same {Text, AudioOffset, Duration} shape the
+    // export pipeline emits, so jsonToCaptions is untouched.
+    function srtToJson(srt) {
+        const toMs = (stamp) => {
+            const m = /(\d{1,2}):(\d{2}):(\d{2})[,.](\d{1,3})/.exec(stamp);
+            if (!m) return null;
+            return ((+m[1] * 60 + +m[2]) * 60 + +m[3]) * 1000 + +m[4].padEnd(3, "0");
+        };
+        const out = [];
+        for (const block of srt.replace(/\r/g, "").split(/\n{2,}/)) {
+            const lines = block.split("\n").filter((l) => l.trim());
+            if (lines.length < 2) continue;
+            const timing = lines.find((l) => l.indexOf("-->") !== -1);
+            if (!timing) continue;
+            const [rawStart, rawEnd] = timing.split("-->");
+            const start = toMs(rawStart || "");
+            const end = toMs(rawEnd || "");
+            if (start === null || end === null) continue;
+            const text = lines.slice(lines.indexOf(timing) + 1).join(" ").trim();
+            if (text) out.push({Text: text, AudioOffset: start, Duration: Math.max(0, end - start)});
+        }
+        return out;
+    }
+
+    function jsonToCaptions(json) {
+        return json.map(entry => {
+            const startSec = entry.AudioOffset / 1000;
+            const endSec = (entry.AudioOffset + entry.Duration) / 1000;
+            return [entry.Text, parseFloat(startSec.toFixed(2)), parseFloat(endSec.toFixed(2)), 0];
+        });
+    }
+
+    async function main() {
+        const { url, voice, rate, date, onClose, lang, itemId, startAtMs } = getQueryParams();
+        if (!url) return alert("Missing URL parameter");
+
+        if (onClose) {
+            window.onClose = () => {
+                window.parent[onClose]();
+            };
+        }
+
+        let json = [{ Text: "No json created as HD voices were used, which do not support that feature yet.", AudioOffset: 0, Duration: 0}];
+        try {
+            const response = await fetch(url + ".sentence.json");
+            if (!response.ok) throw new Error("http " + response.status);
+            json = await response.json();
+        } catch (err) {
+            // Rendered exports have .sentence.json; Discover items have .srt.
+            try {
+                const srtResponse = await fetch(url + ".srt");
+                if (!srtResponse.ok) throw new Error("http " + srtResponse.status);
+                const parsed = srtToJson(await srtResponse.text());
+                if (parsed.length) json = parsed;
+            } catch (srtErr) {
+                console.error("Error loading captions (neither .sentence.json nor .srt):", err, srtErr);
+            }
+        }
+
+            let code = url.replace("https://ttsreaderstorage.blob.core.windows.net/tts-outputs/","").split("/")[0];
+
+            window.videoDetails = {
+                id: 0,
+                voice,
+                rate,
+                orderedAt: date,
+                title: "",
+                speakers: 1,
+                fileName: "",
+                url: url + ".mp3",
+                duration: "",
+                description: "",
+                caps: jsonToCaptions(json),
+                directLink: `https://ttsreader.com/rendered/?c=${code}&lang=${lang}&voice=${voice}&rate=${rate}&date=${date}`
+            };
+
+            const iframe = document.getElementById("exportFrame");
+            iframe.onload = () => {
+                document.getElementById("loader").style.display = "none";
+                iframe.style.display = "block";
+                trackListenPosition(iframe, itemId, startAtMs);
+            };
+
+            iframe.src = "embedded/embeddedPlayback/";
+    }
+
+    main();
+</script>
+</body>
+</html>

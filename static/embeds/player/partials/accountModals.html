@@ -1,0 +1,81 @@
+<!-- Account modals. They live OUTSIDE the tab roots: a hidden .tab-root is
+     display:none, which would hide any modal nested inside it. -->
+
+<div id="contactModal" class="Modal" style="display: none">
+  <div class="Modal-content ai-sheet">
+    <div class="ai-sheet-head">
+      <button class="ai-sheet-close" data-ws-onclick="contactClose" aria-label="Close"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6l-12 12"/><path d="M6 6l12 12"/></svg></button>
+      <h3 class="ai-sheet-title"><%= htmlWebpackPlugin.options.strings.d20260827_contact_title %></h3>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260827_contact_description %></label>
+    <textarea id="contactDescription" class="ai-sheet-input ai-sheet-textarea" maxlength="4000"
+              placeholder="<%= htmlWebpackPlugin.options.strings.d20260827_contact_description_placeholder %>"></textarea>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260827_contact_type %></label>
+    <div class="ai-sheet-chips" data-contact-chips="contactType">
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactType" data-value="issue"><%= htmlWebpackPlugin.options.strings.d20260827_type_issue %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactType" data-value="feature"><%= htmlWebpackPlugin.options.strings.d20260827_type_feature %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactType" data-value="request"><%= htmlWebpackPlugin.options.strings.d20260827_type_request %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactType" data-value="account"><%= htmlWebpackPlugin.options.strings.d20260827_type_account %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactType" data-value="other"><%= htmlWebpackPlugin.options.strings.d20260827_type_other %></button>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260827_contact_severity %></label>
+    <div class="ai-sheet-chips" data-contact-chips="contactSeverity">
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactSeverity" data-value="low"><%= htmlWebpackPlugin.options.strings.d20260827_level_low %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactSeverity" data-value="medium"><%= htmlWebpackPlugin.options.strings.d20260827_level_medium %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactSeverity" data-value="high"><%= htmlWebpackPlugin.options.strings.d20260827_level_high %></button>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260827_contact_urgency %></label>
+    <div class="ai-sheet-chips" data-contact-chips="contactUrgency">
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactUrgency" data-value="low"><%= htmlWebpackPlugin.options.strings.d20260827_level_low %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactUrgency" data-value="medium"><%= htmlWebpackPlugin.options.strings.d20260827_level_medium %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactUrgency" data-value="high"><%= htmlWebpackPlugin.options.strings.d20260827_level_high %></button>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260827_contact_rating %></label>
+    <div class="ai-sheet-chips" data-contact-chips="contactRating">
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactRating" data-value="">—</button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactRating" data-value="5">5</button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactRating" data-value="4">4</button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactRating" data-value="3">3</button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactRating" data-value="2">2</button>
+      <button class="ai-sheet-chip" data-ws-onclick="contactChip" data-state-key="contactRating" data-value="1">1</button>
+    </div>
+
+    <button id="contactLogsToggle" class="ai-sheet-check active" data-ws-onclick="contactToggleLogs">
+      <span class="ai-check-glyph"></span><%= htmlWebpackPlugin.options.strings.d20260827_contact_include_logs %>
+    </button>
+    <p class="account-note"><%= htmlWebpackPlugin.options.strings.d20260827_contact_logs_note %></p>
+
+    <p class="account-note account-note-danger" data-ws-show-if-state="contactFailed=true"><%= htmlWebpackPlugin.options.strings.d20260827_contact_failed %></p>
+
+    <div class="ai-sheet-actions">
+      <button class="library-new-doc-btn ws-btn-primary" data-ws-onclick="contactSubmit"
+              data-ws-disable-if-state="contactBusy=true"><%= htmlWebpackPlugin.options.strings.d20260827_contact_send %></button>
+    </div>
+  </div>
+</div>
+
+<div id="deleteAccountModal" class="Modal" style="display: none">
+  <div class="Modal-content ai-sheet">
+    <div class="ai-sheet-head">
+      <button class="ai-sheet-close" data-ws-onclick="accountDeleteClose" aria-label="Close"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6l-12 12"/><path d="M6 6l12 12"/></svg></button>
+      <h3 class="ai-sheet-title account-danger-text"><%= htmlWebpackPlugin.options.strings.d20260827_delete_account %></h3>
+    </div>
+    <p class="account-note"><%= htmlWebpackPlugin.options.strings.d20260827_delete_body %></p>
+
+    <button id="deleteConfirmToggle" class="ai-sheet-check" data-ws-onclick="accountDeleteToggleConfirm">
+      <span class="ai-check-glyph"></span><%= htmlWebpackPlugin.options.strings.d20260827_delete_confirm_toggle %>
+    </button>
+
+    <p class="account-note account-note-danger" data-ws-label-state="deleteError"></p>
+
+    <div class="ai-sheet-actions">
+      <button class="library-new-doc-btn account-delete-btn" data-ws-onclick="accountDeleteConfirm"
+              data-ws-disable-if-state="deleteConfirmed=false"><%= htmlWebpackPlugin.options.strings.d20260827_delete_cta %></button>
+    </div>
+  </div>
+</div>

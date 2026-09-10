@@ -51,3 +51,11 @@ In md files, there is simple markup for the following:
 - Line breaks: <br/>
 
 [Note: All images should be relatively size optimized - ie jpegs or webp (webp is even better) - and if possible no wider than 1000px. If your image editor can export to small size jpegs - that's great. If not - you can send the images to yourself via WhatsApp. Then - download the images from WhatsApp to your PC. It's now size optimized (as WhatsApp compresses images to save bandwidth)]
+
+---
+
+## Sharing a post as a PDF
+
+Once a post is written, it can be exported to a branded PDF (cover page, all images embedded, alt
+text as figure captions) for emailing, printing or press: see [md_to_pdf.md](md_to_pdf.md).
+In Claude Code just ask for "a PDF of this post" — the `md-to-pdf` skill handles it.

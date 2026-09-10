@@ -23,7 +23,15 @@
         } catch (e) {
             console.warn('Could not save pronunciation dictionary:', e);
         }
+        try {
+            // Cross-device sync hook (set by the bundled PronunciationSync when signed in).
+            window.__pronunciationDictChanged && window.__pronunciationDictChanged();
+        } catch (e) {
+        }
     }
+
+    // The sync layer rewrote the stored dict (remote change) — refresh the editor.
+    window.reloadPronunciationDict = loadDictionary;
 
     // Add new pronunciation
     window.addPronunciation = function() {
