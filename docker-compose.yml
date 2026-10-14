@@ -1,0 +1,10 @@
+services:
+  ttsreader-web:
+    container_name: ttsreader-web-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ttsreader-web-prod:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
