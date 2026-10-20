@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Book catalogue</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+<style>.signin{display:flex;gap:.5rem;align-items:center;margin-left:auto}.signin button{font:inherit;cursor:pointer}.signin #who{opacity:.7;font-size:.9em}</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="#/search">Book catalogue</a>
+    <nav><a href="#/search" data-nav="search">Search</a><a href="#/snapshot" data-nav="snapshot">Snapshot</a></nav>
+    <span class="signin"><span id="who"></span><button type="button" id="signin" onclick="toggleSignIn()">Sign in with Google</button></span>
+  </div>
+  <form class="wrap search" id="search" role="search" autocomplete="off">
+    <label class="q"><span class="sr">Search</span>
+      <input id="q" type="search" placeholder="Title, author, subject…" maxlength="500">
+    </label>
+    <label><span class="sr">Kind</span>
+      <select id="kind">
+        <option value="all">Texts and audio</option>
+        <option value="text">Texts (Gutenberg)</option>
+        <option value="audio">Audio (LibriVox)</option>
+      </select>
+    </label>
+    <label><span class="sr">Language</span>
+      <select id="lang"><option value="">Any language</option></select>
+    </label>
+  </form>
+</header>
+
+<main class="wrap" id="view" aria-live="polite"></main>
+
+<footer class="wrap foot">
+  A test page for the catalogue service at <code>https://catalogue-3uymbuuvmq-uc.a.run.app</code>, signed in with your TTSReader (Google) account.
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script>
+  let firebaseConfig = {
+    apiKey: "AIzaSyDqtWayB72nqpH81RMSEgUzFDN1ES0hrcY",
+    authDomain: "ttsreader.firebaseapp.com",
+    databaseURL: "https://ttsreader.firebaseio.com",
+    projectId: "ttsreader",
+    messagingSenderId: "656667743185"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+function toggleSignIn() {
+  var user = firebase.auth().currentUser;
+  //console.log("user " , user);
+
+  if (user) {
+    // User is signed in.
+    signOut();
+  } else {
+    // No user is signed in.
+    signIn();
+  }
+}
+
+function signOut() {
+  firebase.auth().signOut();
+}
+
+function signIn() {
+  let provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    let token = result.credential.accessToken;
+    // The signed-in user info.
+    let user = result.user;
+    let isNewUser = result.additionalUserInfo.isNewUser;
+    if (isNewUser) {
+      // Api.sendWelcomeEmail();
+    }
+  }).catch(function(error) {
+    // Handle Errors here.
+    let errorCode = error.code;
+    let errorMessage = error.message;
+    // The email of the user's account used.
+    let email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    let credential = error.credential;
+    // ...
+  });
+}
+
+</script>
+<script>
+  // The first answer from Firebase (signed in or not) lets app.js's first request go out; after
+  // that, signing in or out re-renders the current view with the new token.
+  (function () {
+    let authKnown;
+    const authReady = new Promise(function (resolve) { authKnown = resolve; });
+    let first = true;
+    firebase.auth().onAuthStateChanged(function (user) {
+      document.getElementById('signin').textContent = user ? 'Sign out' : 'Sign in with Google';
+      document.getElementById('who').textContent = user ? user.email : '';
+      if (first) { first = false; authKnown(); } else window.dispatchEvent(new HashChangeEvent('hashchange'));
+    });
+    window.CATALOGUE_API = {
+      base: "https://catalogue-3uymbuuvmq-uc.a.run.app",
+      async headers() {
+        await authReady;
+        const user = firebase.auth().currentUser;
+        return user ? { authorization: 'Bearer ' + await user.getIdToken() } : {};
+      },
+      hint401: ' (sign in with Google, top right)',
+    };
+  })();
+</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
