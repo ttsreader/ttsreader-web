@@ -19,10 +19,15 @@ Change log of TTSReader versions & links to stable, previous & preview versions.
 
 ## Latest Stable Version
 
-* **Player V3.14.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
+* **Player V3.15.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)
 
   * Link to version: [https://ttsreader.com/player/](https://ttsreader.com/player/)
-  * Description: 3.14 brings Discover & Library. A leap towrds sync across devices.
+  * Description: 3.15 brings built-in HUMAN READ AUDIOBOOKS!! Built on top of 3.14's Discover & Library!!! Plus - full sync across devices. Published first 2026-10-22
+  * Main Changes:
+    * ALL of LIBRIVOX! Human - narrated classic books.
+    * ALL of Project Gutenberg's Classic books catalogue embedded in the player.
+    * The first and only in the world to SYNC human narrations from LibriVox with their source texts! To enable following along while listening to REAL human narrations.
+    * Fixes & better UI, UX across the board.
 
 <br/>
 
@@ -30,7 +35,10 @@ Change log of TTSReader versions & links to stable, previous & preview versions.
 ## Previous Versions
 
 
-* **Player V3.13.+** - [https://ttsreader.com/player@v3.13/](https://ttsreader.com/player@v3.11/)
+* **Player V3.14.+** - [https://ttsreader.com/player@v3.14/](https://ttsreader.com/player@v3.14/)
+  * Description: 3.14 brings library & sync across devices. Published first 2026-09-10
+
+* **Player V3.13.+** - [https://ttsreader.com/player@v3.13/](https://ttsreader.com/player@v3.13/)
 
 
 * **Player V3.11.+** - [https://ttsreader.com/player@v3.11/](https://ttsreader.com/player@v3.11/)

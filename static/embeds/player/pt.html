@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-09-10T21:35:07.150Z",
-      "version": "3.14.0",
+      "dateModified": "2026-10-22T16:36:50.300Z",
+      "version": "3.15.0",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -66,85 +66,231 @@
   </script>
   <!-- End of Google Analytics: -->
 
-  <script>
-    // Dark mode toggle:
-    let storedTheme = localStorage.getItem('theme-player-only');
-    let DEFAULT_THEME =  Math.random() < 0.5 ? 'dark-bg' : 'light-bg';
+  <script id="reading-look-prepaint">
+    // ---- Reading themes, painted before the first frame --------------------------------------------------------------
+    // Five themes, as on the phones (Ronen, 2026-10-16: "Five themes only, like the phones"): Automatic, Paper, Sepia,
+    // Night, Black - the core's ReadingThemes and ReadingLook. The Reader's colours become variables on <html>, which
+    // App.css paints the Reader from, and data-dark-mode keeps meaning "the app is dark": it is set exactly when the page
+    // is dark (core ReadingLook.appIsDark). This runs before the bundle, so it cannot run the core: the colours the core
+    // resolves are stored ("ttsreader-reading-look") by src/reader/ReadingThemes.js when a theme is chosen. The table
+    // below is the same colours, for a visitor with nothing stored; ReadingThemesPrePaint.test.js pins it to the core.
+    (function () {
+      var KEY = 'ttsreader-reading-look';
+      // The desk photo around the page (App.css [data-theme-bg]): an option of its own in the picker, on unless Plain was
+      // chosen (Ronen, 2026-10-22: "plain + bg as an optional toggle on the themes list"; "default is with image"). The old
+      // looks' photo flag is not read.
+      var DESK_KEY = 'ttsreader-reading-desk';
+      var deskChoice = null; // this visit's choice, for storage that cannot be written
+      var HEX = /^#[0-9A-Fa-f]{6}$/;
+      // A face: {page, text, highlight (core ReaderPaint.highlightBand), dark (core ReadingLook.appIsDark), and
+      // Spotlight's rest, words and linkRest (core ReaderPaint.spotlightRest / spotlightWords; src/reader/ReaderSpotlight.js)}.
+      var SEPIA = {page: '#F4ECD8', text: '#5B4636', highlight: '#D9DFE5', dark: false,
+        rest: '#A0917F', words: '#000000', linkRest: '#6EA2D1'};
+      var PAPER = {page: '#FAF7F0', text: '#2B2B2B', highlight: '#DDE6F4', dark: false,
+        rest: '#888784', words: '#000000', linkRest: '#71A7DC'};
+      var NIGHT = {page: '#1C1C1E', text: '#E6E6E6', highlight: '#1F3B69', dark: true,
+        rest: '#7B7B7C', words: '#FFFFFF', linkRest: '#87898C'};
+      var BLACK = {page: '#000000', text: '#F5F5F5', highlight: '#0D2955', dark: true,
+        rest: '#7F7F7F', words: '#FFFFFF', linkRest: '#7A7C7F'};
+      // id: [the text and page it stores, its face on a light device, on a dark one]. Automatic ("default") stores no
+      // colours: paper on a light device, black on a dark one. Paper is the web's (Ronen, 2026-10-22: "For light themes -
+      // make the default theme Paper instead of Sepia", webapp only); the core's Automatic, which the apps paint, is sepia.
+      var PRESETS = {
+        'default': [null, null, PAPER, BLACK],
+        paper: ['#2B2B2B', '#FAF7F0', PAPER, PAPER],
+        sepia: ['#5B4636', '#F4ECD8', SEPIA, SEPIA],
+        night: ['#E6E6E6', '#1C1C1E', NIGHT, NIGHT],
+        black: ['#F5F5F5', '#000000', BLACK, BLACK]
+      };
+      // A light/dark switch flips a theme to its partner, so flipping twice comes back: the old light and dark looks'
+      // themes, and Automatic's own two.
+      var PARTNER = {paper: 'night', night: 'paper', sepia: 'black', black: 'sepia'};
+      var media = null;
+      var chosen = null; // this visit's choice, for storage that cannot be written
 
-    if (!storedTheme) {
-      let storedBlogTheme = localStorage.getItem('theme');
+      window.toggleTheme = toggleTheme;
+      window.setUiToDarkModeAndBgTheme = setUiToDarkModeAndBgTheme;
+      window.ttsrReadingLook = {
+        current: current, stored: stored, store: store, preset: preset, deviceIsDark: deviceIsDark, apply: apply,
+        desk: desk, deskOn: deskOn
+      };
 
-      if (!storedBlogTheme) {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          storedTheme = 'dark-no-bg';
+      function deskOn() {
+        // The image unless Plain was chosen (Ronen, 2026-10-22: "default is with image").
+        return deskChoice !== null ? deskChoice : read(DESK_KEY) !== '0';
+      }
+
+      // The picker's switch: store the choice and paint it now.
+      function desk(on) {
+        deskChoice = !!on;
+        try {
+          window.localStorage.setItem(DESK_KEY, on ? '1' : '0');
+        } catch (e) { /* storage refused: this visit only shows it */ }
+        var root = document.documentElement;
+        if (on) {
+          root.setAttribute('data-theme-bg', 'true');
         } else {
-          storedTheme = DEFAULT_THEME;
+          root.removeAttribute('data-theme-bg');
         }
-      } else {
-        if (storedBlogTheme === 'dark') {
-          storedTheme = 'dark-no-bg';
+        syncDesk();
+      }
+
+      function syncDesk() {
+        var on = deskOn();
+        var opts = document.querySelectorAll('.reading-theme-bg-opt');
+        for (var i = 0; i < opts.length; i++) {
+          opts[i].setAttribute('aria-checked', String((opts[i].getAttribute('data-desk') === '1') === on));
+        }
+      }
+      document.addEventListener('DOMContentLoaded', syncDesk);
+
+      function preset(id) {
+        var p = Object.prototype.hasOwnProperty.call(PRESETS, id) ? PRESETS[id] : null;
+        return p ? {v: 1, id: id, textHex: p[0], pageHex: p[1], light: p[2], dark: p[3]} : null;
+      }
+
+      function validFace(f) {
+        return !!f && HEX.test(f.page) && HEX.test(f.text) && HEX.test(f.highlight) && typeof f.dark === 'boolean';
+      }
+
+      function read(name) {
+        try {
+          return window.localStorage.getItem(name);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      // The theme chosen and stored, or null.
+      function stored() {
+        try {
+          var look = JSON.parse(read(KEY));
+          return look && validFace(look.light) && validFace(look.dark) ? look : null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      // No theme chosen here: Automatic, the core's default (Ronen, 2026-10-18, R2: "Everyone starts on Automatic, which
+      // follows the device and is the core's own default. Any other look is one tap away in Appearance."). The old
+      // player's look ("theme-player-only") is not read: the old script chose it for each new visitor (dark on a dark
+      // device, else a coin flip) and wrote it on every load, so it does not say the visitor chose it. Nor is the blog's
+      // ("theme"): the blog writes "dark" there on its own for a dark device, and a "light" is the blog's choice, not the
+      // player's. Both are left as they are, so the old build would still find them.
+      function current() {
+        return chosen || stored() || preset('default');
+      }
+
+      function deviceIsDark() {
+        return !!(media && media.matches);
+      }
+
+      function faceOf(look) {
+        return deviceIsDark() ? look.dark : look.light;
+      }
+
+      function apply() {
+        var look = current();
+        var face = faceOf(look);
+        var root = document.documentElement;
+        root.style.setProperty('--reader-page', face.page);
+        root.style.setProperty('--reader-text', face.text);
+        root.style.setProperty('--reader-highlight', face.highlight);
+        if (face.dark) {
+          root.setAttribute('data-dark-mode', 'true');
         } else {
-          storedTheme = 'light-no-bg';
+          root.removeAttribute('data-dark-mode');
         }
-      }
-    }
-
-    if (storedTheme === 'dark-no-bg') {
-      window.setUiToDarkModeAndBgTheme(true, false);
-    } else if (storedTheme === 'dark-bg') {
-      window.setUiToDarkModeAndBgTheme(true, true);
-    } else if (storedTheme === 'light-no-bg') {
-      window.setUiToDarkModeAndBgTheme(false, false);
-    } else if (storedTheme === 'light-bg') {
-      window.setUiToDarkModeAndBgTheme(false, true);
-    } else {
-      window.setUiToDarkModeAndBgTheme(true, false);
-    }
-
-    function setUiToDarkModeAndBgTheme(isDark, isBg) {
-      if (isBg===null || isBg===undefined) {
-        isBg = document.documentElement.hasAttribute('data-theme-bg');
-      }
-      if (isDark && isBg) {
-        document.documentElement.setAttribute('data-dark-mode','true');
-        document.documentElement.setAttribute('data-theme-bg','true');
-        localStorage.setItem('theme-player-only','dark-bg');
-      } else if (isDark && !isBg) {
-        document.documentElement.setAttribute('data-dark-mode','true');
-        document.documentElement.removeAttribute('data-theme-bg');
-        localStorage.setItem('theme-player-only','dark-no-bg');
-      } else if (!isDark && isBg) {
-        document.documentElement.removeAttribute('data-dark-mode');
-        document.documentElement.setAttribute('data-theme-bg','true');
-        localStorage.setItem('theme-player-only','light-bg');
-      } else {
-        document.documentElement.removeAttribute('data-dark-mode');
-        document.documentElement.removeAttribute('data-theme-bg');
-        localStorage.setItem('theme-player-only','light-no-bg');
-      }
-    }
-
-    function toggleTheme() {
-      if (!window.setUiToDarkModeAndBgTheme) {
-        console.log('no window.setUiToDarkModeAndBgTheme');
-        return;
+        if (deskOn()) {
+          root.setAttribute('data-theme-bg', 'true');
+        } else {
+          root.removeAttribute('data-theme-bg');
+        }
+        syncDesk();
+        paintSpotlight(root, face);
+        // Last: App.css paints the Reader from the variables only once this is set.
+        root.setAttribute('data-reading-theme', look.id || 'custom');
+        var switches = document.querySelectorAll('.themeSwitch');
+        for (var i = 0; i < switches.length; i++) switches[i].checked = face.dark;
+        return look;
       }
 
-      // dark -> dark+bg -> light -> light+bg -> dark
-      let isDark = document.documentElement.getAttribute('data-dark-mode')==='true';
-      let isBgImage = document.documentElement.getAttribute('data-theme-bg')==='true';
-
-      if (isDark && isBgImage) {
-        setUiToDarkModeAndBgTheme(false, false);
-      } else if (isDark && !isBgImage) {
-        setUiToDarkModeAndBgTheme(true, true);
-      } else if (!isDark && !isBgImage) {
-        setUiToDarkModeAndBgTheme(false, true);
-      } else {
-        setUiToDarkModeAndBgTheme(true, false);
+      // Spotlight (2026-10-17, src/reader/ReaderSpotlight.css): its three colours as variables, and data-reader-spotlight
+      // only when the face carries all three. A look stored before Spotlight has none: the band stays, as before, until
+      // ReadingThemes.js refreshes the stored look. Never throws into apply().
+      function paintSpotlight(root, face) {
+        var names = ['--reader-spotlight-rest', '--reader-spotlight-words', '--reader-spotlight-link-rest'];
+        try {
+          var colours = [face.rest, face.words, face.linkRest];
+          if (HEX.test(colours[0]) && HEX.test(colours[1]) && HEX.test(colours[2])) {
+            for (var i = 0; i < 3; i++) root.style.setProperty(names[i], colours[i]);
+            root.setAttribute('data-reader-spotlight', '');
+            return;
+          }
+        } catch (e) {
+          // the band, below
+        }
+        root.removeAttribute('data-reader-spotlight');
+        for (var k = 0; k < 3; k++) root.style.removeProperty(names[k]);
       }
-    }
 
+      function store(look) {
+        chosen = look;
+        try {
+          window.localStorage.setItem(KEY, JSON.stringify(look));
+        } catch (e) {
+          // kept for this visit only
+        }
+        return apply();
+      }
+
+      function partnerOf(look) {
+        if (Object.prototype.hasOwnProperty.call(PARTNER, look.id)) return PARTNER[look.id];
+        return faceOf(look).dark ? 'paper' : 'black'; // Automatic: its other face
+      }
+
+      // The light/dark switches (onboarding, the empty-document sheet). The second argument was the desk photo's.
+      function setUiToDarkModeAndBgTheme(isDark) {
+        var look = current();
+        if (!!isDark === faceOf(look).dark) return;
+        store(preset(partnerOf(look)));
+      }
+
+      // The Reader toolbar's Appearance button. The picker (src/reader/ReadingThemes.js) takes the click when it is
+      // there; without it, or if it fails, the button flips light and dark, as it always did.
+      function toggleTheme() {
+        if (typeof window.ttsrOpenReadingThemes === 'function') {
+          try {
+            window.ttsrOpenReadingThemes();
+            return;
+          } catch (e) {
+            // fall through to the flip
+          }
+        }
+        store(preset(partnerOf(current())));
+      }
+
+      try {
+        media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        apply();
+        // Automatic follows the device while the page is open; a chosen theme paints the same on both.
+        var follow = function () {
+          try {
+            apply();
+          } catch (e) {
+            // keeps the colours it has
+          }
+        };
+        if (media && media.addEventListener) {
+          media.addEventListener('change', follow);
+        } else if (media && media.addListener) {
+          media.addListener(follow);
+        }
+      } catch (e) {
+        // The Reader keeps App.css's own colours.
+        document.documentElement.removeAttribute('data-reading-theme');
+      }
+    })();
   </script>
 
   <style>
@@ -680,7 +826,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.b0aa16d0.js"></script><link href="./static/css/main.71804917.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.24151fe3.js"></script><link href="./static/css/main.a7b726b4.css" rel="stylesheet"></head>
 <body>
 
 <!-- ===== "Open our iOS app" interstitial =========================================
@@ -844,7 +990,27 @@
   </div>
 </div>
 <script>
-  window.__TTSR_APP_AVAILABILITY__ = {"appStoreUrl":"https://apps.apple.com/us/app/ttsreader-text-to-speech/id6790834349","countries":[{"code":"US","timeZones":["America/New_York","America/Detroit","America/Chicago","America/Denver","America/Phoenix","America/Los_Angeles","America/Anchorage","America/Adak","America/Boise","America/Juneau","America/Sitka","America/Nome","America/Menominee","America/Indiana/Indianapolis","America/Indiana/Vincennes","America/Indiana/Knox","America/Kentucky/Louisville","America/North_Dakota/Center","Pacific/Honolulu","US/Eastern","US/Central","US/Mountain","US/Pacific"]},{"code":"GB","timeZones":["Europe/London","Europe/Belfast","GB","GB-Eire"]},{"code":"IN","timeZones":["Asia/Kolkata","Asia/Calcutta"]},{"code":"IL","timeZones":["Asia/Jerusalem","Asia/Tel_Aviv","Israel"]}]};
+  /* TTSR-STORE-WINDOW-START — the window an "open our app" redirect sends to the store (the iPhone and Android blocks
+     below; 2026-10-21). Every language page (ttsreader.com/he/…) runs the player in a same-site frame (measured): there
+     the store opens in the TAB — in the frame Google Play refused to load and the player became an error page (measured
+     on the Android emulator). Returns `w` when it is the top window, `w.top` when a page of the same site frames it, and
+     null when another site frames it or on any doubt (reading another site's location throws). The same rule as
+     sameSiteParent() in src/discover/links/AddressBar.js, which these inline scripts cannot use (they run before the
+     bundle). Defines a function; does nothing at load. */
+  window.__ttsrStoreWindowFor = function (w) {
+    try {
+      if (!w) return null;
+      var t = w.top;
+      if (!t || t === w) return w;
+      return t.location.origin === w.location.origin ? t : null;
+    } catch (e) {
+      return null;
+    }
+  };
+  /* TTSR-STORE-WINDOW-END */
+</script>
+<script>
+  window.__TTSR_APP_AVAILABILITY__ = {"appStoreUrl":"https://apps.apple.com/us/app/ttsreader-text-to-speech/id6790834349","playStoreUrl":"https://play.google.com/store/apps/details?id=com.ttsreader.ttsreader","androidCountries":["US","GB","IL","IT"],"countries":[{"code":"FR","timeZones":["Europe/Paris"]},{"code":"BE","timeZones":["Europe/Brussels"]},{"code":"NL","timeZones":["Europe/Amsterdam"]},{"code":"DE","timeZones":["Europe/Berlin","Europe/Busingen"]},{"code":"AT","timeZones":["Europe/Vienna"]},{"code":"CH","timeZones":["Europe/Zurich"]},{"code":"ES","timeZones":["Europe/Madrid","Africa/Ceuta","Atlantic/Canary"]},{"code":"IT","timeZones":["Europe/Rome"]},{"code":"JP","timeZones":["Asia/Tokyo","Japan"]},{"code":"CA","timeZones":["America/St_Johns","America/Halifax","America/Glace_Bay","America/Moncton","America/Goose_Bay","America/Blanc-Sablon","America/Toronto","America/Iqaluit","America/Atikokan","America/Winnipeg","America/Resolute","America/Rankin_Inlet","America/Regina","America/Swift_Current","America/Edmonton","America/Cambridge_Bay","America/Inuvik","America/Vancouver","America/Creston","America/Dawson_Creek","America/Fort_Nelson","America/Whitehorse","America/Dawson","America/Coral_Harbour","America/Montreal","America/Nipigon","America/Pangnirtung","America/Rainy_River","America/Thunder_Bay","America/Yellowknife","Canada/Atlantic","Canada/Central","Canada/Eastern","Canada/Mountain","Canada/Newfoundland","Canada/Pacific","Canada/Saskatchewan","Canada/Yukon"]},{"code":"AU","timeZones":["Australia/Lord_Howe","Antarctica/Macquarie","Australia/Hobart","Australia/Melbourne","Australia/Sydney","Australia/Broken_Hill","Australia/Brisbane","Australia/Lindeman","Australia/Adelaide","Australia/Darwin","Australia/Perth","Australia/Eucla","Australia/ACT","Australia/Canberra","Australia/Currie","Australia/LHI","Australia/NSW","Australia/North","Australia/Queensland","Australia/South","Australia/Tasmania","Australia/Victoria","Australia/West","Australia/Yancowinna"]},{"code":"AR","timeZones":["America/Argentina/Buenos_Aires","America/Argentina/Cordoba","America/Argentina/Salta","America/Argentina/Jujuy","America/Argentina/Tucuman","America/Argentina/Catamarca","America/Argentina/La_Rioja","America/Argentina/San_Juan","America/Argentina/Mendoza","America/Argentina/San_Luis","America/Argentina/Rio_Gallegos","America/Argentina/Ushuaia","America/Argentina/ComodRivadavia","America/Buenos_Aires","America/Catamarca","America/Cordoba","America/Jujuy","America/Mendoza","America/Rosario"]},{"code":"BR","timeZones":["America/Noronha","America/Belem","America/Fortaleza","America/Recife","America/Araguaina","America/Maceio","America/Bahia","America/Sao_Paulo","America/Campo_Grande","America/Cuiaba","America/Santarem","America/Porto_Velho","America/Boa_Vista","America/Manaus","America/Eirunepe","America/Rio_Branco","America/Porto_Acre","Brazil/Acre","Brazil/DeNoronha","Brazil/East","Brazil/West"]},{"code":"US","timeZones":["America/New_York","America/Detroit","America/Chicago","America/Denver","America/Phoenix","America/Los_Angeles","America/Anchorage","America/Adak","America/Boise","America/Juneau","America/Sitka","America/Nome","America/Menominee","America/Indiana/Indianapolis","America/Indiana/Vincennes","America/Indiana/Knox","America/Kentucky/Louisville","America/North_Dakota/Center","Pacific/Honolulu","US/Eastern","US/Central","US/Mountain","US/Pacific","America/Kentucky/Monticello","America/Indiana/Winamac","America/Indiana/Marengo","America/Indiana/Petersburg","America/Indiana/Vevay","America/Indiana/Tell_City","America/North_Dakota/New_Salem","America/North_Dakota/Beulah","America/Metlakatla","America/Yakutat","America/Atka","America/Fort_Wayne","America/Indianapolis","America/Knox_IN","America/Louisville","America/Shiprock","Navajo","US/Alaska","US/Aleutian","US/Arizona","US/East-Indiana","US/Hawaii","US/Indiana-Starke","US/Michigan"]},{"code":"GB","timeZones":["Europe/London","Europe/Belfast","GB","GB-Eire"]},{"code":"IN","timeZones":["Asia/Kolkata","Asia/Calcutta"]},{"code":"IL","timeZones":["Asia/Jerusalem","Asia/Tel_Aviv","Israel"]}]};
   /* TTSR-IOS-GATE-START — the truth table for this block is pinned by
      src/iosAppInterstitial.test.js, which extracts and evaluates it verbatim. */
   (function () {
@@ -888,6 +1054,18 @@
 
     if (!shouldOffer(window.navigator, currentTimeZone(), window.localStorage)) return;
 
+    // Where the App Store opens (TTSR-STORE-WINDOW, the script above; 2026-10-21): this window, or the tab when a
+    // same-site language page frames the player; inside another site's frame, no offer. A missing helper, a throw or any
+    // other answer: this window, as before.
+    var storeWindow = window;
+    try {
+      var chosen = typeof window.__ttsrStoreWindowFor === "function" ? window.__ttsrStoreWindowFor(window) : window;
+      if (chosen === null) return;
+      if (chosen === window.top) storeWindow = chosen;
+    } catch (e) {
+      storeWindow = window;
+    }
+
     var el = document.getElementById("iosAppInterstitial");
     var titleEl = document.getElementById("iosAppInterstitialTitle");
     var openEl = document.getElementById("iosAppInterstitialOpen");
@@ -910,7 +1088,25 @@
 
     function goToStore() {
       if (timer) { clearInterval(timer); timer = null; }
-      window.location.href = window.__TTSR_APP_AVAILABILITY__.appStoreUrl;
+      storeWindow.location.href = window.__TTSR_APP_AVAILABILITY__.appStoreUrl;
+      // Back from the store, the page is shown again: the screen goes, as "Stay" leaves it (no event, no opt-out), instead of
+      // staying frozen at "in 1…" (measured on Android, 2026-10-21). Registered only here, after the handoff; wrapped.
+      try {
+        var away = false;
+        var back = function (evt) {
+          if (evt && evt.type === "visibilitychange") {
+            if (document.visibilityState !== "visible") { away = true; return; }
+            if (!away) return;
+          } else if (!(evt && evt.persisted)) {
+            return;
+          }
+          el.classList.remove("ios-gate-on");
+          document.removeEventListener("visibilitychange", back);
+          window.removeEventListener("pageshow", back);
+        };
+        document.addEventListener("visibilitychange", back);
+        window.addEventListener("pageshow", back);
+      } catch (e) {}
     }
 
     function stay() {
@@ -936,6 +1132,157 @@
     }, 1000);
   })();
   /* TTSR-IOS-GATE-END */
+</script>
+
+<script>
+  /* TTSR-ANDROID-GATE-START — the same screen for Android PHONES (Ronen, 2026-10-21): same countdown, same "Stay on
+     web version" and "Don't ask again", then Google Play. Its own <script>, after the iPhone's: by the time this runs
+     the iPhone block has finished, and a script that throws or does not parse ends only itself. It borrows the
+     iPhone's screen (#iosAppInterstitial) and changes nothing on it unless it is about to show it. Its truth table is
+     pinned by src/androidAppInterstitial.test.js, which extracts and evaluates this block verbatim. */
+  (function () {
+    try {
+      var OPT_OUT_KEY = "TTSReaderPlayer_androidAppRedirectOptOut"; // its own key, with Persistor's prefix
+      var COUNT_FROM = 3;
+
+      function shouldOffer(nav, tz, store, win) {
+        try {
+          var ua = (nav && nav.userAgent) || "";
+          // Bots never get redirected (the iPhone block's list): Googlebot's smartphone crawler is an Android phone.
+          if (/bot|crawler|spider|crawling|facebookexternalhit|slurp|bingpreview|embedly|pinterest|whatsapp|twitterbot|linkedinbot|telegrambot/.test(ua.toLowerCase())) return false;
+          // Google's tools that send an Android phone's UA without "bot" (Google-InspectionTool, GoogleOther,
+          // Google-Read-Aloud…: "(compatible; Google…"), Lighthouse, and any automated browser (navigator.webdriver:
+          // PageSpeed, headless runs). A real phone sets none of these. (The review, 2026-10-21.)
+          if (/\(compatible;\s*google|chrome-lighthouse/i.test(ua)) return false;
+          if (nav && nav.webdriver === true) return false;
+          // Where Google Play would open (TTSR-STORE-WINDOW, the script before the iPhone's): none — another site's frame,
+          // or no helper to judge the frame by — means no offer. Our own language pages frame the player: the tab.
+          var storeTarget = null;
+          try {
+            storeTarget = typeof window.__ttsrStoreWindowFor === "function" ? window.__ttsrStoreWindowFor(win) : null;
+          } catch (e) {
+            storeTarget = null;
+          }
+          if (!storeTarget) return false;
+          // ANDROID PHONES ONLY. Android tablets leave "Mobile" out of the UA; real touch rejects a spoofed string.
+          if (!/Android/.test(ua) || !/Mobile/.test(ua)) return false;
+          if (!(nav.maxTouchPoints > 0)) return false;
+          // Already the installed web app (manifest.json's display is "standalone"). If we cannot tell, stay put.
+          if (!win || typeof win.matchMedia !== "function") return false;
+          if (win.matchMedia("(display-mode: standalone)").matches) return false;
+          if (store && store.getItem(OPT_OUT_KEY) === "true") return false;
+          // Country, by timezone: Android's codes, each country's zones from the one shared table.
+          var data = win.__TTSR_APP_AVAILABILITY__;
+          if (!data || typeof data.playStoreUrl !== "string" || !tz) return false;
+          if (!Array.isArray(data.androidCountries) || !Array.isArray(data.countries)) return false;
+          for (var i = 0; i < data.countries.length; i++) {
+            var c = data.countries[i];
+            if (data.androidCountries.indexOf(c.code) === -1 || !Array.isArray(c.timeZones)) continue;
+            if (c.timeZones.indexOf(tz) !== -1) return true;
+          }
+          return false;
+        } catch (e) {
+          return false;
+        }
+      }
+      window.__ttsrShouldOfferAndroidApp = shouldOffer;
+
+      var tz = "";
+      try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+      if (!shouldOffer(window.navigator, tz, window.localStorage, window)) return;
+
+      // Back to this page after this tab handed off (Google Play's web page opened instead of its app, and Back reloaded
+      // us): no countdown into Play again, a loop. Only then; a reload or a new visit asks again, as today. (The review's
+      // #6, 2026-10-21.) If either read fails, as today.
+      var HANDED_OFF_KEY = "TTSReaderPlayer_androidHandedOff";
+      try {
+        if (window.sessionStorage.getItem(HANDED_OFF_KEY) === "1") {
+          window.sessionStorage.removeItem(HANDED_OFF_KEY);
+          var navEntry = window.performance.getEntriesByType("navigation")[0];
+          if (navEntry && navEntry.type === "back_forward") return;
+        }
+      } catch (e) {}
+
+      var el = document.getElementById("iosAppInterstitial");
+      var titleEl = document.getElementById("iosAppInterstitialTitle");
+      var openEl = document.getElementById("iosAppInterstitialOpen");
+      var stayEl = document.getElementById("iosAppInterstitialStay");
+      var dontAskEl = document.getElementById("iosAppInterstitialDontAsk");
+      if (!el || !titleEl || !openEl || !stayEl || !dontAskEl) return;
+      if (el.classList.contains("ios-gate-on")) return; // the iPhone block took the screen: it is not an Android phone
+
+      var STORE_URL = window.__TTSR_APP_AVAILABILITY__.playStoreUrl;
+      // As JSON: any translation is a valid string here (a double quote broke the iPhone block's way; the second review).
+      var TITLE = "Direcionando você para o nosso app para a melhor experiência em %@…";
+      var OPEN = "Abrir no Google Play";
+      var left = COUNT_FROM;
+      var timer = null;
+
+      function paint() { titleEl.innerHTML = TITLE.replace("%@", '<span class="ios-gate-count">' + left + '</span>'); }
+
+      function note(event) {
+        // AppAnalytics is defined further down the body; report once it exists.
+        setTimeout(function () {
+          try { window.AppAnalytics && window.AppAnalytics.sendEvent && window.AppAnalytics.sendEvent(event); } catch (e) {}
+        }, 0);
+      }
+
+      function goToStore() {
+        if (timer) { clearInterval(timer); timer = null; }
+        try { window.sessionStorage.setItem(HANDED_OFF_KEY, "1"); } catch (e) {} // see the Back check above
+        // On a language page (ttsreader.com/he/…) this runs in the page's frame: the store opens in the TAB. In the frame,
+        // Google Play refuses to load and the player became an error page (measured on the emulator, 2026-10-21).
+        var storeWindow = window;
+        try { storeWindow = window.__ttsrStoreWindowFor(window) || window; } catch (e) {}
+        storeWindow.location.href = STORE_URL;
+        // Back from the store, the page is shown again: the screen goes, as "Stay" leaves it (no event, no opt-out), instead
+        // of staying frozen at "in 1…" (measured on the emulator, 2026-10-21). Registered only here, after the handoff.
+        try {
+          var away = false;
+          var back = function (evt) {
+            if (evt && evt.type === "visibilitychange") {
+              if (document.visibilityState !== "visible") { away = true; return; }
+              if (!away) return;
+            } else if (!(evt && evt.persisted)) {
+              return;
+            }
+            el.classList.remove("ios-gate-on");
+            document.removeEventListener("visibilitychange", back);
+            window.removeEventListener("pageshow", back);
+          };
+          document.addEventListener("visibilitychange", back);
+          window.addEventListener("pageshow", back);
+        } catch (e) {}
+      }
+
+      function stay() {
+        if (timer) { clearInterval(timer); timer = null; }
+        el.classList.remove("ios-gate-on");
+        try {
+          // Only the checkbox is remembered — otherwise the next load asks again.
+          if (dontAskEl.checked) { window.localStorage.setItem(OPT_OUT_KEY, "true"); note("android_interstitial_optout"); }
+        } catch (e) {}
+        note("android_interstitial_stayed");
+      }
+
+      // Everything that could fail happens before the screen shows, so a failure leaves the page as it was.
+      openEl.textContent = OPEN;
+      paint();
+      openEl.addEventListener("click", function () { note("android_interstitial_opened"); goToStore(); });
+      stayEl.addEventListener("click", stay);
+      el.classList.add("ios-gate-on");
+      note("android_interstitial_shown");
+
+      timer = setInterval(function () {
+        left--;
+        if (left > 0) { paint(); return; }
+        goToStore();
+      }, 1000);
+    } catch (e) {
+      // any surprise -> behave as if this feature did not exist
+    }
+  })();
+  /* TTSR-ANDROID-GATE-END */
 </script>
 
 <!-- hidden templates -->
@@ -981,7 +1328,7 @@
     <!-- The way back to the player this version replaced, for someone who already had
          a document here before it arrived. Ships `hidden`: App() decides who sees it,
          and it stays through every launch until they close it themselves. -->
-    <div class="ws-rollback-bar hidden" data-ws-show-if-state="showRollbackBar=true">
+    <div class="ws-rollback-bar hidden">
       <span class="ws-rollback-text">
         <strong>Esta é a nova versão do TTSReader</strong>
         <span>Com a sua Biblioteca, sincronização entre dispositivos, Descobrir e muito mais.</span>
@@ -1025,7 +1372,7 @@
             <!-- "+ New": the desktop counterpart of the mobile Library "+" button.
                  Hidden in the narrow-screen bottom bar (CSS) — there the Library
                  tab's own toolbar carries creation. -->
-            <a class="Menu-list-element rail-item rail-item--new" data-ws-onclick="newDocOpen" title="Novo documento" aria-label="Novo documento"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="rail-new-glyph icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg><span class="rail-label badge-new-sup">Novo</span></a>
+            <a class="Menu-list-element rail-item rail-item--new" data-ws-onclick="newDocOpen" title="Novo documento" aria-label="Novo documento"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M14.5 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/></svg><span class="rail-label">Adicionar</span></a>
             <a class="Menu-list-element rail-item" data-ws-onclick="switchTab" data-tab="discover" title="Descobrir" aria-label="Descobrir"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-compass"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 16l2 -6l6 -2l-2 6l-6 2" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 3l0 2" /><path d="M12 19l0 2" /><path d="M3 12l2 0" /><path d="M19 12l2 0" /></svg><span class="rail-label">Descobrir</span></a>
             <a class="Menu-list-element rail-item" data-ws-onclick="switchTab" data-tab="library" title="Biblioteca" aria-label="Biblioteca"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-books"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M5 8h4" /><path d="M9 16h4" /><path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" /><path d="M14 9l4 -1" /><path d="M16 16l3.923 -.98" /></svg><span class="rail-label">Biblioteca</span></a>
             <a class="Menu-list-element rail-item" data-ws-onclick="switchTab" data-tab="reader" title="Leitor" aria-label="Leitor"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 4v16l13 -8z" /></svg><span class="rail-label">Leitor</span></a>
@@ -1161,6 +1508,21 @@
           <span style="flex: 1"></span>
 
         <div class="toolbar-actions">
+        <!-- Generate MP3: the feature people pay for, where they can see it (Ronen, 2026-10-21: "GENERATE TO MP3 is
+             probably the main feature users pay for - so it has to be super obvious (1) it's possible and (2) how to").
+             The title menu's own door (docMenuGenerateMp3: stats, then the export modal), so both open the same thing.
+             Icon only when the reader is narrow, gone when narrower (the player keeps its export button). -->
+        <button class="toolbar-generate-btn" type="button" data-ws-onclick="docMenuGenerateMp3" data-ws-show-if-state="readerAudioMode=false"
+                title="Gerar MP3" aria-label="Gerar MP3">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          <span class="toolbar-generate-label">Gerar MP3</span>
+        </button>
+        <!-- While the Reader shows an audio, the same place downloads it (Ronen, 2026-10-22; src/player/AudioDownload.js). -->
+        <button class="toolbar-generate-btn hidden" type="button" data-ws-onclick="downloadReaderAudio" data-ws-show-if-state="readerAudioMode=true"
+                title="Baixar MP3" aria-label="Baixar MP3">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          <span class="toolbar-generate-label">Baixar MP3</span>
+        </button>
         <!--<button data-ws-show-if-state="isPremium=false" class="Hide-on-narrow-screens" style="text-align: center; text-wrap:nowrap;" onclick="openNewUpgradeModal()">
           <span style="border-radius: 10px; padding: 7px 16px; background-color: green; font-weight: bold;">👑 Tornar-se Premium</span>
         </button>-->
@@ -1181,8 +1543,36 @@
         </button>
 
         <span class="Hide-on-narrow-screens">&nbsp;</span>
-        <button onclick="toggleTheme();" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
-          <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+        <!-- Appearance: the five reading themes, as on the phones (src/reader/ReadingThemes.js draws the swatches). The
+             click goes to the pre-paint script's toggleTheme(), which hands it to the picker - or, without the picker,
+             flips light and dark, as this button always did. -->
+        <div class="reading-theme-wrap">
+          <button id="readingThemeButton" onclick="toggleTheme();" class="btn btn-link" type="button"
+                  aria-haspopup="dialog" aria-expanded="false" aria-controls="readingThemePopover"
+                  title="Aparência" aria-label="Aparência">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 17a5 5 0 0 0 0 -10v10" fill="currentcolor"/></svg>
+          </button>
+          <div id="readingThemePopover" class="reading-theme-popover" role="dialog" aria-label="Tema de leitura" hidden>
+            <div class="reading-theme-title" aria-hidden="true">Tema de leitura</div>
+            <div class="reading-theme-swatches" role="radiogroup" aria-label="Tema de leitura"></div>
+            <!-- The space around the page: plain or the desk image (Ronen, 2026-10-22: "simply add a toggle 'image/plain
+                 background'"). The pre-paint script stores and paints it, and marks the chosen half. -->
+            <div class="reading-theme-bg">
+              <span class="reading-theme-bg-label">Fundo</span>
+              <span class="reading-theme-bg-switch" role="radiogroup" aria-label="Fundo">
+                <button type="button" role="radio" class="reading-theme-bg-opt" data-desk="0" aria-checked="false"
+                        onclick="window.ttsrReadingLook && window.ttsrReadingLook.desk && window.ttsrReadingLook.desk(false);">Liso</button>
+                <button type="button" role="radio" class="reading-theme-bg-opt" data-desk="1" aria-checked="true"
+                        onclick="window.ttsrReadingLook && window.ttsrReadingLook.desk && window.ttsrReadingLook.desk(true);">Imagem</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- The sidebar, at hand (Ronen, 2026-10-22: "to the RIGHT of the theme button - can you add this sidebar-toggle
+             button?"): the sidebar's own toggle, the one the voice and speed chips call. -->
+        <button class="btn btn-link toolbar-sidebar-btn" type="button" data-ws-onclick="toggleSettingsSidebar"
+                title="Mostrar ou ocultar a barra lateral" aria-label="Mostrar ou ocultar a barra lateral">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M15 4l0 16"/></svg>
         </button>
         </div>
         <!--<button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
@@ -1208,6 +1598,36 @@
               <button data-ws-onClick="loadPrevChapter" title="Load Previous Chapter" aria-label="Load Previous Chapter"><b>&lArr;</b></button>
               <span data-ws-label-state="currentChapterLabel"></span> / <span data-ws-label-state="totalChapters"></span>
               <button data-ws-onClick="loadNextChapter" title="Load Next Chapter" aria-label="Load Next Chapter"><b>&rArr;</b></button>
+            </div>
+            <!-- The unified player (webapp A–C, Block 1a): an mp3 playing in this Reader. Hidden unless `readerAudioMode`;
+                 every handler here is the player's own (src/player/UnifiedPlayer.js). Close brings back the document that
+                 was open. An audiobook wears the Book bar's audio twin: ‹ chapter · n / N ›, the name opens its chapters. -->
+            <div class="audio-mode-bar hidden" data-ws-show-if-state="readerAudioMode=true">
+              <button type="button" class="audio-mode-close" data-ws-onclick="audioClose"
+                      title="Fechar" aria-label="Fechar">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6l-12 12"/><path d="M6 6l12 12"/></svg>
+              </button>
+              <div class="audio-book-bar hidden" data-ws-show-if-state="audioIsAlbum=true">
+                <button type="button" class="audio-book-bar-step" data-ws-onclick="audioPrevChapter"
+                        title="Capítulo anterior" aria-label="Capítulo anterior">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6l6 6"/></svg>
+                </button>
+                <button type="button" class="audio-book-bar-name" data-ws-onclick="audioChaptersToggle" aria-haspopup="menu"
+                        title="Capítulos">
+                  <span class="audio-book-bar-title" dir="auto" data-ws-label-state="audioChapterLabel"></span>
+                  <span class="audio-book-bar-count" aria-hidden="true">·</span>
+                  <span class="audio-book-bar-count" dir="ltr" data-ws-label-state="audioChapterCount"></span>
+                </button>
+                <button type="button" class="audio-book-bar-step" data-ws-onclick="audioNextChapter"
+                        title="Próximo capítulo" aria-label="Próximo capítulo">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+                </button>
+                <div id="audioChaptersMenu" class="toc-menu audio-chapters-menu hidden" role="menu"
+                     data-ws-show-if-state="audioChaptersOpen=true">
+                  <div class="doc-menu-heading">Capítulos</div>
+                  <div id="audioChaptersList" class="toc-menu-list"></div>
+                </div>
+              </div>
             </div>
             <div class="Text-box-container" style="position: relative;" data-ws-style-state="font-size=selectedFontSize">
               <!-- Create the toolbar container -->
@@ -1275,7 +1695,6 @@
                   },
                   formats: [
                     'highlight',
-                    'background',
                     'blink',        // Custom blink format
                     'pronunciation-highlight', // Custom pronunciation highlight format
                     'link',
@@ -1391,6 +1810,16 @@
                    editor's exact centre no matter how wide either pill is. The
                    voice pill stays visible while playing — it lives in the
                    bottom margin now, over no text. -->
+              <!-- An mp3's stream (src/player/StreamWatch.js): Buffering after a moment of silence, then, after every try,
+                   "This part couldn't load" — a tap tries again. Said plainly; a failure is not dressed up. -->
+              <div class="audio-status hidden" data-ws-show-if-state="audioStatusShown=true" role="status" aria-live="polite">
+                <span class="audio-status-wait hidden" data-ws-show-if-state="audioBuffering=true"><span class="audio-status-spinner" aria-hidden="true"></span>Carregando áudio…</span>
+                <span class="audio-status-wait hidden" data-ws-show-if-state="audioOffline=true"><span class="audio-status-spinner" aria-hidden="true"></span>Carregando — aguardando conexão…</span>
+                <button type="button" class="audio-status-failed hidden" data-ws-show-if-state="audioLoadFailed=true" data-ws-onclick="audioTryAgain">
+                  <span>Não foi possível carregar esta parte.</span>
+                  <span class="audio-status-retry">Tentar novamente</span>
+                </button>
+              </div>
               <div class="player-combo-dock">
                 <div class="dock-side dock-side--voice">
                   <div class="player-combo">
@@ -1398,9 +1827,19 @@
                          structure, so it sits with the document's voice rather
                          than with the speed controls. Icon-only — the pill is
                          width-capped and the voice label needs the room. -->
+                    <!-- Back 15 s · Contents · forward 15 s, only while the Reader shows an audio (Ronen, 2026-10-22: "only for
+                         audios not for docs"). The transport's own rewind / forward, which move a recording 15 s. -->
+                    <button class="combo-part combo-part--skip hidden" data-ws-show-if-state="readerAudioMode=true" data-ws-onclick="rewind"
+                            title="Voltar 15 segundos" aria-label="Voltar 15 segundos">
+                      <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 20h2a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-2v-3h3"/><path d="M15 18a6 6 0 1 0 0 -12h-11"/><path d="M5 14v6"/><path d="M7 9l-3 -3l3 -3"/></svg>
+                    </button>
                     <button class="combo-part combo-part--toc" data-ws-onclick="tocChipClick"
                             title="Conteúdo" aria-label="Conteúdo" aria-haspopup="menu">
                       <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l11 0"/><path d="M9 12l11 0"/><path d="M9 18l11 0"/><path d="M5 6l0 .01"/><path d="M5 12l0 .01"/><path d="M5 18l0 .01"/></svg>
+                    </button>
+                    <button class="combo-part combo-part--skip hidden" data-ws-show-if-state="readerAudioMode=true" data-ws-onclick="forward"
+                            title="Avançar 15 segundos" aria-label="Avançar 15 segundos">
+                      <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 9l3 -3l-3 -3"/><path d="M9 18a6 6 0 1 1 0 -12h11"/><path d="M16 20h2a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-2v-3h3"/><path d="M13 14v6"/></svg>
                     </button>
                     <span class="combo-divider" aria-hidden="true"></span>
                     <button class="combo-part combo-part--voice" data-ws-onclick="voiceChipClick"
@@ -1409,6 +1848,10 @@
                       <span class="chip-gender chip-gender--m hidden" data-ws-show-if-state="voiceIsMale=true">👨</span>
                       <span class="chip-gender chip-gender--n hidden" data-ws-show-if-state="voiceIsNeutral=true">🧑</span>
                       <span class="chip-text Voice-label Flag-font" data-ws-label-state="voiceLabel"></span>
+                      <span class="chip-local hidden" data-ws-show-if-state="localTtsActive=true" title="Reproduzindo pelo TTSReader para Mac. Nenhum caractere é usado.">pelo seu Mac</span>
+                      <!-- Icon only: the pill has a fixed width, and a worded chip squeezed the voice name to nothing
+                           (headless user flow, 2026-09-25). The words are its tooltip and accessible name. -->
+                      <span class="chip-local chip-local--icon hidden" data-ws-show-if-state="waiLocalActive=true" role="img" title="Tocando neste computador. Nenhum caractere é usado." aria-label="neste computador"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>
                     </button>
                   </div>
 
@@ -1425,6 +1868,9 @@
                 <button id="Play-btn" data-ws-onClick="togglePlay" title="Play / Pause" aria-label="Play / Pause">
                   <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg></span>
                   <span data-ws-show-if-state="isPlayingOn=false"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
+                  <!-- An mp3 in the Reader (src/player): its own glyph, while the two above give way (player.css). -->
+                  <span class="audio-glyph hidden" data-ws-show-if-state="audioGlyphPause=true"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg></span>
+                  <span class="audio-glyph hidden" data-ws-show-if-state="audioGlyphPlay=true"><svg class="Play-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
                 </button>
 
                 <div class="dock-side dock-side--speed">
@@ -1438,10 +1884,63 @@
                     <button class="combo-part combo-part--step" data-ws-onclick="faster"
                             title="Mais rápido" aria-label="Mais rápido"><svg class="ms-icon" viewBox="0 -960 960 960" aria-hidden="true"><path d="m216-160-56-56 384-384H440v80h-80v-160h233q16 0 31 6t26 17l120 119q27 27 66 42t84 16v80q-62 0-112.5-19T718-476l-40-42-88 88 90 90-262 151-40-69 172-99-68-68-266 265Zm-96-280v-80h200v80H120ZM40-560v-80h200v80H40Zm739-80q-33 0-57-23.5T698-720q0-33 24-56.5t57-23.5q33 0 57 23.5t24 56.5q0 33-24 56.5T779-640Zm-659-40v-80h200v80H120Z"/></svg></button>
                     <span class="combo-divider" aria-hidden="true"></span>
-                    <button class="combo-part combo-part--step"
+                    <button class="combo-part combo-part--step" data-ws-show-if-state="readerAudioMode=false"
                             data-ws-onClick="toggleRecord" title="Toggle recording" aria-label="Toggle recording">
                       <span data-ws-show-if-state="isRecordingOn=false"><svg class="Top-btn-svg" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg></span>
                       <span data-ws-show-if-state="isRecordingOn=true" class="hidden Blinking-record-btn"><svg  class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg></span>
+                    </button>
+                    <!-- While the Reader shows an audio: Download MP3 in place of the export, and no recording (Ronen, 2026-10-22). -->
+                    <button class="combo-part combo-part--step hidden" data-ws-show-if-state="readerAudioMode=true"
+                            data-ws-onclick="downloadReaderAudio" title="Baixar MP3" aria-label="Baixar MP3">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+                    </button>
+                    <button class="combo-part combo-part--step" data-ws-show-if-state="readerAudioMode=false"
+                            data-ws-toggle="#exportModal" title="Export to MP3" aria-label="Export to MP3">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="Top-btn-svg">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M20 16a1 1 0 0 1 1 1v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-2a1 1 0 0 1 2 0v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1 -1v-2a1 1 0 0 1 1 -1m-8 -13a1 1 0 0 1 1 1v9.585l3.293 -3.292a1 1 0 0 1 1.414 1.414l-5 5a1 1 0 0 1 -.09 .08l.09 -.08a1 1 0 0 1 -.674 .292l-.033 .001h-.032l-.054 -.004l.086 .004a1 1 0 0 1 -.617 -.213a1 1 0 0 1 -.09 -.08l-5 -5a1 1 0 0 1 1.414 -1.414l3.293 3.292v-9.585a1 1 0 0 1 1 -1" />
+                      </svg>
+                    </button>
+                  </div>
+                  <!-- The speed, when the Reader is too narrow for the steps (Ronen, 2026-10-22; src/reader/SpeedPopover.js):
+                       the chip raises this bar — + on top, the speed, a slider, − at the bottom — on the Reader's own verbs
+                       and state. A sibling of the pill, which is overflow:hidden. -->
+                  <div id="speedPopover" class="speed-pop hidden" role="dialog" aria-label="Velocidade" data-ws-show-if-state="speedPopOpen=true">
+                    <button type="button" class="speed-pop-step" data-ws-onclick="faster"
+                            title="Mais rápido" aria-label="Mais rápido">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l0 14"/><path d="M5 12l14 0"/></svg>
+                    </button>
+                    <span class="speed-pop-value" data-ws-label-state="selectedRateLabel"></span>
+                    <input type="range" class="speed-pop-slider" min="1" max="16" data-ws-value-state="selectedRateSliderValue" data-ws-onInput="onRateChange" aria-label="Velocidade">
+                    <button type="button" class="speed-pop-step" data-ws-onclick="slower"
+                            title="Mais lento" aria-label="Mais lento">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l14 0"/></svg>
+                    </button>
+                  </div><!-- /speedPopover -->
+                </div>
+                <!-- The sleep timer's countdown and its menu (Block 1b, src/player/SleepTimerController.js, with its
+                     CSS): placed by the dock itself, beside the play disc, so no existing element changes. Hidden
+                     until that module starts. -->
+                <div class="sleep-pill-anchor hidden" data-ws-show-if-state="sleepPillOn=true">
+                  <button type="button" class="sleep-pill" data-ws-onclick="sleepPillClick" aria-haspopup="menu"
+                          data-ws-style-state="opacity=sleepPillOpacity"
+                          title="Tempo restante do timer">
+                    <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"/><path d="M19 11h2m-1 -1v2"/></svg>
+                    <span class="sleep-pill-sr">Tempo restante do timer</span>
+                    <span id="sleepPillTime"></span>
+                  </button>
+                  <div class="sleep-pill-menu hidden" role="menu" data-ws-show-if-state="sleepMenuOpen=true">
+                    <button type="button" role="menuitem" class="sleep-pill-menu-item" data-ws-onclick="sleepRestart">
+                      <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>
+                      <span>Reiniciar timer</span>
+                    </button>
+                    <button type="button" role="menuitem" class="sleep-pill-menu-item" data-ws-onclick="sleepCancelOnce">
+                      <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.962 3.949a8.97 8.97 0 0 1 4.038 -.957v.008h.393a7.478 7.478 0 0 0 -2.07 3.308m-.141 3.84c.186 .823 .514 1.626 .989 2.373a7.49 7.49 0 0 0 4.586 3.268m3.893 -.11c.223 -.067 .444 -.144 .663 -.233a9.088 9.088 0 0 1 -.274 .597m-1.695 2.337a9 9 0 0 1 -12.71 -12.749"/><path d="M3 3l18 18"/></svg>
+                      <span>Cancelar só desta vez</span>
+                    </button>
+                    <button type="button" role="menuitem" class="sleep-pill-menu-item" data-ws-onclick="sleepDisable">
+                      <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M10 10l4 4m0 -4l-4 4"/></svg>
+                      <span>Desativar timer de suspensão</span>
                     </button>
                   </div>
                 </div>
@@ -1475,6 +1974,19 @@
                 <span class="transport-btn transport-ghost Hide-on-narrow-screens" aria-hidden="true"></span>
               </div>
 
+            </div>
+            <!-- The 30-second preview of our narration ran out (src/player; Ronen, 2026-10-16: "cap at 30 s like iOS"):
+                 iOS's PremiumContentCover — the text under a glass, a card with one way forward. Not now leaves the audio
+                 parked at the cap; 0:00–0:30 can be heard again. -->
+            <div class="audio-premium-cover hidden" data-ws-show-if-state="audioCoverShown=true">
+              <div class="audio-premium-card" role="dialog" aria-modal="false" aria-labelledby="audioPremiumTitle">
+                <span class="audio-premium-grip" aria-hidden="true"></span>
+                <span class="audio-premium-hint">Continue ouvindo</span>
+                <h2 id="audioPremiumTitle" class="audio-premium-title">O Premium desbloqueia este conteúdo</h2>
+                <p class="audio-premium-body">O conteúdo mais interessante do mundo e qualquer conteúdo escrito, inclusive o seu.</p>
+                <button type="button" class="audio-premium-continue" data-ws-onclick="audioCoverContinue">Continuar</button>
+                <button type="button" class="audio-premium-not-now" data-ws-onclick="audioCoverNotNow">Agora não</button>
+              </div>
             </div>
             </div>
           </div>
@@ -1551,6 +2063,9 @@
           aria-label="Reproduzir / Pausar">
     <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
     <span data-ws-show-if-state="isPlayingOn=false"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+    <!-- An mp3 in the Reader (src/player): its own glyph; the two above give way while it plays there (player.css). -->
+    <span data-ws-show-if-state="audioGlyphPause=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+    <span data-ws-show-if-state="audioGlyphPlay=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
   </button>
   <!-- The same fraction the Reader's scrubber publishes — one position, two views. -->
   <div class="now-playing-progress" aria-hidden="true">
@@ -1565,7 +2080,20 @@
          placeholder="Pesquisar artigos, livros e áudio"
          data-ws-oninput="discoverSearchInput">
   <div id="discoverTabContent">
-    <p class="tab-page-placeholder">Descubra histórias, artigos e livros selecionados — em breve.</p>
+    <!-- Until DiscoverTab first draws: a loader. If the catalogue does not load, the failure line, Try again and (signed in)
+         a one-click Tell support (src/discover/DiscoverLoadFailed.js; Ronen, 2026-10-21). The first draw replaces all of it. -->
+    <div class="tab-page-placeholder discover-load">
+      <p class="discover-load-busy"><span class="account-spinner" aria-hidden="true"></span>Carregando...</p>
+      <div class="discover-load-failed hidden" role="alert">
+        <p class="discover-load-line">Não foi possível carregar Descobrir.</p>
+        <div class="discover-load-actions">
+          <button type="button" class="discover-load-btn" data-ws-onclick="discoverLoadRetry">Tentar de novo</button>
+          <button type="button" class="discover-load-btn discover-load-report hidden" data-ws-show-if-state="isSignedIn=true" data-ws-onclick="discoverLoadTellSupport">Avisar o suporte</button>
+        </div>
+        <p class="discover-load-note discover-load-sent hidden">Obrigado! A tua mensagem foi enviada.</p>
+        <p class="discover-load-note discover-load-send-failed hidden">Não foi possível enviar. Verifica a ligação e tenta novamente.</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1593,6 +2121,9 @@
           aria-label="Reproduzir / Pausar">
     <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
     <span data-ws-show-if-state="isPlayingOn=false"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+    <!-- An mp3 in the Reader (src/player): its own glyph; the two above give way while it plays there (player.css). -->
+    <span data-ws-show-if-state="audioGlyphPause=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+    <span data-ws-show-if-state="audioGlyphPlay=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
   </button>
   <!-- The same fraction the Reader's scrubber publishes — one position, two views. -->
   <div class="now-playing-progress" aria-hidden="true">
@@ -1660,12 +2191,14 @@
         <span class="quick-add-label">Página web</span>
       </button>
 
-      <button class="quick-add-cell" data-ws-onclick="openBooksModal"
-              title="Importar eBooks - Recurso ilimitado">
+      <!-- Books opens Discover at its top, the search closed (iOS LibraryQuickAdd + DiscoverTopLanding; webapp A–C,
+           Block 2, B6). The books browser it used to open stays on the Reader's toolbar. -->
+      <button class="quick-add-cell" data-ws-onclick="libraryOpenDiscover"
+              title="E-books clássicos, audiolivros, artigos e mais">
         <span class="quick-add-face">
           <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6l0 13"/><path d="M12 6l0 13"/><path d="M21 6l0 13"/></svg>
         </span>
-        <span class="quick-add-label">Livro</span>
+        <span class="quick-add-label">Livros</span>
       </button>
 
       <!-- The two AI actions get a cell each while the row can hold six. Below
@@ -1710,6 +2243,11 @@
         </div>
       </div>
     </div>
+
+    <!-- "Continue listening" (src/library/ListensFeed.js; webapp A–C, Block 2, B1): the audio this account played on any
+         device. Its ONE host — never a #libraryAudioList, which ExportsFeed would fill with export rows. Empty when
+         there is nothing to continue. -->
+    <div id="libraryListensList" class="listens-list"></div>
 
     <!-- The list's own heading, and the warning that belongs with it: these
          documents live in the browser's storage, which the browser is free to
@@ -1756,6 +2294,9 @@
           aria-label="Reproduzir / Pausar">
     <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
     <span data-ws-show-if-state="isPlayingOn=false"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+    <!-- An mp3 in the Reader (src/player): its own glyph; the two above give way while it plays there (player.css). -->
+    <span data-ws-show-if-state="audioGlyphPause=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+    <span data-ws-show-if-state="audioGlyphPlay=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
   </button>
   <!-- The same fraction the Reader's scrubber publishes — one position, two views. -->
   <div class="now-playing-progress" aria-hidden="true">
@@ -1772,7 +2313,7 @@
       <img class="prefs-about-logo" src="/favicon2.svg" width="38" height="38" alt=""/>
       <span class="prefs-about-text">
         <span class="prefs-about-name"><span style="color: darkred">TTS</span>Reader</span>
-        <span class="prefs-about-version">V3.14.0</span>
+        <span class="prefs-about-version">V3.15.0</span>
       </span>
       <span class="prefs-about-link">
         Guias e ajuda
@@ -1801,6 +2342,22 @@
     <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;Precisa de mais vozes
     </a>
+    <!-- Sleep timer (Block 1b): the length every listen starts with, Off or minutes — iOS Settings' picker. The Reader
+         ⋯ "Set timer" writes the same default. Stored on this device (src/player/SleepTimerController.js); hidden
+         until that module starts. -->
+    <div class="sleep-pref-row hidden" data-ws-show-if-state="sleepTimerReady=true">
+      <label class="sleep-pref-label" for="sleepTimerPref"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"/><path d="M19 11h2m-1 -1v2"/></svg>Timer de suspensão</label>
+      <select id="sleepTimerPref" class="sleep-pref-select" data-ws-onchange="sleepTimerPrefChange" data-ws-value-state="sleepTimerDefault">
+        <option value="0">Desativado</option>
+        <option value="5">5 min</option>
+        <option value="10">10 min</option>
+        <option value="15">15 min</option>
+        <option value="30">30 min</option>
+        <option value="45">45 min</option>
+        <option value="60">60 min</option>
+        <option value="90">90 min</option>
+      </select>
+    </div>
   
     <div class="drawer-section-heading">Interface disponível nestes idiomas:</div>
     <div class="drawer-lang-list">
@@ -1848,6 +2405,9 @@
           aria-label="Reproduzir / Pausar">
     <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
     <span data-ws-show-if-state="isPlayingOn=false"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+    <!-- An mp3 in the Reader (src/player): its own glyph; the two above give way while it plays there (player.css). -->
+    <span data-ws-show-if-state="audioGlyphPause=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+    <span data-ws-show-if-state="audioGlyphPlay=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
   </button>
   <!-- The same fraction the Reader's scrubber publishes — one position, two views. -->
   <div class="now-playing-progress" aria-hidden="true">
@@ -2099,6 +2659,9 @@
           aria-label="Reproduzir / Pausar">
     <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
     <span data-ws-show-if-state="isPlayingOn=false"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+    <!-- An mp3 in the Reader (src/player): its own glyph; the two above give way while it plays there (player.css). -->
+    <span data-ws-show-if-state="audioGlyphPause=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+    <span data-ws-show-if-state="audioGlyphPlay=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
   </button>
   <!-- The same fraction the Reader's scrubber publishes — one position, two views. -->
   <div class="now-playing-progress" aria-hidden="true">
@@ -2111,7 +2674,7 @@
 
   <div class="drawer-version-wrap">
     <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-      <b>V3.14.0</b> Build 2026-09-10T21:35:07.150Z
+      <b>V3.15.0</b> Build 2026-10-22T16:36:50.300Z
       &nbsp;&nbsp;<span style="">TODAS AS VERSÕES <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
     <!-- The player this one replaced, one click away. A daily tool changed shape;
          anyone who preferred the old shape should not have to go hunting. -->
@@ -2381,6 +2944,13 @@
         <span class="new-doc-tile new-doc-tile--news"><svg class="new-doc-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11"/><path d="M8 8h4"/><path d="M8 12h4"/><path d="M8 16h4"/></svg></span>
         <span class="new-doc-card-title">Resumo de notícias</span>
         <span class="new-doc-card-sub">A IA vai resumir as notícias de hoje para ti.</span>
+      </button>
+
+      <!-- The LAST row: not a way to start a document but a place full of them — Discover, at its top (iOS
+           NewDocumentSheet's discoverOption; webapp A–C, Block 2, B6). -->
+      <button class="new-doc-card new-doc-card--discover" data-ws-onclick="newDocDiscover">
+        <span class="new-doc-tile new-doc-tile--discover"><svg class="new-doc-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6l0 13"/><path d="M12 6l0 13"/><path d="M21 6l0 13"/></svg></span>
+        <span class="new-doc-card-title">E-books clássicos, audiolivros, artigos e mais</span>
       </button>
     </div>
   </div>
@@ -2672,6 +3242,74 @@
               </div>
             </div>
 
+            <!-- TTSReader for Mac as a local voice server (macOS only, and behind
+                 LOCAL_TTS_FEATURE_ENABLED — off; see src/helpers/LocalTtsTransport.js) -->
+            <div class="settings-section hidden" data-title="TTSReader para Mac" data-ws-show-if-state="showLocalTtsSection=true">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                  <rect x="3" y="4" width="18" height="12" rx="2" />
+                  <path d="M7 20h10" />
+                  <path d="M9 16v4" />
+                  <path d="M15 16v4" />
+                </svg>
+                <span class="settings-section-title">TTSReader para Mac</span>
+              </div>
+              <div class="settings-control local-tts-control">
+                <label class="local-tts-row">
+                  <span class="local-tts-row-label">Usar as vozes do meu Mac</span>
+                  <span class="switch local-tts-switch">
+                    <input type="checkbox" data-ws-onchange="toggleLocalTts" data-ws-value-state="localTtsEnabled">
+                    <span class="slider"></span>
+                  </span>
+                </label>
+                <p class="local-tts-hint">Reproduz com o app TTSReader neste Mac. Funciona offline e nunca usa seus caracteres de vozes de IA.</p>
+                <p class="local-tts-status" data-ws-label-state="localTtsStatusLabel"></p>
+                <div class="local-tts-actions">
+                  <button class="local-tts-link hidden" data-ws-show-if-state="localTtsShowCheckAgain=true" data-ws-onclick="reprobeLocalTts">Verificar novamente</button>
+                  <button class="local-tts-link hidden" data-ws-show-if-state="localTtsShowGetApp=true" data-ws-onclick="openMacAppPage">Baixar o TTSReader para Mac</button>
+                </div>
+                <p class="local-tts-hint hidden" data-ws-show-if-state="localTtsStatus=unreachable">O Chrome pergunta uma vez se o ttsreader.com pode se conectar a apps neste Mac — escolha Permitir.</p>
+              </div>
+            </div>
+
+            <!-- wAI voices on this computer: Kokoro on WebGPU in the page (src/kokoro/InPageKokoro.js). Shown only when
+                 this build has a voices-package host (KOKORO_ASSET_BASE). The user starts the download. -->
+            <div class="settings-section hidden" data-title="Este computador" data-ws-show-if-state="waiLocalShowSection=true">
+              <div class="settings-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="settings-section-icon">
+                  <rect x="6" y="6" width="12" height="12" rx="2" />
+                  <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" />
+                </svg>
+                <span class="settings-section-title">Este computador</span>
+              </div>
+              <div class="settings-control local-tts-control wai-local-control">
+                <p class="local-tts-hint">Reproduz as vozes wAI em inglês na placa de vídeo deste computador. Funciona offline e nunca usa seus caracteres de voz IA.</p>
+                <label class="local-tts-row hidden" data-ws-show-if-state="waiLocalShowToggle=true">
+                  <span class="local-tts-row-label">Reproduzir vozes wAI neste computador</span>
+                  <span class="switch local-tts-switch">
+                    <input type="checkbox" data-ws-onchange="toggleWaiLocal" data-ws-value-state="waiInPageEnabled">
+                    <span class="slider"></span>
+                  </span>
+                </label>
+                <p class="local-tts-status" data-ws-label-state="waiLocalStatusLabel"></p>
+                <p class="local-tts-hint hidden" data-ws-show-if-state="waiLocalShowDetail=true" data-ws-label-state="waiLocalDetailLabel"></p>
+                <div class="wai-local-progress hidden" data-ws-show-if-state="waiLocalShowCancel=true" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                  <div class="wai-local-progress-bar" data-ws-style-state="width=waiLocalProgressWidth"></div>
+                </div>
+                <ul class="wai-local-numbers hidden" data-ws-show-if-state="waiLocalShowNumbers=true" data-ws-label-state="waiLocalNumbersHtml"></ul>
+                <div class="wai-local-offer hidden" data-ws-show-if-state="waiLocalShowOffer=true">
+                  <p class="local-tts-status">O Premium reproduz vozes wAI neste computador, sem limites</p>
+                  <button class="wai-local-primary" data-ws-onclick="openWaiOffer">Ver Premium</button>
+                </div>
+                <div class="local-tts-actions">
+                  <button class="wai-local-primary hidden" data-ws-show-if-state="waiLocalShowDownload=true" data-ws-onclick="downloadWaiVoices" data-ws-label-state="waiLocalDownloadLabel"></button>
+                  <button class="local-tts-link hidden" data-ws-show-if-state="waiLocalShowCancel=true" data-ws-onclick="cancelWaiDownload">Cancelar</button>
+                  <button class="local-tts-link hidden" data-ws-show-if-state="waiLocalShowTestAgain=true" data-ws-onclick="testWaiAgain">Testar de novo</button>
+                  <button class="local-tts-link hidden" data-ws-show-if-state="waiLocalShowRemove=true" data-ws-onclick="removeWaiVoices">Remover pacote de vozes</button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -2946,13 +3584,13 @@
 
   <!-- Extension Promo Notification -->
   <div id="extensionPromoNotification" style="display:none;">
-    <button id="extensionPromoClose" aria-label="Close">&times;</button>
+    <button id="extensionPromoClose" aria-label="Fechar">&times;</button>
     <p>
-      🎉 NEW!! LISTEN to ANY webpage securely, without leaving the page!
+      🎉 NOVO!! Ouça qualquer página da web com segurança, sem sair da página!
       &nbsp;
       <a id="extensionPromoLink" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi" target="_blank" rel="noopener">
-        <span data-ws-show-if-state="isPremium=false">Try now for free</span>
-        <span data-ws-show-if-state="isPremium=true">Compatible with your Premium. Try it now</span>
+        <span data-ws-show-if-state="isPremium=false">Experimente grátis agora</span>
+        <span data-ws-show-if-state="isPremium=true">Compatível com o seu Premium. Experimente agora</span>
       </a>
     </p>
     <!--<label id="extensionPromoDontShow">
@@ -3164,9 +3802,9 @@
         premium voice needs an account survived only inside the HTML comment above — so every
         user who hit this wall was complimented and then shown two buttons with no reason given.
         `alert_requires_signin` already carries exactly that sentence, in all 15 languages:
-        "This feature requires sign-in. No payment or password is required..." — no new key.
+        "Sign in to continue: one click with Google or Apple. No password, no payment." (reworded 2026-10-19) — no new key.
       -->
-      <p class="premium-signin-why">Este recurso requer login. Nenhuma senha ou método de pagamento é necessário. Apenas um login seguro com um clique via Google.</p>
+      <p class="premium-signin-why">Entre para continuar: um clique com Google ou Apple. Sem senha, sem pagamento.</p>
       <sign-in-buttons></sign-in-buttons>
       <button style="margin:60px auto 30px; width: unset;" onclick='window.AppAnalytics.sendEvent("premiumVoiceSignInModal_free_voice");appMethods.closeModal("premiumVoiceSignInModal");appMethods.handleVoiceLabelClick();' class="Full-width-btn">Ou mude para uma voz básica<!--Or, Select a Non Premium Voice--></button>
       <div style="flex: 2"></div>
@@ -3518,47 +4156,69 @@
     </div>
   </div>
 
+  <!-- Add a book: public/partials/booksModal.html (Ronen, 2026-10-22) -->
+    <!-- Add a book (Ronen, 2026-10-22): three rows, top to bottom — your own file; our catalogue (all of Project Gutenberg,
+       all of LibriVox and more, now with human-narrated audiobooks), which opens Discover's search; a pasted Project
+       Gutenberg link. src/library/BooksSheet.js opens the catalogue; the file input and the link keep today's handlers. -->
   <div class="Modal" id="openBooksModal" style="display: none;">
     <div style="height:20px;"></div>
-    <div class="Modal-content books-modal-content">
+    <div class="Modal-content books-sheet">
       <button class="Close-modal" style="z-index: 999">
         <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
         </svg>
       </button>
-      <h4 class="books-modal-title">Importar eBooks - Recurso ilimitado</h4>
+      <h3 class="books-sheet-title">Adicionar um livro</h3>
+      <p class="books-sheet-sub">Transforme qualquer livro em um audiolivro para ler junto</p>
 
-      <div class="books-modal-grid">
-        <section class="books-modal-card">
-          <h5>Importar arquivo de ebook local</h5>
-          <p>Escolha um arquivo local para importar no leitor (EPUB, PDF, DOCX, TXT e mais).</p>
-          <label class="books-modal-file-btn">
-            <span>Escolher arquivo</span>
-            <input class="books-local-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
-          </label>
-        </section>
+      <div class="books-rows">
+        <!-- 1. Your own file: the whole row is the file picker. -->
+        <label class="books-row">
+          <span class="books-row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/></svg>
+          </span>
+          <span class="books-row-text">
+            <span class="books-row-title">Importe seu próprio livro</span>
+            <span class="books-row-desc">EPUB, PDF, DOCX, TXT e mais — do seu dispositivo</span>
+          </span>
+          <svg class="books-row-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+          <input class="books-row-file books-local-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
+        </label>
 
-        <section class="books-modal-card">
-          <h5>Mais populares</h5>
-          <p>Escolha entre clássicos populares e importe instantaneamente.</p>
-          <div id="mostPopularBooksList" class="books-modal-popular-list"></div>
-        </section>
+        <!-- 2. Our catalogue: the whole row is one button, opening Discover's search. The examples only show what is there. -->
+        <button type="button" class="books-row books-row--catalogue" data-ws-onclick="booksOpenCatalogue">
+          <span class="books-row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="M21 21l-6 -6"/></svg>
+          </span>
+          <span class="books-row-text">
+            <span class="books-row-title">Pesquise em nosso catálogo</span>
+            <span class="books-row-desc">Todo o Project Gutenberg, todo o LibriVox e mais.</span>
+            <span class="books-audio-line">🎧 Novidade: audiolivros clássicos completos, narrados por pessoas — experimente <strong>Pride and Prejudice</strong>, <strong>Sherlock Holmes</strong>, <strong>Alice in Wonderland</strong></span>
+          </span>
+          <svg class="books-row-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+        </button>
 
-        <section class="books-modal-card">
-          <h5>Importar do Project Gutenberg</h5>
-          <p>O Project Gutenberg é uma das melhores bibliotecas gratuitas de ebooks em domínio público.</p>
-          <a class="books-modal-gutenberg-link" href="https://www.gutenberg.org/" target="_blank" rel="noopener noreferrer">
-            Pesquisar livros no Project Gutenberg
-          </a>
-          <p class="books-modal-gutenberg-tip">Encontre um livro lá, copie a URL (ex.: https://www.gutenberg.org/ebooks/2701), cole aqui e clique em IR.</p>
-          <div class="input-container">
-            <input type="text" id="gutenbergUrlInput" class="styled-input" placeholder="https://www.gutenberg.org/ebooks/2701">
-            <button class="styled-button" data-ws-onClick="onProjectGutenbergImportClick">IR</button>
-          </div>
-        </section>
+        <!-- 3. A Project Gutenberg link: the previous sheet's words and controls, as they were (Ronen, 2026-10-22: "keep the
+             format & texts we had ... it was good"); onProjectGutenbergImportClick reads #gutenbergUrlInput. -->
+        <div class="books-row books-row--gutenberg">
+          <span class="books-row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 15l6 -6"/><path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"/><path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"/></svg>
+          </span>
+          <span class="books-row-text">
+            <span class="books-row-title">Importar do Project Gutenberg</span>
+            <span class="books-row-desc">O Project Gutenberg é uma das melhores bibliotecas gratuitas de ebooks em domínio público.</span>
+            <a class="books-modal-gutenberg-link" href="https://www.gutenberg.org/" target="_blank" rel="noopener noreferrer">Pesquisar livros no Project Gutenberg</a>
+            <span class="books-modal-gutenberg-tip">Encontre um livro lá, copie a URL (ex.: https://www.gutenberg.org/ebooks/2701), cole aqui e clique em IR.</span>
+            <span class="input-container">
+              <input type="text" id="gutenbergUrlInput" class="styled-input" placeholder="https://www.gutenberg.org/ebooks/2701" dir="ltr">
+              <button class="styled-button" data-ws-onClick="onProjectGutenbergImportClick">IR</button>
+            </span>
+          </span>
+        </div>
       </div>
     </div>
   </div>
+
 
   <div class="Modal" id="uploadModal" style="z-index: 9999; display: none;">
     <div style="height:20px;"></div>
@@ -3587,7 +4247,7 @@
       <p><strong>Cole, digite e edite o texto diretamente na caixa de texto.</strong></p>
       <p><strong>Para importar documentos e páginas web, use os botões Abrir & Página na barra de menu superior&nbsp;<img style="display: inline-block; max-height: 45px;margin: 3px; border-radius: 5px; border: 2px solid yellow; vertical-align: middle;max-width: 90%;" src="images/open_guide2.jpg"/></strong></p>
       <p><strong>Para EXPORTAR MP3 - clique no botão EXPORTAR no canto inferior direito</strong></p>
-      <img style="max-width: 80%; margin: auto; width: 382px;display: block;" src="images/export_btn_guide.png"/>
+      <picture style="display: contents"><source srcset="images/export_btn_guide.webp" type="image/webp"><img loading="lazy" style="max-width: 80%; margin: auto; width: 382px;display: block;" src="images/export_btn_guide.png"/></picture>
       <br/>
       <button class="full-width-button">Vamos começar</button>
     </div>
@@ -3652,7 +4312,7 @@
         Try it now: <a style="color:orangered" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi">Install on Chrome or Edge from the Chrome store</a>
       </p>
 
-      <a style="display: block;" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi"><img style="max-width: 90%; margin: auto;" src="extension_screenshot.png"  alt="extension screenshot"/></a>
+      <a style="display: block;" target="_blank" href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi"><picture style="display: contents"><source srcset="extension_screenshot.webp" type="image/webp"><img loading="lazy" style="max-width: 90%; margin: auto;" src="extension_screenshot.png"  alt="extension screenshot"/></picture></a>
 
     </div>
   </div>
@@ -3786,7 +4446,7 @@
         <button data-ws-onClick="startRecording" class="Full-width-btn" style="background-color: darkgreen;color: white">Iniciar Gravação<!-- Start Recording --></button>
         <br/>
         <div>
-          <img src="images/share_audio.png" style="max-width: 90%; margin: auto;"/>
+          <picture style="display: contents"><source srcset="images/share_audio.webp" type="image/webp"><img loading="lazy" src="images/share_audio.png" style="max-width: 90%; margin: auto;"/></picture>
         </div>
         <p><a target="_blank" href="https://ttsreader.com/docs/guides/voiceover/">Saiba mais sobre a geração de arquivos mp3 e as diferentes opções aqui.</a></p>
         <!--<p style="text-align: justify">Assista a este breve vídeo para entender os passos. Quando estiver pronto, clique no botão 'Iniciar Gravação'.&lt;!&ndash; Watch this short video for understanding the steps. When ready - click the 'Start Recording' button. &ndash;&gt;</p>
@@ -3799,6 +4459,12 @@
     <div style="height:20px;"></div>
   </div>
 
+  <!-- Generate MP3, the export modal: public/partials/exportModal.html (Ronen, 2026-10-21) -->
+    <!-- Generate MP3 (Ronen, 2026-10-21: "make 'id="exportModal"' - the whole modal MUCH NICER and more to the point ... the
+       export to MP3 should probably be sticky at the bottom ... the podcast line - should prbably show the podcasts's url
+       ... if any blockers (mainly not enough credits) it's super clear what's missing and how to quick-fix on the spot").
+       A fixed head, a scrolling body with the checklist (src/export/ExportReadiness.js), a sticky foot whose button is
+       Generate when everything is in place and the first fix when something is missing. -->
   <div class="Modal" id="exportModal" style="display: none;">
     <div style="height:20px;"></div>
     <div class="Modal-content export-sheet">
@@ -3808,112 +4474,153 @@
         </svg>
       </button>
 
-      <h3 class="export-title">Geração instantânea de MP3 / WAV para usuários premium. Você possui os direitos autorais! Use o áudio gerado para QUALQUER finalidade.</h3>
+      <header class="export-head">
+        <h3 class="export-title">
+          <svg class="export-title-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          Gerar MP3
+        </h3>
+      </header>
 
-      <!-- Everything below the heading scrolls; the close button and title stay put, so a long
-           sheet can never put its own dismissal out of reach. -->
       <div class="export-body">
-      <p class="export-subtitle">Guarde este documento como ficheiro de áudio — consome caracteres do seu saldo.</p>
+        <!-- Only what is missing, one row each, with its fix right there (Ronen, 2026-10-21: "if it's ok - it's ok - extra
+             info is confusing"). Nothing missing: no list, only the button. -->
+        <ul class="export-checks hidden" data-ws-show-if-state="exportBlocked=true">
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportIsEmpty=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name">Texto</span>
+            <span class="export-check-value">Este documento está vazio</span>
+          </li>
 
-      <!-- The number this spends, beside the balance it spends from. -->
-      <div class="export-cost">
-        <div class="export-cost-row">
-          <span>Esta exportação</span>
-          <strong class="export-cost-line">
-            <span data-ws-label-state="exportCostCharsLine"></span>
-            <span class="export-cost-dim" data-ws-label-state="exportCostDurationLine"></span>
-          </strong>
-        </div>
-        <div class="export-cost-row" data-ws-show-if-state="exportShowBalance=true">
-          <span>O seu saldo</span>
-          <strong>
-            <svg class="export-mark export-ok" viewBox="0 0 24 24" aria-hidden="true"
-                 data-ws-show-if-state="exportEnough=true"><path d="M5 12l5 5l9 -9"/></svg>
-            <svg class="export-mark export-bad" viewBox="0 0 24 24" aria-hidden="true"
-                 data-ws-show-if-state="exportNotEnough=true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
-            <span data-ws-label-state="exportBalanceText"></span>
-          </strong>
-        </div>
-        <div data-ws-show-if-state="exportNotEnough=true">
-          <p class="export-alert">Caracteres insuficientes para esta exportação.</p>
-          <button class="export-secondary-btn"
-                  onclick="window.AppAnalytics.sendEvent('export_view_plans');appMethods.openPurchaseFlow('mp3Export');"
-                  data-ws-label-state="accountCreditsBtnLabel"></button>
-        </div>
-      </div>
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportSignedOut=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name">Conta</span>
+            <span class="export-check-value">Entre para exportar</span>
+            <div class="export-check-fix export-check-signin"><sign-in-buttons></sign-in-buttons></div>
+          </li>
 
-      <!-- Too long to render at all: said before the button, not after it is pressed. -->
-      <p class="export-alert" data-ws-show-if-state="isLongerThan200000Chars=true">
-        Limitado a 200k caracteres por arquivo. Seu texto atual é muito longo com <span data-ws-label-state="charsCount"></span> caracteres.&nbsp;<span style="color:red;">Por favor, divida em partes menores, ou fale conosco em contact@ttsreader.com</span>
-      </p>
+          <!-- A voice the server cannot render still records live as it reads: that, first; an AI voice, second. -->
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportVoiceBad=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name">Voz</span>
+            <span class="export-check-value" data-ws-label-state="exportVoiceLine"></span>
+            <div class="export-check-fix export-check-fixes">
+              <button type="button" class="export-fix-btn export-fix-btn--buy" data-ws-onclick="exportFixRecord">Gravar ao vivo em MP3</button>
+              <button type="button" class="export-fix-btn" data-ws-onclick="exportFixVoice">Voz de IA Premium</button>
+            </div>
+          </li>
 
-      <!-- Commercial use: the one licence fact worth surfacing before the action. -->
-      <p class="export-note" data-ws-show-if-state="isPremium=true">Como usuário Premium - você possui os direitos autorais dos arquivos de áudio exportados e pode usá-los para fins comerciais e de publicação &nbsp;🚀</p>
-      <div data-ws-show-if-state="isSignedIn=true">
-        <div data-ws-show-if-state="isPremium=false">
-          <p class="export-alert">Faça upgrade para uma licença comercial livre de direitos a preço acessível</p>
-          <button onclick="window.AppAnalytics.sendEvent('export_view_plans');appMethods.openPurchaseFlow('mp3Export');"
-                  class="export-secondary-btn">Mudar para Premium</button>
-        </div>
-      </div>
+          <!-- How many are missing, and a buy button that says what it brings. -->
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportCreditsBad=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name">Créditos</span>
+            <span class="export-check-value" data-ws-label-state="exportCreditsLine"></span>
+            <button type="button" class="export-check-fix export-buy" data-ws-onclick="exportFixCredits">
+              <span class="export-buy-title" data-ws-label-state="exportCreditsFixLabel"></span>
+              <span class="export-buy-sub" data-ws-label-state="exportCreditsFixSub"></span>
+            </button>
+          </li>
 
-      <div data-ws-show-if-state="isSignedIn=false"><sign-in-buttons></sign-in-buttons></div>
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportLengthBad=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name">Tamanho</span>
+            <span class="export-check-value" data-ws-label-state="exportLengthLine"></span>
+            <span class="export-check-hint">Divida em partes de até 200.000 caracteres.</span>
+          </li>
+        </ul>
 
-      <div data-ws-show-if-state="isSignedIn=true">
-        <button onclick="sendAnalyticsEvent('exportMP3');" class="export-cta" data-ws-params="mp3"
-                data-ws-onClick="exportToMp3">Criar & Baixar MP3</button>
-        <div class="export-option">
-          <label class="export-option-check">
-            <input type="checkbox" id="sendToPodcastCheckbox" />
-            <span>Adicionar ao meu canal de podcast pessoal</span>
-          </label>
-          <!-- Reads on as a continuation of the label. The copy link appears only once there IS
-               a feed: offering to copy a URL that does not exist yet is worse than not offering. -->
-          <span class="export-option-actions">
-            <a class="export-option-link" data-ws-onclick="copyPodcastUrl"
-               data-ws-show-if-state="podcast_main_channel_url=true">Copiar URL do podcast</a>
-            <a class="export-option-link" data-ws-onclick="exportPodcastAboutToggle">Saiba mais</a>
-          </span>
-        </div>
-        <!-- In-modal, not a trip to the docs site: the question is asked here, so it is answered
-             here, and the answer keeps its own way of getting out of the way. -->
-        <div class="export-about" id="exportPodcastAbout" hidden>
-          <p>Este é um feed de podcast gerado pelo TTSReader, para que o possa adicionar como canal na sua app de podcasts e partilhá-lo com outras pessoas.
-            <a href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank" rel="noopener">Crie seu canal de podcast pessoal</a>
-          </p>
-          <!-- The feed itself. A paragraph about a URL you can add and share should show you the
-               URL: to check it, to select it by hand, or to paste it somewhere this button cannot
-               reach. Only once one exists — there is no feed until the first podcast export. -->
-          <div class="export-feed" data-ws-show-if-state="podcast_main_channel_url=true">
-            <code class="export-feed-url" data-ws-label-state="podcast_main_channel_url"></code>
-            <a class="export-option-link" data-ws-onclick="copyPodcastUrl">Copiar</a>
+        <!-- The podcast option; its feed under it once there is one; "?" opens the guide (Ronen, 2026-10-21). -->
+        <div class="export-podcast hidden" data-ws-show-if-state="isSignedIn=true">
+          <div class="export-podcast-row">
+            <label class="export-switch">
+              <input type="checkbox" id="sendToPodcastCheckbox" />
+              <span class="export-switch-track" aria-hidden="true"></span>
+              <span class="export-switch-label">Adicionar ao meu canal de podcast pessoal</span>
+            </label>
+            <a class="export-help" href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank" rel="noopener"
+               title="Crie seu canal de podcast pessoal" aria-label="Crie seu canal de podcast pessoal">?</a>
           </div>
-          <button type="button" class="export-collapse" data-ws-onclick="exportPodcastAboutToggle">Mostrar menos</button>
+          <div class="export-feed hidden" data-ws-show-if-state="podcast_main_channel_url=true">
+            <code class="export-feed-url" data-ws-label-state="podcast_main_channel_url"></code>
+            <button type="button" class="export-fix-btn" data-ws-onclick="copyPodcastUrl">Copiar</button>
+          </div>
         </div>
+
+        <!-- Where finished files go, and that they follow you between devices. -->
+        <a class="export-folder" onclick="openOrCloseExportsListModal();">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"/></svg>
+          <span>Suas exportações — abra em qualquer dispositivo</span>
+          <svg class="export-folder-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+        </a>
+
+        <!-- What people come to export for (Ronen, 2026-10-21). The licence items come with Premium, so a free account
+             reads it as "What you get with Premium". -->
+        <!-- Collapsed until asked for (Ronen, 2026-10-21: "collapse it by default ... it's too long adds a lot of distraction"). -->
+        <details class="export-perks">
+          <summary class="export-perks-title">
+            <span class="hidden" data-ws-show-if-state="isPremium=true">O que você ganha</span>
+            <span data-ws-show-if-state="isPremium=false">O que você ganha com o Premium</span>
+          </summary>
+          <ul class="export-perks-list">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span>Um MP3 que é seu — baixado no seu computador</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span>Direitos autorais 100% seus</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span>Uso pessoal e comercial</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span>Publique nas redes sociais</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span>Duble seus vídeos</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span>Combine várias vozes em um único arquivo
+              <a class="export-link export-perk-link" href="https://ttsreader.com/blog/creating-multi-voice-multi-languages-in-ttsreader/" target="_blank" rel="noopener">Veja como</a></span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span>Ouça depois</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span>Ouça offline — em qualquer lugar, a qualquer hora, em qualquer dispositivo</span></li>
+          </ul>
+          <!-- Inside the section: it opens with the list (Ronen, 2026-10-21). -->
+          <a class="export-link export-tips-link" data-ws-toggle="#exportTipsModal">Dicas de exportação</a>
+        </details>
       </div>
 
-      <!-- Everything that used to shout before the button now waits behind one question. -->
-      <details class="export-explainer">
-        <summary>O que é isto e quando usar?</summary>
-        <p>A exportação transforma o documento aberto num ficheiro mp3 real que fica consigo. Use-a quando quiser ouvir fora do navegador — no telemóvel, no carro, sem ligação ou numa app de podcasts — ou quando precisar do áudio em si, para publicar ou entregar a alguém. Para ler aqui basta carregar em reproduzir: isso não custa nada a mais.</p>
-        <ul>
+      <!-- Sticky: Generate when everything is in place; otherwise the first missing thing's fix. -->
+      <footer class="export-foot">
+        <button onclick="sendAnalyticsEvent('exportMP3');" class="export-cta" data-ws-params="mp3"
+                data-ws-onClick="exportToMp3" data-ws-show-if-state="exportReady=true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          <span data-ws-label-state="exportCtaLabel">Gerar MP3</span>
+        </button>
+        <button class="export-cta export-cta--fix hidden" data-ws-onclick="exportFixFirst"
+                data-ws-show-if-state="exportBlocked=true" data-ws-disable-if-state="exportFixDisabled=true">
+          <span data-ws-label-state="exportFixLabel"></span>
+        </button>
+        <!-- With a voice that blocks: recording first (above), the instant file with a Premium voice second. -->
+        <button class="export-cta export-cta--alt hidden" data-ws-onclick="exportFixVoice" data-ws-show-if-state="exportBlocker=voice">
+          Texto para MP3 na hora com uma voz Premium
+        </button>
+        <p class="export-foot-line" data-ws-label-state="exportFootLine"></p>
+        <p class="export-foot-line" data-ws-label-state="exportFootDuration"></p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Export tips: over the export modal, which stays open under it (data-ws-toggle opens without closing others; the
+       close button closes only its own sheet). -->
+  <div class="Modal" id="exportTipsModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content export-sheet export-tips">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <header class="export-head"><h3 class="export-title">Dicas de exportação</h3></header>
+      <div class="export-body">
+        <ul class="export-tips-list">
           <li>Por favor, REPRODUZA antes de exportar para garantir que tudo soe exatamente como você deseja. Edite até a perfeição. Depois exporte quando estiver pronto.</li>
-          <li>Funciona apenas com vozes premium (aquelas marcadas com estrela na galeria).</li>
-          <li>Ela consome caracteres da sua cota de caracteres premium ou créditos.</li>
           <li>Novo: {{pause}} e {{pause:DURATION_IN_MS}} são suportados. Certifique-se de formatar SEM espaços dentro das chaves {{...}}</li>
+          <li>Ela consome caracteres da sua cota de caracteres premium ou créditos.</li>
           <li>Você também pode criar seu canal de podcast pessoal para ouvir suas exportações em movimento com seu aplicativo de podcast favorito. </li>
           <li>Precisa de um formato de áudio específico? Use nosso simples <a href="https://ttsreader.com/convert2wav/" target="_blank" rel="nofollow" style="color: dodgerblue">conversor de MP3 para WAV</a>.</li>
         </ul>
-      </details>
-
-      <!-- Not "looking for something?" — a statement of where exports live and that they follow
-           you between devices, which is the part people do not know. The whole line is the link. -->
-      <p class="export-footer">
-        <a onclick="openOrCloseExportsListModal();">Todas as suas exportações ficam aqui e podem ser abertas e transferidas em qualquer dispositivo — clique para abrir a pasta</a>
-      </p>
+        <a class="export-link" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/" target="_blank" rel="noopener">Leia o guia completo</a>
       </div>
     </div>
   </div>
+
 
   <div class="Modal" id="subscriptionModal" style="display: none">
     <div style="height:20px;"></div>
@@ -4245,6 +4952,9 @@
   <div class="loading-overlay hidden" data-ws-show-if-state="isLoading=true">
     <div class="spinner"></div>
     <div class="loading-text">Carregando...</div>
+    <!-- A scanned PDF being read (src/scan): which page, and a way out that keeps the pages read so far. -->
+    <div class="loading-text scan-progress hidden" data-ws-show-if-state="scanProgressShown=true" data-ws-label-state="scanProgressText"></div>
+    <button type="button" class="scan-stop hidden" data-ws-show-if-state="scanProgressShown=true" data-ws-onclick="scanStop">Parar</button>
   </div>
 </div>
 
@@ -4745,8 +5455,8 @@
           // Set up analytics for new real human users:
           if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn") && !window.AppAnalytics.id && !isBotUserAgent()) {
             // This is a first ever visit. Set unique setup here:
-            // A/B test prefix: 50% A / 50% B
-            const prefix = DEFAULT_THEME.includes("dark") ? 'D3101_' : 'L3101_'; //
+            // Cohort prefix: which release the first visit came in on
+            const prefix = 'T1018_'; // the A–C release's first visits (Ronen, 2026-10-18: R11 "a"); D3101_/L3101_ marked the old dark/light coin flip, which no longer sets the look
             console.log({prefix});
             const randomString = Math.random().toString(36).substring(2, 17); // 15 chars
             window.AppAnalytics.id = prefix + randomString;
@@ -5896,15 +6606,59 @@
 
   async function openRenderedModal(params) {
     const {url, voice, rate, date, lang, itemId} = params;
+    // Each open gets an id, taken BEFORE its place is read; the player sends it
+    // back with every report, and the bridge below (noteListenPosition) counts
+    // only the latest open's: an earlier open's frame stays loaded after its
+    // Close, and can still report after this open has read the place.
+    let openSeq = 0;
+    let openId = '';
+    try {
+      openSeq = window.renderedOpenSeq = (Number(window.renderedOpenSeq) || 0) + 1;
+      window.renderedOpenId = openSeq;
+      if (itemId) openId = String(openSeq);
+    } catch (e) {
+      openSeq = 0;
+      openId = '';
+    }
     // The bookmark is FETCHED HERE, on open — like a document body, never a
     // standing subscription. One place asks, so no caller can drift.
     let startAtMs = 0;
-    if (itemId && window.appPlaybackPositionMs) {
+    // A caller that has read the place already passes where to start
+    // (LibrivoxListen, `startAtMs` — no other caller sends it): no second read.
+    let callerStart = false;
+    try {
+      if (typeof params.startAtMs === 'number' && Number.isFinite(params.startAtMs) && params.startAtMs >= 0) {
+        startAtMs = params.startAtMs;
+        callerStart = true;
+      }
+    } catch (e) {
+      startAtMs = 0;
+      callerStart = false;
+    }
+    if (!callerStart && itemId && window.appPlaybackPositionMs) {
       try {
         startAtMs = await window.appPlaybackPositionMs(itemId);
       } catch (e) {
         startAtMs = 0;
       }
+    }
+    // The unified player (webapp A–C, Block 1a): the app bundle sets window.appOpenAudio behind its build flag, and the
+    // item then plays in the Reader, with this open's id and place. Anything but `true` (no such function, a throw, a
+    // refusal) opens the frame below exactly as before.
+    // "dropped": the Reader keeps it from the frame but does not show it (asked for before the listener left, or
+    // overtaken by a newer open), so the latest open's id stays.
+    try {
+      const taken = typeof window.appOpenAudio === 'function'
+          ? await window.appOpenAudio(params, {openSeq: openSeq, openId: openId, startAtMs: startAtMs}) : false;
+      if (taken === true || taken === 'dropped') {
+        try {
+          if (taken === true && openSeq) window.renderedOpenId = openSeq; // the open on screen is the latest, as below
+        } catch (e) {
+        }
+        return;
+      }
+    } catch (e) {
+      console.warn('openRenderedModal: the Reader did not take this; the frame player instead', e);
     }
     let modalEl = document.getElementById('renderedModal');
     if (!modalEl) {
@@ -5928,16 +6682,44 @@
     let resumeArgs = itemId
       ? `&itemId=${encodeURIComponent(itemId)}&startAtMs=${Math.max(0, Math.round(startAtMs || 0))}`
       : '';
+    // Only an open with an item reports, so only its URL carries the id (rendered.html listenNews).
+    try {
+      if (itemId && openId) resumeArgs += `&openId=${openId}`;
+    } catch (e) {
+    }
+    // A LibriVox listen from Discover search (src/discover/search/LibrivoxListen.js) adds its own
+    // params (listen, listenSrt, listenTitle, listenAutoplay; see rendered.html). No other caller
+    // passes listenQuery, so their URLs are unchanged.
+    try {
+      if (typeof params.listenQuery === 'string' && params.listenQuery.indexOf('&listen=') === 0) {
+        resumeArgs += params.listenQuery;
+      }
+    } catch (e) {
+      console.warn('openRenderedModal: listenQuery ignored', e);
+    }
+    // The frame put on screen is the latest open, whichever read answered last
+    // (two quick taps): its reports are the ones that count.
+    try {
+      if (openSeq) window.renderedOpenId = openSeq;
+    } catch (e) {
+    }
     iframeEl.src = `rendered.html?url=${url}&lang=${lang}&voice=${encodeURIComponent(voice)}&rate=${rate}&date=${date}&onClose=closeRenderedModal&theme=${theme}${resumeArgs}`;
   }
 
   // Called by rendered.html (same origin) while a Discover item plays. The
   // bundle in src/ owns the actual write; this is only the bridge out of the
   // iframe, and it must never throw back into the player.
-  window.noteListenPosition = function (itemId, positionMs, durationSeconds) {
+  window.noteListenPosition = function (itemId, positionMs, durationSeconds, openId, reason) {
+    // Only the latest open's reports count (openRenderedModal): an earlier open's
+    // frame can report after this open read the place. No id (a cached
+    // rendered.html): as before. `reason`: pause, ended, close or unload.
+    try {
+      if (openId && String(openId) !== String(window.renderedOpenId)) return;
+    } catch (e) {
+    }
     try {
       if (window.appNoteListenPosition) {
-        window.appNoteListenPosition(itemId, positionMs, durationSeconds);
+        window.appNoteListenPosition(itemId, positionMs, durationSeconds, reason);
       }
     } catch (e) {
       console.warn('noteListenPosition failed', e);
@@ -5995,6 +6777,166 @@
 
 <!-- JS STRINGS -->
 <div id="JS_STRINGS" style="display: none">
+  <!-- The download overlay (src/library/NamedSave.js; Ronen, 2026-10-22) -->
+  <div data-ws-string-key="d20261022_dl_title" data-ws-string-value="Baixando MP3"></div>
+  <div data-ws-string-key="d20261022_dl_of" data-ws-string-value="{done} de {total} MB"></div>
+  <div data-ws-string-key="d20261022_dl_saved" data-ws-string-value="Salvo nos seus downloads"></div>
+  <!-- Generate MP3's words for src/export/ExportReadiness.js (getString reads only #JS_STRINGS); included inside that block. -->
+  <div data-ws-string-key="d20261021_export_buy_sub_subscribe" data-ws-string-value="Ganhe 1 milhão de créditos para esta e as próximas exportações · Licença comercial e de publicação"></div>
+  <div data-ws-string-key="d20261021_export_buy_sub_topup" data-ws-string-value="Ganhe mais 1 milhão de créditos para esta e as próximas exportações"></div>
+  <div data-ws-string-key="d20261021_export_credits_missing" data-ws-string-value="Faltam {missing} créditos para esta exportação"></div>
+  <div data-ws-string-key="d20261021_export_fix_empty" data-ws-string-value="Adicione texto para exportar"></div>
+  <div data-ws-string-key="d20261021_export_fix_length" data-ws-string-value="Longo demais para um arquivo"></div>
+  <div data-ws-string-key="d20261021_export_fix_record" data-ws-string-value="Gravar ao vivo em MP3"></div>
+  <div data-ws-string-key="d20261021_export_fix_signin" data-ws-string-value="Entre para exportar"></div>
+  <div data-ws-string-key="d20261021_export_fix_subscribe" data-ws-string-value="Assine o Premium para exportar"></div>
+  <div data-ws-string-key="d20261021_export_fix_topup" data-ws-string-value="Adicione créditos para exportar"></div>
+  <div data-ws-string-key="d20261021_export_foot_uses" data-ws-string-value="Vai consumir {need} créditos dos {have} disponíveis"></div>
+  <div data-ws-string-key="d20261021_export_length_line" data-ws-string-value="{n} de {max} caracteres"></div>
+  <div data-ws-string-key="d20261021_export_voice_basic" data-ws-string-value="{voice} é gravada ao vivo enquanto lê — ou escolha uma voz de IA Premium ⭐ para um arquivo na hora"></div>
+  <div data-ws-string-key="d20261021_export_voice_none" data-ws-string-value="Nenhuma voz selecionada"></div>
+  <div data-ws-string-key="d20261021_toolbar_generate_mp3" data-ws-string-value="Gerar MP3"></div>
+  <!-- The Play hint after the detail sheet's Import & Listen (src/discover/detail/PlayHint.js, Ronen 2026-10-08) -->
+  <div data-ws-string-key="d20261008_play_hint" data-ws-string-value="Carregue em reproduzir para ouvir"></div>
+  <!-- Discover detail sheet (src/discover/detail, Ronen's Q63, 2026-10-08): the phones' keys and values -->
+  <div data-ws-string-key="d20260810_discover_import_listen" data-ws-string-value="Importar e ouvir"></div>
+  <div data-ws-string-key="d20260810_discover_kind_audiobook" data-ws-string-value="Audiolivro"></div>
+  <div data-ws-string-key="d20260810_discover_kind_audio" data-ws-string-value="Áudio"></div>
+  <div data-ws-string-key="d20260810_discover_kind_epub" data-ws-string-value="Livro"></div>
+  <div data-ws-string-key="d20260810_discover_kind_doc" data-ws-string-value="Artigo"></div>
+  <div data-ws-string-key="d20260810_discover_kind_wiki" data-ws-string-value="Wikipedia"></div>
+  <div data-ws-string-key="d20260810_album_chapters" data-ws-string-value="%d capítulos"></div>
+  <div data-ws-string-key="d20260810_album_chapters_header" data-ws-string-value="Capítulos"></div>
+  <div data-ws-string-key="d20260810_duration_hm" data-ws-string-value="%1$dh %2$dmin"></div>
+  <div data-ws-string-key="d20260810_duration_m" data-ws-string-value="%dmin"></div>
+  <div data-ws-string-key="d20260810_duration_s" data-ws-string-value="%ds"></div>
+  <div data-ws-string-key="d20260810_attribution_open" data-ws-string-value="Mostrar atribuição completa"></div>
+  <div data-ws-string-key="d20260810_attribution_title" data-ws-string-value="Atribuição"></div>
+  <div data-ws-string-key="d20260707_done" data-ws-string-value="OK"></div>
+  <div data-ws-string-key="d20260810_attribution_text_and_image" data-ws-string-value="Texto e imagem de %1$@ · %2$@"></div>
+  <div data-ws-string-key="d20260810_attribution_text_only" data-ws-string-value="De %1$@ · %2$@"></div>
+  <div data-ws-string-key="d20260810_attribution_image_only" data-ws-string-value="Imagem do Wikimedia Commons · %@"></div>
+  <div data-ws-string-key="d20260810_attribution_text_header" data-ws-string-value="Texto"></div>
+  <div data-ws-string-key="d20260810_attribution_image_header" data-ws-string-value="Imagem"></div>
+  <div data-ws-string-key="d20260810_attribution_licence" data-ws-string-value="Licença"></div>
+  <div data-ws-string-key="d20260810_attribution_author" data-ws-string-value="Autor"></div>
+  <div data-ws-string-key="d20260810_attribution_text_footer" data-ws-string-value="Esta gravação é uma leitura do artigo da Wikipedia acima. O texto da Wikipedia está disponível sob a licença indicada; a gravação não é endossada pela Wikipedia nem pela Wikimedia Foundation."></div>
+  <div data-ws-string-key="d20261008_attribution_text_footer_essay" data-ws-string-value="Este ensaio tem como base o artigo da Wikipedia acima. O texto da Wikipedia está disponível sob a licença indicada; o ensaio não é endossado pela Wikipedia nem pela Wikimedia Foundation."></div>
+  <div data-ws-string-key="d20260810_attribution_source_wikipedia" data-ws-string-value="Wikipedia"></div>
+  <div data-ws-string-key="d20260810_attribution_source_commons" data-ws-string-value="Wikimedia Commons"></div>
+  <div data-ws-string-key="d20260810_attribution_public_domain" data-ws-string-value="Domínio público"></div>
+  <div data-ws-string-key="d20260810_attribution_public_domain_note" data-ws-string-value="Este texto e a imagem de capa estão em domínio público nos Estados Unidos e na maior parte do mundo."></div>
+  <!-- Discover search v2 (src/discover/search, 2026-10-08) -->
+  <div data-ws-string-key="d20261008_source_chip_ttsreader" data-ws-string-value="TTSReader"></div>
+  <div data-ws-string-key="d20261008_source_chip_gutenberg" data-ws-string-value="Gutenberg"></div>
+  <div data-ws-string-key="d20261008_source_chip_librivox" data-ws-string-value="LibriVox"></div>
+  <div data-ws-string-key="d20261008_source_caption_ttsreader" data-ws-string-value="Inspiração e originais"></div>
+  <div data-ws-string-key="d20261008_source_caption_librivox" data-ws-string-value="Narrados por pessoas reais"></div>
+  <div data-ws-string-key="d20261008_listen" data-ws-string-value="Ouvir"></div>
+  <div data-ws-string-key="d20261008_listen_with" data-ws-string-value="Ouvir · {label}"></div>
+  <div data-ws-string-key="d20261008_listen_opening" data-ws-string-value="Abrindo a leitura…"></div>
+  <div data-ws-string-key="d20261008_listen_failed" data-ws-string-value="Esta leitura não abriu. Verifique sua conexão e tente novamente."></div>
+  <div data-ws-string-key="d20261008_listen_part" data-ws-string-value="Parte {number}"></div>
+  <div data-ws-string-key="d20261008_search_more_articles_failed" data-ws-string-value="Mais artigos não carregaram. Tente novamente em instantes."></div>
+  <div data-ws-string-key="d20261008_search_about_character" data-ws-string-value="Sobre a personagem"></div>
+  <div data-ws-string-key="d20261008_search_results" data-ws-string-value="Resultados da pesquisa"></div>
+  <div data-ws-string-key="d20261008_search_articles_failed" data-ws-string-value="Os artigos não carregaram. Tente novamente em instantes."></div>
+  <div data-ws-string-key="d20261008_search_all_failed" data-ws-string-value="Os livros e os artigos não carregaram. Tente novamente em instantes."></div>
+  <div data-ws-string-key="d20261008_search_about_book" data-ws-string-value="Sobre este livro"></div>
+  <div data-ws-string-key="d20261008_search_keep_typing_books" data-ws-string-value="Continue digitando para pesquisar livros e audiolivros gratuitos"></div>
+  <div data-ws-string-key="d20261008_search_keep_typing_wikipedia" data-ws-string-value="Continue digitando para pesquisar na Wikipédia"></div>
+  <div data-ws-string-key="d20261008_search_offline_wikipedia" data-ws-string-value="Conecte-se à internet para pesquisar na Wikipédia"></div>
+  <div data-ws-string-key="d20261008_search_offline_both" data-ws-string-value="Conecte-se à internet para pesquisar livros gratuitos e na Wikipédia"></div>
+  <div data-ws-string-key="d20261008_search_nothing_filters" data-ws-string-value="Nada para “{query}” com estes filtros. Tente “Tudo”."></div>
+  <div data-ws-string-key="d20261008_card_loading" data-ws-string-value="Carregando o livro…"></div>
+  <div data-ws-string-key="d20261008_duration_min" data-ws-string-value="{minutes} min"></div>
+  <div data-ws-string-key="d20261008_duration_h_min" data-ws-string-value="{hours} h {minutes} min"></div>
+  <div data-ws-string-key="d20261008_search_books_failed" data-ws-string-value="Os livros não carregaram. Tente novamente em instantes."></div>
+  <div data-ws-string-key="d20261008_search_top_result" data-ws-string-value="Melhor resultado"></div>
+  <div data-ws-string-key="d20261008_search_books_by" data-ws-string-value="Livros de {name}"></div>
+  <div data-ws-string-key="d20261008_search_books" data-ws-string-value="Livros"></div>
+  <div data-ws-string-key="d20261008_search_articles" data-ws-string-value="Artigos"></div>
+  <div data-ws-string-key="d20261008_search_read_aloud" data-ws-string-value="Ler em voz alta"></div>
+  <div data-ws-string-key="d20261008_search_readings_one" data-ws-string-value="1 leitura"></div>
+  <div data-ws-string-key="d20261008_search_readings_many" data-ws-string-value="{count} leituras"></div>
+  <div data-ws-string-key="d20261008_search_more_info" data-ws-string-value="Mais informações"></div>
+  <div data-ws-string-key="d20261008_search_book" data-ws-string-value="Livro"></div>
+  <div data-ws-string-key="d20261008_search_audiobook" data-ws-string-value="Audiolivro"></div>
+  <div data-ws-string-key="d20261008_search_article" data-ws-string-value="Artigo"></div>
+  <div data-ws-string-key="d20261008_search_minutes_read_aloud" data-ws-string-value="cerca de {minutes} min em voz alta"></div>
+  <div data-ws-string-key="d20261008_search_signin_books" data-ws-string-value="Entre para pesquisar livros e audiolivros gratuitos"></div>
+  <div data-ws-string-key="d20261008_search_signin" data-ws-string-value="Entrar"></div>
+  <div data-ws-string-key="d20261008_search_offline" data-ws-string-value="Conecte-se à internet para pesquisar livros e audiolivros gratuitos"></div>
+  <div data-ws-string-key="d20261008_search_nothing" data-ws-string-value="Ainda nada para “{query}”. Tente um autor ou um título."></div>
+  <div data-ws-string-key="d20261008_search_keep_typing" data-ws-string-value="Continue digitando para pesquisar livros e a Wikipédia"></div>
+  <div data-ws-string-key="d20261008_search_suggestions" data-ws-string-value="Sugestões"></div>
+  <div data-ws-string-key="d20261008_source_gutenberg" data-ws-string-value="Livros (Projeto Gutenberg)"></div>
+  <div data-ws-string-key="d20261008_source_librivox" data-ws-string-value="Audiolivros (LibriVox)"></div>
+  <div data-ws-string-key="d20261008_source_wikipedia" data-ws-string-value="Wikipédia"></div>
+  <div data-ws-string-key="d20261008_source_title" data-ws-string-value="Fonte"></div>
+  <div data-ws-string-key="d20261008_lang_all" data-ws-string-value="Todos os idiomas"></div>
+  <div data-ws-string-key="d20261008_lang_yours" data-ws-string-value="Seus idiomas"></div>
+  <div data-ws-string-key="d20261008_lang_others" data-ws-string-value="Mais idiomas"></div>
+  <div data-ws-string-key="d20261008_lang_title" data-ws-string-value="Idioma"></div>
+  <div data-ws-string-key="d20261008_card_editions" data-ws-string-value="Edições"></div>
+  <div data-ws-string-key="d20261008_card_readings" data-ws-string-value="Ouça uma pessoa lendo"></div>
+  <div data-ws-string-key="d20261008_card_default" data-ws-string-value="Padrão"></div>
+  <div data-ws-string-key="d20261009_card_ai_voice" data-ws-string-value="Voz de IA"></div>
+  <div data-ws-string-key="d20261009_card_ai_voice_sub" data-ws-string-value="Escolha a sua voz favorita"></div>
+  <div data-ws-string-key="d20261015_card_ai_voice_read_along" data-ws-string-value="Acompanhe a leitura com a voz de IA que escolheu"></div>
+  <div data-ws-string-key="d20261009_card_human" data-ws-string-value="Narração humana"></div>
+  <div data-ws-string-key="d20261009_card_preview_word" data-ws-string-value="Prévia"></div>
+  <!-- Our Wikipedia items' card (src/discover/ours/WikiCardView.js; the phones' WikiCard), 2026-10-20 -->
+  <div data-ws-string-key="d20261009_wiki_import_current" data-ws-string-value="Importar o artigo atual"></div>
+  <div data-ws-string-key="d20261009_wiki_listen_recording" data-ws-string-value="Ouvir a gravação"></div>
+  <div data-ws-string-key="d20261009_wiki_voice_year" data-ws-string-value="{0} (2025)"></div>
+  <div data-ws-string-key="d20261009_wiki_recordings_title" data-ws-string-value="Narrações com IA pré-gravadas"></div>
+  <div data-ws-string-key="d20261009_card_narrated_note" data-ws-string-value="Gravado em 2025 com vozes de IA. Para o artigo de hoje, escolha Importar o artigo atual."></div>
+  <!-- The book card's length ("about 11 h"): keys the core hands back (CardText.workLength), never literal in src/ -->
+  <div data-ws-string-key="d20261009_about_hours" data-ws-string-value="cerca de {0} h"></div>
+  <div data-ws-string-key="d20261009_about_minutes" data-ws-string-value="cerca de {0} min"></div>
+  <div data-ws-string-key="d20261014_card_narrated_by" data-ws-string-value="Narrado por"></div>
+  <div data-ws-string-key="d20261014_search_human_narration" data-ws-string-value="Narração humana"></div>
+  <div data-ws-string-key="d20261008_card_most_listened" data-ws-string-value="A mais ouvida"></div>
+  <div data-ws-string-key="d20261008_card_preview" data-ws-string-value="Tocar 30 segundos"></div>
+  <div data-ws-string-key="d20261008_card_stop" data-ws-string-value="Parar"></div>
+  <div data-ws-string-key="d20261008_card_no_readings" data-ws-string-value="O TTSReader lê este livro em voz alta com a sua voz."></div>
+  <div data-ws-string-key="d20261008_card_parts_only" data-ws-string-value="Partes {parts} de {count}"></div>
+  <div data-ws-string-key="d20261008_card_failed" data-ws-string-value="Este livro não carregou. Verifique sua conexão e tente novamente."></div>
+  <div data-ws-string-key="d20261008_card_ours_failed" data-ws-string-value="Os detalhes e as leituras não carregaram. Verifique sua conexão e tente novamente."></div>
+  <div data-ws-string-key="d20261008_try_again" data-ws-string-value="Tentar novamente"></div>
+  <div data-ws-string-key="d20261008_preview_loading" data-ws-string-value="Carregando a prévia…"></div>
+  <div data-ws-string-key="d20261008_preview_failed" data-ws-string-value="Esta prévia não tocou. Tente novamente ou escolha outra leitura."></div>
+  <div data-ws-string-key="d20261008_close" data-ws-string-value="Fechar"></div>
+  <div data-ws-string-key="d20261008_importing" data-ws-string-value="Importando…"></div>
+  <div data-ws-string-key="d20261008_wiki_credit" data-ws-string-value="Fonte: Wikipédia, “{title}” ({url}), CC BY-SA 4.0."></div>
+  <div data-ws-string-key="d20261007_reading_read_by" data-ws-string-value="Lido por {0}"></div>
+  <div data-ws-string-key="d20261007_reading_readers" data-ws-string-value="{0} leitores"></div>
+  <div data-ws-string-key="d20261007_reading_full_cast" data-ws-string-value="Elenco completo · {0} vozes"></div>
+  <div data-ws-string-key="d20261007_reading_full_cast_uncounted" data-ws-string-value="Elenco completo"></div>
+  <div data-ws-string-key="d20261007_reading_abridged" data-ws-string-value="Resumido · {0}"></div>
+  <div data-ws-string-key="d20261007_reading_librivox" data-ws-string-value="Uma leitura do LibriVox"></div>
+  <div data-ws-string-key="d20260810_discover_filter_all" data-ws-string-value="Tudo"></div>
+  <div data-ws-string-key="d20260810_discover_filter_read" data-ws-string-value="Docs"></div>
+  <div data-ws-string-key="d20260810_discover_filter_listen" data-ws-string-value="Pré-gravados"></div>
+  <div data-ws-string-key="d20260810_discover_import_failed" data-ws-string-value="O download não funcionou. Verifique sua conexão e tente de novo."></div>
+  <!-- "Download with pictures?" (src/import/GutenbergEditionSheet.js, 2026-10-07) -->
+  <div data-ws-string-key="d20261007_pictures_title" data-ws-string-value="Baixar com imagens?"></div>
+  <div data-ws-string-key="d20261007_pictures_body" data-ws-string-value="Este livro tem imagens. A edição só com texto é menor e abre mais rápido."></div>
+  <div data-ws-string-key="d20261007_pictures_with" data-ws-string-value="Com imagens · {size}"></div>
+  <div data-ws-string-key="d20261007_pictures_text" data-ws-string-value="Só texto · {size}"></div>
+  <div data-ws-string-key="d20261007_pictures_close" data-ws-string-value="Fechar"></div>
+  <div data-ws-string-key="d20260708_import_failed" data-ws-string-value="Falha na importação"></div>
+  <div data-ws-string-key="d20260810_discover_try_again" data-ws-string-value="Tentar de novo"></div>
+  <!-- Scanned PDFs (src/scan, 2026-10-05) -->
+  <div data-ws-string-key="d20261004_scan_language_title" data-ws-string-value="Em que idioma está este PDF?"></div>
+  <div data-ws-string-key="d20261004_scan_language_mismatch" data-ws-string-value="As páginas digitalizadas não parecem estar em {language}."></div>
+  <div data-ws-string-key="d20261004_scan_language_mismatch_unnamed" data-ws-string-value="Não foi possível ler as páginas digitalizadas no idioma da voz."></div>
+  <div data-ws-string-key="d20261004_scan_model_failed" data-ws-string-value="Não foi possível baixar o necessário para ler este idioma. Verifique sua conexão e tente novamente."></div>
+  <div data-ws-string-key="d20261004_scan_model_unavailable" data-ws-string-value="A leitura de páginas digitalizadas neste idioma ainda não está disponível."></div>
+  <div data-ws-string-key="d20260708_import_unreadable" data-ws-string-value="Não foi possível ler este arquivo."></div>
+  <div data-ws-string-key="d20261005_scan_progress" data-ws-string-value="Lendo a página {page} de {pages}…"></div>
+  <div data-ws-string-key="d20260220_index_search_languages" data-ws-string-value="Pesquisar idiomas..."></div>
   <div data-ws-string-key="d20260722_ai_menu" data-ws-string-value="IA"></div>
   <div data-ws-string-key="d20260810_find_title" data-ws-string-value="Procurar"></div>
   <div data-ws-string-key="d20260811_word_count_title" data-ws-string-value="Contagem de palavras"></div>
@@ -6037,6 +6979,7 @@
   <div data-ws-string-key="d20260907_export_cost_duration" data-ws-string-value="duração de áudio estimada: %1$s"></div>
   <div data-ws-string-key="d20260907_export_copy_failed" data-ws-string-value="Não foi possível copiar o URL do podcast."></div>
   <div data-ws-string-key="exports_list_modal__url_copied" data-ws-string-value="URL copiado para a área de transferência!"></div>
+  <div data-ws-string-key="copy_link" data-ws-string-value="Copiar link"></div>
   <!-- `|| ''` is not defensive dressing: html-webpack-plugin reads languages/*.json
        ONCE, at config load, so a key added to those files is `undefined` here until
        the dev server restarts — and `.replace` on undefined fails the whole build,
@@ -6060,7 +7003,7 @@
   <div data-ws-string-key="d20260827_listens_forget" data-ws-string-value="Remover desta lista"></div>
   <div data-ws-string-key="d20260827_new_clipboard_empty" data-ws-string-value="Não há nada copiado neste momento."></div>
   <div data-ws-string-key="d20260827_account_status_premium" data-ws-string-value="Premium"></div>
-  <div data-ws-string-key="d20260827_account_status_payg" data-ws-string-value="Pagamento por uso"></div>
+  <div data-ws-string-key="d20260827_account_status_payg" data-ws-string-value="Pré-pago"></div>
   <div data-ws-string-key="d20260827_account_status_expired" data-ws-string-value="Expirado"></div>
   <div data-ws-string-key="d20260827_account_status_free" data-ws-string-value="Grátis"></div>
   <div data-ws-string-key="d20260827_account_status_checking" data-ws-string-value="A verificar…"></div>
@@ -6137,7 +7080,7 @@
   <div data-ws-string-key="alert_copied" data-ws-string-value="Copiado para a área de transferência."></div>
   <div data-ws-string-key="alert_missing_credits" data-ws-string-value="Créditos insuficientes para concluir sua solicitação"></div>
   <div data-ws-string-key="alert_requires_premium" data-ws-string-value="Assine para continuar com este recurso premium."></div>
-  <div data-ws-string-key="alert_requires_signin" data-ws-string-value="Este recurso requer login. Nenhuma senha ou método de pagamento é necessário. Apenas um login seguro com um clique via Google."></div>
+  <div data-ws-string-key="alert_requires_signin" data-ws-string-value="Entre para continuar: um clique com Google ou Apple. Sem senha, sem pagamento."></div>
   <div data-ws-string-key="alert_export_too_long" data-ws-string-value="Texto muito longo. Divida o texto em partes menores que 200 mil caracteres para manter o tamanho do arquivo de áudio razoável."></div>
   <div data-ws-string-key="alert_export_limited" data-ws-string-value="Desculpe, a voz selecionada pode exportar até 6 mil caracteres. Portanto, reduza o texto para 6 mil caracteres ou mude para uma voz que suporta exportação de texto longo. Todas as vozes que suportam isso são premium **EXCETO: NOAH, LILLY, OLIVIA.**"></div>
   <div data-ws-string-key="alert_export_premium_voice" data-ws-string-value="A função de exportação está disponível apenas para vozes premium. Por favor, selecione uma voz premium (marcada com uma estrela ⭐) para continuar, ou use o botão 'RECORD ◉' em vez disso."></div>
@@ -6160,13 +7103,122 @@
   <div data-ws-string-key="d20260421_voice_badge_new_tooltip" data-ws-string-value="Vozes super expressivas e multilíngues (detecção automática)."></div>
   <div data-ws-string-key="d20260421_voice_badge_experimental" data-ws-string-value="EXPERIMENTAL"></div>
   <div data-ws-string-key="d20260421_voice_badge_experimental_tooltip" data-ws-string-value="Algumas coisas podem não funcionar como esperado."></div>
-  <div data-ws-string-key="d20260529_kokoro_unsupported_voice" data-ws-string-value="Kokoro não está disponível neste dispositivo:"></div>
-  <div data-ws-string-key="d20260529_kokoro_reason_worker_missing" data-ws-string-value="Web Workers não são suportados."></div>
-  <div data-ws-string-key="d20260529_kokoro_reason_blob_worker_missing" data-ws-string-value="Workers baseados em Blob não são suportados."></div>
-  <div data-ws-string-key="d20260529_kokoro_reason_wasm_missing" data-ws-string-value="WebAssembly não é suportado."></div>
-  <div data-ws-string-key="d20260529_kokoro_reason_fetch_missing" data-ws-string-value="A API Fetch não é suportada."></div>
-  <div data-ws-string-key="d20260529_kokoro_reason_audio_missing" data-ws-string-value="A API de reprodução de áudio não é suportada."></div>
-  <div data-ws-string-key="d20260529_kokoro_reason_unknown" data-ws-string-value="Este dispositivo não atende aos requisitos do Kokoro."></div>
+  <!-- TTSReader for Mac as a local voice server (src/App.js: settings status, toasts, voice badge) -->
+  <div data-ws-string-key="d20260917_local_tts_status_connected" data-ws-string-value="Conectado · {count} vozes"></div>
+  <div data-ws-string-key="d20260917_local_tts_status_starting" data-ws-string-value="O TTSReader para Mac está se preparando…"></div>
+  <div data-ws-string-key="d20260917_local_tts_status_checking" data-ws-string-value="Procurando o TTSReader para Mac…"></div>
+  <div data-ws-string-key="d20260917_local_tts_status_open_app" data-ws-string-value="Abra o TTSReader para Mac para conectar"></div>
+  <div data-ws-string-key="d20260917_local_tts_status_premium" data-ws-string-value="O Premium libera as vozes do Mac"></div>
+  <div data-ws-string-key="d20260917_local_tts_status_unsupported" data-ws-string-value="Disponível no Chrome, Edge ou Firefox"></div>
+  <div data-ws-string-key="d20260917_local_tts_toast_fallback" data-ws-string-value="Continuando pela nuvem"></div>
+  <div data-ws-string-key="d20260917_local_tts_toast_reopen" data-ws-string-value="Abra o TTSReader para Mac para continuar ouvindo com esta voz, ou escolha outra voz."></div>
+  <div data-ws-string-key="d20260925_wai_local_download" data-ws-string-value="Baixar pacote de vozes ({size} MB)"></div>
+  <div data-ws-string-key="d20260925_wai_local_status_checking" data-ws-string-value="Verificando este computador…"></div>
+  <div data-ws-string-key="d20260925_wai_local_status_available" data-ws-string-value="As vozes wAI em inglês podem tocar aqui mesmo, na sua placa de vídeo."></div>
+  <div data-ws-string-key="d20260925_wai_local_status_downloading" data-ws-string-value="Baixando pacote de vozes… {pct}%"></div>
+  <div data-ws-string-key="d20260925_wai_local_status_testing" data-ws-string-value="Testando a velocidade neste computador…"></div>
+  <div data-ws-string-key="d20260925_wai_local_status_untested" data-ws-string-value="Pacote de vozes baixado · teste a velocidade neste computador para usá-lo"></div>
+  <div data-ws-string-key="d20260925_wai_local_status_ready" data-ws-string-value="Pronto · ative para reproduzir vozes wAI aqui"></div>
+  <div data-ws-string-key="d20260925_wai_local_status_on" data-ws-string-value="Ativado · vozes wAI em inglês tocam neste computador"></div>
+  <div data-ws-string-key="d20260925_wai_local_status_cloud" data-ws-string-value="Neste computador, as vozes wAI tocam pela nuvem"></div>
+  <div data-ws-string-key="d20260925_wai_local_status_cloud_at_rate" data-ws-string-value="Na velocidade {rate}×, as vozes wAI tocam pela nuvem"></div>
+  <div data-ws-string-key="d20260925_wai_local_detail_webgpu" data-ws-string-value="Funciona neste computador no Chrome ou no Edge, que têm WebGPU."></div>
+  <div data-ws-string-key="d20260925_wai_local_detail_gpu" data-ws-string-value="Funciona em computadores cujo navegador pode usar a placa de vídeo (WebGPU)."></div>
+  <div data-ws-string-key="d20260925_wai_local_detail_memory" data-ws-string-value="Funciona em computadores com 4 GB de memória ou mais."></div>
+  <div data-ws-string-key="d20260925_wai_local_detail_cores" data-ws-string-value="Funciona em computadores com 4 núcleos de processador ou mais."></div>
+  <div data-ws-string-key="d20260925_wai_local_numbers_speed" data-ws-string-value="Gera {speed}× mais rápido do que toca"></div>
+  <div data-ws-string-key="d20260925_wai_local_numbers_needed" data-ws-string-value="Precisa de {needed}× para tocar aqui"></div>
+  <div data-ws-string-key="d20260925_wai_local_numbers_needed_rate" data-ws-string-value="Na sua velocidade ({rate}×) precisa de {needed}×"></div>
+  <div data-ws-string-key="d20260925_wai_local_numbers_first" data-ws-string-value="Primeira frase em {first} s"></div>
+  <div data-ws-string-key="d20260925_wai_local_numbers_gpu" data-ws-string-value="Gráficos: {gpu}"></div>
+  <div data-ws-string-key="d20260925_wai_local_error_download" data-ws-string-value="Download interrompido: {detail}"></div>
+  <div data-ws-string-key="d20260925_wai_local_error_storage" data-ws-string-value="Espaço de armazenamento insuficiente para o pacote de vozes ({size} MB)"></div>
+  <div data-ws-string-key="d20260925_wai_local_error_unreachable" data-ws-string-value="Não é possível acessar o pacote de vozes agora"></div>
+  <div data-ws-string-key="d20260929_wai_local_error_outdated" data-ws-string-value="Conecte-se à internet para atualizar as vozes"></div>
+  <div data-ws-string-key="d20260929_wai_local_error_mismatch" data-ws-string-value="As vozes no dispositivo ainda não estão disponíveis para esta versão"></div>
+  <div data-ws-string-key="d20260925_wai_local_error_test" data-ws-string-value="O teste de velocidade falhou neste computador"></div>
+  <div data-ws-string-key="d20260925_voice_badge_this_computer" data-ws-string-value="Este computador"></div>
+  <div data-ws-string-key="d20260925_voice_badge_this_computer_tooltip" data-ws-string-value="Toca neste computador. Nenhum caractere é usado."></div>
+  <div data-ws-string-key="d20260917_voice_badge_mac" data-ws-string-value="Mac"></div>
+  <div data-ws-string-key="d20260917_voice_badge_mac_tooltip" data-ws-string-value="Reproduzida pelo TTSReader para Mac. Funciona offline, sem usar caracteres."></div>
+  <!-- The webapp A–C job, Block 0 (2026-10-16): the strings blocks 1–4 read from JS (the phones' keys and values) -->
+  <!-- Library: the Books quick-add and the + New sheet's Discover row (Block 2, B6) -->
+  <div data-ws-string-key="d20261015_quick_books" data-ws-string-value="Livros"></div>
+  <div data-ws-string-key="d20261015_add_discover_row" data-ws-string-value="E-books clássicos, audiolivros, artigos e mais"></div>
+  <!-- The credits-added toast when a pack's grant lands (Block 2, B9; the web's own wording, Ronen 2026-10-16) -->
+  <div data-ws-string-key="d20261017_credits_pack_added" data-ws-string-value="1 Milhão de Caracteres Premium adicionados — obrigado!"></div>
+  <!-- Continue listening's ✕ asks first: the removal reaches every device, as on the phones (Block 2, review #1) -->
+  <div data-ws-string-key="d20261017_listen_remove_confirm" data-ws-string-value="Remover de «Continuar a ouvir»? Também será removido dos seus outros dispositivos, e o ponto onde parou será esquecido."></div>
+  <!-- Reading themes (Block 4, B8): the five presets and the appearance labels -->
+  <div data-ws-string-key="d20260709_appearance" data-ws-string-value="Aparência"></div>
+  <div data-ws-string-key="d20260709_reading_theme" data-ws-string-value="Tema de leitura"></div>
+  <div data-ws-string-key="d20261013_reader_theme_automatic" data-ws-string-value="Automático"></div>
+  <div data-ws-string-key="d20260709_reader_theme_paper" data-ws-string-value="Papel"></div>
+  <div data-ws-string-key="d20260709_reader_theme_sepia" data-ws-string-value="Sépia"></div>
+  <div data-ws-string-key="d20260709_reader_theme_night" data-ws-string-value="Noite"></div>
+  <div data-ws-string-key="d20260709_reader_theme_black" data-ws-string-value="Preto"></div>
+  <div data-ws-string-key="d20260709_text_color" data-ws-string-value="Cor do texto"></div>
+  <div data-ws-string-key="d20260709_bg_color" data-ws-string-value="Fundo"></div>
+  <!-- Sleep timer (Block 1, B2): the Prefs default, the countdown pill, the Reader ⋯ Set/Clear sheet -->
+  <div data-ws-string-key="d20260715_sleep_timer" data-ws-string-value="Timer de suspensão"></div>
+  <div data-ws-string-key="d20260715_sleep_timer_off" data-ws-string-value="Desativado"></div>
+  <div data-ws-string-key="d20260715_minutes_suffix" data-ws-string-value="min"></div>
+  <div data-ws-string-key="d20260802_sleep_timer_remaining" data-ws-string-value="Tempo restante do timer"></div>
+  <div data-ws-string-key="d20260802_sleep_cancel_once" data-ws-string-value="Cancelar só desta vez"></div>
+  <div data-ws-string-key="d20260802_sleep_cancel_always" data-ws-string-value="Desativar timer de suspensão"></div>
+  <div data-ws-string-key="d20260802_sleep_restart" data-ws-string-value="Reiniciar timer"></div>
+  <div data-ws-string-key="d20261015_timer_set" data-ws-string-value="Definir timer"></div>
+  <div data-ws-string-key="d20261015_timer_clear" data-ws-string-value="Limpar timer"></div>
+  <div data-ws-string-key="d20261015_timer_sheet_note" data-ws-string-value="A reprodução pausa quando o tempo acaba. Sua escolha passa a ser o padrão em Ajustes."></div>
+  <!-- The unified player (Block 1): the chapter bar, ±15 s, the album's end -->
+  <div data-ws-string-key="d20260810_album_previous_chapter" data-ws-string-value="Capítulo anterior"></div>
+  <div data-ws-string-key="d20260810_album_next_chapter" data-ws-string-value="Próximo capítulo"></div>
+  <div data-ws-string-key="d20260711_jump_back" data-ws-string-value="Voltar"></div>
+  <div data-ws-string-key="d20260711_jump_forward" data-ws-string-value="Avançar"></div>
+  <div data-ws-string-key="d20260820_end_next_toast" data-ws-string-value="Você chegou ao fim — toque em Reproduzir para recomeçar ou em Voltar para a biblioteca."></div>
+  <!-- Stream recovery (Block 1): Buffering after 700 ms, offline, a part that could not load -->
+  <div data-ws-string-key="d20260807_wait_buffering" data-ws-string-value="Carregando áudio…"></div>
+  <div data-ws-string-key="d20260823_wait_audio_offline" data-ws-string-value="Carregando — aguardando conexão…"></div>
+  <div data-ws-string-key="d20261013_audio_part_failed" data-ws-string-value="Não foi possível carregar esta parte."></div>
+  <!-- The 30-second preview of our narration and its cover (Block 1; Ronen 2026-10-16, "cap at 30 s like iOS") -->
+  <div data-ws-string-key="d20260819_premium_content_title" data-ws-string-value="O Premium desbloqueia este conteúdo"></div>
+  <div data-ws-string-key="d20260819_premium_content_preview_hint" data-ws-string-value="Continue ouvindo"></div>
+  <div data-ws-string-key="d20260819_premium_content_body" data-ws-string-value="Agora por %@ — o conteúdo mais interessante do mundo e qualquer conteúdo escrito, inclusive o seu."></div>
+  <div data-ws-string-key="d20260819_premium_content_body_no_price" data-ws-string-value="O conteúdo mais interessante do mundo e qualquer conteúdo escrito, inclusive o seu."></div>
+  <div data-ws-string-key="d20260819_premium_content_continue" data-ws-string-value="Continuar"></div>
+  <div data-ws-string-key="d20260819_premium_content_not_now" data-ws-string-value="Agora não"></div>
+  <!-- Discover shelves v2 and the language menu (Block 3, B11) -->
+  <div data-ws-string-key="d20261009_shelf_books" data-ws-string-value="Livros"></div>
+  <div data-ws-string-key="d20261009_shelf_wikipedia" data-ws-string-value="Destaques da Wikipédia"></div>
+  <div data-ws-string-key="d20261010_shelf_inspiration" data-ws-string-value="Inspiração"></div>
+  <div data-ws-string-key="d20261010_shelf_children" data-ws-string-value="Crianças"></div>
+  <div data-ws-string-key="d20261009_lang_more" data-ws-string-value="Mais idiomas"></div>
+  <!-- The export's extras in the Reader ⋯ (Block 1): Download MP3, Share -->
+  <div data-ws-string-key="exports_list_modal__download_mp3_tooltip" data-ws-string-value="Baixar arquivo MP3"></div>
+  <!-- The audio's own sidebar while an mp3 plays in the Reader (item 4, src/player/AudioSidebar.js) -->
+  <div data-ws-string-key="d20260220_voiceGalleryModal_language" data-ws-string-value="Idioma"></div>
+  <div data-ws-string-key="d20260723_learn_duration" data-ws-string-value="Duração de escuta"></div>
+  <div data-ws-string-key="exports_list_modal__col_voice" data-ws-string-value="Voz"></div>
+  <div data-ws-string-key="exports_list_modal__col_rate" data-ws-string-value="Velocidade"></div>
+  <div data-ws-string-key="exports_list_modal__col_date" data-ws-string-value="Data"></div>
+  <div data-ws-string-key="d20260827_chip_speed" data-ws-string-value="Velocidade"></div>
+  <div data-ws-string-key="d20260827_rate_slower" data-ws-string-value="Mais lento"></div>
+  <div data-ws-string-key="d20260827_rate_faster" data-ws-string-value="Mais rápido"></div>
+  <div data-ws-string-key="exports_list_modal__col_download_tooltip" data-ws-string-value="Baixar"></div>
+  <div data-ws-string-key="d20260821_audio_share_text" data-ws-string-value="Estou ouvindo “%1$@” no TTSReader — achei que você também poderia gostar: %2$@"></div>
+  <div data-ws-string-key="d20260821_audio_share_text_untitled" data-ws-string-value="Estou ouvindo isto no TTSReader — achei que você também poderia gostar: %@"></div>
+  <!-- Keys App.js has always read from JS with no line here, so they showed raw (found by src/translations/stringKeysResolve.test.js, 2026-10-18):
+       the API panel's buttons and messages, a failed web fetch, a failed export, and the toast after a plan purchase. -->
+  <div data-ws-string-key="d20251225_api_generate_secret" data-ws-string-value="Gerar Nova Chave API"></div>
+  <div data-ws-string-key="d20251225_api_regenerate_secret" data-ws-string-value="Regenerar Chave API"></div>
+  <div data-ws-string-key="d20251225_api_secret_error" data-ws-string-value="❌ Erro ao gerar chave API. Tente novamente."></div>
+  <div data-ws-string-key="d20251225_api_test_button" data-ws-string-value="Testar API e Baixar MP3"></div>
+  <div data-ws-string-key="d20251225_api_test_success" data-ws-string-value="✅ Teste da API bem-sucedido! Arquivo MP3 baixado."></div>
+  <div data-ws-string-key="d20251225_api_test_error" data-ws-string-value="❌ Teste da API falhou. Verifique sua chave e tente novamente."></div>
+  <div data-ws-string-key="d20251225_api_copied" data-ws-string-value="Copiado!"></div>
+  <div data-ws-string-key="d20260920_web_fetch_failed" data-ws-string-value="Não foi possível obter essa página. Tente abri-la no seu navegador e colar o texto aqui."></div>
+  <div data-ws-string-key="alert_export_error" data-ws-string-value="Falha na exportação:"></div>
+  <div data-ws-string-key="newUpgradeModal_premiumSubscription" data-ws-string-value="Assinatura Premium"></div>
 </div>
 <!-- end of JS STRINGS -->
 

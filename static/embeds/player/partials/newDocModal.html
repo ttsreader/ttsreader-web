@@ -56,6 +56,13 @@
         <span class="new-doc-card-title"><%= htmlWebpackPlugin.options.strings.d20260827_new_news %></span>
         <span class="new-doc-card-sub"><%= htmlWebpackPlugin.options.strings.d20260827_new_news_sub %></span>
       </button>
+
+      <!-- The LAST row: not a way to start a document but a place full of them — Discover, at its top (iOS
+           NewDocumentSheet's discoverOption; webapp A–C, Block 2, B6). -->
+      <button class="new-doc-card new-doc-card--discover" data-ws-onclick="newDocDiscover">
+        <span class="new-doc-tile new-doc-tile--discover"><svg class="new-doc-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6l0 13"/><path d="M12 6l0 13"/><path d="M21 6l0 13"/></svg></span>
+        <span class="new-doc-card-title"><%= htmlWebpackPlugin.options.strings.d20261015_add_discover_row %></span>
+      </button>
     </div>
   </div>
 </div>

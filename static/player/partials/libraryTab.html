@@ -58,12 +58,14 @@
         <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20260827_new_web %></span>
       </button>
 
-      <button class="quick-add-cell" data-ws-onclick="openBooksModal"
-              title="<%= htmlWebpackPlugin.options.strings.d20260427_books_modal_title %>">
+      <!-- Books opens Discover at its top, the search closed (iOS LibraryQuickAdd + DiscoverTopLanding; webapp A–C,
+           Block 2, B6). The books browser it used to open stays on the Reader's toolbar. -->
+      <button class="quick-add-cell" data-ws-onclick="libraryOpenDiscover"
+              title="<%= htmlWebpackPlugin.options.strings.d20261015_add_discover_row %>">
         <span class="quick-add-face">
           <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6l0 13"/><path d="M12 6l0 13"/><path d="M21 6l0 13"/></svg>
         </span>
-        <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20260826_library_book_badge %></span>
+        <span class="quick-add-label"><%= htmlWebpackPlugin.options.strings.d20261015_quick_books %></span>
       </button>
 
       <!-- The two AI actions get a cell each while the row can hold six. Below
@@ -108,6 +110,11 @@
         </div>
       </div>
     </div>
+
+    <!-- "Continue listening" (src/library/ListensFeed.js; webapp A–C, Block 2, B1): the audio this account played on any
+         device. Its ONE host — never a #libraryAudioList, which ExportsFeed would fill with export rows. Empty when
+         there is nothing to continue. -->
+    <div id="libraryListensList" class="listens-list"></div>
 
     <!-- The list's own heading, and the warning that belongs with it: these
          documents live in the browser's storage, which the browser is free to

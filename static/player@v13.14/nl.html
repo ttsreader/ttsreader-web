@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="" lang="nl" data-test-audio-playing="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-dark-mode data-no-ads data-is-signed-out>
+<html dir="ltr" lang="nl" data-test-audio-playing="ttsreaderServer.gcp.en-US-Chirp-HD-D" data-dark-mode data-no-ads data-is-signed-out>
 <head>
   <script type="application/ld+json">
     {
@@ -12,7 +12,7 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-09-07T19:15:18.506Z",
+      "dateModified": "2026-09-10T21:35:07.156Z",
       "version": "3.14.0",
       "publisher": {
         "@type": "Organization",
@@ -680,7 +680,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.43ab4751.js"></script><link href="./static/css/main.08283a91.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.b0aa16d0.js"></script><link href="./static/css/main.71804917.css" rel="stylesheet"></head>
 <body>
 
 <!-- ===== "Open our iOS app" interstitial =========================================
@@ -827,7 +827,7 @@
     cursor: pointer;
   }
 </style>
-<div id="iosAppInterstitial" role="dialog" aria-modal="true" dir="">
+<div id="iosAppInterstitial" role="dialog" aria-modal="true" dir="ltr">
   <div class="ios-gate-wash" aria-hidden="true"></div>
   <div class="ios-gate-bloom" aria-hidden="true"></div>
   <div class="ios-gate-body">
@@ -2111,7 +2111,7 @@
 
   <div class="drawer-version-wrap">
     <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-      <b>V3.14.0</b> Build 2026-09-07T19:15:18.506Z
+      <b>V3.14.0</b> Build 2026-09-10T21:35:07.156Z
       &nbsp;&nbsp;<span style="">ALLE VERSIES <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
     <!-- The player this one replaced, one click away. A daily tool changed shape;
          anyone who preferred the old shape should not have to go hunting. -->
@@ -2961,7 +2961,7 @@
     </label>-->
   </div>
 
-  <div id="onboardingModal" class="wideModal" style="display: none;" dir="">
+  <div id="onboardingModal" class="wideModal" style="display: none;" dir="ltr">
     <!-- Step 1: Welcome Message -->
     <div data-ws-step="1" class="modal-step" style="background: url('/images/anima2.webp') no-repeat center;background-size: cover;">
       <div style="flex:1"></div>
@@ -4818,12 +4818,11 @@
               el.remove();
             })
           }
-          allJobsMap.clear();
-          durationCache.clear();
-          knownLanguages.clear();
-          updateLangFilterDropdown();
-          knownVoices.clear();
-          updateVoiceFilterDropdown();
+          // The exports view moved into the bundle (src/library/ExportsFeed.js); these were all
+          // module-scoped there, so calling them from here threw ReferenceError and the cleanup
+          // never ran. Guarded because this script is not deferred and the auth observer can
+          // resolve before the bundle has executed.
+          window.clearExportsFeed && window.clearExportsFeed();
         }
       });
 
@@ -5242,7 +5241,7 @@
     });
   });
 
-  function signIn(optionalOnSuccessCallback, providerName) {
+  function signIn(optionalOnSuccessCallback, providerName, optionalOnErrorCallback) {
     if (!providerName) {
       appMethods.showModal("signinModal");
       return;
@@ -5277,7 +5276,16 @@
       let email = error.email;
       // The firebase.auth.AuthCredential type that was used.
       let credential = error.credential;
-      // ...
+      // Until 2026-09-08 a failed sign-in was silent everywhere. It still is for the callers that
+      // pass nothing — but a caller that put a button into a "signing you in" state has to be told
+      // the attempt ended, or that button stays dead and the user is stuck looking at it.
+      if (optionalOnErrorCallback) {
+        try {
+          optionalOnErrorCallback(error);
+        } catch (e) {
+          console.error("sign-in error callback failed", e);
+        }
+      }
     });
   }
 </script>
@@ -5393,10 +5401,17 @@
       }
     } catch (e) {}
     document.getElementById('onboardingModal').style.display = 'none';
-    if (!localStorage.getItem("ttsreader.wasOnboarding3")) {
-      // If we never did the onboarding, set the flag:
-      appMethods.showModal("postOnboardingModal");
-    }
+    // The post-onboarding tips modal no longer opens from here. Disabled 2026-09-09 (Ronen).
+    //
+    // This function runs on EVERY sign-in (see the auth handler), not only when an onboarding was
+    // actually closed — and the onboarding itself is commented out — so the flag was usually
+    // unset and the tips popped at sign-in, out of nowhere, having onboarded nobody. Since the
+    // offer sheet gained its own sign-in, that also meant a wall of tips landing on top of
+    // someone who had just signed in to pay.
+    //
+    // The modal's markup and strings are left in place. `completed` is the hook if it should ever
+    // come back: it is true only from the final onboarding step's own CTA, which is the one
+    // moment a "here is what to do next" panel would be earned.
     localStorage.setItem("ttsreader.wasOnboarding3", "true");
   }
 
@@ -5599,6 +5614,135 @@
     signIn();
   };
 
+  /** The sheet's offer frame, or null when the sheet is not up. */
+  function checkoutFrame() {
+    return document.querySelector('#premiumCover .Premium-sheet-offer iframe');
+  }
+
+  /**
+   * Call into the sheet. Same-origin and same direction the sheet already calls US in
+   * (setCheckoutHeight, closeCheckoutSheet), so this needs no postMessage plumbing and no origin
+   * check — and it answers false rather than throwing when the frame is gone or is an older build
+   * that has no such function, which is what makes a fallback possible.
+   */
+  function tellCheckout(fnName, a, b, c) {
+    try {
+      const el = checkoutFrame();
+      const w = el && el.contentWindow;
+      if (w && typeof w[fnName] === "function") {
+        w[fnName](a, b, c);
+        return true;
+      }
+    } catch (e) { /* not loaded, replaced, or gone */ }
+    return false;
+  }
+
+  /**
+   * The app's answer to "does this person already subscribe?", pushed into an open sheet.
+   *
+   * Called by App.js whenever the answer changes — most importantly when it changes from
+   * "unknown" to a real answer, a beat after sign-in. Harmless when no sheet is up: tellCheckout
+   * simply finds nothing to call.
+   */
+  window.setCheckoutSubscribed = function (answer) {
+    tellCheckout("checkoutSetSubscribed", answer);
+  };
+
+  /**
+   * WHO an open sheet is buying for, pushed by App.js whenever the signed-in account changes.
+   *
+   * Not only sign-in: Firebase auth is shared across tabs on this origin, so a second tab can
+   * switch accounts — or sign out — under a sheet that is still on screen. Without this the sheet
+   * keeps the old uid and `custom_id` carries it into a real purchase, granting the money to an
+   * account that is no longer the one at the keyboard.
+   */
+  window.setCheckoutAccount = function (uid, mail, subscribed) {
+    tellCheckout("checkoutSetAccount", uid || "", mail || "", subscribed || "");
+  };
+
+  /**
+   * The sheet's "top up instead" button, on the panel an active subscriber sees.
+   *
+   * Goes through openPurchaseFlow — THE one door for "I want to buy" — rather than pointing the
+   * frame at the top-up face directly. That door reads the entitlement itself, so it cannot be
+   * talked into showing the wrong face, and a subscriber (which is the only way this button is on
+   * screen) always lands on the pack.
+   */
+  window.openCheckoutTopup = function () {
+    try {
+      if (window.appMethods && typeof window.appMethods.openPurchaseFlow === "function") {
+        window.appMethods.openPurchaseFlow("");
+        return;
+      }
+    } catch (e) {
+      console.error("openPurchaseFlow failed", e);
+    }
+    window.openNewUpgradeModal && window.openNewUpgradeModal();   // never dead-end a buyer
+  };
+
+  /**
+   * Sign in from INSIDE the offer sheet.
+   *
+   * Until 2026-09-08 a signed-out visitor who wanted to buy was thrown out of the sheet: it was
+   * dismissed, the app's own sign-in modal took its place, and after signing in the whole offer
+   * was rebuilt from scratch and shoved into Paddle. Three surfaces for one decision. Now the
+   * sheet shows the two provider buttons itself and this runs the sign-in — the auth stays here,
+   * in the one place that owns Firebase, and the sheet is told who arrived so it can advance in
+   * place, on the same term, without reloading.
+   *
+   * @param {string} providerName "google" | "apple".
+   * @param {string} sku    the term the sheet currently has selected. Not used for the popup —
+   *                        it is what the FALLBACK route needs to reopen checkout on that term.
+   * @param {string} reason what stopped them, carried through the same fallback.
+   */
+  window.signInForCheckout = function (providerName, sku, reason) {
+    signIn(function (user) {
+      // `user.email` rather than the `email` global: that global is set by the auth-state handler,
+      // which may not have run yet at this instant, and the sheet uses it to prefill checkout.
+      // The third argument matters more than it looks: right after sign-in the answer is almost
+      // always "unknown", and that is precisely what the sheet must be told so it holds instead
+      // of offering a plan to someone who may already have one. App.js pushes the real answer a
+      // beat later.
+      if (tellCheckout("checkoutSetAccount", (user && user.uid) || "",
+                       (user && user.email) || window.email || "",
+                       window.activeSubscription || "unknown")) {
+        return;
+      }
+      reopenCheckoutForUser();   // the frame could not be reached — rebuild it rather than strand them
+    }, providerName, function (err) {
+      const code = (err && err.code) || "";
+      // A blocked popup is not a decision, it is a browser that will not open one from here. The
+      // long way round still works: take the sheet down, sign in through the app's own modal, and
+      // reopen checkout on the plan they chose.
+      if (code === "auth/popup-blocked" || code === "auth/cancelled-popup-request"
+          || code === "auth/operation-not-supported-in-this-environment") {
+        window.requestSignInForCheckout(sku, reason);
+        return;
+      }
+      // Cancelled, or it failed: the sheet is untouched and still theirs to use. Give the buttons
+      // back — a dead button after a closed popup reads as a broken sheet.
+      tellCheckout("checkoutOnSignInFailed");
+    });
+  };
+
+  /**
+   * Last resort after a sign-in the live frame could not be told about: point it at itself again,
+   * now that there is a uid to build it with. The face and the reason are read off the URL it is
+   * ALREADY showing, so this cannot switch the offer out from under the user.
+   */
+  function reopenCheckoutForUser() {
+    const el = checkoutFrame();
+    if (!el || typeof window.setCheckoutSrc !== "function") return;
+    let kind = "subscribe";
+    let why = "";
+    try {
+      const q = new URL(el.src, window.location.href).searchParams;
+      kind = q.get("kind") || kind;
+      why = q.get("reason") || "";
+    } catch (e) { /* no src to read; the defaults are the common case anyway */ }
+    window.setCheckoutSrc(kind, why);
+  }
+
   /**
    * Point the sheet's offer iframe at the right face. The APP owns when the sheet opens (it is
    * derived state); this only builds the URL, because only this document knows the uid, the theme
@@ -5609,7 +5753,7 @@
    * @returns {boolean} false if there is nothing to point at — the caller then falls back rather
    *          than opening an empty sheet.
    */
-  window.setCheckoutSrc = function (kind, reason, autostart) {
+  window.setCheckoutSrc = function (kind, reason) {
     const sheetEl = document.getElementById('premiumCover');
     const iframeEl = sheetEl && sheetEl.querySelector('.Premium-sheet-offer iframe');
     if (!iframeEl) return false;
@@ -5622,10 +5766,14 @@
     const mail = window.email || "";
 
     iframeEl.style.height = "";          // let the next page size itself from scratch
+    // "yes" | "no" | "unknown" — see App.js's derivation. Passed at build time so an active
+    // subscriber never sees a subscribe button, not even for the frame before the push lands.
+    const subscribed = window.activeSubscription || (uid ? "unknown" : "no");
     iframeEl.src = `checkout.${lang}.html?kind=${encodeURIComponent(kind)}`
       + `&reason=${encodeURIComponent(reason || "")}`
       + `&uid=${uid}&email=${encodeURIComponent(mail)}&theme=${theme}`
-      + `&onClose=closeCheckoutSheet${autostart ? "&autostart=1" : ""}&t=${Date.now()}`;
+      + `&subscribed=${subscribed}`
+      + `&onClose=closeCheckoutSheet&t=${Date.now()}`;
     return true;
   };
 

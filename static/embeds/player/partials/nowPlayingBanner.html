@@ -20,6 +20,9 @@
           aria-label="<%= htmlWebpackPlugin.options.strings.d20260828_play_pause %>">
     <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
     <span data-ws-show-if-state="isPlayingOn=false"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+    <!-- An mp3 in the Reader (src/player): its own glyph; the two above give way while it plays there (player.css). -->
+    <span data-ws-show-if-state="audioGlyphPause=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+    <span data-ws-show-if-state="audioGlyphPlay=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
   </button>
   <!-- The same fraction the Reader's scrubber publishes — one position, two views. -->
   <div class="now-playing-progress" aria-hidden="true">

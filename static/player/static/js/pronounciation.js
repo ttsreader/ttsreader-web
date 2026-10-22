@@ -5,11 +5,28 @@
     let pronunciationDict = [];
     const STORAGE_KEY = 'ttsreader-pronunciation-dict';
 
+    // Ids are STRINGS everywhere. PronunciationSync stringifies them (`id: String(e.id)`) and RTDB
+    // child keys are strings, so a dictionary that has ever synced already holds strings — while
+    // older, never-signed-in dictionaries hold the numbers `Date.now()` produced. Normalising on
+    // load makes the two shapes identical without changing any id's VALUE, so nothing re-keys and
+    // nothing orphans in the cloud.
+    function newId() {
+        return String(Date.now()) + '-' + Math.floor(Math.random() * 1e9);
+    }
+
+    function normalizeEntries(list) {
+        if (!Array.isArray(list)) return [];
+        return list.map(entry => {
+            const id = entry && entry.id !== undefined && entry.id !== null ? String(entry.id) : '';
+            return Object.assign({}, entry, {id: id || newId()});
+        });
+    }
+
     // Load from localStorage
     function loadDictionary() {
         try {
             const stored = localStorage.getItem(STORAGE_KEY);
-            pronunciationDict = stored ? JSON.parse(stored) : [];
+            pronunciationDict = normalizeEntries(stored ? JSON.parse(stored) : []);
         } catch (e) {
             pronunciationDict = [];
         }
@@ -62,7 +79,7 @@
             }
         } else {
             pronunciationDict.push({
-                id: Date.now(),
+                id: newId(),
                 original,
                 pronunciation,
                 enabled: true
@@ -79,14 +96,16 @@
 
     // Remove pronunciation
     window.removePronunciation = function(id) {
-        pronunciationDict = pronunciationDict.filter(entry => entry.id !== id);
+        const key = String(id);
+        pronunciationDict = pronunciationDict.filter(entry => entry.id !== key);
         saveDictionary();
         updateDictionaryDisplay();
     };
 
     // Toggle pronunciation enabled/disabled
     window.togglePronunciation = function(id) {
-        const entry = pronunciationDict.find(e => e.id === id);
+        const key = String(id);
+        const entry = pronunciationDict.find(e => e.id === key);
         if (entry) {
             entry.enabled = !entry.enabled;
             saveDictionary();
@@ -98,10 +117,11 @@
     let editingPronunciationId = null;
 
     window.editPronunciation = function(id) {
-        const entry = pronunciationDict.find(e => e.id === id);
+        const key = String(id);
+        const entry = pronunciationDict.find(e => e.id === key);
         if (!entry) return;
 
-        editingPronunciationId = id;
+        editingPronunciationId = key;
 
         // Populate the edit form
         document.getElementById('editOriginalWord').value = entry.original;
@@ -229,6 +249,7 @@
 
         if (!list || !count) return;
 
+        bindListDelegation(list); // idempotent; the container outlives every innerHTML re-render
         count.textContent = pronunciationDict.length;
 
         if (pronunciationDict.length === 0) {
@@ -249,20 +270,19 @@
         });
 
         list.innerHTML = sortedDict.map(entry => `
-      <div class="pronunciation-entry ${entry.enabled ? '' : 'disabled'}">
+      <div class="pronunciation-entry ${entry.enabled ? '' : 'disabled'}" data-id="${escapeAttr(entry.id)}">
         <input type="checkbox" class="pronunciation-toggle"
-               ${entry.enabled ? 'checked' : ''}
-               onchange="togglePronunciation(${entry.id})">
+               ${entry.enabled ? 'checked' : ''}>
         <div class="pronunciation-words">
           <div class="pronunciation-original">${escapeHtml(entry.original)}</div>
           <div class="pronunciation-separator">/</div>
           <div class="pronunciation-phonetic">${escapeHtml(entry.pronunciation)}</div>
-          <button class="pronunciation-test-btn" title="Test pronunciation" onclick="window.appMethods.pronounceTestVoice('${escapeHtml(entry.pronunciation)}')" aria-label="Test pronunciation">
+          <button class="pronunciation-test-btn" title="Test pronunciation" aria-label="Test pronunciation">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="5,3 19,12 5,21"></polygon>
             </svg>
           </button>
-          <button class="pronunciation-edit-btn" title="Edit pronunciation" onclick="editPronunciation(${entry.id})" aria-label="Edit pronunciation">
+          <button class="pronunciation-edit-btn" title="Edit pronunciation" aria-label="Edit pronunciation">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -271,7 +291,6 @@
         </div>
         <div class="pronunciation-actions">
           <button class="pronunciation-action-btn delete"
-                  onclick="removePronunciation(${entry.id})"
                   title="Delete"
                   aria-label="Delete pronunciation">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -311,6 +330,47 @@
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    // escapeHtml() leaves quotes alone (textContent -> innerHTML escapes & < > only), which is fine
+    // for element content but not for an attribute value.
+    function escapeAttr(value) {
+        return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+            .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Row controls are wired by delegation on the list, not by inline on* attributes. Inline handlers
+    // had to interpolate values into a JS source string, which broke twice over: an id rendered
+    // unquoted arrived as a NUMBER (so the strict `===` lookups never matched a stored string id, and
+    // a KMP id like "1758…-123456" was evaluated as a subtraction), and a pronunciation containing an
+    // apostrophe ended the string literal and killed the play button. Reading `data-id` and looking the
+    // entry up by it keeps every value out of JS source entirely.
+    function bindListDelegation(list) {
+        if (!list || list.dataset.pronunciationBound === '1') return;
+        list.dataset.pronunciationBound = '1';
+
+        const idFor = (target) => target.closest('.pronunciation-entry')?.dataset.id;
+
+        list.addEventListener('click', function(e) {
+            const id = idFor(e.target);
+            if (id === undefined) return;
+
+            if (e.target.closest('.pronunciation-action-btn.delete')) {
+                removePronunciation(id);
+            } else if (e.target.closest('.pronunciation-edit-btn')) {
+                editPronunciation(id);
+            } else if (e.target.closest('.pronunciation-test-btn')) {
+                const entry = pronunciationDict.find(x => x.id === id);
+                if (entry) window.appMethods?.pronounceTestVoice?.(entry.pronunciation);
+            }
+        });
+
+        list.addEventListener('change', function(e) {
+            const id = idFor(e.target);
+            if (id !== undefined && e.target.closest('.pronunciation-toggle')) {
+                togglePronunciation(id);
+            }
+        });
     }
 
     // Test function to verify pronunciation highlighting works

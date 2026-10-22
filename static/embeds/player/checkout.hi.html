@@ -97,6 +97,23 @@
     .context-title { font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; }
     .context-note  { font-size: 0.82rem; color: var(--ink-mute); line-height: 1.45; margin-top: 2px; }
     .context.hidden { display: none; }
+    /* The subscribe sheet's title, the same row drawn as a headline (Ronen, 2026-10-21: "centered - larger font - more
+       festive - saying 'Get More with Premium [rocket]'", on every opening). No card: it is a title, not a notice. */
+    .context--headline {
+      padding: 2px 0 0;
+      margin-bottom: 20px;
+      border: 0;
+      background: none;
+      text-align: center;
+    }
+    .context--headline .context-title {
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .context--headline .context-note { display: none; }
 
     /* ── the offer ────────────────────────────────────────────────────────── */
     .eyebrow {
@@ -135,35 +152,6 @@
     .price { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 0; row-gap: 2px; }
 
     /* One control, two terms. Sits above the price because it changes the price. */
-    /* The type row. Same grid as the tabs beneath it, so a group label sits exactly over its own
-       terms without a single hand-tuned width — "Subscription" spans monthly+annual, and the
-       columns stay aligned in any language, at any tab count. */
-    .plan-groups {
-      display: grid;
-      gap: 4px;
-      margin-top: 14px;
-      padding: 0 3px 5px;
-    }
-    .plan-group {
-      text-align: center;
-      font-size: 0.63rem;
-      font-weight: 600;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-      color: var(--ink-mute);
-      border-bottom: 1px solid var(--hairline);
-      padding-bottom: 5px;
-      transition: color .15s, border-color .15s;
-      overflow-wrap: anywhere;
-      /* It LOOKS like a control, so it has to be one. Nothing else changes about it — a header
-         that swallows clicks reads as a broken page, and a user who thinks the sheet is broken
-         does not go looking for the row underneath. */
-      cursor: pointer;
-      user-select: none;
-    }
-    /* Which TYPE is selected, so the header reports rather than decorates. */
-    .plan-group.is-on { color: var(--accent-ink); border-bottom-color: var(--accent); }
-    [data-dark-mode] .plan-group.is-on { color: var(--accent); }
 
     .plan-tabs {
       display: grid;
@@ -223,6 +211,29 @@
       letter-spacing: .04em;
       color: var(--good);
       white-space: nowrap;
+    }
+    /* A tab with a second line (Annual's "best offer"): the term's row, then the line, stacked. The line is in the
+       green line's type (.plan-note), at its weight even inside the selected tab's 600. */
+    .plan-tabs button.has-sub {
+      flex-direction: column;
+      gap: 1px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+    .plan-tabs .tab-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      max-width: 100%;
+    }
+    .plan-tabs .tab-sub {
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--good);
+      line-height: 1.15;
+      max-width: 100%;
+      white-space: normal;        /* a long language wraps to a second line rather than losing the words */
+      text-align: center;
     }
     .plan-note {
       min-height: 1.1em;
@@ -295,7 +306,7 @@
       flex: none;
       filter: saturate(.9);
     }
-    .guarantee-text { font-size: 0.78rem; line-height: 1.5; color: var(--ink-soft); }
+    .guarantee-text { flex: 1; font-size: 0.78rem; line-height: 1.5; color: var(--ink-soft); }
     /* His name in his own hand. The value is Latin in all 15 language files (checked), so a
        cursive face applies everywhere; the generic `cursive` keyword catches platforms that
        have neither named font, and nothing is fetched over the network for it. */
@@ -397,6 +408,16 @@
       overflow-wrap: anywhere;
     }
 
+    /* Centered from the tabs down to the payment buttons (Ronen, 2026-10-21: "all these lines between the buttons and
+       the paypal buttons - should be text-aligned: center"): the price row, the line under it, the sign-in note, and
+       which account the purchase lands on; and the top-up sheet's label above its price (its only line above them),
+       so it does not hang left over a centered price. After their own rules, so these win. */
+    .price { justify-content: center; }
+    .eyebrow,
+    .plan-note,
+    .sign-in-note,
+    .account-line { text-align: center; }
+
     /* ── An active subscriber cannot buy a second subscription ────────────────────
        Not a hidden button — the whole offer is replaced. A price and a term chooser
        beside "you already have this" is just a trap with the trigger removed. */
@@ -454,7 +475,6 @@
        already offers every one of these actions to a keyboard or screen reader. This is a mouse
        shortcut to controls that are fully reachable without it, so exposing it would only put a
        second, duplicate set of controls in front of assistive tech. -->
-  <div class="plan-groups hidden" id="planGroups" aria-hidden="true"></div>
   <div class="plan-tabs hidden" id="planTabs" role="tablist"></div>
 
   <!-- Shown INSTEAD of the offer when the account already has a live renewing subscription.
@@ -510,7 +530,7 @@
 
   <!-- Always there once PayPal is up: the other door, taken by the user rather than offered by a
        failure we managed to detect. It also keeps the Paddle path exercised instead of rotting. -->
-  <button type="button" class="link-quiet hidden" id="moreOptions">भुगतान में समस्या? भुगतान के अन्य विकल्प</button>
+  <button type="button" class="link-quiet hidden" id="moreOptions">भुगतान के और तरीके</button>
 
   <ul class="gets" id="gets"></ul>
 
@@ -543,19 +563,6 @@
          Paddle price, and the PayPal billing plan. Getting one of these out of step with the
          others charges the wrong amount or grants the wrong thing, so they are read through
          `plan()` and never copied. */
-      /* The header ABOVE the tabs, which is what makes three options readable as three: the type
-         of thing you are buying spans its terms. Two rows, one grid, same three columns — so
-         "Subscription" sits exactly over Monthly+Annual and nothing has to be nudged by hand.
-
-              |        Subscription        |  Pay-As-You-Go  |
-              |  Monthly  |    Annual ★    |  Non-recurring  |
-
-         Each TAB is still one option and one price, so the PayPal buttons underneath are never
-         ambiguous about what they are about to charge for. */
-      groups: [
-        {label: "सब्स्क्रिप्शन", span: 2},
-        {label: "उपयोग अनुसार भुगतान", span: 1}
-      ],
       plans: [
         {
           key: "monthly",
@@ -568,7 +575,9 @@
           paypalPlanId: "P-82C30553N8925890NMZZWUTA",
           amount: "$10.99",
           per: " / माह",
-          note: "",
+          /* What you get, right under the price (Ronen, 2026-10-21: "underneath the price line of the subscriptions add
+             what you get as a title"). Annual says the same, above its best-value line. */
+          note: "हर महीने 1 मिलियन क्रेडिट का कोटा + अतिरिक्त सुविधाएँ पाएँ।",
           gets: [
             "मासिक 1 मिलियन प्रीमियम AI कैरेक्टर + असीमित बेसिक आवाजें",
             "AI दस्तावेज़",
@@ -588,11 +597,20 @@
           sku: "SKU_TTSREADER_PREMIUM_ANNUAL",
           priceId: "pri_01ke6k5fqsfrn3k6xcvt1zb57s",
           paypalPlanId: "P-72R93922LT130451PNBJ7OCI",
-          amount: "$99",
-          per: " / वर्ष ",
+          /* The term the sheet opens on (Ronen, 2026-10-21: "make it the default (instead of the monthly)" — "We need to
+             sell it better"). */
+          isDefault: true,
+          /* A second line inside the tab, in the green line's type (.plan-tabs .tab-sub = .plan-note). */
+          tabSub: "सबसे अच्छा ऑफ़र",
+          /* Priced per month, as Monthly is, so the two compare at a glance: $99 / 12 = $8.25. What is CHARGED is the
+             $99 a year above (Paddle price, PayPal plan). Ronen: "8../m billed annually = $99/year - all same font": the
+             whole tail is the .per text, one font, right after the number. */
+          amount: "$8.25",
+          per: " / माह " + "वार्षिक बिलिंग = {price} / वर्ष".replace("{price}", function () { return "$99"; }),
           /* The words the tab no longer has room for. Three tabs share one row, so "★ best value"
-             moved down here into the green line rather than being dropped. */
-          note: "★ सर्वोत्तम मूल्य · $8.25 / माह · (25% छूट)",
+             moved down here into the green line rather than being dropped. The month price left this line for the
+             headline above. */
+          note: "हर महीने 1 मिलियन क्रेडिट का कोटा + अतिरिक्त सुविधाएँ पाएँ।<br>★ सर्वोत्तम मूल्य · (25% छूट)",
           gets: [
             "मासिक 1 मिलियन प्रीमियम AI कैरेक्टर + असीमित बेसिक आवाजें",
             "AI दस्तावेज़",
@@ -624,7 +642,9 @@
              be cancelled later. The tab and the group header say "non-recurring" too, but neither
              is beside the price at the moment someone decides. */
           priceNote: "एक बार का भुगतान, कोई नवीनीकरण नहीं, कभी रद्द करने की ज़रूरत नहीं",
-          note: "",
+          /* What the payment buys, said plainly under the price (Ronen, 2026-10-21: "Add another line that explains what
+             they get clearly"). The same line on the top-up face below. */
+          note: "1 मिलियन क्रेडिट का पैकेज पाएँ — जब ज़रूरत हो, अपनी गति से, एक साल के भीतर इस्तेमाल करें।",
           /* The same features as its neighbours, then what is particular to a pack.
              Checked against AccountLogic.featureVerdicts rather than copied: for a credits-only
              account `featurePremiumVoice` and `featureMp3` are "metered" — credits unlock them —
@@ -689,6 +709,7 @@
          someone who already pays us monthly, so the one thing to be clear about is that adding
          credits does not add a second recurring charge. */
       priceNote: "एक बार का भुगतान, कोई नवीनीकरण नहीं, कभी रद्द करने की ज़रूरत नहीं",
+      note: "1 मिलियन क्रेडिट का पैकेज पाएँ — जब ज़रूरत हो, अपनी गति से, एक साल के भीतर इस्तेमाल करें।",
       eyebrow: "1 मिलियन प्रीमियम कैरेक्टर",
       cta: "क्रेडिट जोड़ें",
       // NOT "1M characters per month" — that is the SUBSCRIPTION's line and it was plainly wrong
@@ -740,7 +761,7 @@
   /* WHICH term is being bought. `topup` has no plans, so the face is the offer and nothing below
      changes for it. Everything price-bearing reads through here rather than off `face`, so the
      SKU, the Paddle price and the PayPal plan can never disagree about what was chosen. */
-  var selectedPlan = 0;
+  var selectedPlan = defaultPlanIndex();
   function plan() {
     return (face.plans && face.plans[selectedPlan]) || face;
   }
@@ -748,6 +769,15 @@
   /** What KIND of thing the selected tab is. The whole gate turns on this. */
   function planIsSubscription() {
     return (plan().intent || face.paypalIntent) === "subscription";
+  }
+
+  /** The term the sheet opens on: the one marked `isDefault` (Annual), else the first. Topup has no terms: 0, as before. */
+  function defaultPlanIndex() {
+    var plans = face.plans || [];
+    for (var i = 0; i < plans.length; i++) {
+      if (plans[i].isDefault) return i;
+    }
+    return 0;
   }
 
   function paygIndex() {
@@ -760,10 +790,8 @@
 
   function renderPlanTabs() {
     var host = document.getElementById("planTabs");
-    var groups = document.getElementById("planGroups");
     if (!face.plans || face.plans.length < 2) {
       host.classList.add("hidden");
-      groups.classList.add("hidden");
       return;
     }
     host.classList.remove("hidden");
@@ -777,40 +805,24 @@
       b.innerHTML = "<span></span>" + (p.badge ? ' <span class="badge"></span>' : "");
       b.firstChild.textContent = p.tab;
       if (p.badge) { b.lastChild.textContent = p.badge; }
-      b.onclick = function () { selectPlan(i); };
+      if (p.tabSub) {
+        // Two lines: the term (with its badge) on one row, the sub-line under it, inside the same button.
+        var row = document.createElement("span");
+        row.className = "tab-row";
+        while (b.firstChild) row.appendChild(b.firstChild);
+        var sub = document.createElement("span");
+        sub.className = "tab-sub";
+        sub.textContent = p.tabSub;
+        b.appendChild(row);
+        b.appendChild(sub);
+        b.classList.add("has-sub");
+      }
+      // Every tap answers with the light round the tab, the one already chosen included (Ronen, 2026-10-21: "a tap on
+      // it fires the cool animation"). After selectPlan, which redraws the tabs: the light goes on the new button.
+      b.onclick = function () { selectPlan(i); flashTab(i); };
       host.appendChild(b);
     });
 
-    // The type row, on the SAME three columns, so a group sits exactly over its own terms.
-    if (!face.groups) { groups.classList.add("hidden"); return; }
-    groups.classList.remove("hidden");
-    groups.style.gridTemplateColumns = "repeat(" + face.plans.length + ", 1fr)";
-    groups.innerHTML = "";
-    var at = 0;
-    face.groups.forEach(function (g) {
-      var el = document.createElement("div");
-      el.className = "plan-group";
-      el.style.gridColumn = "span " + g.span;
-      el.textContent = g.label;
-      // Which type is currently chosen, so the header is not merely decorative.
-      var first = at;
-      var inThisGroup = selectedPlan >= first && selectedPlan < first + g.span;
-      if (inThisGroup) el.classList.add("is-on");
-      /* Clicking a TYPE moves you into it, landing on its first term.
-         Guarded on already being inside it: someone sitting on Annual who taps "Subscription"
-         should not be knocked back to Monthly — they are already where that click would take
-         them, and the header is lit to say so. */
-      /* ALWAYS acknowledge the click, even when it changes nothing. A header that looks like a
-         control and answers silently reads as a broken page — which is the whole reason it became
-         clickable. So: move into the type if we are outside it, and either way run a light around
-         the tab that is now live, pointing at where the next click goes. */
-      el.onclick = function () {
-        if (!inThisGroup) selectPlan(first);
-        flashTab(selectedPlan);
-      };
-      at += g.span;
-      groups.appendChild(el);
-    });
   }
 
   var SVG_NS = "http://www.w3.org/2000/svg";
@@ -935,10 +947,10 @@
   }
 
   function render() {
-    // The group header names the type now, so an eyebrow above it would say the same thing twice.
+    // The tabs name what is on offer, so an eyebrow above them would say it twice; a face with no tabs keeps it.
     var eyebrow = document.getElementById("eyebrow");
     eyebrow.textContent = face.eyebrow;
-    eyebrow.classList[face.groups ? "add" : "remove"]("hidden");
+    eyebrow.classList[face.plans && face.plans.length > 1 ? "add" : "remove"]("hidden");
     renderPlanTabs();
     renderPrice();
     renderGets();
@@ -956,9 +968,20 @@
     topup: "जारी रखने के लिए क्रेडिट जोड़ें"
   };
 
+  // The subscribe sheet's title, on every opening; the reasons' rows stay on the top-up sheet (Ronen, 2026-10-21:
+  // "Every time"; top-up: "No title there").
+  var HEADLINE = "प्रीमियम के साथ और पाएँ 🚀";
+
   function renderReason() {
     var r = REASONS[reason];
     var box = document.getElementById("context");
+    if (kind === "subscribe") {
+      document.getElementById("contextTitle").textContent = HEADLINE;
+      document.getElementById("contextNote").textContent = "";
+      box.classList.add("context--headline");
+      box.classList.remove("hidden");
+      return;
+    }
     if (!r) { box.classList.add("hidden"); return; }
     document.getElementById("contextTitle").textContent = r.t;
     document.getElementById("contextNote").textContent = r.n || CONTINUE[kind];
@@ -1598,6 +1621,12 @@
   // After layout, and again if fonts/images settle the height.
   requestAnimationFrame(function () { reportHeight(); });
   window.addEventListener("load", function () { reportHeight(); });
+
+  // The light round the chosen tab as the sheet arrives (Ronen, 2026-10-21: "sheet opens - the animation is then fired -
+  // it's really cool, gives it a wow effect"). The app sets this page's address as it opens the sheet (setCheckoutSrc),
+  // so the page's load is its arrival; the pause lets the sheet's 320 ms rise finish, so the light is seen. A face with
+  // no tabs (top-up, already subscribed) has no tab to light, and flashTab does nothing.
+  window.addEventListener("load", function () { setTimeout(function () { flashTab(selectedPlan); }, 400); });
 
   // PayPal inserts its buttons in their own iframes, asynchronously, long after `load` — nothing
   // else would ever re-measure, and the sheet would clip them.

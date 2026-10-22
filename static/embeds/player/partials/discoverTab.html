@@ -5,6 +5,19 @@
          placeholder="<%= htmlWebpackPlugin.options.strings.d20260810_discover_search_prompt %>"
          data-ws-oninput="discoverSearchInput">
   <div id="discoverTabContent">
-    <p class="tab-page-placeholder"><%= htmlWebpackPlugin.options.strings.d20260826_discover_placeholder %></p>
+    <!-- Until DiscoverTab first draws: a loader. If the catalogue does not load, the failure line, Try again and (signed in)
+         a one-click Tell support (src/discover/DiscoverLoadFailed.js; Ronen, 2026-10-21). The first draw replaces all of it. -->
+    <div class="tab-page-placeholder discover-load">
+      <p class="discover-load-busy"><span class="account-spinner" aria-hidden="true"></span><%= htmlWebpackPlugin.options.strings.d20260220_index_loading %></p>
+      <div class="discover-load-failed hidden" role="alert">
+        <p class="discover-load-line"><%= htmlWebpackPlugin.options.strings.d20261021_discover_load_failed %></p>
+        <div class="discover-load-actions">
+          <button type="button" class="discover-load-btn" data-ws-onclick="discoverLoadRetry"><%= htmlWebpackPlugin.options.strings.d20260810_discover_try_again %></button>
+          <button type="button" class="discover-load-btn discover-load-report hidden" data-ws-show-if-state="isSignedIn=true" data-ws-onclick="discoverLoadTellSupport"><%= htmlWebpackPlugin.options.strings.d20261021_discover_tell_support %></button>
+        </div>
+        <p class="discover-load-note discover-load-sent hidden"><%= htmlWebpackPlugin.options.strings.d20260827_contact_thanks %></p>
+        <p class="discover-load-note discover-load-send-failed hidden"><%= htmlWebpackPlugin.options.strings.d20260827_contact_failed %></p>
+      </div>
+    </div>
   </div>
 </div>

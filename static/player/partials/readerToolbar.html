@@ -110,6 +110,21 @@
           <span style="flex: 1"></span>
 
         <div class="toolbar-actions">
+        <!-- Generate MP3: the feature people pay for, where they can see it (Ronen, 2026-10-21: "GENERATE TO MP3 is
+             probably the main feature users pay for - so it has to be super obvious (1) it's possible and (2) how to").
+             The title menu's own door (docMenuGenerateMp3: stats, then the export modal), so both open the same thing.
+             Icon only when the reader is narrow, gone when narrower (the player keeps its export button). -->
+        <button class="toolbar-generate-btn" type="button" data-ws-onclick="docMenuGenerateMp3" data-ws-show-if-state="readerAudioMode=false"
+                title="<%= htmlWebpackPlugin.options.strings.d20261021_toolbar_generate_mp3 %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20261021_toolbar_generate_mp3 %>">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          <span class="toolbar-generate-label"><%= htmlWebpackPlugin.options.strings.d20261021_toolbar_generate_mp3 %></span>
+        </button>
+        <!-- While the Reader shows an audio, the same place downloads it (Ronen, 2026-10-22; src/player/AudioDownload.js). -->
+        <button class="toolbar-generate-btn hidden" type="button" data-ws-onclick="downloadReaderAudio" data-ws-show-if-state="readerAudioMode=true"
+                title="<%= htmlWebpackPlugin.options.strings.d20261022_download_mp3 %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20261022_download_mp3 %>">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          <span class="toolbar-generate-label"><%= htmlWebpackPlugin.options.strings.d20261022_download_mp3 %></span>
+        </button>
         <!--<button data-ws-show-if-state="isPremium=false" class="Hide-on-narrow-screens" style="text-align: center; text-wrap:nowrap;" onclick="openNewUpgradeModal()">
           <span style="border-radius: 10px; padding: 7px 16px; background-color: green; font-weight: bold;">👑 <%= htmlWebpackPlugin.options.strings.go_premium %></span>
         </button>-->
@@ -130,8 +145,36 @@
         </button>
 
         <span class="Hide-on-narrow-screens">&nbsp;</span>
-        <button onclick="toggleTheme();" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
-          <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></span><span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+        <!-- Appearance: the five reading themes, as on the phones (src/reader/ReadingThemes.js draws the swatches). The
+             click goes to the pre-paint script's toggleTheme(), which hands it to the picker - or, without the picker,
+             flips light and dark, as this button always did. -->
+        <div class="reading-theme-wrap">
+          <button id="readingThemeButton" onclick="toggleTheme();" class="btn btn-link" type="button"
+                  aria-haspopup="dialog" aria-expanded="false" aria-controls="readingThemePopover"
+                  title="<%= htmlWebpackPlugin.options.strings.d20260709_appearance %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260709_appearance %>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 17a5 5 0 0 0 0 -10v10" fill="currentcolor"/></svg>
+          </button>
+          <div id="readingThemePopover" class="reading-theme-popover" role="dialog" aria-label="<%= htmlWebpackPlugin.options.strings.d20260709_reading_theme %>" hidden>
+            <div class="reading-theme-title" aria-hidden="true"><%= htmlWebpackPlugin.options.strings.d20260709_reading_theme %></div>
+            <div class="reading-theme-swatches" role="radiogroup" aria-label="<%= htmlWebpackPlugin.options.strings.d20260709_reading_theme %>"></div>
+            <!-- The space around the page: plain or the desk image (Ronen, 2026-10-22: "simply add a toggle 'image/plain
+                 background'"). The pre-paint script stores and paints it, and marks the chosen half. -->
+            <div class="reading-theme-bg">
+              <span class="reading-theme-bg-label"><%= htmlWebpackPlugin.options.strings.d20261022_reading_bg %></span>
+              <span class="reading-theme-bg-switch" role="radiogroup" aria-label="<%= htmlWebpackPlugin.options.strings.d20261022_reading_bg %>">
+                <button type="button" role="radio" class="reading-theme-bg-opt" data-desk="0" aria-checked="false"
+                        onclick="window.ttsrReadingLook && window.ttsrReadingLook.desk && window.ttsrReadingLook.desk(false);"><%= htmlWebpackPlugin.options.strings.d20261022_reading_bg_plain %></button>
+                <button type="button" role="radio" class="reading-theme-bg-opt" data-desk="1" aria-checked="true"
+                        onclick="window.ttsrReadingLook && window.ttsrReadingLook.desk && window.ttsrReadingLook.desk(true);"><%= htmlWebpackPlugin.options.strings.d20261022_reading_bg_image %></button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- The sidebar, at hand (Ronen, 2026-10-22: "to the RIGHT of the theme button - can you add this sidebar-toggle
+             button?"): the sidebar's own toggle, the one the voice and speed chips call. -->
+        <button class="btn btn-link toolbar-sidebar-btn" type="button" data-ws-onclick="toggleSettingsSidebar"
+                title="<%= htmlWebpackPlugin.options.strings.d20261022_toggle_sidebar %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20261022_toggle_sidebar %>">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M15 4l0 16"/></svg>
         </button>
         </div>
         <!--<button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-dark-mode>
+<html lang="ar" dir="rtl"
+      data-dark-mode xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -41,9 +42,21 @@
       --ink-soft:  #55504a;
       --ink-mute:  #857f76;
       --hairline:  rgba(22, 21, 26, 0.10);
-      --accent:    #d93a12;
-      --accent-ink:#b52f0c;
-      --accent-wash: rgba(217, 58, 18, 0.07);
+      /* Green carries the offer; red is reserved for what you do NOT get (2026-09-09, Ronen).
+         Buying is a good thing, and the whole sheet now says so — the checks, the chosen tab, the
+         button. That frees red to mean exactly one thing, so a line like "no AI document
+         generation" reads at a glance instead of hiding among the ticks.
+         Measured against white: this green gives the button label 5.25:1, better than the 4.60
+         the old red managed. */
+      --accent:    #0e7c4a;
+      --accent-ink:#0a6f42;
+      --accent-wash: rgba(14, 124, 74, 0.08);
+      /* The value greens — savings, "best value", the you-are-subscribed tick. Deeper than the
+         accent so the money line still reads as a highlight rather than another tick. */
+      --good:      #17794a;
+      --good-wash: rgba(23, 121, 74, 0.10);
+      /* Not included. The ONLY red on the sheet. */
+      --bad:       #b3261e;
     }
     [data-dark-mode] {
       --surface:   #1a1922;
@@ -51,9 +64,12 @@
       --ink-soft:  #c8c2b9;
       --ink-mute:  #948d84;
       --hairline:  rgba(255, 255, 255, 0.12);
-      --accent:    #ff6a45;
-      --accent-ink:#ff8a68;
-      --accent-wash: rgba(255, 106, 69, 0.13);
+      --accent:    #3ecf8e;
+      --accent-ink:#63dda5;
+      --accent-wash: rgba(62, 207, 142, 0.14);
+      --good:      #45c08c;
+      --good-wash: rgba(69, 192, 140, 0.16);
+      --bad:       #ff9385;
     }
 
     * { box-sizing: border-box; }
@@ -98,6 +114,123 @@
       font-variant-numeric: tabular-nums;
     }
     .price .per { font-size: 1rem; font-weight: 500; color: var(--ink-mute); letter-spacing: -0.01em; }
+    /* The terms, said beside the number rather than under it. Same type as the eyebrow — small
+       caps, wide tracking, muted — so it reads as a label on the price and not as another claim
+       competing with it. Baseline-aligned so it sits ON the price line; it wraps under on a
+       narrow sheet rather than pushing the number around. */
+    .price .price-note {
+      margin-inline-start: 9px;
+      /* Sized to sit ON the price line in English: 53 uppercase characters beside a 2rem "$19"
+         need about 360px of the ~446px the sheet leaves, where the eyebrow's own 0.7rem/0.15em
+         needed ~456px and wrapped. Longer languages still wrap to the line below, which is why
+         the row is flex-wrap rather than nowrap — a squeezed or clipped promise is worse than a
+         second line. */
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--ink-mute);
+      white-space: normal;
+    }
+    .price { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 0; row-gap: 2px; }
+
+    /* One control, two terms. Sits above the price because it changes the price. */
+    /* The type row. Same grid as the tabs beneath it, so a group label sits exactly over its own
+       terms without a single hand-tuned width — "Subscription" spans monthly+annual, and the
+       columns stay aligned in any language, at any tab count. */
+    .plan-groups {
+      display: grid;
+      gap: 4px;
+      margin-top: 14px;
+      padding: 0 3px 5px;
+    }
+    .plan-group {
+      text-align: center;
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      border-bottom: 1px solid var(--hairline);
+      padding-bottom: 5px;
+      transition: color .15s, border-color .15s;
+      overflow-wrap: anywhere;
+      /* It LOOKS like a control, so it has to be one. Nothing else changes about it — a header
+         that swallows clicks reads as a broken page, and a user who thinks the sheet is broken
+         does not go looking for the row underneath. */
+      cursor: pointer;
+      user-select: none;
+    }
+    /* Which TYPE is selected, so the header reports rather than decorates. */
+    .plan-group.is-on { color: var(--accent-ink); border-bottom-color: var(--accent); }
+    [data-dark-mode] .plan-group.is-on { color: var(--accent); }
+
+    .plan-tabs {
+      display: grid;
+      gap: 4px;
+      margin-top: 0;
+      padding: 3px;
+      border: 1px solid var(--hairline);
+      border-radius: 999px;
+      background: var(--accent-wash);
+    }
+    .plan-tabs button {
+      position: relative;         /* the beam is drawn over this, nothing else changes */
+      min-width: 0;               /* three in a row: let a long term ellipsise, never overflow */
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--ink-mute);
+      background: transparent;
+      border: 0;
+      border-radius: 999px;
+      padding: 8px 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background .15s, color .15s;
+    }
+    .plan-tabs button[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--ink);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .12);
+    }
+    /* The reflection that runs round a tab when its TYPE is clicked. Inset a hair so the stroke
+       sits inside the button's own rounded clip instead of being shaved by it. */
+    .plan-beam {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .plan-beam rect {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .plan-tabs .badge {
+      font-size: 0.8rem;
+      line-height: 1;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--good);
+      white-space: nowrap;
+    }
+    .plan-note {
+      min-height: 1.1em;
+      margin-top: 2px;
+      font-size: 0.84rem;
+      color: var(--good);
+      font-weight: 500;
+    }
 
     .gets { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
     .gets li {
@@ -111,6 +244,10 @@
       text-align: start;
     }
     .gets svg { width: 17px; height: 17px; color: var(--accent); margin-top: 2px; }
+    /* What you do not get, in the one colour reserved for it. A green tick and a red cross is the
+       pairing everyone already reads; the text stays in normal ink so the line informs rather than
+       shouts, with only the mark carrying the "no". */
+    .gets li.lacks svg { color: var(--bad); }
 
     .cta {
       display: block;
@@ -138,6 +275,7 @@
       font-size: 0.78rem;
       line-height: 1.5;
       color: var(--ink-mute);
+      text-align: center;
     }
 
     /* ── Ronen, in the first person, at sheet scale ──────────────────────────── */
@@ -162,8 +300,6 @@
        cursive face applies everywhere; the generic `cursive` keyword catches platforms that
        have neither named font, and nothing is fetched over the network for it. */
     .signature {
-      display: block;
-      margin-top: 3px;
       font-family: "Snell Roundhand", "Segoe Script", "Bradley Hand", "Brush Script MT", cursive;
       font-size: 1.15rem;
       line-height: 1.1;
@@ -198,9 +334,102 @@
       animation: spin 780ms linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+    /* ── The account, asked for on the sheet ─────────────────────────────────────
+       A signed-out visitor used to be thrown OUT of the sheet to be asked for an
+       account: the offer they were reading was dismissed and a different surface put
+       a different question to them. Now the account is asked for here, in the slot the
+       payment buttons will fill, so signing in ADVANCES the sheet rather than replacing
+       it — the term they picked, the reason they came and their place on the page all
+       survive, because the document is never reloaded.
+
+       The buttons are the app's own (public/index.html:555-644): same class names, same
+       markup, same colours, so this reads as one product and not a lookalike. Copied
+       rather than shared because an iframe has its own stylesheet and pulling the app's
+       CSS in here would cost far more than these forty lines — if the app's buttons
+       change, change these with them. */
+    .signin { transition: opacity .18s ease; }
+    .signin.is-leaving { opacity: 0; }
+    .sign-in-note {
+      margin: 22px 0 0;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+    .sign-in-container { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+    .styled-sign-in-btn-google,
+    .styled-sign-in-btn-apple {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 12px;
+      font-size: 0.97rem;
+      font-weight: 500;
+      padding: 13px 16px;
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+      user-select: none;
+    }
+    .styled-sign-in-btn-google { border: 1px solid #dadce0; background: #fff; color: #202124; }
+    .styled-sign-in-btn-google:hover { background: #f8f9fa; }
+    .styled-sign-in-btn-apple { background: #000; color: #fff; border: 1px solid #000; }
+    .styled-sign-in-btn-apple:hover { background: #333; }
+    .styled-sign-in-btn-google:hover,
+    .styled-sign-in-btn-apple:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(22, 21, 26, .12); }
+    .styled-sign-in-btn-google:active,
+    .styled-sign-in-btn-apple:active { transform: translateY(0); }
+    .styled-sign-in-btn-google[disabled],
+    .styled-sign-in-btn-apple[disabled] { opacity: .55; cursor: default; transform: none; box-shadow: none; }
+    [data-dark-mode] .styled-sign-in-btn-google { background: #1f1f1f; border-color: #3c4043; color: #e8eaed; }
+    [data-dark-mode] .styled-sign-in-btn-google:hover { background: #2b2b2b; }
+    [data-dark-mode] .styled-sign-in-btn-apple { background: #e8eaed; color: #111; border-color: #e8eaed; }
+    [data-dark-mode] .styled-sign-in-btn-apple:hover { background: #fff; }
+    .google-icon { width: 18px; height: 18px; display: inline-block; }
+    .apple-icon { width: 21px; height: 21px; display: inline-block; position: relative; top: -1px; }
+
+    /* WHICH account the purchase lands on. People hold more than one Google account, and a
+       subscription granted to the one they did not mean is the worst kind of support ticket. */
+    .account-line {
+      margin: 18px 0 0;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--ink-mute);
+      overflow-wrap: anywhere;
+    }
+
+    /* ── An active subscriber cannot buy a second subscription ────────────────────
+       Not a hidden button — the whole offer is replaced. A price and a term chooser
+       beside "you already have this" is just a trap with the trigger removed. */
+    .subscribed { text-align: center; padding: 8px 0 4px; }
+    .subscribed-mark {
+      width: 46px; height: 46px;
+      margin: 6px auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      background: var(--good-wash);
+      color: var(--good);
+    }
+    .subscribed-mark svg { width: 25px; height: 25px; }
+    .subscribed-title {
+      margin: 0;
+      font-size: 1.32rem;
+      font-weight: 640;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .subscribed-body {
+      margin: 8px auto 0;
+      max-width: 34em;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+    .subscribed .cta { margin-top: 22px; }
+
     .hidden { display: none !important; }
     @media (prefers-reduced-motion: reduce) {
-      .cta, .spinner { transition: none; animation-duration: 2.4s; }
+      .cta, .spinner, .signin { transition: none; animation-duration: 2.4s; }
     }
   </style>
 </head>
@@ -217,9 +446,60 @@
 
 <div id="offer">
   <div class="eyebrow" id="eyebrow"></div>
-  <div class="price"><span id="priceAmount"></span><span class="per" id="pricePer"></span></div>
 
-  <ul class="gets" id="gets"></ul>
+  <!-- Two rows of one control. The top row names the TYPE and spans its terms; the bottom row is
+       the actual chooser. The PayPal buttons below are rendered for whichever tab is chosen, so
+       there is exactly one set of them and never a question of what they charge for. -->
+  <!-- aria-hidden stays even though these are now clickable: the row below is a real tablist and
+       already offers every one of these actions to a keyboard or screen reader. This is a mouse
+       shortcut to controls that are fully reachable without it, so exposing it would only put a
+       second, duplicate set of controls in front of assistive tech. -->
+  <div class="plan-groups hidden" id="planGroups" aria-hidden="true"></div>
+  <div class="plan-tabs hidden" id="planTabs" role="tablist"></div>
+
+  <!-- Shown INSTEAD of the offer when the account already has a live renewing subscription.
+       See renderPurchaseState(): this state has no payment control of any kind on it. -->
+  <div class="subscribed hidden" id="subscribed">
+    <div class="subscribed-mark">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>
+    </div>
+    <h2 class="subscribed-title">أنت مشترك بالفعل</h2>
+    <p class="subscribed-body">خطة Premium الخاصة بك نشطة وتتجدد تلقائيًا.</p>
+    <button type="button" class="cta" id="topupCta">تحتاج المزيد من الرصيد؟ اشحن حصتك</button>
+  </div>
+
+  <div class="price" id="priceRow"><span id="priceAmount"></span><span class="per" id="pricePer"></span><span class="price-note" id="priceNote"></span></div>
+  <div class="plan-note" id="planNote"></div>
+
+  <!-- Signed out: the account is asked for HERE, in the slot the payment buttons will fill, so
+       signing in advances the sheet instead of dismissing it. The sheet does no auth of its own —
+       see askParentToSignIn(). -->
+  <div id="signinBlock" class="signin hidden">
+    <p class="sign-in-note">تابع بحسابك، ليعمل اشتراكك المميز على جميع أجهزتك.</p>
+    <div class="sign-in-container">
+      <button type="button" class="styled-sign-in-btn-google" id="signinGoogle">
+        <span class="google-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 533.5 544.3" aria-hidden="true">
+            <path fill="#4285f4" d="M533.5 278.4c0-17.4-1.6-34.1-4.7-50.3H272.1v95.1h147.2c-6.4 34.5-25 63.8-53.3 83.4l85.9 66.8c50.2-46.2 81.6-114.2 81.6-194.9z"/>
+            <path fill="#34a853" d="M272.1 544.3c72.4 0 133.2-23.9 177.5-64.9l-85.9-66.8c-23.9 16.1-54.5 25.6-91.6 25.6-70.4 0-130.1-47.4-151.4-111.1H31.9v69.7c44.3 87.6 134.9 147.5 240.2 147.5z"/>
+            <path fill="#fbbc04" d="M120.7 327.1c-10.9-32.6-10.9-67.9 0-100.5V156.9H31.9c-43.5 86.9-43.5 189.6 0 276.5l88.8-69.6z"/>
+            <path fill="#ea4335" d="M272.1 107.7c39.4 0 74.8 13.6 102.7 40.3l76.6-76.6C405.3 24.4 344.5 0 272.1 0 166.8 0 76.2 59.9 31.9 147.5l88.8 69.7C142 155.1 201.7 107.7 272.1 107.7z"/>
+          </svg>
+        </span>
+        <span>متابعة مع Google</span>
+      </button>
+      <button type="button" class="styled-sign-in-btn-apple" id="signinApple">
+        <span class="apple-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15.079 5.999l.239 .012c1.43 .097 3.434 1.013 4.508 2.586a1 1 0 0 1 -.344 1.44c-.05 .028 -.372 .158 -.497 .217a4.15 4.15 0 0 0 -.722 .431c-.614 .461 -.948 1.009 -.942 1.694c.01 .885 .339 1.454 .907 1.846c.208 .143 .436 .253 .666 .33c.126 .043 .426 .116 .444 .122a1 1 0 0 1 .662 .942c0 2.621 -3.04 6.381 -5.286 6.381c-.79 0 -1.272 -.091 -1.983 -.315l-.098 -.031c-.463 -.146 -.702 -.192 -1.133 -.192c-.52 0 -.863 .06 -1.518 .237l-.197 .053c-.575 .153 -.964 .226 -1.5 .248c-2.749 0 -5.285 -5.093 -5.285 -9.072c0 -3.87 1.786 -6.92 5.286 -6.92c.297 0 .598 .045 .909 .128c.403 .107 .774 .26 1.296 .508c.787 .374 .948 .44 1.009 .44h.016c.03 -.003 .128 -.047 1.056 -.457c1.061 -.467 1.864 -.685 2.746 -.616l-.24 -.012z"/><path d="M14 1a1 1 0 0 1 1 1a3 3 0 0 1 -3 3a1 1 0 0 1 -1 -1a3 3 0 0 1 3 -3z"/></svg>
+        </span>
+        <span>متابعة مع Apple</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Filled once we know who signed in. -->
+  <p id="accountLine" class="account-line hidden"></p>
 
   <!-- PayPal renders here. Empty until the SDK answers; the CTA below covers every other case. -->
   <div id="paypal" class="paypal hidden"></div>
@@ -232,13 +512,16 @@
        failure we managed to detect. It also keeps the Paddle path exercised instead of rotting. -->
   <button type="button" class="link-quiet hidden" id="moreOptions">تواجه مشكلة في الدفع؟ خيارات دفع أخرى</button>
 
+  <ul class="gets" id="gets"></ul>
+
   <p class="reassure" id="reassure"></p>
 
   <div class="guarantee">
     <img src="ronen_headshot_400px.png" alt=""/>
     <div class="guarantee-text">
       أنا مسؤول شخصيًا ومتاح إذا احتجت أي شيء،
-      <span class="signature">Ronen Rabinovici</span>
+      <br/>
+      <span style="text-align: end; display: block"><span class="signature">Ronen Rabinovici</span>, founder</span>
     </div>
   </div>
 </div>
@@ -254,12 +537,132 @@
   // already bought them; they are simply never offered.
   var FACES = {
     subscribe: {
-      sku: "SKU_TTSREADER_PREMIUM_MONTHLY",
-      priceId: "pri_01ke6jck25vm0hc1p0ya0wf6sx",
-      // PayPal: a subscription is a billing PLAN created on PayPal's side, so the price shown here
-      // is not what charges — plan P-82C3… is. Verify the two agree before changing either.
-      paypalPlanId: "P-82C30553N8925890NMZZWUTA",
       paypalIntent: "subscription",
+      /* Two terms of one plan, chosen by a tab. Everything that differs between them lives here
+         and NOWHERE else: the SKU (which is the whole channel to the webhook, via custom_id), the
+         Paddle price, and the PayPal billing plan. Getting one of these out of step with the
+         others charges the wrong amount or grants the wrong thing, so they are read through
+         `plan()` and never copied. */
+      /* The header ABOVE the tabs, which is what makes three options readable as three: the type
+         of thing you are buying spans its terms. Two rows, one grid, same three columns — so
+         "Subscription" sits exactly over Monthly+Annual and nothing has to be nudged by hand.
+
+              |        Subscription        |  Pay-As-You-Go  |
+              |  Monthly  |    Annual ★    |  Non-recurring  |
+
+         Each TAB is still one option and one price, so the PayPal buttons underneath are never
+         ambiguous about what they are about to charge for. */
+      groups: [
+        {label: "اشتراك", span: 2},
+        {label: "الدفع حسب الاستخدام", span: 1}
+      ],
+      plans: [
+        {
+          key: "monthly",
+          tab: "شهري",
+          intent: "subscription",
+          sku: "SKU_TTSREADER_PREMIUM_MONTHLY",
+          priceId: "pri_01ke6jck25vm0hc1p0ya0wf6sx",
+          // PayPal: a subscription is a billing PLAN created on PayPal's side, so the price shown
+          // here is not what charges — plan P-82C3… is. Verify the two agree before changing either.
+          paypalPlanId: "P-82C30553N8925890NMZZWUTA",
+          amount: "$10.99",
+          per: " / شهر",
+          note: "",
+          gets: [
+            "مليون حرف ذكاء اصطناعي مميز شهرياً + أصوات أساسية غير محدودة",
+            "مستندات الذكاء الاصطناعي",
+            "المزامنة والنسخ الاحتياطي السحابي",
+            "الصوت المُصدَّر على جميع أجهزتك",
+            "تصدير إلى MP3 و WAV ",
+            "ترخيص تجاري للاستخدام والنشر! ",
+            "دعم مميز، طلبات الميزات "
+          ],
+          reassure: "إلغاء في أي وقت · شراء آمن. ضمان الرضا 100%"
+        },
+        {
+          key: "annual",
+          tab: "سنوي",
+          badge: "★",
+          intent: "subscription",
+          sku: "SKU_TTSREADER_PREMIUM_ANNUAL",
+          priceId: "pri_01ke6k5fqsfrn3k6xcvt1zb57s",
+          paypalPlanId: "P-72R93922LT130451PNBJ7OCI",
+          amount: "$99",
+          per: " / سنة ",
+          /* The words the tab no longer has room for. Three tabs share one row, so "★ best value"
+             moved down here into the green line rather than being dropped. */
+          note: "★ أفضل قيمة · $8.25 / شهر · (خصم 25%)",
+          gets: [
+            "مليون حرف ذكاء اصطناعي مميز شهرياً + أصوات أساسية غير محدودة",
+            "مستندات الذكاء الاصطناعي",
+            "المزامنة والنسخ الاحتياطي السحابي",
+            "الصوت المُصدَّر على جميع أجهزتك",
+            "تصدير إلى MP3 و WAV ",
+            "ترخيص تجاري للاستخدام والنشر! ",
+            "دعم مميز، طلبات الميزات "
+          ],
+          reassure: "إلغاء في أي وقت · شراء آمن. ضمان الرضا 100%"
+        },
+        {
+          /* The pack, sold beside the plans instead of on a separate face. It is NOT a
+             subscription: `intent` is what tells the PayPal layer to create a one-off ORDER
+             rather than a billing plan, and it is why an active subscriber may buy this tab
+             while the other two are closed to them. */
+          key: "payg",
+          tab: "دفعة واحدة",
+          intent: "capture",
+          sku: "SKU_TTSREADER_EXTRA_CREDITS_1M",
+          priceId: "pri_01kabacg9281qsv502zexm1805",
+          // A one-off order with a free-text amount — there is no product id. The server keys
+          // entirely off custom_id and refuses anything under SKUS[...].minPrice, which is 19.
+          paypalPrice: 19,
+          paypalCredits: "1 Million",
+          amount: "$19",
+          per: "",
+          /* Said next to the number, where the worry actually is: nothing renews, nothing has to
+             be cancelled later. The tab and the group header say "non-recurring" too, but neither
+             is beside the price at the moment someone decides. */
+          priceNote: "دفعة واحدة، بلا تجديد، ولا حاجة إلى الإلغاء",
+          note: "",
+          /* The same features as its neighbours, then what is particular to a pack.
+             Checked against AccountLogic.featureVerdicts rather than copied: for a credits-only
+             account `featurePremiumVoice` and `featureMp3` are "metered" — credits unlock them —
+             so both lines are true here. `featureAi` and `featureCloudSync` are "planOnly" and
+             appear on NO tab, so the pack is not implying something it cannot give.
+             What this tab must never reuse is the top-up face's line: "in addition to your
+             monthly quota" is the subscriber's framing, and the person reading this tab has no
+             monthly quota for anything to be in addition to. */
+          gets: [
+            "مليون حرف بأصوات AI مميزة + أصوات أساسية بلا حدود",
+            "تصدير إلى MP3 و WAV ",
+            "الصوت المُصدَّر على جميع أجهزتك",
+            "ترخيص تجاري للاستخدام والنشر! ",
+            "دعم مميز، طلبات الميزات ",
+            "يُخصم الرصيد حسب الاستخدام، وما يتبقى يُرحَّل إلى الشهر التالي",
+            "صالح لمدة سنة كاملة، وكل عملية شراء تمدده أكثر"
+          ],
+          /* What it is NOT. Facts the buyer needs, not gates we are framing, so they are stated
+             plainly — and they are exactly what separates the two types, which is why naming them
+             here also says what the subscription is for. Both are gated on an ACTIVE PLAN
+             (core FeatureAccess.requiresActivePlan) and credits do not reach them, so a buyer
+             would otherwise find out only after paying. Every OTHER line on this tab is something
+             credits genuinely unlock — checked against AccountLogic.featureVerdicts, where
+             premium voice and mp3 export are "metered".
+
+             The sync line is deliberately narrow, and the narrowness is the point: the generated
+             AUDIO does reach every device for everyone. It lives at RTDB `exports/{uid}`, whose
+             rule is identity-only with no plan check, and it is never persisted locally — so the
+             feed is the same on any device you sign in on. Only the text library is plan-gated.
+             Saying "no cloud sync" flat would have talked someone out of a purchase over a
+             restriction that does not apply to the thing they came to make. */
+          lacks: [
+            "لا يشمل إنشاء المستندات بالذكاء الاصطناعي — فذلك ضمن الاشتراك",
+            "لا تتزامن المستندات النصية بين الأجهزة — أما الصوت المُصدَّر فيتزامن"
+          ],
+          reassure: "شراء آمن. ضمان الرضا 100%"
+        }
+      ],
       amount: "$10.99",
       per: " / شهر",
       eyebrow: "اشتراك مميز",
@@ -282,6 +685,10 @@
       paypalIntent: "capture",
       amount: "$19",
       per: "",
+      /* Same reassurance as the pay-as-you-go tab, and it matters MORE here: this face is shown to
+         someone who already pays us monthly, so the one thing to be clear about is that adding
+         credits does not add a second recurring charge. */
+      priceNote: "دفعة واحدة، بلا تجديد، ولا حاجة إلى الإلغاء",
       eyebrow: "مليون حرف مميز",
       cta: "إضافة رصيد",
       // NOT "1M characters per month" — that is the SUBSCRIPTION's line and it was plainly wrong
@@ -315,7 +722,9 @@
   var email = params.get("email") || "";
   var reason = params.get("reason") || "";
   var onCloseParentCallbackName = params.get("onClose") || "closeCheckoutSheet";
-  var autostart = params.get("autostart") === "1";
+  /* "yes" | "no" | "unknown" — see renderPurchaseState(). No account means a real "no": a
+     subscription belongs to an account and there is none here to hold one. */
+  var subscribed = params.get("subscribed") || (uid ? "unknown" : "no");
 
   if (params.get("theme") === "dark") {
     document.documentElement.setAttribute("data-dark-mode", "");
@@ -325,19 +734,215 @@
 
   var CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.1" ' +
               'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>';
+  var CROSS = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.1" ' +
+              'stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>';
+
+  /* WHICH term is being bought. `topup` has no plans, so the face is the offer and nothing below
+     changes for it. Everything price-bearing reads through here rather than off `face`, so the
+     SKU, the Paddle price and the PayPal plan can never disagree about what was chosen. */
+  var selectedPlan = 0;
+  function plan() {
+    return (face.plans && face.plans[selectedPlan]) || face;
+  }
+
+  /** What KIND of thing the selected tab is. The whole gate turns on this. */
+  function planIsSubscription() {
+    return (plan().intent || face.paypalIntent) === "subscription";
+  }
+
+  function paygIndex() {
+    if (!face.plans) return -1;
+    for (var i = 0; i < face.plans.length; i++) {
+      if (face.plans[i].intent === "capture") return i;
+    }
+    return -1;
+  }
+
+  function renderPlanTabs() {
+    var host = document.getElementById("planTabs");
+    var groups = document.getElementById("planGroups");
+    if (!face.plans || face.plans.length < 2) {
+      host.classList.add("hidden");
+      groups.classList.add("hidden");
+      return;
+    }
+    host.classList.remove("hidden");
+    host.style.gridTemplateColumns = "repeat(" + face.plans.length + ", 1fr)";
+    host.innerHTML = "";
+    face.plans.forEach(function (p, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", String(i === selectedPlan));
+      b.innerHTML = "<span></span>" + (p.badge ? ' <span class="badge"></span>' : "");
+      b.firstChild.textContent = p.tab;
+      if (p.badge) { b.lastChild.textContent = p.badge; }
+      b.onclick = function () { selectPlan(i); };
+      host.appendChild(b);
+    });
+
+    // The type row, on the SAME three columns, so a group sits exactly over its own terms.
+    if (!face.groups) { groups.classList.add("hidden"); return; }
+    groups.classList.remove("hidden");
+    groups.style.gridTemplateColumns = "repeat(" + face.plans.length + ", 1fr)";
+    groups.innerHTML = "";
+    var at = 0;
+    face.groups.forEach(function (g) {
+      var el = document.createElement("div");
+      el.className = "plan-group";
+      el.style.gridColumn = "span " + g.span;
+      el.textContent = g.label;
+      // Which type is currently chosen, so the header is not merely decorative.
+      var first = at;
+      var inThisGroup = selectedPlan >= first && selectedPlan < first + g.span;
+      if (inThisGroup) el.classList.add("is-on");
+      /* Clicking a TYPE moves you into it, landing on its first term.
+         Guarded on already being inside it: someone sitting on Annual who taps "Subscription"
+         should not be knocked back to Monthly — they are already where that click would take
+         them, and the header is lit to say so. */
+      /* ALWAYS acknowledge the click, even when it changes nothing. A header that looks like a
+         control and answers silently reads as a broken page — which is the whole reason it became
+         clickable. So: move into the type if we are outside it, and either way run a light around
+         the tab that is now live, pointing at where the next click goes. */
+      el.onclick = function () {
+        if (!inThisGroup) selectPlan(first);
+        flashTab(selectedPlan);
+      };
+      at += g.span;
+      groups.appendChild(el);
+    });
+  }
+
+  var SVG_NS = "http://www.w3.org/2000/svg";
+
+  /**
+   * A light travelling once around a tab's outline, then gone.
+   *
+   * Drawn as a single dash on a rounded-rect stroke whose offset is animated the length of the
+   * perimeter — so it reads as a reflection running round the edge rather than a glow switching
+   * on. The geometry is measured at click time because the tabs are laid out on a grid whose
+   * widths depend on the language.
+   *
+   * Web Animations rather than CSS keyframes: the distances are pixel values only known here, and
+   * interpolating them through a custom property is the kind of thing that quietly stops working.
+   */
+  function flashTab(index) {
+    var btn = document.querySelectorAll("#planTabs button")[index];
+    if (!btn) return;
+    var old = btn.querySelector(".plan-beam");
+    if (old) old.remove();                        // a second click restarts it, never stacks
+
+    var r = btn.getBoundingClientRect();
+    var w = r.width, h = r.height;
+    if (!(w > 4 && h > 4)) return;                // not laid out yet; a beam over nothing is noise
+
+    var inset = 1.5;
+    var iw = w - inset * 2, ih = h - inset * 2;
+    var rad = ih / 2;                             // the tabs are pills
+    var perim = 2 * Math.max(0, iw - ih) + Math.PI * ih;
+
+    var svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("class", "plan-beam");
+    svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+    svg.setAttribute("aria-hidden", "true");
+    var rect = document.createElementNS(SVG_NS, "rect");
+    rect.setAttribute("x", inset);
+    rect.setAttribute("y", inset);
+    rect.setAttribute("width", iw);
+    rect.setAttribute("height", ih);
+    rect.setAttribute("rx", rad);
+    rect.setAttribute("ry", rad);
+    svg.appendChild(rect);
+    btn.appendChild(svg);
+
+    var reduce = false;
+    try {
+      reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch (e) { /* older browsers: animate */ }
+
+    if (reduce || typeof rect.animate !== "function") {
+      // No travelling light for someone who asked for less motion — but still an answer: the
+      // whole outline lights and fades.
+      rect.setAttribute("stroke-dasharray", "");
+      rect.style.transition = "opacity 620ms ease-out";
+      rect.style.opacity = "1";
+      setTimeout(function () { rect.style.opacity = "0"; }, 60);
+      setTimeout(function () { svg.remove(); }, 760);
+      return;
+    }
+
+    var seg = Math.max(26, perim * 0.28);         // the lit arc
+    rect.setAttribute("stroke-dasharray", seg + " " + Math.max(1, perim - seg));
+    var anim = rect.animate(
+      [
+        {strokeDashoffset: perim, opacity: 0.15, offset: 0},
+        {strokeDashoffset: perim * 0.4, opacity: 1, offset: 0.25},
+        {strokeDashoffset: 0, opacity: 1, offset: 0.8},
+        {strokeDashoffset: -perim * 0.2, opacity: 0, offset: 1}
+      ],
+      {duration: 950, easing: "cubic-bezier(.3,.7,.4,1)"}
+    );
+    anim.onfinish = function () { svg.remove(); };
+    anim.oncancel = function () { svg.remove(); };
+  }
+
+  /**
+   * Switching tab re-prices the offer, swaps what it promises, and goes back through the GATE.
+   *
+   * Through the gate, not straight to the buttons: the three tabs are not three prices for one
+   * thing. Two are subscriptions and one is a pack, so which of them an active subscriber may buy
+   * differs — and the two kinds need different PayPal SDKs. renderPurchaseState answers both.
+   */
+  function selectPlan(i) {
+    if (i === selectedPlan) { return; }
+    selectedPlan = i;
+    renderPlanTabs();
+    renderPrice();
+    renderGets();
+    renderPurchaseState();
+    reportHeight();
+  }
+
+  function renderPrice() {
+    document.getElementById("priceAmount").textContent = plan().amount;
+    document.getElementById("pricePer").innerHTML = plan().per;
+    document.getElementById("priceNote").textContent = plan().priceNote || "";
+    document.getElementById("planNote").innerHTML = plan().note || "";
+    document.getElementById("reassure").textContent = plan().reassure || face.reassure;
+  }
+
+  /** What this tab actually promises. Per plan, because a pack does not promise what a plan does. */
+  function renderGets() {
+    var items = plan().gets || face.gets;
+    /* The "not included" lines describe what a pack gives someone who has NO plan. To an active
+       subscriber they are simply false — their subscription already gives them AI and sync, and
+       buying credits takes nothing away. Worse than false: read quickly, "No AI document
+       generation" beside a buy button says "this purchase costs me my AI".
+       Only a definite "yes" suppresses them. On "no" or a not-yet-known "unknown" they stay, and
+       that asymmetry is deliberate: omitting them from someone who turns out to have no plan is
+       the error that costs a refund. (A cancelled-but-unexpired subscriber reads "no" here and so
+       still sees them — true of the state they are heading into, which is when a pack matters.) */
+    var missing = subscribed === "yes" ? [] : (plan().lacks || []);
+    var list = document.getElementById("gets");
+    // Green tick for what is included, red cross for what is not. Red means exactly one thing on
+    // this sheet now, so the absence is legible at a glance instead of hiding among the ticks.
+    list.innerHTML = items.map(function () { return "<li>" + CHECK + "<span></span></li>"; })
+      .concat(missing.map(function () { return '<li class="lacks">' + CROSS + "<span></span></li>"; }))
+      .join("");
+    var all = items.concat(missing);
+    // textContent per item, so a translation can never inject markup
+    list.querySelectorAll("li > span").forEach(function (slot, i) { slot.textContent = all[i]; });
+  }
 
   function render() {
-    document.getElementById("eyebrow").textContent = face.eyebrow;
-    document.getElementById("priceAmount").textContent = face.amount;
-    document.getElementById("pricePer").innerHTML = face.per;
+    // The group header names the type now, so an eyebrow above it would say the same thing twice.
+    var eyebrow = document.getElementById("eyebrow");
+    eyebrow.textContent = face.eyebrow;
+    eyebrow.classList[face.groups ? "add" : "remove"]("hidden");
+    renderPlanTabs();
+    renderPrice();
+    renderGets();
     document.getElementById("cta").textContent = face.cta;
-    document.getElementById("reassure").textContent = face.reassure;
-
-    var list = document.getElementById("gets");
-    list.innerHTML = face.gets.map(function () { return "<li>" + CHECK + "<span></span></li>"; }).join("");
-    // textContent per item, so a translation can never inject markup
-    list.querySelectorAll("li > span").forEach(function (slot, i) { slot.textContent = face.gets[i]; });
-
     renderReason();
   }
 
@@ -370,6 +975,280 @@
       }
     } catch (e) { /* cross-origin or gone */ }
   }
+
+  // ── who is buying ───────────────────────────────────────────────────────────────────────────
+  //
+  // The sheet shows the provider buttons; it does NOT do the sign-in. Firebase lives in the app,
+  // once — a second copy in here would mean a second SDK, a second session, and two places for
+  // auth to be subtly wrong. So this asks the parent to run ITS sign-in and to say who arrived.
+  // The parent calls checkoutOnSignedIn() below, and the sheet advances in place: same document,
+  // same chosen term, same reason row, no reload.
+  var ACCOUNT_LINE = "ستتم إضافة عملية الشراء إلى {{email}}";
+
+  /** @returns {Function|null} the parent's sign-in, or null when there is nothing to ask. */
+  function parentSignIn() {
+    try {
+      if (window.self === window.top) return null;             // opened directly, not in the sheet
+      return typeof parent.signInForCheckout === "function" ? parent.signInForCheckout : null;
+    } catch (e) {
+      return null;                                            // cross-origin: not our parent
+    }
+  }
+
+  function signInButtons() {
+    return [document.getElementById("signinGoogle"), document.getElementById("signinApple")];
+  }
+
+  function showSignInBlock() {
+    // No parent sign-in to ask (this page opened on its own, or the app is an older build that
+    // predates it): keep the CTA, which takes the long route through the app's own sign-in. The
+    // sheet must never be left with no way forward.
+    if (!parentSignIn()) { document.getElementById("cta").classList.remove("hidden"); return; }
+    document.getElementById("signinBlock").classList.remove("hidden");
+    reportHeight();
+  }
+
+  function askParentToSignIn(providerName) {
+    var fn = parentSignIn();
+    if (!fn) { buy(); return; }
+    signInButtons().forEach(function (b) { if (b) b.disabled = true; });   // acknowledge the tap
+    try {
+      // The chosen SKU and the reason go with it. They are not used for the popup — they are what
+      // the parent needs to REBUILD this sheet on the same term if it has to fall back.
+      fn(providerName, plan().sku, reason);
+    } catch (e) {
+      console.error("could not ask the app to sign in", e);
+      window.checkoutOnSignInFailed();
+    }
+  }
+
+  /** Take down every live payment control. Used whenever WHO is buying changes. */
+  function resetPaymentControls() {
+    if (paypalButtons && typeof paypalButtons.close === "function") {
+      try { paypalButtons.close(); } catch (e) { /* already gone */ }
+    }
+    paypalButtons = null;
+    var container = document.getElementById("paypal");
+    container.innerHTML = "";
+    container.classList.add("hidden");
+    container.classList.remove("is-waiting");
+    paypalSettled = false;
+    setHidden("paypalNote", true);
+    setHidden("moreOptions", true);
+    setHidden("cta", true);
+    setHidden("accountLine", true);
+  }
+
+  /**
+   * WHO this sheet is buying for. The app is the only authority on that, and this is how it says so.
+   *
+   * It handles a CHANGE of account, not just the first sign-in, and that is the point. Firebase
+   * auth is shared across tabs on this origin: someone can leave this sheet open, sign in as
+   * another user in a second tab, and this document would otherwise sit there holding the first
+   * uid — with `custom_id` carrying it into a real purchase. The money would be granted to an
+   * account that is no longer the one at the keyboard.
+   *
+   * Signing OUT is the same event with an empty uid: the buttons come down and the sheet goes back
+   * to asking for an account, rather than leaving live payment controls behind for nobody.
+   *
+   * The new account's entitlement is unknown until the app says otherwise, so a change always
+   * re-enters the gate — a second user who already subscribes gets the panel, not a buy button.
+   */
+  window.checkoutSetAccount = function (newUid, newEmail, subscribedNow) {
+    newUid = newUid || "";
+    if (newUid === uid) {
+      // Same person. The answer may still be news, and it has its own door.
+      if (subscribedNow) window.checkoutSetSubscribed(subscribedNow);
+      return;
+    }
+
+    var wasSignedIn = !!uid;
+    var isChange = wasSignedIn && !!newUid;              // A -> B, not "" -> A
+    uid = newUid;
+    email = newUid ? (newEmail || "") : "";
+    // Almost always "unknown" right after a sign-in, and that is exactly the point: arriving must
+    // never be what reveals a subscribe button to someone who already subscribes.
+    subscribed = !newUid ? "no"
+        : (subscribedNow === "yes" || subscribedNow === "no") ? subscribedNow : "unknown";
+
+    if (wasSignedIn) {
+      resetPaymentControls();                            // they carried the previous uid
+      if (isChange) console.warn("checkout: the signed-in account changed; controls rebuilt");
+    }
+
+    if (newUid) {
+      var block = document.getElementById("signinBlock");
+      if (!block.classList.contains("hidden")) {
+        block.classList.add("is-leaving");
+        setTimeout(function () {
+          block.classList.add("hidden");
+          block.classList.remove("is-leaving");
+          reportHeight();
+        }, 180);
+      }
+      renderAccountLine();
+      setHidden("cta", true);
+    }
+    renderPurchaseState();
+  };
+
+  /* The name the sign-in path has always called. Kept as the same function so there is one door. */
+  window.checkoutOnSignedIn = function (newUid, newEmail, subscribedNow) {
+    window.checkoutSetAccount(newUid, newEmail, subscribedNow);
+  };
+
+  // ── may this person be sold a subscription at all? ──────────────────────────────────────────
+  //
+  // An active subscriber must NEVER be shown a subscribe button. Not "should not" — must not:
+  // PayPal and Paddle will each happily open a second recurring plan on an account that already
+  // has one, nothing downstream refuses it, and the user then pays twice every month until they
+  // notice. So the subscribe face has three states and only one of them sells anything:
+  //
+  //   "no"       no live subscription        → the offer (the common case, unchanged)
+  //   "yes"      subscribed and renewing     → the congratulations panel, no payment control at all
+  //   "unknown"  signed in, server not in yet → hold the room; sell NOTHING
+  //
+  // "unknown" is the state that would otherwise do the damage. `serverData` arrives over an RTDB
+  // listener a beat after sign-in, so for that beat an active subscriber is indistinguishable
+  // from a new free user — and signing in on this sheet is now the easy way for a returning
+  // subscriber to arrive. The parent pushes the answer the moment it has one
+  // (checkoutSetSubscribed); until then this sheet offers nothing to buy.
+  //
+  // The top-up face is not gated: a subscriber buying a pack is exactly what it is for, and a
+  // pack cannot recur.
+  var UNKNOWN_WAIT_MS = 8000;
+  var unknownTimer = null;
+
+  /**
+   * The ONE place that decides what the payment slot contains. Every state change comes here.
+   *
+   * The question is about the SELECTED TAB, not the sheet: two of the three sell a recurring plan
+   * and are closed to someone who already has one, while the pack is a one-off that any of them
+   * may buy — including, and especially, an active subscriber who has run out of characters.
+   */
+  function renderPurchaseState() {
+    if (planIsSubscription()) {
+      if (subscribed === "yes") { showAlreadySubscribed(); return; }
+      if (subscribed === "unknown" && uid) { showWaitingForAnswer(); return; }
+    }
+    showOffer();
+    loadPayPal();          // which shows the sign-in block when there is still no uid
+  }
+
+  function setHidden(id, isHidden) {
+    var el = document.getElementById(id);
+    if (el) el.classList[isHidden ? "add" : "remove"]("hidden");
+  }
+
+  /**
+   * Which account the purchase lands on — text AND visibility, from the live identity.
+   *
+   * One owner, because it is shown in more than one situation now (a sheet opened already signed
+   * in, a sign-in that happened on the sheet, an account that changed under it) and un-hiding it
+   * without filling it in is how you get a blank line holding 18px of space.
+   */
+  function renderAccountLine() {
+    var line = document.getElementById("accountLine");
+    if (uid && email) {
+      line.textContent = ACCOUNT_LINE.replace("{{email}}", email);   // textContent: never markup
+      line.classList.remove("hidden");
+    } else {
+      line.textContent = "";
+      line.classList.add("hidden");
+    }
+  }
+
+  /** Put the offer back — reached when an answer of "no" arrives after a wait. */
+  function showOffer() {
+    setHidden("subscribed", true);
+    // Which account this lands on is exactly what stops a purchase going to the wrong one, so it
+    // comes back with the offer. showAlreadySubscribed() had put it away with everything else.
+    renderAccountLine();
+    setHidden("priceRow", false);
+    setHidden("gets", false);
+    setHidden("reassure", false);
+    renderPlanTabs();      // owns its own hidden state (one term ⇒ no tabs)
+    renderGets();          // the "not included" lines depend on `subscribed`, which arrives late
+    renderReason();        // owns its own hidden state (no reason ⇒ no row)
+    document.getElementById("planNote").innerHTML = plan().note || "";
+  }
+
+  /**
+   * Signed in, no answer yet. The offer stays readable; only the buying stops. The room is held
+   * with PayPal's own waiting placeholder, so when the answer lands the sheet does not jump.
+   */
+  function showWaitingForAnswer() {
+    showOffer();
+    setHidden("signinBlock", true);
+    setHidden("cta", true);
+    setHidden("moreOptions", true);
+    document.getElementById("paypal").classList.remove("hidden");
+    document.getElementById("paypal").classList.add("is-waiting");
+    reportHeight();
+    if (unknownTimer) return;
+    unknownTimer = setTimeout(function () {
+      // No answer at all. Blocking a genuine new subscriber for ever is its own failure, and 8s is
+      // far longer than the listener takes when it is working — so the offer comes back. If this
+      // ever fires in practice the thing to fix is why the server never answered.
+      unknownTimer = null;
+      if (subscribed === "unknown") {
+        console.warn("no subscription answer after " + UNKNOWN_WAIT_MS + "ms; showing the offer");
+        subscribed = "no";
+        renderPurchaseState();
+      }
+    }, UNKNOWN_WAIT_MS);
+  }
+
+  /** They already pay us every month. There is nothing here to sell them but credits. */
+  function showAlreadySubscribed() {
+    clearTimeout(unknownTimer);
+    unknownTimer = null;
+    // Tear the buttons down rather than hiding them: a rendered PayPal subscription button is a
+    // live payment control, and it has no business existing on this state at all.
+    if (paypalButtons && typeof paypalButtons.close === "function") {
+      try { paypalButtons.close(); } catch (e) { /* already gone */ }
+    }
+    paypalButtons = null;
+    document.getElementById("paypal").innerHTML = "";
+    document.getElementById("paypal").classList.remove("is-waiting");   // nothing is coming
+    ["context", "priceRow", "planNote", "gets", "paypal", "paypalNote",
+     "cta", "moreOptions", "signinBlock", "accountLine", "reassure"].forEach(function (id) {
+      setHidden(id, true);
+    });
+    // The CHOOSER stays. This is not a dead end — the pack beside these plans is exactly what a
+    // subscriber who ran out of characters came for, and hiding the tabs would strand them on a
+    // panel with one button. Picking a subscription term again simply lands back here, which is
+    // its own answer.
+    setHidden("subscribed", false);
+    // Somewhere to send them: the pack tab if this face has one, otherwise the app's top-up door.
+    setHidden("topupCta", paygIndex() < 0 && !parentTopup());
+    reportHeight();
+  }
+
+  function parentTopup() {
+    try {
+      if (window.self === window.top) return null;
+      return typeof parent.openCheckoutTopup === "function" ? parent.openCheckoutTopup : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /**
+   * The app's answer, pushed in. The important call is the one that turns "unknown" into "yes"
+   * a beat after someone signed in on this very sheet.
+   */
+  window.checkoutSetSubscribed = function (answer) {
+    if (answer !== "yes" && answer !== "no" && answer !== "unknown") return;
+    if (answer === subscribed) return;
+    subscribed = answer;
+    renderPurchaseState();
+  };
+
+  /** The parent, after a sign-in that did not happen — cancelled, or it failed. */
+  window.checkoutOnSignInFailed = function () {
+    signInButtons().forEach(function (b) { if (b) b.disabled = false; });
+  };
 
   // ── loading a payment SDK without paying for it up front ────────────────────────────────────
   //
@@ -407,9 +1286,81 @@
   // One script per page load, not two. The legacy page loaded BOTH the subscription and the
   // one-time SDKs and waited for both, because it showed every plan at once; this sheet shows
   // exactly one face, and a script tag carries exactly one `intent`.
+  //
+  // FETCHING the SDK and RENDERING the buttons are two different things, and only the second one
+  // needs to know who the user is:
+  //
+  //   ensurePayPalSdk   — the script. Starts the moment this document loads, signed in or not,
+  //                       because `kind` alone decides the URL. It renders nothing, ever.
+  //   renderPayPalButtons — live payment controls. Only ever reached through the gate.
+  //
+  // Until 2026-09-09 the fetch was inside the render path, so a signed-out visitor loaded no SDK
+  // at all and then waited ~750ms for it AFTER signing in — at the one moment they had already
+  // decided to pay. Now the script is on its way while they are still reading the offer.
   var PAYPAL_CLIENT_ID = "AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG";
   var PAYPAL_TIMEOUT_MS = 12000;
   var paypalSettled = false;
+  var paypalScope = null;      /* the scope the CURRENT buttons were built from */
+  var paypalButtons = null;    /* the live instance, closed before its replacement goes up */
+
+  /* One entry per intent. A subscription SDK and a one-off SDK are DIFFERENT scripts under
+     different globals, and the three tabs need both — so "have we got it" is a question per
+     intent, not per page. Keyed by namespace: {waiters, asked, failed}. */
+  var sdks = {};
+  function nsFor(intent) { return intent === "subscription" ? "paypalSubs" : "paypalOnce"; }
+
+  /** Every intent this face can sell, in tab order — so [0] is the one on screen at start. */
+  function faceIntents() {
+    var seen = [];
+    (face.plans || [face]).forEach(function (p) {
+      var i = p.intent || face.paypalIntent;
+      if (seen.indexOf(i) < 0) seen.push(i);
+    });
+    return seen;
+  }
+
+  /**
+   * The SDK object for an intent if it is here — asked of the WINDOW, not of a flag we set.
+   *
+   * The global is the only honest answer: the script may have been loaded by an earlier call, by
+   * a re-entry, or by the eager fetch at start-up, and a private "did I fetch it" boolean would
+   * be wrong in all three cases.
+   */
+  function paypalSdk(intent) {
+    var scope = window[nsFor(intent)];
+    return (scope && typeof scope.Buttons === "function") ? scope : null;
+  }
+
+  /**
+   * Get an intent's SDK here, then call back with it — or with null if it is not coming.
+   *
+   * Deliberately does NOT decide what to show. A failed fetch while signed out must not put a
+   * Paddle CTA on a sheet whose next step is signing in; only the render path knows enough to
+   * choose a fallback, so failure is recorded here and acted on there.
+   */
+  function ensurePayPalSdk(intent, cb) {
+    intent = intent || face.paypalIntent;
+    var ns = nsFor(intent);
+    var st = sdks[ns] || (sdks[ns] = {waiters: [], asked: false, failed: false});
+
+    var here = paypalSdk(intent);
+    if (here) { if (cb) cb(here); return; }
+    if (st.failed) { if (cb) cb(null); return; }
+    if (cb) st.waiters.push(cb);
+    if (st.asked) return;                       // already in flight; every waiter gets told
+    st.asked = true;
+
+    var url = "https://www.paypal.com/sdk/js?client-id=" + PAYPAL_CLIENT_ID
+            + (intent === "subscription" ? "&vault=true&intent=subscription" : "");
+    var done = function (scope) {
+      if (!scope) { st.failed = true; }
+      var waiters = st.waiters;
+      st.waiters = [];
+      waiters.forEach(function (fn) { try { fn(scope); } catch (e) { console.error(e); } });
+    };
+    setTimeout(function () { if (!paypalSdk(intent) && !st.failed) done(null); }, PAYPAL_TIMEOUT_MS);
+    fetchJsFile(url, function () { done(paypalSdk(intent)); }, ns, function () { done(null); });
+  }
 
   /** PayPal is not coming (blocked, offline, slow, or it threw). Fall back to the Paddle CTA. */
   function payPalUnavailable(why) {
@@ -427,28 +1378,24 @@
   function loadPayPal() {
     // Signed out: the buttons cannot exist. custom_id carries "<SKU>__<uid>" and it is the ONLY
     // channel to the server — a button rendered without a uid would take money nothing can grant.
-    // So the signed-out sheet keeps its single CTA, which asks for the account first.
-    if (!uid) { document.getElementById("cta").classList.remove("hidden"); return; }
+    // So the sheet asks for the account first, in this same slot, and this runs again once it has
+    // one (checkoutSetAccount). The SDK itself is already on its way; only the render waits.
+    if (!uid) { showSignInBlock(); return; }
 
-    var isSub = face.paypalIntent === "subscription";
-    var ns = isSub ? "paypalSubs" : "paypalOnce";
-    var url = "https://www.paypal.com/sdk/js?client-id=" + PAYPAL_CLIENT_ID
-            + (isSub ? "&vault=true&intent=subscription" : "");
+    var intent = plan().intent || face.paypalIntent;
 
     // Reserve the buttons' room up front so their arrival does not shove the sheet around.
     document.getElementById("paypal").classList.remove("hidden");
-    document.getElementById("paypal").classList.add("is-waiting");
-    setTimeout(function () { if (!paypalSettled) payPalUnavailable("timed out"); }, PAYPAL_TIMEOUT_MS);
+    if (!paypalSdk(intent)) { document.getElementById("paypal").classList.add("is-waiting"); }
 
-    fetchJsFile(url, function () {
-      var scope = window[ns];
-      if (!scope || typeof scope.Buttons !== "function") { payPalUnavailable("no " + ns); return; }
-      // Straight through — the sheet is on screen whenever this document is loaded, and the script
-      // it needs is served from the browser cache (PayPal sends `max-age=3600`), primed on idle by
-      // the app. Deferring the render behind a "you are visible now" signal is what produced an
-      // unbuyable sheet when that signal was missed.
+    ensurePayPalSdk(intent, function (scope) {
+      // The tab may have moved on while this was in flight — a slow one-off SDK arriving after
+      // the user has gone back to a subscription tab must not render the wrong buttons.
+      if ((plan().intent || face.paypalIntent) !== intent) { return; }
+      if (!scope) { payPalUnavailable("sdk unavailable"); return; }
+      paypalSettled = false;        // a fresh intent gets a fresh verdict
       renderPayPalButtons(scope);
-    }, ns, function () { payPalUnavailable("script error"); });
+    });
   }
 
   /**
@@ -457,8 +1404,23 @@
    * was none anywhere in the legacy code) and routing success through `notifyParent`.
    */
   function renderPayPalButtons(scope) {
+    paypalScope = scope;
     var container = document.getElementById("paypal");
-    var custom_id = face.sku + "__" + uid;
+    /* Tear the previous buttons down first. Both terms are subscriptions, so the SDK and its
+       namespace are the same and only the plan id changes — but leaving the old instance in place
+       would stack a second set of buttons under the first, each charging a different price. */
+    if (paypalButtons && typeof paypalButtons.close === "function") {
+      try { paypalButtons.close(); } catch (e) { /* already gone */ }
+    }
+    paypalButtons = null;
+    container.innerHTML = "";
+
+    /* `custom_id` is read at CLICK time, not captured here. It used to be a snapshot taken when
+       the buttons were built, while `plan_id` — what PayPal actually charges — was read live; the
+       two agreed only because every term change happens to rebuild the buttons. That is a rule
+       nobody can see from the createSubscription call, and getting it wrong charges for one term
+       and grants another. Both halves now read the same live `plan()` and `uid`. */
+    var customId = function () { return plan().sku + "__" + uid; };
 
     var config = {
       style: {shape: "pill", color: "gold", layout: "vertical", label: "paypal", height: 50},
@@ -466,9 +1428,9 @@
       onError: function (err) { payPalUnavailable(err && err.message ? err.message : "onError"); }
     };
 
-    if (face.paypalIntent === "subscription") {
+    if ((plan().intent || face.paypalIntent) === "subscription") {
       config.createSubscription = function (data, actions) {
-        return actions.subscription.create({plan_id: face.paypalPlanId, custom_id: custom_id});
+        return actions.subscription.create({plan_id: plan().paypalPlanId, custom_id: customId()});
       };
       // The entitlement is granted SERVER-side by the PayPal webhook off custom_id — there is no
       // endpoint to post to. Hand off to the parent, which toasts and then waits for the grant to
@@ -478,9 +1440,10 @@
       config.createOrder = function (data, actions) {
         return actions.order.create({
           purchase_units: [{
-            description: "TTSReader " + face.paypalCredits + " Extra Credits, UID: " + uid,
-            custom_id: custom_id,
-            amount: {value: face.paypalPrice}
+            description: "TTSReader " + (plan().paypalCredits || face.paypalCredits)
+                         + " Extra Credits, UID: " + uid,
+            custom_id: customId(),
+            amount: {value: plan().paypalPrice || face.paypalPrice}
           }]
         });
       };
@@ -490,7 +1453,8 @@
     }
 
     try {
-      scope.Buttons(config).render(container);
+      paypalButtons = scope.Buttons(config);
+      paypalButtons.render(container);
       paypalSettled = true;
       document.getElementById("paypalNote").classList.remove("hidden");
       document.getElementById("moreOptions").classList.remove("hidden");
@@ -513,7 +1477,7 @@
     if (!uid) {
       try {
         if (window.parent && typeof window.parent.requestSignInForCheckout === "function") {
-          window.parent.requestSignInForCheckout(face.sku, reason);
+          window.parent.requestSignInForCheckout(plan().sku, reason);
           return;
         }
       } catch (e) { /* fall through to the fallback */ }
@@ -543,7 +1507,7 @@
   function openPaddle(btn) {
     try {
       Paddle.Checkout.open({
-        items: [{priceId: face.priceId, quantity: 1}],
+        items: [{priceId: plan().priceId, quantity: 1}],
         customer: email ? {email: email} : undefined,
         customData: {uid: uid}
       });
@@ -602,10 +1566,34 @@
   }
 
   render();
-  loadPayPal();
+  // The scripts, not the buttons — see ensurePayPalSdk. Signed in or not, they are on their way
+  // before anyone needs them; the gate still decides whether a payment control is ever built.
+  //
+  // The visible tab's intent goes first and the other kinds follow once it has settled. Following
+  // rather than racing is the whole point: the second script must never compete for bandwidth
+  // with the buttons someone is actually looking at, and nothing waits on it — a subscription tab
+  // renders as soon as ITS scope is here, in parallel with the one-off SDK still arriving.
+  // Deferring it to first click instead would have bought ~100KB on sessions that never open the
+  // pack, at the price of making that tab stand still for a fetch when someone does.
+  (function primeSdks() {
+    var intents = faceIntents();
+    ensurePayPalSdk(intents[0], function () {
+      intents.slice(1).forEach(function (i) { ensurePayPalSdk(i); });
+    });
+  })();
+  renderPurchaseState();
 
   document.getElementById("cta").addEventListener("click", buy);
   document.getElementById("moreOptions").addEventListener("click", buy);
+  document.getElementById("signinGoogle").addEventListener("click", function () { askParentToSignIn("google"); });
+  document.getElementById("signinApple").addEventListener("click", function () { askParentToSignIn("apple"); });
+  document.getElementById("topupCta").addEventListener("click", function () {
+    // The pack is a tab away on this very sheet — no reload, no second surface.
+    var i = paygIndex();
+    if (i >= 0) { selectPlan(i); return; }
+    var fn = parentTopup();
+    if (fn) fn();      // no pack here: the app's one purchase door picks it instead
+  });
 
   // After layout, and again if fonts/images settle the height.
   requestAnimationFrame(function () { reportHeight(); });
@@ -621,12 +1609,18 @@
     }).observe(document.getElementById("offer"));
   }
 
-  // Came back from the sign-in the purchase was interrupted by: finish it, with no second click.
-  // Guarded on `uid` so this can never bounce straight back into sign-in.
-  if (autostart && uid) {
-    reportHeight("max");
-    setTimeout(buy, 0);
-  }
+  // NO auto-start. Retired 2026-09-08 (Ronen).
+  //
+  // Coming back from an interrupted sign-in used to call buy() by itself — and buy() is the
+  // PADDLE door, because it was written when the CTA was the only purchase control on this sheet
+  // and the CTA is Paddle. "Re-press the button they already pressed" was fair then. It stopped
+  // being fair when PayPal's buttons became the primary door and the plan grew a second term:
+  // the sheet ended up choosing the payment method on the user's behalf, sometimes for someone
+  // who had pressed "Continue with Google" rather than a buy button at all, and (via the
+  // popup-blocked route, which loses the chosen SKU) sometimes on the wrong term.
+  //
+  // Nothing replaces it: the sheet reopens with the buttons ready and the reason they came with
+  // still on it. That is one click, and it is the click they were going to make anyway.
 </script>
 
 </body>

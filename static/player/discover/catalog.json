@@ -8,6 +8,7 @@
         {
           "id": "doc-declaration-1776",
           "kind": "doc",
+          "source": "ttsreader",
           "title": "The Declaration of Independence",
           "author": "United States, 1776",
           "blurb": "\"We hold these truths to be self-evident\" — the 1776 declaration that argued a nation into being.",
@@ -20,6 +21,7 @@
         {
           "id": "doc-constitution",
           "kind": "doc",
+          "source": "ttsreader",
           "title": "The Constitution of the United States",
           "author": "United States, 1787",
           "blurb": "\"We the People\" — the articles and amendments that turned thirteen states into one republic.",
@@ -32,6 +34,7 @@
         {
           "id": "audio-jfk-inaugural",
           "kind": "audio",
+          "source": "ttsreader",
           "title": "JFK: Inaugural Address",
           "author": "John F. Kennedy",
           "blurb": "\"Ask not what your country can do for you\" — the 1961 inaugural address, in the president's own voice.",
@@ -45,6 +48,7 @@
         {
           "id": "audio-reagan-acceptance-1980",
           "kind": "audio",
+          "source": "ttsreader",
           "title": "Reagan: 1980 Acceptance Speech",
           "author": "Ronald Reagan",
           "blurb": "The Detroit convention speech that accepted the 1980 nomination and set the course for a landslide.",
@@ -58,6 +62,7 @@
         {
           "id": "audio-reagan-farewell",
           "kind": "audio",
+          "source": "ttsreader",
           "title": "Reagan: Farewell Address",
           "author": "Ronald Reagan",
           "blurb": "Eight years distilled into one goodbye from the Oval Office — the shining city on a hill included.",
@@ -71,6 +76,7 @@
         {
           "id": "doc-oppenheimer",
           "kind": "doc",
+          "source": "ttsreader",
           "title": "Oppenheimer - Father of The Bomb",
           "author": "Ronen Rabinovici",
           "blurb": "A short essay giving you some less-known insights into the life of this American legend.",
@@ -83,7 +89,12 @@
                 "source": "wikipedia",
                 "url": "https://en.wikipedia.org/wiki/J._Robert_Oppenheimer"
               }
-            ]
+            ],
+            "textFooterKey": "d20261008_attribution_text_footer_essay",
+            "textLicense": {
+              "name": "CC BY-SA 4.0",
+              "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+            }
           }
         }
       ]
@@ -95,6 +106,7 @@
         {
           "id": "doc-how-much-land",
           "kind": "doc",
+          "source": "gutenberg",
           "title": "How Much Land Does a Man Need?",
           "author": "Leo Tolstoy",
           "blurb": "A genius short story by Leo Tolstoy, translated by Louise and Aylmer Maude.",
@@ -107,6 +119,7 @@
         {
           "id": "doc-three-questions",
           "kind": "doc",
+          "source": "gutenberg",
           "title": "Three Questions",
           "author": "Leo Tolstoy",
           "blurb": "A meaningful short story by Leo Tolstoy, translated by Louise and Aylmer Maude.",
@@ -119,6 +132,7 @@
         {
           "id": "doc-esarhaddon",
           "kind": "doc",
+          "source": "gutenberg",
           "title": "Esarhaddon, King of Assyria",
           "author": "Leo Tolstoy",
           "blurb": "A short story teaching us how our life is connected to the lives of others.",
@@ -131,6 +145,8 @@
         {
           "id": "epub-moby-dick",
           "kind": "epub",
+          "source": "gutenberg",
+          "gutenbergId": 2701,
           "title": "Moby Dick; Or, The Whale",
           "author": "Herman Melville",
           "blurb": "One of the greatest American novels ever written. Spectacularly dealing with life choices, human nature and tough consequences.",
@@ -143,11 +159,13 @@
         {
           "id": "epub-frankenstein",
           "kind": "epub",
+          "source": "gutenberg",
           "title": "Frankenstein",
           "author": "Mary Shelley",
           "blurb": "Written at eighteen, on a wager, during a summer without a sun.",
           "imageUrl": "https://www.gutenberg.org/cache/epub/84/pg84.cover.medium.jpg",
           "url": "https://www.gutenberg.org/ebooks/84",
+          "epubSizes": {"withImages": 474733, "textOnly": 356586},
           "attribution": {
             "noteKey": "d20260810_attribution_public_domain_note"
           }
@@ -155,11 +173,13 @@
         {
           "id": "epub-sherlock",
           "kind": "epub",
+          "source": "gutenberg",
           "title": "The Adventures of Sherlock Holmes",
           "author": "Arthur Conan Doyle",
           "blurb": "Twelve cases, and the detective who made deduction a spectator sport.",
           "imageUrl": "https://www.gutenberg.org/cache/epub/1661/pg1661.cover.medium.jpg",
           "url": "https://www.gutenberg.org/ebooks/1661",
+          "epubSizes": {"withImages": 379503, "textOnly": 311635},
           "attribution": {
             "noteKey": "d20260810_attribution_public_domain_note"
           }
@@ -167,11 +187,13 @@
         {
           "id": "epub-pride-prejudice",
           "kind": "epub",
+          "source": "gutenberg",
           "title": "Pride and Prejudice",
           "author": "Jane Austen",
           "blurb": "It is a truth universally acknowledged — Austen's sharpest and most beloved comedy of manners.",
           "imageUrl": "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
           "url": "https://www.gutenberg.org/ebooks/1342",
+          "epubSizes": {"withImages": 24836548, "textOnly": 561102},
           "attribution": {
             "noteKey": "d20260810_attribution_public_domain_note"
           }
@@ -179,11 +201,13 @@
         {
           "id": "epub-tom-sawyer",
           "kind": "epub",
+          "source": "gutenberg",
           "title": "The Adventures of Tom Sawyer",
           "author": "Mark Twain",
           "blurb": "Whitewashed fences, buried treasure, and boyhood on the Mississippi.",
           "imageUrl": "https://www.gutenberg.org/cache/epub/74/pg74.cover.medium.jpg",
           "url": "https://www.gutenberg.org/ebooks/74",
+          "epubSizes": {"withImages": 16672845, "textOnly": 288680},
           "attribution": {
             "noteKey": "d20260810_attribution_public_domain_note"
           }
@@ -191,11 +215,13 @@
         {
           "id": "epub-anna-karenina",
           "kind": "epub",
+          "source": "gutenberg",
           "title": "Anna Karenina",
           "author": "Leo Tolstoy",
           "blurb": "\"All happy families are alike\" — Tolstoy's sweeping portrait of love against society.",
           "imageUrl": "https://www.gutenberg.org/cache/epub/1399/pg1399.cover.medium.jpg",
           "url": "https://www.gutenberg.org/ebooks/1399",
+          "epubSizes": {"withImages": 1029762, "textOnly": 874055},
           "attribution": {
             "noteKey": "d20260810_attribution_public_domain_note"
           }
@@ -203,6 +229,7 @@
         {
           "id": "guide-gutenberg",
           "kind": "guide",
+          "source": "ttsreader",
           "title": "Find more books on Project Gutenberg",
           "author": "Project Gutenberg",
           "blurb": "Over 70,000 free public-domain ebooks — open any book page and share it with TTSReader to start reading."
@@ -216,6 +243,7 @@
         {
           "id": "album-ancient-world",
           "kind": "audiobook",
+          "source": "wikipedia",
           "title": "The Ancient World",
           "author": "Narrated by John",
           "blurb": "Six chapters across three thousand years — from the first written laws in Babylon to the empire that ruled the Mediterranean.",
@@ -309,6 +337,7 @@
         {
           "id": "album-great-minds",
           "kind": "audiobook",
+          "source": "wikipedia",
           "title": "Great Minds",
           "author": "Narrated by John",
           "blurb": "Five people who changed what we know, and how we came to know it.",
@@ -391,6 +420,7 @@
         {
           "id": "album-wonders",
           "kind": "audiobook",
+          "source": "wikipedia",
           "title": "Wonders of the World",
           "author": "Narrated by Nova",
           "blurb": "Five places worth the journey, and the histories that built them.",
@@ -473,6 +503,7 @@
         {
           "id": "album-painters",
           "kind": "audiobook",
+          "source": "wikipedia",
           "title": "The Painters",
           "author": "Narrated by Nova",
           "blurb": "Four lives in paint — from a Dutchman who sold almost nothing to a Mexican who painted herself.",
@@ -555,6 +586,7 @@
         {
           "id": "wiki-Black_hole",
           "kind": "wiki",
+          "source": "wikipedia",
           "title": "Black hole",
           "author": "Wikipedia",
           "blurb": "A black hole is an astronomical body so compact that its gravity prevents anything, including light, from escaping.",
@@ -587,6 +619,7 @@
         {
           "id": "wiki-Antarctica",
           "kind": "wiki",
+          "source": "wikipedia",
           "title": "Antarctica",
           "author": "Wikipedia",
           "blurb": "Antarctica is Earth's southernmost and least-populated continent.",
@@ -619,6 +652,7 @@
         {
           "id": "wiki-Coral_reef",
           "kind": "wiki",
+          "source": "wikipedia",
           "title": "Coral reef",
           "author": "Wikipedia",
           "blurb": "A coral reef is an underwater ecosystem characterized by reef-building corals.",
@@ -651,6 +685,7 @@
         {
           "id": "wiki-Stonehenge",
           "kind": "wiki",
+          "source": "wikipedia",
           "title": "Stonehenge",
           "author": "Wikipedia",
           "blurb": "Stonehenge is a prehistoric megalithic structure on Salisbury Plain in Wiltshire, England, two miles (3 km) west of Amesbury.",
@@ -683,6 +718,7 @@
         {
           "id": "wiki-Volcano",
           "kind": "wiki",
+          "source": "wikipedia",
           "title": "Volcano",
           "author": "Wikipedia",
           "blurb": "A volcano is a vent or fissure in the crust of a planetary-mass object that allows hot lava, volcanic ash, and gases to escape from a magma chamber be.",
@@ -715,6 +751,7 @@
         {
           "id": "wiki-Photosynthesis",
           "kind": "wiki",
+          "source": "wikipedia",
           "title": "Photosynthesis",
           "author": "Wikipedia",
           "blurb": "Photosynthesis is a system of biological processes by which photopigment-bearing autotrophic organisms, such as most plants, algae and cyanobacteria, .",
@@ -747,6 +784,7 @@
         {
           "id": "wiki-Nikola_Tesla",
           "kind": "wiki",
+          "source": "wikipedia",
           "title": "Nikola Tesla",
           "author": "Wikipedia",
           "blurb": "Nikola Tesla was a Serbian-American engineer, futurist, and inventor.",
@@ -779,6 +817,7 @@
         {
           "id": "wiki-Plate_tectonics",
           "kind": "wiki",
+          "source": "wikipedia",
           "title": "Plate tectonics",
           "author": "Wikipedia",
           "blurb": "Plate tectonics is the scientific theory that Earth's lithosphere comprises a number of large tectonic plates, which have been slowly moving since 3–4.",
@@ -811,6 +850,7 @@
         {
           "id": "audio-marie-curie",
           "kind": "audio",
+          "source": "wikipedia",
           "title": "Marie Curie",
           "author": "Wikipedia",
           "blurb": "The only person to win a Nobel Prize in two different sciences, and the first woman to win one at all.",
@@ -843,6 +883,7 @@
         {
           "id": "audio-hammurabi",
           "kind": "audio",
+          "source": "wikipedia",
           "title": "Hammurabi",
           "author": "Wikipedia",
           "blurb": "The sixth king of Babylon, and the code of law that carries his name.",
@@ -875,6 +916,7 @@
         {
           "id": "doc-bioluminescence",
           "kind": "doc",
+          "source": "wikipedia",
           "title": "Bioluminescence",
           "author": "Wikipedia",
           "blurb": "Why fireflies glow, and why so much of the deep ocean does too.",
@@ -912,6 +954,7 @@
         {
           "id": "audio-little-engine",
           "kind": "audio",
+          "source": "ttsreader",
           "title": "The Little Engine That Could",
           "author": "Watty Piper",
           "blurb": "\"I think I can, I think I can\" — the little blue engine that took the toys over the mountain.",
@@ -925,11 +968,13 @@
         {
           "id": "epub-alice",
           "kind": "epub",
+          "source": "gutenberg",
           "title": "Alice's Adventures in Wonderland",
           "author": "Lewis Carroll",
           "blurb": "Down the rabbit hole with Lewis Carroll's endlessly quotable dream logic.",
           "imageUrl": "https://www.gutenberg.org/cache/epub/11/pg11.cover.medium.jpg",
           "url": "https://www.gutenberg.org/ebooks/11",
+          "epubSizes": {"withImages": 189249, "textOnly": 136756},
           "attribution": {
             "noteKey": "d20260810_attribution_public_domain_note"
           }
@@ -937,11 +982,13 @@
         {
           "id": "epub-peter-pan",
           "kind": "epub",
+          "source": "gutenberg",
           "title": "Peter Pan",
           "author": "J. M. Barrie",
           "blurb": "The boy who wouldn't grow up, and the flight to Neverland.",
           "imageUrl": "https://www.gutenberg.org/cache/epub/16/pg16.cover.medium.jpg",
           "url": "https://www.gutenberg.org/ebooks/16",
+          "epubSizes": {"withImages": 392049, "textOnly": 390496},
           "attribution": {
             "noteKey": "d20260810_attribution_public_domain_note"
           }
@@ -949,11 +996,13 @@
         {
           "id": "epub-wizard-of-oz",
           "kind": "epub",
+          "source": "gutenberg",
           "title": "The Wonderful Wizard of Oz",
           "author": "L. Frank Baum",
           "blurb": "Dorothy, Toto, and the road of yellow brick.",
           "imageUrl": "https://www.gutenberg.org/cache/epub/55/pg55.cover.medium.jpg",
           "url": "https://www.gutenberg.org/ebooks/55",
+          "epubSizes": {"withImages": 350637, "textOnly": 181802},
           "attribution": {
             "noteKey": "d20260810_attribution_public_domain_note"
           }

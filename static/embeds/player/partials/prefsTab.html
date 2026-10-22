@@ -36,6 +36,22 @@
     <a class="Menu-list-element" data-ws-onclick="handleVoiceLabelClick">
       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.need_more_voices %>
     </a>
+    <!-- Sleep timer (Block 1b): the length every listen starts with, Off or minutes — iOS Settings' picker. The Reader
+         ⋯ "Set timer" writes the same default. Stored on this device (src/player/SleepTimerController.js); hidden
+         until that module starts. -->
+    <div class="sleep-pref-row hidden" data-ws-show-if-state="sleepTimerReady=true">
+      <label class="sleep-pref-label" for="sleepTimerPref"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"/><path d="M19 11h2m-1 -1v2"/></svg><%= htmlWebpackPlugin.options.strings.d20260715_sleep_timer || '' %></label>
+      <select id="sleepTimerPref" class="sleep-pref-select" data-ws-onchange="sleepTimerPrefChange" data-ws-value-state="sleepTimerDefault">
+        <option value="0"><%= htmlWebpackPlugin.options.strings.d20260715_sleep_timer_off || '' %></option>
+        <option value="5">5 <%= htmlWebpackPlugin.options.strings.d20260715_minutes_suffix || '' %></option>
+        <option value="10">10 <%= htmlWebpackPlugin.options.strings.d20260715_minutes_suffix || '' %></option>
+        <option value="15">15 <%= htmlWebpackPlugin.options.strings.d20260715_minutes_suffix || '' %></option>
+        <option value="30">30 <%= htmlWebpackPlugin.options.strings.d20260715_minutes_suffix || '' %></option>
+        <option value="45">45 <%= htmlWebpackPlugin.options.strings.d20260715_minutes_suffix || '' %></option>
+        <option value="60">60 <%= htmlWebpackPlugin.options.strings.d20260715_minutes_suffix || '' %></option>
+        <option value="90">90 <%= htmlWebpackPlugin.options.strings.d20260715_minutes_suffix || '' %></option>
+      </select>
+    </div>
   
     <div class="drawer-section-heading"><%= htmlWebpackPlugin.options.strings.drawer__interface_languages_info %></div>
     <div class="drawer-lang-list">
