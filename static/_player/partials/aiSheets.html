@@ -1,0 +1,110 @@
+<!-- AI sheets (mobile LearnTopicSheet / NewsRecapSheet parity). All UI state
+     derives from app State keys (aiLearn* / aiNews*): inputs write state via
+     data-ws events, chips/checks re-render FROM state, Create enablement is a
+     derived state key bound with data-ws-disable-if-state. -->
+
+<div id="aiLearnModal" class="Modal" style="display: none">
+  <div class="Modal-content ai-sheet">
+    <div class="ai-sheet-head">
+      <button class="ai-sheet-close" data-ws-onclick="aiSheetClose" aria-label="Close"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6l-12 12"/><path d="M6 6l12 12"/></svg></button>
+      <h3 class="ai-sheet-title"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M16 6a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z"/><path d="M9 18a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z"/></svg> <%= htmlWebpackPlugin.options.strings.d20260723_learn_title %></h3>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260723_learn_subject %></label>
+    <input type="text" class="ai-sheet-input" id="aiLearnSubjectInput"
+           placeholder="<%= htmlWebpackPlugin.options.strings.d20260723_learn_subject_placeholder %>"
+           data-ws-oninput="aiLearnSubjectChanged" data-ws-value-state="aiLearnSubject">
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260723_learn_instructions %></label>
+    <textarea class="ai-sheet-input ai-sheet-textarea"
+              placeholder="<%= htmlWebpackPlugin.options.strings.d20260723_learn_instructions_placeholder %>"
+              data-ws-oninput="aiLearnInstructionsChanged" data-ws-value-state="aiLearnInstructions"></textarea>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260723_learn_style %></label>
+    <div class="ai-sheet-chips" data-ai-chips="aiLearnStyle">
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnStyle" data-value="text"><%= htmlWebpackPlugin.options.strings.d20260723_learn_style_text %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnStyle" data-value="podcast"><%= htmlWebpackPlugin.options.strings.d20260723_learn_style_podcast %></button>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260723_learn_duration %></label>
+    <div class="ai-sheet-chips" data-ai-chips="aiLearnDuration">
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnDuration" data-value="5"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','5') %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnDuration" data-value="10"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','10') %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnDuration" data-value="15"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','15') %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnDuration" data-value="30"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','30') %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnDuration" data-value="60"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','60') %></button>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260723_learn_level %></label>
+    <div class="ai-sheet-chips" data-ai-chips="aiLearnLevel">
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnLevel" data-value="novice"><%= htmlWebpackPlugin.options.strings.d20260723_learn_level_novice %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnLevel" data-value="basic"><%= htmlWebpackPlugin.options.strings.d20260723_learn_level_basic %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnLevel" data-value="intermediate"><%= htmlWebpackPlugin.options.strings.d20260723_learn_level_intermediate %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnLevel" data-value="advanced"><%= htmlWebpackPlugin.options.strings.d20260723_learn_level_advanced %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiLearnLevel" data-value="expert"><%= htmlWebpackPlugin.options.strings.d20260723_learn_level_expert %></button>
+    </div>
+
+    <div class="ai-sheet-actions">
+      <button class="library-new-doc-btn ws-btn-primary" data-ws-onclick="aiLearnCreate"
+              data-ws-disable-if-state="aiLearnCanCreate=false"><%= htmlWebpackPlugin.options.strings.d20260723_learn_create %></button>
+    </div>
+  </div>
+</div>
+
+<div id="aiNewsModal" class="Modal" style="display: none">
+  <div class="Modal-content ai-sheet">
+    <div class="ai-sheet-head">
+      <button class="ai-sheet-close" data-ws-onclick="aiSheetClose" aria-label="Close"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6l-12 12"/><path d="M6 6l12 12"/></svg></button>
+      <h3 class="ai-sheet-title"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h6"/></svg> <%= htmlWebpackPlugin.options.strings.d20260726_news_title %></h3>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260726_news_geography %></label>
+    <button class="ai-sheet-input ai-sheet-geo-btn" data-ws-onclick="aiNewsOpenGeography">
+      🌍 <span data-ws-label-state="aiNewsGeographyLabel"></span> ▾
+    </button>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260723_learn_style %></label>
+    <div class="ai-sheet-chips" data-ai-chips="aiNewsStyle">
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiNewsStyle" data-value="text"><%= htmlWebpackPlugin.options.strings.d20260726_news_style_briefing %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiNewsStyle" data-value="podcast"><%= htmlWebpackPlugin.options.strings.d20260723_learn_style_podcast %></button>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260723_learn_duration %></label>
+    <div class="ai-sheet-chips" data-ai-chips="aiNewsDuration">
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiNewsDuration" data-value="5"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','5') %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiNewsDuration" data-value="10"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','10') %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiNewsDuration" data-value="15"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','15') %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiNewsDuration" data-value="30"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','30') %></button>
+      <button class="ai-sheet-chip" data-ws-onclick="aiSheetChip" data-state-key="aiNewsDuration" data-value="60"><%= htmlWebpackPlugin.options.strings.d20260723_learn_minutes.replace('%@','60') %></button>
+    </div>
+
+    <label class="ai-sheet-label"><%= htmlWebpackPlugin.options.strings.d20260726_news_fields %></label>
+    <div class="ai-sheet-checks" id="aiNewsFieldsList">
+      <button class="ai-sheet-check" data-ws-onclick="aiNewsToggleField" data-field="security"><span class="ai-check-glyph"></span><%= htmlWebpackPlugin.options.strings.d20260726_news_field_security %></button>
+      <button class="ai-sheet-check" data-ws-onclick="aiNewsToggleField" data-field="finance"><span class="ai-check-glyph"></span><%= htmlWebpackPlugin.options.strings.d20260726_news_field_finance %></button>
+      <button class="ai-sheet-check" data-ws-onclick="aiNewsToggleField" data-field="sports"><span class="ai-check-glyph"></span><%= htmlWebpackPlugin.options.strings.d20260726_news_field_sports %></button>
+      <button class="ai-sheet-check" data-ws-onclick="aiNewsToggleField" data-field="international_relations"><span class="ai-check-glyph"></span><%= htmlWebpackPlugin.options.strings.d20260726_news_field_international_relations %></button>
+      <button class="ai-sheet-check" data-ws-onclick="aiNewsToggleField" data-field="politics"><span class="ai-check-glyph"></span><%= htmlWebpackPlugin.options.strings.d20260726_news_field_politics %></button>
+      <button class="ai-sheet-check" data-ws-onclick="aiNewsToggleField" data-field="celebs"><span class="ai-check-glyph"></span><%= htmlWebpackPlugin.options.strings.d20260726_news_field_celebs %></button>
+      <button class="ai-sheet-check" data-ws-onclick="aiNewsToggleField" data-field="miscellaneous"><span class="ai-check-glyph"></span><%= htmlWebpackPlugin.options.strings.d20260726_news_field_miscellaneous %></button>
+    </div>
+
+    <div class="ai-sheet-actions">
+      <button class="library-new-doc-btn ws-btn-primary" data-ws-onclick="aiNewsCreate"
+              data-ws-disable-if-state="aiNewsCanCreate=false"><%= htmlWebpackPlugin.options.strings.d20260726_news_create %></button>
+    </div>
+  </div>
+</div>
+
+<div id="aiGeoModal" class="Modal" style="display: none">
+  <div class="Modal-content ai-sheet">
+    <div class="ai-sheet-head">
+      <button class="ai-sheet-close" data-ws-onclick="aiGeoClose" aria-label="Close"><svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6l-12 12"/><path d="M6 6l12 12"/></svg></button>
+      <h3 class="ai-sheet-title">🌍 <%= htmlWebpackPlugin.options.strings.d20260726_news_geography %></h3>
+    </div>
+    <input type="search" class="ai-sheet-input" data-ws-oninput="aiGeoSearchChanged"
+           data-ws-value-state="aiNewsGeoSearch"
+           placeholder="<%= htmlWebpackPlugin.options.strings.d20260826_library_search %>">
+    <div id="aiGeoList" class="ai-geo-list"></div>
+      </div>
+</div>

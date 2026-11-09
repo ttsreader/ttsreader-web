@@ -567,6 +567,9 @@
         {
           key: "monthly",
           tab: "Ежемесячно",
+          /* The term the sheet opens on, as before 2026-10-21 (Ronen, 2026-10-25: "can we bring back the monthly plan to
+             be the default (not the annual that is now)"). Annual keeps its "Best offer" line and its price. */
+          isDefault: true,
           intent: "subscription",
           sku: "SKU_TTSREADER_PREMIUM_MONTHLY",
           priceId: "pri_01ke6jck25vm0hc1p0ya0wf6sx",
@@ -597,9 +600,6 @@
           sku: "SKU_TTSREADER_PREMIUM_ANNUAL",
           priceId: "pri_01ke6k5fqsfrn3k6xcvt1zb57s",
           paypalPlanId: "P-72R93922LT130451PNBJ7OCI",
-          /* The term the sheet opens on (Ronen, 2026-10-21: "make it the default (instead of the monthly)" — "We need to
-             sell it better"). */
-          isDefault: true,
           /* A second line inside the tab, in the green line's type (.plan-tabs .tab-sub = .plan-note). */
           tabSub: "Выгоднее всего",
           /* Priced per month, as Monthly is, so the two compare at a glance: $99 / 12 = $8.25. What is CHARGED is the
@@ -771,7 +771,7 @@
     return (plan().intent || face.paypalIntent) === "subscription";
   }
 
-  /** The term the sheet opens on: the one marked `isDefault` (Annual), else the first. Topup has no terms: 0, as before. */
+  /** The term the sheet opens on: the one marked `isDefault` (Monthly), else the first. Topup has no terms: 0, as before. */
   function defaultPlanIndex() {
     var plans = face.plans || [];
     for (var i = 0; i < plans.length; i++) {

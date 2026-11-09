@@ -1,0 +1,61 @@
+  <!-- Add a book (Ronen, 2026-10-22): three rows, top to bottom — your own file; our catalogue (all of Project Gutenberg,
+       all of LibriVox and more, now with human-narrated audiobooks), which opens Discover's search; a pasted Project
+       Gutenberg link. src/library/BooksSheet.js opens the catalogue; the file input and the link keep today's handlers. -->
+  <div class="Modal" id="openBooksModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content books-sheet">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <h3 class="books-sheet-title"><%= htmlWebpackPlugin.options.strings.d20261022_books_title %></h3>
+      <p class="books-sheet-sub"><%= htmlWebpackPlugin.options.strings.d20261022_books_subtitle %></p>
+
+      <div class="books-rows">
+        <!-- 1. Your own file: the whole row is the file picker. -->
+        <label class="books-row">
+          <span class="books-row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/></svg>
+          </span>
+          <span class="books-row-text">
+            <span class="books-row-title"><%= htmlWebpackPlugin.options.strings.d20261022_books_own_title %></span>
+            <span class="books-row-desc"><%= htmlWebpackPlugin.options.strings.d20261022_books_own_desc %></span>
+          </span>
+          <svg class="books-row-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+          <input class="books-row-file books-local-file-input" type="file" accept=".csv, .json, .txt, .rtf, .pdf, .epub, .docx, .html, .htm" data-ws-onChange="handleFileSelect">
+        </label>
+
+        <!-- 2. Our catalogue: the whole row is one button, opening Discover's search. The examples only show what is there. -->
+        <button type="button" class="books-row books-row--catalogue" data-ws-onclick="booksOpenCatalogue">
+          <span class="books-row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="M21 21l-6 -6"/></svg>
+          </span>
+          <span class="books-row-text">
+            <span class="books-row-title"><%= htmlWebpackPlugin.options.strings.d20261022_books_catalogue_title %></span>
+            <span class="books-row-desc"><%= htmlWebpackPlugin.options.strings.d20261022_books_catalogue_desc %></span>
+            <span class="books-audio-line">🎧 <%= htmlWebpackPlugin.options.strings.d20261022_books_catalogue_audio %> <strong>Pride and Prejudice</strong>, <strong>Sherlock Holmes</strong>, <strong>Alice in Wonderland</strong></span>
+          </span>
+          <svg class="books-row-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+        </button>
+
+        <!-- 3. A Project Gutenberg link: the previous sheet's words and controls, as they were (Ronen, 2026-10-22: "keep the
+             format & texts we had ... it was good"); onProjectGutenbergImportClick reads #gutenbergUrlInput. -->
+        <div class="books-row books-row--gutenberg">
+          <span class="books-row-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 15l6 -6"/><path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"/><path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"/></svg>
+          </span>
+          <span class="books-row-text">
+            <span class="books-row-title"><%= htmlWebpackPlugin.options.strings.d20260427_books_modal_gutenberg_title %></span>
+            <span class="books-row-desc"><%= htmlWebpackPlugin.options.strings.d20260427_books_modal_gutenberg_desc %></span>
+            <a class="books-modal-gutenberg-link" href="https://www.gutenberg.org/" target="_blank" rel="noopener noreferrer"><%= htmlWebpackPlugin.options.strings.d20260427_books_modal_gutenberg_link %></a>
+            <span class="books-modal-gutenberg-tip"><%= htmlWebpackPlugin.options.strings.d20260427_books_modal_gutenberg_tip %></span>
+            <span class="input-container">
+              <input type="text" id="gutenbergUrlInput" class="styled-input" placeholder="https://www.gutenberg.org/ebooks/2701" dir="ltr">
+              <button class="styled-button" data-ws-onClick="onProjectGutenbergImportClick"><%= htmlWebpackPlugin.options.strings.main__go %></button>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>

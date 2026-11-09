@@ -1,0 +1,104 @@
+<div class="tab-page">
+  <h2 class="tab-page-title"><%= htmlWebpackPlugin.options.strings.d20260826_tab_about %></h2>
+
+  <div class="drawer-version-wrap">
+    <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
+      <b>V<%= htmlWebpackPlugin.options.version %></b> Build <%= htmlWebpackPlugin.options.dateModified %>
+      &nbsp;&nbsp;<span style=""><%= htmlWebpackPlugin.options.strings.drawer__all_versions %> <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
+    <!-- The player this one replaced, one click away. A daily tool changed shape;
+         anyone who preferred the old shape should not have to go hunting. -->
+    <a class="Menu-list-element about-previous-version" href="https://ttsreader.com/player@v3.13/"
+       target="_blank" rel="noopener noreferrer" onclick="gtag('event','about_click_previous_version',{value:'1'})">
+      <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14l-4 -4l4 -4"/><path d="M5 10h11a4 4 0 1 1 0 8h-1"/></svg>
+      <%= htmlWebpackPlugin.options.strings.d20260828_previous_version %>
+    </a>
+  </div>
+
+  <!-- The rest of the ecosystem, straight under the version: the two places
+       TTSReader also runs. Two lines each — the name alone does not say what
+       either one gives you that this page does not. -->
+  <div class="about-eco">
+    <a class="Menu-list-element about-eco-row" target="_blank" rel="noopener noreferrer"
+       href="https://apps.apple.com/us/app/ttsreader-text-to-speech/id6790834349"
+       onclick="gtag('event','about_click_ios_app',{value:'1'})">
+      <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"/><path d="M11 4h2"/><path d="M12 17v.01"/></svg>
+      <span class="about-eco-text">
+        <span class="about-eco-title"><%= htmlWebpackPlugin.options.strings.d20260828_about_ios %></span>
+        <span class="about-eco-sub"><%= htmlWebpackPlugin.options.strings.d20260828_about_ios_sub %></span>
+      </span>
+    </a>
+    <a class="Menu-list-element about-eco-row" target="_blank" rel="noopener noreferrer"
+       href="https://chromewebstore.google.com/detail/ttsreader-v3-premium-ai-t/kimpjeeihakmgdlnkjaapkdikpjccabi?hl=en"
+       onclick="gtag('event','about_click_extension',{value:'1'})">
+      <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"/></svg>
+      <span class="about-eco-text">
+        <span class="about-eco-title"><%= htmlWebpackPlugin.options.strings.d20260828_about_ext %></span>
+        <span class="about-eco-sub"><%= htmlWebpackPlugin.options.strings.d20260828_about_ext_sub %></span>
+      </span>
+    </a>
+  </div>
+
+  <div class="drawer-section-heading"><b><%= htmlWebpackPlugin.options.strings.d20260826_about_guides_heading %></b></div>
+
+  <a class="Menu-list-element" href="/docs/guides/quick-start-new-player/" target="_blank" style="text-decoration: none;display: block">
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-file-info"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M11 14h1v4h1" /><path d="M12 11h.01" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.user_manual %>
+  </a>
+  <!--TODO: maybe when we have a good ios style onboarding, well show it: // <a class="Menu-list-element" onclick="openOnboarding(true);">
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-progress-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" /><path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" /><path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" /><path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" /><path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" /><path d="M9 12l2 2l4 -4" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__onboarding %>
+  </a>-->
+  <div>
+    <a href="https://ttsreader.com/docs/guides/voiceover/#new-mix-languages-voices--speeds" target="_blank" class="Menu-list-element" onclick="gtag('event','drawer_click_multivoices',{value:'1'})" style="text-decoration:none;">
+      <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4c.96 0 1.84 .338 2.53 .901" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__multi_voice_dialogs %>
+    </a>
+  </div>
+  <a class="Menu-list-element" href="/docs/guides/commercial/" target="_blank" style="text-decoration: none;display: block">
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-video"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" /><path d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.commercial_publishing %>
+  </a>
+  <a class="Menu-list-element" href="https://docs.google.com/forms/d/e/1FAIpQLSecnm9ZnFje9S6OSSQqP4Ts4av-hSmhAUbuLvQAojWUdckAtg/viewform?usp=sf_link" target="_blank" style="text-decoration: none;display: block">
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-message-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.feedback_form %>
+  </a>
+  <a class="Menu-list-element" href="https://ttsreader.com/contact/" target="_blank" style="text-decoration: none;display: block">
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__contact_us %>
+  </a>
+  <div data-ws-show-if-state="isShareSupported=true">
+    <a class="Menu-list-element" onclick="share();"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+      <path d="M8.7 10.7l6.6 -3.4"></path>
+      <path d="M8.7 13.3l6.6 3.4"></path>
+    </svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__share %></a>
+  </div>
+  <div data-ws-show-if-state="isShareSupported=false">
+    <a class="Menu-list-element" data-ws-toggle="#shareModal"><svg style="vertical-align: middle" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share" width="27" height="27" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+      <path d="M8.7 10.7l6.6 -3.4"></path>
+      <path d="M8.7 13.3l6.6 3.4"></path>
+    </svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__share %></a>
+  </div>
+
+  <div class="drawer-section-heading"><b><%= htmlWebpackPlugin.options.strings.d20260826_about_more_heading %></b></div>
+
+  <div class="Menu-list-element" data-ws-toggle="#getExtensionModal">
+    NEW: Browser Extension
+  </div>
+  <div>
+    <a class="Menu-list-element" href="https://speechnotes.co/dictate/" target="_blank" style="text-decoration: none;display: block">
+      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-microphone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" /><path d="M5 10a7 7 0 0 0 14 0" /><path d="M8 21l8 0" /><path d="M12 17l0 4" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__speech_to_text %>
+    </a>
+  </div>
+  <div>
+    <a class="Menu-list-element" href="https://speechnotes.co/transcribe/" target="_blank" style="text-decoration: none;display: block">
+      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-device-audio-tape"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 17l4 -3h10l4 3" /><circle cx="7.5" cy="9.5" r=".5" fill="currentColor" /><circle cx="16.5" cy="9.5" r=".5" fill="currentColor" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__automatic_ai_transcription %>
+    </a>
+  </div>
+  <div>
+    <a class="Menu-list-element" href="/sounds/" target="_blank" style="text-decoration: none;display: block">
+      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-bell-ringing"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727" /><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__beeps_generator %>
+    </a>
+  </div>
+</div>
