@@ -1261,6 +1261,7 @@
         return actions.subscription.create({
           /* Creates the subscription */
           plan_id: 'P-82C30553N8925890NMZZWUTA',
+          application_context: {shipping_preference: "NO_SHIPPING"},
           custom_id
         });
       }
@@ -1271,6 +1272,7 @@
         return actions.subscription.create({
           /* Creates the subscription */
           plan_id: 'P-01654138F1540764BNCKMCSI',
+          application_context: {shipping_preference: "NO_SHIPPING"},
           custom_id
         });
       }
@@ -1281,6 +1283,7 @@
         return actions.subscription.create({
           /* Creates the subscription */
           plan_id: 'P-72R93922LT130451PNBJ7OCI',
+          application_context: {shipping_preference: "NO_SHIPPING"},
           custom_id
         });
       }
@@ -1306,6 +1309,7 @@
       let description = "TTSReader " + credits + " Extra Credits, UID: " + uid;
       config.createOrder = function (data, actions) {
         return actions.order.create({
+          application_context: {shipping_preference: "NO_SHIPPING"},
           purchase_units: [{
             description,
             custom_id,

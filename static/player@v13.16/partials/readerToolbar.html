@@ -1,0 +1,187 @@
+      <div class="Buttons-bar" style="display: flex">
+        <!-- The three pages, as a selector in the page's own top bar (docs/design/APP-SHELL-PLAN.md, option B; the other
+             pages hold the same selector in shellTopBar.html). On a phone they are in the bar at the foot of the screen. -->
+        <nav class="sn-tabs" aria-label="<%= htmlWebpackPlugin.options.strings.d20261117_shell_pages %>">
+          <span class="sn-tabs-group">
+            <button type="button" class="sn-tab" data-ws-onclick="switchTab" data-tab="library" title="<%= htmlWebpackPlugin.options.strings.d20260826_tab_library %>"><svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M5 8h4" /><path d="M9 16h4" /><path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" /><path d="M14 9l4 -1" /><path d="M16 16l3.923 -.98" /></svg><span class="sn-tab-label"><%= htmlWebpackPlugin.options.strings.d20260826_tab_library %></span></button>
+            <button type="button" class="sn-tab" data-ws-onclick="switchTab" data-tab="reader" title="<%= htmlWebpackPlugin.options.strings.d20260826_tab_reader %>"><svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 4v16l13 -8z" /></svg><span class="sn-tab-label"><%= htmlWebpackPlugin.options.strings.d20260826_tab_reader %></span></button>
+          </span>
+          <span class="sn-tabs-group">
+            <button type="button" class="sn-tab" data-ws-onclick="switchTab" data-tab="discover" title="<%= htmlWebpackPlugin.options.strings.d20260826_tab_discover %>"><svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 16l2 -6l6 -2l-2 6l-6 2" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 3l0 2" /><path d="M12 19l0 2" /><path d="M3 12l2 0" /><path d="M19 12l2 0" /></svg><span class="sn-tab-label"><%= htmlWebpackPlugin.options.strings.d20260826_tab_discover %></span></button>
+          </span>
+        </nav>
+
+        <!-- New, Web page and Books stood here as three icons. They are in Add, which floats under this bar (Ronen,
+             2026-11-17: "now that the add is so nice - we probably don't need these anymore"). -->
+        <!-- The document's actions, then its title, stand right after the pages (Ronen, 2026-11-18: "place [the
+             document's actions] right to the discover tab, and then the title - right to that - enabling the title
+             take all the remaining space width till the export-to-mp3 button (if space needed)"). A spacer stood here
+             and centred the title between two of them; the one left is after the title, so a short title leaves the
+             room empty and a long one takes all of it (the title's own rules shorten it with "…" past that). Both
+             menus hang from their button's start edge now (src/css/shellNav.css). -->
+        <!-- Everything that acts ON this document, in one place (the port of iOS's
+             ellipsis menu; a burger on a disc since 2026-11-17, and it opens while the mouse rests on it:
+             src/reader/ToolbarHoverMenus.js). Rendered by DocActionsMenu; the rows reuse the Library's
+             own handlers so an action behaves the same wherever you reach it. -->
+        <div class="doc-actions-wrap">
+          <button class="doc-actions-btn" data-ws-onclick="docActionsClick" aria-haspopup="menu"
+                  title="<%= htmlWebpackPlugin.options.strings.d20260802_document_actions %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260802_document_actions %>">
+            <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6l16 0"/><path d="M4 12l16 0"/><path d="M4 18l16 0"/></svg>
+          </button>
+          <div id="docActionsMenu" class="doc-title-menu doc-actions-menu hidden" role="menu"
+               data-ws-show-if-state="docActionsOpen=true">
+            <div id="docActionsList" class="doc-menu-list"></div>
+          </div>
+        </div>
+
+        <!-- The open document's title. It was in the toolbar's centre until 2026-11-18. Clicking it
+             drops the recent-documents menu; the pencil swaps the label for an
+             input. Both are `data-ws-show-if-state` flips of one state key
+             each — nothing here toggles display directly. -->
+        <div class="doc-title-wrap">
+          <button class="doc-title-btn" data-ws-show-if-state="docTitleEditing=false"
+                  data-ws-onclick="docTitleClick"
+                  title="<%= htmlWebpackPlugin.options.strings.d20260827_doc_menu_title %>" aria-haspopup="menu">
+            <span class="doc-title-text" data-ws-label-state="activeDocTitleLabel"></span>
+            <!-- Renaming and the recents menu belong to the Reader; elsewhere the
+                 title is just a label that takes you back to it. -->
+            <span class="doc-title-pencil"
+                  data-ws-onclick="docTitleEdit" title="<%= htmlWebpackPlugin.options.strings.d20260827_doc_rename %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260827_doc_rename %>">
+              <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"/><path d="M13.5 6.5l4 4"/></svg>
+            </span>
+            <svg class="ws-icon doc-title-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6l6 -6"/></svg>
+          </button>
+
+          <input id="docTitleInput" class="doc-title-input hidden" type="text"
+                 data-ws-show-if-state="docTitleEditing=true"
+                 data-ws-value-state="activeDocTitle" data-ws-onchange="docTitleCommit"
+                 aria-label="<%= htmlWebpackPlugin.options.strings.d20260827_doc_rename %>">
+
+          <div id="docTitleMenu" class="doc-title-menu hidden" role="menu"
+               data-ws-show-if-state="docMenuOpen=true">
+            <!-- Making an mp3 OF THIS DOCUMENT comes first: the menu hangs off the
+                 document's own title, so the action about that document outranks
+                 the one that leaves it. -->
+            <button class="doc-menu-item doc-menu-item--generate" data-ws-onclick="docMenuGenerateMp3">
+              <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+              <span class="doc-menu-item-title"><%= htmlWebpackPlugin.options.strings.d20260827_doc_menu_generate_mp3 %></span>
+            </button>
+            <button class="doc-menu-item doc-menu-item--new" data-ws-onclick="docMenuNew">
+              <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l0 14"/><path d="M5 12l14 0"/></svg>
+              <span class="doc-menu-item-title"><%= htmlWebpackPlugin.options.strings.d20260827_new_title %></span>
+            </button>
+            <div class="doc-menu-heading"><%= htmlWebpackPlugin.options.strings.d20260827_doc_recent %></div>
+            <div id="docMenuList" class="doc-menu-list"></div>
+          </div>
+        </div>
+
+        <!-- Stats and "make an mp3" sit WITH the title: both act on the document
+             named beside them, not on the app. Grouped so they read as one
+             control rather than two loose icons. The export button opens the
+             export modal DIRECTLY — the archive of finished files is its own
+             rail item now. -->
+        <!--<span class="title-actions">
+          <button class="title-action" data-ws-onclick="calculateStats" data-ws-toggle="#statsModal"
+                  title="Text analytics - word counter &amp; more" aria-label="Text analytics - word counter &amp; more">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-google-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 9m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v9.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" /><path d="M17 3m0 1.105a1.105 1.105 0 0 1 1.105 -1.105h1.79a1.105 1.105 0 0 1 1.105 1.105v15.79a1.105 1.105 0 0 1 -1.105 1.105h-1.79a1.105 1.105 0 0 1 -1.105 -1.105z" /><path d="M5 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /></svg>
+          </button>
+          <button class="title-action" data-ws-onclick="calculateStats" data-ws-toggle="#exportModal"
+                  title="<%= htmlWebpackPlugin.options.strings.d20260220_index_export_text_to_mp3 %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260220_index_export_text_to_mp3 %>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          </button>
+        </span>-->
+
+
+        <!-- Reader-only actions: exports, theme, stats, help, player settings.
+             They act on the document being read, so on any other tab they are
+             noise pointing at nothing. One state key, no per-button logic. -->
+
+          <span style="flex: 1"></span>
+
+        <div class="toolbar-actions">
+        <!-- Generate MP3: the feature people pay for, where they can see it (Ronen, 2026-10-21: "GENERATE TO MP3 is
+             probably the main feature users pay for - so it has to be super obvious (1) it's possible and (2) how to").
+             The title menu's own door (docMenuGenerateMp3: stats, then the export modal), so both open the same thing.
+             The icon and "MP3" when the reader is narrow, a phone included. -->
+        <button class="toolbar-generate-btn" type="button" data-ws-onclick="docMenuGenerateMp3" data-ws-show-if-state="readerAudioMode=false"
+                title="<%= htmlWebpackPlugin.options.strings.d20261021_toolbar_generate_mp3 %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20261021_toolbar_generate_mp3 %>">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          <span class="toolbar-generate-label"><%= htmlWebpackPlugin.options.strings.d20261021_toolbar_generate_mp3 %></span>
+          <!-- a narrow bar and a phone: the icon and "MP3" (Ronen, 2026-11-17: "just read 'MP3' (including the icon) -
+               that's clear enough and makes sure it doesnt wrap to 2 lines") -->
+          <span class="toolbar-generate-short" aria-hidden="true">MP3</span>
+        </button>
+        <!-- While the Reader shows an audio, the same place downloads it (Ronen, 2026-10-22; src/player/AudioDownload.js). -->
+        <button class="toolbar-generate-btn hidden" type="button" data-ws-onclick="downloadReaderAudio" data-ws-show-if-state="readerAudioMode=true"
+                title="<%= htmlWebpackPlugin.options.strings.d20261022_download_mp3 %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20261022_download_mp3 %>">
+          <svg class="ws-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          <span class="toolbar-generate-label"><%= htmlWebpackPlugin.options.strings.d20261022_download_mp3 %></span>
+          <!-- a narrow bar and a phone: the icon and "MP3" (Ronen, 2026-11-17: "just read 'MP3' (including the icon) -
+               that's clear enough and makes sure it doesnt wrap to 2 lines") -->
+          <span class="toolbar-generate-short" aria-hidden="true">MP3</span>
+        </button>
+        <!--<button data-ws-show-if-state="isPremium=false" class="Hide-on-narrow-screens" style="text-align: center; text-wrap:nowrap;" onclick="openNewUpgradeModal()">
+          <span style="border-radius: 10px; padding: 7px 16px; background-color: green; font-weight: bold;">👑 <%= htmlWebpackPlugin.options.strings.go_premium %></span>
+        </button>-->
+        <!-- The voice chip stood here (the voice's gender and its language's flag, shown while the sidebar was closed; a
+             press opened the sidebar). It is out (Ronen, 2026-11-18: "let's comment out [it] altogether - now that we
+             have the clear sidebar icon it's not needed"). The play bar says the voice, and opens the same panel.
+        <button class="btn btn-link toolbar-voice-btn" type="button"
+                data-ws-show-if-state="showSettingsSidebar=false"
+                data-ws-onclick="voiceChipClick"
+                title="[strings.d20260827_chip_voice]" aria-label="[strings.d20260827_chip_voice]">
+          <span class="chip-gender hidden" data-ws-show-if-state="voiceIsFemale=true">👩</span>
+          <span class="chip-gender hidden" data-ws-show-if-state="voiceIsMale=true">👨</span>
+          <span class="chip-gender hidden" data-ws-show-if-state="voiceIsNeutral=true">🧑</span>
+          <span class="toolbar-voice-flag Flag-font" data-ws-label-state="voiceFlag"></span>
+        </button>
+        -->
+
+        <span class="Hide-on-narrow-screens">&nbsp;</span>
+        <!-- Appearance: the five reading themes, as on the phones (src/reader/ReadingThemes.js draws the swatches). The
+             click goes to the pre-paint script's toggleTheme(), which hands it to the picker - or, without the picker,
+             flips light and dark, as this button always did. -->
+        <div class="reading-theme-wrap">
+          <button id="readingThemeButton" onclick="toggleTheme();" class="btn btn-link" type="button"
+                  aria-haspopup="dialog" aria-expanded="false" aria-controls="readingThemePopover"
+                  title="<%= htmlWebpackPlugin.options.strings.d20260709_appearance %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260709_appearance %>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 17a5 5 0 0 0 0 -10v10" fill="currentcolor"/></svg>
+          </button>
+          <div id="readingThemePopover" class="reading-theme-popover" role="dialog" aria-label="<%= htmlWebpackPlugin.options.strings.d20260709_reading_theme %>" hidden>
+            <div class="reading-theme-title" aria-hidden="true"><%= htmlWebpackPlugin.options.strings.d20260709_reading_theme %></div>
+            <div class="reading-theme-swatches" role="radiogroup" aria-label="<%= htmlWebpackPlugin.options.strings.d20260709_reading_theme %>"></div>
+            <!-- The space around the page: plain or the desk image (Ronen, 2026-10-22: "simply add a toggle 'image/plain
+                 background'"). The pre-paint script stores and paints it, and marks the chosen half. -->
+            <div class="reading-theme-bg">
+              <span class="reading-theme-bg-label"><%= htmlWebpackPlugin.options.strings.d20261022_reading_bg %></span>
+              <span class="reading-theme-bg-switch" role="radiogroup" aria-label="<%= htmlWebpackPlugin.options.strings.d20261022_reading_bg %>">
+                <button type="button" role="radio" class="reading-theme-bg-opt" data-desk="0" aria-checked="false"
+                        onclick="window.ttsrReadingLook && window.ttsrReadingLook.desk && window.ttsrReadingLook.desk(false);"><%= htmlWebpackPlugin.options.strings.d20261022_reading_bg_plain %></button>
+                <button type="button" role="radio" class="reading-theme-bg-opt" data-desk="1" aria-checked="true"
+                        onclick="window.ttsrReadingLook && window.ttsrReadingLook.desk && window.ttsrReadingLook.desk(true);"><%= htmlWebpackPlugin.options.strings.d20261022_reading_bg_image %></button>
+              </span>
+            </div>
+            <!-- The sentence being read: Spotlight or the coloured band (Ronen, 2026-10-25: "can we have the bg-highlighting
+                 as a toggle in the setting of the theme"). src/reader/ReaderHighlightMarker.js wires and marks it. -->
+            <div class="reading-theme-bg">
+              <span class="reading-theme-bg-label"><%= htmlWebpackPlugin.options.strings.d20261025_reader_highlight %></span>
+              <span class="reading-theme-bg-switch" role="radiogroup" aria-label="<%= htmlWebpackPlugin.options.strings.d20261025_reader_highlight %>">
+                <button type="button" role="radio" class="reader-highlight-opt" data-highlight="spotlight" aria-checked="true"><%= htmlWebpackPlugin.options.strings.d20261025_reader_highlight_spotlight %></button>
+                <button type="button" role="radio" class="reader-highlight-opt" data-highlight="marker" aria-checked="false"><%= htmlWebpackPlugin.options.strings.d20261025_reader_highlight_marker %></button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- The sidebar, at hand (Ronen, 2026-10-22: "to the RIGHT of the theme button - can you add this sidebar-toggle
+             button?"): the sidebar's own toggle, the one the voice and speed chips call. -->
+        <button class="btn btn-link toolbar-sidebar-btn" type="button" data-ws-onclick="toggleSettingsSidebar"
+                title="<%= htmlWebpackPlugin.options.strings.d20261022_toggle_sidebar %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20261022_toggle_sidebar %>">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M15 4l0 16"/></svg>
+        </button>
+        <!-- The account, in the top bar's corner (docs/design/APP-SHELL-PLAN.md, option B). -->
+        <button type="button" class="sn-account" data-account-menu data-ws-onclick="accountMenuToggle" aria-haspopup="dialog" aria-controls="accountMenu" aria-expanded="false" title="<%= htmlWebpackPlugin.options.strings.d20260826_tab_account %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260826_tab_account %>"><span class="am-avatar" data-ws-style-state="backgroundColor=accountAvatarTone" aria-hidden="true"><span class="am-avatar-icon" data-ws-show-if-state="accountAvatarIcon=true"><svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg></span><span class="am-avatar-initial" data-ws-label-state="accountAvatarInitial"></span><span class="am-avatar-photo" data-ws-style-state="backgroundImage=accountAvatarPhoto"></span></span></button>
+        </div>
+        <!--<button title="Interface Language Selector" aria-label="Interface Language Selector" style="" data-ws-toggle="#interfaceLangModal">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-language"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7" /><path d="M9 3v2c0 4.418 -2.239 8 -5 8" /><path d="M5 9c0 2.144 2.952 3.908 6.7 4" /><path d="M12 20l4 -9l4 9" /><path d="M19.1 18h-6.2" /></svg>
+        </button>-->
+      </div>

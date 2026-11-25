@@ -1,126 +1,157 @@
-/* src/findreplace/widget.css */
+/* Find & Replace (public/widget.js): a bar in the Reader's text area, between the editor's tools and the text's card
+   (Ronen, 2026-11-18: "can the search widget be in between these pills and the textbox?"), as wide as the text's
+   card. One line; Replace opens a second (Ronen, 2026-11-18: "our search can now add a bar - single line between the
+   title to [the editor's tools]. collapsable of course").
+   Its colours are the reading theme's: the page's colour behind, the text's colour on it (Ronen, 2026-11-18: "the
+   search& replace widget should have the themes colors of bg, font"). They are the two variables the text's own card
+   is painted with (src/App.css, html[data-reading-theme] .Text-box). Every other tone in the bar is mixed from the
+   text's colour, so it holds on Paper, Sepia, Night and Black alike. */
+
 .fr-widget {
-  display: flex;
+  display: none;
   flex-direction: column;
-  gap: 8px;
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 10;
-  background-color: #2c2c2c;
-  padding: 12px;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  font-family: sans-serif;
-  color: #f0f0f0;
-  width: 280px;
-  border: 1px solid #444;
-}
-
-.fr-widget-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 4px;
-  padding-right: 24px; /* Make space for the close button */
-}
-
-.fr-widget-title {
-  font-weight: bold;
+  gap: 6px;
+  flex: 0 0 auto;
+  /* the text's card is 95% of the area, 800px at most (.ql-container): the bar stands on the same two edges */
+  width: 95%;
+  max-width: 800px;
+  margin: 6px auto 2px;
+  padding: 6px 8px 6px 14px;
+  box-sizing: border-box;
+  border-radius: 23px;
+  /* without a reading theme (its script did not run) the page's plain colours */
+  background: var(--reader-page, #ffffff);
+  color: var(--reader-text, #1f2328);
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+  box-shadow: 0 8px 20px rgba(15, 20, 35, 0.16), 0 1px 4px rgba(15, 20, 35, 0.1);
+  /* its own size: the text area's is the reader's chosen text size */
+  font-family: inherit;
   font-size: 14px;
+  line-height: 1.2;
+  text-align: start;
 }
+[dir="rtl"] .fr-widget { padding: 6px 14px 6px 8px; }
+[data-dark-mode]:not([data-reading-theme]) .fr-widget { background: #1c1c1e; color: #e6e6e6; }
+.fr-widget.is-open { display: flex; animation: frBarIn 0.16s ease; }
+@keyframes frBarIn { from { opacity: 0; transform: translateY(-6px); } }
+/* a recording has no text to search: the bar is not shown over it (its icon is hidden there too) */
+html.ws-audio-mode .Text-box-container > .fr-widget.is-open { display: none; }
 
-.fr-widget-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 20px;
-  height: 20px;
-  background: none;
-  border: none;
-  color: #ff4d4d; /* Red 'X' */
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-}
-.fr-widget-close:hover {
-  transform: scale(1.1); /* Embolden on hover */
-}
-
-.fr-input-group {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
+.fr-line { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; min-height: 34px; }
+.fr-line[hidden] { display: none; }
+.fr-line--replace { padding-top: 6px; border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent); }
+.fr-lead { display: inline-flex; flex: 0 0 auto; opacity: 0.62; }
+.fr-ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 .fr-widget input[type="text"] {
-  flex-grow: 1;
-  background-color: #3a3a3a;
-  border: 1px solid #555;
-  color: #f0f0f0;
-  padding: 6px 8px;
-  border-radius: 4px;
-  font-size: 13px;
-}
-.fr-widget input[type="text"]:focus {
+  flex: 1 1 140px;
+  min-width: 0;
+  height: 34px;
+  margin: 0;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  color: inherit;
+  caret-color: currentColor;
+  font: inherit;
   outline: none;
-  border-color: #007acc;
 }
+.fr-widget input[type="text"]::placeholder { color: color-mix(in srgb, currentColor 58%, transparent); opacity: 1; }
+.fr-widget input[type="text"]:focus { border-color: #0a84ff; background: color-mix(in srgb, currentColor 5%, transparent); }
 
 .fr-match-count {
-  font-size: 12px;
-  color: #aaa;
+  flex: 0 0 auto;
+  min-width: 46px;
+  padding: 0 2px;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, currentColor 72%, transparent);
+  text-align: center;
   white-space: nowrap;
-  padding: 0 5px;
 }
-
-.fr-button-group {
-  display: flex;
-  gap: 5px;
-}
+.fr-match-count:empty { min-width: 0; padding: 0; }
 
 .fr-widget button {
-  flex-grow: 1;
-  background-color: #4a4a4a;
-  border: 1px solid #666;
-  color: #f0f0f0;
-  padding: 6px 0;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
-}
-.fr-widget button:hover {
-  background-color: #5a5a5a;
-}
-.fr-widget button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.fr-options-group {
-  display: flex;
-  justify-content: space-around;
-  gap: 10px;
-  font-size: 12px;
-  margin-top: 5px;
-  padding-top: 8px;
-  border-top: 1px solid #444;
-}
-
-.fr-options-group label {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-}
-
-.fr-options-group input[type="checkbox"] {
   margin: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.fr-widget button:focus-visible,
+.fr-chip input:focus-visible + span { outline: 3px solid #0a84ff; outline-offset: 2px; }
+.fr-widget button:disabled { opacity: 0.4; cursor: default; }
+
+/* previous, next, close: round */
+.fr-round { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 34px; height: 34px; padding: 0; border-radius: 50%; }
+.fr-widget .fr-round:not(:disabled):hover { background: color-mix(in srgb, currentColor 13%, transparent); }
+
+/* Replace: opens and closes the second line. Open, it is the page's two colours swapped. */
+.fr-more {
+  display: inline-flex; align-items: center; gap: 4px; flex: 0 0 auto; height: 34px; padding: 0 8px 0 13px;
+  border-radius: 17px; font-size: 13.5px; font-weight: 600; white-space: nowrap;
+}
+.fr-widget .fr-more { background: color-mix(in srgb, currentColor 8%, transparent); }
+.fr-widget .fr-more:hover { background: color-mix(in srgb, currentColor 16%, transparent); }
+.fr-more .fr-ic { width: 16px; height: 16px; transition: transform 0.12s ease; }
+.fr-widget .fr-more[aria-expanded="true"] { background: var(--reader-text, #1f2328); color: var(--reader-page, #ffffff); }
+.fr-more[aria-expanded="true"] .fr-ic { transform: rotate(180deg); }
+
+/* Replace, Replace all */
+.fr-pill { flex: 0 0 auto; height: 34px; padding: 0 14px; border-radius: 17px; font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+.fr-widget .fr-pill { background: color-mix(in srgb, currentColor 10%, transparent); }
+.fr-widget .fr-pill:not(:disabled):hover { background: color-mix(in srgb, currentColor 18%, transparent); }
+.fr-widget .fr-replace-btn:not(:disabled) { background: #0a84ff; color: #fff; }
+.fr-widget .fr-replace-btn:not(:disabled):hover { background: #2b95ff; }
+
+/* the three ways to match: a chip each; on, it is the page's two colours swapped */
+.fr-options-group { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-inline-start: auto; }
+.fr-chip { display: inline-flex; cursor: pointer; }
+.fr-chip input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.fr-chip span {
+  display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 15px;
+  border: 1px solid color-mix(in srgb, currentColor 24%, transparent); font-size: 12.5px; font-weight: 500; white-space: nowrap;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.fr-chip:hover span { border-color: color-mix(in srgb, currentColor 50%, transparent); }
+.fr-chip input:checked + span { background: var(--reader-text, #1f2328); border-color: var(--reader-text, #1f2328); color: var(--reader-page, #ffffff); font-weight: 700; }
+[data-dark-mode]:not([data-reading-theme]) .fr-widget .fr-more[aria-expanded="true"],
+[data-dark-mode]:not([data-reading-theme]) .fr-chip input:checked + span { background: #e6e6e6; border-color: #e6e6e6; color: #1c1c1e; }
+
+/* A narrow bar: the first line stays one line. It is the BAR's own width that decides (a narrow window that is not a
+   phone has a narrow bar too, and a long word for Replace needs the room sooner): Replace is its arrow alone (its name
+   is still said to a screen reader and on a long press), the magnifier gives its room to the field, and the second
+   line's field has a row of its own. */
+.fr-widget { container-type: inline-size; }
+@container (width < 520px) {
+  .fr-line { gap: 4px; }
+  .fr-line--find { flex-wrap: nowrap; }
+  .fr-lead, .fr-more-text { display: none; }
+  .fr-more { width: 34px; padding: 0; justify-content: center; border-radius: 50%; }
+  .fr-widget input[type="text"] { flex-basis: 80px; }
+  .fr-match-count { min-width: 38px; font-size: 12px; }
+  .fr-line--replace .fr-replace-input { flex-basis: 100%; }
+  .fr-options-group { margin-inline-start: 0; }
+}
+/* the bar's own padding cannot ask the bar: a narrow window */
+@media (max-width: 560px) {
+  .fr-widget { padding: 6px 6px 6px 8px; }
+  [dir="rtl"] .fr-widget { padding: 6px 8px 6px 6px; }
+}
+
+/* The "not synced yet" chip stands under the editor's tools (src/css/modern.css: 58px from the Reader's panel's top).
+   With the bar open the card is lower by the bar: the chip follows by the room the bar says it takes (--fr-height,
+   measured by widget.js: one line, two, or more where a narrow window wraps it; 56px, one line, where it is not said).
+   It was two fixed numbers, for one line and for two, and lay on a bar that had wrapped. */
+.tab-root > .App:has(> .Text-box-container.fr-open) > .ws-pending-chip { top: calc(58px + var(--fr-height, 56px)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fr-widget.is-open { animation: none; }
+  .fr-widget button, .fr-chip span, .fr-more .fr-ic { transition: none; }
 }
 
 ::highlight(fr-search) { background-color: yellow; color: black; }

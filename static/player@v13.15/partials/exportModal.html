@@ -1,0 +1,160 @@
+  <!-- Generate MP3 (Ronen, 2026-10-21: "make 'id="exportModal"' - the whole modal MUCH NICER and more to the point ... the
+       export to MP3 should probably be sticky at the bottom ... the podcast line - should prbably show the podcasts's url
+       ... if any blockers (mainly not enough credits) it's super clear what's missing and how to quick-fix on the spot").
+       A fixed head, a scrolling body with the checklist (src/export/ExportReadiness.js), a sticky foot whose button is
+       Generate when everything is in place and the first fix when something is missing. -->
+  <div class="Modal" id="exportModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content export-sheet">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+
+      <header class="export-head">
+        <h3 class="export-title">
+          <svg class="export-title-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          <%= htmlWebpackPlugin.options.strings.d20261021_toolbar_generate_mp3 %>
+        </h3>
+      </header>
+
+      <div class="export-body">
+        <!-- Only what is missing, one row each, with its fix right there (Ronen, 2026-10-21: "if it's ok - it's ok - extra
+             info is confusing"). Nothing missing: no list, only the button. -->
+        <ul class="export-checks hidden" data-ws-show-if-state="exportBlocked=true">
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportIsEmpty=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name"><%= htmlWebpackPlugin.options.strings.d20261021_export_row_text %></span>
+            <span class="export-check-value"><%= htmlWebpackPlugin.options.strings.d20261021_export_empty %></span>
+          </li>
+
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportSignedOut=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name"><%= htmlWebpackPlugin.options.strings.d20261021_export_row_account %></span>
+            <span class="export-check-value"><%= htmlWebpackPlugin.options.strings.d20261021_export_fix_signin %></span>
+            <div class="export-check-fix export-check-signin"><sign-in-buttons></sign-in-buttons></div>
+          </li>
+
+          <!-- A voice the server cannot render still records live as it reads: that, first; an AI voice, second. -->
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportVoiceBad=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name"><%= htmlWebpackPlugin.options.strings.d20261021_export_row_voice %></span>
+            <span class="export-check-value" data-ws-label-state="exportVoiceLine"></span>
+            <div class="export-check-fix export-check-fixes">
+              <button type="button" class="export-fix-btn export-fix-btn--buy" data-ws-onclick="exportFixRecord"><%= htmlWebpackPlugin.options.strings.d20261021_export_fix_record %></button>
+              <button type="button" class="export-fix-btn" data-ws-onclick="exportFixVoice"><%= htmlWebpackPlugin.options.strings.d20261021_export_fix_voice %></button>
+            </div>
+          </li>
+
+          <!-- How many are missing, and a buy button that says what it brings. -->
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportCreditsBad=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name"><%= htmlWebpackPlugin.options.strings.d20261021_export_row_credits %></span>
+            <span class="export-check-value" data-ws-label-state="exportCreditsLine"></span>
+            <button type="button" class="export-check-fix export-buy" data-ws-onclick="exportFixCredits">
+              <span class="export-buy-title" data-ws-label-state="exportCreditsFixLabel"></span>
+              <span class="export-buy-sub" data-ws-label-state="exportCreditsFixSub"></span>
+            </button>
+          </li>
+
+          <li class="export-check is-bad hidden" data-ws-show-if-state="exportLengthBad=true">
+            <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+            <span class="export-check-name"><%= htmlWebpackPlugin.options.strings.d20261021_export_row_length %></span>
+            <span class="export-check-value" data-ws-label-state="exportLengthLine"></span>
+            <span class="export-check-hint"><%= htmlWebpackPlugin.options.strings.d20261021_export_length_hint %></span>
+          </li>
+        </ul>
+
+        <!-- The podcast option; its feed under it once there is one; "?" opens the guide (Ronen, 2026-10-21). -->
+        <div class="export-podcast hidden" data-ws-show-if-state="isSignedIn=true">
+          <div class="export-podcast-row">
+            <label class="export-switch">
+              <input type="checkbox" id="sendToPodcastCheckbox" />
+              <span class="export-switch-track" aria-hidden="true"></span>
+              <span class="export-switch-label"><%= htmlWebpackPlugin.options.strings.export_mp3_modal__send_to_podcast_title %></span>
+            </label>
+            <a class="export-help" href="https://ttsreader.com/docs/guides/create-podcasts/" target="_blank" rel="noopener"
+               title="<%= htmlWebpackPlugin.options.strings.d20260220_index_create_podcast_channel %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260220_index_create_podcast_channel %>">?</a>
+          </div>
+          <div class="export-feed hidden" data-ws-show-if-state="podcast_main_channel_url=true">
+            <code class="export-feed-url" data-ws-label-state="podcast_main_channel_url"></code>
+            <button type="button" class="export-fix-btn" data-ws-onclick="copyPodcastUrl"><%= htmlWebpackPlugin.options.strings.copy %></button>
+          </div>
+        </div>
+
+        <!-- Where finished files go, and that they follow you between devices. -->
+        <a class="export-folder" onclick="openOrCloseExportsListModal();">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"/></svg>
+          <span><%= htmlWebpackPlugin.options.strings.d20261021_export_folder %></span>
+          <svg class="export-folder-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+        </a>
+
+        <!-- What people come to export for (Ronen, 2026-10-21). The licence items come with Premium, so a free account
+             reads it as "What you get with Premium". -->
+        <!-- Collapsed until asked for (Ronen, 2026-10-21: "collapse it by default ... it's too long adds a lot of distraction"). -->
+        <details class="export-perks">
+          <summary class="export-perks-title">
+            <span class="hidden" data-ws-show-if-state="isPremium=true"><%= htmlWebpackPlugin.options.strings.d20261021_export_perks_title_premium %></span>
+            <span data-ws-show-if-state="isPremium=false"><%= htmlWebpackPlugin.options.strings.d20261021_export_perks_title_free %></span>
+          </summary>
+          <ul class="export-perks-list">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span><%= htmlWebpackPlugin.options.strings.d20261021_export_perk_own %></span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span><%= htmlWebpackPlugin.options.strings.d20261021_export_perk_copyright %></span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span><%= htmlWebpackPlugin.options.strings.d20261021_export_perk_commercial %></span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span><%= htmlWebpackPlugin.options.strings.d20261021_export_perk_social %></span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span><%= htmlWebpackPlugin.options.strings.d20261021_export_perk_dubbing %></span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span><%= htmlWebpackPlugin.options.strings.d20261021_export_perk_voices %>
+              <a class="export-link export-perk-link" href="https://ttsreader.com/blog/creating-multi-voice-multi-languages-in-ttsreader/" target="_blank" rel="noopener"><%= htmlWebpackPlugin.options.strings.d20261021_export_perk_voices_link %></a></span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span><%= htmlWebpackPlugin.options.strings.d20261021_export_perk_later %></span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5l9 -9"/></svg><span><%= htmlWebpackPlugin.options.strings.d20261021_export_perk_offline %></span></li>
+          </ul>
+          <!-- Inside the section: it opens with the list (Ronen, 2026-10-21). -->
+          <a class="export-link export-tips-link" data-ws-toggle="#exportTipsModal"><%= htmlWebpackPlugin.options.strings.d20261021_export_tips_link %></a>
+        </details>
+      </div>
+
+      <!-- Sticky: Generate when everything is in place; otherwise the first missing thing's fix. -->
+      <footer class="export-foot">
+        <button onclick="sendAnalyticsEvent('exportMP3');" class="export-cta" data-ws-params="mp3"
+                data-ws-onClick="exportToMp3" data-ws-show-if-state="exportReady=true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+          <span data-ws-label-state="exportCtaLabel"><%= htmlWebpackPlugin.options.strings.d20261021_toolbar_generate_mp3 %></span>
+        </button>
+        <button class="export-cta export-cta--fix hidden" data-ws-onclick="exportFixFirst"
+                data-ws-show-if-state="exportBlocked=true" data-ws-disable-if-state="exportFixDisabled=true">
+          <span data-ws-label-state="exportFixLabel"></span>
+        </button>
+        <!-- With a voice that blocks: recording first (above), the instant file with a Premium voice second. -->
+        <button class="export-cta export-cta--alt hidden" data-ws-onclick="exportFixVoice" data-ws-show-if-state="exportBlocker=voice">
+          <%= htmlWebpackPlugin.options.strings.d20261021_export_fix_voice_instant %>
+        </button>
+        <p class="export-foot-line" data-ws-label-state="exportFootLine"></p>
+        <p class="export-foot-line" data-ws-label-state="exportFootDuration"></p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Export tips: over the export modal, which stays open under it (data-ws-toggle opens without closing others; the
+       close button closes only its own sheet). -->
+  <div class="Modal" id="exportTipsModal" style="display: none;">
+    <div style="height:20px;"></div>
+    <div class="Modal-content export-sheet export-tips">
+      <button class="Close-modal" style="z-index: 999">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
+      <header class="export-head"><h3 class="export-title"><%= htmlWebpackPlugin.options.strings.d20261021_export_tips_title %></h3></header>
+      <div class="export-body">
+        <ul class="export-tips-list">
+          <li><%= htmlWebpackPlugin.options.strings.export_mp3_modal__play_before_export %></li>
+          <li><%= htmlWebpackPlugin.options.strings.export_mp3_modal__pause_support_info %></li>
+          <li><%= htmlWebpackPlugin.options.strings.export_mp3_modal__quota_info %></li>
+          <li><%= htmlWebpackPlugin.options.strings.d20251109_export_modal_podcast_feature %></li>
+          <li><%= htmlWebpackPlugin.options.strings.d20260220_index_need_audio_format %></li>
+        </ul>
+        <a class="export-link" href="https://ttsreader.com/blog/new-single-click-export-text-to-audio-feature/" target="_blank" rel="noopener"><%= htmlWebpackPlugin.options.strings.d20261021_export_tips_guide %></a>
+      </div>
+    </div>
+  </div>

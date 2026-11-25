@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-10-22T16:36:50.301Z",
-      "version": "3.15.0",
+      "dateModified": "2026-10-26T12:48:19.788Z",
+      "version": "3.15.1",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -74,6 +74,7 @@
     // is dark (core ReadingLook.appIsDark). This runs before the bundle, so it cannot run the core: the colours the core
     // resolves are stored ("ttsreader-reading-look") by src/reader/ReadingThemes.js when a theme is chosen. The table
     // below is the same colours, for a visitor with nothing stored; ReadingThemesPrePaint.test.js pins it to the core.
+    // A first-ever visit's look is chosen right after this, by the first-visit-look script, through store().
     (function () {
       var KEY = 'ttsreader-reading-look';
       // The desk photo around the page (App.css [data-theme-bg]): an option of its own in the picker, on unless Plain was
@@ -172,7 +173,10 @@
       }
 
       // No theme chosen here: Automatic, the core's default (Ronen, 2026-10-18, R2: "Everyone starts on Automatic, which
-      // follows the device and is the core's own default. Any other look is one tap away in Appearance."). The old
+      // follows the device and is the core's own default. Any other look is one tap away in Appearance."). Since
+      // 2026-10-25 that is every returning visitor who never picked a theme; a first-ever visit is painted Automatic
+      // here and then gets Paper or Night by the coin, stored, from the first-visit-look script below (Ronen: "only
+      // first-time users - should see a 50/50 light/dark"). The old
       // player's look ("theme-player-only") is not read: the old script chose it for each new visitor (dark on a dark
       // device, else a coin flip) and wrote it on every load, so it does not say the visitor chose it. Nor is the blog's
       // ("theme"): the blog writes "dark" there on its own for a dark device, and a "light" is the blog's choice, not the
@@ -289,6 +293,51 @@
       } catch (e) {
         // The Reader keeps App.css's own colours.
         document.documentElement.removeAttribute('data-reading-theme');
+      }
+    })();
+  </script>
+
+  <script id="first-visit-look">
+    // A first-ever visit starts on a coin flip between light and dark again (Ronen, 2026-10-25: "only first-time users -
+    // should see a 50/50 light/dark - once its set - its set for them and it will be stored - of course they can change
+    // later"), as before the themes: Paper or Night, the themes nearest the old light and dark looks. A device in dark
+    // mode starts on Night, as the old script started it dark (Ronen: "As it was"). Stored at once through the pre-paint
+    // script's own store() above, so it is painted before the first frame and on every visit after, like a theme picked
+    // in Appearance - where it is changed.
+    // First-ever is the first-visit analytics' own test (no analytics id, never onboarded, never signed in), with no
+    // theme stored and no old player's look: the old script wrote "theme-player-only" on every load, so it says "has
+    // been here", from before analytics too. It is only asked whether it is there; the look in it is still not read. A
+    // returning visitor who never picked a theme keeps Automatic, as before.
+    // The side goes to window.ttsrFirstLookCohort, the prefix of the first-visit analytics id: L1025_ Paper and D1025_
+    // Night by the coin, N1025_ Night by a dark device (no coin).
+    // Any failure leaves the look the pre-paint script painted.
+    (function () {
+      try {
+        var api = window.ttsrReadingLook;
+        if (!api || typeof api.stored !== 'function' || typeof api.store !== 'function' ||
+            typeof api.preset !== 'function' || typeof api.deviceIsDark !== 'function') return;
+        if (api.stored()) return;
+        var seen = ['ttsreader.analytics.id', 'ttsreader.wasOnboarding3', 'ttsreader.wasSignedIn', 'theme-player-only'];
+        for (var i = 0; i < seen.length; i++) {
+          if (window.localStorage.getItem(seen[i])) return;
+        }
+        var id, cohort;
+        if (api.deviceIsDark()) {
+          id = 'night';
+          cohort = 'N1025_';
+        } else if (Math.random() < 0.5) {
+          id = 'night';
+          cohort = 'D1025_';
+        } else {
+          id = 'paper';
+          cohort = 'L1025_';
+        }
+        var look = api.preset(id);
+        if (!look) return;
+        api.store(look);
+        window.ttsrFirstLookCohort = cohort;
+      } catch (e) {
+        // the look as painted
       }
     })();
   </script>
@@ -826,7 +875,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.24151fe3.js"></script><link href="./static/css/main.a7b726b4.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.2129faf6.js"></script><link href="./static/css/main.a7b726b4.css" rel="stylesheet"></head>
 <body>
 
 <!-- ===== "Open our iOS app" interstitial =========================================
@@ -1564,6 +1613,15 @@
                         onclick="window.ttsrReadingLook && window.ttsrReadingLook.desk && window.ttsrReadingLook.desk(false);">Однотонный</button>
                 <button type="button" role="radio" class="reading-theme-bg-opt" data-desk="1" aria-checked="true"
                         onclick="window.ttsrReadingLook && window.ttsrReadingLook.desk && window.ttsrReadingLook.desk(true);">Изображение</button>
+              </span>
+            </div>
+            <!-- The sentence being read: Spotlight or the coloured band (Ronen, 2026-10-25: "can we have the bg-highlighting
+                 as a toggle in the setting of the theme"). src/reader/ReaderHighlightMarker.js wires and marks it. -->
+            <div class="reading-theme-bg">
+              <span class="reading-theme-bg-label">Выделение</span>
+              <span class="reading-theme-bg-switch" role="radiogroup" aria-label="Выделение">
+                <button type="button" role="radio" class="reader-highlight-opt" data-highlight="spotlight" aria-checked="true">Прожектор</button>
+                <button type="button" role="radio" class="reader-highlight-opt" data-highlight="marker" aria-checked="false">Маркер</button>
               </span>
             </div>
           </div>
@@ -2313,7 +2371,7 @@
       <img class="prefs-about-logo" src="/favicon2.svg" width="38" height="38" alt=""/>
       <span class="prefs-about-text">
         <span class="prefs-about-name"><span style="color: darkred">TTS</span>Reader</span>
-        <span class="prefs-about-version">V3.15.0</span>
+        <span class="prefs-about-version">V3.15.1</span>
       </span>
       <span class="prefs-about-link">
         Руководства и помощь
@@ -2674,7 +2732,7 @@
 
   <div class="drawer-version-wrap">
     <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-      <b>V3.15.0</b> Build 2026-10-22T16:36:50.301Z
+      <b>V3.15.1</b> Build 2026-10-26T12:48:19.788Z
       &nbsp;&nbsp;<span style="">ВСЕ ВЕРСИИ <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
     <!-- The player this one replaced, one click away. A daily tool changed shape;
          anyone who preferred the old shape should not have to go hunting. -->
@@ -2685,8 +2743,8 @@
     </a>
   </div>
 
-  <!-- The rest of the ecosystem, straight under the version: the two places
-       TTSReader also runs. Two lines each — the name alone does not say what
+  <!-- The rest of the ecosystem, straight under the version: the other places
+       TTSReader runs. Two lines each — the name alone does not say what
        either one gives you that this page does not. -->
   <div class="about-eco">
     <a class="Menu-list-element about-eco-row" target="_blank" rel="noopener noreferrer"
@@ -2696,6 +2754,16 @@
       <span class="about-eco-text">
         <span class="about-eco-title">Приложение для iOS</span>
         <span class="about-eco-sub">Для iPhone, iPad и Mac</span>
+      </span>
+    </a>
+    <!-- The Android app, beside the iOS one (Ronen, 2026-10-26: "can you add a link to the Android app as well?"). -->
+    <a class="Menu-list-element about-eco-row" target="_blank" rel="noopener noreferrer"
+       href="https://play.google.com/store/apps/details?id=com.ttsreader.ttsreader"
+       onclick="gtag('event','about_click_android_app',{value:'1'})">
+      <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 10l0 6"/><path d="M20 10l0 6"/><path d="M7 9h10v8a1 1 0 0 1 -1 1h-8a1 1 0 0 1 -1 -1v-8a5 5 0 0 1 10 0"/><path d="M8 3l1 2"/><path d="M16 3l-1 2"/><path d="M9 18l0 3"/><path d="M15 18l0 3"/></svg>
+      <span class="about-eco-text">
+        <span class="about-eco-title">Приложение для Android</span>
+        <span class="about-eco-sub">Для телефонов и планшетов Android</span>
       </span>
     </a>
     <a class="Menu-list-element about-eco-row" target="_blank" rel="noopener noreferrer"
@@ -5456,7 +5524,8 @@
           if (!localStorage.getItem("ttsreader.wasOnboarding3") && !localStorage.getItem("ttsreader.wasSignedIn") && !window.AppAnalytics.id && !isBotUserAgent()) {
             // This is a first ever visit. Set unique setup here:
             // Cohort prefix: which release the first visit came in on
-            const prefix = 'T1018_'; // the A–C release's first visits (Ronen, 2026-10-18: R11 "a"); D3101_/L3101_ marked the old dark/light coin flip, which no longer sets the look
+            // The first-visit coin's side (the first-visit-look script in <head>, Ronen 2026-10-25: L1025_ Paper, D1025_ Night, N1025_ a dark device); T1018_ when no coin ran
+            const prefix = (typeof window.ttsrFirstLookCohort === 'string' && /^[DLN]1025_$/.test(window.ttsrFirstLookCohort)) ? window.ttsrFirstLookCohort : 'T1018_'; // the A–C release's first visits (Ronen, 2026-10-18: R11 "a"); D3101_/L3101_ marked the old dark/light coin flip
             console.log({prefix});
             const randomString = Math.random().toString(36).substring(2, 17); // 15 chars
             window.AppAnalytics.id = prefix + randomString;

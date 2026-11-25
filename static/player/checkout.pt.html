@@ -114,6 +114,8 @@
       color: var(--ink);
     }
     .context--headline .context-note { display: none; }
+    /* the free plan's MP3s are made (reason freeMp3s): the title, and under it what a plan's credits make */
+    .context--headline.context--told .context-note { display: block; max-width: 34em; margin: 8px auto 0; font-size: 0.95rem; line-height: 1.45; color: var(--ink); }
 
     /* ── the offer ────────────────────────────────────────────────────────── */
     .eyebrow {
@@ -452,6 +454,14 @@
     @media (prefers-reduced-motion: reduce) {
       .cta, .spinner, .signin { transition: none; animation-duration: 2.4s; }
     }
+    /* Inside the export dialog's credits panel (embed=panel; src/export/ExportDialog.js): the panel says the pack, its
+       price and its terms itself, so the page shows only the ways to pay. Paddle opens in place, under them. */
+    html.embed-panel body { padding: 2px 2px 8px; background: transparent; }
+    html.embed-panel #context, html.embed-panel #eyebrow, html.embed-panel #planTabs, html.embed-panel #priceRow,
+    html.embed-panel #planNote, html.embed-panel #gets, html.embed-panel #reassure, html.embed-panel .guarantee,
+    html.embed-panel #accountLine { display: none !important; }
+    html.embed-panel.no-paddle #moreOptions, html.embed-panel.no-paddle #cta { display: none !important; }
+    html.embed-panel .paddle-inline { margin-top: 12px; }
   </style>
 </head>
 <body>
@@ -723,6 +733,24 @@
     }
   };
 
+  // The export dialog's two packs (src/export/ExportDialog.js PACKS; Ronen, 2026-11-19: "2 package offers ... 200k and
+  // 1m. These skus are already in the paypal handler"). Shown only in that dialog's credits panel (embed=panel), which
+  // says the pack, its price and its terms itself. The PayPal order is the top-up's own shape (custom_id = sku + "__" +
+  // uid, a one-off capture); the server refuses an amount under the SKU's minPrice (200k: 9, 1M: 19). The 200k pack has
+  // no Paddle price, so PayPal alone sells it.
+  FACES.pack1m = {
+    sku: "SKU_TTSREADER_EXTRA_CREDITS_1M", priceId: "pri_01kabacg9281qsv502zexm1805",
+    paypalPrice: 19, paypalCredits: "1 Million", paypalIntent: "capture", amount: "$19", per: "", priceNote: "", note: "",
+    eyebrow: "", cta: "Adicionar créditos", gets: [],
+    reassure: "Compra segura. 100% de satisfação garantida"
+  };
+  FACES.pack200k = {
+    sku: "SKU_TTSREADER_EXTRA_CREDITS_200k", priceId: "",
+    paypalPrice: 9, paypalCredits: "200k", paypalIntent: "capture", amount: "$9", per: "", priceNote: "", note: "",
+    eyebrow: "", cta: "Adicionar créditos", gets: [],
+    reassure: "Compra segura. 100% de satisfação garantida"
+  };
+
   // The same rows the Account tab's "What's included" table shows — same words, so a user
   // recognises them instead of meeting new language at the moment of being asked for money.
   // Token vocabulary is src/premium/PurchaseReason.js; PurchaseReason.test.js pins the two together.
@@ -731,6 +759,8 @@
     ai:           {t: "Documentos com IA",             n: "Aprender um tema, resumo de notícias, resumo, tradução, podcast"},
     premiumVoice: {t: "Vozes premium com IA", n: "Vozes naturais com som humano"},
     mp3Export:    {t: "Exportação mp3 offline",            n: "Salve um documento como áudio"},
+    // The free plan's two exports or recordings are made (src/premium/FreeMp3Limit.js): renderReason() says both lines.
+    freeMp3s:     {t: "Escolha o plano Premium ideal para você",       n: "Você já criou seus MP3 gratuitos. 1 milhão de créditos geram cerca de 1.200 minutos de áudio com a maioria das vozes Premium, e cerca de 600 minutos com as novas vozes Gemini 3.8."},
     // Says what to do next, not what ran out. Face-aware: the same moment reaches a subscriber
     // (who tops up) and a non-subscriber (who subscribes), so `n` is chosen in renderReason().
     outOfCredits: {t: "Vozes premium com IA", n: ""}
@@ -746,6 +776,12 @@
   /* "yes" | "no" | "unknown" — see renderPurchaseState(). No account means a real "no": a
      subscription belongs to an account and there is none here to hold one. */
   var subscribed = params.get("subscribed") || (uid ? "unknown" : "no");
+  // Inside the export dialog's credits panel: only the ways to pay, its height to the parent's onHeight, Paddle in place.
+  var embedPanel = params.get("embed") === "panel";
+  if (embedPanel) {
+    document.documentElement.classList.add("embed-panel");
+    if (!face.priceId) document.documentElement.classList.add("no-paddle");
+  }
 
   if (params.get("theme") === "dark") {
     document.documentElement.setAttribute("data-dark-mode", "");
@@ -975,6 +1011,18 @@
   function renderReason() {
     var r = REASONS[reason];
     var box = document.getElementById("context");
+    box.classList.remove("context--told");
+    // The free plan's MP3s are made (Ronen, 2026-11-19: "ask them nicely to select the best Premium package that suits
+    // their needs. Tell them that 1M credits generate circa 1200 minutes of audio for most premium voices, and 600
+    // minutes for the NEW gemini 3.8 voices."): the sheet's title asks, and the line under it tells. Only for this
+    // reason; every other opening has the title it always had.
+    if (kind === "subscribe" && reason === "freeMp3s" && r && r.t && r.n) {
+      document.getElementById("contextTitle").textContent = r.t;
+      document.getElementById("contextNote").textContent = r.n;
+      box.classList.add("context--headline", "context--told");
+      box.classList.remove("hidden");
+      return;
+    }
     if (kind === "subscribe") {
       document.getElementById("contextTitle").textContent = HEADLINE;
       document.getElementById("contextNote").textContent = "";
@@ -1453,7 +1501,9 @@
 
     if ((plan().intent || face.paypalIntent) === "subscription") {
       config.createSubscription = function (data, actions) {
-        return actions.subscription.create({plan_id: plan().paypalPlanId, custom_id: customId()});
+        // NO_SHIPPING (Ronen, 2026-11-19): nothing here ships, so PayPal asks no buyer for an address.
+        return actions.subscription.create({plan_id: plan().paypalPlanId, custom_id: customId(),
+                                            application_context: {shipping_preference: "NO_SHIPPING"}});
       };
       // The entitlement is granted SERVER-side by the PayPal webhook off custom_id — there is no
       // endpoint to post to. Hand off to the parent, which toasts and then waits for the grant to
@@ -1462,6 +1512,7 @@
     } else {
       config.createOrder = function (data, actions) {
         return actions.order.create({
+          application_context: {shipping_preference: "NO_SHIPPING"},   // credits ship nothing
           purchase_units: [{
             description: "TTSReader " + (plan().paypalCredits || face.paypalCredits)
                          + " Extra Credits, UID: " + uid,
@@ -1528,6 +1579,7 @@
   }
 
   function openPaddle(btn) {
+    if (embedPanel) { openPaddleInline(btn); return; }
     try {
       Paddle.Checkout.open({
         items: [{priceId: plan().priceId, quantity: 1}],
@@ -1539,6 +1591,35 @@
       btn.disabled = false;
       document.getElementById("working").classList.add("hidden");
       document.getElementById("fallback").classList.remove("hidden");
+    }
+  }
+
+  /** In the export dialog's panel: Paddle's checkout in place, under the PayPal buttons (Paddle's inline mode), not over
+   *  the page. Its completion reaches the parent as the overlay's does (initPaddle's eventCallback). */
+  function openPaddleInline(btn) {
+    try {
+      var box = document.getElementById("paddleInline");
+      if (!box) {
+        box = document.createElement("div");
+        box.id = "paddleInline";
+        box.className = "paddle-inline";
+        document.getElementById("offer").appendChild(box);
+      }
+      Paddle.Checkout.open({
+        settings: {displayMode: "inline", frameTarget: "paddle-inline", frameInitialHeight: 450,
+                   frameStyle: "width: 100%; min-width: 286px; background-color: transparent; border: none;"},
+        items: [{priceId: plan().priceId, quantity: 1}],
+        customer: email ? {email: email} : undefined,
+        customData: {uid: uid}
+      });
+      document.getElementById("working").classList.add("hidden");
+      reportHeight();
+    } catch (e) {
+      console.error("checkout failed to open", e);
+      btn.disabled = false;
+      document.getElementById("working").classList.add("hidden");
+      document.getElementById("fallback").classList.remove("hidden");
+      reportHeight();
     }
   }
 
@@ -1576,6 +1657,16 @@
    * its own overlay inside THIS viewport and needs the room.
    */
   function reportHeight(mode) {
+    if (embedPanel) {
+      try {
+        var toPanel = parent[params.get("onHeight") || ""];
+        if (window.self === window.top || typeof toPanel !== "function") return;
+        var lastShown = document.getElementById("fallback");
+        var below = lastShown && !lastShown.classList.contains("hidden") ? lastShown : document.getElementById("offer");
+        toPanel(Math.ceil(below.getBoundingClientRect().bottom + 8));
+      } catch (e) { /* nothing to report to */ }
+      return;
+    }
     try {
       if (window.self === window.top || typeof parent.setCheckoutHeight !== "function") return;
       // NOT documentElement.scrollHeight: <html> fills the iframe, so that just reports the height

@@ -4,7 +4,7 @@ description: "Listen to any website, blog, social feed - SECURELY!"
 excerpt: "Listen to any website, blog, social feed - SECURELY!"
 lead: "Listen to any website, blog, social feed - SECURELY!"
 date: 2026-03-15T08:50:23+02:00
-lastmod: 2026-04-14T08:50:23+02:00
+lastmod: 2026-11-19T08:50:23+02:00
 draft: false
 weight: 50
 categories: ["Features", "News", "Products"]
@@ -27,8 +27,11 @@ We are excited to launch the new **TTSReader browser extension**. Compatible wit
 <div style="padding: 30px; border: orangered 1px solid; border-radius: 15px; margin: 30px auto; text-align: center; font-size: larger; font-weight: bold;">
 Install it directly from the Chrome Web Store:
 <a href="https://chromewebstore.google.com/detail/kimpjeeihakmgdlnkjaapkdikpjccabi" target="_blank">Open the TTSReader extension page on the Chrome Store</a>
+<br/>
+<span style="font-size: smaller">On Edge you may also get it on the Edge Add-ons Store: <a href="https://microsoftedge.microsoft.com/addons/detail/ttsreader-v3-premium-ai/dnkkjjacmfdejfhjjdjmafkkiamhcnkl" target="_blank">TTSReader Add-on for Edge</a></span>
 </div>
 
+**Exciting update!!!** Nov.19th 2026: Listen to ALL your KINDLE books with the TTSReader Extension. More details here - including demo: [Listen to Kidle Books with TTSReader](https://ttsreader.com/blog/how-to-listen-to-your-kindle-books-on-a-computer-with-ttsreader/)
 
 ## Demo Video
 

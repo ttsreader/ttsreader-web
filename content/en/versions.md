@@ -17,6 +17,8 @@ Change log of TTSReader versions & links to stable, previous & preview versions.
 <br/>
 
 
+
+
 ## Latest Stable Version
 
 * **Player V3.15.+** - [https://ttsreader.com/player/](https://ttsreader.com/player/)

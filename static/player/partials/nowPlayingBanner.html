@@ -1,31 +1,56 @@
-<!-- The now-playing banner: what the Reader's toolbar slot becomes on every OTHER
-     tab while audio is playing, so "something is reading" is never invisible.
-     Hidden outright when nothing plays — the strip does not linger empty.
+<!-- The Now Playing bar: on every page but the Reader, at the foot of the page, what the Reader holds and its
+     controls (Ronen, 2026-11-17: "ALWAYS show the NOW PLAYNIG - even when paused - on non reader tabs ... bring it to
+     the bottom of the screen ... resemble more YT-MUSIC's now-playing row"). It was a dark red strip at the top of the
+     page, there only while sound played.
 
-     This partial is emitted once per non-Reader tab-root, so it carries NO id
-     attributes: classes only, and every binding is a state key that updates all
-     copies at once. Both handlers already exist (togglePlay, returnToReader). -->
-<div class="now-playing-banner hidden" data-ws-show-if-state="showNowPlayingBanner=true">
-  <button class="now-playing-open" data-ws-onclick="returnToReader"
-          title="<%= htmlWebpackPlugin.options.strings.d20260826_now_playing_chip %>"
-          aria-label="<%= htmlWebpackPlugin.options.strings.d20260826_now_playing_chip %>">
-    <!-- A speaker, NOT a play triangle: this side is "what's sounding", the
-         triangle on the right is the control — two triangles read as two
-         play buttons. -->
-    <svg class="now-playing-glyph now-playing-glyph--stroke" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 8a5 5 0 0 1 0 8"/><path d="M17.7 5a9 9 0 0 1 0 14"/><path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5"/></svg>
-    <span class="now-playing-title" data-ws-label-state="activeDocTitleLabel"></span>
-  </button>
-  <button class="now-playing-toggle" data-ws-onclick="togglePlay"
-          title="<%= htmlWebpackPlugin.options.strings.d20260828_play_pause %>"
-          aria-label="<%= htmlWebpackPlugin.options.strings.d20260828_play_pause %>">
-    <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
-    <span data-ws-show-if-state="isPlayingOn=false"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-    <!-- An mp3 in the Reader (src/player): its own glyph; the two above give way while it plays there (player.css). -->
-    <span data-ws-show-if-state="audioGlyphPause=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
-    <span data-ws-show-if-state="audioGlyphPlay=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-  </button>
-  <!-- The same fraction the Reader's scrubber publishes — one position, two views. -->
+     This partial is emitted once per non-Reader tab-root, AFTER the page, so it carries NO id attributes: classes
+     only, and every binding is a state key that updates all copies at once. Every handler is the Reader's own
+     (togglePlay, rewind, forward, returnToReader). What shows, and when: src/shell/NowPlayingBar.js. -->
+<div class="now-playing-banner np-bar hidden" data-ws-show-if-state="showNowPlayingBanner=true" role="region"
+     aria-label="<%= htmlWebpackPlugin.options.strings.d20260826_now_playing_chip %>">
+  <!-- The same fraction the Reader's scrubber publishes — one position, two views. On the bar's top edge. -->
   <div class="now-playing-progress" aria-hidden="true">
     <span class="now-playing-progress-fill" data-ws-style-state="width=playbackPercent"></span>
   </div>
+  <!-- What it is: one big target back to the Reader. -->
+  <button class="now-playing-open" data-ws-onclick="returnToReader"
+          title="<%= htmlWebpackPlugin.options.strings.d20260826_now_playing_chip %>"
+          aria-label="<%= htmlWebpackPlugin.options.strings.d20260826_now_playing_chip %>">
+    <span class="np-art">
+      <!-- A speaker, NOT a play triangle: this side is "what's sounding", the triangle is the control. The recording's
+           picture lies over it; a picture that does not load leaves the speaker showing. -->
+      <svg class="now-playing-glyph now-playing-glyph--stroke" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 8a5 5 0 0 1 0 8"/><path d="M17.7 5a9 9 0 0 1 0 14"/><path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5"/></svg>
+      <span class="np-art-pic" data-ws-style-state="backgroundImage=nowPlayingCover"></span>
+    </span>
+    <span class="np-text">
+      <span class="now-playing-title" dir="auto" data-ws-label-state="activeDocTitleLabel"></span>
+      <span class="np-sub">
+        <span class="np-by" dir="auto" data-ws-label-state="nowPlayingBy"></span>
+        <span class="np-time hidden" dir="ltr" data-ws-show-if-state="nowPlayingTimed=true"><span data-ws-label-state="scrubElapsedLabel"></span> / <span data-ws-label-state="scrubTotalLabel"></span></span>
+      </span>
+    </span>
+  </button>
+  <div class="np-controls">
+    <button class="np-skip" data-ws-onclick="rewind" title="<%= htmlWebpackPlugin.options.strings.d20260711_jump_back %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260711_jump_back %>">
+      <svg class="now-playing-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6 8.5 6V6l-8.5 6z"/></svg>
+    </button>
+    <button class="now-playing-toggle" data-ws-onclick="togglePlay"
+              title="<%= htmlWebpackPlugin.options.strings.d20260828_play_pause %>"
+              aria-label="<%= htmlWebpackPlugin.options.strings.d20260828_play_pause %>">
+        <span data-ws-show-if-state="isPlayingOn=true" class="hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+        <span data-ws-show-if-state="isPlayingOn=false"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+        <!-- An mp3 in the Reader (src/player): its own glyph; the two above give way while it plays there (player.css). -->
+        <span data-ws-show-if-state="audioGlyphPause=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+        <span data-ws-show-if-state="audioGlyphPlay=true" class="audio-glyph hidden"><svg class="now-playing-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
+    <button class="np-skip" data-ws-onclick="forward" title="<%= htmlWebpackPlugin.options.strings.d20260711_jump_forward %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260711_jump_forward %>">
+      <svg class="now-playing-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 18 8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
+    </button>
+  </div>
+  <!-- The far end: the Reader, as "open this". The same door as the name. -->
+  <span class="np-end">
+    <button class="np-expand" data-ws-onclick="returnToReader" title="<%= htmlWebpackPlugin.options.strings.d20260826_tab_reader %>" aria-label="<%= htmlWebpackPlugin.options.strings.d20260826_tab_reader %>">
+      <svg class="now-playing-glyph now-playing-glyph--stroke" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6 -6l6 6"/></svg>
+    </button>
+  </span>
 </div>

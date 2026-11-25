@@ -1,0 +1,104 @@
+<!-- The account's menu: under the account button while the mouse rests on it, a sheet on a phone (Ronen, 2026-11-17:
+     "open a modern sleek interactive dropdown menu with everything important ... make it super clear and easy to
+     understand one's account state and manage"). Once on the page; src/shell/AccountMenu.js opens and places it.
+     Everything it says about the plan is the Account window's own state (src/account/AccountTab.js): the same words
+     and numbers, in one glance. Look: src/css/accountMenu.css. -->
+<div id="accountMenu" class="am hidden" data-ws-show-if-state="accountMenuOpen=true">
+  <div class="am-card" role="dialog" aria-label="<%= htmlWebpackPlugin.options.strings.d20260826_tab_account %>">
+    <!-- Signed out: two rows and nothing else, with no colour of their own (Ronen, 2026-11-17: "when signedoout - the ONLY
+         item in the menu is signin/up - that's it - and one under it for contact/feedback/report issues. simple, no
+         colors. no other items. only those 2."). -->
+    <div class="am-rows am-rows--out" data-ws-show-if-state="isSignedIn=false">
+      <button type="button" class="am-row" data-am-close data-ws-toggle="#signinModal">
+        <span class="am-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg></span>
+        <span class="am-row-label"><%= htmlWebpackPlugin.options.strings.sign_in_up %></span><svg class="am-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+      </button>
+      <button type="button" class="am-row" data-am-close data-ws-onclick="contactOpen">
+        <span class="am-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8"/><path d="M8 13h6"/><path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12"/></svg></span>
+        <span class="am-row-label"><%= htmlWebpackPlugin.options.strings.d20260827_contact_row %></span><svg class="am-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+      </button>
+    </div>
+
+    <!-- Signed in: who, the plan, and what a person comes to an account menu for. -->
+    <div class="am-in hidden" data-ws-show-if-state="isSignedIn=true">
+      <!-- who -->
+      <div class="am-who">
+        <span class="am-avatar am-avatar--big" data-ws-style-state="backgroundColor=accountAvatarTone" aria-hidden="true"><span class="am-avatar-icon" data-ws-show-if-state="accountAvatarIcon=true"><svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg></span><span class="am-avatar-initial" data-ws-label-state="accountAvatarInitial"></span><span class="am-avatar-photo" data-ws-style-state="backgroundImage=accountAvatarPhoto"></span></span>
+        <div class="am-who-text">
+          <div>
+            <div class="am-email" dir="ltr" data-ws-label-state="email"></div>
+            <div class="am-status">
+              <!-- Premium: a happy green, with a crown (Ronen, 2026-11-17: "the word 'premium' should be happy green +
+                   accompanied by some crown or something emoji"). Every other status: the plain chip. -->
+              <span class="am-chip am-chip--premium hidden" data-ws-show-if-state="accountStatus=premium"><span aria-hidden="true">👑</span> <span data-ws-label-state="accountStatusLabel"></span></span>
+              <span class="am-chip hidden" data-ws-show-if-state="accountMenuPlainStatus=true" data-ws-label-state="accountStatusLabel"></span>
+              <span class="am-plan" data-ws-label-state="accountPlanName"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- the plan, once it is known (never drawn from an unknown plan) -->
+      <div class="am-plan-box hidden" data-ws-show-if-state="accountLoaded=true">
+        <!-- Not on a renewing subscription: said in words, first (Ronen, 2026-11-18: "the state: not subscribed (and if
+             it was canceled say - canceled; if never subscribed just say - no subscription;) if it's going to expire -
+             say explicitly - expires soon [date] and will not auto-renew as it was canceled"). Rule:
+             src/account/SubscriptionState.js; words: src/shell/AccountMenu.js. -->
+        <div class="am-sub hidden" data-ws-show-if-state="accountMenuShowSub=true">
+          <div class="am-sub-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/><path d="M12 9h.01"/><path d="M11 12h1v4h1"/></svg>
+            <span data-ws-label-state="accountMenuSubLabel"></span>
+          </div>
+          <p class="am-sub-note hidden" data-ws-show-if-state="accountMenuShowSubNote=true" data-ws-label-state="accountMenuSubNote"></p>
+        </div>
+        <div class="hidden" data-ws-show-if-state="accountShowUsageBar=true">
+          <div class="am-line">
+            <span class="am-line-label"><%= htmlWebpackPlugin.options.strings.d20260827_account_monthly_usage %></span>
+            <span class="am-line-value" dir="ltr" data-ws-label-state="accountUsageText"></span>
+          </div>
+          <div class="am-bar"><div class="am-bar-fill" data-ws-style-state="width=accountUsageBarWidth"></div></div>
+          <!-- when the monthly quota starts again -->
+          <div class="am-reset hidden" data-ws-show-if-state="accountShowQuotaReset=true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>
+            <span data-ws-label-state="accountQuotaResetText"></span>
+          </div>
+        </div>
+        <div class="am-line hidden" data-ws-show-if-state="accountShowFreeUsage=true">
+          <span class="am-line-label"><%= htmlWebpackPlugin.options.strings.d20260827_account_free_usage %></span>
+          <span class="am-line-value" dir="ltr" data-ws-label-state="accountFreeUsageText"></span>
+        </div>
+        <div class="am-line am-line--credits">
+          <span class="am-line-label"><%= htmlWebpackPlugin.options.strings.d20260827_account_extra_credits %></span>
+          <span class="am-line-value" data-ws-label-state="accountCreditsText"></span>
+          <button type="button" class="am-mini hidden" data-am-close data-ws-onclick="accountAddCredits" data-ws-show-if-state="accountMenuShowMini=true" data-ws-label-state="accountCreditsBtnLabel"></button>
+        </div>
+        <div class="am-line hidden" data-ws-show-if-state="accountMenuShowNextPayment=true">
+          <span class="am-line-label"><%= htmlWebpackPlugin.options.strings.d20260827_next_payment.replace('%s','') %></span>
+          <span class="am-line-value" data-ws-label-state="accountExpiryText"></span>
+        </div>
+      </div>
+      <button type="button" class="am-cta hidden" data-am-close data-ws-onclick="accountUpgrade"
+              data-ws-show-if-state="accountMenuShowCta=true" data-ws-label-state="accountMenuCtaLabel"></button>
+
+      <!-- what a person comes to an account menu for -->
+      <div class="am-rows">
+        <button type="button" class="am-row" data-am-close data-ws-onclick="shellWindowOpen" data-window="account">
+          <span class="am-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.350a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.310 -2.370 2.370a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.350 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.310 -.826 -2.370 -2.370a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.350a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.310 2.370 -2.370c1 .608 2.296 .070 2.572 -1.065"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/></svg></span>
+          <span class="am-row-label"><%= htmlWebpackPlugin.options.strings.d20261117_account_manage %></span><svg class="am-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+        </button>
+        <button type="button" class="am-row" data-am-close data-ws-onclick="contactOpen">
+          <span class="am-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8"/><path d="M8 13h6"/><path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12"/></svg></span>
+          <span class="am-row-label"><%= htmlWebpackPlugin.options.strings.d20260827_contact_row %></span><svg class="am-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+        </button>
+        <button type="button" class="am-row" data-am-close data-ws-onclick="accountMenuSwitch">
+          <span class="am-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4 -4"/><path d="M17 14h-14l4 4"/></svg></span>
+          <span class="am-row-label"><%= htmlWebpackPlugin.options.strings.d20261117_account_switch %></span><svg class="am-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+        </button>
+        <button type="button" class="am-row" data-am-close data-ws-onclick="toggleSignInMethod">
+          <span class="am-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"/><path d="M9 12h12l-3 -3"/><path d="M18 15l3 -3"/></svg></span>
+          <span class="am-row-label"><%= htmlWebpackPlugin.options.strings.d20260827_sign_out %></span><svg class="am-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

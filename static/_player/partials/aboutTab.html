@@ -14,8 +14,8 @@
     </a>
   </div>
 
-  <!-- The rest of the ecosystem, straight under the version: the two places
-       TTSReader also runs. Two lines each — the name alone does not say what
+  <!-- The rest of the ecosystem, straight under the version: the other places
+       TTSReader runs. Two lines each — the name alone does not say what
        either one gives you that this page does not. -->
   <div class="about-eco">
     <a class="Menu-list-element about-eco-row" target="_blank" rel="noopener noreferrer"
@@ -25,6 +25,16 @@
       <span class="about-eco-text">
         <span class="about-eco-title"><%= htmlWebpackPlugin.options.strings.d20260828_about_ios %></span>
         <span class="about-eco-sub"><%= htmlWebpackPlugin.options.strings.d20260828_about_ios_sub %></span>
+      </span>
+    </a>
+    <!-- The Android app, beside the iOS one (Ronen, 2026-10-26: "can you add a link to the Android app as well?"). -->
+    <a class="Menu-list-element about-eco-row" target="_blank" rel="noopener noreferrer"
+       href="https://play.google.com/store/apps/details?id=com.ttsreader.ttsreader"
+       onclick="gtag('event','about_click_android_app',{value:'1'})">
+      <svg class="Top-btn-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 10l0 6"/><path d="M20 10l0 6"/><path d="M7 9h10v8a1 1 0 0 1 -1 1h-8a1 1 0 0 1 -1 -1v-8a5 5 0 0 1 10 0"/><path d="M8 3l1 2"/><path d="M16 3l-1 2"/><path d="M9 18l0 3"/><path d="M15 18l0 3"/></svg>
+      <span class="about-eco-text">
+        <span class="about-eco-title"><%= htmlWebpackPlugin.options.strings.d20261026_about_android %></span>
+        <span class="about-eco-sub"><%= htmlWebpackPlugin.options.strings.d20261026_about_android_sub %></span>
       </span>
     </a>
     <a class="Menu-list-element about-eco-row" target="_blank" rel="noopener noreferrer"

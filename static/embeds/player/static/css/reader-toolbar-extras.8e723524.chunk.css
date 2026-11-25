@@ -1,0 +1,2 @@
+.Buttons-bar .doc-actions-btn,[data-dark-mode] .Buttons-bar .doc-actions-btn{width:36px;height:36px;background:#3a3c42;color:#f2f2f3;transition:background-color .12s ease;transition:background-color var(--ws-dur-fast,.12s) var(--ws-ease,ease)}.Buttons-bar .doc-actions-btn:hover,.Buttons-bar .doc-actions-btn[aria-expanded=true]{background:#4d5058;color:#fff}.Buttons-bar .doc-actions-btn .ws-icon{width:20px;height:20px}.Buttons-bar .doc-actions-btn:focus-visible{outline:3px solid #6bb8ff;outline-offset:2px}
+/*# sourceMappingURL=reader-toolbar-extras.8e723524.chunk.css.map*/

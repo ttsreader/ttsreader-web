@@ -168,6 +168,15 @@
                         onclick="window.ttsrReadingLook && window.ttsrReadingLook.desk && window.ttsrReadingLook.desk(true);"><%= htmlWebpackPlugin.options.strings.d20261022_reading_bg_image %></button>
               </span>
             </div>
+            <!-- The sentence being read: Spotlight or the coloured band (Ronen, 2026-10-25: "can we have the bg-highlighting
+                 as a toggle in the setting of the theme"). src/reader/ReaderHighlightMarker.js wires and marks it. -->
+            <div class="reading-theme-bg">
+              <span class="reading-theme-bg-label"><%= htmlWebpackPlugin.options.strings.d20261025_reader_highlight %></span>
+              <span class="reading-theme-bg-switch" role="radiogroup" aria-label="<%= htmlWebpackPlugin.options.strings.d20261025_reader_highlight %>">
+                <button type="button" role="radio" class="reader-highlight-opt" data-highlight="spotlight" aria-checked="true"><%= htmlWebpackPlugin.options.strings.d20261025_reader_highlight_spotlight %></button>
+                <button type="button" role="radio" class="reader-highlight-opt" data-highlight="marker" aria-checked="false"><%= htmlWebpackPlugin.options.strings.d20261025_reader_highlight_marker %></button>
+              </span>
+            </div>
           </div>
         </div>
         <!-- The sidebar, at hand (Ronen, 2026-10-22: "to the RIGHT of the theme button - can you add this sidebar-toggle
