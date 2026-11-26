@@ -144,8 +144,9 @@
         <span class="account-pro" data-ws-show-if-state="featureCloudSyncLocked=true">PRO</span>
       </div>
 
+      <!-- not to a pack buyer, who has the premium voices (2026-11-26; AccountTab.display accountShowUnlockCta) -->
       <button class="library-new-doc-btn ws-btn-primary account-cta" data-ws-onclick="accountUpgrade"
-              data-ws-show-if-state="accountShowCta=true"><%= htmlWebpackPlugin.options.strings.d20260827_upgrade_unlock %></button>
+              data-ws-show-if-state="accountShowUnlockCta=true"><%= htmlWebpackPlugin.options.strings.d20260827_upgrade_unlock %></button>
 
       <div class="account-row account-next-payment" data-ws-show-if-state="accountShowNextPayment=true">
         <span class="account-row-label">

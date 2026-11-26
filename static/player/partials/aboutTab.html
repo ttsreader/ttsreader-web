@@ -111,4 +111,29 @@
       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-bell-ringing"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727" /><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727" /></svg>&nbsp;&nbsp;<%= htmlWebpackPlugin.options.strings.drawer__beeps_generator %>
     </a>
   </div>
+  <!-- Attributions (Ronen, 2026-11-26: "yes add a credits section to about"): the outside art this app shows, each with
+       the credit its owner asks for (checked on their pages that day; the quotes are in
+       src/shell/AboutAttributions.test.js). Headed "Attributions", not "Credits": in most of our languages "credits"
+       is what people buy; the other languages use Discover's own word for a source's credit (d20260810_attribution_title). Names, holders and licences stay as their owners write them, so each credit reads left to
+       right on a Hebrew or Arabic page; only the heading and the two labels are translated. -->
+  <div class="drawer-section-heading"><b><%= (htmlWebpackPlugin.options.strings.d20261126_about_attributions_heading || 'Attributions') %></b></div>
+  <div class="about-attributions">
+    <div class="about-attributions-row">
+      <span class="about-attributions-label"><%= (htmlWebpackPlugin.options.strings.d20261126_about_attributions_flags || 'Flags') %></span>
+      <span class="about-attributions-list">
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener noreferrer">Twemoji</a> © Twitter, Inc and other contributors&nbsp;·&nbsp;<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC&nbsp;BY&nbsp;4.0</a></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/talkjs/country-flag-emoji-polyfill" target="_blank" rel="noopener noreferrer">Twemoji Country Flags</a> <span class="about-attribution-meta">© TalkJS · MIT</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://flagpedia.net/" target="_blank" rel="noopener noreferrer">Flagpedia.net</a></span>
+      </span>
+    </div>
+    <div class="about-attributions-row">
+      <span class="about-attributions-label"><%= (htmlWebpackPlugin.options.strings.d20261126_about_attributions_icons || 'Icons') %></span>
+      <span class="about-attributions-list">
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/tabler/tabler-icons" target="_blank" rel="noopener noreferrer">Tabler Icons</a> <span class="about-attribution-meta">© Paweł Kuna · MIT</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/google/material-design-icons" target="_blank" rel="noopener noreferrer">Material Design Icons</a>&nbsp;· <span class="about-attribution-meta">Google · Apache 2.0</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/feathericons/feather" target="_blank" rel="noopener noreferrer">Feather</a> <span class="about-attribution-meta">© Cole Bemis · MIT</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/lucide-icons/lucide" target="_blank" rel="noopener noreferrer">Lucide</a> © Lucide Icons and Contributors&nbsp;·&nbsp;ISC</span>
+      </span>
+    </div>
+  </div>
 </div>

@@ -323,6 +323,31 @@
     .paypal { margin-top: 18px; min-height: 0; }
     .paypal.is-waiting { min-height: 112px; }   /* hold the room so the sheet does not jump */
 
+    /* Our card button, on a subscription term only (renderPayCard; 2026-11-25). Shaped like PayPal's own card button,
+       which the pack's tab still shows: the same pill, height and dark fill, so switching tabs does not change the set. */
+    .pay-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 750px;
+      height: 50px;
+      margin: 10px 0 0;
+      padding: 0 20px;
+      border: none;
+      border-radius: 25px;
+      background: #2c2e2f;
+      color: #fff;
+      font: inherit;
+      font-size: 1.05rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .pay-card:hover { background: #3c3f41; }
+    .pay-card svg { width: 24px; height: 17px; flex: none; }
+    [data-dark-mode] .pay-card { box-shadow: inset 0 0 0 1px var(--hairline); }
+
     /* The other door, deliberately quiet: available, never competing with the buttons above it. */
     .link-quiet {
       display: block;
@@ -533,7 +558,9 @@
 
   <!-- PayPal renders here. Empty until the SDK answers; the CTA below covers every other case. -->
   <div id="paypal" class="paypal hidden"></div>
-  <p id="paypalNote" class="reassure hidden">सभी तरीके अधिकतम सुरक्षा, गोपनीयता और खरीदार सुरक्षा के लिए PayPal द्वारा संचालित हैं।</p>
+  <!-- Card buyers on a subscription term: Paddle's checkout instead of PayPal's card popup (see renderPayCard). -->
+  <button type="button" class="pay-card hidden" id="payCard"><svg viewBox="0 0 24 17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="0.75" y="0.75" width="22.5" height="15.5" rx="2"/><path d="M0.75 5h22.5"/></svg><span>डेबिट या क्रेडिट कार्ड</span></button>
+  <p id="paypalNote" class="reassure hidden">अधिकतम सुरक्षा, गोपनीयता और खरीदार सुरक्षा।</p>
 
   <!-- Signed out, or PayPal unavailable. Promoted to the only path in both cases. -->
   <button type="button" class="cta hidden" id="cta"></button>
@@ -948,6 +975,7 @@
     renderPrice();
     renderGets();
     renderPurchaseState();
+    renderPayCard();       // a pack tab never shows it, even while its own PayPal script is still on the way
     reportHeight();
   }
 
@@ -960,8 +988,23 @@
   }
 
   /** What this tab actually promises. Per plan, because a pack does not promise what a plan does. */
+  /* The top-up face shown to someone with NO plan (2026-11-26: a pack buyer, or a lapsed subscriber with credits left,
+     now adds credits here rather than being sold the plan as "Upgrade to Premium"). Its own lines are a subscriber's
+     ("Spent only once your quota runs out." — they have no quota), so it says what the pay-as-you-go tab says, the
+     pack for someone with no plan, with that tab's "not included". Only a definite "no": a subscriber, or one not yet
+     known, reads the face as before. */
+  function noPlanPack() {
+    if (kind !== "topup" || subscribed !== "no") return null;
+    var plans = (FACES.subscribe && FACES.subscribe.plans) || [];
+    for (var i = 0; i < plans.length; i++) {
+      if (plans[i].key === "payg") return plans[i];
+    }
+    return null;
+  }
+
   function renderGets() {
-    var items = plan().gets || face.gets;
+    var payg = noPlanPack();
+    var items = payg ? payg.gets : (plan().gets || face.gets);
     /* The "not included" lines describe what a pack gives someone who has NO plan. To an active
        subscriber they are simply false — their subscription already gives them AI and sync, and
        buying credits takes nothing away. Worse than false: read quickly, "No AI document
@@ -970,7 +1013,7 @@
        that asymmetry is deliberate: omitting them from someone who turns out to have no plan is
        the error that costs a refund. (A cancelled-but-unexpired subscriber reads "no" here and so
        still sees them — true of the state they are heading into, which is when a pack matters.) */
-    var missing = subscribed === "yes" ? [] : (plan().lacks || []);
+    var missing = subscribed === "yes" ? [] : ((payg ? payg.lacks : plan().lacks) || []);
     var list = document.getElementById("gets");
     // Green tick for what is included, red cross for what is not. Red means exactly one thing on
     // this sheet now, so the absence is legible at a glance instead of hiding among the ticks.
@@ -1108,6 +1151,7 @@
     setHidden("moreOptions", true);
     setHidden("cta", true);
     setHidden("accountLine", true);
+    renderPayCard();
   }
 
   /**
@@ -1253,6 +1297,7 @@
     setHidden("signinBlock", true);
     setHidden("cta", true);
     setHidden("moreOptions", true);
+    renderPayCard();
     document.getElementById("paypal").classList.remove("hidden");
     document.getElementById("paypal").classList.add("is-waiting");
     reportHeight();
@@ -1286,6 +1331,7 @@
      "cta", "moreOptions", "signinBlock", "accountLine", "reassure"].forEach(function (id) {
       setHidden(id, true);
     });
+    renderPayCard();
     // The CHOOSER stays. This is not a dead end — the pack beside these plans is exactly what a
     // subscriber who ran out of characters came for, and hiding the tabs would strand them on a
     // panel with one button. Picking a subscription term again simply lands back here, which is
@@ -1421,8 +1467,11 @@
     if (st.asked) return;                       // already in flight; every waiter gets told
     st.asked = true;
 
+    // disable-funding=card on the SUBSCRIPTION script only (2026-11-25): PayPal's card button there opens a popup with
+    // "create your PayPal account" switched on, so card buyers get our button instead (renderPayCard). The pack's script
+    // keeps PayPal's card button. public/index.html's preloadPayPalSdk must build this same address.
     var url = "https://www.paypal.com/sdk/js?client-id=" + PAYPAL_CLIENT_ID
-            + (intent === "subscription" ? "&vault=true&intent=subscription" : "");
+            + (intent === "subscription" ? "&vault=true&intent=subscription&disable-funding=card" : "");
     var done = function (scope) {
       if (!scope) { st.failed = true; }
       var waiters = st.waiters;
@@ -1444,6 +1493,34 @@
     document.getElementById("moreOptions").classList.add("hidden");   // it IS the CTA now
     document.getElementById("cta").classList.remove("hidden");
     reportHeight();
+  }
+
+  /**
+   * Our card button, for a SUBSCRIPTION term (2026-11-25, Ronen: "can we have it so it doesn't show the 'create a paypal
+   * account' option at all for users who choose creditcard?").
+   *
+   * PayPal's card button on a subscription opens a popup with "Save info & create your PayPal account" switched on, over
+   * a password, a date of birth and a national ID (measured 2026-11-25). So the subscription script asks PayPal for no
+   * card button (disable-funding=card, ensurePayPalSdk) and this button takes card buyers to Paddle: buy(), the same door
+   * as "More ways to pay". The pack keeps PayPal's card button; its form opens in the sheet with no account option.
+   *
+   * Shown exactly when the sheet offers that other door (moreOptions: PayPal's buttons are up, for a signed-in buyer who
+   * may buy) on a subscription term with a Paddle price. Called wherever either changes while it can be showing: the
+   * buttons built, the tab changed, the account changed, a "yes" or a "not known yet". (payPalUnavailable needs no call:
+   * it runs before the buttons are up, or inside a tab change, which calls this after it.) Each call is pinned by a test
+   * in checkoutCardViaPaddle.test.js. It cannot throw: if it fails, the button keeps its last state and the sheet goes
+   * on as it did without it.
+   */
+  function renderPayCard() {
+    try {
+      var btn = document.getElementById("payCard");
+      if (!btn) return;
+      var more = document.getElementById("moreOptions");
+      var show = !!more && !more.classList.contains("hidden") && planIsSubscription() && !!plan().priceId;
+      btn.classList[show ? "remove" : "add"]("hidden");
+    } catch (e) {
+      console.warn("card button:", e);
+    }
   }
 
   function loadPayPal() {
@@ -1534,6 +1611,7 @@
       document.getElementById("moreOptions").classList.remove("hidden");
       document.getElementById("cta").classList.add("hidden");
       container.classList.remove("is-waiting");
+      renderPayCard();
     } catch (e) {
       payPalUnavailable(e && e.message);
     }
@@ -1699,6 +1777,12 @@
 
   document.getElementById("cta").addEventListener("click", buy);
   document.getElementById("moreOptions").addEventListener("click", buy);
+  try {
+    var payCardBtn = document.getElementById("payCard");
+    if (payCardBtn) payCardBtn.addEventListener("click", buy);       // renderPayCard: Paddle, as "More ways to pay"
+  } catch (e) {
+    console.warn("card button:", e);
+  }
   document.getElementById("signinGoogle").addEventListener("click", function () { askParentToSignIn("google"); });
   document.getElementById("signinApple").addEventListener("click", function () { askParentToSignIn("apple"); });
   document.getElementById("topupCta").addEventListener("click", function () {

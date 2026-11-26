@@ -1,0 +1,8 @@
+/* Windows only: src/App.js fetches this once its flags font (Twemoji Country Flags) has loaded. A new font gets a new
+   file, never an edit of an old one: a stylesheet is cached for an hour, and a bundle must always meet its own
+   (static/css/fonts.css is the earlier font's, for bundles from before 2026-11-24). */
+.Flag-font {
+    font-family: 'Twemoji Country Flags', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+}

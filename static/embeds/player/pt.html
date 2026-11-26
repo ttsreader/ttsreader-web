@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-11-19T22:20:49.376Z",
-      "version": "3.16.0",
+      "dateModified": "2026-11-26T21:48:03.186Z",
+      "version": "3.16.1",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -25,8 +25,8 @@
     // Which build this page is (2026-11-13): the package version and the build time. Support reports carry both
     // (src/account/ContactForm.js sent "app: ? (?)" until now, because nothing set them), and the Discover files'
     // cache keys read APP_VERSION. Set before anything else runs; empty strings when the build has no version.
-    window.APP_VERSION = "3.16.0";
-    window.APP_BUILD = "2026-11-19T22:20:49.376Z";
+    window.APP_VERSION = "3.16.1";
+    window.APP_BUILD = "2026-11-26T21:48:03.186Z";
   </script>
   <!-- Include Quill stylesheet -->
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
@@ -874,7 +874,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.074d9c4f.js"></script><link href="./static/css/main.88ab9ded.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.a048c3fc.js"></script><link href="./static/css/main.850f433c.css" rel="stylesheet"></head>
 <body>
 
 <!-- ===== TTSR-BOOT-SPLASH: a loader over the app while it puts itself together ==========
@@ -2104,7 +2104,7 @@
                     'strike'       // <strike>
                   ],
                   theme: 'snow',
-                  placeholder: 'Digite ou cole texto nesta caixa, clique no botão de reprodução, e eu lerei em voz alta para você. Para ler uma página da web - basta colar seu URL e clicar em reproduzir. Você também pode fazer upload de arquivos, mudar vozes, tema, tamanho da fonte e mais.' // Placeholder text
+                  placeholder: 'Digite ou cole texto nesta caixa, clique no botão de reprodução, e eu lerei em voz alta para você. Para ler uma página da web - basta colar seu URL e clicar em reproduzir. Você também pode fazer upload de arquivos ou arrastá-los e soltá-los aqui, mudar vozes, tema, tamanho da fonte e mais.' // Placeholder text
                 });
                 window.quill = quill; // Make Quill accessible globally
                 const sentenceBreakRegex = /[.?!…]+[\s\n]+|[\n]+/g;
@@ -2188,7 +2188,7 @@
 
               </script>
 
-              <!--<div class="Text-box" contentEditable="plaintext-only" data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Digite ou cole texto nesta caixa, clique no botão de reprodução, e eu lerei em voz alta para você. Para ler uma página da web - basta colar seu URL e clicar em reproduzir. Você também pode fazer upload de arquivos, mudar vozes, tema, tamanho da fonte e mais." placeholder2="Este player está em desenvolvimento ativo, estamos trabalhando para torná-lo melhor a cada dia. ❤️ Aproveite a audição! 🎧"></div>-->
+              <!--<div class="Text-box" contentEditable="plaintext-only" data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="Digite ou cole texto nesta caixa, clique no botão de reprodução, e eu lerei em voz alta para você. Para ler uma página da web - basta colar seu URL e clicar em reproduzir. Você também pode fazer upload de arquivos ou arrastá-los e soltá-los aqui, mudar vozes, tema, tamanho da fonte e mais." placeholder2="Este player está em desenvolvimento ativo, estamos trabalhando para torná-lo melhor a cada dia. ❤️ Aproveite a audição! 🎧"></div>-->
             <div class="Playback-buttons-bar" style="direction: ltr;">
 
               <!-- Transport row and speed panel are ONE either/or: `showTransport`
@@ -2753,7 +2753,7 @@
               <img class="sp-about-logo" src="/favicon2.svg" width="34" height="34" alt=""/>
               <span class="sp-about-text">
                 <span class="sp-about-name"><span class="sp-about-tts">TTS</span>Reader</span>
-                <span class="sp-about-version">V3.16.0</span>
+                <span class="sp-about-version">V3.16.1</span>
               </span>
               <span class="sp-about-link">Sobre
                 <svg class="sp-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
@@ -3171,8 +3171,9 @@
         <span class="account-pro" data-ws-show-if-state="featureCloudSyncLocked=true">PRO</span>
       </div>
 
+      <!-- not to a pack buyer, who has the premium voices (2026-11-26; AccountTab.display accountShowUnlockCta) -->
       <button class="library-new-doc-btn ws-btn-primary account-cta" data-ws-onclick="accountUpgrade"
-              data-ws-show-if-state="accountShowCta=true">Muda para Premium para desbloquear tudo + vozes premium com IA</button>
+              data-ws-show-if-state="accountShowUnlockCta=true">Muda para Premium para desbloquear tudo + vozes premium com IA</button>
 
       <div class="account-row account-next-payment" data-ws-show-if-state="accountShowNextPayment=true">
         <span class="account-row-label">
@@ -3260,7 +3261,7 @@
 
   <div class="drawer-version-wrap">
     <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-      <b>V3.16.0</b> Build 2026-11-19T22:20:49.376Z
+      <b>V3.16.1</b> Build 2026-11-26T21:48:03.186Z
       &nbsp;&nbsp;<span style="">TODAS AS VERSÕES <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
     <!-- The player this one replaced, one click away. A daily tool changed shape;
          anyone who preferred the old shape should not have to go hunting. -->
@@ -3367,6 +3368,31 @@
     <a class="Menu-list-element" href="/sounds/" target="_blank" style="text-decoration: none;display: block">
       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-bell-ringing"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727" /><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727" /></svg>&nbsp;&nbsp;Gerador de Bipes
     </a>
+  </div>
+  <!-- Attributions (Ronen, 2026-11-26: "yes add a credits section to about"): the outside art this app shows, each with
+       the credit its owner asks for (checked on their pages that day; the quotes are in
+       src/shell/AboutAttributions.test.js). Headed "Attributions", not "Credits": in most of our languages "credits"
+       is what people buy; the other languages use Discover's own word for a source's credit (d20260810_attribution_title). Names, holders and licences stay as their owners write them, so each credit reads left to
+       right on a Hebrew or Arabic page; only the heading and the two labels are translated. -->
+  <div class="drawer-section-heading"><b>Atribuição</b></div>
+  <div class="about-attributions">
+    <div class="about-attributions-row">
+      <span class="about-attributions-label">Bandeiras</span>
+      <span class="about-attributions-list">
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener noreferrer">Twemoji</a> © Twitter, Inc and other contributors&nbsp;·&nbsp;<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC&nbsp;BY&nbsp;4.0</a></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/talkjs/country-flag-emoji-polyfill" target="_blank" rel="noopener noreferrer">Twemoji Country Flags</a> <span class="about-attribution-meta">© TalkJS · MIT</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://flagpedia.net/" target="_blank" rel="noopener noreferrer">Flagpedia.net</a></span>
+      </span>
+    </div>
+    <div class="about-attributions-row">
+      <span class="about-attributions-label">Ícones</span>
+      <span class="about-attributions-list">
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/tabler/tabler-icons" target="_blank" rel="noopener noreferrer">Tabler Icons</a> <span class="about-attribution-meta">© Paweł Kuna · MIT</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/google/material-design-icons" target="_blank" rel="noopener noreferrer">Material Design Icons</a>&nbsp;· <span class="about-attribution-meta">Google · Apache 2.0</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/feathericons/feather" target="_blank" rel="noopener noreferrer">Feather</a> <span class="about-attribution-meta">© Cole Bemis · MIT</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/lucide-icons/lucide" target="_blank" rel="noopener noreferrer">Lucide</a> © Lucide Icons and Contributors&nbsp;·&nbsp;ISC</span>
+      </span>
+    </div>
   </div>
 </div>
 
@@ -4294,7 +4320,7 @@
         <br/>
         <div>
           <button class="full-width-button" data-ws-show-if-state="isPremiumPlan=true" onclick="appMethods.openPurchaseFlow('')">Adicionar créditos<!-- Add credits --></button>
-          <button class="full-width-button" data-ws-show-if-state="isPremiumPlan=false" onclick="appMethods.openPurchaseFlow('')">Mudar para Premium<!-- Upgrade to Premium --></button>
+          <button class="full-width-button" data-ws-show-if-state="isPremiumPlan=false" onclick="appMethods.openPurchaseFlow('')">Adicionar créditos<!-- Add credits: a pack buyer is Premium, just not a subscriber (2026-11-26) --></button>
         </div>
         <br/>
       </div>
@@ -4730,7 +4756,7 @@
           <li class="export-check is-bad hidden" data-ws-show-if-state="exportVoiceBad=true">
             <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
             <span class="export-check-name">Voz</span>
-            <span class="export-check-value" data-ws-label-state="exportVoiceLine"></span>
+            <span class="export-check-value Flag-font" data-ws-label-state="exportVoiceLine"></span>
             <div class="export-check-fix export-check-fixes">
               <button type="button" class="export-fix-btn export-fix-btn--buy" data-ws-onclick="exportFixRecord">Gravar ao vivo em MP3</button>
               <button type="button" class="export-fix-btn" data-ws-onclick="exportFixVoice">Voz de IA Premium</button>
@@ -6745,9 +6771,10 @@
       if (!uid) return false;
       if (document.getElementById('paypalSdkPreload')) return false;      // once per page
       // Must match checkout.html's URL exactly, or it warms nothing.
+      // (disable-funding=card since 2026-11-25: see ensurePayPalSdk there; checkoutCardViaPaddle.test.js pins the match.)
       const clientId = "AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG";
       const href = "https://www.paypal.com/sdk/js?client-id=" + clientId
-        + (kind === "subscribe" ? "&vault=true&intent=subscription" : "");
+        + (kind === "subscribe" ? "&vault=true&intent=subscription&disable-funding=card" : "");
       const idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 1200); };
       idle(function () {
         const link = document.createElement('link');
@@ -6797,6 +6824,10 @@
 
 
   async function openRenderedModal(params) {
+    // The export dialog (src/export/ExportDialog.js) is a layer above the players: it closes first, as its own Listen
+    // does, or the recording opens under it (Ronen, 2026-11-26: "the item iframe opens practically hidden behind the
+    // first exporttomp3 modal"). Only where the dialog set its hook; a throw changes nothing below.
+    try { if (typeof window.exportStepsClose === 'function') window.exportStepsClose(); } catch (e) { }
     const {url, voice, rate, date, lang, itemId} = params;
     // Each open gets an id, taken BEFORE its place is read; the player sends it
     // back with every report, and the bridge below (noteListenPosition) counts
@@ -6971,6 +7002,30 @@
 
 <!-- JS STRINGS -->
 <div id="JS_STRINGS" style="display: none">
+  <!-- The export dialog's one offer (src/export/ExportDialog.js; 2026-11-25) -->
+  <div data-ws-string-key="d20261126_xs_gives_audio" data-ws-string-value="Esta exportação + cerca de {audio} de áudio para revisões e mais exportações"></div>
+  <div data-ws-string-key="d20261126_xs_pace_any" data-ws-string-value="Use no seu ritmo, para gerar ou ouvir ({credits} créditos)."></div>
+  <div data-ws-string-key="d20261125_xs_minutes" data-ws-string-value="{n} minutos"></div>
+  <div data-ws-string-key="d20261125_xs_hours" data-ws-string-value="{n} horas"></div>
+  <!-- The one-step onboarding (src/onboarding/OnboardingModal.js; 2026-11-25) -->
+  <div data-ws-string-key="d20261125_ob1_welcome" data-ws-string-value="Boas-vindas ao {brand}"></div>
+  <div data-ws-string-key="d20261125_ob1_subtitle" data-ws-string-value="O lugar para ouvir e criar arte com voz"></div>
+  <div data-ws-string-key="d20261125_ob1_want" data-ws-string-value="Eu quero:"></div>
+  <div data-ws-string-key="d20261125_ob1_listen" data-ws-string-value="Ouvir"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_text" data-ws-string-value="Meu próprio texto"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_text_hint" data-ws-string-value="Digitar, colar ou editar"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_file" data-ws-string-value="Arquivo"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_file_hint" data-ws-string-value="PDF, DOCX, EPUB"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_other" data-ws-string-value="Outro texto"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_other_hint" data-ws-string-value="Sites, audiolivros, IA e mais"></div>
+  <div data-ws-string-key="d20261125_ob1_studio" data-ws-string-value="Gerar áudio MP3 a partir de texto"></div>
+  <div data-ws-string-key="d20261125_ob1_studio_commercial" data-ws-string-value="Clipes de áudio comerciais"></div>
+  <div data-ws-string-key="d20261125_ob1_studio_commercial_hint" data-ws-string-value="YouTube, apresentações, sites, filmes e mais"></div>
+  <div data-ws-string-key="d20261125_ob1_studio_personal" data-ws-string-value="Clipes de áudio pessoais"></div>
+  <div data-ws-string-key="d20261125_ob1_studio_audiobooks" data-ws-string-value="Gerar audiolivros"></div>
+  <div data-ws-string-key="d20261125_ob1_consent" data-ws-string-value="Ao continuar, você concorda com nossos {terms} e nossa {privacy}, e entende que usamos cookies e armazenamento neste navegador que são necessários para o funcionamento deste app."></div>
+  <div data-ws-string-key="d20261125_ob1_terms" data-ws-string-value="Termos"></div>
+  <div data-ws-string-key="d20261125_ob1_privacy" data-ws-string-value="Política de Privacidade"></div>
   <!-- The onboarding and the voice browser (src/onboarding, src/voices/VoiceBrowser.js; 2026-11-15) -->
   <div data-ws-string-key="d20261118_find_placeholder" data-ws-string-value="Localizar no texto"></div>
   <div data-ws-string-key="d20261118_find_previous" data-ws-string-value="Resultado anterior"></div>
@@ -7116,7 +7171,8 @@ O login mantém os robôs de fora"></div>
   <div data-ws-string-key="d20261119_xs_late_sub" data-ws-string-value="Seus créditos estão demorando mais que o normal. Eles aparecerão na sua conta, e seu MP3 estará a um toque quando chegarem."></div>
   <div data-ws-string-key="d20261119_xs_late_ok" data-ws-string-value="Entendi"></div>
   <div data-ws-string-key="d20261119_xs_fin" data-ws-string-value="Seu MP3"></div>
-  <div data-ws-string-key="d20261119_xs_fin_val" data-ws-string-value="Gerado na hora: {eta}"></div>
+  <div data-ws-string-key="d20261126_xs_on_the_spot" data-ws-string-value="Gerado na hora"></div>
+  <div data-ws-string-key="d20261119_xs_ready_in" data-ws-string-value="Pronto em {eta}"></div>
   <div data-ws-string-key="d20261119_xs_gen" data-ws-string-value="Gerando seu MP3"></div>
   <div data-ws-string-key="d20261119_xs_up" data-ws-string-value="Enviando seu texto"></div>
   <div data-ws-string-key="d20261119_xs_up_sub" data-ws-string-value="Mantenha esta aba aberta por um momento."></div>
@@ -7124,9 +7180,9 @@ O login mantém os robôs de fora"></div>
   <div data-ws-string-key="d20261119_xs_done" data-ws-string-value="Seu MP3 está pronto"></div>
   <div data-ws-string-key="d20261119_xs_failed" data-ws-string-value="O MP3 não foi criado"></div>
   <div data-ws-string-key="d20261119_xs_failed_sub" data-ws-string-value="Sua lista de exportações tem os detalhes."></div>
-  <div data-ws-string-key="d20261119_xs_ready_in" data-ws-string-value="Pronto em {eta}"></div>
   <div data-ws-string-key="d20261119_xs_eta_sec" data-ws-string-value="cerca de {n} segundos"></div>
   <div data-ws-string-key="d20261119_xs_eta_min" data-ws-string-value="cerca de {n} minutos"></div>
+  <div data-ws-string-key="d20261126_xs_eta_about" data-ws-string-value="cerca de {amount}"></div>
   <div data-ws-string-key="d20261119_xs_prom1_sub" data-ws-string-value="Você recebe seu MP3 na hora."></div>
   <div data-ws-string-key="d20261119_xs_prom2" data-ws-string-value="Pronto para qualquer plataforma"></div>
   <div data-ws-string-key="d20261119_xs_prom2_sub" data-ws-string-value="YouTube, TikTok, podcasts, editores de vídeo."></div>
@@ -7279,6 +7335,8 @@ O login mantém os robôs de fora"></div>
   <div data-ws-string-key="d20261118_vg_all_cleared" data-ws-string-value="Todas as vozes aqui estão liberadas para publicação, e os direitos autorais são todos seus, com uma conta Premium."></div>
   <div data-ws-string-key="d20261118_vg_cleared_star" data-ws-string-value="* Com uma conta Premium"></div>
   <div data-ws-string-key="d20261118_vg_basic_not_for_voiceover" data-ws-string-value="As vozes básicas não são adequadas para locuções"></div>
+  <div data-ws-string-key="d20261126_vg_gemini_for_voiceovers" data-ws-string-value="As vozes Gemini são para locuções, não para ouvir: gerá-las leva mais tempo do que o tempo real."></div>
+  <div data-ws-string-key="d20261126_vg_switch_to_voiceovers" data-ws-string-value="Mudar para Locuções"></div>
   <div data-ws-string-key="d20261119_vg_x2_info" data-ws-string-value="Consome créditos duas vezes mais rápido que as vozes premium comuns. Uma cota mensal de 1M rende cerca de 600 minutos de fala por mês (vozes premium comuns: cerca de 1.200 minutos)."></div>
   <div data-ws-string-key="d20261118_studio_placeholder" data-ws-string-value="Escreva ou cole seu roteiro aqui.
 Pressione {generate} para receber sua locução como arquivo.

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkttsreader_player=self.webpackChunkttsreader_player||[]).push([[486],{9486(r,e,t){t.d(e,{mirrorDownload:()=>o});var n=t(5599);async function o(r,e,t){const o=(arguments.length>3&&void 0!==arguments[3]?arguments[3]:n.gutenbergMirrorUrl)(r);if(!o)return null;console.info("Gutenberg: "+r+" did not download, trying Gutenberg's mirror: "+o);const i=await t(o,e);return i&&i.ok?i:(console.info("Gutenberg's mirror did not have it either: http "+(i?i.status:"?")),null)}}}]);
+//# sourceMappingURL=486.0909f3fa.chunk.js.map

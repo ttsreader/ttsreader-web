@@ -12,8 +12,8 @@
       "browserRequirements": "Requires JavaScript",
       "url": "https://ttsreader.com/player/",
       "datePublished": "2023-05-01T00:00:00+00:00",
-      "dateModified": "2026-11-19T22:20:49.374Z",
-      "version": "3.16.0",
+      "dateModified": "2026-11-26T21:48:03.185Z",
+      "version": "3.16.1",
       "publisher": {
         "@type": "Organization",
         "name": "TTSReader - Text To Speech by WellSource Ltd.",
@@ -25,8 +25,8 @@
     // Which build this page is (2026-11-13): the package version and the build time. Support reports carry both
     // (src/account/ContactForm.js sent "app: ? (?)" until now, because nothing set them), and the Discover files'
     // cache keys read APP_VERSION. Set before anything else runs; empty strings when the build has no version.
-    window.APP_VERSION = "3.16.0";
-    window.APP_BUILD = "2026-11-19T22:20:49.374Z";
+    window.APP_VERSION = "3.16.1";
+    window.APP_BUILD = "2026-11-26T21:48:03.185Z";
   </script>
   <!-- Include Quill stylesheet -->
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
@@ -874,7 +874,7 @@
     customElements.define("sign-in-buttons", SignInButtons);
   </script>
 
-<script defer src="./static/js/main.074d9c4f.js"></script><link href="./static/css/main.88ab9ded.css" rel="stylesheet"></head>
+<script defer src="./static/js/main.a048c3fc.js"></script><link href="./static/css/main.850f433c.css" rel="stylesheet"></head>
 <body>
 
 <!-- ===== TTSR-BOOT-SPLASH: a loader over the app while it puts itself together ==========
@@ -2104,7 +2104,7 @@
                     'strike'       // <strike>
                   ],
                   theme: 'snow',
-                  placeholder: '이 상자에 텍스트를 입력하거나 붙여넣고 재생 버튼을 클릭하면 제가 크게 읽어드릴게요. 웹 페이지를 읽으려면 - URL을 붙여넣고 재생을 클릭하세요. 파일 업로드, 음성 변경, 테마, 글꼴 크기 등을 할 수 있습니다.' // Placeholder text
+                  placeholder: '이 상자에 텍스트를 입력하거나 붙여넣고 재생 버튼을 클릭하면 제가 크게 읽어드릴게요. 웹 페이지를 읽으려면 - URL을 붙여넣고 재생을 클릭하세요. 파일 업로드 또는 여기로 끌어다 놓기, 음성 변경, 테마, 글꼴 크기 등을 할 수 있습니다.' // Placeholder text
                 });
                 window.quill = quill; // Make Quill accessible globally
                 const sentenceBreakRegex = /[.?!…]+[\s\n]+|[\n]+/g;
@@ -2188,7 +2188,7 @@
 
               </script>
 
-              <!--<div class="Text-box" contentEditable="plaintext-only" data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="이 상자에 텍스트를 입력하거나 붙여넣고 재생 버튼을 클릭하면 제가 크게 읽어드릴게요. 웹 페이지를 읽으려면 - URL을 붙여넣고 재생을 클릭하세요. 파일 업로드, 음성 변경, 테마, 글꼴 크기 등을 할 수 있습니다." placeholder2="이 플레이어는 적극적으로 개발 중이며, 매일 더 나아지기 위해 노력하고 있습니다. ❤️ 즐겁게 들으세요! 🎧"></div>-->
+              <!--<div class="Text-box" contentEditable="plaintext-only" data-ws-style-state="font-size=selectedFontSize" data-ws-onPaste="onPaste" data-ws-onInput="onInput" placeholder="이 상자에 텍스트를 입력하거나 붙여넣고 재생 버튼을 클릭하면 제가 크게 읽어드릴게요. 웹 페이지를 읽으려면 - URL을 붙여넣고 재생을 클릭하세요. 파일 업로드 또는 여기로 끌어다 놓기, 음성 변경, 테마, 글꼴 크기 등을 할 수 있습니다." placeholder2="이 플레이어는 적극적으로 개발 중이며, 매일 더 나아지기 위해 노력하고 있습니다. ❤️ 즐겁게 들으세요! 🎧"></div>-->
             <div class="Playback-buttons-bar" style="direction: ltr;">
 
               <!-- Transport row and speed panel are ONE either/or: `showTransport`
@@ -2753,7 +2753,7 @@
               <img class="sp-about-logo" src="/favicon2.svg" width="34" height="34" alt=""/>
               <span class="sp-about-text">
                 <span class="sp-about-name"><span class="sp-about-tts">TTS</span>Reader</span>
-                <span class="sp-about-version">V3.16.0</span>
+                <span class="sp-about-version">V3.16.1</span>
               </span>
               <span class="sp-about-link">정보
                 <svg class="sp-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
@@ -3171,8 +3171,9 @@
         <span class="account-pro" data-ws-show-if-state="featureCloudSyncLocked=true">PRO</span>
       </div>
 
+      <!-- not to a pack buyer, who has the premium voices (2026-11-26; AccountTab.display accountShowUnlockCta) -->
       <button class="library-new-doc-btn ws-btn-primary account-cta" data-ws-onclick="accountUpgrade"
-              data-ws-show-if-state="accountShowCta=true">업그레이드하고 모든 기능 + 프리미엄 AI 음성을 사용하세요</button>
+              data-ws-show-if-state="accountShowUnlockCta=true">업그레이드하고 모든 기능 + 프리미엄 AI 음성을 사용하세요</button>
 
       <div class="account-row account-next-payment" data-ws-show-if-state="accountShowNextPayment=true">
         <span class="account-row-label">
@@ -3260,7 +3261,7 @@
 
   <div class="drawer-version-wrap">
     <a class="Menu-list-element" href="/versions/" target="_blank" style="display: block; text-decoration: none">
-      <b>V3.16.0</b> Build 2026-11-19T22:20:49.374Z
+      <b>V3.16.1</b> Build 2026-11-26T21:48:03.185Z
       &nbsp;&nbsp;<span style="">모든 버전 <svg style="vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></span></a>
     <!-- The player this one replaced, one click away. A daily tool changed shape;
          anyone who preferred the old shape should not have to go hunting. -->
@@ -3367,6 +3368,31 @@
     <a class="Menu-list-element" href="/sounds/" target="_blank" style="text-decoration: none;display: block">
       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="Top-btn-svg icon icon-tabler icons-tabler-outline icon-tabler-bell-ringing"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727" /><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727" /></svg>&nbsp;&nbsp;삐 소리 생성기
     </a>
+  </div>
+  <!-- Attributions (Ronen, 2026-11-26: "yes add a credits section to about"): the outside art this app shows, each with
+       the credit its owner asks for (checked on their pages that day; the quotes are in
+       src/shell/AboutAttributions.test.js). Headed "Attributions", not "Credits": in most of our languages "credits"
+       is what people buy; the other languages use Discover's own word for a source's credit (d20260810_attribution_title). Names, holders and licences stay as their owners write them, so each credit reads left to
+       right on a Hebrew or Arabic page; only the heading and the two labels are translated. -->
+  <div class="drawer-section-heading"><b>출처 표시</b></div>
+  <div class="about-attributions">
+    <div class="about-attributions-row">
+      <span class="about-attributions-label">국기</span>
+      <span class="about-attributions-list">
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener noreferrer">Twemoji</a> © Twitter, Inc and other contributors&nbsp;·&nbsp;<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC&nbsp;BY&nbsp;4.0</a></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/talkjs/country-flag-emoji-polyfill" target="_blank" rel="noopener noreferrer">Twemoji Country Flags</a> <span class="about-attribution-meta">© TalkJS · MIT</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://flagpedia.net/" target="_blank" rel="noopener noreferrer">Flagpedia.net</a></span>
+      </span>
+    </div>
+    <div class="about-attributions-row">
+      <span class="about-attributions-label">아이콘</span>
+      <span class="about-attributions-list">
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/tabler/tabler-icons" target="_blank" rel="noopener noreferrer">Tabler Icons</a> <span class="about-attribution-meta">© Paweł Kuna · MIT</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/google/material-design-icons" target="_blank" rel="noopener noreferrer">Material Design Icons</a>&nbsp;· <span class="about-attribution-meta">Google · Apache 2.0</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/feathericons/feather" target="_blank" rel="noopener noreferrer">Feather</a> <span class="about-attribution-meta">© Cole Bemis · MIT</span></span>
+        <span class="about-attribution" dir="ltr"><a href="https://github.com/lucide-icons/lucide" target="_blank" rel="noopener noreferrer">Lucide</a> © Lucide Icons and Contributors&nbsp;·&nbsp;ISC</span>
+      </span>
+    </div>
   </div>
 </div>
 
@@ -4294,7 +4320,7 @@
         <br/>
         <div>
           <button class="full-width-button" data-ws-show-if-state="isPremiumPlan=true" onclick="appMethods.openPurchaseFlow('')">크레딧 추가<!-- Add credits --></button>
-          <button class="full-width-button" data-ws-show-if-state="isPremiumPlan=false" onclick="appMethods.openPurchaseFlow('')">프리미엄으로 업그레이드<!-- Upgrade to Premium --></button>
+          <button class="full-width-button" data-ws-show-if-state="isPremiumPlan=false" onclick="appMethods.openPurchaseFlow('')">크레딧 추가<!-- Add credits: a pack buyer is Premium, just not a subscriber (2026-11-26) --></button>
         </div>
         <br/>
       </div>
@@ -4730,7 +4756,7 @@
           <li class="export-check is-bad hidden" data-ws-show-if-state="exportVoiceBad=true">
             <span class="export-check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
             <span class="export-check-name">음성</span>
-            <span class="export-check-value" data-ws-label-state="exportVoiceLine"></span>
+            <span class="export-check-value Flag-font" data-ws-label-state="exportVoiceLine"></span>
             <div class="export-check-fix export-check-fixes">
               <button type="button" class="export-fix-btn export-fix-btn--buy" data-ws-onclick="exportFixRecord">실시간 녹음으로 MP3 만들기</button>
               <button type="button" class="export-fix-btn" data-ws-onclick="exportFixVoice">프리미엄 AI 음성</button>
@@ -6745,9 +6771,10 @@
       if (!uid) return false;
       if (document.getElementById('paypalSdkPreload')) return false;      // once per page
       // Must match checkout.html's URL exactly, or it warms nothing.
+      // (disable-funding=card since 2026-11-25: see ensurePayPalSdk there; checkoutCardViaPaddle.test.js pins the match.)
       const clientId = "AUZU9gCiVB9cPTl9r8lUGSUvD-dn8dSsmYzxysRH2Ec4Dv6fpq2g4gK7nZYYrltIFnyAMMS7F5IfN0LG";
       const href = "https://www.paypal.com/sdk/js?client-id=" + clientId
-        + (kind === "subscribe" ? "&vault=true&intent=subscription" : "");
+        + (kind === "subscribe" ? "&vault=true&intent=subscription&disable-funding=card" : "");
       const idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 1200); };
       idle(function () {
         const link = document.createElement('link');
@@ -6797,6 +6824,10 @@
 
 
   async function openRenderedModal(params) {
+    // The export dialog (src/export/ExportDialog.js) is a layer above the players: it closes first, as its own Listen
+    // does, or the recording opens under it (Ronen, 2026-11-26: "the item iframe opens practically hidden behind the
+    // first exporttomp3 modal"). Only where the dialog set its hook; a throw changes nothing below.
+    try { if (typeof window.exportStepsClose === 'function') window.exportStepsClose(); } catch (e) { }
     const {url, voice, rate, date, lang, itemId} = params;
     // Each open gets an id, taken BEFORE its place is read; the player sends it
     // back with every report, and the bridge below (noteListenPosition) counts
@@ -6971,6 +7002,30 @@
 
 <!-- JS STRINGS -->
 <div id="JS_STRINGS" style="display: none">
+  <!-- The export dialog's one offer (src/export/ExportDialog.js; 2026-11-25) -->
+  <div data-ws-string-key="d20261126_xs_gives_audio" data-ws-string-value="이번 내보내기 + 수정과 다른 내보내기에 쓸 오디오 약 {audio}"></div>
+  <div data-ws-string-key="d20261126_xs_pace_any" data-ws-string-value="원하는 속도로, 생성하거나 미리 듣는 데 사용하세요 ({credits} 크레딧)."></div>
+  <div data-ws-string-key="d20261125_xs_minutes" data-ws-string-value="{n}분"></div>
+  <div data-ws-string-key="d20261125_xs_hours" data-ws-string-value="{n}시간"></div>
+  <!-- The one-step onboarding (src/onboarding/OnboardingModal.js; 2026-11-25) -->
+  <div data-ws-string-key="d20261125_ob1_welcome" data-ws-string-value="{brand}에 오신 것을 환영합니다"></div>
+  <div data-ws-string-key="d20261125_ob1_subtitle" data-ws-string-value="듣고, 목소리 예술을 만드는 곳"></div>
+  <div data-ws-string-key="d20261125_ob1_want" data-ws-string-value="하고 싶은 것:"></div>
+  <div data-ws-string-key="d20261125_ob1_listen" data-ws-string-value="듣기"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_text" data-ws-string-value="내 텍스트"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_text_hint" data-ws-string-value="입력, 붙여넣기 또는 편집"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_file" data-ws-string-value="파일"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_file_hint" data-ws-string-value="PDF, DOCX, EPUB"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_other" data-ws-string-value="기타 텍스트"></div>
+  <div data-ws-string-key="d20261125_ob1_listen_other_hint" data-ws-string-value="웹사이트, 오디오북, AI 등"></div>
+  <div data-ws-string-key="d20261125_ob1_studio" data-ws-string-value="텍스트로 MP3 오디오 만들기"></div>
+  <div data-ws-string-key="d20261125_ob1_studio_commercial" data-ws-string-value="상업용 오디오 클립"></div>
+  <div data-ws-string-key="d20261125_ob1_studio_commercial_hint" data-ws-string-value="YouTube, 프레젠테이션, 웹사이트, 영화 등"></div>
+  <div data-ws-string-key="d20261125_ob1_studio_personal" data-ws-string-value="개인용 오디오 클립"></div>
+  <div data-ws-string-key="d20261125_ob1_studio_audiobooks" data-ws-string-value="오디오북 만들기"></div>
+  <div data-ws-string-key="d20261125_ob1_consent" data-ws-string-value="계속하면 {terms} 및 {privacy}에 동의하며, 이 앱 운영에 필요한 쿠키와 이 브라우저의 저장소를 사용한다는 것을 이해한 것으로 간주됩니다."></div>
+  <div data-ws-string-key="d20261125_ob1_terms" data-ws-string-value="이용약관"></div>
+  <div data-ws-string-key="d20261125_ob1_privacy" data-ws-string-value="개인정보처리방침"></div>
   <!-- The onboarding and the voice browser (src/onboarding, src/voices/VoiceBrowser.js; 2026-11-15) -->
   <div data-ws-string-key="d20261118_find_placeholder" data-ws-string-value="텍스트에서 찾기"></div>
   <div data-ws-string-key="d20261118_find_previous" data-ws-string-value="이전 일치 항목"></div>
@@ -7116,7 +7171,8 @@ Google 또는 Apple로 한 번의 클릭
   <div data-ws-string-key="d20261119_xs_late_sub" data-ws-string-value="크레딧 반영이 평소보다 오래 걸리고 있어요. 계정에 표시되면 MP3는 버튼 한 번이면 시작할 수 있어요."></div>
   <div data-ws-string-key="d20261119_xs_late_ok" data-ws-string-value="확인"></div>
   <div data-ws-string-key="d20261119_xs_fin" data-ws-string-value="내 MP3"></div>
-  <div data-ws-string-key="d20261119_xs_fin_val" data-ws-string-value="바로 생성: {eta}"></div>
+  <div data-ws-string-key="d20261126_xs_on_the_spot" data-ws-string-value="바로 생성"></div>
+  <div data-ws-string-key="d20261119_xs_ready_in" data-ws-string-value="{eta} 후 준비"></div>
   <div data-ws-string-key="d20261119_xs_gen" data-ws-string-value="MP3를 생성하는 중"></div>
   <div data-ws-string-key="d20261119_xs_up" data-ws-string-value="텍스트 업로드 중"></div>
   <div data-ws-string-key="d20261119_xs_up_sub" data-ws-string-value="잠시 이 탭을 열어 두세요."></div>
@@ -7124,9 +7180,9 @@ Google 또는 Apple로 한 번의 클릭
   <div data-ws-string-key="d20261119_xs_done" data-ws-string-value="MP3가 준비되었어요"></div>
   <div data-ws-string-key="d20261119_xs_failed" data-ws-string-value="MP3를 만들지 못했어요"></div>
   <div data-ws-string-key="d20261119_xs_failed_sub" data-ws-string-value="자세한 내용은 내보내기 목록에서 확인할 수 있어요."></div>
-  <div data-ws-string-key="d20261119_xs_ready_in" data-ws-string-value="{eta} 후 준비"></div>
   <div data-ws-string-key="d20261119_xs_eta_sec" data-ws-string-value="약 {n}초"></div>
   <div data-ws-string-key="d20261119_xs_eta_min" data-ws-string-value="약 {n}분"></div>
+  <div data-ws-string-key="d20261126_xs_eta_about" data-ws-string-value="약 {amount}"></div>
   <div data-ws-string-key="d20261119_xs_prom1_sub" data-ws-string-value="MP3를 바로 받아보세요."></div>
   <div data-ws-string-key="d20261119_xs_prom2" data-ws-string-value="모든 플랫폼에 사용 가능"></div>
   <div data-ws-string-key="d20261119_xs_prom2_sub" data-ws-string-value="YouTube, TikTok, 팟캐스트, 영상 편집기."></div>
@@ -7279,6 +7335,8 @@ Google 또는 Apple로 한 번의 클릭
   <div data-ws-string-key="d20261118_vg_all_cleared" data-ws-string-value="여기 있는 모든 음성은 게시에 사용할 수 있으며, 저작권은 모두 회원님에게 있습니다(프리미엄 계정 필요)."></div>
   <div data-ws-string-key="d20261118_vg_cleared_star" data-ws-string-value="* 프리미엄 계정 필요"></div>
   <div data-ws-string-key="d20261118_vg_basic_not_for_voiceover" data-ws-string-value="기본 음성은 보이스오버에 적합하지 않습니다"></div>
+  <div data-ws-string-key="d20261126_vg_gemini_for_voiceovers" data-ws-string-value="Gemini 음성은 듣기용이 아닌 보이스오버용입니다. 생성에 실시간보다 오래 걸립니다."></div>
+  <div data-ws-string-key="d20261126_vg_switch_to_voiceovers" data-ws-string-value="보이스오버로 전환"></div>
   <div data-ws-string-key="d20261119_vg_x2_info" data-ws-string-value="일반 프리미엄 음성보다 크레딧을 두 배 빠르게 사용합니다. 월 1M 할당량으로 한 달에 약 600분의 음성을 만들 수 있습니다(일반 프리미엄 음성: 약 1,200분)."></div>
   <div data-ws-string-key="d20261118_studio_placeholder" data-ws-string-value="여기에 대본을 쓰거나 붙여 넣으세요.
 {generate} 버튼을 누르면 보이스오버를 파일로 받을 수 있습니다.
